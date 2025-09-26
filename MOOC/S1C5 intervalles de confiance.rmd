@@ -1,0 +1,97 @@
+---
+title: "Intervalles de confiance — S1 C5"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Objectifs
+
+- Comprendre **ce qu'est un intervalle de confiance (IC)** et comment l'interpréter.
+- Savoir **calculer un IC95%** pour :
+  - une **moyenne** (ex. âge),
+  - une **proportion** (ex. part de sujets avec un critère binaire).
+- Savoir **rapporter** correctement un résultat avec son IC.
+
+ **Rappel** — Lecture correcte d’un IC95 % : si l’on répétait l’expérience à l’identique, **95 % des IC construits ainsi** couvriraient la vraie valeur. Ce n’est **pas** la probabilité que la vraie valeur soit dans *cet* IC précis.
+
+# Définition d'un IC = 
+On observe une statistique dans l’échantillon (prévalence, moyenne) mais on s’intéresse au paramètre dans la population. L’IC donne une plage plausible pour ce paramètre d’après l’échantillon.
+- Intervalle de confiance : probabilité qu'une proportion / moyenne soit la même entre l'échantillon tiré et la population source. 
+  - Par ex : il y a 95% de chances que la prévalence observée dans l'échantillon cible soit comprise entre xx% et xx% (selon l'IC calculé dans l'échantillon)
+  
+Exemple : 
+Échantillon de 10 détenus : 3/10 déprimés → IC95 % ≈ [8 %; 64 %] (très large car n petit). Avec 100 sujets, l’IC se resserre ([21 %; 39 %]). Avec 1000 sujets autour de 30 %, 30 % ± 3 % (≈ [27 %; 33 %]). Plus n est grand, plus l’IC est étroit.
+
+- Si un paramètre a une distribution normale : 
+"IC95 = m + 1,96 * ecart-type ; m + 1,96 * ecart-type"
+
+
+
+# Données et préparation
+
+On part d’un objet **`smp`** déjà importé en mémoire (comme indiqué). Si ce n’est pas le cas, décommentez **une** des lignes d’import ci-dessous.
+
+```{r data-load}
+if (!exists("smp")) smp <- read.csv("S1C2_smp1.csv", sep = ";", dec = ",")
+if (!exists("smp")) smp <- read.csv("S1C2 smp1.csv", sep = ";", dec = ",")
+
+# Aperçu rapide
+if (!exists("smp")) stop("L'objet 'smp' n'existe pas. Importez-le puis relancez le tricotage.")
+str(smp)
+```
+
+## Choix/repérage des colonnes utiles
+
+Pour les exemples qui suivent, on utilise :
+- **`age`** (numérique) pour l’IC de **moyenne**,
+- un **binaire dérivé** `age_ge_40` (= 1 si âge ≥ 40) pour l’IC de **proportion** (ainsi, pas besoin d'une variable binaire déjà existante).
+
+```{r column-helpers}
+# Essayer de deviner la colonne 'age' (insensible à la casse)
+age_col <- names(smp)[grepl("^age$", names(smp), ignore.case = TRUE)][1]
+if (is.na(age_col) || is.null(age_col)) stop("Aucune colonne 'age' trouvée dans 'smp'. Adaptez 'age_col'.")
+
+x_age <- smp[[age_col]]
+# Nettoyage: garder les valeurs numériques finies
+x_age <- suppressWarnings(as.numeric(x_age))
+x_age <- x_age[is.finite(x_age)]
+
+# Binaire dérivé pour la proportion : âge ≥ 40 ans
+age_ge_40 <- as.integer(x_age >= 40)
+```
+
+
+
+
+
+# IC pour une **moyenne**
+## Exemple dans R
+
+```{r calcul sd avec describe}
+library(prettyR)
+describe(smp$age)
+```
+
+```{r calcul IC95}
+38.9-1.96*13.28/sqrt(797)
+38.9+1.96*13.28/sqrt(797)
+```
+
+# IC pour une **proportion (%)**
+
+binom.confint
+```{r 3-10}
+library(binom)
+binom.confint(3,10,method="all")
+#méthode passe partout : méthode "exact"
+binom.confint(3,10,method="exact")
+```
+
+## IC95% avec un échantillon plus grand
+
+```{r 300-100}
+binom.confint(300,1000,method="all")
+#quand l'échantillon augmente, toutes les méthodes convergent vers la même valeur
+```

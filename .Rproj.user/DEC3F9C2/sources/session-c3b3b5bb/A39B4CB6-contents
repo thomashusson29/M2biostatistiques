@@ -1,0 +1,131 @@
+# S2 Cours 7 Risques Relatifs et Odds Ratio
+
+---
+title: "S1C7 RR et OR"
+output: html_document
+date: "2025-09-26"
+---
+
+### lire la vidéo dans le viewer
+
+```{r}
+#Afficher la vidéo de cours
+htmltools::browsable(
+  htmltools::tags$video(
+    src = "https://ff933736-7b27-4cb8-b59e-a1b7af5eaab3.svc.edge.scw.cloud/aws/57861137-0ed1-536d-8360-8a1f32db00b2/mp4/1585769733_720.mp4",
+    type = "video/mp4",
+    controls = NA,
+    width = "700px"
+  )
+)
+```
+
+## Import du df SMP
+
+```{r import smp}
+setwd("/Users/thomashusson/Documents/R/M2 biostatistiques/MOOC")
+#import smp
+smp.c <- read.csv2("S1C2 smp1.csv")
+```
+
+```{r str smp}
+#str smp
+str(smp.c)
+table(smp.c)
+head(smp.c)
+summary(smp.c)
+dim(smp.c)
+names(smp.c)
+```
+
+# Risque relatif et odds Ratio
+
+[**RR**]{.underline} : rapport des
+
+-   malades sur l'ensemble des exposés
+
+-   divisés par malades sur l'ensemble des non exposés
+
+[**OR**]{.underline} : rapport des
+
+-   malade exposés sur non malades exposés
+
+-   divisés par malades non exposés sur non malades non exposés
+
+![](images/clipboard-1755770117.png)
+
+![](images/clipboard-1952562564.png)
+
++---------------+-------------------------+-------------------------------------------------------------------------------------------------------------------+
+|               | RR                      | OR                                                                                                                |
++===============+=========================+===================================================================================================================+
+| Avantages     | -   Mieux interprétable | -   Gestion des facteurs de confusion :\                                                                          |
+|               |                         |     **régression logistique (démêle relations complexes entre variables binaires = estime des OR et pas des RR)** |
+|               |                         |                                                                                                                   |
+|               |                         | -   Evaluable dans une enquête cas-témoins                                                                        |
+|               |                         |                                                                                                                   |
+|               |                         | -   Si maladie peu fréquente : OR ≈ RR                                                                            |
++---------------+-------------------------+-------------------------------------------------------------------------------------------------------------------+
+| Inconvénients |                         | -   On ne sait pas trop ce qu'il mesure                                                                           |
++---------------+-------------------------+-------------------------------------------------------------------------------------------------------------------+
+|               |                         |                                                                                                                   |
++---------------+-------------------------+-------------------------------------------------------------------------------------------------------------------+
+
+![](images/clipboard-1683875249.png)
+
+## 1 Exemple concret
+
+Sur la variable "évitement du danger" dans le df "smp"
+
+Actuellement, la variable évitement du danger est codée 1, 2 ou 3 :
+
+```{r structure de la variable évitement du danger}
+str(smp.c$ed)
+```
+
+Il faut donc la recoder en variable binaire :
+
+-   si \> 2 : codée 1
+
+-   sinon : codée 0 \\ Et vérifier que tout s'est bien passé avec str et table.
+
+deparse.level = 2 :
+
+```{r Recodage de la variable }
+smp.c$ed.b <- ifelse(smp.c$ed>2,1,0)
+str(smp.c$ed.b)
+table(smp.c$ed.b,smp.c$ed,deparse.level = 2, useNA = "always")
+```
+
+# Calcul du RR et de l'OR
+
+```{r installation des packages }
+install.packages("Epi")
+library(Epi)
+```
+
+Utiliser fonction twoby2 du package Epi
+
+-   **sert à construire un tableau de contingence 2x2** (tableau croisé entre deux variables binaires) et à calculer les mesures associées : risque relatif (RR), odds ratio (OR), risque attribuable, intervalles de confiance, etc.
+
+-   syntaxe générale : *twoby2(exposed, outcome)*
+
+Syntaxe dans ce cas :
+
+-   smp.c\$ed code le niveau d'évitement du danger (en 0 = peu ou pas d'évitement ou 1 = évitement)
+
+-   smp.c\$dep.cons code le diagnostic de dépression consensuelle
+
+-   Parce que la fonction **twoby2** est inversée !! est considère que :
+
+    -   0 = malade et 1 = non malade
+
+    -   0 = non exposé au FDR et 1 = exposé au FDR
+
+```{r fonction twoby2}
+twoby2(1-smp.c$ed.b,1-smp.c$dep.cons)
+#syntaxe : twoby2(exposed, outcome)
+# 1- nécessaire car la fonction twoby2 est inversée ! et considère que 0 = malade ou exposé
+```
+
+RR = 2 : risque 2 fois plus élevé de présenter un état dépressif si on a un comportement d'évitement du danger élevé, par rapport au contraire
