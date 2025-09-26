@@ -1,0 +1,95 @@
+---
+title: "MOOC QUizz 2"
+output: html_document
+date: "2025-09-26"
+---
+
+```{r echo=FALSE}
+smp.c <- read.csv2("S1C2 smp1.csv")
+```
+
+## Question 3 : La commande `subset()` admet 3 arguments. À quoi correspond le 3ème argument ?
+
+```{r}
+    subset(smp2, dep.cons == 1, select = c(age, n.enfant))
+```
+
+**Explication de la syntaxe :** - `subset()` : filtre un data frame. - 1er argument : `smp2` = le data frame. - 2ème argument : `dep.cons == 1` = condition sur les lignes. - 3ème argument : `select = c(age, n.enfant)` = variables à garder.
+
+👉 Le 3ème argument sert donc à sélectionner des colonnes.
+
+------------------------------------------------------------------------
+
+## Question 4 : Nombre moyen d’enfants (`n.enfant`) chez les individus dépressifs (`dep.cons = 1`).
+
+```{r}
+mean(smp2$n.enfant[smp2$dep.cons == 1], na.rm = TRUE)
+```
+
+**Explication de la syntaxe :**
+
+-   `smp2$n.enfant` : sélection de la colonne `n.enfant`.
+
+-   `[smp2$dep.cons == 1]` : filtre pour ne garder que les dépressifs.
+
+-   `mean(..., na.rm = TRUE)` : calcule la moyenne en ignorant les valeurs manquantes.
+
+*En détails :*
+
+-   `smp2$n.enfant` : accède à la colonne n.enfant dans le tableau smp2.
+
+-   `[ ... ]` : sélectionne uniquement certaines lignes de cette colonne.
+
+-   `smp2$dep.cons == 1` : condition logique → garde les individus où la variable dep.cons vaut 1.
+
+-   `mean(...)` : fonction qui calcule la moyenne.
+
+-   `na.rm = TRUE` : option pour retirer les valeurs manquantes (NA) avant de calculer la moyenne.
+
+## Question 5 : Borne supérieure de l’intervalle interquartile de `duree` pour les individus de moins de 35 ans.
+
+```{r}
+quantile(smp2$duree[smp2$age < 35], probs = 0.75, na.rm = TRUE)
+```
+
+**Explication de la syntaxe :**
+
+\- `smp2$duree` : sélection de la colonne `duree`.
+
+\- `[smp2$age < 35]` : filtre pour les âges strictement inférieurs à 35.
+
+\- `quantile(..., probs = 0.75)` : calcule le 75e percentile (borne sup de l’IQR).
+
+\- `na.rm = TRUE` : retire les valeurs manquantes du calcul.
+
+## Question 6 : Durée moyenne d’intervention (`dur.interv`) chez les individus avec tentative de suicide passée (`suicide.past = 1`).
+
+```{r}
+mean(smp2$dur.interv[smp2$suicide.past == 1], na.rm = TRUE)
+```
+
+**Explication de la syntaxe :**
+
+\- `smp2$dur.interv` : sélection de la colonne `dur.interv`.
+
+\- `[smp2$suicide.past == 1]` : filtre les individus avec `suicide.past = 1`.
+
+\- `mean(..., na.rm = TRUE)` : calcule la durée moyenne en excluant les `NA`.
+
+## Question 7 : Recoder `age` en 4 classes selon les quartiles, puis donner l’effectif de la 3e classe.
+
+```{r}
+summary(smp2$age)
+smp2$age.cat <- cut(smp2$age, breaks = c(19, 28, 37, 48, 83), include.lowest = TRUE)
+table(smp2$age.cat)
+```
+
+*Explication de la syntaxe* :
+
+\- `summary(smp2$age)` : permet d’obtenir rapidement les valeurs minimales, maximales et les quartiles.
+
+\- `cut(smp2$age, breaks = c(19, 28, 37, 48, 83), include.lowest = TRUE)` : crée une variable catégorielle age.cat en découpant la variable age selon les bornes des quartiles (19, 28, 37, 48, 83).
+
+\- `include.lowest = TRUE` signifie que la borne inférieure est incluse dans la première classe.
+
+\- `table(smp2$age.cat)` : donne les effectifs dans chaque classe d’âge ; l’effectif de la 3ème classe est la valeur qui nous intéresse.

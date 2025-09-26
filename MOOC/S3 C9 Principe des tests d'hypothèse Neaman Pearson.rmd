@@ -1,0 +1,101 @@
+---
+title: "S3 C9 Principe des tests d'hypothèse Neaman Pearson"
+output: html_document
+date: "2025-09-26"
+---
+
+# S3 C9 Principe des tests d'hypothèse Neaman Pearson et Fisher
+
+## Partie 1 
+
+### 1. Introduction aux tests d’hypothèse
+
+-   On cherche à comparer deux situations :
+    -   **H0 (hypothèse nulle)** : statu quo, pas de différence (ex. pA = pB).
+    -   **H1 (hypothèse alternative)** : différence attendue, objectif de l’expérience (ex. pA ≠ pB).\
+-   Deux types d’erreurs sont possibles :
+    -   **Erreur de type I (α)** : rejeter H0 alors qu’elle est vraie → « fausse découverte ».
+    -   **Erreur de type II (β)** : ne pas rejeter H0 alors que H1 est vraie → « découverte manquée ».\
+-   Objectif : fixer **α** (en général 5%) et minimiser **β**.
+    -   Ce choix n’est pas neutre : on considère qu’une fausse découverte est plus grave qu’une découverte manquée.
+
+------------------------------------------------------------------------
+
+### 2. Le principe pratique du test
+
+-   On calcule une **statistique de test** → transformée en une **p-value**.\
+-   Règle de décision :
+    -   Si *p \< α* → on rejette H0 (on conclut en faveur de H1).
+    -   Sinon → on conserve H0.
+
+Exemple (ancien calcul du test de proportion) :\
+$$
+z = \frac{p_A - p_B}{\sqrt{p(1-p)/n}}
+$$ où p est la proportion moyenne observée.
+
+------------------------------------------------------------------------
+
+### 3. Deux philosophies des tests
+
+#### Approche de Neyman & Pearson
+
+-   α et β sont fixés **avant** l’expérience.\
+-   Décision binaire stricte :
+    -   *p = 0,049* et *p = 0,0001* → même conclusion (rejeter H0).
+    -   *p = 0,049* et *p = 0,051* → conclusions opposées.\
+-   Dans l’esprit, la p-value n’est même pas censée apparaître.
+
+#### Approche de Fisher
+
+-   La **p-value est centrale**.
+-   Elle mesure la « force » des preuves contre H0.
+-   Exemple :
+    -   *p = 0,049* → résultat limite.
+    -   *p = 0,0001* → résultat très probant.
+    -   *p = 0,049* et *p = 0,051* sont considérés comme proches.
+
+------------------------------------------------------------------------
+
+### 4. Quand utiliser quelle approche ?
+
+-   **Neyman & Pearson** : préférée lorsqu’une décision concrète doit être prise (ex. mise sur le marché d’un médicament).\
+-   **Fisher** : plus adaptée à des contextes exploratoires ou académiques, où l’on décrit la force des preuves sans décision immédiate.
+
+------------------------------------------------------------------------
+
+## Partie 2 — Le rapport écrit
+
+### Introduction
+
+Les tests d’hypothèse constituent un outil fondamental en statistique pour trancher entre une hypothèse nulle (H0) et une hypothèse alternative (H1). \
+Deux approches dominent la pratique : celle de Neyman & Pearson et celle de Fisher. \
+Leur différence ne se limite pas à un détail technique mais traduit deux visions distinctes de la recherche scientifique.
+
+### Méthodologie
+
+-   **Neyman & Pearson** proposent une démarche fondée sur la maîtrise des risques d’erreur.
+    -   Avant toute expérience, on fixe un seuil α (généralement 5%) et on cherche à minimiser le risque β.
+    -   Cette approche se veut normative et décisionnelle.
+-   **Fisher** : démarche fondée sur la *p value*
+    -   p-value calculée a posteriori, comme mesure continue de la force des preuves.
+    -   Cette approche met l’accent sur l’interprétation graduelle plutôt que sur une règle binaire.
+
+### Résultats
+
+-   Dans l’approche Neyman & Pearson, deux valeurs très différentes de p (0,049 et 0,0001) conduisent à la même décision.
+-   Dans l’approche de Fisher, ces deux résultats sont considérés comme de force probante très différente.
+-   L’écart est encore plus marqué autour du seuil : 0,049 et 0,051 conduisent à des conclusions radicalement opposées avec Neyman & Pearson, alors qu’ils sont voisins pour Fisher.
+
+### Discussion
+
+Le choix de l’approche dépend du contexte :
+
+-   Lorsque les résultats entraînent une décision opérationnelle (lancer un traitement, modifier une politique), l’approche de Neyman & Pearson offre une meilleure garantie de contrôle des erreurs.
+
+-   Lorsqu’il s’agit d’évaluer la crédibilité scientifique ou de rapporter des preuves dans un cadre académique, l’approche de Fisher est plus adaptée.
+
+La distinction entre ces deux paradigmes demeure fondamentale pour bien interpréter les résultats d’un test statistique et éviter les mauvaises interprétations des p-values.
+
+### Conclusion
+
+Les tests d’hypothèse, qu’ils soient envisagés selon Neyman & Pearson ou selon Fisher, ne sont pas de simples outils techniques : ils incarnent deux conceptions complémentaires de la recherche.

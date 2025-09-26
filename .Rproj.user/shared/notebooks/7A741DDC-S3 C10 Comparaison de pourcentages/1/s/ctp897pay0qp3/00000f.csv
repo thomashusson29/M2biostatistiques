@@ -1,0 +1,4 @@
+"0","smp$ed.b      <- factor(smp$ed.b, levels = c(0,1), labels = c(""≤2"","">2"")) "
+"2","Error in `$<-.data.frame`(`*tmp*`, ed.b, value = integer(0)) : 
+  replacement has 0 rows, data has 799
+"
