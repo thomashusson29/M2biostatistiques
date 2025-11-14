@@ -1,4 +1,0 @@
-"0","chisq.test(smp$ed.b, smp$dep.cons, correct = FALSE)"
-"2","Error in chisq.test(smp$ed.b, smp$dep.cons, correct = FALSE) : 
-  'x' and 'y' must have the same length
-"
