@@ -1,0 +1,267 @@
+---
+title: S3 Épistémologie
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 5
+    latex_engine: xelatex
+    number_sections: true
+    includes:
+      in_header: header-titles.tex
+  word_document:
+    toc: true
+    toc_depth: '5'
+geometry: margin=2.5cm
+header-includes:
+- \usepackage{fontspec}
+- \setmainfont{Ubuntu}
+- \usepackage{etoolbox}
+- \renewcommand{\contentsname}{}
+- |
+  % -- TOC compact (~1.5x plus petit) --
+  \AtBeginDocument{
+    \addtocontents{toc}{\protect\smallskip}
+    \let\oldtableofcontents\tableofcontents
+    \renewcommand{\tableofcontents}{
+      \begingroup
+        \footnotesize
+        \setlength{\parskip}{2pt}
+        \oldtableofcontents
+      \endgroup
+    }
+  }
+- \setcounter{tocdepth}{5}
+- \makeatletter
+- \renewcommand{\@tocrmarg}{0pt}
+- \makeatother
+- \usepackage{fvextra}
+- \usepackage[section]{placeins}
+- \usepackage{needspace}
+- \usepackage{float}
+- \floatplacement{figure}{H}
+- \floatplacement{table}{H}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,fontsize=\small,commandchars=\\\{\},samepage=true}
+- \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+- \setlength{\parindent}{0pt}
+- \setlength{\parskip}{4pt}
+- \usepackage[most]{tcolorbox}
+- \usepackage{color}
+- \definecolor{lightgray}{gray}{0.95}
+- \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+- \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+- \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+- \renewcommand{\thesection}{\arabic{section}}
+- \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+- \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Épistémologie
+
+**Épistemologie** : étude critique des sciences, de leurs méthodes et de leurs fondements.
+
+## Fisher : 1922 : fondements de la statistique inférentielle
+
+### Définitions
+
+Article initial : Fisher 1922 : *Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character*, Vol. 222, pp. 309-368.
+
+-   *Quantité de données tellement importante que c'est impossible que ça rentre dans la tête*
+
+-   *Imaginer un échantillon aléatoire d'une population infinie (sous-jacente) - hypothétique*
+
+Mais en soi, l'échantillon n'est jamais **purement** tiré au sort. 
+
+### petit p 
+
+**Plus le petit p est petit, moins on peut dire que le hasard peut l'observer**
+
+Hasard : considère que notre échantillon a été tiré au sort, d'une population sous-jacente hypothétique.
+
+Exemple : 
+
+-   Statistique1 (52%) > Statistique2 (50%) sur 1000 sujets
+
+-   Évaluer la probablilité que le hasard puisse produire une différence au moins aussi grande que 2% entre Statistique1 et Statistique2
+
+-   Dans l'article original : *worse fit* : différence *au moins aussi importante* en population générale infinie et hypothétique (donc population sous-jacente **virtuelle**).
+
+
+**Choix du seuil à 5%** : limite **conventionnelle**
+
+Et **plus le petit p est petit**, **moins on se trompe**. 
+
+\newpage
+
+## Neyman & Pearson : 1933 : tests d'hypothèses
+
+### Définitions
+
+Article initial : Neyman & Pearson 1933 : *Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character*
+
+-   Statistique inférentielle = procédure de décision
+
+-   Décision entre deux hypothèses (H0 et H1) à partir d'un échantillon aléatoire
+
+-   Hypothèse nulle H0 : hypothèse de base, de non-effet
+
+-   Hypothèse alternative H1 : hypothèse de recherche, d'effet
+
+-   **Risque alpha (erreur de type I) : rejeter H0 alors qu'elle est vraie**
+
+-   **Risque bêta (erreur de type II) : ne pas rejeter H0 alors qu'elle est fausse**
+
+-   Puissance (1 - bêta) : probabilité de rejeter H0 quand H1 est vraie
+
+\
+
+### Tests d'hypothèses
+
+Problème mathématique posé : "*Comment construire un test statistique qui garantit alpha et qui minimise beta ?*
+
+Meilleur test = **RAPPORT DE VRAISEMBLANCE** (likelihood ratio test) = **INFÉRENCE STATISTIQUE**.
+
+-   Test le plus puissant pour un alpha donné
+
+-   Donc définir alpha *a priori*.
+
+-   Calculer un rapport de vraisemblance
+
+-   Et le comparer à une valeur seuil (dépendant de alpha)
+
+\
+
+**Formule** : 
+
+$$\frac{\mathcal{L}(x, \theta_0)}{\mathcal{L}(x, \theta_1)} \leq k_\alpha$$
+
+Avec : 
+
+-   $\mathcal{L}(x, \theta_0)$ : vraisemblance des données $x$ sous H0
+
+-   $\mathcal{L}(x, \theta_1)$ : vraisemblance des données $x$ sous H1
+
+-   $k_\alpha$ : valeur seuil dépendant de alpha
+
+Mais dans la version **la plus puissante possible**, **en général** on n'utilise pas $\theta_1$.\
+A part pour le calcul de puissance (1 - $\beta$).
+\
+Autre problème : tests **unilatéraux** 
+
+-   Dans la formule originelle de Neyman et Pearson : 
+
+    -   H0 = $\theta = \theta_0$
+
+    -   H1 = $\theta = \theta_1$
+
+    -   Mais comme on supprime $\theta_1$, on ne sert que de H0.
+
+\
+
+**Mais en vrai** : on calcule un *petit p*, et on le compare à $\alpha$ = **COMME FISHER**.
+
+\newpage
+
+## Querelle Neyman-Fisher
+
+Fisher trouve ça abusé de définir $\alpha$ avec une mesure fixe alors que ça dépend du contexte. \
+Le risque $\beta$ n'est pas calculable car dépend de $\theta_1$ qu'on ne connaît pas et qu'on imagine pas. \
+
+Critique le fait de définir l'erreur de type I et II comme accepter soit l'hypothèse nulle, soit l'hypothèse alternative, ça revient **à les prouver** et les considéréer comme **établies** alors qu'on devrait juste dire que c'est **confirmé** ou **renforcé**. \ 
+
+-   Dans le sens confirmé = on a des preuves contre H0
+
+-   Dans le sens renforcé = on a des preuves pour H1\
+
+Fisher propose une logique **d'induction**, c'est à dire :
+
+-   On part de l'observation des données
+
+-   On a des hypothèses / pensée scientifique pour expliquer ces données
+
+-   Et les tests statistiques permettent d'**apprendre** de ces données en donnant à quel % on a un risque de se tromper. 
+
+
+Alors que Neyman & Pearson proposent un test **déductif**, avec une procédure d'**acceptation binaire** entre H0 et H1 : faite pour les ingénieurs russes et américains, pas pour les connaissances. 
+\
+Pour le travail d'inférence statistique : 
+
+-   D'abord quels sont les motifs du travail expérimental
+
+-   Puis décision de prendre un critère ou non 
+
+-   Pas forcément < 0,05 **mais choisi en temps que sujet libre** basé sur les hypothèses !
+
+Pour Fisher : les statistiques doivent être enseignées par des personnes qui ont **une expérience personnelle dans les Sciences Naturelles**.
+\
+
+**Réponse de Neyman** : 
+
+-   Pour **le comportement inductif** : il faut avoir des **règles *à priori***. 
+
+
+## Philosophie : inductioon - déduction - abduction
+
+### Déduction
+
+= Règle **mathématique** : 
+
+-   Partir de prémisses vraies
+
+-   Appliquer une règle logique 
+
+-   Obtenir une conclusion vraie
+
+***Syllogisme** : Tout homme est mortel. Socrate est un homme. Donc Socrate est mortel.*
+
+### Induction
+
+-   Partir de prémisses vraies
+
+-   Conclusions **plausibles**
+
+-   Plausibilité basée sur la **généralisation des conclusions à partir d'un échantillon**
+
+***Exemple** : J'ai vu 1000 cygnes, tous blancs. Donc il est probable que tous les cygnes sont blancs.*
+
+### Abduction = **pensée médicale**
+
+-   Partir d'une **observation** / **un résultat** que l'on considère comme **vrai**
+
+-   On se demande quels sont les **prémisses** qui pourraient expliquer cette observation
+
+***Exemple** : J'observe que le sol est mouillé. Donc il a probablement plu.*\
+\
+
+<u>NB : Pensée Bayesienne :</u>
+
+
+-   Partir d'une **hypothèse** avec une **probabilité a priori** basée sur des connaissances antérieures
+
+-   Observer des données (une nouvelle information)
+
+-   Mettre à jour la probabilité de l'hypothèse en fonction des nouvelles données (**probabilité a posteriori**)
+
+
+\newpage
+
+## Conclusion
+
+<u>Les tests statistiques permettent des **déductions**.</u>
+
+**PROUVER** : c'est une déduction
+
+-   Fisher : évaluer la force de l'évidence contre H0 
+
+    -   **SURTOUT POUR ANALYSES EXPLORATOIRES**
+
+\
+
+-   Neyman & Pearson : prendre une décision entre H0 et H1 avec des risques d'erreurs définis
+
+    -   **POUR ANALYSES CONFIRMATOIRE : Efficacité de médicament Y/N**
+
+    -   
