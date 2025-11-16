@@ -17,40 +17,34 @@
 <ul id="file-list"></ul>
 
 <script>
-// Fonction pour lister automatiquement les fichiers HTML du répertoire courant
-async function listHTMLFiles() {
+// CONFIG
+const user = "thomashusson29";
+const repo = "M2biostatistiques";
+const folder = "docs";  // le dossier à scanner
+
+async function loadFiles() {
+  const url = `https://api.github.com/repos/${user}/${repo}/contents/${folder}`;
+  
   try {
-    const response = await fetch(window.location.href);
-    const text = await response.text();
+    const response = await fetch(url);
+    const files = await response.json();
 
-    // Parse le HTML de la page renvoyée par GitHub Pages
-    const parser = new DOMParser();
-    const htmlDoc = parser.parseFromString(text, "text/html");
-
-    // Récupère tous les liens
-    const links = Array.from(htmlDoc.querySelectorAll("a"));
-
-    // Filtre les .html sauf index.html
-    const htmlFiles = links
-      .map(a => a.getAttribute("href"))
-      .filter(href => href && href.endsWith(".html") && href !== "index.html");
-
-    // Injecte dans la page
     const list = document.getElementById("file-list");
 
-    htmlFiles.forEach(file => {
-      const li = document.createElement("li");
-      li.innerHTML = `<a href="${file}">${file.replace(".html", "")}</a>`;
-      list.appendChild(li);
-    });
+    files
+      .filter(f => f.name.endsWith(".html") && f.name !== "index.html")
+      .forEach(f => {
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="${f.name}">${f.name.replace(".html", "")}</a>`;
+        list.appendChild(li);
+      });
 
   } catch (error) {
-    console.error("Erreur lors de la génération :", error);
+    console.error("Erreur API GitHub :", error);
   }
 }
 
-// Exécute au chargement
-listHTMLFiles();
+loadFiles();
 </script>
 
 </body>
