@@ -1,35 +1,30 @@
 ---
-title: S3 Épistémologie
+title: "S3 Épistémologie"
 output:
+  html_document:
+    toc: true
+    toc_depth: '5'
+    df_print: paged
+  word_document:
+    toc: true
+    toc_depth: '5'
   pdf_document:
     toc: true
     toc_depth: 5
     latex_engine: xelatex
     number_sections: true
     includes:
-      in_header: header-titles.tex
-  word_document:
-    toc: true
-    toc_depth: '5'
+      in_header: "header-titles.tex"
 geometry: margin=2.5cm
 header-includes:
 - \usepackage{fontspec}
 - \setmainfont{Ubuntu}
 - \usepackage{etoolbox}
 - \renewcommand{\contentsname}{}
-- |
-  % -- TOC compact (~1.5x plus petit) --
-  \AtBeginDocument{
-    \addtocontents{toc}{\protect\smallskip}
-    \let\oldtableofcontents\tableofcontents
-    \renewcommand{\tableofcontents}{
-      \begingroup
-        \footnotesize
-        \setlength{\parskip}{2pt}
-        \oldtableofcontents
-      \endgroup
-    }
-  }
+- "% -- TOC compact (~1.5x plus petit) --\n\\AtBeginDocument{\n  \\addtocontents{toc}{\\protect\\smallskip}\n
+  \ \\let\\oldtableofcontents\\tableofcontents\n  \\renewcommand{\\tableofcontents}{\n
+  \   \\begingroup\n      \\footnotesize\n      \\setlength{\\parskip}{2pt}\n      \\oldtableofcontents\n
+  \   \\endgroup\n  }\n}\n"
 - \setcounter{tocdepth}{5}
 - \makeatletter
 - \renewcommand{\@tocrmarg}{0pt}
@@ -245,8 +240,7 @@ Pour Fisher : les statistiques doivent être enseignées par des personnes qui o
 
 -   Mettre à jour la probabilité de l'hypothèse en fonction des nouvelles données (**probabilité a posteriori**)
 
-
-\newpage
+\
 
 ## Conclusion
 
@@ -264,4 +258,7 @@ Pour Fisher : les statistiques doivent être enseignées par des personnes qui o
 
     -   **POUR ANALYSES CONFIRMATOIRE : Efficacité de médicament Y/N**
 
-    -   
+| Approche                | Objectif principal                                      | Nature de la conclusion                     | Utilisation typique                      |
+|------------------------|--------------------------------------------------------|--------------------------------------------|------------------------------------------|
+| Fisher                 | Évaluer la force de l'évidence contre H0               | Mesure de plausibilité (petit p)         | Analyses exploratoires                    |
+| Neyman & Pearson | Prendre une décision entre H0 et H1 avec risques d'erreurs définis | | Acceptation ou rejet binaire d'hypothèses | Analyses confirmatoires (ex. efficacité de médicament) |
