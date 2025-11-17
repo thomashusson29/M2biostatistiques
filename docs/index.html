@@ -10,43 +10,11 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    /* Mode sombre auto */
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #121212 !important;
-        color: #e5e5e5 !important;
-      }
-      .sidebar {
-        background-color: #1e1e1e !important;
-        border-color: #333 !important;
-      }
-      .course-card {
-        background-color: #1e1e1e !important;
-        border-color: #333 !important;
-        color: #e5e5e5 !important;
-      }
-      a {
-        color: #9bd4ff !important;
-      }
-    }
-
-    /* Sidebar */
-    .sidebar {
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 250px;
-      padding: 20px;
-      background: #f8f9fa;
-      border-right: 1px solid #ddd;
-      overflow-y: auto;
-    }
-
-    /* Main content */
-    .content {
-      margin-left: 270px;
-      padding: 20px;
+    body { 
+      padding: 40px; 
+      background: #fafafa; 
+      color: #222;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     .course-card {
@@ -63,26 +31,32 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
+    table {
+      background: white;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background: #f1f1f1;
+    }
+
   </style>
 </head>
 
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-  <h4 class="mb-3">📚 Navigation</h4>
-  <ul class="nav flex-column" id="sidebar-list"></ul>
-</div>
+<div class="container">
 
-<!-- Main Content -->
-<div class="content">
   <h1 class="mb-4">Cours M2 Biostatistiques</h1>
-  <p class="text-muted">Liste automatique des cours disponibles :</p>
 
-  <div id="file-list"></div>
+  <h4 class="mb-3">Liste des cours disponibles</h4>
+  <div id="file-list" class="mb-5"></div>
+
+  <h4 class="mb-3">Planning Google Sheets</h4>
+  <div id="sheet-container"></div>
+
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
@@ -91,13 +65,51 @@ const user = "thomashusson29";
 const repo = "M2biostatistiques";
 const folder = "docs";
 
+// Ton lien CSV Google Sheets (DÉJÀ publié)
+const sheetURL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKqeb8dEJC1PNF5DKf83sKma3Bj_nyjBwLEw6DnGGd2FZy2IlQWM0TByRJySb6drR1_8AQfYqG3jOL/pub?gid=0&single=true&output=csv";
+
+
+// ------------------------
+// 1. Charger la Google Sheet
+// ------------------------
+async function loadGoogleSheet() {
+  try {
+    const response = await fetch(sheetURL);
+    const text = await response.text();
+
+    const rows = text.trim().split("\n").map(r => r.split(","));
+
+    let table = "<table class='table table-bordered table-striped'><thead><tr>";
+    rows[0].forEach(col => { table += `<th>${col}</th>`; });
+    table += "</tr></thead><tbody>";
+
+    for (let i = 1; i < rows.length; i++) {
+      table += "<tr>";
+      rows[i].forEach(col => { table += `<td>${col}</td>`; });
+      table += "</tr>";
+    }
+    table += "</tbody></table>";
+
+    document.getElementById("sheet-container").innerHTML = table;
+
+  } catch (err) {
+    document.getElementById("sheet-container").innerHTML =
+      "<p>Impossible de charger la Google Sheet.</p>";
+    console.error(err);
+  }
+}
+
+
+// ------------------------
+// 2. Charger les fichiers HTML du dossier docs
+// ------------------------
 async function loadFiles() {
   const url = `https://api.github.com/repos/${user}/${repo}/contents/${folder}`;
   const response = await fetch(url);
   const files = await response.json();
 
   const listDiv = document.getElementById("file-list");
-  const sidebar = document.getElementById("sidebar-list");
 
   files
     .filter(f => f.name.endsWith(".html") && f.name !== "index.html")
@@ -106,21 +118,17 @@ async function loadFiles() {
 
       const label = f.name.replace(".html", "");
 
-      // Main page cards
       const card = document.createElement("div");
       card.className = "course-card";
       card.innerHTML = `<a class="fs-5" href="${f.name}">${label}</a>`;
       listDiv.appendChild(card);
-
-      // Sidebar links
-      const li = document.createElement("li");
-      li.className = "nav-item mb-2";
-      li.innerHTML = `<a class="nav-link" href="${f.name}">${label}</a>`;
-      sidebar.appendChild(li);
     });
 }
 
+
+// Lancer les deux chargements
 loadFiles();
+loadGoogleSheet();
 </script>
 
 </body>
