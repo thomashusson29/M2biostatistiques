@@ -98,8 +98,8 @@ box()
 
 ### Avec ajout de courbe de densité
 
-Densité = estimation lissée de la distribution des valeurs \
-Correspond à des **densités de probabilité**. \
+Densité = estimation lissée de la distribution des valeurs\
+Correspond à des **densités de probabilité**.\
 \
 Pour Falissard : bien pour communiquer avec des gens qui connaissent les statistiques, sinon garder uniquement histogramme
 
@@ -119,7 +119,7 @@ lines(density(smp$age, na.rm=TRUE), col="red", lty=2, lwd=2)
 box()
 ```
 
-### Superposition 
+### Superposition
 
 **En histogramme**
 
@@ -159,7 +159,7 @@ box()
 
 **En courbes de densité**
 
-Syntaxe : 
+Syntaxe :
 
 1.  Définir les vecteurs de densité avec la fonction `density()`
 
@@ -195,6 +195,7 @@ x <- list(smp$age[smp$recherche.nouv==1],smp$age[smp$recherche.nouv==2],smp$age[
 multhist(x, ylab="Fréquence", xlab="Age", axis.lty=1, ylim=c(0,70), col=vir_3, legend.text=paste("Rech. Nouv. = ",1:3))
 box()
 ```
+
 \newpage
 
 ## Boxplot
@@ -223,21 +224,21 @@ Syntaxe : fonction `boxplot()` : `boxplot(y~x, data=, ylab="", xlab="", col="", 
 boxplot(age~recherche.nouv, data=smp, ylab="Age", xlab="Recherche de nouveauté", cex.axis=1.2, cex.lab=1.2, col="white", main="")
 ```
 
-### Avec jitter 
+### Avec jitter
 
 Ajout des points de données individuels avec la fonction `jitter()`\
 Problème des boxplots : points superposés **simplifient** la représentation graphique
 
-Syntaxe : 
+Syntaxe :
 
 1.  Boxplot classique
 
 2.  Ajout des points individuels avec jitter
 
     -   `jitter(rep(x, n), amount=)` : génère des points autour de la valeur x, n fois, avec une dispersion définie par amount
-    
+
     -   `points(xjit, yvalues, pch=20, col=rgb(0,0,0,.3))` : ajoute les points jitter aux coordonnées xjit et yvalues, avec une transparence alpha de 0.3
-    
+
     -   Répéter pour chaque modalité de la variable catégorielle
 
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
@@ -264,7 +265,6 @@ Syntaxe : utilisation du package `ggplot2` avec les fonctions `geom_violin()` et
 2.  Ajouter la géométrie du violin plot avec `geom_violin()`
 
 3.  Ajouter la géométrie du boxplot avec `geom_boxplot()`
-
 
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 #1ère étape: 
@@ -296,7 +296,7 @@ Syntaxe : fonction `barplot()` : `barplot(height, names.arg="", xlab="", ylab=""
 
 -   `names.arg` : étiquette des barres
 
-NB : `par()` sert à 
+NB : `par()` sert à
 
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 par(mfrow=c(1,3)) #sert à afficher 3 graphiques sur la même ligne
@@ -304,7 +304,8 @@ barplot(table(smp$recherche.nouv,useNA="ifany"), main="Recherche de la nouveaut�
 barplot(table(smp$evit.danger,useNA="ifany"), main="Évitement de danger", ylab="n", ylim=c(0,350), space=0.6, names.arg=c("1","2","3","NA"), cex.axis=1.2, cex.names=1.2, col=c("white","white","white","grey"))
 barplot(table(smp$dep.recompense,useNA="ifany"), main="Dépendance à la récompense", ylim=c(0,350), ylab="n", names.arg=c("1","2","3","NA"), space=0.6, cex.axis=1.2, cex.names=1.2, col=c("white","white","white","grey"))
 ```
-### Variable non ordonnée : 
+
+### Variable non ordonnée :
 
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 dt <- data.frame(table(smp$profession, useNA="ifany"))
@@ -316,12 +317,13 @@ par(mar=c(9,4,4,4))
 barplot(dt.tri$Freq, las=2, names.arg=dt.tri$Var1, col=c(rep("white",8),"grey"))
 ```
 
-**Représentation horizontale** : 
+**Représentation horizontale** :
 
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 par(mar=c(4,9,4,4))
 barplot(dt.tri$Freq, las=1, names.arg=dt.tri$Var1, col=c(rep("white",8),"grey"),horiz=TRUE)
 ```
+
 \
 
 ## Pie plot (camembert)
@@ -335,8 +337,7 @@ dt$Var1[9] <- "NA"
 pie(dt$Freq,col = vir_9,labels=dt$Var1,cex=1.4)
 ```
 
-
-## Alternative au pie plot : Tree map 
+## Alternative au pie plot : Tree map
 
 À la mode !
 
@@ -348,19 +349,19 @@ treemap(dt, index="Var1", vSize="Freq", type="index", title="")
 
 ## Diagramme cartésien : x - y
 
--   On représente ici le nombre d'enfants en fonction de l'âge. 
+-   On représente ici le nombre d'enfants en fonction de l'âge.
 
 -   Le pb est que le nombre d'enfants est discret : donc superposition des points
 
-
 **Points superposés** :
+
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 plot(smp$age,smp$nb.enfants, xlab="Age", ylab="Nombre d'enfants", main="")
 ```
 
 **1ère option : taille des points**
 
-C'est la classe selon Bruno Falissard 
+C'est la classe selon Bruno Falissard
 
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 xy <- xyTable(smp$age,smp$nb.enfants)
@@ -393,6 +394,7 @@ valeurs <- c(tbl[,2],tbl[,1])
 dt <- data.frame(groupe,sousgroupe,valeurs)
 treemap(dt, index=c("groupe","sousgroupe"), vSize="valeurs",type="index") 
 ```
+
 \newpage
 
 # Données répétées : données mesurées au cours du temps
@@ -417,7 +419,8 @@ p <- p + theme(axis.text.x = element_text(size=14),axis.text.y = element_text(si
 p <- p + scale_color_discrete(name="Age", labels=c("< 30 ans", "> 30 ans"))
 p
 ```
-\newpage 
+
+\newpage
 
 ## Diagramme en fagots
 
@@ -431,7 +434,7 @@ p <- p + scale_color_discrete(name="Sexe", labels=c("hommes", "femmes"))
 p
 ```
 
-2.  Représentation du score de dépression selon l'âge (> ou < 30 ans)
+2.  Représentation du score de dépression selon l'âge (\> ou \< 30 ans)
 
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 p <- ggplot(na.omit(scl), aes(JOUR.VISIT, depression, group = NUMERO, color = age>30)) 
@@ -441,7 +444,8 @@ p <- p + scale_color_discrete(name="Age", labels=c("< 30 ans", "> 30 ans"))
 p 
 ```
 
-3.  Lissage 
+3.  Lissage
+
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 p <- ggplot(na.omit(scl), aes(JOUR.VISIT, depression, group = NUMERO, color = age>30)) 
 p <- p + geom_smooth(aes(group = age>30, fill = age>30)) 
@@ -450,6 +454,7 @@ p <- p + theme_classic() + labs(y = "Score de dépression", x = "Durée de suivi
 p <- p + scale_color_discrete(name="Age", labels=c("< 30 ans", "> 30 ans"))
 p 
 ```
+
 \newpage
 
 # Courbes de survie
@@ -458,6 +463,7 @@ p
 
 Syntaxe : fonction `survfit()` du package `survival`\
 Ici représentation du pourcentage de sujets en rémission en fonction du temps (en semaines) pour le dataset `myelome`.
+
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 library(survival)
 plot(survfit(Surv(T,DECES)~1,data=myelome),xlab="Temps en semaine",ylab="Pourcentage de sujets en rémission",conf.int=FALSE)
@@ -472,7 +478,6 @@ Ici représentation de la probabilité de survie en fonction du temps (en année
 ```{r}
 fit <- survfit(Surv(survival, eventdeath) ~ grade, data = ks)
 ```
-
 
 2.  Représentation avec `survminer` ou avec `ggplot2`
 
@@ -491,8 +496,10 @@ p <- ggsurvplot(
 print(p)
 ```
 
-    -   avec `ggplot2` : package `broom` nécessaire pour convertir l’objet `fit` en data.frame utilisable par `ggplot2`
-    
+```         
+-   avec `ggplot2` : package `broom` nécessaire pour convertir l’objet `fit` en data.frame utilisable par `ggplot2`
+```
+
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 library(survival)
 library(broom)
@@ -530,11 +537,12 @@ acp <- smp[,c("schizophrenie","depression","tbl.bipol","anxiete.gen","stress.tra
 mdspca(acp)
 sphpca(acp)
 ```
+
 ## Représentation en réseau
 
 À la mode car le mot réseau est à la mode
 
-Représente graphiquement des associations entre variables : 
+Représente graphiquement des associations entre variables :
 
 -   Plus la corrélation est forte entre les variables
 
@@ -553,7 +561,7 @@ qgraph(cor(rush[,3:28], use="complete.obs"), minimum = 0.25, borders = FALSE, vs
 layout="spring", labels=noms, label.cex=5, label.scale.equal=TRUE, edge.color=rgb(0,0.5,0.5),edge.width=0.5)
 ```
 
-## Heatmap 
+## Heatmap
 
 -   Permet de représenter **énormément de variables** ensemble
 
@@ -589,9 +597,13 @@ Représente des **données répétées** en Heatmap.\
 
 Chaque ligne représente un patient déprimé suivi à differents moments du temps.
 
--   + ils sont jaunes, + ils sont déprimés
+-   
 
--   + ils sont bleus, - ils sont déprimés
+    -   ils sont jaunes, + ils sont déprimés
+
+-   
+
+    -   ils sont bleus, - ils sont déprimés
 
 -   noir = donnée manquante.
 
@@ -599,8 +611,7 @@ Chaque colonne représente les variables.
 
 Représente **l'évolution du score de dépression au cours du temps** de **tous les sujets**.
 
-Permet de regrouper les sujets en **pattern d'évolution similaires** 
-
+Permet de regrouper les sujets en **pattern d'évolution similaires**
 
 ```{r, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 library(reshape2)
