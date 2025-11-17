@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>S3 3 Wrap Up Stats de Base</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="S3_3_Wrap_Up_Stats_de_Base_files/libs/clipboard/clipboard.min.js"></script>
+<script src="S3_3_Wrap_Up_Stats_de_Base_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="S3_3_Wrap_Up_Stats_de_Base_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="S3_3_Wrap_Up_Stats_de_Base_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="S3_3_Wrap_Up_Stats_de_Base_files/libs/quarto-html/popper.min.js"></script>
+<script src="S3_3_Wrap_Up_Stats_de_Base_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="S3_3_Wrap_Up_Stats_de_Base_files/libs/quarto-html/anchor.min.js"></script>
+<link href="S3_3_Wrap_Up_Stats_de_Base_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="S3_3_Wrap_Up_Stats_de_Base_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="S3_3_Wrap_Up_Stats_de_Base_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="S3_3_Wrap_Up_Stats_de_Base_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="S3_3_Wrap_Up_Stats_de_Base_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#description-des-jeux-de-données" id="toc-description-des-jeux-de-données" class="nav-link active" data-scroll-target="#description-des-jeux-de-données"><span class="header-section-number">1</span> Description des jeux de données</a></li>
+  <li><a href="#graphiques" id="toc-graphiques" class="nav-link" data-scroll-target="#graphiques"><span class="header-section-number">2</span> Graphiques</a>
+  <ul>
+  <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link" data-scroll-target="#ggplot2"><span class="header-section-number">2.1</span> ggplot2</a></li>
+  <li><a href="#tidyverse" id="toc-tidyverse" class="nav-link" data-scroll-target="#tidyverse"><span class="header-section-number">2.2</span> tidyverse</a></li>
+  </ul></li>
+  <li><a href="#quantifier-la-force-dune-association" id="toc-quantifier-la-force-dune-association" class="nav-link" data-scroll-target="#quantifier-la-force-dune-association"><span class="header-section-number">3</span> Quantifier la force d’une association</a>
+  <ul>
+  <li><a href="#or-rr" id="toc-or-rr" class="nav-link" data-scroll-target="#or-rr"><span class="header-section-number">3.1</span> OR / RR</a>
+  <ul>
+  <li><a href="#méthode-de-calcul" id="toc-méthode-de-calcul" class="nav-link" data-scroll-target="#méthode-de-calcul"><span class="header-section-number">3.1.1</span> Méthode de calcul :</a></li>
+  </ul></li>
+  <li><a href="#coefficient-de-corrélation" id="toc-coefficient-de-corrélation" class="nav-link" data-scroll-target="#coefficient-de-corrélation"><span class="header-section-number">3.2</span> Coefficient de corrélation</a>
+  <ul>
+  <li><a href="#exemple" id="toc-exemple" class="nav-link" data-scroll-target="#exemple"><span class="header-section-number">3.2.1</span> Exemple :</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#tests-statistiques" id="toc-tests-statistiques" class="nav-link" data-scroll-target="#tests-statistiques"><span class="header-section-number">4</span> Tests statistiques</a>
+  <ul>
+  <li><a href="#chi2" id="toc-chi2" class="nav-link" data-scroll-target="#chi2"><span class="header-section-number">4.1</span> Chi2</a></li>
+  <li><a href="#test-t-de-student" id="toc-test-t-de-student" class="nav-link" data-scroll-target="#test-t-de-student"><span class="header-section-number">4.2</span> Test T de Student</a>
+  <ul>
+  <li><a href="#test-de-normalité" id="toc-test-de-normalité" class="nav-link" data-scroll-target="#test-de-normalité"><span class="header-section-number">4.2.1</span> Test de normalité</a></li>
+  <li><a href="#égalité-des-variances" id="toc-égalité-des-variances" class="nav-link" data-scroll-target="#égalité-des-variances"><span class="header-section-number">4.2.2</span> Égalité des variances</a></li>
+  </ul></li>
+  <li><a href="#test-de-nullité-du-coefficient-de-corrélation" id="toc-test-de-nullité-du-coefficient-de-corrélation" class="nav-link" data-scroll-target="#test-de-nullité-du-coefficient-de-corrélation"><span class="header-section-number">4.3</span> Test de nullité du coefficient de corrélation</a></li>
+  <li><a href="#si-conditions-non-valides" id="toc-si-conditions-non-valides" class="nav-link" data-scroll-target="#si-conditions-non-valides"><span class="header-section-number">4.4</span> Si conditions non valides</a></li>
+  </ul></li>
+  <li><a href="#interprétation-des-résultats-et-des-tests" id="toc-interprétation-des-résultats-et-des-tests" class="nav-link" data-scroll-target="#interprétation-des-résultats-et-des-tests"><span class="header-section-number">5</span> Interprétation des résultats et des tests</a>
+  <ul>
+  <li><a href="#fisher" id="toc-fisher" class="nav-link" data-scroll-target="#fisher"><span class="header-section-number">5.1</span> Fisher :</a></li>
+  <li><a href="#neyman-pearson" id="toc-neyman-pearson" class="nav-link" data-scroll-target="#neyman-pearson"><span class="header-section-number">5.2</span> Neyman-Pearson</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S3_3_Wrap_Up_Stats_de_Base.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S3_3_Wrap_Up_Stats_de_Base.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">S3 3 Wrap Up Stats de Base</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="description-des-jeux-de-données" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Description des jeux de données</h1>
+<p>Plusieurs fonctions disponibles sur R :</p>
+<ul>
+<li><p><code>str()</code> : structure d’un objet R</p></li>
+<li><p><code>describe()</code> du package <code>Hmisc</code> : description sommaire d’un jeu de données</p></li>
+<li><p><code>summary()</code> : résumé statistique d’un jeu de données</p></li>
+</ul>
+<p>Exprimer un jeu de données :</p>
+<ul>
+<li><p>Moyenne : mieux que médiane pour Bruno Falissard</p></li>
+<li><p>Écart-type : contient les 2/3 des données</p></li>
+</ul>
+</section>
+<section id="graphiques" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Graphiques</h1>
+<p>C’est la révolution des graphiques avec les téléphones, les selfies, Instagram !!!</p>
+<ul>
+<li><p><a href="https://r-graph-gallery.com/">R Graph Gallery</a></p></li>
+<li><p><a href="https://python-graph-gallery.com/">Python Graph Gallery</a></p></li>
+</ul>
+<section id="ggplot2" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="ggplot2"><span class="header-section-number">2.1</span> ggplot2</h2>
+<p>Langage à part entière dans R pour faire des graphiques</p>
+<p>Références :</p>
+<ul>
+<li><p><a href="https://ggplot2.tidyverse.org/">Site officiel ggplot2</a></p></li>
+<li><p><a href="https://juba.github.io/tidyverse/08-ggplot2.html">Blog juba</a></p></li>
+<li><p><a href="https://larmarange.github.io/analyse-R/ggplot2.html">Blog larmarange</a></p></li>
+<li><p><a href="https://r4ds.had.co.nz/data-visualisation.html">R for Data Science - Data Visualization</a></p></li>
+</ul>
+</section>
+<section id="tidyverse" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="tidyverse"><span class="header-section-number">2.2</span> tidyverse</h2>
+<p>Collection de packages R pour la science des données</p>
+<p>Contient :</p>
+<ul>
+<li><p><code>ggplot2</code> : graphiques</p></li>
+<li><p><code>dplyr</code> : manipulation de données</p></li>
+<li><p><code>tidyr</code> : nettoyage de données</p></li>
+<li><p><code>readr</code> : lecture de données</p></li>
+<li><p><code>purrr</code> : programmation fonctionnelle</p></li>
+<li><p><code>tibble</code> : tableaux de données</p></li>
+</ul>
+<p>Références :</p>
+<ul>
+<li><p><a href="https://www.tidyverse.org/">Site officiel tidyverse</a></p></li>
+<li><p><a href="https://github.com/tidyverse/tidyverse">Git tidyverse</a></p></li>
+<li><p><a href="https://juba.github.io/tidyverse/">Blog juba</a></p></li>
+<li><p><a href="https://larmarange.github.io/analyse-R/tidyverse.html">Blog larmarange</a></p></li>
+</ul>
+</section>
+</section>
+<section id="quantifier-la-force-dune-association" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Quantifier la force d’une association</h1>
+<section id="or-rr" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="or-rr"><span class="header-section-number">3.1</span> OR / RR</h2>
+<ul>
+<li><p>OR : Odds Ratio</p></li>
+<li><p>RR : Risque Relatif</p></li>
+</ul>
+<section id="méthode-de-calcul" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="méthode-de-calcul"><span class="header-section-number">3.1.1</span> Méthode de calcul :</h3>
+<ul>
+<li><p><span class="math display">\[OR = \frac{a/b}{c/d} = \frac{a \times d}{b \times c}\]</span></p></li>
+<li><p><span class="math display">\[RR = \frac{a/(a+b)}{c/(c+d)}\]</span></p></li>
+</ul>
+<p>OR : bon estimateur du RR lorsque l’événement est rare (&lt; 10 %)</p>
+</section>
+</section>
+<section id="coefficient-de-corrélation" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="coefficient-de-corrélation"><span class="header-section-number">3.2</span> Coefficient de corrélation</h2>
+<p>= sert à quantifier l’association entre deux variables quantitatives</p>
+<ul>
+<li><p>Coefficient de corrélation de Pearson : mesure l’association linéaire entre deux variables quantitatives</p></li>
+<li><p>Coefficient de corrélation de Spearman : mesure l’association non linéaire entre deux variables quantitatives</p></li>
+</ul>
+<p>NB : association non linéaire : c’est à dire que la distribution des variables n’est pas normale</p>
+<section id="exemple" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="exemple"><span class="header-section-number">3.2.1</span> Exemple :</h3>
+<p>2 variables :</p>
+<ul>
+<li><code>smp$duree.peine</code> : variable quantitative de distribution non normale (très asymétrique)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(smp<span class="sc">$</span>duree.peine, <span class="at">xlab=</span><span class="st">"Durée de peine"</span>, <span class="at">ylab=</span><span class="st">"Fréquence"</span>, <span class="at">col=</span><span class="st">"white"</span>, <span class="at">cex.axis=</span><span class="fl">1.2</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>, <span class="at">main=</span><span class="st">"Histogramme de la variable 'Durée de peine'"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S3_3_Wrap_Up_Stats_de_Base_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(smp<span class="sc">$</span>duree.peine)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(smp<span class="sc">$</span>duree.peine)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S3_3_Wrap_Up_Stats_de_Base_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><code>smp$age</code> : variable quantitative de distribution normale</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(smp<span class="sc">$</span>age, <span class="at">xlab=</span><span class="st">"Âge"</span>, <span class="at">ylab=</span><span class="st">"Fréquence"</span>, <span class="at">col=</span><span class="st">"white"</span>, <span class="at">cex.axis=</span><span class="fl">1.2</span>, <span class="at">cex.lab=</span><span class="fl">1.2</span>, <span class="at">main=</span><span class="st">"Histogramme de la variable 'Âge'"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S3_3_Wrap_Up_Stats_de_Base_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(smp<span class="sc">$</span>age)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(smp<span class="sc">$</span>age)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S3_3_Wrap_Up_Stats_de_Base_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><u><strong>Calcul de la corrélation entre Âge et Durée de peine</strong></u></p>
+<p>Quel coefficient utiliser ?</p>
+<ul>
+<li><p><strong>Pearson</strong> : calcule la corrélation linéaire entre deux variables quantitatives</p></li>
+<li><p><strong>Spearman</strong> : calcule la corrélation entre LES RANGS de deux variables quantitatives</p></li>
+</ul>
+<p>Ici : on fait ce qu’on veut selon Bruno Falissard, MÊME SI AUCUNE DES DEUX VARIABLES NE SUIT UNE LOI NORMALE.</p>
+<p>Normalité : <strong>nécessaire si on veut <u>TESTER</u> la nullité de corrélation</strong>.</p>
+<p><strong>Dans l’exemple de Bruno Falissard, malgré qu’aucune des deux variables ne suive une loi normale, il utilise le coefficient de corrélation de Pearson.</strong></p>
+<p>Représentation graphique de la corrélation et de la relation linéaire entre les deux variables :</p>
+<p><img src="S3_3coeff_correlation.svg" class="img-fluid" width="514"></p>
+</section>
+</section>
+</section>
+<section id="tests-statistiques" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Tests statistiques</h1>
+<p><strong>Petite complexité</strong> : quel test utiliser selon le type de variables que l’on veut comparer ?</p>
+<p><strong>Grosse complexité</strong> : interprétation !</p>
+<section id="chi2" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="chi2"><span class="header-section-number">4.1</span> Chi2</h2>
+<ul>
+<li><p>Comparaison de pourcentage (comparaison de deux variables qualitatives)</p></li>
+<li><p>Conditions d’application : Effectifs théoriques &gt;= 5 dans chaque case du tableau de contingenceDans une variable binaire (probabilité théorique <code>p</code>) :</p></li>
+<li><p><code>np ≥ 5</code></p></li>
+<li><p><code>n(1 - p) ≥ 5</code></p></li>
+</ul>
+<p>Cela signifie que chaque catégorie doit avoir <strong>au moins 5 observations attendues</strong>.</p>
+<p>De façon générale (tableaux &gt; 2×2) : <strong>toutes les cases doivent avoir un effectif attendu ≥ 5</strong><br>
+</p>
+</section>
+<section id="test-t-de-student" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="test-t-de-student"><span class="header-section-number">4.2</span> Test T de Student</h2>
+<ul>
+<li><p>Comparaison de moyennes (comparaison de deux variables quantitatives)</p></li>
+<li><p>Conditions d’application :</p>
+<ul>
+<li><p>Variances égales entre les deux groupes</p></li>
+<li><p>ET</p>
+<ul>
+<li><p>N &gt; 30 dans chaque groupe et variances égales</p></li>
+<li><p>OU les deux distributions sont normales</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>En fait : + les distributions s’éloignent de la normalité, + il faut un grand échantillon pour appliquer le test T de Student.</p>
+<p>“On ne peut pas être rigoureux avec les conditions de validité du test T”</p>
+<p>NB : PAS de test de normalité !!</p>
+<section id="test-de-normalité" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="test-de-normalité"><span class="header-section-number">4.2.1</span> Test de normalité</h3>
+<p>En épistémologie : pour Neyman et Pearson :</p>
+<ul>
+<li><p>Hypothèse nulle : distrubutions normales</p></li>
+<li><p>Hypothèse alternative : distributions non normales</p></li>
+</ul>
+<p>Il faudrait calculer la puissance du test pour vérifier si on peut rejeter l’hypothèse nulle !!</p>
+<p>Et c’est impossible de calculer la puissance du test de normalité de Shapiro-Wilk</p>
+<ul>
+<li><p>H0 : <span class="math inline">\(\mathcal{L}(x, \theta_0)\)</span> : vraisemblance des données <span class="math inline">\(x\)</span> sous H0</p></li>
+<li><p>H1 : <span class="math inline">\(\mathcal{L}(x, \theta_1)\)</span> : vraisemblance des données <span class="math inline">\(x\)</span> sous H1</p></li>
+<li><p><span class="math inline">\(k_\alpha\)</span> : valeur seuil dépendant de alpha</p></li>
+</ul>
+<p>Et le calcul de puissance (<span class="math inline">\(\theta_1\)</span>) ou <span class="math inline">\(1 - \beta\)</span> est IMPOSSIBLE !!</p>
+<p>Donc les tests de normalité soulèvent des problèmes de puissance.</p>
+<p>En pratique pour visualiser la normalité : histogramme et Q-Q plot.</p>
+<p>Pour Falissard : la VRAIE RIGUEUR, c’est de vérifier la normalité GRAPHIQUEMENT.</p>
+</section>
+<section id="égalité-des-variances" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="égalité-des-variances"><span class="header-section-number">4.2.2</span> Égalité des variances</h3>
+<p>Dans R : fonction <code>by()</code> pour calculer les variances par groupe</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(smp<span class="sc">$</span>schizophrenie, smp<span class="sc">$</span>tbl.bipol, var)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>smp$tbl.bipol: 0
+[1] 0.07768546
+------------------------------------------------------------ 
+smp$tbl.bipol: 1
+[1] 0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="test-de-nullité-du-coefficient-de-corrélation" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="test-de-nullité-du-coefficient-de-corrélation"><span class="header-section-number">4.3</span> Test de nullité du coefficient de corrélation</h2>
+<p>Très robuste !</p>
+<ul>
+<li>Conditions d’application : au moins une distribution normale</li>
+</ul>
+</section>
+<section id="si-conditions-non-valides" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="si-conditions-non-valides"><span class="header-section-number">4.4</span> Si conditions non valides</h2>
+<ul>
+<li><p>Boostrap : si N &gt; 20 dans chaque groupe</p></li>
+<li><p>Distributions très irrégulières : soit transformer les données, soit tests non paramétriques type bootstrap.</p></li>
+<li><p>Tests non paramétriques :</p>
+<ul>
+<li><p>Test de Mann-Whitney : comparaison de deux groupes (quantitative)</p></li>
+<li><p>Test de Kruskal-Wallis : comparaison de plusieurs groupes (quantitative)</p></li>
+<li><p>Test de Wilcoxon : comparaison de deux mesures appariées (quantitative)</p></li>
+<li><p>Test de Friedman : comparaison de plusieurs mesures appariées (quantitative)</p></li>
+<li><p>Test exact de Fisher : comparaison de pourcentages (qualitative)</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="interprétation-des-résultats-et-des-tests" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Interprétation des résultats et des tests</h1>
+<section id="fisher" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="fisher"><span class="header-section-number">5.1</span> Fisher :</h2>
+<ul>
+<li><p>échantillon : tiré au sort depuis une population infinie hypothétique</p></li>
+<li><p>petit p : probabilité que le résultat observé soit applicable à la population infinie hypothétique !</p></li>
+</ul>
+<p>Exemple :</p>
+<ul>
+<li><p>On tire 30 personnes parmi celles qui passent devant Bicêtre</p></li>
+<li><p>On mesure leur taille</p></li>
+<li><p>On calcule la moyenne + intervalle de confiance de la taille dans notre échantillon</p></li>
+<li><p>On obtient une moyenne + une intervalle qui permet d’estimer la moyenne de la taille dans une population de CLONES STRICTEMENT IDENTIQUE de la population de l’échantillon !</p></li>
+</ul>
+<p><span class="math inline">\(\longrightarrow\)</span> La VRAIE population est une population FANTASMÉE !</p>
+<p>La population infinie hypothétique n’a pas de raison de ressembler à la population réelle !!</p>
+<p><strong>Intervalle de confiance: estimateur de la variabilité d’un paramètre dans une population multipliée de notre échantillon !</strong></p>
+<div class="callout callout-style-default callout-note callout-empty-content callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>si p = 0.02 : la probabilité que le hasard explique un tel résulat est de 2%
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</section>
+<section id="neyman-pearson" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="neyman-pearson"><span class="header-section-number">5.2</span> Neyman-Pearson</h2>
+<p>Surtout pour essais cliniques !</p>
+<ul>
+<li><p>H0 : hypothèse nulle : P(A) = P(B)</p></li>
+<li><p>H1 : hypothèse alternative : P(A) - P(B) &gt; <span class="math inline">\(\Delta\)</span></p></li>
+<li><p>p &lt; α : rejet de H0<br>
+</p></li>
+</ul>
+<p>3 risques estimés <em>a priori</em> :</p>
+<p><strong>α : risque de première espèce (erreur de type I)</strong></p>
+<p><strong>β : risque de deuxième espèce (erreur de type II)</strong></p>
+<p><span class="math inline">\(\Delta\)</span> : différence minimale cliniquement importante</p>
+</section>
+</section>
+<section id="conclusion" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusion</h1>
+<ol type="1">
+<li>Se poser une question</li>
+<li>Choisir un design</li>
+<li>Choisir un test</li>
+<li>Calculer un petit p</li>
+<li>Et interpréter le % du p !</li>
+<li>Facteurs de confusion et biais qui limiteraient la généralisation à la population globale</li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
