@@ -71,10 +71,7 @@
 <!-- Sidebar -->
 <div class="sidebar">
   <h4 class="mb-3">📚 Navigation</h4>
-
-  <ul class="nav flex-column" id="sidebar-list">
-    <!-- Rempli automatiquement -->
-  </ul>
+  <ul class="nav flex-column" id="sidebar-list"></ul>
 </div>
 
 <!-- Main Content -->
@@ -92,30 +89,6 @@
 // CONFIG
 const user = "thomashusson29";
 const repo = "M2biostatistiques";
-<<<<<<< Updated upstream
-const folder = "docs";  // le dossier à scanner
-
-async function loadFiles() {
-  const url = `https://api.github.com/repos/${user}/${repo}/contents/${folder}`;
-  
-  try {
-    const response = await fetch(url);
-    const files = await response.json();
-
-    const list = document.getElementById("file-list");
-
-    files
-      .filter(f => f.name.endsWith(".html") && f.name !== "index.html")
-      .forEach(f => {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="${f.name}">${f.name.replace(".html", "")}</a>`;
-        list.appendChild(li);
-      });
-
-  } catch (error) {
-    console.error("Erreur API GitHub :", error);
-  }
-=======
 const folder = "docs";
 
 async function loadFiles() {
@@ -145,7 +118,6 @@ async function loadFiles() {
       li.innerHTML = `<a class="nav-link" href="${f.name}">${label}</a>`;
       sidebar.appendChild(li);
     });
->>>>>>> Stashed changes
 }
 
 loadFiles();
