@@ -262,3 +262,15 @@ Pour Fisher : les statistiques doivent être enseignées par des personnes qui o
 |------------------------|--------------------------------------------------------|--------------------------------------------|------------------------------------------|
 | Fisher                 | Évaluer la force de l'évidence contre H0               | Mesure de plausibilité (petit p)         | Analyses exploratoires                    |
 | Neyman & Pearson | Prendre une décision entre H0 et H1 avec risques d'erreurs définis | | Acceptation ou rejet binaire d'hypothèses | Analyses confirmatoires (ex. efficacité de médicament) |
+
+
+
+NB : 
+
+Théorie qui dit que la multiplicité des tests statistiques augmente le risque d'erreurs de type I (faux positifs) : 
+
+1.  En épidémiologie (statistique exploratoire : on s'en fiche un peu)
+
+2.  On est dans Fisher en épidémiologie : notre but est de décrire, on a pas calculé le nombre de sujets nécessaires etc et on peut interpréter la p-value.
+
+    -   Si pas de risque alpha, pas d'ajustement ! 
