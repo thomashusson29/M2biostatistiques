@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>S3 4 Wrap Up Régressions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="S3_4_Wrap_Up_Regressions_files/libs/clipboard/clipboard.min.js"></script>
+<script src="S3_4_Wrap_Up_Regressions_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="S3_4_Wrap_Up_Regressions_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="S3_4_Wrap_Up_Regressions_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="S3_4_Wrap_Up_Regressions_files/libs/quarto-html/popper.min.js"></script>
+<script src="S3_4_Wrap_Up_Regressions_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="S3_4_Wrap_Up_Regressions_files/libs/quarto-html/anchor.min.js"></script>
+<link href="S3_4_Wrap_Up_Regressions_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="S3_4_Wrap_Up_Regressions_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="S3_4_Wrap_Up_Regressions_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="S3_4_Wrap_Up_Regressions_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="S3_4_Wrap_Up_Regressions_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#régressions-linéaires-multiples" id="toc-régressions-linéaires-multiples" class="nav-link active" data-scroll-target="#régressions-linéaires-multiples"><span class="header-section-number">1</span> Régressions linéaires multiples</a>
+  <ul>
+  <li><a href="#conditions-de-validité" id="toc-conditions-de-validité" class="nav-link" data-scroll-target="#conditions-de-validité"><span class="header-section-number">1.1</span> Conditions de validité :</a></li>
+  <li><a href="#corrélatons-entre-variables-explicatives" id="toc-corrélatons-entre-variables-explicatives" class="nav-link" data-scroll-target="#corrélatons-entre-variables-explicatives"><span class="header-section-number">1.2</span> Corrélatons entre variables explicatives</a>
+  <ul>
+  <li><a href="#exemple-dinterprétation-avec-interaction" id="toc-exemple-dinterprétation-avec-interaction" class="nav-link" data-scroll-target="#exemple-dinterprétation-avec-interaction"><span class="header-section-number">1.2.1</span> Exemple d’interprétation avec interaction</a></li>
+  <li><a href="#si-x1-était-catégorielle-à-plus-de-2-modalités" id="toc-si-x1-était-catégorielle-à-plus-de-2-modalités" class="nav-link" data-scroll-target="#si-x1-était-catégorielle-à-plus-de-2-modalités"><span class="header-section-number">1.2.2</span> Si X1 était catégorielle à plus de 2 modalités ?</a></li>
+  </ul></li>
+  <li><a href="#réponse-aux-questions" id="toc-réponse-aux-questions" class="nav-link" data-scroll-target="#réponse-aux-questions"><span class="header-section-number">1.3</span> Réponse aux questions</a></li>
+  </ul></li>
+  <li><a href="#régression-logistique" id="toc-régression-logistique" class="nav-link" data-scroll-target="#régression-logistique"><span class="header-section-number">2</span> Régression logistique</a>
+  <ul>
+  <li><a href="#interactions" id="toc-interactions" class="nav-link" data-scroll-target="#interactions"><span class="header-section-number">2.1</span> Interactions</a></li>
+  <li><a href="#conditions-de-validité-de-la-régression-logistique" id="toc-conditions-de-validité-de-la-régression-logistique" class="nav-link" data-scroll-target="#conditions-de-validité-de-la-régression-logistique"><span class="header-section-number">2.2</span> Conditions de validité de la régression logistique</a></li>
+  <li><a href="#autres-trucs" id="toc-autres-trucs" class="nav-link" data-scroll-target="#autres-trucs"><span class="header-section-number">2.3</span> Autres trucs :</a></li>
+  </ul></li>
+  <li><a href="#références" id="toc-références" class="nav-link" data-scroll-target="#références"><span class="header-section-number">3</span> Références</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S3_4_Wrap_Up_Regressions.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S3_4_Wrap_Up_Regressions.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">S3 4 Wrap Up Régressions</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="régressions-linéaires-multiples" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Régressions linéaires multiples</h1>
+<p><span class="math inline">\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k + \varepsilon\)</span></p>
+<ul>
+<li><p>Y : variable <strong>dépendante</strong> (quantitative continue) : par exemple la pression artérielle</p></li>
+<li><p>X1, X2, …, Xk : variables <strong>indépendantes</strong> :</p>
+<ul>
+<li><p>peuvent être quantitatives continues (âge, IMC, etc.)</p>
+<ul>
+<li>dans le cas de l’âge : ça s’exprime “de combien augmente la valeur de Y pour une augmentation d’une unité d’âge (1 an)”</li>
+</ul></li>
+<li><p>peuvent être binaires</p></li>
+<li><p>pour les variables catégorielles ordonnées : elles sont transformées en variables quantitatives !</p></li>
+</ul></li>
+<li><p>ε : terme d’erreur</p></li>
+</ul>
+<p>Et donc : β1 correspond à la différence du facteur X1 (par ex âge) entre sujets de facteur X2 constant (par ex sexe)</p>
+<p>On peut tester :</p>
+<ul>
+<li><p>H0 : β1 = 0 (pas d’association entre X1 et Y)</p></li>
+<li><p>H1 : β1 ≠ 0 (association entre X1 et Y)</p></li>
+</ul>
+<p>Interprétation d’un coefficient βi de régression :</p>
+<ul>
+<li><p>Si Xi est une variable quantitative continue : βi correspond à la variation moyenne de Y associée à une augmentation d’une unité de Xi, toutes les autres variables Xj (j ≠ i) étant maintenues constantes.</p></li>
+<li><p>Si Xi est une variable binaire (0/1) : βi correspond à la différence moyenne de Y entre les sujets avec Xi = 1 et les sujets avec Xi = 0, toutes les autres variables Xj (j ≠ i) étant maintenues constantes.</p></li>
+</ul>
+<section id="conditions-de-validité" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="conditions-de-validité"><span class="header-section-number">1.1</span> Conditions de validité :</h2>
+<p>Du test β1 = 0 :</p>
+<ul>
+<li><p>ε soit un bruit d<strong>e variance constante</strong> et <strong>suivant une loi normale</strong></p></li>
+<li><p>donc idem qu’un test t !!</p></li>
+<li><p>pour vérifier : histogramme des résidus !</p></li>
+</ul>
+<p>Définition des résidus :</p>
+<p>$<span class="math inline">\(\varepsilon_i = Y_i - \hat{Y}_i\)</span></p>
+<ul>
+<li><p>pour chaque individu i, le modèle prédit une valeur Ŷi (ce que le modèle estime pour Yi)</p></li>
+<li><p>la valeur Yi correspond à la valeur réelle observée pour l’individu i</p></li>
+<li><p>Le résidu pour l’individu i est : εᵢ = Yᵢ – Ŷᵢ</p></li>
+<li><p>Le résidu mesure <strong>l’erreur du modèle</strong> pour l’individu i.</p></li>
+<li><p>Si proche de 0 : le modèle prédit bien la valeur observée</p></li>
+<li><p>Si grand (positif ou négatif) : le modèle prédit mal la valeur observée</p></li>
+</ul>
+<!-- -->
+<ul>
+<li><p>Pour vérifier les conditions de validité :</p>
+<ul>
+<li><p>tracer les résidus en fonction des valeurs prédites Ŷi</p></li>
+<li><p>vérifier la normalité des résidus (histogramme, Q-Q plot)</p></li>
+</ul></li>
+</ul>
+<p><strong>hétéroscédasticité</strong> : variance des résidus non constante</p>
+</section>
+<section id="corrélatons-entre-variables-explicatives" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="corrélatons-entre-variables-explicatives"><span class="header-section-number">1.2</span> Corrélatons entre variables explicatives</h2>
+<p><span class="math inline">\(Y = \beta_0 + \beta_1(X_1 X_2) + \beta_3 X_3 + \cdots + \beta_k X_k + \varepsilon\)</span></p>
+<ul>
+<li><p>Par ex β1 : âge, β2 : IMC.</p></li>
+<li><p>Effet <strong>multiplicatif</strong> (par interaction : encore + que additif)</p></li>
+<li><p>Recherche une <strong>synergie</strong> entre les variables explicatives</p></li>
+</ul>
+<p>Synergie = non linéarité, donc c’est rare de mettre en évidence une non-linéarité en médecine.</p>
+<p>Mais en vrai, les FDR multipliés se potentialisent !</p>
+<p><strong>ATTENTION</strong> : si on met des interactions dans le modèle, on ne peut plus interpréter les coefficients βi de façon isolée en dehors du facteur β1 !</p>
+<p>Le mieux :</p>
+<ul>
+<li><p>D’abord faire un modèle sans interaction</p></li>
+<li><p>Puis faire un modèle avec interaction</p></li>
+</ul>
+<p>Mais pour les esthètes de la statistiques : le modèle avec interaction ne peut pas vraiment être utilisé car les résidus sont multipliés, donc c’est pas des vrais résidus. Bruno dit que ce n’est pas grave.</p>
+<section id="exemple-dinterprétation-avec-interaction" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="exemple-dinterprétation-avec-interaction"><span class="header-section-number">1.2.1</span> Exemple d’interprétation avec interaction</h3>
+<p><span class="math inline">\(Y = \beta_0 + \beta_1\,\text{retraite} + \beta_2\,\text{surpoids} + \beta_3(\text{âge} \times \text{IMC}) + \varepsilon\)</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>OR et p value</th>
+<th>Interprétation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>β1</strong></td>
+<td></td>
+<td><strong>Ininterprétable</strong></td>
+</tr>
+<tr class="even">
+<td><strong>β2</strong></td>
+<td></td>
+<td><strong>Ininterprétable</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>β3</strong></td>
+<td></td>
+<td>OUI</td>
+</tr>
+</tbody>
+</table>
+<p>Mais si c’est codé en -1 / 1 (pour FALSE - TRUE) : Alors <strong>β1 et β2 pourraient être interprétable</strong> !</p>
+<ul>
+<li><p><strong>β1</strong> est un effet de l’âge dans une population où il y aurait autant de surpoids que de pas de surpoids</p></li>
+<li><p><strong>β2</strong> est un effet du surpoids dans une population où il y aurait autant de vieux que de jeunes</p></li>
+<li><p><strong>β3</strong> ne change pas que ce soit en -1 / 1 ou 0 / 1 : reste l’effet d’interaction entre âge et IMC</p></li>
+<li><p>NB : si variable quantitative : ne pas le faire</p></li>
+</ul>
+<p>Pour ça dans R, il faut changer le contraste avec la fonction <code>contr.sum()</code><a href="https://www.rdocumentation.org/packages/memisc/versions/0.99.31.8.3/topics/contr">Documentation R</a></p>
+</section>
+<section id="si-x1-était-catégorielle-à-plus-de-2-modalités" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="si-x1-était-catégorielle-à-plus-de-2-modalités"><span class="header-section-number">1.2.2</span> Si X1 était catégorielle à plus de 2 modalités ?</h3>
+<p><span class="math inline">\(Y = \beta_0 + \beta_1X_1 + \beta_2 X_2 + \cdots + \beta_k X_k + \varepsilon\)</span></p>
+<ul>
+<li><p>Y : Tension artérielle</p></li>
+<li><p>X1 : surpoids</p></li>
+<li><p>X2 : profession (catégorielle à 4 modalités : cadre, intermédiaire, employé, ouvrier) : variable pas quantitative, pas ordonnée, pas binaire.</p></li>
+</ul>
+<p>Il faut recoder X2 en variables binaires (variables indicatrices) (besoin d’en faire que 3 variables binaires pour 4 modalités) :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Profession</th>
+<th>X2_cadre</th>
+<th>X2_intermédiaire</th>
+<th>X2_employé</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cadre</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Intermédiaire</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Employé</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Ouvrier</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><u>Donc le modèle devient</u> :<span class="math display">\[Y = \beta_0
++ \beta_1\,\text{surpoids}
++ \beta_2\,X2_{\text{cadre}}
++ \beta_3\,X2_{\text{intermédiaire}}
++ \beta_4\,X2_{\text{employé}}
++ \varepsilon\]</span>Et on peut même résumer : β2 est la différence moyenne de tension artérielle entre les cadres et les ouvriers (catégorie de référence), toutes les autres variables Xj (j ≠ 2) étant maintenues constantes.</p>
+<p><u>Pour choisir la profession de référence</u> : (fonction <code>relevel()</code> dans R)</p>
+<ul>
+<li><p>soit la catégorie la plus fréquente</p></li>
+<li><p>soit la catégorie la plus “neutre”</p></li>
+<li><p>mais le logiciel en choisit une par défaut (souvent la première par ordre alphabétique)</p></li>
+</ul>
+<p><u>Pour éviter d’avoir une catégorie de référence</u> :</p>
+<ul>
+<li><p>Exemple : comparaison inter-hôpitaux</p></li>
+<li><p>Utiliser des <strong>contrastes</strong></p></li>
+</ul>
+<p>Par exemple comparaison Lariboisière, Pompidou, Bichat, Beaujon</p>
+<p>tableau :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Hôpital</th>
+<th>X2_Lariboisière</th>
+<th>X2_Pompidou</th>
+<th>X2_Bichat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lariboisière</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Pompidou</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Bichat</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Beaujon</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>On crée des variables indicatrices mais on les code différemment (avec des -1 et des 1) :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 19%">
+<col style="width: 16%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hôpital</th>
+<th>X2_Lariboisière</th>
+<th>X2_Pompidou</th>
+<th>X2_Bichat</th>
+<th>X2_Beaujon</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lariboisière</td>
+<td>-1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Pompidou</td>
+<td>0</td>
+<td>-1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Bichat</td>
+<td>0</td>
+<td>0</td>
+<td>-1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Beaujon</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Dans ce cas, X2 est la différence de TAmoyenne en comparaison à l’effet moyen de tous les hôpitaux.</p>
+<p>Si nécessaire : vidéo à ≈ 30 minutes</p>
+</section>
+</section>
+<section id="réponse-aux-questions" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="réponse-aux-questions"><span class="header-section-number">1.3</span> Réponse aux questions</h2>
+<p>Modèle : Y = a0 + a1(X1*X2)</p>
+<p>Dans ce cas : interprétation difficile !!</p>
+<p>Le mieux est de faire Y = a0 + a1X1 + a2X2 + a3(X1*X2)</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="régression-logistique" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Régression logistique</h1>
+<p>Modélisation d’une variable dépendante binaire (0/1).</p>
+<p><span class="math display">\[\log\left(\frac{p}{1 - p}\right)= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k\]</span></p>
+<p>avec :</p>
+<ul>
+<li><p>p : probabilité que maladie = 1 (événement)</p></li>
+<li><p>(1-p) : probabilité que maladie = 0 (non-événement)</p></li>
+<li><p>log(p/(1-p)) : logit de p</p></li>
+</ul>
+<p>Sinon idem que pour la régression linéaire multiple mais pas de bruit ε (car variable dépendante binaire et on modélise la probabilité p).</p>
+<p>Ici :</p>
+<ul>
+<li><p>Y = maladie (0/1) pour HTA oui / non</p></li>
+<li><p><span class="math inline">\(\beta_1\)</span> : effet du surpoids sur l’HTA ou non</p>
+<ul>
+<li><p>et <span class="math inline">\(exp(\beta_1)\)</span> = OR ajusté sur <span class="math inline">\(\beta_2\)</span> de <span class="math inline">\(\beta_1\)</span> par rapport à l’HTA.</p></li>
+<li><p>c’est à dire : si le surpoids était rare (donc OR ≈ RR) et <span class="math inline">\(exp(\beta_1) = 2\)</span> , la probabilité d’avoir une HTA si l’on est en surpoids = 2.</p></li>
+</ul></li>
+</ul>
+<section id="interactions" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="interactions"><span class="header-section-number">2.1</span> Interactions</h2>
+<p>Exactement de la même manière qu’en régression linéaire ! et possible de recoder en -1 / 1 pour pas avoir de variable de référence.</p>
+</section>
+<section id="conditions-de-validité-de-la-régression-logistique" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="conditions-de-validité-de-la-régression-logistique"><span class="header-section-number">2.2</span> Conditions de validité de la régression logistique</h2>
+<ul>
+<li>Taille de l’échantillon suffisante (10 événements par variable explicative au minimum)</li>
+</ul>
+</section>
+<section id="autres-trucs" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="autres-trucs"><span class="header-section-number">2.3</span> Autres trucs :</h2>
+<ul>
+<li>Test de calibration / Hosmer-Lemeshow : accepter l’hypothèse nulle alors qu’on a pas la puissance !! Donc en théorie on ne peut pas vraiment faire ce test</li>
+</ul>
+</section>
+</section>
+<section id="références" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Références</h1>
+<p>Vidéo Falissard :</p>
+<iframe src="https://drive.google.com/file/d/1g9zV-fLWqy-DTZyFxqOAh0ZmxTOo86hD/preview" width="640" height="480" allow="autoplay">
+</iframe>
+<ul>
+<li><p><a href="https://larmarange.github.io/analyse-R/contrastes.html">Blog larmarange</a></p></li>
+<li><p><a href="https://www.youtube.com/watch?v=rAAh8rNLAOA">Webin-R</a></p></li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
