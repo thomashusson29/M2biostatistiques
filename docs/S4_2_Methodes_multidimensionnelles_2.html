@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>S4 1 Methodes multidimensionnelles 1 : ACP, SPH, ACPf</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/popper.min.js"></script>
+<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="S4_2_Methodes_multidimensionnelles_2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="S4_2_Methodes_multidimensionnelles_2_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#on-repart-du-cours-précédent" id="toc-on-repart-du-cours-précédent" class="nav-link active" data-scroll-target="#on-repart-du-cours-précédent"><span class="header-section-number">1</span> ON REPART DU COURS PRÉCÉDENT</a>
+  <ul>
+  <li><a href="#exemple-1" id="toc-exemple-1" class="nav-link" data-scroll-target="#exemple-1"><span class="header-section-number">1.1</span> Exemple 1</a>
+  <ul>
+  <li><a href="#représentation-des-variables" id="toc-représentation-des-variables" class="nav-link" data-scroll-target="#représentation-des-variables"><span class="header-section-number">1.1.1</span> Représentation des variables</a></li>
+  <li><a href="#interprétation-sociologique" id="toc-interprétation-sociologique" class="nav-link" data-scroll-target="#interprétation-sociologique"><span class="header-section-number">1.1.2</span> Interprétation sociologique</a></li>
+  <li><a href="#représentations-des-individus-par-groupes" id="toc-représentations-des-individus-par-groupes" class="nav-link" data-scroll-target="#représentations-des-individus-par-groupes"><span class="header-section-number">1.1.3</span> Représentations des individus par groupes</a></li>
+  </ul></li>
+  <li><a href="#exemple-2-échelle-de-dépression-depressive-mood-scale" id="toc-exemple-2-échelle-de-dépression-depressive-mood-scale" class="nav-link" data-scroll-target="#exemple-2-échelle-de-dépression-depressive-mood-scale"><span class="header-section-number">1.2</span> Exemple 2 : Échelle de dépression “Depressive mood scale”</a>
+  <ul>
+  <li><a href="#variances-de-lacp" id="toc-variances-de-lacp" class="nav-link" data-scroll-target="#variances-de-lacp"><span class="header-section-number">1.2.1</span> Variances de l’ACP</a></li>
+  <li><a href="#inteprétation" id="toc-inteprétation" class="nav-link" data-scroll-target="#inteprétation"><span class="header-section-number">1.2.2</span> Inteprétation :</a></li>
+  <li><a href="#représentation-sphérique-gagne-une-dimension" id="toc-représentation-sphérique-gagne-une-dimension" class="nav-link" data-scroll-target="#représentation-sphérique-gagne-une-dimension"><span class="header-section-number">1.2.3</span> Représentation sphérique : gagne une dimension</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#analyse-en-composante-principale-focalisée" id="toc-analyse-en-composante-principale-focalisée" class="nav-link" data-scroll-target="#analyse-en-composante-principale-focalisée"><span class="header-section-number">2</span> Analyse en composante principale focalisée</a></li>
+  <li><a href="#références" id="toc-références" class="nav-link" data-scroll-target="#références"><span class="header-section-number">3</span> Références</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S4_2_Methodes_multidimensionnelles_2.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S4_2_Methodes_multidimensionnelles_2.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">S4 1 Methodes multidimensionnelles 1 : ACP, SPH, ACPf</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="on-repart-du-cours-précédent" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> ON REPART DU COURS PRÉCÉDENT</h1>
+<p>Les points sont sur l’hypersphère :<br>
+<img src="images/paste-13.png" class="img-fluid" width="573"><br>
+<br>
+<br>
+On les projette sur le premier plan principal :</p>
+<p><img src="images/paste-14.png" class="img-fluid" width="475"></p>
+<ul>
+<li><p>Si diamétralement opposé : corrélés négativement</p></li>
+<li><p>Si proches : corrélés positivement</p></li>
+<li><p>Si perpendiculaires : pas corrélés (indépendants)</p></li>
+</ul>
+<section id="exemple-1" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="exemple-1"><span class="header-section-number">1.1</span> Exemple 1</h2>
+<p>7 variables ; 1 millions de données</p>
+<section id="représentation-des-variables" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="représentation-des-variables"><span class="header-section-number">1.1.1</span> Représentation des variables</h3>
+<p><img src="images/paste-15.png" class="img-fluid" width="650"></p>
+<p>Points proches du cercle = bonne qualité de représentation en ACP</p>
+<ul>
+<li><p>Consommation de pain et de lait corrélés</p></li>
+<li><p>Viande : corrélé positivement à volailles et fruits</p></li>
+<li><p>Vin : indépendant de volailles / viandes / fruits</p></li>
+</ul>
+</section>
+<section id="interprétation-sociologique" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="interprétation-sociologique"><span class="header-section-number">1.1.2</span> Interprétation sociologique</h3>
+<p>Population riche : Consomme plus de viande, fruits, vin</p>
+<p>Population ayant des enfants : Consomme plus de pain et lait</p>
+<p>Vin : classes populaires dans les années 50-60 !</p>
+</section>
+<section id="représentations-des-individus-par-groupes" class="level3" data-number="1.1.3">
+<h3 data-number="1.1.3" class="anchored" data-anchor-id="représentations-des-individus-par-groupes"><span class="header-section-number">1.1.3</span> Représentations des individus par groupes</h3>
+<ul>
+<li><p>On ne représente pas chaque individu (sinon 1 million de points)</p></li>
+<li><p>On fait des groupes (clustering) et on représente les centres des groupes (centre = moyenne des individus du groupe = barycentre)</p></li>
+</ul>
+<p><span class="math inline">\(\rightarrow\)</span> On représente le point moyen de tous les cadres ayant 3 enfants par exemple<br>
+</p>
+<p><img src="images/paste-16.png" class="img-fluid"></p>
+<ul>
+<li><p>MA5 : employé manuel avec 3 enfants (ménage = 5 personnes)</p></li>
+<li><p>EM5 : employé non manuel avec 3 enfants</p></li>
+<li><p>MA4 : travailleur manuel avec 2 enfants</p></li>
+<li><p>CA4 : cadre avec 2 enfants</p></li>
+</ul>
+<p>Et en fait ça s’interprète pareil !!</p>
+<ul>
+<li><p>La où il y a le pain et le lait : c’est les ménages de 5 personnes !</p></li>
+<li><p>Et à l’opposé : les familles qui ont peu d’enfant</p></li>
+<li><p>Là ou il y a les légumes / fruits / viande : ce sont les cadres</p></li>
+<li><p>Vin : surtout employés manuels</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Les composantes principales des variables sont proches mathématiquement des composantes principales des sujets !</strong></p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="exemple-2-échelle-de-dépression-depressive-mood-scale" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="exemple-2-échelle-de-dépression-depressive-mood-scale"><span class="header-section-number">1.2</span> Exemple 2 : Échelle de dépression “Depressive mood scale”</h2>
+<p>Beaucoup de critères qui se ressemblent :</p>
+<p><img src="images/paste-17.png" class="img-fluid" width="761"></p>
+<p>En ACP :</p>
+<p><img src="images/paste-18.png" class="img-fluid" width="694"></p>
+<section id="variances-de-lacp" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="variances-de-lacp"><span class="header-section-number">1.2.1</span> Variances de l’ACP</h3>
+<ul>
+<li><p>Variance de l’ACP1 = 24% et variance de l’ACP2 = 21%</p></li>
+<li><p>Donc les 2 premières composantes capturent 45% de la variance totale = c’est à dire qu’on explique pas mal de données</p></li>
+</ul>
+</section>
+<section id="inteprétation" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="inteprétation"><span class="header-section-number">1.2.2</span> Inteprétation :</h3>
+<ul>
+<li>Distorsion + marquée que précédemment : les points sont plus éloignés du cercle (+ proches du centre)</li>
+</ul>
+<p><img src="images/paste-19.png" class="img-fluid" width="688"></p>
+<ul>
+<li><p>3 paquets de réponses :</p>
+<ol type="1">
+<li>À gauche : déprimés émoussés</li>
+<li>À droite : déprimés irritables</li>
+<li>En bas : tristesse, anhédonie : “à part” = axe principal de la dépression</li>
+</ol></li>
+</ul>
+<p>Et en fait on peut même interpréter la construction du truc !</p>
+<ul>
+<li><p>ACP1 : axe qui explique le plus la variance = sur lequel les points sont les plus éloignés</p>
+<ul>
+<li><p>Correspond à l’axe des x ici (abscisse)</p></li>
+<li><p>Sur cet axe : opposition émoussé vs irritable</p></li>
+<li><p>Et donc on peut dire que cette opposition explique le plus de variabilité du phénotype dépressif</p></li>
+</ul></li>
+<li><p>ACP2 : axe qui explique le 2ème plus la variance = axe des y ici (ordonnée)</p>
+<ul>
+<li>Ici : explique <strong>l’intensité des symptômes dépressifs</strong></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Méthodes approximatives, mais c’est pas si mal !</p>
+<ul>
+<li><p>alpha et beta et p : on pense avoir trouvé quelque chose de scientifique et d’incontournable</p></li>
+<li><p>toujours un risque ! on sait pas exactement ce que dit le petit p</p></li>
+<li><p>quand c’est pas vraiment tiré au sort : le petit p est la probabilité que le hasard puisse exprimer a lui seul un effet aussi grand que celui qu’on observe</p></li>
+<li><p>mais le hasard, c’est qu’on imagine que l’échantillon est tiré d’une population initiale hypothétique infinie !</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="représentation-sphérique-gagne-une-dimension" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="représentation-sphérique-gagne-une-dimension"><span class="header-section-number">1.2.3</span> Représentation sphérique : gagne une dimension</h3>
+<p><img src="images/paste-20.png" class="img-fluid"></p>
+<p>On a l’impression qu’il y a plus de paquets : parce que gagne une dimension !</p>
+<p>Questions : ACP</p>
+</section>
+</section>
+</section>
+<section id="analyse-en-composante-principale-focalisée" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Analyse en composante principale focalisée</h1>
+<p>Projeté sur un plan tangentiel à une des variables</p>
+<p><img src="images/paste-21.png" class="img-fluid"></p>
+<p><img src="images/paste-22.png" class="img-fluid" width="705"></p>
+<p>Permet de voir les corrélations mais pas d’infos sur la qualité des variables</p>
+</section>
+<section id="références" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Références</h1>
+<p>Vidéo Falissard:</p>
+<iframe src="https://drive.google.com/file/d/1U_W6GC3uFV048368TnTbLqFYjBbq4Neg/preview" width="640" height="480" allow="autoplay">
+</iframe>
+<ul>
+<li><p><a href="https://larmarange.github.io/analyse-R/analyse-des-correspondances-multiples.html">Blog larmarange</a></p></li>
+<li><p><a href="https://www.youtube.com/watch?v=fIZblrfenz0A">Webin-R</a></p></li>
+<li><p><a href="https://mtes-mct.github.io/parcours_r_module_analyse_multi_dimensionnelles/">Site ministère</a></p></li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
