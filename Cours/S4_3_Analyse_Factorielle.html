@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>S4 1 Methodes multidimensionnelles 1 : ACP, SPH, ACPf</title>
+<title>S4 3 Analyse Factorielle</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,18 +23,18 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/clipboard/clipboard.min.js"></script>
-<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/popper.min.js"></script>
-<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/anchor.min.js"></script>
-<link href="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="S4_2_Methodes_multidimensionnelles_2_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="S4_2_Methodes_multidimensionnelles_2_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="S4_2_Methodes_multidimensionnelles_2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="S4_2_Methodes_multidimensionnelles_2_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="S4_3_Analyse_Factorielle_files/libs/clipboard/clipboard.min.js"></script>
+<script src="S4_3_Analyse_Factorielle_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="S4_3_Analyse_Factorielle_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="S4_3_Analyse_Factorielle_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="S4_3_Analyse_Factorielle_files/libs/quarto-html/popper.min.js"></script>
+<script src="S4_3_Analyse_Factorielle_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="S4_3_Analyse_Factorielle_files/libs/quarto-html/anchor.min.js"></script>
+<link href="S4_3_Analyse_Factorielle_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="S4_3_Analyse_Factorielle_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="S4_3_Analyse_Factorielle_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="S4_3_Analyse_Factorielle_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="S4_3_Analyse_Factorielle_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -76,25 +76,27 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#on-repart-du-cours-précédent" id="toc-on-repart-du-cours-précédent" class="nav-link active" data-scroll-target="#on-repart-du-cours-précédent"><span class="header-section-number">1</span> ON REPART DU COURS PRÉCÉDENT</a>
+  <li><a href="#principes-de-lanalyse-factorielle" id="toc-principes-de-lanalyse-factorielle" class="nav-link active" data-scroll-target="#principes-de-lanalyse-factorielle"><span class="header-section-number">1</span> Principes de l’analyse factorielle</a></li>
+  <li><a href="#analyse-factorielle-à-un-facteur" id="toc-analyse-factorielle-à-un-facteur" class="nav-link" data-scroll-target="#analyse-factorielle-à-un-facteur"><span class="header-section-number">2</span> Analyse factorielle à un facteur</a>
   <ul>
-  <li><a href="#exemple-1" id="toc-exemple-1" class="nav-link" data-scroll-target="#exemple-1"><span class="header-section-number">1.1</span> Exemple 1</a>
+  <li><a href="#modélisation" id="toc-modélisation" class="nav-link" data-scroll-target="#modélisation"><span class="header-section-number">2.1</span> Modélisation</a></li>
+  <li><a href="#exemple" id="toc-exemple" class="nav-link" data-scroll-target="#exemple"><span class="header-section-number">2.2</span> Exemple</a></li>
+  </ul></li>
+  <li><a href="#utilisation-surtout-analyse-factorielle-à-1-facteur" id="toc-utilisation-surtout-analyse-factorielle-à-1-facteur" class="nav-link" data-scroll-target="#utilisation-surtout-analyse-factorielle-à-1-facteur"><span class="header-section-number">3</span> Utilisation : surtout analyse factorielle à &gt; 1 facteur</a>
   <ul>
-  <li><a href="#représentation-des-variables" id="toc-représentation-des-variables" class="nav-link" data-scroll-target="#représentation-des-variables"><span class="header-section-number">1.1.1</span> Représentation des variables</a></li>
-  <li><a href="#interprétation-sociologique" id="toc-interprétation-sociologique" class="nav-link" data-scroll-target="#interprétation-sociologique"><span class="header-section-number">1.1.2</span> Interprétation sociologique</a></li>
-  <li><a href="#représentations-des-individus-par-groupes" id="toc-représentations-des-individus-par-groupes" class="nav-link" data-scroll-target="#représentations-des-individus-par-groupes"><span class="header-section-number">1.1.3</span> Représentations des individus par groupes</a></li>
+  <li><a href="#indétermination" id="toc-indétermination" class="nav-link" data-scroll-target="#indétermination"><span class="header-section-number">3.1</span> Indétermination</a></li>
+  <li><a href="#rotation" id="toc-rotation" class="nav-link" data-scroll-target="#rotation"><span class="header-section-number">3.2</span> Rotation</a></li>
   </ul></li>
-  <li><a href="#exemple-2-échelle-de-dépression-depressive-mood-scale" id="toc-exemple-2-échelle-de-dépression-depressive-mood-scale" class="nav-link" data-scroll-target="#exemple-2-échelle-de-dépression-depressive-mood-scale"><span class="header-section-number">1.2</span> Exemple 2 : Échelle de dépression “Depressive mood scale”</a>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">4</span> </a></li>
+  <li><a href="#a-nouveau-lexemple-sur-la-dépression" id="toc-a-nouveau-lexemple-sur-la-dépression" class="nav-link" data-scroll-target="#a-nouveau-lexemple-sur-la-dépression"><span class="header-section-number">5</span> A nouveau l’exemple sur la dépression :</a>
   <ul>
-  <li><a href="#variances-de-lacp" id="toc-variances-de-lacp" class="nav-link" data-scroll-target="#variances-de-lacp"><span class="header-section-number">1.2.1</span> Variances de l’ACP</a></li>
-  <li><a href="#inteprétation" id="toc-inteprétation" class="nav-link" data-scroll-target="#inteprétation"><span class="header-section-number">1.2.2</span> Inteprétation :</a></li>
-  <li><a href="#représentation-sphérique-gagne-une-dimension" id="toc-représentation-sphérique-gagne-une-dimension" class="nav-link" data-scroll-target="#représentation-sphérique-gagne-une-dimension"><span class="header-section-number">1.2.3</span> Représentation sphérique : gagne une dimension</a></li>
+  <li><a href="#analyse-factorielle-à-4-facteurs-avec-rotation-varimax." id="toc-analyse-factorielle-à-4-facteurs-avec-rotation-varimax." class="nav-link" data-scroll-target="#analyse-factorielle-à-4-facteurs-avec-rotation-varimax."><span class="header-section-number">5.1</span> Analyse factorielle à 4 facteurs avec rotation varimax.</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#analyse-en-composante-principale-focalisée" id="toc-analyse-en-composante-principale-focalisée" class="nav-link" data-scroll-target="#analyse-en-composante-principale-focalisée"><span class="header-section-number">2</span> Analyse en composante principale focalisée</a></li>
-  <li><a href="#références" id="toc-références" class="nav-link" data-scroll-target="#références"><span class="header-section-number">3</span> Références</a></li>
+  <li><a href="#relation-acp-analyse-factorielle" id="toc-relation-acp-analyse-factorielle" class="nav-link" data-scroll-target="#relation-acp-analyse-factorielle"><span class="header-section-number">6</span> Relation ACP / Analyse factorielle</a></li>
+  <li><a href="#comment-choisir-le-nb-de-facteurs" id="toc-comment-choisir-le-nb-de-facteurs" class="nav-link" data-scroll-target="#comment-choisir-le-nb-de-facteurs"><span class="header-section-number">7</span> Comment choisir le nb de facteurs ?</a></li>
+  <li><a href="#références" id="toc-références" class="nav-link" data-scroll-target="#références"><span class="header-section-number">8</span> Références</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S4_2_Methodes_multidimensionnelles_2.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S4_2_Methodes_multidimensionnelles_2.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S4_3_Analyse_Factorielle.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S4_3_Analyse_Factorielle.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -102,7 +104,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">S4 1 Methodes multidimensionnelles 1 : ACP, SPH, ACPf</h1>
+<h1 class="title">S4 3 Analyse Factorielle</h1>
 </div>
 
 
@@ -119,160 +121,159 @@ window.Quarto = {
 </header>
 
 
-<section id="on-repart-du-cours-précédent" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> ON REPART DU COURS PRÉCÉDENT</h1>
-<p>Les points sont sur l’hypersphère :<br>
-<img src="Cours/images/paste-13.png" class="img-fluid" width="573"><br>
-<br>
-<br>
-On les projette sur le premier plan principal :</p>
-<p><img src="Cours/images/paste-14.png" class="img-fluid" width="475"></p>
+<section id="principes-de-lanalyse-factorielle" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Principes de l’analyse factorielle</h1>
 <ul>
-<li><p>Si diamétralement opposé : corrélés négativement</p></li>
-<li><p>Si proches : corrélés positivement</p></li>
-<li><p>Si perpendiculaires : pas corrélés (indépendants)</p></li>
-</ul>
-<section id="exemple-1" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="exemple-1"><span class="header-section-number">1.1</span> Exemple 1</h2>
-<p>7 variables ; 1 millions de données</p>
-<section id="représentation-des-variables" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="représentation-des-variables"><span class="header-section-number">1.1.1</span> Représentation des variables</h3>
-<p><img src="Cours/images/paste-15.png" class="img-fluid" width="650"></p>
-<p>Points proches du cercle = bonne qualité de représentation en ACP</p>
-<ul>
-<li><p>Consommation de pain et de lait corrélés</p></li>
-<li><p>Viande : corrélé positivement à volailles et fruits</p></li>
-<li><p>Vin : indépendant de volailles / viandes / fruits</p></li>
+<li><p>Modèles : comme régression (avec résidus etc)</p></li>
+<li><p>Hyper utile pour données subjectives</p></li>
+<li><p>Ne permet pas de conclure</p></li>
 </ul>
 </section>
-<section id="interprétation-sociologique" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="interprétation-sociologique"><span class="header-section-number">1.1.2</span> Interprétation sociologique</h3>
-<p>Population riche : Consomme plus de viande, fruits, vin</p>
-<p>Population ayant des enfants : Consomme plus de pain et lait</p>
-<p>Vin : classes populaires dans les années 50-60 !</p>
+<section id="analyse-factorielle-à-un-facteur" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Analyse factorielle à un facteur</h1>
+<p>On imagine une réponse des sujets i à des variables 1, 2, 3, 4, 5</p>
+<p><span class="math inline">\(I^i_1 = a_1 + b_1 \theta^i + e^i_1\)</span></p>
+<p><span class="math inline">\(I^i_2 = a_2 + b_2 \theta^i + e^i_2\)</span></p>
+<p><span class="math inline">\(I^i_3 = a_3 + b_3 \theta^i + e^i_3\)</span></p>
+<p><span class="math inline">\(I^i_4 = a_4 + b_4 \theta^i + e^i_4\)</span></p>
+<p><span class="math inline">\(I^i_5 = a_5 + b_5 \theta^i + e^i_5\)</span></p>
+<p>Avec</p>
+<ul>
+<li><p><span class="math inline">\(\theta_i\)</span> : caractéristique commune aux variables</p></li>
+<li><p><span class="math inline">\(e^i\)</span> : terme regroupant l’erreur de mesure et la part spécifique à la variable</p></li>
+</ul>
+<section id="modélisation" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="modélisation"><span class="header-section-number">2.1</span> Modélisation</h2>
+<p>On modélise ces variables sous la forme d’une <strong>régression linéaire simple</strong> (car analyse en un facteur)</p>
+<p>Avec <span class="math inline">\(\theta_i\)</span> : variable dont on fait l’hypothèse qu’elle existe, mais n’est pas mesurée (elle n’est pas dans le jeu de données)</p>
+<p>Pour calculer les paramètres, on combine les équations pour supprimer <span class="math inline">\(\theta_i\)</span>.</p>
 </section>
-<section id="représentations-des-individus-par-groupes" class="level3" data-number="1.1.3">
-<h3 data-number="1.1.3" class="anchored" data-anchor-id="représentations-des-individus-par-groupes"><span class="header-section-number">1.1.3</span> Représentations des individus par groupes</h3>
-<ul>
-<li><p>On ne représente pas chaque individu (sinon 1 million de points)</p></li>
-<li><p>On fait des groupes (clustering) et on représente les centres des groupes (centre = moyenne des individus du groupe = barycentre)</p></li>
-</ul>
-<p><span class="math inline">\(\rightarrow\)</span> On représente le point moyen de tous les cadres ayant 3 enfants par exemple<br>
-</p>
-<p><img src="Cours/images/paste-16.png" class="img-fluid"></p>
-<ul>
-<li><p>MA5 : employé manuel avec 3 enfants (ménage = 5 personnes)</p></li>
-<li><p>EM5 : employé non manuel avec 3 enfants</p></li>
-<li><p>MA4 : travailleur manuel avec 2 enfants</p></li>
-<li><p>CA4 : cadre avec 2 enfants</p></li>
-</ul>
-<p>Et en fait ça s’interprète pareil !!</p>
-<ul>
-<li><p>La où il y a le pain et le lait : c’est les ménages de 5 personnes !</p></li>
-<li><p>Et à l’opposé : les familles qui ont peu d’enfant</p></li>
-<li><p>Là ou il y a les légumes / fruits / viande : ce sont les cadres</p></li>
-<li><p>Vin : surtout employés manuels</p></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="exemple" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="exemple"><span class="header-section-number">2.2</span> Exemple</h2>
+<p>On fait un test de QI avec 5 “subtests” (variables)</p>
+<p><span class="math inline">\(\rightarrow\)</span> donc 5 tests</p>
+<p>On fait l’hypothèse que la réponse à chacun de ces tests = une régression linéaire sur une seule variable = le QI global</p>
+<p><span class="math inline">\(\rightarrow\)</span> Donc c’est la même variable pour tous les 5 tests</p>
+<p>Si ces 5 épreuves cognitives sont reliées à une seule et même variable : ils sont reliés à la <strong>capacité cognitive générale</strong>.</p>
+<p>Donc si quelque soit l’épreuve, le répondant réussit bien, c’est qu’il existe une variable latente <span class="math inline">\(\theta\)</span> (capacité cognitive générale) qui explique la performance à chaque épreuve.</p>
+<p><span class="math inline">\(\rightarrow\)</span> Et ainsi on peut estimer <span class="math inline">\(\theta\)</span> = l’intelligence en la <strong>quantifiant</strong>.</p>
+<div class="graybox">
+<p>C’est pourquoi on ne peut parfois pas faire de test de QI car les composantes sont trop différentes entre elles.</p>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Les composantes principales des variables sont proches mathématiquement des composantes principales des sujets !</strong></p>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="exemple-2-échelle-de-dépression-depressive-mood-scale" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="exemple-2-échelle-de-dépression-depressive-mood-scale"><span class="header-section-number">1.2</span> Exemple 2 : Échelle de dépression “Depressive mood scale”</h2>
-<p>Beaucoup de critères qui se ressemblent :</p>
-<p><img src="Cours/images/paste-17.png" class="img-fluid" width="761"></p>
-<p>En ACP :</p>
-<p><img src="Cours/images/paste-18.png" class="img-fluid" width="694"></p>
-<section id="variances-de-lacp" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="variances-de-lacp"><span class="header-section-number">1.2.1</span> Variances de l’ACP</h3>
+<section id="utilisation-surtout-analyse-factorielle-à-1-facteur" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Utilisation : surtout analyse factorielle à &gt; 1 facteur</h1>
+<p>On rajoute un facteur <span class="math inline">\(\mu\)</span></p>
+<p><span class="math inline">\(I^i_1 = a_1 + b_1 \theta^i + c_1 \mu^i + e^i_1\)</span> (calcul)</p>
+<p><span class="math inline">\(I^i_2 = a_2 + b_2 \theta^i + c_2 \mu^i + e^i_2\)</span> (problèmes)</p>
+<p><span class="math inline">\(I^i_3 = a_3 + b_3 \theta^i + c_3 \mu^i + e^i_3\)</span> (récitation)</p>
+<p><span class="math inline">\(I^i_4 = a_4 + b_4 \theta^i + c_4 \mu^i + e^i_4\)</span> (histoire)</p>
+<p><span class="math inline">\(I^i_5 = a_5 + b_5 \theta^i + c_5 \mu^i + e^i_5\)</span> (grammaire)</p>
+<p>Imaginons : que <span class="math inline">\(\theta\)</span> soit dominant pour certains tests / et <span class="math inline">\(\mu\)</span> pour d’autres (pour lesquels <span class="math inline">\(\theta\)</span> est tout petit, et inversement)</p>
+<p>Et donc on peut dire (avec un raisonnement inductif et exploratoire) que :</p>
 <ul>
-<li><p>Variance de l’ACP1 = 24% et variance de l’ACP2 = 21%</p></li>
-<li><p>Donc les 2 premières composantes capturent 45% de la variance totale = c’est à dire qu’on explique pas mal de données</p></li>
+<li><p><span class="math inline">\(\theta\)</span> = capacité verbale = QI verbal</p></li>
+<li><p><span class="math inline">\(\mu\)</span> = capacité calculatoire = QI de performance</p></li>
+</ul>
+<p><em>et plein d’autres dimensions</em></p>
+<section id="indétermination" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="indétermination"><span class="header-section-number">3.1</span> Indétermination</h2>
+<p>On peut se poser la question si toutes ces variables dépendent d’une <strong>méta-variable</strong> (facteur supérieur).</p>
+<p>Le pb : c’est que l’équation actuelle (le modèle des 5 réponses) est indéterminé, c’est à dire qu’il a un nombre infini de solutions.</p>
+<p>Mais toutes ces solutions sont interprétées de la même façon : donc elles disent toutes la même chose.</p>
+<p>Indétermination : quand on a une solution, on peut en trouver une autre grace à une <strong>“rotation”</strong> (c comme ça)</p>
+</section>
+<section id="rotation" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="rotation"><span class="header-section-number">3.2</span> Rotation</h2>
+<p>Tout le monde utilise la même rotation : la rotation varimax (orthogonale)</p>
+<p>Donc en fait c’est plus vraiment indéterminé.</p>
+<p>C’est comme si on faisait une ACP et qu’on réorganisait les axes pour mieux comprendre et mieux voir les choses.</p>
+<p>A gauche : avant rotation varimax, à droite : après. On voit que c’est plus flagrant que les variables sont indépendantes.</p>
+<p><img src="Cours/images/paste-23.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="section" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> </h1>
+</section>
+<section id="a-nouveau-lexemple-sur-la-dépression" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> A nouveau l’exemple sur la dépression :</h1>
+<section id="analyse-factorielle-à-4-facteurs-avec-rotation-varimax." class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="analyse-factorielle-à-4-facteurs-avec-rotation-varimax."><span class="header-section-number">5.1</span> Analyse factorielle à 4 facteurs avec rotation varimax.</h2>
+<p><img src="Cours/images/paste-24.png" class="img-fluid" width="566"></p>
+<ul>
+<li><p>En gras : coefficients <u>élevés</u></p></li>
+<li><p>Ici : Factor 1 ( <span class="math inline">\(\theta\)</span> ) correspond à un groupe de variables (instabilité émotionnelle : en + et en -) <span class="math inline">\(\rightarrow\)</span> <strong>dimension</strong> car de -1 à +1</p></li>
+<li><p>Factor 2 ( <span class="math inline">\(\mu\)</span> ) : symptômes ressentis (<em>Felt symptoms</em>)</p></li>
+<li><p>Factor 3 ( <span class="math inline">\(\nu\)</span> ) : anhédonie</p></li>
+<li><p>Factor 4 ( <span class="math inline">\(\xi\)</span> ) : tristesse + mimique inquiète + hyperexpressivité émotionnelle</p></li>
 </ul>
 </section>
-<section id="inteprétation" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="inteprétation"><span class="header-section-number">1.2.2</span> Inteprétation :</h3>
+</section>
+<section id="relation-acp-analyse-factorielle" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Relation ACP / Analyse factorielle</h1>
+<p>Si on avait fait une analyse factorielle à 2 facteurs, on aurait retrouvé à peu près les mêmes résultats que l’ACP.</p>
+<p>Mais c’est pas pareil :</p>
 <ul>
-<li>Distorsion + marquée que précédemment : les points sont plus éloignés du cercle (+ proches du centre)</li>
+<li><p>ACP : droites avec directions qui représentent l’étirement maximal des variables</p></li>
+<li><p>Analyse factorielle : modèle avec coefficients et résidus</p></li>
 </ul>
-<p><img src="Cours/images/paste-19.png" class="img-fluid" width="688"></p>
+<p>Donc pendant longtemps, on a fait de l’ACP (plus simple) pour faire de l’analyse factorielle car l’un était une approximation de l’autre.</p>
+<p>Sur R :</p>
 <ul>
-<li><p>3 paquets de réponses :</p>
+<li><p><code>factanal()</code> : fonction pour faire de l’analyse factorielle (package : stats)</p></li>
+<li><p><code>printcomp()</code> ou <code>mdspca</code> : fonction pour faire de l’ACP (packages : psych, psy)</p></li>
+</ul>
+</section>
+<section id="comment-choisir-le-nb-de-facteurs" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Comment choisir le nb de facteurs ?</h1>
+<p>Il existe un “test d’adéquation” mais en vrai c’est pas terrible car on cherche toujours à rejeter l’hypothèse nulle (et on ne connait pas <span class="math inline">\(\beta\)</span>)</p>
+<p>Autre méthode :</p>
 <ol type="1">
-<li>À gauche : déprimés émoussés</li>
-<li>À droite : déprimés irritables</li>
-<li>En bas : tristesse, anhédonie : “à part” = axe principal de la dépression</li>
+<li><p>Faire une ACP (qui enferme le jeu de données dans une autre boîte)</p></li>
+<li><p>Si une dimension enferme bcp de données (c’est à dire qu’elle a une grosse valeur propre) : on la garde</p>
+<ul>
+<li><p>valeurs propres : dans la boite de l’ACP (la première dimension) : chaque valeur propre correspond à une “longueur” de la boîte</p></li>
+<li><p>1ère valeur propre = plus grande longueur de la boîte</p></li>
+<li><p>Donc valeur propre = <strong>variance des points sur les composantes principales</strong></p></li>
+<li><p><img src="Cours/images/paste-28.png" class="img-fluid" width="525"></p></li>
+<li><p>Si la 1ère est très longue et les autres non : la boite rssemble à un stylo</p></li>
+<li><p>Dans ce cas on fera une analyse factorielle à 1 facteur</p></li>
+</ul></li>
+<li><p>Pour faire une sélection : on fait une analyse parallèle</p>
+<ol type="1">
+<li><p>On simule des données aléatoires au sein du jeu de données (même nb de variables et d’observations) : par ex 20</p></li>
+<li><p>On fait un scree plot (= diagramme des valeurs propres) pour voir où il y a un coude, et on garde les facteurs avant le coude.</p></li>
 </ol></li>
+</ol>
+<p><img src="Cours/images/paste-26.png" class="img-fluid" width="727"></p>
+<p>Code R pour faire un scree plot : <code>fa.parallel()</code></p>
+<p>Questions :</p>
+<p>Si les facteurs n’évoquent rien de tangible / connu <span class="math inline">\(\rightarrow\)</span> : dans ce cas on essaie d’autres facteurs / en prendre +…</p>
+<p>Bonus :</p>
+<p>Qu’est-ce qu’une valeur propre (dans une ACP ou analyse factorielle) ?</p>
+<p>On imagine un gros nuage de points (les données) avec une direction : un axe.</p>
+<p><span class="math inline">\(\rightarrow\)</span> La valeur propre = la quantité de variabilité (d’information) que cet axe arrive à capturer.</p>
+<ul>
+<li><p>Une grande valeur propre = l’axe explique beaucoup de choses dans les données.</p></li>
+<li><p>donc cet axe (= ce facteur) est utile, on le garde.</p></li>
+<li><p>Une petite valeur propre = l’axe n’explique pas grand-chose, il est presque du bruit = on ne le garde pas.</p></li>
 </ul>
-<p>Et en fait on peut même interpréter la construction du truc !</p>
+<p>Il faut imaginer qu’on regarde les données dans un certain sens :</p>
 <ul>
-<li><p>ACP1 : axe qui explique le plus la variance = sur lequel les points sont les plus éloignés</p>
-<ul>
-<li><p>Correspond à l’axe des x ici (abscisse)</p></li>
-<li><p>Sur cet axe : opposition émoussé vs irritable</p></li>
-<li><p>Et donc on peut dire que cette opposition explique le plus de variabilité du phénotype dépressif</p></li>
-</ul></li>
-<li><p>ACP2 : axe qui explique le 2ème plus la variance = axe des y ici (ordonnée)</p>
-<ul>
-<li>Ici : explique <strong>l’intensité des symptômes dépressifs</strong></li>
-</ul></li>
+<li><p>Si on regarde dans le bon sens, on voit que les données sont très étirées : grande valeur propre.</p></li>
+<li><p>Si on regarde les données dans un sens ou les formes sont rondes : petite valeur propre.</p></li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Méthodes approximatives, mais c’est pas si mal !</p>
-<ul>
-<li><p>alpha et beta et p : on pense avoir trouvé quelque chose de scientifique et d’incontournable</p></li>
-<li><p>toujours un risque ! on sait pas exactement ce que dit le petit p</p></li>
-<li><p>quand c’est pas vraiment tiré au sort : le petit p est la probabilité que le hasard puisse exprimer a lui seul un effet aussi grand que celui qu’on observe</p></li>
-<li><p>mais le hasard, c’est qu’on imagine que l’échantillon est tiré d’une population initiale hypothétique infinie !</p></li>
-</ul>
-</div>
-</div>
 </section>
-<section id="représentation-sphérique-gagne-une-dimension" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="représentation-sphérique-gagne-une-dimension"><span class="header-section-number">1.2.3</span> Représentation sphérique : gagne une dimension</h3>
-<p><img src="Cours/images/paste-20.png" class="img-fluid"></p>
-<p>On a l’impression qu’il y a plus de paquets : parce que gagne une dimension !</p>
-<p>Questions : ACP</p>
-</section>
-</section>
-</section>
-<section id="analyse-en-composante-principale-focalisée" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Analyse en composante principale focalisée</h1>
-<p>Projeté sur un plan tangentiel à une des variables</p>
-<p><img src="Cours/images/paste-21.png" class="img-fluid"></p>
-<p><img src="Cours/images/paste-22.png" class="img-fluid" width="705"></p>
-<p>Permet de voir les corrélations mais pas d’infos sur la qualité des variables</p>
-</section>
-<section id="références" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Références</h1>
+<section id="références" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Références</h1>
 <p>Vidéo Falissard:</p>
 <iframe src="https://drive.google.com/file/d/1U_W6GC3uFV048368TnTbLqFYjBbq4Neg/preview" width="640" height="480" allow="autoplay">
 </iframe>
 <ul>
-<li><p><a href="https://larmarange.github.io/analyse-R/analyse-des-correspondances-multiples.html">Blog larmarange</a></p></li>
-<li><p><a href="https://www.youtube.com/watch?v=fIZblrfenz0A">Webin-R</a></p></li>
-<li><p><a href="https://mtes-mct.github.io/parcours_r_module_analyse_multi_dimensionnelles/">Site ministère</a></p></li>
+<li><p><a href="https://larmarange.github.io/guide-R/analyses_avancees/analyse-factorielle.html">Blog larmarange</a></p></li>
+<li><p><a href="https://mate-shs.cnrs.fr/actions/tutomate/tuto32-les-analyses-factorielles-multiples-afm-amand/analyse-factorielle-multiple-avec-r/">Exercice CNRS</a></p></li>
+<li><p><a href="https://lbmc.gitbiopages.ens-lyon.fr/biocomp/posts/2019/acp/">Lyon</a></p></li>
 </ul>
 </section>
 
