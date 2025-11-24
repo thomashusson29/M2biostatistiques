@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>S4 4 Clinimetrie</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="S4_4_Clinimetrie_files/libs/clipboard/clipboard.min.js"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/popper.min.js"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/anchor.min.js"></script>
+<link href="S4_4_Clinimetrie_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="S4_4_Clinimetrie_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="S4_4_Clinimetrie_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="S4_4_Clinimetrie_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="S4_4_Clinimetrie_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#définition-de-la-clinimétrie" id="toc-définition-de-la-clinimétrie" class="nav-link active" data-scroll-target="#définition-de-la-clinimétrie"><span class="header-section-number">1</span> Définition de la clinimétrie</a></li>
+  <li><a href="#accord-inter-juge" id="toc-accord-inter-juge" class="nav-link" data-scroll-target="#accord-inter-juge"><span class="header-section-number">2</span> Accord inter-juge</a>
+  <ul>
+  <li><a href="#accord-inter-juge-dune-variable-binaire" id="toc-accord-inter-juge-dune-variable-binaire" class="nav-link" data-scroll-target="#accord-inter-juge-dune-variable-binaire"><span class="header-section-number">2.1</span> Accord inter-juge d’une variable binaire</a>
+  <ul>
+  <li><a href="#exemple-diagnostic-dune-appendicite-ouinon" id="toc-exemple-diagnostic-dune-appendicite-ouinon" class="nav-link" data-scroll-target="#exemple-diagnostic-dune-appendicite-ouinon"><span class="header-section-number">2.1.1</span> <strong>Exemple : diagnostic d’une appendicite (OUI/NON)</strong></a></li>
+  <li><a href="#concordance" id="toc-concordance" class="nav-link" data-scroll-target="#concordance"><span class="header-section-number">2.1.2</span> <strong>Concordance</strong></a></li>
+  <li><a href="#concordance-corrigée" id="toc-concordance-corrigée" class="nav-link" data-scroll-target="#concordance-corrigée"><span class="header-section-number">2.1.3</span> <strong>Concordance corrigée</strong></a></li>
+  <li><a href="#exemple-diagnostic-à-plusieurs-classes" id="toc-exemple-diagnostic-à-plusieurs-classes" class="nav-link" data-scroll-target="#exemple-diagnostic-à-plusieurs-classes"><span class="header-section-number">2.1.4</span> Exemple diagnostic à plusieurs classes</a></li>
+  </ul></li>
+  <li><a href="#acord-inter-juge-dune-variable-ordonnée" id="toc-acord-inter-juge-dune-variable-ordonnée" class="nav-link" data-scroll-target="#acord-inter-juge-dune-variable-ordonnée"><span class="header-section-number">2.2</span> Acord inter-juge d’une variable ordonnée</a></li>
+  <li><a href="#avec-3-juges" id="toc-avec-3-juges" class="nav-link" data-scroll-target="#avec-3-juges"><span class="header-section-number">2.3</span> Avec 3 juges</a></li>
+  <li><a href="#interprétation-du-kappa-de-cohen" id="toc-interprétation-du-kappa-de-cohen" class="nav-link" data-scroll-target="#interprétation-du-kappa-de-cohen"><span class="header-section-number">2.4</span> Interprétation du Kappa de Cohen</a></li>
+  <li><a href="#intervalle-de-confiance-du-kappa" id="toc-intervalle-de-confiance-du-kappa" class="nav-link" data-scroll-target="#intervalle-de-confiance-du-kappa"><span class="header-section-number">2.5</span> Intervalle de confiance du Kappa</a></li>
+  <li><a href="#différence-avec-pabak" id="toc-différence-avec-pabak" class="nav-link" data-scroll-target="#différence-avec-pabak"><span class="header-section-number">2.6</span> Différence avec PABAK</a></li>
+  <li><a href="#exemples-sur-r" id="toc-exemples-sur-r" class="nav-link" data-scroll-target="#exemples-sur-r"><span class="header-section-number">2.7</span> Exemples sur R</a>
+  <ul>
+  <li><a href="#catégories" id="toc-catégories" class="nav-link" data-scroll-target="#catégories"><span class="header-section-number">2.7.1</span> 2 catégories</a></li>
+  <li><a href="#catégories-1" id="toc-catégories-1" class="nav-link" data-scroll-target="#catégories-1"><span class="header-section-number">2.7.2</span> 3 catégories</a></li>
+  <li><a href="#kappa-pondéré" id="toc-kappa-pondéré" class="nav-link" data-scroll-target="#kappa-pondéré"><span class="header-section-number">2.7.3</span> kappa pondéré</a></li>
+  <li><a href="#kappa-de-light-3-juges" id="toc-kappa-de-light-3-juges" class="nav-link" data-scroll-target="#kappa-de-light-3-juges"><span class="header-section-number">2.7.4</span> kappa de light (3 juges)</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S4_4_Clinimetrie.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S4_4_Clinimetrie.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">S4 4 Clinimetrie</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="définition-de-la-clinimétrie" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Définition de la clinimétrie</h1>
+<p>La clinimétrie est une discipline qui s’intéresse à la mesure des phénomènes cliniques, en particulier à travers la création et l’évaluation d’instruments de mesure tels que les échelles, les questionnaires et les tests.</p>
+<p>Elle vise à quantifier des aspects qualitatifs de la santé et de la maladie, tels que la douleur, la qualité de vie, la fonction physique ou mentale, afin de fournir des données objectives pour la prise de décision clinique et la recherche médicale.</p>
+<p>En résumé : clinimétrie = science de la mesure clinique.</p>
+<p>Exemple : variabilité inter-appareil de mesure de la TA</p>
+<p>Mesure à prendre : <strong>centralisation des mesures</strong> (envoyer tous les échantillons à un même laboratoire pour analyse)</p>
+</section>
+<section id="accord-inter-juge" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Accord inter-juge</h1>
+<section id="accord-inter-juge-dune-variable-binaire" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="accord-inter-juge-dune-variable-binaire"><span class="header-section-number">2.1</span> Accord inter-juge d’une variable binaire</h2>
+<section id="exemple-diagnostic-dune-appendicite-ouinon" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="exemple-diagnostic-dune-appendicite-ouinon"><span class="header-section-number">2.1.1</span> <strong>Exemple : diagnostic d’une appendicite (OUI/NON)</strong></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Juge1_reponse_positive</th>
+<th>Juge1_reponse_negative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Juge2_reponse_positive</td>
+<td>a</td>
+<td>b</td>
+</tr>
+<tr class="even">
+<td>Juge2_reponse_negative</td>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+<p><em>Comment quantifier / exprimer le fait qu’ils sont d’accord ?</em></p>
+</section>
+<section id="concordance" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="concordance"><span class="header-section-number">2.1.2</span> <strong>Concordance</strong></h3>
+<p>Concordance = % de fois où les juges sont d’accord</p>
+<p>Formule :</p>
+<p><span class="math display">\[\frac{a + d}{a + b + c + d}\]</span></p>
+<ul>
+<li><p>Limite : ne tient pas compte du fait que les juges peuvent être d’accord par hasard (s’ils tirent à pile ou face, ils seront d’accord 50% du temps en moyenne)</p></li>
+<li><p>Donc peut être élevée par hasard</p></li>
+</ul>
+</section>
+<section id="concordance-corrigée" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="concordance-corrigée"><span class="header-section-number">2.1.3</span> <strong>Concordance corrigée</strong></h3>
+<p>Concordance corrigée = Kappa de Cohen</p>
+<ul>
+<li><p>Kappa <span class="math inline">\(\kappa\)</span> = <span class="math inline">\(\frac{(Concordance - ConcordanceLiéeAuHasard)}{(1 - ConcordanceLiéeAuHasard)}\)</span></p>
+<ul>
+<li>Conc : concordance = <span class="math inline">\(\frac{a + d}{a + b + c + d}\)</span></li>
+<li>ConcH : concordance liée au hasard</li>
+</ul></li>
+</ul>
+<p>Calcul de la concordance liée au hasard :</p>
+<p><span class="math display">\[\frac{(a + b)(a + c) + (c + d)(b + d)}{(a + b + c + d)^2}\]</span></p>
+<ul>
+<li><p>Si concordance parfaite : Kappa = 1</p></li>
+<li><p>Si concordance égale à celle du hasard : Kappa = 0 (ce n’est pas l’absence de concordance, c’est la concordance comme le voudrait le hasard)</p></li>
+</ul>
+<p><strong>Calculer la concordance liée au hasard</strong> :</p>
+<p>Exemple :</p>
+<ul>
+<li><p>Diagnostic de SpA par deux rhumatologues</p>
+<ul>
+<li><p>sur 100 patients : on prend dossier + examens complémentaires etc</p></li>
+<li><p>les rhumatologues doivent dire OUI/NON au diagnostic de SpA</p></li>
+<li><p>le truc c’est que les rhumatologues savent que les patients viennent d’une consult de rhumatologie</p></li>
+<li><p>donc connaisse à peu près la prévalence de la SpA dans cette population (disons 10%)</p></li>
+</ul></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 26%">
+<col style="width: 24%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Juge1_reponse_positive</th>
+<th>Juge1_reponse_negative</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Juge2_reponse_positive</td>
+<td>a</td>
+<td>b</td>
+<td>0,1</td>
+</tr>
+<tr class="even">
+<td>Juge2_reponse_negative</td>
+<td>c</td>
+<td>d</td>
+<td>0,9</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>0,1</td>
+<td>0,9</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>Marges =</em> <em>totaux sur les bords du tableau</em></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\rightarrow\)</span> probabilité d’être en a = 0,1 * 0,1 = 0,01</p>
+<p><span class="math inline">\(\rightarrow\)</span> probabilité d’être en b = 0,1 * 0,9 = 0,09</p>
+<p><span class="math inline">\(\rightarrow\)</span> probabilité d’être en c = 0,9 * 0,1 = 0,09</p>
+<p><span class="math inline">\(\rightarrow\)</span> probabilité d’être en d = 0,9 * 0,9 = 0,81</p>
+</div>
+</div>
+<p>Mais la démonstration :</p>
+<ul>
+<li><p>Probabilité que les deux juges répondent positivement : P(J1+) * P(J2+)</p>
+<ul>
+<li><p>= <span class="math inline">\(\frac{(a + b)}{(a + b + c + d)} * \frac{(a + c)}{(a + b + c + d)}\)</span></p>
+<ul>
+<li><p>Proportion de OUI du Juge 1 : <span class="math inline">\(\frac{(a + b)}{N}\)</span></p></li>
+<li><p>Proportion de OUI du Juge 2 : <span class="math inline">\(\frac{(a + c)}{N}\)</span></p></li>
+<li><p>N = (a + b + c + d) = total des patients</p></li>
+</ul></li>
+<li><p>Probabilité de P(J1+) <strong>UNION</strong> P(J2+) = <span class="math inline">\(\frac{(a + b)(a + c)}{N^2}\)</span></p></li>
+<li><p>= probabilité qu’un patient pris au hasard soit classé OUI par le Juge 1 ET OUI par le Juge 2, par hasard, si leurs réponses sont indépendantes.</p></li>
+</ul></li>
+<li><p>Calculer aussi la probabilité que les deux juges répondent négativement :</p>
+<ul>
+<li><p>= Accord sur OUI + Accord sur NON</p></li>
+<li><p><span class="math inline">\(\frac{(a + b)*(a + c)}{N^2} + \frac{(c + d)*(b + d)}{N^2}\)</span></p></li>
+<li><p>= <span class="math inline">\(\frac{0,1*0,1}{N^2} + \frac{0,9*0,9}{N^2}\)</span></p></li>
+<li><p>= <span class="math inline">\(\frac{0,01}{N^2} + \frac{0.81}{N^2}\)</span></p></li>
+<li><p>= <span class="math inline">\(\frac{0,82}{N^2}\)</span></p></li>
+</ul></li>
+</ul>
+<p>En gros :</p>
+<ul>
+<li><p>$<span class="math inline">\(a = 0,1^2 = 0,01\)</span></p></li>
+<li><p>$<span class="math inline">\(d = 0,9^2 = 0,81\)</span></p></li>
+<li><p><span class="math inline">\(Concordance\ due\ au\ hasard\ conditionnelle\ aux\ marges = 0,82\)</span></p></li>
+</ul>
+<p>Limites :</p>
+<ul>
+<li><p>Kappa dépend des marges (prévalence de la condition)</p></li>
+<li><p>Kappa peut être faible même si la concordance est élevée (si marges très déséquilibrées)</p></li>
+</ul>
+<p>≈ Resseble au coefficient de corrélation intraclasse (ICC) pour variables quantitatves</p>
+</section>
+<section id="exemple-diagnostic-à-plusieurs-classes" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="exemple-diagnostic-à-plusieurs-classes"><span class="header-section-number">2.1.4</span> Exemple diagnostic à plusieurs classes</h3>
+<ul>
+<li><p>Diagnostic de douleurs abdominales sur causes de douleurs abdominales (7 causes)</p></li>
+<li><p>2 juges</p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Juge1_X1</th>
+<th>Juge1_X2</th>
+<th>Juge1_X3</th>
+<th>Juge1_X4</th>
+<th>Juge1_X5</th>
+<th>Juge1_X6</th>
+<th>Juge1_X7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Juge2_X1</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+<td>e</td>
+<td>f</td>
+<td>g</td>
+</tr>
+<tr class="even">
+<td>Juge2_X2</td>
+<td>h</td>
+<td>i</td>
+<td>j</td>
+<td>k</td>
+<td>l</td>
+<td>m</td>
+<td>n</td>
+</tr>
+<tr class="odd">
+<td>Juge2_X3</td>
+<td>o</td>
+<td>p</td>
+<td>q</td>
+<td>r</td>
+<td>s</td>
+<td>t</td>
+<td>u</td>
+</tr>
+<tr class="even">
+<td>Juge2_X4</td>
+<td>v</td>
+<td>w</td>
+<td>x</td>
+<td>y</td>
+<td>z</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Juge2_X5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Juge2_X6</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Juge2_X7</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Kappa <span class="math inline">\(\kappa\)</span> = <span class="math inline">\(\frac{(Concordance - ConcordanceLiéeAuHasard)}{(1 - ConcordanceLiéeAuHasard)}\)</span></p></li>
+<li><p>Concordance = % sur la diagonale (a i j r..)</p></li>
+<li><p>Concordance liée au hasard</p>
+<ul>
+<li><p>Somme des marges multipliées entre elles</p></li>
+<li><p>Marge J1_X1 * Marge J2_X1 + Marge J1_X2 * Marge J2_X2 + …</p></li>
+<li><p>Divisé par N^2</p></li>
+</ul></li>
+<li><p>Limite : Kappa dépend des marges (prévalence de chaque classe)</p></li>
+</ul>
+<p>Dans R : fonction <code>Kappa.test()</code> du package <code>psy</code></p>
+</section>
+</section>
+<section id="acord-inter-juge-dune-variable-ordonnée" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="acord-inter-juge-dune-variable-ordonnée"><span class="header-section-number">2.2</span> Acord inter-juge d’une variable ordonnée</h2>
+<p>Exemple : frottis négatif - douteux - positif</p>
+<p>Tableau :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Juge1_negatif</th>
+<th>Juge1_douteux</th>
+<th>Juge1_positif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Juge2_negatif</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+</tr>
+<tr class="even">
+<td>Juge2_douteux</td>
+<td>d</td>
+<td>e</td>
+<td>f</td>
+</tr>
+<tr class="odd">
+<td>Juge2_positif</td>
+<td>g</td>
+<td>h</td>
+<td>i</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Si on considère que c’est catégoriel : Kappa simple</p>
+<ul>
+<li><p>Kappa <span class="math inline">\(\kappa\)</span> = <span class="math inline">\(\frac{(Concordance - ConcordanceLiéeAuHasard)}{(1 - ConcordanceLiéeAuHasard)}\)</span></p></li>
+<li><p>Problème :</p>
+<ul>
+<li><p>en <span class="math inline">\(b\)</span>, le Juge 1 a dit “douteux” et le Juge 2 “négatif”</p></li>
+<li><p>et c’est pas pareil que si le Juge 1 avait dit “positif” et le Juge 2 “négatif” (c’est pire !)</p></li>
+<li><p>valeurs en c : plus graves que valeurs en b</p></li>
+</ul></li>
+</ul></li>
+<li><p>Solution : Kappa pondéré (pondération des désaccords selon leur gravité)</p></li>
+</ul>
+<p>Kappa pondéré : (Kappa weighted)</p>
+<p><span class="math display">\[\kappa_w = \frac{(a + e + i) + (\frac{b + f + d + h}{2}) + 0}{Nombre\ de\ coefficients}\]</span></p>
+<p>$$</p>
+</section>
+<section id="avec-3-juges" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="avec-3-juges"><span class="header-section-number">2.3</span> Avec 3 juges</h2>
+<ul>
+<li><p>Utilisation de la méthode de Light</p></li>
+<li><p>Extension du Kappa de Cohen pour plus de 2 juges</p></li>
+<li><p>3 calculs :</p>
+<ul>
+<li><p>Kappa entre juge 1 et 2</p></li>
+<li><p>Kappa entre juge 1 et 3</p></li>
+<li><p>Kappa entre juge 2 et 3</p></li>
+<li><p>Et calculer la moyenne des 3 kappas</p></li>
+</ul></li>
+</ul>
+<p>Minimum 30 sujets si possible</p>
+</section>
+<section id="interprétation-du-kappa-de-cohen" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="interprétation-du-kappa-de-cohen"><span class="header-section-number">2.4</span> Interprétation du Kappa de Cohen</h2>
+<p>Plus le Kappa est proche de 1, meilleur est l’accord entre les juges et moins il est probable que cet accord soit dû au hasard.</p>
+<p>Plus le Kappa est proche de 0, plus l’accord entre les juges est faible et plus il est probable que cet accord soit dû au hasard.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Kappa <span class="math inline">\(\kappa\)</span></th>
+<th>Interprétation de l’accord entre juges</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt; 0</td>
+<td>Accord moins que par hasard</td>
+</tr>
+<tr class="even">
+<td>0 - 0,20</td>
+<td>Accord faible</td>
+</tr>
+<tr class="odd">
+<td>0,21 - 0,40</td>
+<td>Accord modéré</td>
+</tr>
+<tr class="even">
+<td>0,41 - 0,60</td>
+<td>Accord substantiel</td>
+</tr>
+<tr class="odd">
+<td>0,61 - 0,80</td>
+<td>Accord fort</td>
+</tr>
+<tr class="even">
+<td>0,81 - 1,00</td>
+<td>Accord presque parfait</td>
+</tr>
+<tr class="odd">
+<td>&gt; 1</td>
+<td>Accord parfait</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="intervalle-de-confiance-du-kappa" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="intervalle-de-confiance-du-kappa"><span class="header-section-number">2.5</span> Intervalle de confiance du Kappa</h2>
+<p><span class="math inline">\(\kappa\)</span> ne suit pas une loi normale et a une distribution asymétrique</p>
+<p>Le plus simple : <strong>bootstrap</strong></p>
+<p>Bootstrap :</p>
+<ol type="1">
+<li><p>Tirer un échantillon bootstrap (avec remise) de la taille de l’échantillon initial</p></li>
+<li><p>Calculer le Kappa sur cet échantillon bootstrap</p></li>
+<li><p>Répéter les étapes 1 et 2 un grand nombre de fois (ex : 1000)</p></li>
+<li><p>Utiliser les percentiles 2,5% et 97,5% des Kappas bootstrap pour construire l’IC à 95%</p></li>
+</ol>
+</section>
+<section id="différence-avec-pabak" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="différence-avec-pabak"><span class="header-section-number">2.6</span> Différence avec PABAK</h2>
+<ul>
+<li><p>Kappa a des problèmes de <strong>paradoxe</strong> (dépendance aux marges)</p>
+<ul>
+<li><p>Si prévalence très faible ou très élevée, Kappa peut être faible même si la concordance est élevée</p></li>
+<li><p>Si biais entre juges (l’un est plus sévère que l’autre), Kappa peut être faible même si la concordance est élevée</p></li>
+<li><p>par exemple : si un juge dit OUI 90% du temps et l’autre 10% du temps, Kappa sera faible même si ils sont d’accord 50% du temps</p></li>
+</ul></li>
+<li><p><strong>PABAK</strong> (Prevalence-Adjusted Bias-Adjusted Kappa) ajuste le Kappa pour tenir compte de la prévalence et du biais</p>
+<ul>
+<li>Ça n’a pas d’intérêt selon Bruno Falissard</li>
+</ul></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="exemples-sur-r" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="exemples-sur-r"><span class="header-section-number">2.7</span> Exemples sur R</h2>
+<section id="catégories" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="catégories"><span class="header-section-number">2.7.1</span> 2 catégories</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psy)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(expsy)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>expsy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   it1 it2 it3 it4 it5 it6 it7 it8 it9 it10 r1 rb1 r2 rb2 r3 rb3
+1   NA   2   2   1   1   0   3   1   2    3 NA  NA  3   1  3   1
+2    3   1   1   2   1   0   3   1   2    3  3   1  3   1  3   1
+3    3   1   1   0   2   0   3   1   2    3  3   1  2   0  2   0
+4    4   1   0   2   1   1   4   1   1    2  4   1  4   1  4   1
+5    4   1   0   2   1   1   3   1   1    2  3   1  3   1  3   1
+6    3   2   0   1   2   2   3   1   2    3  3   1  2   0  4   1
+7    3   2   3   1   2   2   2   1   3    3  2   0  2   0  2   0
+8    3   2   2   0   2   1   3   0   1    3  3   1  2   0  3   1
+9    3   2   2  NA   2   0   3   0   1    2  3   1  3   1  3   1
+10   3   2   1   0   2   2   3   2   2    3  3   1  3   1  2   0
+11   4   2   2   0   2   2   3   1   1    4  3   1  4   1  4   1
+12   4   2   1   2   2   2   3   1   2    1  3   1  3   1  3   1
+13   4   1   3   2   2   2   3   1   2    3  3   1  3   1  3   1
+14   3   2   2   1   1   2   3   0   3    4  3   1  2   0  2   0
+15   4   0   3   1   2   0   3   3   1    4  3   1  3   1  3   1
+16   4   0   1   2   2   2   4   2   3    3  4   1  4   1  4   1
+17   4   0   1   2   2   2   4   2   3    3  4   1  4   1  4   1
+18   4   1   1   2   2   1   3   1   0    4  3   1  3   1  3   1
+19   4   1   1   2   0   0   4   2   1    3  4   1  3   1  3   1
+20   3   1   1   2   1   1   2   1   1    3  2   0  2   0  2   0
+21   4   2   3   2   1   1   4   2   2    3  4   1  4   1  4   1
+22   3   2   1   2   1   1   3   2   1    3  3   1  4   1  3   1
+23   3   1   1   2   1   1   3   2   1    3  3   1  3   1  2   0
+24   3   2   1   2   2   2   4   1   1    3  4   1  4   1  4   1
+25   3   1   2   2   2   2   4   0   3    3  4   1  4   1  3   1
+26   3   2   3   2   2   2   2   2   3    3  2   0  2   0  2   0
+27   3   2   2   2   2   2   1   1   2    3  1   0  1   0  2   0
+28   3   2   1   1   1   1   2   2   2    2  2   0  1   0  1   0
+29   3   1   0   2   2   2   2   2   1    3  2   0  2   0  2   0
+30   3   2   1   2   2   2   4   2   2   NA  4   1  3   1  4   1</code></pre>
+</div>
+</div>
+<p>Ici :</p>
+<ul>
+<li><p>30 patients</p></li>
+<li><p>10 items (it1, it2, …, it10)</p></li>
+<li><p>3 scores (r1, r2, r3) qui ont chacun été binarisés (rb1, rb2, rb3)</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa entre les colonnes 12 et 14 (rb1 et rb3)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"rb1"</span>, <span class="st">"rb3"</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$table
+  0  1
+0 6  0
+1 4 19
+
+$kappa
+[1] 0.6627907</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#autre syntaxe possible</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ckappa</span>(<span class="fu">data.frame</span>(expsy<span class="sc">$</span>rb1, expsy<span class="sc">$</span>rb3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$table
+  0  1
+0 6  0
+1 4 19
+
+$kappa
+[1] 0.6627907</code></pre>
+</div>
+</div>
+<p><strong>Interprétation</strong></p>
+<ul>
+<li><p>Concordance : (6 + 19) / (6 + 4 + 19 + 0) = 25 / 29 = 0,862</p></li>
+<li><p>Concordance liée au hasard :</p>
+<ul>
+<li><p>= ((6 + 0) * (6 + 4) + (4 + 19) * (0 + 19)) / (29^2)</p></li>
+<li><p>= (6 * 10 + 23 * 19) / 841</p></li>
+<li><p>= (60 + 437) / 841</p></li>
+<li><p>= 497 / 841 = 0,591</p></li>
+</ul></li>
+<li><p>Kappa = (0,862 - 0,591) / (1 - 0,591) = 0,6627</p></li>
+</ul>
+</section>
+<section id="catégories-1" class="level3" data-number="2.7.2">
+<h3 data-number="2.7.2" class="anchored" data-anchor-id="catégories-1"><span class="header-section-number">2.7.2</span> 3 catégories</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa entre les colonnes r1 et r2 (3 catégories)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"r1"</span>, <span class="st">"r2"</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$table
+  1 2 3 4
+1 1 0 0 0
+2 1 4 0 0
+3 0 4 9 2
+4 0 0 2 6
+
+$kappa
+[1] 0.5421053</code></pre>
+</div>
+</div>
+</section>
+<section id="kappa-pondéré" class="level3" data-number="2.7.3">
+<h3 data-number="2.7.3" class="anchored" data-anchor-id="kappa-pondéré"><span class="header-section-number">2.7.3</span> kappa pondéré</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa pondéré entre les colonnes r1 et r2 (3 catégories)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wkappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"r1"</span>, <span class="st">"r2"</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$table
+  1 2 3 4
+1 1 0 0 0
+2 1 4 0 0
+3 0 4 9 2
+4 0 0 2 6
+
+$weights
+[1] "squared"
+
+$kappa
+[1] 0.7819549</code></pre>
+</div>
+</div>
+</section>
+<section id="kappa-de-light-3-juges" class="level3" data-number="2.7.4">
+<h3 data-number="2.7.4" class="anchored" data-anchor-id="kappa-de-light-3-juges"><span class="header-section-number">2.7.4</span> kappa de light (3 juges)</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa de Light entre les colonnes r1, r2 et r3 (3 juges)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lkappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"it10"</span>, <span class="st">"rb1"</span>, <span class="st">"rb2"</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2276101</code></pre>
+</div>
+</div>
+<p>ou pour le retrouver soi même :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa de Light entre les colonnes r1, r2 et r3 (3 juges)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>kappa_1 <span class="ot">&lt;-</span> <span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"it10"</span>, <span class="st">"rb1"</span>)])<span class="sc">$</span>kappa <span class="co">#$kappa sert à extraire juste la valeur du kappa</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>kappa_2 <span class="ot">&lt;-</span> <span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"it10"</span>, <span class="st">"rb2"</span>)])<span class="sc">$</span>kappa</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>kappa_3 <span class="ot">&lt;-</span> <span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"rb1"</span>,  <span class="st">"rb2"</span>)])<span class="sc">$</span>kappa</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>kappa_light_manu <span class="ot">&lt;-</span> (kappa_1 <span class="sc">+</span> kappa_2 <span class="sc">+</span> kappa_3) <span class="sc">/</span> <span class="dv">3</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>kappa_light_manu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2276101</code></pre>
+</div>
+</div>
+<div class="note">
+<p><code>c.kappa()</code> gère les données manquantes en les ignorant (pairwise deletion)</p>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

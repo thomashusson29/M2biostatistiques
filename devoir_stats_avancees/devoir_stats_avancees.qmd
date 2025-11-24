@@ -1,0 +1,111 @@
+---
+title: "Devoir stats avancées"
+author: "Thomas Husson"
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            \usepackage{fontspec}
+            \setmainfont{Ubuntu}
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+::: callout-note
+Consigne :
+
+-   Étude d'épidémiologie clinique avec mesures répétées
+
+-   Données :
+
+    -   146 patients déprimés
+
+    -   Évaluations à J0, J4, J7, J14, J21, J28, J42, J56
+
+    -   Autoévaluation (SCL90) et hétéroévaluation (échelle de dépression de Hamilton)
+
+-   Questions :
+
+    1.  Validation de l’échelle de dépression de Hamilton aux temps J0 et J56
+
+    2.  Comparaison de la réponse au traitement entre deux groupes de patients (groupe=0 et groupe=1) en utilisant le score brut de Hamilton avec une approche LOCF puis un modèle mixte
+
+    3.  Réponse à la question 2 en utilisant un critère binaire censuré « réponse au traitement » défini par une chute de 50% à l’échelle de Hamilton par rapport à J0
+
+-   Fichiers :
+
+    -   Fichier groupe (2 sous-groupes de patients)
+
+    -   Fichier autoévaluation (SCL 90)
+
+    -   Fichier hdrs (échelle de Hamilton)
+:::
+
+------------------------------------------------------------------------
+
+# Gestion des données
+
+## Import des données
+
+```{r}
+#| echo: true
+#| results: hide
+#| message: false
+#| warning: false
+library(readxl)
+auto_eval <- read_excel("devoir_stats_avancees/outils autoeval.xls")
+groupe <- read_excel("devoir_stats_avancees/outils groupe.xls")
+hdrs <- read_excel("devoir_stats_avancees/outils hdrs.xls")
+```
+
