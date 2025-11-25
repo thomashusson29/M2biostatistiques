@@ -538,8 +538,218 @@ Panorama GLOBAL :
 
 ------------------------------------------------------------------------
 
-# CRONBACH
+# Alpha de Cronbach
 
--   Mesure de la cohérence interne d'un questionnaire
+-   = Accord "intra-juge" du patient avec lui-même (test + retest)
 
-arrêté à 1:14:56
+-   Pas vraiment de la reproductibilité
+
+-   Mesure de la cohérence interne d'une échelle
+
+## Exemple
+
+Échelle unidimensionnelle (c'est à dire que tous les items mesurent la même chose)
+
+H I1 I2 I3 I4 I5 I6
+
+-   Si on prend 2 groupes de 3 items H' = (I1, I2, I3) et H'' = (I4, I5, I6)
+
+    -   *mais on pourrait faire H' = (I1, I4, I5) et H'' = (I2, I3, I6) aussi*
+
+-   C'est comme 2 sous-échelles de H (qui mesurent chacune la même chose que H)
+
+-   et corréler une sous-échelle avec H ou l'autre : c'est mesurer la cohérence entre H et H
+
+-   Coefficients H' et H'' = *split-half correlation*
+
+## Calcul
+
+Pour calculer l'alpha de Cronbach, on fait la moyenne des corrélations entre **toutes les paires possibles** de sous-échelles.
+
+($\alpha$ de Cronbach = moyenne des split-half correlations) = corrélation de l'échelle avec elle-même.
+
+
+## Exemple sur R
+
+```{r}
+#| echo: true
+#| message: false
+library(psy)
+data(expsy)
+expsy
+
+# Calcul de l'alpha de Cronbach sur les 10 items
+cronbach(expsy[, 1:10])
+```
+
+Ici : 
+
+-   On calcule l'alpha de Cronbach sur les 10 items (it1 à it10)
+
+-   α = 0,17 : faible cohérence interne entre les items
+
+## Interprétation
+
+-   α \< 0,6 : cohérence interne faible → items peu liés
+
+-   0,6 ≤ α \< 0,9 : c'est bien !
+
+-   α ≥ 0,9 : cohérence interne très élevée → items redondants (c'est presque trop)
+
+**PLUS LE NOMBRE D'ITEMS EST ÉLEVÉ, PLUS L'ALPHA A TENDANCE À ÊTRE ÉLEVÉ**
+
+---------------------------------------------------------------
+
+::: {.callout-tip}
+# 1. Le coefficient alpha de Cronbach : rôle et interprétation
+
+Le coefficient alpha de Cronbach sert à évaluer **la cohérence interne** d’un ensemble d’items censés mesurer **une seule et même dimension latente** (ex. anxiété, motivation, douleur).
+
+*Mesure latente = on ne peut pas la mesurer directement, on utilise des items comme indicateurs.*
+
+### Ce que mesure l’alpha
+
+-   Le degré auquel les items sont **corrélés entre eux**.
+-   Plus les items vont “dans le même sens”, plus l’alpha est élevé.
+
+### Comment interpréter l’alpha
+
+-   α \< 0,6 : cohérence interne faible → items peu liés
+-   0,6 ≤ α \< 0,9 : c'est bien !
+-   α ≥ 0,9 : cohérence interne très élevée → items redondants (c'est presque trop)
+
+### Limite fondamentale
+
+L’alpha n’a de sens **que si le questionnaire est unidimensionnel**, c'est à dire que tous les items mesurent la même dimension latente. S’il existe plusieurs dimensions cachées, l’alpha peut être trompeusement élevé.
+
+------------------------------------------------------------------------
+
+# 2. Pourquoi l’alpha nécessite un questionnaire unidimensionnel ?
+
+Parce que l’alpha repose sur l’hypothèse que :
+
+-   toutes les corrélations entre items proviennent **d’un seul facteur latent**.
+
+Si les items mesurent plusieurs dimensions différentes :
+
+-   certaines corrélations sont fortes au sein d’une dimension (dimension = groupe d’items liés),
+-   d’autres sont faibles entre dimensions,
+-   l’ensemble devient hétérogène,
+-   l’alpha ne reflète plus une seule cohérence interne.
+
+D’où la nécessité de vérifier l’**unidimensionnalité** avant de rapporter l’alpha.
+
+------------------------------------------------------------------------
+
+# 3. Comment vérifier l’unidimensionnalité ?
+
+## Par l’analyse des valeurs propres (scree plot)
+
+On réalise une **ACP** ou une **analyse factorielle exploratoire**, puis on examine les **valeurs propres**.
+
+### Rappel : qu’est-ce qu’une valeur propre ?
+
+Une valeur propre représente :
+
+-   la **quantité de variance expliquée** par une composante (ou un facteur).
+
+Repères :
+
+-   Valeur propre = 1 : autant de variance qu’un item
+-   Valeur propre \> 1 : facteur important
+-   Une seule valeur propre nettement plus élevée que les autres = un seul facteur dominant
+
+### Principe
+
+-   **Unidimensionnel** = 1 seul facteur explique l’essentiel de la variance → 1 valeur propre haute
+-   **Multidimensionnel** = plusieurs facteurs importants → plusieurs valeurs propres hautes
+
+------------------------------------------------------------------------
+
+# 4. Exemple complet
+
+## Questionnaire de 6 items censés mesurer l’anxiété
+
+(ex : tension, inquiétude, nervosité, irritabilité, ruminations, difficultés à se détendre)
+
+Après avoir collecté les réponses de 200 personnes, on réalise une ACP.
+
+### Étape A : valeurs propres obtenues
+
+```         
+Facteur 1 : 3,8
+Facteur 2 : 0,7
+Facteur 3 : 0,6
+Facteur 4 : 0,4
+Facteur 5 : 0,3
+Facteur 6 : 0,2
+```
+
+### Interprétation
+
+-   Le **facteur 1** explique **3,8 fois plus de variance qu’un item**.
+-   Les autres valeurs propres sont petites et décroissantes.
+-   Le **diagramme des valeurs propres** montre un **coude net après le facteur 1**.
+
+→ Le questionnaire est **unidimensionnel**. → Calculer l’alpha de Cronbach est pertinent.
+
+### Étape B : alpha de Cronbach
+
+On obtient par exemple : **α = 0,87**
+
+Interprétation :
+
+-   Les 6 items sont homogènes.
+-   Ils mesurent bien **une seule dimension d’anxiété**.
+-   Le score total (la somme des 6 items) est cohérent.
+
+------------------------------------------------------------------------
+
+# 5. Exemple inverse (multidimensionnel)
+
+Si les valeurs propres étaient :
+
+```         
+Facteur 1 : 2,6
+Facteur 2 : 2,0
+Facteur 3 : 0,7
+Facteur 4 : 0,4
+Facteur 5 : 0,2
+Facteur 6 : 0,1
+```
+
+Interprétation :
+
+-   Deux facteurs importants (ex. anxiété + dépression).
+-   Le questionnaire est **bifactoriel**.
+-   Un alpha global ne serait **pas valide** (il mélangerait plusieurs dimensions).
+
+------------------------------------------------------------------------
+
+# 6. Synthèse finale
+
+### Alpha de Cronbach
+
+-   Mesure la **cohérence interne** entre items
+-   Suppose **un seul facteur latent**
+-   Interprétation correcte seulement en cas d’unidimensionnalité
+
+### Valeurs propres
+
+-   Représentent la **variance expliquée** par chaque facteur
+-   Une seule valeur propre dominante → **unidimensionnalité**
+-   Plusieurs valeurs propres élevées → **multidimensionnalité**
+
+### Exemple
+
+-   Valeur propre 1 = 3,8 et les autres \< 1 → OK
+-   Alpha = 0,87 → cohérence interne satisfaisante
+:::
+
+# Questions à l'examen sur ce cours
+
+-   Ca tombe assez souvent !
+
+Questions vaches : 
+
+-   Différence ICC agreement et ICC consistency 
