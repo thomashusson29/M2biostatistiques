@@ -1,0 +1,249 @@
+---
+title: "S4 6 Mesures Subjectives bonus"
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            % \usepackage{fontspec} 
+            % \setmainfont{Ubuntu}
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+# Module 1 : Les Fondamentaux et la Définition de la Mesure
+
+Ce premier module pose le cadre théorique. Il est crucial de comprendre *pourquoi* et *comment* on mesure l'impalpable.
+
+## 1. Le contexte médical
+
+-   La médecine a évolué d'une approche purement physiopathologique (tension, glycémie) vers une prise en compte du sujet "pensant" .
+
+-   On mesure désormais des PROs (Patient Reported Outcomes) comme la qualité de vie, la douleur ou la satisfaction.
+
+-   Le postulat des PROs est que le patient est le mieux placé pour juger de son état, bien que des mécanismes de défense (comme le déni) puissent parfois biaiser ce jugement.
+
+## 2. Qu'est-ce que la subjectivité ?
+
+-Définition : Est subjectif ce qui concerne le sujet en tant qu'être conscient (le "sujet pensant"), par opposition à l'objectif qui concerne l'objet ou le corps (le "sujet vivant").
+
+-   **Idée reçue :** "Subjectif" ne veut pas dire "arbitraire" ou "imprécis". La tristesse est un sentiment universel et précis pour celui qui le vit.
+
+## 3. Les trois approches de la mesure
+
+Pour mesurer la subjectivité, le texte distingue trois visions philosophiques :
+
+1.  **L'approche classique (Physique) :** La mesure sert à découvrir des lois naturelles (ex: gravitation). Difficile à appliquer à la psychologie car il n'y a pas d'équations universelles de la tristesse.
+
+2.  **L'approche opérationnelle :** La mesure *est* l'opération réalisée (le score *est* la dépression). *Critique :* Elle vide la mesure de son sens. Si on ne fait que lire un chiffre sans l'interpréter, on perd la réalité du vécu du patient .
+
+3.  **L'approche représentationnelle (La solution retenue) :** La mesure est une "représentation numérique de faits empiriques". Les chiffres sont une commodité pour représenter une réalité complexe (la douleur, l'anxiété) afin de mieux la comprendre.
+
+## 4. Subjectif vs Objectif : une fausse opposition
+
+-   On pense souvent que les mesures physiques (mètre, kilogramme) sont "vraies" et les mesures subjectives "floues".
+-   En réalité, même les mesures physiques reposent sur des **théories** (ex: la définition moderne du mètre repose sur la théorie de la relativité et la vitesse de la lumière).
+-   De même, pour mesurer la dépression, il faut une théorie de la dépression (**théorie définitoire**) et une théorie de ses liens avec le reste du monde (**théorie nomologique**).
+-   **Conclusion :** La mesure subjective n'est pas moins scientifique, elle a juste des théories sous-jacentes souvent moins abouties que la physique.
+
+## 5. Modes de recueil
+
+-   **Auto-évaluation :** Le sujet se note lui-même. C'est la norme pour la qualité de vie.
+-   **Hétéro-évaluation :** Un tiers (médecin, proche) évalue le sujet.
+    -       Avantage :     Utile si le patient ne peut pas s'auto-évaluer (psychiatrie lourde, pédiatrie) et permet de calculer une erreur de mesure via l'accord inter-juges.
+
+------------------------------------------------------------------------
+
+## 3. Les Dispositifs de Réponse (Les échelles)
+
+Comment le patient va-t-il répondre ?
+
+**Échelle de Likert :** "Pas du tout", "Un peu", "Moyen", "Beaucoup". C'est le standard, souvent en 4, 5 ou 7 points.
+
+**Échelle Visuelle Analogique (EVA) :** Une ligne continue de 10 cm où le patient place une croix.
+
+Très utilisé pour la douleur, mais parfois difficile à conceptualiser pour certains patients .
+
+## 4. La Sélection des Items
+
+-   On part souvent d'une liste très longue (trop longue).
+-   On utilise des méthodes de consensus comme la méthode Delphi (experts interrogés à distance en plusieurs tours) pour ne garder que les items les plus pertinents et consensuels .
+
+# Module 2 : La Construction de l'Instrument
+
+Une fois que l'on sait *ce que* l'on veut mesurer (Module 1), il faut fabriquer l'outil pour le faire. Ce n'est pas juste une liste de questions ; c'est un processus rigoureux décrit dans le chapitre 3.
+
+Voici les étapes clés pour construire un instrument de mesure subjective solide :
+
+## 1. Le Cahier des Charges (La fondation)
+
+Avant de rédiger, il faut définir le périmètre. C'est l'étape la plus souvent négligée. Il faut préciser :
+
+-   **Le concept :** Que mesure-t-on exactement ? (ex: l'anxiété, mais laquelle ? Anxiété-trait ou anxiété-état ?) .
+
+-   **La population :** Qui va répondre ? (ex: des enfants, des personnes âgées ?) Cela change le vocabulaire et la longueur.
+
+-   **Le mode d'administration :** Auto-évaluation (le patient remplit seul) ou hétéro-évaluation (un soignant remplit).
+
+## 2. La Chasse aux Items (D'où viennent les questions ?)
+
+On ne doit pas inventer les questions "dans son coin".
+
+On utilise des **sources d'items**:
+
+-   **La littérature :** Ce qui existe déjà.
+
+-   **Les experts :** Cliniciens, psychologues.
+
+-   **Les patients :** Via des entretiens ou des **focus groups** (discussions de groupe). C'est crucial pour utiliser *leur* vocabulaire et comprendre ce qui compte vraiment pour eux.
+
+## 3. La Sélection : La méthode du Consensus
+
+On se retrouve souvent avec trop de questions.
+
+Pour garder les meilleures, on utilise des méthodes de consensus comme la **méthode Delphi**:
+
+1.  On envoie les items à des experts.
+2.  Ils notent la pertinence de chaque item anonymement.
+3.  On leur renvoie les résultats globaux.
+4.  Ils re-notent en connaissance de cause jusqu'à ce qu'un consensus se dégage .
+
+## 4. La Rédaction et les Réponses
+
+-Principe du "coût minimum" :  Répondre doit demander un effort minimal au patient. \
+    Il faut éviter les phrases alambiquées, les doubles négations ("Je ne me sens pas malheureux"), et le jargon médical.
+
+-   **Le dispositif de réponse :** Comment le patient note-t-il son ressenti ?
+
+    -   **L'échelle de Likert** : Des cases à cocher (ex: Pas du tout, Un peu, Beaucoup, À la folie).
+
+    -   **L'Échelle Visuelle Analogique (EVA) :** Une ligne (souvent de 10cm) où le patient place une croix. C'est sensible mais parfois difficile à comprendre pour certains patients.
+
+------------------------------------------------------------------------
+
+### Module 3 : La Validation (Partie 1) — Que mesure l'instrument ?
+
+La validation cherche à répondre à une question centrale : **Sommes-nous bien en train de mesurer ce que nous croyons mesurer ?**
+
+Voici les trois piliers pour y répondre, selon le texte :
+
+#### 1. La Validité de Contenu ("Est-ce qu'on a tout couvert ?")
+
+Il faut vérifier que les items explorent toutes les facettes du concept, sans hors-sujet.
+
+*Exemple :* Si on crée une échelle d'**anxiété**, il ne suffit pas de demander "Avez-vous peur ?".
+
+Il faut aussi explorer les symptômes physiques (mains moites), comportementaux (évitement), etc., pour couvrir tout le "contenu" du concept.
+
+#### 2. La Validité de Structure ("Est-ce cohérent ?")
+
+On vérifie ici l'architecture interne de l'instrument.
+
+**L'unidimensionnalité :**
+
+-   Est-ce que tous mes items mesurent la même chose (une seule dimension) ?
+
+-   Ou est-ce que mon score total est un mélange hétérogène de plusieurs concepts (comme additionner des choux et des carottes) ?.
+
+On utilise souvent des analyses statistiques (comme l'analyse en composante principale + analyse factorielle) pour voir si les items se regroupent bien ensemble.
+
+#### 3. La Validité de Construit ("Est-ce logique ?")
+
+C'est l'étape la plus "scientifique".
+
+On formule des hypothèses sur la façon dont notre mesure devrait se comporter face à d'autres variables (c'est la **théorie nomologique**).
+
+On distingue notamment :
+
+-   **Validité Convergente :** Notre instrument doit être corrélé (lié) avec d'autres instruments mesurant la même chose ou des choses proches.
+
+-   **Validité Divergente :** Notre instrument doit être *peu* corrélé avec des instruments mesurant des concepts différents.
+
+![](images/paste-35.png)
+
+### Module 4 : La Validation (Partie 2) — Que vaut la mesure ?
+
+Une fois qu'on sait *ce que* l'on mesure (validité), il faut s'assurer de la qualité technique de l'outil.
+
+#### 1. La Précision (ou Fidélité / Reliability)
+
+L'objectif est de réduire l'erreur de mesure au minimum. 
+
+On l'évalue sous trois angles principaux :
+
+-   **La consistance interne :** Les items d'un même questionnaire sont-ils cohérents entre eux ?
+    -   *L'outil star :* Le **coefficient Alpha de Cronbach**. Plus il est proche de 1, plus les items sont liés
+-   **La fidélité inter-juges :** Deux médecins évaluant le même patient obtiennent-ils le même résultat ?
+    -   Pour un diagnostic (Oui/Non) : On utilise le **coefficient Kappa** (qui corrige le hasard)
+    -   Pour un score chiffré (ex: 15/20) : On utilise le **Coefficient de Corrélation Intraclasse (CCI)**
+-   **La fidélité test-retest :** Si l'état du patient ne bouge pas, le score reste-t-il stable dans le temps ?
+
+#### 2. La Sensibilité au Changement
+
+C'est une propriété cruciale en médecine : l'instrument est-il capable de détecter une amélioration (ou une aggravation) de l'état de santé ?     
+
+C'est différent de la précision. Une balance peut être très précise (donner toujours le même poids) mais pas assez sensible pour détecter une variation de quelques grammes.
+
+#### 3. Les Modèles de Mesure (La "boîte noire" mathématique)
+
+Comment transforme-t-on les croix cochées par le patient en un score final ?
+
+**Modèles psychométriques :**
+
+-   *Théorie Classique :* On fait la somme des scores. Simple et robuste.
+
+- *Réponse à l'Item (IRT) :* Plus complexe, probabiliste. Elle permet de gérer les données manquantes et de comparer des patients ayant répondu à des questions différentes
+
+**Modèles économiques :** Utilisent la notion d'**Utilité** (préférence pour un état de santé) pour calculer des **QALYs** (années de vie ajustées sur la qualité), essentiels pour les décideurs de santé publique
+
+------------------------------------------------------------------------
