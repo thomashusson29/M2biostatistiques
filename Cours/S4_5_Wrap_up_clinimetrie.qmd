@@ -1,0 +1,170 @@
+---
+title: "S4 5 Wrap Up Clinimétrie"
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            % \usepackage{fontspec} 
+            % \setmainfont{Ubuntu}
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+
+library(plotrix)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(qgraph)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+```
+
+# Clinimétrie
+
+Objectif de la clinimétrie = reproductibilité de la mesure
+
+# Mesure catégorielle (diagnostic clinique)
+
+-   Mesure catégorielle : concordance entre les juges
+
+-   Problème : 50% liée au hasard si 2 juges
+
+### Kappa de Cohen = concordance corrigée pour le hasard
+
+-   Kappa de Cohen : mesure de la concordance entre 2 juges en tenant compte du hasard
+
+-   Formule : K = (Po - Pe) / (1 - Pe)
+
+    -   Po = proportion d'accord observée
+
+    -   Pe = proportion d'accord attendu par le hasard
+
+-   Exemple : 2 juges évaluent la présence ou l'absence d'une maladie chez 100 patients
+
+    |                   | Juge 2 Malade | Juge 2 Non Malade | Total |
+    |-------------------|---------------|-------------------|-------|
+    | Juge 1 Malade     | 40            | 10                | 50    |
+    | Juge 1 Non Malade | 20            | 30                | 50    |
+    | Total             | 60            | 40                | 100   |
+
+    -   Po = (40 + 30) / 100 = 0.70
+
+    -   Pe = \[(50/100) \* (60/100)\] + \[(50/100) \* (40/100)\] = 0.30 + 0.20 = 0.50
+
+    -   K = (0.70 - 0.50) / (1 - 0.50) = 0.40
+
+-   Interprétation de Kappa :
+
+    -   0 : concordance comme le hasard
+
+    -   1 : concordance parfaite
+
+
+## Si plus de 2 juges : 
+
+-   Kappa de Light = extension du Kappa de Cohen pour plus de 2 juges
+
+# Mesure continue (ex : pression artérielle)
+
+-   Mesure continue : reproductibilité de la mesure entre 2 ou plusieurs évaluateurs
+
+## Coefficient de corrélation intraclasse (ICC)
+
+-   ICC : mesure de la fiabilité entre plusieurs évaluateurs
+
+-   Méthode : analyse de variance à effet aléatoire
+
+$$ICC = \frac{Variance\ entre\ Patients}{Variance\ totale}$$
+
+# Alpha de Cronbach
+
+-   = reproductibilité interne d'un questionnaire
+
+Problème pour évaluer la reproductibilité d'un questionnaire : 
+
+-   Soit le patient a changé
+
+-   Soit il répète la même chose
+
+-   Solution : évaluer la cohérence interne des items du questionnaire
+
+## Principe du coefficient
+
+-   Calcul de la corrélation entre les items du questionnaire
+
+-   Pour calculer l'alpha de Cronbach, on fait la moyenne des corrélations entre **toutes les paires possibles** de sous-échelles.
+
+($\alpha$ de Cronbach = moyenne des split-half correlations) = corrélation de l'échelle avec elle-même.
+
+## Interprétation
+
+-   α \< 0,6 : cohérence interne faible → items peu liés
+
+-   0,6 ≤ α \< 0,9 : c'est bien !
+
+-   α ≥ 0,9 : cohérence interne très élevée → items redondants (c'est presque trop)
+
+**PLUS LE NOMBRE D'ITEMS EST ÉLEVÉ, PLUS L'ALPHA A TENDANCE À ÊTRE ÉLEVÉ**

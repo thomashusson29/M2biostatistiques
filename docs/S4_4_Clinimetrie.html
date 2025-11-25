@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>S4 4 Clinimetrie</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="S4_4_Clinimetrie_files/libs/clipboard/clipboard.min.js"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/quarto.js"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/popper.min.js"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="S4_4_Clinimetrie_files/libs/quarto-html/anchor.min.js"></script>
+<link href="S4_4_Clinimetrie_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="S4_4_Clinimetrie_files/libs/quarto-html/quarto-syntax-highlighting-b663525e4b92bb903b2199e2d401bf36.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="S4_4_Clinimetrie_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="S4_4_Clinimetrie_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="S4_4_Clinimetrie_files/libs/bootstrap/bootstrap-b44cab2c5f32e8a8c6f2e9840d8b6e3e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#définition-de-la-clinimétrie" id="toc-définition-de-la-clinimétrie" class="nav-link active" data-scroll-target="#définition-de-la-clinimétrie"><span class="header-section-number">1</span> Définition de la clinimétrie</a></li>
+  <li><a href="#accord-inter-juge" id="toc-accord-inter-juge" class="nav-link" data-scroll-target="#accord-inter-juge"><span class="header-section-number">2</span> Accord inter-juge</a>
+  <ul>
+  <li><a href="#accord-inter-juge-dune-variable-binaire" id="toc-accord-inter-juge-dune-variable-binaire" class="nav-link" data-scroll-target="#accord-inter-juge-dune-variable-binaire"><span class="header-section-number">2.1</span> Accord inter-juge d’une variable binaire</a>
+  <ul>
+  <li><a href="#exemple-diagnostic-dune-appendicite-ouinon" id="toc-exemple-diagnostic-dune-appendicite-ouinon" class="nav-link" data-scroll-target="#exemple-diagnostic-dune-appendicite-ouinon"><span class="header-section-number">2.1.1</span> <strong>Exemple : diagnostic d’une appendicite (OUI/NON)</strong></a></li>
+  <li><a href="#concordance" id="toc-concordance" class="nav-link" data-scroll-target="#concordance"><span class="header-section-number">2.1.2</span> <strong>Concordance</strong></a></li>
+  <li><a href="#concordance-corrigée" id="toc-concordance-corrigée" class="nav-link" data-scroll-target="#concordance-corrigée"><span class="header-section-number">2.1.3</span> <strong>Concordance corrigée</strong></a></li>
+  <li><a href="#exemple-diagnostic-à-plusieurs-classes" id="toc-exemple-diagnostic-à-plusieurs-classes" class="nav-link" data-scroll-target="#exemple-diagnostic-à-plusieurs-classes"><span class="header-section-number">2.1.4</span> Exemple diagnostic à plusieurs classes</a></li>
+  </ul></li>
+  <li><a href="#acord-inter-juge-dune-variable-ordonnée" id="toc-acord-inter-juge-dune-variable-ordonnée" class="nav-link" data-scroll-target="#acord-inter-juge-dune-variable-ordonnée"><span class="header-section-number">2.2</span> Acord inter-juge d’une variable ordonnée</a></li>
+  <li><a href="#avec-3-juges" id="toc-avec-3-juges" class="nav-link" data-scroll-target="#avec-3-juges"><span class="header-section-number">2.3</span> Avec 3 juges</a></li>
+  <li><a href="#interprétation-du-kappa-de-cohen" id="toc-interprétation-du-kappa-de-cohen" class="nav-link" data-scroll-target="#interprétation-du-kappa-de-cohen"><span class="header-section-number">2.4</span> Interprétation du Kappa de Cohen</a></li>
+  <li><a href="#intervalle-de-confiance-du-kappa" id="toc-intervalle-de-confiance-du-kappa" class="nav-link" data-scroll-target="#intervalle-de-confiance-du-kappa"><span class="header-section-number">2.5</span> Intervalle de confiance du Kappa</a></li>
+  <li><a href="#différence-avec-pabak" id="toc-différence-avec-pabak" class="nav-link" data-scroll-target="#différence-avec-pabak"><span class="header-section-number">2.6</span> Différence avec PABAK</a></li>
+  <li><a href="#exemples-sur-r" id="toc-exemples-sur-r" class="nav-link" data-scroll-target="#exemples-sur-r"><span class="header-section-number">2.7</span> Exemples sur R</a>
+  <ul>
+  <li><a href="#catégories" id="toc-catégories" class="nav-link" data-scroll-target="#catégories"><span class="header-section-number">2.7.1</span> 2 catégories</a></li>
+  <li><a href="#catégories-1" id="toc-catégories-1" class="nav-link" data-scroll-target="#catégories-1"><span class="header-section-number">2.7.2</span> 3 catégories</a></li>
+  <li><a href="#kappa-pondéré" id="toc-kappa-pondéré" class="nav-link" data-scroll-target="#kappa-pondéré"><span class="header-section-number">2.7.3</span> kappa pondéré</a></li>
+  <li><a href="#kappa-de-light-3-juges" id="toc-kappa-de-light-3-juges" class="nav-link" data-scroll-target="#kappa-de-light-3-juges"><span class="header-section-number">2.7.4</span> kappa de light (3 juges)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#accord-inter-juge-pour-variable-quantitative" id="toc-accord-inter-juge-pour-variable-quantitative" class="nav-link" data-scroll-target="#accord-inter-juge-pour-variable-quantitative"><span class="header-section-number">3</span> Accord inter-juge pour variable quantitative</a>
+  <ul>
+  <li><a href="#coefficient-de-corrélation-intraclasse-icc" id="toc-coefficient-de-corrélation-intraclasse-icc" class="nav-link" data-scroll-target="#coefficient-de-corrélation-intraclasse-icc"><span class="header-section-number">3.1</span> Coefficient de corrélation intraclasse (ICC)</a>
+  <ul>
+  <li><a href="#si-y-est-une-variable-ordonnée" id="toc-si-y-est-une-variable-ordonnée" class="nav-link" data-scroll-target="#si-y-est-une-variable-ordonnée"><span class="header-section-number">3.1.1</span> Si Y est une variable ordonnée</a></li>
+  </ul></li>
+  <li><a href="#exemple-sur-r" id="toc-exemple-sur-r" class="nav-link" data-scroll-target="#exemple-sur-r"><span class="header-section-number">3.2</span> Exemple sur R</a></li>
+  </ul></li>
+  <li><a href="#blant-et-altman" id="toc-blant-et-altman" class="nav-link" data-scroll-target="#blant-et-altman"><span class="header-section-number">4</span> Blant et Altman</a>
+  <ul>
+  <li><a href="#principe" id="toc-principe" class="nav-link" data-scroll-target="#principe"><span class="header-section-number">4.1</span> Principe</a></li>
+  </ul></li>
+  <li><a href="#exemple" id="toc-exemple" class="nav-link" data-scroll-target="#exemple"><span class="header-section-number">5</span> Exemple</a></li>
+  <li><a href="#alpha-de-cronbach" id="toc-alpha-de-cronbach" class="nav-link" data-scroll-target="#alpha-de-cronbach"><span class="header-section-number">6</span> Alpha de Cronbach</a>
+  <ul>
+  <li><a href="#exemple-1" id="toc-exemple-1" class="nav-link" data-scroll-target="#exemple-1"><span class="header-section-number">6.1</span> Exemple</a></li>
+  <li><a href="#calcul" id="toc-calcul" class="nav-link" data-scroll-target="#calcul"><span class="header-section-number">6.2</span> Calcul</a></li>
+  <li><a href="#exemple-sur-r-1" id="toc-exemple-sur-r-1" class="nav-link" data-scroll-target="#exemple-sur-r-1"><span class="header-section-number">6.3</span> Exemple sur R</a></li>
+  <li><a href="#interprétation" id="toc-interprétation" class="nav-link" data-scroll-target="#interprétation"><span class="header-section-number">6.4</span> Interprétation</a></li>
+  </ul></li>
+  <li><a href="#questions-à-lexamen-sur-ce-cours" id="toc-questions-à-lexamen-sur-ce-cours" class="nav-link" data-scroll-target="#questions-à-lexamen-sur-ce-cours"><span class="header-section-number">12</span> Questions à l’examen sur ce cours</a></li>
+  <li><a href="#ce-que-mesure-kappa-qualitatif" id="toc-ce-que-mesure-kappa-qualitatif" class="nav-link" data-scroll-target="#ce-que-mesure-kappa-qualitatif"><span class="header-section-number">13</span> 1. Ce que mesure Kappa (qualitatif)</a>
+  <ul>
+  <li><a href="#tableau-22-2-juges-variable-binaire" id="toc-tableau-22-2-juges-variable-binaire" class="nav-link" data-scroll-target="#tableau-22-2-juges-variable-binaire"><span class="header-section-number">13.1</span> Tableau 2×2 (2 juges, variable binaire)</a>
+  <ul>
+  <li><a href="#concordance-brute" id="toc-concordance-brute" class="nav-link" data-scroll-target="#concordance-brute"><span class="header-section-number">13.1.1</span> Concordance brute</a></li>
+  <li><a href="#concordance-liée-au-hasard" id="toc-concordance-liée-au-hasard" class="nav-link" data-scroll-target="#concordance-liée-au-hasard"><span class="header-section-number">13.1.2</span> Concordance liée au hasard</a></li>
+  <li><a href="#kappa-de-cohen" id="toc-kappa-de-cohen" class="nav-link" data-scroll-target="#kappa-de-cohen"><span class="header-section-number">13.1.3</span> Kappa de Cohen</a></li>
+  <li><a href="#extensions" id="toc-extensions" class="nav-link" data-scroll-target="#extensions"><span class="header-section-number">13.1.4</span> Extensions</a></li>
+  <li><a href="#limites" id="toc-limites" class="nav-link" data-scroll-target="#limites"><span class="header-section-number">13.1.5</span> Limites</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#ce-que-mesure-licc-quantitatif" id="toc-ce-que-mesure-licc-quantitatif" class="nav-link" data-scroll-target="#ce-que-mesure-licc-quantitatif"><span class="header-section-number">14</span> 2. Ce que mesure l’ICC (quantitatif)</a>
+  <ul>
+  <li><a href="#cours-tip" id="toc-cours-tip" class="nav-link" data-scroll-target="#cours-tip"><span class="header-section-number">14.0.1</span> Cours, « Tip »</a></li>
+  <li><a href="#cours-3.a.1." id="toc-cours-3.a.1." class="nav-link" data-scroll-target="#cours-3.a.1."><span class="header-section-number">14.0.2</span> Cours, 3.A.1.</a></li>
+  </ul></li>
+  <li><a href="#en-quoi-κ-et-icc-sont-proches" id="toc-en-quoi-κ-et-icc-sont-proches" class="nav-link" data-scroll-target="#en-quoi-κ-et-icc-sont-proches"><span class="header-section-number">15</span> 3. En quoi κ et ICC sont proches</a></li>
+  <li><a href="#en-quoi-ils-sont-différents" id="toc-en-quoi-ils-sont-différents" class="nav-link" data-scroll-target="#en-quoi-ils-sont-différents"><span class="header-section-number">16</span> 4. En quoi ils sont différents</a>
+  <ul>
+  <li><a href="#type-de-données" id="toc-type-de-données" class="nav-link" data-scroll-target="#type-de-données"><span class="header-section-number">16.1</span> Type de données</a></li>
+  <li><a href="#méthode-de-calcul" id="toc-méthode-de-calcul" class="nav-link" data-scroll-target="#méthode-de-calcul"><span class="header-section-number">16.2</span> Méthode de calcul</a></li>
+  <li><a href="#sensibilité-aux-marges" id="toc-sensibilité-aux-marges" class="nav-link" data-scroll-target="#sensibilité-aux-marges"><span class="header-section-number">16.3</span> Sensibilité aux marges</a></li>
+  <li><a href="#structure-derreur" id="toc-structure-derreur" class="nav-link" data-scroll-target="#structure-derreur"><span class="header-section-number">16.4</span> Structure d’erreur</a></li>
+  </ul></li>
+  <li><a href="#exemple-concret-du-cours-rb1-rb2" id="toc-exemple-concret-du-cours-rb1-rb2" class="nav-link" data-scroll-target="#exemple-concret-du-cours-rb1-rb2"><span class="header-section-number">17</span> 5. Exemple concret du cours (rb1 / rb2)</a>
+  <ul>
+  <li><a href="#kappa-de-cohen-1" id="toc-kappa-de-cohen-1" class="nav-link" data-scroll-target="#kappa-de-cohen-1"><span class="header-section-number">17.1</span> Kappa de Cohen</a>
+  <ul>
+  <li><a href="#concordance-brute-1" id="toc-concordance-brute-1" class="nav-link" data-scroll-target="#concordance-brute-1"><span class="header-section-number">17.1.1</span> Concordance brute</a></li>
+  <li><a href="#marges" id="toc-marges" class="nav-link" data-scroll-target="#marges"><span class="header-section-number">17.1.2</span> Marges</a></li>
+  <li><a href="#concordance-au-hasard" id="toc-concordance-au-hasard" class="nav-link" data-scroll-target="#concordance-au-hasard"><span class="header-section-number">17.1.3</span> Concordance au hasard</a></li>
+  <li><a href="#kappa" id="toc-kappa" class="nav-link" data-scroll-target="#kappa"><span class="header-section-number">17.1.4</span> Kappa</a></li>
+  </ul></li>
+  <li><a href="#icc-cours" id="toc-icc-cours" class="nav-link" data-scroll-target="#icc-cours"><span class="header-section-number">17.2</span> ICC (cours)</a></li>
+  </ul></li>
+  <li><a href="#synthèse-courte" id="toc-synthèse-courte" class="nav-link" data-scroll-target="#synthèse-courte"><span class="header-section-number">18</span> 6. Synthèse courte</a>
+  <ul>
+  <li><a href="#proches-car" id="toc-proches-car" class="nav-link" data-scroll-target="#proches-car"><span class="header-section-number">18.1</span> Proches car :</a></li>
+  <li><a href="#différents-car" id="toc-différents-car" class="nav-link" data-scroll-target="#différents-car"><span class="header-section-number">18.2</span> Différents car :</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S4_4_Clinimetrie.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S4_4_Clinimetrie.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">S4 4 Clinimetrie</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="définition-de-la-clinimétrie" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Définition de la clinimétrie</h1>
+<p>La clinimétrie est une discipline qui s’intéresse à la mesure des phénomènes cliniques, en particulier à travers la création et l’évaluation d’instruments de mesure tels que les échelles, les questionnaires et les tests.</p>
+<p>Elle vise à quantifier des aspects qualitatifs de la santé et de la maladie, tels que la douleur, la qualité de vie, la fonction physique ou mentale, afin de fournir des données objectives pour la prise de décision clinique et la recherche médicale.</p>
+<p>En résumé : clinimétrie = science de la mesure clinique.</p>
+<p>Exemple : variabilité inter-appareil de mesure de la TA</p>
+<p>Mesure à prendre : <strong>centralisation des mesures</strong> (envoyer tous les échantillons à un même laboratoire pour analyse)</p>
+</section>
+<section id="accord-inter-juge" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Accord inter-juge</h1>
+<section id="accord-inter-juge-dune-variable-binaire" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="accord-inter-juge-dune-variable-binaire"><span class="header-section-number">2.1</span> Accord inter-juge d’une variable binaire</h2>
+<section id="exemple-diagnostic-dune-appendicite-ouinon" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="exemple-diagnostic-dune-appendicite-ouinon"><span class="header-section-number">2.1.1</span> <strong>Exemple : diagnostic d’une appendicite (OUI/NON)</strong></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Juge1_reponse_positive</th>
+<th>Juge1_reponse_negative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Juge2_reponse_positive</td>
+<td>a</td>
+<td>b</td>
+</tr>
+<tr class="even">
+<td>Juge2_reponse_negative</td>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+<p><em>Comment quantifier / exprimer le fait qu’ils sont d’accord ?</em></p>
+</section>
+<section id="concordance" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="concordance"><span class="header-section-number">2.1.2</span> <strong>Concordance</strong></h3>
+<p>Concordance = % de fois où les juges sont d’accord</p>
+<p>Formule :</p>
+<p><span class="math display">\[\frac{a + d}{a + b + c + d}\]</span></p>
+<ul>
+<li><p>Limite : ne tient pas compte du fait que les juges peuvent être d’accord par hasard (s’ils tirent à pile ou face, ils seront d’accord 50% du temps en moyenne)</p></li>
+<li><p>Donc peut être élevée par hasard</p></li>
+</ul>
+</section>
+<section id="concordance-corrigée" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="concordance-corrigée"><span class="header-section-number">2.1.3</span> <strong>Concordance corrigée</strong></h3>
+<p>Concordance corrigée = Kappa de Cohen</p>
+<ul>
+<li><p>Kappa <span class="math inline">\(\kappa\)</span> = <span class="math inline">\(\frac{(Concordance - ConcordanceLiéeAuHasard)}{(1 - ConcordanceLiéeAuHasard)}\)</span></p>
+<ul>
+<li>Conc : concordance = <span class="math inline">\(\frac{a + d}{a + b + c + d}\)</span></li>
+<li>ConcH : concordance liée au hasard</li>
+</ul></li>
+</ul>
+<p>Calcul de la concordance liée au hasard :</p>
+<p><span class="math display">\[\frac{(a + b)(a + c) + (c + d)(b + d)}{(a + b + c + d)^2}\]</span></p>
+<ul>
+<li><p>Si concordance parfaite : Kappa = 1</p></li>
+<li><p>Si concordance égale à celle du hasard : Kappa = 0 (ce n’est pas l’absence de concordance, c’est la concordance comme le voudrait le hasard)</p></li>
+</ul>
+<p><strong>Calculer la concordance liée au hasard</strong> :</p>
+<p>Exemple :</p>
+<ul>
+<li><p>Diagnostic de SpA par deux rhumatologues</p>
+<ul>
+<li><p>sur 100 patients : on prend dossier + examens complémentaires etc</p></li>
+<li><p>les rhumatologues doivent dire OUI/NON au diagnostic de SpA</p></li>
+<li><p>le truc c’est que les rhumatologues savent que les patients viennent d’une consult de rhumatologie</p></li>
+<li><p>donc connaisse à peu près la prévalence de la SpA dans cette population (disons 10%)</p></li>
+</ul></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 26%">
+<col style="width: 24%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Juge1_reponse_positive</th>
+<th>Juge1_reponse_negative</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Juge2_reponse_positive</td>
+<td>a</td>
+<td>b</td>
+<td>0,1</td>
+</tr>
+<tr class="even">
+<td>Juge2_reponse_negative</td>
+<td>c</td>
+<td>d</td>
+<td>0,9</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>0,1</td>
+<td>0,9</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>Marges =- </em>totaux sur les bords du tableau*</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\rightarrow\)</span> probabilité d’être en a = 0,1 - 0,1 = 0,01</p>
+<p><span class="math inline">\(\rightarrow\)</span> probabilité d’être en b = 0,1 - 0,9 = 0,09</p>
+<p><span class="math inline">\(\rightarrow\)</span> probabilité d’être en c = 0,9 - 0,1 = 0,09</p>
+<p><span class="math inline">\(\rightarrow\)</span> probabilité d’être en d = 0,9 - 0,9 = 0,81</p>
+</div>
+</div>
+<p>Mais la démonstration :</p>
+<ul>
+<li><p>Probabilité que les deux juges répondent positivement : P(J1+) - P(J2+)</p>
+<ul>
+<li><p>= <span class="math inline">\(\frac{(a + b)}{(a + b + c + d)} -   \frac{(a + c)}{(a + b + c + d)}\)</span></p>
+<ul>
+<li><p>Proportion de OUI du Juge 1 : <span class="math inline">\(\frac{(a + b)}{N}\)</span></p></li>
+<li><p>Proportion de OUI du Juge 2 : <span class="math inline">\(\frac{(a + c)}{N}\)</span></p></li>
+<li><p>N = (a + b + c + d) = total des patients</p></li>
+</ul></li>
+<li><p>Probabilité de P(J1+) <strong>UNION</strong> P(J2+) = <span class="math inline">\(\frac{(a + b)(a + c)}{N^2}\)</span></p></li>
+<li><p>= probabilité qu’un patient pris au hasard soit classé OUI par le Juge 1 ET OUI par le Juge 2, par hasard, si leurs réponses sont indépendantes.</p></li>
+</ul></li>
+<li><p>Calculer aussi la probabilité que les deux juges répondent négativement :</p>
+<ul>
+<li><p>= Accord sur OUI + Accord sur NON</p></li>
+<li><p><span class="math inline">\(\frac{(a + b)*(a + c)}{N^2} + \frac{(c + d)*(b + d)}{N^2}\)</span></p></li>
+<li><p>= <span class="math inline">\(\frac{0,1*0,1}{N^2} + \frac{0,9*0,9}{N^2}\)</span></p></li>
+<li><p>= <span class="math inline">\(\frac{0,01}{N^2} + \frac{0.81}{N^2}\)</span></p></li>
+<li><p>= <span class="math inline">\(\frac{0,82}{N^2}\)</span></p></li>
+</ul></li>
+</ul>
+<p>En gros :</p>
+<ul>
+<li><p>$<span class="math inline">\(a = 0,1^2 = 0,01\)</span></p></li>
+<li><p>$<span class="math inline">\(d = 0,9^2 = 0,81\)</span></p></li>
+<li><p><span class="math inline">\(Concordance\ due\ au\ hasard\ conditionnelle\ aux\ marges = 0,82\)</span></p></li>
+</ul>
+<p>Limites :</p>
+<ul>
+<li><p>Kappa dépend des marges (prévalence de la condition)</p></li>
+<li><p>Kappa peut être faible même si la concordance est élevée (si marges très déséquilibrées)</p></li>
+</ul>
+<p>≈ Resseble au coefficient de corrélation intraclasse (ICC) pour variables quantitatves</p>
+</section>
+<section id="exemple-diagnostic-à-plusieurs-classes" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="exemple-diagnostic-à-plusieurs-classes"><span class="header-section-number">2.1.4</span> Exemple diagnostic à plusieurs classes</h3>
+<ul>
+<li><p>Diagnostic de douleurs abdominales sur causes de douleurs abdominales (7 causes)</p></li>
+<li><p>2 juges</p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Juge1_X1</th>
+<th>Juge1_X2</th>
+<th>Juge1_X3</th>
+<th>Juge1_X4</th>
+<th>Juge1_X5</th>
+<th>Juge1_X6</th>
+<th>Juge1_X7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Juge2_X1</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+<td>e</td>
+<td>f</td>
+<td>g</td>
+</tr>
+<tr class="even">
+<td>Juge2_X2</td>
+<td>h</td>
+<td>i</td>
+<td>j</td>
+<td>k</td>
+<td>l</td>
+<td>m</td>
+<td>n</td>
+</tr>
+<tr class="odd">
+<td>Juge2_X3</td>
+<td>o</td>
+<td>p</td>
+<td>q</td>
+<td>r</td>
+<td>s</td>
+<td>t</td>
+<td>u</td>
+</tr>
+<tr class="even">
+<td>Juge2_X4</td>
+<td>v</td>
+<td>w</td>
+<td>x</td>
+<td>y</td>
+<td>z</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Juge2_X5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Juge2_X6</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Juge2_X7</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Kappa <span class="math inline">\(\kappa\)</span> = <span class="math inline">\(\frac{(Concordance - ConcordanceLiéeAuHasard)}{(1 - ConcordanceLiéeAuHasard)}\)</span></p></li>
+<li><p>Concordance = % sur la diagonale (a i j r..)</p></li>
+<li><p>Concordance liée au hasard</p>
+<ul>
+<li><p>Somme des marges multipliées entre elles</p></li>
+<li><p>Marge J1_X1 - Marge J2_X1 + Marge J1_X2 - Marge J2_X2 + …</p></li>
+<li><p>Divisé par N^2</p></li>
+</ul></li>
+<li><p>Limite : Kappa dépend des marges (prévalence de chaque classe)</p></li>
+</ul>
+<p>Dans R : fonction <code>Kappa.test()</code> du package <code>psy</code></p>
+</section>
+</section>
+<section id="acord-inter-juge-dune-variable-ordonnée" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="acord-inter-juge-dune-variable-ordonnée"><span class="header-section-number">2.2</span> Acord inter-juge d’une variable ordonnée</h2>
+<p>Exemple : frottis négatif - douteux - positif</p>
+<p>Tableau :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Juge1_negatif</th>
+<th>Juge1_douteux</th>
+<th>Juge1_positif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Juge2_negatif</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+</tr>
+<tr class="even">
+<td>Juge2_douteux</td>
+<td>d</td>
+<td>e</td>
+<td>f</td>
+</tr>
+<tr class="odd">
+<td>Juge2_positif</td>
+<td>g</td>
+<td>h</td>
+<td>i</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Si on considère que c’est catégoriel : Kappa simple</p>
+<ul>
+<li><p>Kappa <span class="math inline">\(\kappa\)</span> = <span class="math inline">\(\frac{(Concordance - ConcordanceLiéeAuHasard)}{(1 - ConcordanceLiéeAuHasard)}\)</span></p></li>
+<li><p>Problème :</p>
+<ul>
+<li><p>en <span class="math inline">\(b\)</span>, le Juge 1 a dit “douteux” et le Juge 2 “négatif”</p></li>
+<li><p>et c’est pas pareil que si le Juge 1 avait dit “positif” et le Juge 2 “négatif” (c’est pire !)</p></li>
+<li><p>valeurs en c : plus graves que valeurs en b</p></li>
+</ul></li>
+</ul></li>
+<li><p>Solution : Kappa pondéré (pondération des désaccords selon leur gravité)</p></li>
+</ul>
+<p>Kappa pondéré : (Kappa weighted)</p>
+<p><span class="math display">\[\kappa_w = \frac{(a + e + i) + (\frac{b + f + d + h}{2}) + 0}{Nombre\ de\ coefficients}\]</span></p>
+<p>$$</p>
+</section>
+<section id="avec-3-juges" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="avec-3-juges"><span class="header-section-number">2.3</span> Avec 3 juges</h2>
+<ul>
+<li><p>Utilisation de la méthode de Light</p></li>
+<li><p>Extension du Kappa de Cohen pour plus de 2 juges</p></li>
+<li><p>3 calculs :</p>
+<ul>
+<li><p>Kappa entre juge 1 et 2</p></li>
+<li><p>Kappa entre juge 1 et 3</p></li>
+<li><p>Kappa entre juge 2 et 3</p></li>
+<li><p>Et calculer la moyenne des 3 kappas</p></li>
+</ul></li>
+</ul>
+<p>Minimum 30 sujets si possible</p>
+</section>
+<section id="interprétation-du-kappa-de-cohen" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="interprétation-du-kappa-de-cohen"><span class="header-section-number">2.4</span> Interprétation du Kappa de Cohen</h2>
+<p>Plus le Kappa est proche de 1, meilleur est l’accord entre les juges et moins il est probable que cet accord soit dû au hasard.</p>
+<p>Plus le Kappa est proche de 0, plus l’accord entre les juges est faible et plus il est probable que cet accord soit dû au hasard.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Kappa <span class="math inline">\(\kappa\)</span></th>
+<th>Interprétation de l’accord entre juges</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt; 0</td>
+<td>Accord moins que par hasard</td>
+</tr>
+<tr class="even">
+<td>0 - 0,20</td>
+<td>Accord faible</td>
+</tr>
+<tr class="odd">
+<td>0,21 - 0,40</td>
+<td>Accord modéré</td>
+</tr>
+<tr class="even">
+<td>0,41 - 0,60</td>
+<td>Accord substantiel</td>
+</tr>
+<tr class="odd">
+<td>0,61 - 0,80</td>
+<td>Accord fort</td>
+</tr>
+<tr class="even">
+<td>0,81 - 1,00</td>
+<td>Accord presque parfait</td>
+</tr>
+<tr class="odd">
+<td>&gt; 1</td>
+<td>Accord parfait</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="intervalle-de-confiance-du-kappa" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="intervalle-de-confiance-du-kappa"><span class="header-section-number">2.5</span> Intervalle de confiance du Kappa</h2>
+<p><span class="math inline">\(\kappa\)</span> ne suit pas une loi normale et a une distribution asymétrique</p>
+<p>Le plus simple : <strong>bootstrap</strong></p>
+<p>Bootstrap :</p>
+<ol type="1">
+<li><p>Tirer un échantillon bootstrap (avec remise) de la taille de l’échantillon initial</p></li>
+<li><p>Calculer le Kappa sur cet échantillon bootstrap</p></li>
+<li><p>Répéter les étapes 1 et 2 un grand nombre de fois (ex : 1000)</p></li>
+<li><p>Utiliser les percentiles 2,5% et 97,5% des Kappas bootstrap pour construire l’IC à 95%</p></li>
+</ol>
+</section>
+<section id="différence-avec-pabak" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="différence-avec-pabak"><span class="header-section-number">2.6</span> Différence avec PABAK</h2>
+<ul>
+<li><p>Kappa a des problèmes de <strong>paradoxe</strong> (dépendance aux marges)</p>
+<ul>
+<li><p>Si prévalence très faible ou très élevée, Kappa peut être faible même si la concordance est élevée</p></li>
+<li><p>Si biais entre juges (l’un est plus sévère que l’autre), Kappa peut être faible même si la concordance est élevée</p></li>
+<li><p>par exemple : si un juge dit OUI 90% du temps et l’autre 10% du temps, Kappa sera faible même si ils sont d’accord 50% du temps</p></li>
+</ul></li>
+<li><p><strong>PABAK</strong> (Prevalence-Adjusted Bias-Adjusted Kappa) ajuste le Kappa pour tenir compte de la prévalence et du biais</p>
+<ul>
+<li>Ça n’a pas d’intérêt selon Bruno Falissard</li>
+</ul></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="exemples-sur-r" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="exemples-sur-r"><span class="header-section-number">2.7</span> Exemples sur R</h2>
+<section id="catégories" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="catégories"><span class="header-section-number">2.7.1</span> 2 catégories</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psy)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(expsy)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>expsy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   it1 it2 it3 it4 it5 it6 it7 it8 it9 it10 r1 rb1 r2 rb2 r3 rb3
+1   NA   2   2   1   1   0   3   1   2    3 NA  NA  3   1  3   1
+2    3   1   1   2   1   0   3   1   2    3  3   1  3   1  3   1
+3    3   1   1   0   2   0   3   1   2    3  3   1  2   0  2   0
+4    4   1   0   2   1   1   4   1   1    2  4   1  4   1  4   1
+5    4   1   0   2   1   1   3   1   1    2  3   1  3   1  3   1
+6    3   2   0   1   2   2   3   1   2    3  3   1  2   0  4   1
+7    3   2   3   1   2   2   2   1   3    3  2   0  2   0  2   0
+8    3   2   2   0   2   1   3   0   1    3  3   1  2   0  3   1
+9    3   2   2  NA   2   0   3   0   1    2  3   1  3   1  3   1
+10   3   2   1   0   2   2   3   2   2    3  3   1  3   1  2   0
+11   4   2   2   0   2   2   3   1   1    4  3   1  4   1  4   1
+12   4   2   1   2   2   2   3   1   2    1  3   1  3   1  3   1
+13   4   1   3   2   2   2   3   1   2    3  3   1  3   1  3   1
+14   3   2   2   1   1   2   3   0   3    4  3   1  2   0  2   0
+15   4   0   3   1   2   0   3   3   1    4  3   1  3   1  3   1
+16   4   0   1   2   2   2   4   2   3    3  4   1  4   1  4   1
+17   4   0   1   2   2   2   4   2   3    3  4   1  4   1  4   1
+18   4   1   1   2   2   1   3   1   0    4  3   1  3   1  3   1
+19   4   1   1   2   0   0   4   2   1    3  4   1  3   1  3   1
+20   3   1   1   2   1   1   2   1   1    3  2   0  2   0  2   0
+21   4   2   3   2   1   1   4   2   2    3  4   1  4   1  4   1
+22   3   2   1   2   1   1   3   2   1    3  3   1  4   1  3   1
+23   3   1   1   2   1   1   3   2   1    3  3   1  3   1  2   0
+24   3   2   1   2   2   2   4   1   1    3  4   1  4   1  4   1
+25   3   1   2   2   2   2   4   0   3    3  4   1  4   1  3   1
+26   3   2   3   2   2   2   2   2   3    3  2   0  2   0  2   0
+27   3   2   2   2   2   2   1   1   2    3  1   0  1   0  2   0
+28   3   2   1   1   1   1   2   2   2    2  2   0  1   0  1   0
+29   3   1   0   2   2   2   2   2   1    3  2   0  2   0  2   0
+30   3   2   1   2   2   2   4   2   2   NA  4   1  3   1  4   1</code></pre>
+</div>
+</div>
+<p>Ici :</p>
+<ul>
+<li><p>30 patients</p></li>
+<li><p>10 items (it1, it2, …, it10)</p></li>
+<li><p>3 scores (r1, r2, r3) qui ont chacun été binarisés (rb1, rb2, rb3)</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa entre les colonnes 12 et 14 (rb1 et rb3)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"rb1"</span>, <span class="st">"rb3"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$table
+  0  1
+0 6  0
+1 4 19
+
+$kappa
+[1] 0.6627907</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#autre syntaxe possible</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ckappa</span>(<span class="fu">data.frame</span>(expsy<span class="sc">$</span>rb1, expsy<span class="sc">$</span>rb3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$table
+  0  1
+0 6  0
+1 4 19
+
+$kappa
+[1] 0.6627907</code></pre>
+</div>
+</div>
+<p><strong>Interprétation</strong></p>
+<ul>
+<li><p>Concordance : (6 + 19) / (6 + 4 + 19 + 0) = 25 / 29 = 0,862</p></li>
+<li><p>Concordance liée au hasard :</p>
+<ul>
+<li><p>= ((6 + 0) - (6 + 4) + (4 + 19) - (0 + 19)) / (29^2)</p></li>
+<li><p>= (6 - 10 + 23 - 19) / 841</p></li>
+<li><p>= (60 + 437) / 841</p></li>
+<li><p>= 497 / 841 = 0,591</p></li>
+</ul></li>
+<li><p>Kappa = (0,862 - 0,591) / (1 - 0,591) = 0,6627</p></li>
+</ul>
+</section>
+<section id="catégories-1" class="level3" data-number="2.7.2">
+<h3 data-number="2.7.2" class="anchored" data-anchor-id="catégories-1"><span class="header-section-number">2.7.2</span> 3 catégories</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa entre les colonnes r1 et r2 (3 catégories)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"r1"</span>, <span class="st">"r2"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$table
+  1 2 3 4
+1 1 0 0 0
+2 1 4 0 0
+3 0 4 9 2
+4 0 0 2 6
+
+$kappa
+[1] 0.5421053</code></pre>
+</div>
+</div>
+</section>
+<section id="kappa-pondéré" class="level3" data-number="2.7.3">
+<h3 data-number="2.7.3" class="anchored" data-anchor-id="kappa-pondéré"><span class="header-section-number">2.7.3</span> kappa pondéré</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa pondéré entre les colonnes r1 et r2 (3 catégories)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wkappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"r1"</span>, <span class="st">"r2"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$table
+  1 2 3 4
+1 1 0 0 0
+2 1 4 0 0
+3 0 4 9 2
+4 0 0 2 6
+
+$weights
+[1] "squared"
+
+$kappa
+[1] 0.7819549</code></pre>
+</div>
+</div>
+</section>
+<section id="kappa-de-light-3-juges" class="level3" data-number="2.7.4">
+<h3 data-number="2.7.4" class="anchored" data-anchor-id="kappa-de-light-3-juges"><span class="header-section-number">2.7.4</span> kappa de light (3 juges)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa de Light entre les colonnes r1, r2 et r3 (3 juges)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lkappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"it10"</span>, <span class="st">"rb1"</span>, <span class="st">"rb2"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2276101</code></pre>
+</div>
+</div>
+<p>ou pour le retrouver soi même :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de Kappa de Light entre les colonnes r1, r2 et r3 (3 juges)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>kappa_1 <span class="ot">&lt;-</span> <span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"it10"</span>, <span class="st">"rb1"</span>)])<span class="sc">$</span>kappa <span class="co">#$kappa sert à extraire juste la valeur du kappa</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>kappa_2 <span class="ot">&lt;-</span> <span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"it10"</span>, <span class="st">"rb2"</span>)])<span class="sc">$</span>kappa</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>kappa_3 <span class="ot">&lt;-</span> <span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"rb1"</span>,  <span class="st">"rb2"</span>)])<span class="sc">$</span>kappa</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>kappa_light_manu <span class="ot">&lt;-</span> (kappa_1 <span class="sc">+</span> kappa_2 <span class="sc">+</span> kappa_3) <span class="sc">/</span> <span class="dv">3</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>kappa_light_manu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2276101</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>c.kappa()</code> gère les données manquantes en les ignorant (pairwise deletion)</p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+</section>
+<section id="accord-inter-juge-pour-variable-quantitative" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Accord inter-juge pour variable quantitative</h1>
+<ul>
+<li><p>2 juges</p></li>
+<li><p>Score Y contenu sur 40 patients</p></li>
+</ul>
+<p><span class="math inline">\(Y = a + b\ Juges + c\ Patients + \epsilon\)</span></p>
+<p>Puis analyse de variance à effets aléatoires : permet de savoir quelle part de la variance totale est due aux juges, aux patients, et à l’erreur résiduelle.</p>
+<section id="coefficient-de-corrélation-intraclasse-icc" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="coefficient-de-corrélation-intraclasse-icc"><span class="header-section-number">3.1</span> Coefficient de corrélation intraclasse (ICC)</h2>
+<p><span class="math display">\[ICC = \frac{Variance\ entre\ Patients}{Variance\ totale}\]</span></p>
+<ul>
+<li><p>Variance totale = Variance entre patients + Variance entre juges + Variance résiduelle</p>
+<ul>
+<li><p>Variance liée au juges : erreur systématique entre juges (si un juge est plus sévère que l’autre)</p></li>
+<li><p>Variance résiduelle : erreur aléatoire (variabilité inexpliquée)</p></li>
+<li><p>Variance entre patients : variabilité réelle entre les patients : <strong>tout ce qui n’est pas une erreur</strong></p></li>
+</ul></li>
+</ul>
+<p>En gros, le coefficient de corrélation intraclasse (ICC) est le rapport entre la <strong>bonne variance</strong> (variance entre patients) et la <strong>variance totale</strong> (toutes les sources de variance, y compris les erreurs).</p>
+<ul>
+<li><p>Si ICC proche de 1 : grande partie de la variance est due aux différences réelles entre les patients (bonne fiabilité entre juges)</p></li>
+<li><p>Si ICC proche de 0 : grande partie de la variance est due aux erreurs (mauvaise fiabilité entre juges)</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Comme il ne s’agit pas d’un test, Y n’a pas besoin de suivre une loi normale.<br>
+Donc Y pourrait être binaire !<br>
+Et les juges se prononceraient OUI/NON donc on pourrait calculer un <span class="math inline">\(\kappa\)</span> de Cohen !<br>
+En pratique : c’est la même chose <strong>asymptotiquement</strong>, c’est à dire si le nombre de sujets est grand.</p>
+</div>
+</div>
+<section id="si-y-est-une-variable-ordonnée" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="si-y-est-une-variable-ordonnée"><span class="header-section-number">3.1.1</span> Si Y est une variable ordonnée</h3>
+<ul>
+<li><span class="math inline">\(\kappa\ ponderee\)</span> en <span class="math inline">\(1/N^2 = ICC\)</span></li>
+</ul>
+</section>
+</section>
+<section id="exemple-sur-r" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="exemple-sur-r"><span class="header-section-number">3.2</span> Exemple sur R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ckappa</span>(expsy[, <span class="fu">c</span>(<span class="st">"rb1"</span>, <span class="st">"rb2"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$table
+  0  1
+0 6  0
+1 4 19
+
+$kappa
+[1] 0.6627907</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(expsy[, <span class="fu">c</span>(<span class="st">"rb1"</span>, <span class="st">"rb2"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$nb.subjects
+[1] 29
+
+$nb.raters
+[1] 2
+
+$subject.variance
+[1] 0.1403941
+
+$rater.variance
+[1] 0.007389163
+
+$residual
+[1] 0.06157635
+
+$icc.consistency
+[1] 0.695122
+
+$icc.agreement
+[1] 0.6705882</code></pre>
+</div>
+</div>
+<p>Kappa = 0,66 et ICC = 0,67</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Différence ICC agreement et ICC consistency</strong></p>
+<ul>
+<li><p><strong>ICC agreement</strong> :</p>
+<ul>
+<li><p>prend en compte les différences systématiques entre juges (si un juge est plus sévère que l’autre)</p></li>
+<li><p>formule : <span class="math display">\[ICC_{agreement} = \frac{Variance\ entre\ Patients}{Variance\ entre\ Patients + Variance\ entre\ Juges + Variance\ résiduelle}\]</span></p></li>
+</ul></li>
+<li><p><strong>ICC consistency</strong> :</p>
+<ul>
+<li><p>ne prend pas en compte les différences systématiques entre juges (on s’en fiche si un juge est plus sévère que l’autre)</p></li>
+<li><p>formule : <span class="math display">\[ICC_{consistency} = \frac{Variance\ entre\ Patients}{Variance\ entre\ Patients + Variance\ résiduelle}\]</span></p></li>
+</ul></li>
+</ul>
+<p>ICC consistency : utile par exemple dans un essai randomisé dans lequel on compare la fin *versus- le début de l’étude.<br>
+</p>
+</div>
+</div>
+<p>/newpage</p>
+</section>
+</section>
+<section id="blant-et-altman" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Blant et Altman</h1>
+<ul>
+<li><p>Variable QUANTITATIVE</p></li>
+<li><p>2 juges (ou appareils de mesure)</p></li>
+</ul>
+<p><img src="images/paste-32.png" class="img-fluid"></p>
+<section id="principe" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="principe"><span class="header-section-number">4.1</span> Principe</h2>
+<ul>
+<li><p>Pour chaque sujet, on calcule la moyenne des deux mesures</p></li>
+<li><p>Pour chaque sujet, on calcule la différence entre les deux mesures</p></li>
+<li><p>On trace la différence en fonction de la moyenne</p></li>
+</ul>
+</section>
+</section>
+<section id="exemple" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Exemple</h1>
+<ul>
+<li><p>2 psychiatres</p></li>
+<li><p>Évaluent les patients avec des entretiens structurés</p></li>
+<li><p>donc calcul de coefficients kappa !</p></li>
+</ul>
+<p>En tableau :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Patient</th>
+<th>Depression_J1</th>
+<th>Depression_J2</th>
+<th>TAG_J1</th>
+<th>TAG_J2</th>
+<th>PTSD_J1</th>
+<th>PTSD_J2</th>
+<th>Schizo_J1</th>
+<th>Schizo_J2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>12</td>
+<td>14</td>
+<td>8</td>
+<td>7</td>
+<td>5</td>
+<td>6</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>20</td>
+<td>18</td>
+<td>10</td>
+<td>11</td>
+<td>7</td>
+<td>8</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Panorama GLOBAL :</p>
+<p><strong>Analyse en composante principales (ACP)</strong> : faisable même si qualitatif ! et même si sur des variables binaires (faisable dans tous les cas)</p>
+<p><img src="images/paste-33.png" class="img-fluid" width="518"></p>
+<ul>
+<li><p>D1 et D2 un peu idem que A1 et A2</p></li>
+<li><p>PTSD1 et PTSD2 : très proches !</p></li>
+<li><p>Schizo1 et Schizo2 : bcp plus éloignés</p></li>
+</ul>
+<hr>
+<p><strong>Analyse des correspondances multiples (ACM)</strong> : pas vraiment applicable dans ce cas</p>
+<ul>
+<li><p>Même idée que ACP mais pour des variables qualitatives</p></li>
+<li><p>Si diagnostic avec 7 catégories</p></li>
+</ul>
+<p><img src="images/paste-34.png" class="img-fluid" width="617"></p>
+<ul>
+<li>Appendicite et péritonites : bcp plus proches, tendance à permuter les diagnostics !</li>
+</ul>
+<hr>
+</section>
+<section id="alpha-de-cronbach" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Alpha de Cronbach</h1>
+<ul>
+<li><p>= Accord “intra-juge” du patient avec lui-même (test + retest)</p></li>
+<li><p>Pas vraiment de la reproductibilité</p></li>
+<li><p>Mesure de la cohérence interne d’une échelle</p></li>
+</ul>
+<section id="exemple-1" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="exemple-1"><span class="header-section-number">6.1</span> Exemple</h2>
+<p>Échelle unidimensionnelle (c’est à dire que tous les items mesurent la même chose)</p>
+<p>H I1 I2 I3 I4 I5 I6</p>
+<ul>
+<li><p>Si on prend 2 groupes de 3 items H’ = (I1, I2, I3) et H’’ = (I4, I5, I6)</p>
+<ul>
+<li><em>mais on pourrait faire H’ = (I1, I4, I5) et H’’ = (I2, I3, I6) aussi</em></li>
+</ul></li>
+<li><p>C’est comme 2 sous-échelles de H (qui mesurent chacune la même chose que H)</p></li>
+<li><p>et corréler une sous-échelle avec H ou l’autre : c’est mesurer la cohérence entre H et H</p></li>
+<li><p>Coefficients H’ et H’’ = <em>split-half correlation</em></p></li>
+</ul>
+</section>
+<section id="calcul" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="calcul"><span class="header-section-number">6.2</span> Calcul</h2>
+<p>Pour calculer l’alpha de Cronbach, on fait la moyenne des corrélations entre <strong>toutes les paires possibles</strong> de sous-échelles.</p>
+<p>(<span class="math inline">\(\alpha\)</span> de Cronbach = moyenne des split-half correlations) = corrélation de l’échelle avec elle-même.</p>
+</section>
+<section id="exemple-sur-r-1" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="exemple-sur-r-1"><span class="header-section-number">6.3</span> Exemple sur R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psy)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(expsy)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>expsy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   it1 it2 it3 it4 it5 it6 it7 it8 it9 it10 r1 rb1 r2 rb2 r3 rb3
+1   NA   2   2   1   1   0   3   1   2    3 NA  NA  3   1  3   1
+2    3   1   1   2   1   0   3   1   2    3  3   1  3   1  3   1
+3    3   1   1   0   2   0   3   1   2    3  3   1  2   0  2   0
+4    4   1   0   2   1   1   4   1   1    2  4   1  4   1  4   1
+5    4   1   0   2   1   1   3   1   1    2  3   1  3   1  3   1
+6    3   2   0   1   2   2   3   1   2    3  3   1  2   0  4   1
+7    3   2   3   1   2   2   2   1   3    3  2   0  2   0  2   0
+8    3   2   2   0   2   1   3   0   1    3  3   1  2   0  3   1
+9    3   2   2  NA   2   0   3   0   1    2  3   1  3   1  3   1
+10   3   2   1   0   2   2   3   2   2    3  3   1  3   1  2   0
+11   4   2   2   0   2   2   3   1   1    4  3   1  4   1  4   1
+12   4   2   1   2   2   2   3   1   2    1  3   1  3   1  3   1
+13   4   1   3   2   2   2   3   1   2    3  3   1  3   1  3   1
+14   3   2   2   1   1   2   3   0   3    4  3   1  2   0  2   0
+15   4   0   3   1   2   0   3   3   1    4  3   1  3   1  3   1
+16   4   0   1   2   2   2   4   2   3    3  4   1  4   1  4   1
+17   4   0   1   2   2   2   4   2   3    3  4   1  4   1  4   1
+18   4   1   1   2   2   1   3   1   0    4  3   1  3   1  3   1
+19   4   1   1   2   0   0   4   2   1    3  4   1  3   1  3   1
+20   3   1   1   2   1   1   2   1   1    3  2   0  2   0  2   0
+21   4   2   3   2   1   1   4   2   2    3  4   1  4   1  4   1
+22   3   2   1   2   1   1   3   2   1    3  3   1  4   1  3   1
+23   3   1   1   2   1   1   3   2   1    3  3   1  3   1  2   0
+24   3   2   1   2   2   2   4   1   1    3  4   1  4   1  4   1
+25   3   1   2   2   2   2   4   0   3    3  4   1  4   1  3   1
+26   3   2   3   2   2   2   2   2   3    3  2   0  2   0  2   0
+27   3   2   2   2   2   2   1   1   2    3  1   0  1   0  2   0
+28   3   2   1   1   1   1   2   2   2    2  2   0  1   0  1   0
+29   3   1   0   2   2   2   2   2   1    3  2   0  2   0  2   0
+30   3   2   1   2   2   2   4   2   2   NA  4   1  3   1  4   1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de l'alpha de Cronbach sur les 10 items</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cronbach</span>(expsy[, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$sample.size
+[1] 27
+
+$number.of.items
+[1] 10
+
+$alpha
+[1] 0.1762655</code></pre>
+</div>
+</div>
+<p>Ici :</p>
+<ul>
+<li><p>On calcule l’alpha de Cronbach sur les 10 items (it1 à it10)</p></li>
+<li><p>α = 0,17 : faible cohérence interne entre les items</p></li>
+</ul>
+</section>
+<section id="interprétation" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="interprétation"><span class="header-section-number">6.4</span> Interprétation</h2>
+<ul>
+<li><p>α &lt; 0,6 : cohérence interne faible → items peu liés</p></li>
+<li><p>0,6 ≤ α &lt; 0,9 : c’est bien !</p></li>
+<li><p>α ≥ 0,9 : cohérence interne très élevée → items redondants (c’est presque trop)</p></li>
+</ul>
+<p><strong>PLUS LE NOMBRE D’ITEMS EST ÉLEVÉ, PLUS L’ALPHA A TENDANCE À ÊTRE ÉLEVÉ</strong></p>
+<hr>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+1. Le coefficient alpha de Cronbach : rôle et interprétation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Le coefficient alpha de Cronbach sert à évaluer <strong>la cohérence interne</strong> d’un ensemble d’items censés mesurer <strong>une seule et même dimension latente</strong> (ex. anxiété, motivation, douleur).</p>
+<p><em>Mesure latente = on ne peut pas la mesurer directement, on utilise des items comme indicateurs.</em></p>
+<section id="ce-que-mesure-lalpha" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="ce-que-mesure-lalpha"><span class="header-section-number">6.4.1</span> Ce que mesure l’alpha</h3>
+<ul>
+<li>Le degré auquel les items sont <strong>corrélés entre eux</strong>.</li>
+<li>Plus les items vont “dans le même sens”, plus l’alpha est élevé.</li>
+</ul>
+</section>
+<section id="comment-interpréter-lalpha" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="comment-interpréter-lalpha"><span class="header-section-number">6.4.2</span> Comment interpréter l’alpha</h3>
+<ul>
+<li>α &lt; 0,6 : cohérence interne faible → items peu liés</li>
+<li>0,6 ≤ α &lt; 0,9 : c’est bien !</li>
+<li>α ≥ 0,9 : cohérence interne très élevée → items redondants (c’est presque trop)</li>
+</ul>
+</section>
+<section id="limite-fondamentale" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="limite-fondamentale"><span class="header-section-number">6.4.3</span> Limite fondamentale</h3>
+<p>L’alpha n’a de sens <strong>que si le questionnaire est unidimensionnel</strong>, c’est à dire que tous les items mesurent la même dimension latente. S’il existe plusieurs dimensions cachées, l’alpha peut être trompeusement élevé.</p>
+<hr>
+</section>
+<section id="pourquoi-lalpha-nécessite-un-questionnaire-unidimensionnel" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> 2. Pourquoi l’alpha nécessite un questionnaire unidimensionnel ?</h1>
+<p>Parce que l’alpha repose sur l’hypothèse que :</p>
+<ul>
+<li>toutes les corrélations entre items proviennent <strong>d’un seul facteur latent</strong>.</li>
+</ul>
+<p>Si les items mesurent plusieurs dimensions différentes :</p>
+<ul>
+<li>certaines corrélations sont fortes au sein d’une dimension (dimension = groupe d’items liés),</li>
+<li>d’autres sont faibles entre dimensions,</li>
+<li>l’ensemble devient hétérogène,</li>
+<li>l’alpha ne reflète plus une seule cohérence interne.</li>
+</ul>
+<p>D’où la nécessité de vérifier l’<strong>unidimensionnalité</strong> avant de rapporter l’alpha.</p>
+<hr>
+</section>
+<section id="comment-vérifier-lunidimensionnalité" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> 3. Comment vérifier l’unidimensionnalité ?</h1>
+<section id="par-lanalyse-des-valeurs-propres-scree-plot" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="par-lanalyse-des-valeurs-propres-scree-plot"><span class="header-section-number">8.1</span> Par l’analyse des valeurs propres (scree plot)</h2>
+<p>On réalise une <strong>ACP</strong> ou une <strong>analyse factorielle exploratoire</strong>, puis on examine les <strong>valeurs propres</strong>.</p>
+<section id="rappel-quest-ce-quune-valeur-propre" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="rappel-quest-ce-quune-valeur-propre"><span class="header-section-number">8.1.1</span> Rappel : qu’est-ce qu’une valeur propre ?</h3>
+<p>Une valeur propre représente :</p>
+<ul>
+<li>la <strong>quantité de variance expliquée</strong> par une composante (ou un facteur).</li>
+</ul>
+<p>Repères :</p>
+<ul>
+<li>Valeur propre = 1 : autant de variance qu’un item</li>
+<li>Valeur propre &gt; 1 : facteur important</li>
+<li>Une seule valeur propre nettement plus élevée que les autres = un seul facteur dominant</li>
+</ul>
+</section>
+<section id="principe-1" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="principe-1"><span class="header-section-number">8.1.2</span> Principe</h3>
+<ul>
+<li><strong>Unidimensionnel</strong> = 1 seul facteur explique l’essentiel de la variance → 1 valeur propre haute</li>
+<li><strong>Multidimensionnel</strong> = plusieurs facteurs importants → plusieurs valeurs propres hautes</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="exemple-complet" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> 4. Exemple complet</h1>
+<section id="questionnaire-de-6-items-censés-mesurer-lanxiété" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="questionnaire-de-6-items-censés-mesurer-lanxiété"><span class="header-section-number">9.1</span> Questionnaire de 6 items censés mesurer l’anxiété</h2>
+<p>(ex : tension, inquiétude, nervosité, irritabilité, ruminations, difficultés à se détendre)</p>
+<p>Après avoir collecté les réponses de 200 personnes, on réalise une ACP.</p>
+<section id="étape-a-valeurs-propres-obtenues" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="étape-a-valeurs-propres-obtenues"><span class="header-section-number">9.1.1</span> Étape A : valeurs propres obtenues</h3>
+<pre><code>Facteur 1 : 3,8
+Facteur 2 : 0,7
+Facteur 3 : 0,6
+Facteur 4 : 0,4
+Facteur 5 : 0,3
+Facteur 6 : 0,2</code></pre>
+</section>
+<section id="interprétation-1" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="interprétation-1"><span class="header-section-number">9.1.2</span> Interprétation</h3>
+<ul>
+<li>Le <strong>facteur 1</strong> explique <strong>3,8 fois plus de variance qu’un item</strong>.</li>
+<li>Les autres valeurs propres sont petites et décroissantes.</li>
+<li>Le <strong>diagramme des valeurs propres</strong> montre un <strong>coude net après le facteur 1</strong>.</li>
+</ul>
+<p>→ Le questionnaire est <strong>unidimensionnel</strong>. → Calculer l’alpha de Cronbach est pertinent.</p>
+</section>
+<section id="étape-b-alpha-de-cronbach" class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="étape-b-alpha-de-cronbach"><span class="header-section-number">9.1.3</span> Étape B : alpha de Cronbach</h3>
+<p>On obtient par exemple : <strong>α = 0,87</strong></p>
+<p>Interprétation :</p>
+<ul>
+<li>Les 6 items sont homogènes.</li>
+<li>Ils mesurent bien <strong>une seule dimension d’anxiété</strong>.</li>
+<li>Le score total (la somme des 6 items) est cohérent.</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="exemple-inverse-multidimensionnel" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> 5. Exemple inverse (multidimensionnel)</h1>
+<p>Si les valeurs propres étaient :</p>
+<pre><code>Facteur 1 : 2,6
+Facteur 2 : 2,0
+Facteur 3 : 0,7
+Facteur 4 : 0,4
+Facteur 5 : 0,2
+Facteur 6 : 0,1</code></pre>
+<p>Interprétation :</p>
+<ul>
+<li>Deux facteurs importants (ex. anxiété + dépression).</li>
+<li>Le questionnaire est <strong>bifactoriel</strong>.</li>
+<li>Un alpha global ne serait <strong>pas valide</strong> (il mélangerait plusieurs dimensions).</li>
+</ul>
+<hr>
+</section>
+<section id="synthèse-finale" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> 6. Synthèse finale</h1>
+<section id="alpha-de-cronbach-1" class="level3" data-number="11.0.1">
+<h3 data-number="11.0.1" class="anchored" data-anchor-id="alpha-de-cronbach-1"><span class="header-section-number">11.0.1</span> Alpha de Cronbach</h3>
+<ul>
+<li>Mesure la <strong>cohérence interne</strong> entre items</li>
+<li>Suppose <strong>un seul facteur latent</strong></li>
+<li>Interprétation correcte seulement en cas d’unidimensionnalité</li>
+</ul>
+</section>
+<section id="valeurs-propres" class="level3" data-number="11.0.2">
+<h3 data-number="11.0.2" class="anchored" data-anchor-id="valeurs-propres"><span class="header-section-number">11.0.2</span> Valeurs propres</h3>
+<ul>
+<li>Représentent la <strong>variance expliquée</strong> par chaque facteur</li>
+<li>Une seule valeur propre dominante → <strong>unidimensionnalité</strong></li>
+<li>Plusieurs valeurs propres élevées → <strong>multidimensionnalité</strong></li>
+</ul>
+</section>
+<section id="exemple-2" class="level3" data-number="11.0.3">
+<h3 data-number="11.0.3" class="anchored" data-anchor-id="exemple-2"><span class="header-section-number">11.0.3</span> Exemple</h3>
+<ul>
+<li>Valeur propre 1 = 3,8 et les autres &lt; 1 → OK</li>
+<li>Alpha = 0,87 → cohérence interne satisfaisante</li>
+</ul>
+</section>
+</section>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="questions-à-lexamen-sur-ce-cours" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Questions à l’examen sur ce cours</h1>
+<ul>
+<li><p>Ca tombe assez souvent !</p></li>
+<li><p>Différence ICC agreement et ICC consistency</p></li>
+<li><p>Kappa de Cohen et ICC : proches et différents :</p></li>
+</ul>
+</section>
+<section id="ce-que-mesure-kappa-qualitatif" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> 1. Ce que mesure Kappa (qualitatif)</h1>
+<section id="tableau-22-2-juges-variable-binaire" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="tableau-22-2-juges-variable-binaire"><span class="header-section-number">13.1</span> Tableau 2×2 (2 juges, variable binaire)</h2>
+<p>Juge 1 en ligne, Juge 2 en colonne :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>J2 +</th>
+<th>J2 −</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>J1 +</strong></td>
+<td>a</td>
+<td>b</td>
+</tr>
+<tr class="even">
+<td><strong>J1 −</strong></td>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+<p>Taille totale : <span class="math inline">\(N = a + b + c + d\)</span></p>
+<section id="concordance-brute" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="concordance-brute"><span class="header-section-number">13.1.1</span> Concordance brute</h3>
+<p><span class="math inline">\(\text{Conc} = \frac{a + d}{a + b + c + d}\)</span></p>
+</section>
+<section id="concordance-liée-au-hasard" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="concordance-liée-au-hasard"><span class="header-section-number">13.1.2</span> Concordance liée au hasard</h3>
+<p>On utilise les marges (prévalences de OUI/NON) : <span class="math inline">\(\text{Conc}_H = \frac{(a+b)(a+c) + (c+d)(b+d)}{(a+b+c+d)^2}\)</span></p>
+</section>
+<section id="kappa-de-cohen" class="level3" data-number="13.1.3">
+<h3 data-number="13.1.3" class="anchored" data-anchor-id="kappa-de-cohen"><span class="header-section-number">13.1.3</span> Kappa de Cohen</h3>
+<p><span class="math inline">\(\kappa = \frac{\text{Conc} - \text{Conc}_H}{1 - \text{Conc}_H}\)</span></p>
+<p><strong>Interprétation (cours)</strong></p>
+<ul>
+<li>0,41–0,60 : accord modéré</li>
+<li>0,61–0,80 : accord substantiel</li>
+<li>0,81–1 : accord (presque) parfait</li>
+</ul>
+</section>
+<section id="extensions" class="level3" data-number="13.1.4">
+<h3 data-number="13.1.4" class="anchored" data-anchor-id="extensions"><span class="header-section-number">13.1.4</span> Extensions</h3>
+<ul>
+<li><p><strong>Plus de 2 classes</strong> :</p>
+<ul>
+<li><p>Conc = % diagonal</p></li>
+<li><p>Conc_H = somme des produits des marges / N²</p></li>
+</ul></li>
+<li><p><strong>Variable ordonnée</strong> : on utilise un <strong>kappa pondéré</strong></p></li>
+<li><p><strong>Plus de 2 juges</strong> : kappa de <strong>Light</strong> = moyenne des kappas par paires</p></li>
+</ul>
+</section>
+<section id="limites" class="level3" data-number="13.1.5">
+<h3 data-number="13.1.5" class="anchored" data-anchor-id="limites"><span class="header-section-number">13.1.5</span> Limites</h3>
+<ul>
+<li>Très sensible aux marges (prévalence)</li>
+<li>Peut être faible même si la concordance brute est élevée</li>
+<li>D’où le PABAK (mais « inutile selon Falissard »)</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="ce-que-mesure-licc-quantitatif" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> 2. Ce que mesure l’ICC (quantitatif)</h1>
+<p><span class="math inline">\(ICC = \frac{\text{Variance entre patients}}{\text{Variance totale}}\)</span></p>
+<p>Avec :</p>
+<p><span class="math inline">\(\text{Var totale} = \text{Var entre patients} + \text{Var entre juges} + \text{Var résiduelle}\)</span></p>
+<ul>
+<li><p>Variance entre patients : variabilité réelle</p></li>
+<li><p>Variance entre juges : biais systématique</p></li>
+<li><p>Variance résiduelle : erreur aléatoire</p></li>
+</ul>
+<p><strong>Interprétation :</strong></p>
+<ul>
+<li><p>ICC → 1 : bonne fiabilité</p></li>
+<li><p>ICC → 0 : mauvaise fiabilité</p></li>
+</ul>
+<section id="cours-tip" class="level3" data-number="14.0.1">
+<h3 data-number="14.0.1" class="anchored" data-anchor-id="cours-tip"><span class="header-section-number">14.0.1</span> Cours, « Tip »</h3>
+<ul>
+<li>Y n’a pas besoin d’être normale</li>
+<li>Même si Y est binaire → on peut calculer κ ou ICC</li>
+<li>« Asymptotiquement, c’est la même chose »</li>
+</ul>
+</section>
+<section id="cours-3.a.1." class="level3" data-number="14.0.2">
+<h3 data-number="14.0.2" class="anchored" data-anchor-id="cours-3.a.1."><span class="header-section-number">14.0.2</span> Cours, 3.A.1.</h3>
+<p>Pour Y ordonnée : <span class="math inline">\(\text{kappa pondéré (poids }1/N^2) = ICC\)</span></p>
+<hr>
+</section>
+</section>
+<section id="en-quoi-κ-et-icc-sont-proches" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> 3. En quoi κ et ICC sont proches</h1>
+<ul>
+<li><p>Mesurent l’accord inter-juge</p></li>
+<li><p>κ pour qualitatif ; ICC surtout pour quantitatif</p></li>
+<li><p>Tous deux : accord réel vs hasard/erreurs</p></li>
+<li><p>Valeurs entre 0 et 1</p></li>
+<li><p>Sur binaire : κ ≈ ICC</p></li>
+<li><p>Sur ordinal : κ pondéré = ICC</p></li>
+<li><p>Le cours dit explicitement qu’ils mesurent la même idée de <strong>fiabilité</strong></p></li>
+</ul>
+<hr>
+</section>
+<section id="en-quoi-ils-sont-différents" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> 4. En quoi ils sont différents</h1>
+<section id="type-de-données" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="type-de-données"><span class="header-section-number">16.1</span> Type de données</h2>
+<ul>
+<li><p>κ : qualitatif (binaire, nominal, ordinal)</p></li>
+<li><p>ICC : quantitatif (extensible au binaire/ordinal)</p></li>
+</ul>
+</section>
+<section id="méthode-de-calcul" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="méthode-de-calcul"><span class="header-section-number">16.2</span> Méthode de calcul</h2>
+<ul>
+<li><p>κ : basé sur tableau de contingence et accord par hasard</p></li>
+<li><p>ICC : basé sur décomposition de variance (modèle ANOVA)</p></li>
+</ul>
+</section>
+<section id="sensibilité-aux-marges" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="sensibilité-aux-marges"><span class="header-section-number">16.3</span> Sensibilité aux marges</h2>
+<ul>
+<li><p>κ très sensible</p></li>
+<li><p>ICC non formulé en termes de prévalence</p></li>
+</ul>
+</section>
+<section id="structure-derreur" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="structure-derreur"><span class="header-section-number">16.4</span> Structure d’erreur</h2>
+<ul>
+<li><p>κ ne distingue pas sources d’erreur</p></li>
+<li><p>ICC sépare :</p>
+<ul>
+<li><p>erreur entre juges</p></li>
+<li><p>erreur résiduelle</p></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="exemple-concret-du-cours-rb1-rb2" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> 5. Exemple concret du cours (rb1 / rb2)</h1>
+<p>Tableau :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>J2=0</th>
+<th>J2=1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>J1=0</strong></td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>J1=1</strong></td>
+<td>4</td>
+<td>19</td>
+</tr>
+</tbody>
+</table>
+<p>Donc : a = 6, b = 0, c = 4, d = 19, N = 29.</p>
+<section id="kappa-de-cohen-1" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="kappa-de-cohen-1"><span class="header-section-number">17.1</span> Kappa de Cohen</h2>
+<section id="concordance-brute-1" class="level3" data-number="17.1.1">
+<h3 data-number="17.1.1" class="anchored" data-anchor-id="concordance-brute-1"><span class="header-section-number">17.1.1</span> Concordance brute</h3>
+<p><span class="math inline">\(\text{Conc} = \frac{25}{29} \approx 0{,}862\)</span></p>
+</section>
+<section id="marges" class="level3" data-number="17.1.2">
+<h3 data-number="17.1.2" class="anchored" data-anchor-id="marges"><span class="header-section-number">17.1.2</span> Marges</h3>
+<ul>
+<li><p>J1 : 0 = 6/29 ; 1 = 23/29</p></li>
+<li><p>J2 : 0 = 10/29 ; 1 = 19/29</p></li>
+</ul>
+</section>
+<section id="concordance-au-hasard" class="level3" data-number="17.1.3">
+<h3 data-number="17.1.3" class="anchored" data-anchor-id="concordance-au-hasard"><span class="header-section-number">17.1.3</span> Concordance au hasard</h3>
+<p><span class="math inline">\(\text{Conc}_H = \frac{6\cdot 10 + 23 \cdot 19}{29^2}\)</span> <span class="math inline">\(= \frac{497}{841}\)</span> <span class="math inline">\(\approx 0{,}591\)</span></p>
+</section>
+<section id="kappa" class="level3" data-number="17.1.4">
+<h3 data-number="17.1.4" class="anchored" data-anchor-id="kappa"><span class="header-section-number">17.1.4</span> Kappa</h3>
+<p><span class="math inline">\(\kappa \approx 0{,}66\)</span></p>
+</section>
+</section>
+<section id="icc-cours" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="icc-cours"><span class="header-section-number">17.2</span> ICC (cours)</h2>
+<ul>
+<li><p>Var patients = 0,1404</p></li>
+<li><p>Var juges = 0,0074</p></li>
+<li><p>Var Résiduel = 0,0616</p></li>
+</ul>
+<p>Variance totale : <span class="math inline">\(0{,}2094\)</span></p>
+<p><span class="math inline">\(ICC = \frac{0{,}1404}{0{,}2094} \approx 0{,}67\)</span></p>
+<p><strong>Conclusion de l’exemple :</strong></p>
+<ul>
+<li><p>κ = 0,66</p></li>
+<li><p>ICC = 0,67</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="synthèse-courte" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> 6. Synthèse courte</h1>
+<section id="proches-car" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="proches-car"><span class="header-section-number">18.1</span> Proches car :</h2>
+<ul>
+<li>mesurent un accord au-delà du hasard/erreur</li>
+<li>valeurs entre 0 et 1</li>
+<li>sur binaire/ordinal → très proches</li>
+<li>κ pondéré = ICC</li>
+</ul>
+</section>
+<section id="différents-car" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="différents-car"><span class="header-section-number">18.2</span> Différents car :</h2>
+<ul>
+<li>κ basé contingence ; ICC basé variance</li>
+<li>κ sensible aux marges ; ICC non</li>
+<li>κ ne distingue pas types d’erreurs ; ICC si</li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

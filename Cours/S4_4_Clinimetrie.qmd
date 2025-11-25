@@ -20,8 +20,8 @@ format:
         pdf-engine: xelatex
         number-sections: true
         header-includes: |
-            \usepackage{fontspec} 
-            \setmainfont{Ubuntu}
+            % \usepackage{fontspec} 
+            % \setmainfont{Ubuntu}
             \usepackage{etoolbox}
             \renewcommand{\contentsname}{}
             \AtBeginDocument{
@@ -156,23 +156,23 @@ Exemple :
 | Juge2_reponse_negative | c                      | d                      | 0,9 |
 |                        | 0,1                    | 0,9                    |     |
 
-*Marges =* *totaux sur les bords du tableau*
+*Marges =-   *totaux sur les bords du tableau*
 
 ::: callout-important
-$\rightarrow$ probabilité d'être en a = 0,1 \* 0,1 = 0,01
+$\rightarrow$ probabilité d'être en a = 0,1 \-   0,1 = 0,01
 
-$\rightarrow$ probabilité d'être en b = 0,1 \* 0,9 = 0,09
+$\rightarrow$ probabilité d'être en b = 0,1 \-   0,9 = 0,09
 
-$\rightarrow$ probabilité d'être en c = 0,9 \* 0,1 = 0,09
+$\rightarrow$ probabilité d'être en c = 0,9 \-   0,1 = 0,09
 
-$\rightarrow$ probabilité d'être en d = 0,9 \* 0,9 = 0,81
+$\rightarrow$ probabilité d'être en d = 0,9 \-   0,9 = 0,81
 :::
 
 Mais la démonstration :
 
--   Probabilité que les deux juges répondent positivement : P(J1+) \* P(J2+)
+-   Probabilité que les deux juges répondent positivement : P(J1+) \-   P(J2+)
 
-    -   = $\frac{(a + b)}{(a + b + c + d)} * \frac{(a + c)}{(a + b + c + d)}$
+    -   = $\frac{(a + b)}{(a + b + c + d)} -   \frac{(a + c)}{(a + b + c + d)}$
 
         -   Proportion de OUI du Juge 1 : $\frac{(a + b)}{N}$
 
@@ -236,7 +236,7 @@ Limites :
 
     -   Somme des marges multipliées entre elles
 
-    -   Marge J1_X1 \* Marge J2_X1 + Marge J1_X2 \* Marge J2_X2 + ...
+    -   Marge J1_X1 \-   Marge J2_X1 + Marge J1_X2 \-   Marge J2_X2 + ...
 
     -   Divisé par N\^2
 
@@ -376,9 +376,9 @@ ckappa(data.frame(expsy$rb1, expsy$rb3))
 
 -   Concordance liée au hasard :
 
-    -   = ((6 + 0) \* (6 + 4) + (4 + 19) \* (0 + 19)) / (29\^2)
+    -   = ((6 + 0) \-   (6 + 4) + (4 + 19) \-   (0 + 19)) / (29\^2)
 
-    -   = (6 \* 10 + 23 \* 19) / 841
+    -   = (6 \-   10 + 23 \-   19) / 841
 
     -   = (60 + 437) / 841
 
@@ -464,11 +464,13 @@ Et les juges se prononceraient OUI/NON donc on pourrait calculer un $\kappa$ de 
 En pratique : c'est la même chose **asymptotiquement**, c'est à dire si le nombre de sujets est grand.
 :::
 
+
+
 ### Si Y est une variable ordonnée
 
 -   $\kappa\ ponderee$ en $1/N^2 = ICC$
 
-## Exemple sur \`\`\`{html}
+## Exemple sur R
 
 ```{r}
 #| echo: true
@@ -477,6 +479,25 @@ icc(expsy[, c("rb1", "rb2")])
 ```
 
 Kappa = 0,66 et ICC = 0,67
+
+::: {.callout-tip}
+**Différence ICC agreement et ICC consistency**
+
+-   **ICC agreement** : 
+
+    -   prend en compte les différences systématiques entre juges (si un juge est plus sévère que l'autre)
+
+    -   formule : $$ICC_{agreement} = \frac{Variance\ entre\ Patients}{Variance\ entre\ Patients + Variance\ entre\ Juges + Variance\ résiduelle}$$
+
+-   **ICC consistency** :
+
+    -   ne prend pas en compte les différences systématiques entre juges (on s'en fiche si un juge est plus sévère que l'autre)
+
+    -   formule : $$ICC_{consistency} = \frac{Variance\ entre\ Patients}{Variance\ entre\ Patients + Variance\ résiduelle}$$
+
+ICC consistency : utile par exemple dans un essai randomisé dans lequel on compare la fin *versus-   le début de l'étude.\
+
+:::
 
 /newpage
 
@@ -746,10 +767,222 @@ Interprétation :
 -   Alpha = 0,87 → cohérence interne satisfaisante
 :::
 
+----------------------------------------------------------------
+
+
+
+
 # Questions à l'examen sur ce cours
 
 -   Ca tombe assez souvent !
 
-Questions vaches : 
-
 -   Différence ICC agreement et ICC consistency 
+
+-   Kappa de Cohen et ICC : proches et différents : 
+
+# 1. Ce que mesure Kappa (qualitatif)
+
+## Tableau 2×2 (2 juges, variable binaire)
+
+Juge 1 en ligne, Juge 2 en colonne :
+
+|          | J2 + | J2 − |
+| -------- | ---- | ---- |
+| **J1 +** | a    | b    |
+| **J1 −** | c    | d    |
+
+Taille totale :
+$N = a + b + c + d$
+
+### Concordance brute
+
+$\text{Conc} = \frac{a + d}{a + b + c + d}$
+
+### Concordance liée au hasard
+
+On utilise les marges (prévalences de OUI/NON) :
+$\text{Conc}_H = \frac{(a+b)(a+c) + (c+d)(b+d)}{(a+b+c+d)^2}$
+
+### Kappa de Cohen
+
+$\kappa = \frac{\text{Conc} - \text{Conc}_H}{1 - \text{Conc}_H}$
+
+**Interprétation (cours)**
+
+-   0,41–0,60 : accord modéré
+-   0,61–0,80 : accord substantiel
+-   0,81–1 : accord (presque) parfait
+
+### Extensions
+
+-   **Plus de 2 classes** :
+
+    -   Conc = % diagonal
+
+    -   Conc_H = somme des produits des marges / N²
+
+-   **Variable ordonnée**   : on utilise un **kappa pondéré**
+
+-   **Plus de 2 juges**   : kappa de **Light** = moyenne des kappas par paires
+
+### Limites
+
+-   Très sensible aux marges (prévalence)
+-   Peut être faible même si la concordance brute est élevée
+-   D’où le PABAK (mais « inutile selon Falissard »)
+
+---
+
+# 2. Ce que mesure l’ICC (quantitatif)
+
+$ICC = \frac{\text{Variance entre patients}}{\text{Variance totale}}$
+
+Avec :
+
+$\text{Var totale} = \text{Var entre patients} + \text{Var entre juges} + \text{Var résiduelle}$
+
+-   Variance entre patients : variabilité réelle
+
+-   Variance entre juges : biais systématique
+
+-   Variance résiduelle : erreur aléatoire
+
+**Interprétation :**
+
+-   ICC → 1 : bonne fiabilité
+
+-   ICC → 0 : mauvaise fiabilité
+
+### Cours, « Tip »
+
+-   Y n’a pas besoin d’être normale
+-   Même si Y est binaire → on peut calculer κ ou ICC
+-   « Asymptotiquement, c’est la même chose »
+
+### Cours, 3.A.1.
+
+Pour Y ordonnée :
+$\text{kappa pondéré (poids }1/N^2) = ICC$
+
+---
+
+# 3. En quoi κ et ICC sont proches
+
+-   Mesurent l’accord inter-juge
+
+-   κ pour qualitatif ; ICC surtout pour quantitatif
+
+-   Tous deux : accord réel vs hasard/erreurs
+
+-   Valeurs entre 0 et 1
+
+-   Sur binaire : κ ≈ ICC
+
+-   Sur ordinal : κ pondéré = ICC
+
+-   Le cours dit explicitement qu’ils mesurent la même idée de **fiabilité**
+
+---
+
+# 4. En quoi ils sont différents
+
+## Type de données
+
+-   κ : qualitatif (binaire, nominal, ordinal)
+
+-   ICC : quantitatif (extensible au binaire/ordinal)
+
+## Méthode de calcul
+
+-   κ : basé sur tableau de contingence et accord par hasard
+
+-   ICC : basé sur décomposition de variance (modèle ANOVA)
+
+## Sensibilité aux marges
+
+-   κ très sensible
+
+-   ICC non formulé en termes de prévalence
+
+## Structure d’erreur
+
+-   κ ne distingue pas sources d’erreur
+
+-   ICC sépare :
+
+    -   erreur entre juges
+    
+    -   erreur résiduelle
+
+---
+
+# 5. Exemple concret du cours (rb1 / rb2)
+
+Tableau :
+
+|          | J2=0 | J2=1 |
+| -------- | ---- | ---- |
+| **J1=0** | 6    | 0    |
+| **J1=1** | 4    | 19   |
+
+Donc :
+a = 6, b = 0, c = 4, d = 19, N = 29.
+
+## Kappa de Cohen
+
+### Concordance brute
+
+$\text{Conc} = \frac{25}{29} \approx 0{,}862$
+
+### Marges
+
+-   J1 : 0 = 6/29 ; 1 = 23/29
+
+-   J2 : 0 = 10/29 ; 1 = 19/29
+
+### Concordance au hasard
+
+$\text{Conc}_H = \frac{6\cdot 10 + 23 \cdot 19}{29^2}$
+$= \frac{497}{841}$
+$\approx 0{,}591$
+
+### Kappa
+
+$\kappa \approx 0{,}66$
+
+## ICC (cours)
+
+-   Var patients = 0,1404
+
+-   Var juges = 0,0074
+
+-   Var Résiduel = 0,0616
+
+Variance totale :
+$0{,}2094$
+
+$ICC = \frac{0{,}1404}{0{,}2094} \approx 0{,}67$
+
+**Conclusion de l’exemple :**
+
+-   κ = 0,66
+
+-   ICC = 0,67
+
+---
+
+# 6. Synthèse courte
+
+## Proches car :
+
+-   mesurent un accord au-delà du hasard/erreur
+-   valeurs entre 0 et 1
+-   sur binaire/ordinal → très proches
+-   κ pondéré = ICC
+
+## Différents car :
+
+-   κ basé contingence ; ICC basé variance
+-   κ sensible aux marges ; ICC non
+-   κ ne distingue pas types d’erreurs ; ICC si
+
