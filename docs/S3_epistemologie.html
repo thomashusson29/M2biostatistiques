@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>S3 Épistémologie</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="S3_epistemologie_files/libs/clipboard/clipboard.min.js"></script>
+<script src="S3_epistemologie_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="S3_epistemologie_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="S3_epistemologie_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="S3_epistemologie_files/libs/quarto-html/popper.min.js"></script>
+<script src="S3_epistemologie_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="S3_epistemologie_files/libs/quarto-html/anchor.min.js"></script>
+<link href="S3_epistemologie_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="S3_epistemologie_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="S3_epistemologie_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="S3_epistemologie_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="S3_epistemologie_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">S3 Épistémologie</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="épistémologie" class="level1">
+<h1>Épistémologie</h1>
+<p><strong>Épistemologie</strong> : étude critique des sciences, de leurs méthodes et de leurs fondements.</p>
+<section id="fisher-1922-fondements-de-la-statistique-inférentielle" class="level2">
+<h2 class="anchored" data-anchor-id="fisher-1922-fondements-de-la-statistique-inférentielle">Fisher : 1922 : fondements de la statistique inférentielle</h2>
+<section id="définitions" class="level3">
+<h3 class="anchored" data-anchor-id="définitions">Définitions</h3>
+<p>Article initial : Fisher 1922 : <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em>, Vol. 222, pp.&nbsp;309-368.</p>
+<ul>
+<li><p><em>Quantité de données tellement importante que c’est impossible que ça rentre dans la tête</em></p></li>
+<li><p><em>Imaginer un échantillon aléatoire d’une population infinie (sous-jacente) - hypothétique</em></p></li>
+</ul>
+<p>Mais en soi, l’échantillon n’est jamais <strong>purement</strong> tiré au sort.</p>
+</section>
+<section id="petit-p" class="level3">
+<h3 class="anchored" data-anchor-id="petit-p">petit p</h3>
+<p><strong>Plus le petit p est petit, moins on peut dire que le hasard peut l’observer</strong></p>
+<p>Hasard : considère que notre échantillon a été tiré au sort, d’une population sous-jacente hypothétique.</p>
+<p>Exemple :</p>
+<ul>
+<li><p>Statistique1 (52%) &gt; Statistique2 (50%) sur 1000 sujets</p></li>
+<li><p>Évaluer la probablilité que le hasard puisse produire une différence au moins aussi grande que 2% entre Statistique1 et Statistique2</p></li>
+<li><p>Dans l’article original : <em>worse fit</em> : différence <em>au moins aussi importante</em> en population générale infinie et hypothétique (donc population sous-jacente <strong>virtuelle</strong>).</p></li>
+</ul>
+<p><strong>Choix du seuil à 5%</strong> : limite <strong>conventionnelle</strong></p>
+<p>Et <strong>plus le petit p est petit</strong>, <strong>moins on se trompe</strong>.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="neyman-pearson-1933-tests-dhypothèses" class="level2">
+<h2 class="anchored" data-anchor-id="neyman-pearson-1933-tests-dhypothèses">Neyman &amp; Pearson : 1933 : tests d’hypothèses</h2>
+<section id="définitions-1" class="level3">
+<h3 class="anchored" data-anchor-id="définitions-1">Définitions</h3>
+<p>Article initial : Neyman &amp; Pearson 1933 : <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em></p>
+<ul>
+<li><p>Statistique inférentielle = procédure de décision</p></li>
+<li><p>Décision entre deux hypothèses (H0 et H1) à partir d’un échantillon aléatoire</p></li>
+<li><p>Hypothèse nulle H0 : hypothèse de base, de non-effet</p></li>
+<li><p>Hypothèse alternative H1 : hypothèse de recherche, d’effet</p></li>
+<li><p><strong>Risque alpha (erreur de type I) : rejeter H0 alors qu’elle est vraie</strong></p></li>
+<li><p><strong>Risque bêta (erreur de type II) : ne pas rejeter H0 alors qu’elle est fausse</strong></p></li>
+<li><p>Puissance (1 - bêta) : probabilité de rejeter H0 quand H1 est vraie</p></li>
+</ul>
+<p><br>
+</p>
+</section>
+<section id="tests-dhypothèses" class="level3">
+<h3 class="anchored" data-anchor-id="tests-dhypothèses">Tests d’hypothèses</h3>
+<p>Problème mathématique posé : “<em>Comment construire un test statistique qui garantit alpha et qui minimise beta ?</em></p>
+<p>Meilleur test = <strong>RAPPORT DE VRAISEMBLANCE</strong> (likelihood ratio test) = <strong>INFÉRENCE STATISTIQUE</strong>.</p>
+<ul>
+<li><p>Test le plus puissant pour un alpha donné</p></li>
+<li><p>Donc définir alpha <em>a priori</em>.</p></li>
+<li><p>Calculer un rapport de vraisemblance</p></li>
+<li><p>Et le comparer à une valeur seuil (dépendant de alpha)</p></li>
+</ul>
+<p><br>
+</p>
+<p><strong>Formule</strong> :</p>
+<p><span class="math display">\[\frac{\mathcal{L}(x, \theta_0)}{\mathcal{L}(x, \theta_1)} \leq k_\alpha\]</span></p>
+<p>Avec :</p>
+<ul>
+<li><p><span class="math inline">\(\mathcal{L}(x, \theta_0)\)</span> : vraisemblance des données <span class="math inline">\(x\)</span> sous H0</p></li>
+<li><p><span class="math inline">\(\mathcal{L}(x, \theta_1)\)</span> : vraisemblance des données <span class="math inline">\(x\)</span> sous H1</p></li>
+<li><p><span class="math inline">\(k_\alpha\)</span> : valeur seuil dépendant de alpha</p></li>
+</ul>
+<p>Mais dans la version <strong>la plus puissante possible</strong>, <strong>en général</strong> on n’utilise pas <span class="math inline">\(\theta_1\)</span>.<br>
+A part pour le calcul de puissance (1 - <span class="math inline">\(\beta\)</span>).<br>
+Autre problème : tests <strong>unilatéraux</strong></p>
+<ul>
+<li><p>Dans la formule originelle de Neyman et Pearson :</p>
+<ul>
+<li><p>H0 = <span class="math inline">\(\theta = \theta_0\)</span></p></li>
+<li><p>H1 = <span class="math inline">\(\theta = \theta_1\)</span></p></li>
+<li><p>Mais comme on supprime <span class="math inline">\(\theta_1\)</span>, on ne sert que de H0.</p></li>
+</ul></li>
+</ul>
+<p><br>
+</p>
+<p><strong>Mais en vrai</strong> : on calcule un <em>petit p</em>, et on le compare à <span class="math inline">\(\alpha\)</span> = <strong>COMME FISHER</strong>.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="querelle-neyman-fisher" class="level2">
+<h2 class="anchored" data-anchor-id="querelle-neyman-fisher">Querelle Neyman-Fisher</h2>
+<p>Fisher trouve ça abusé de définir <span class="math inline">\(\alpha\)</span> avec une mesure fixe alors que ça dépend du contexte.<br>
+Le risque <span class="math inline">\(\beta\)</span> n’est pas calculable car dépend de <span class="math inline">\(\theta_1\)</span> qu’on ne connaît pas et qu’on imagine pas.<br>
+</p>
+<p>Critique le fait de définir l’erreur de type I et II comme accepter soit l’hypothèse nulle, soit l’hypothèse alternative, ça revient <strong>à les prouver</strong> et les considéréer comme <strong>établies</strong> alors qu’on devrait juste dire que c’est <strong>confirmé</strong> ou <strong>renforcé</strong>. &nbsp;</p>
+<ul>
+<li><p>Dans le sens confirmé = on a des preuves contre H0</p></li>
+<li><p>Dans le sens renforcé = on a des preuves pour H1<br>
+</p></li>
+</ul>
+<p>Fisher propose une logique <strong>d’induction</strong>, c’est à dire :</p>
+<ul>
+<li><p>On part de l’observation des données</p></li>
+<li><p>On a des hypothèses / pensée scientifique pour expliquer ces données</p></li>
+<li><p>Et les tests statistiques permettent d’<strong>apprendre</strong> de ces données en donnant à quel % on a un risque de se tromper.</p></li>
+</ul>
+<p>Alors que Neyman &amp; Pearson proposent un test <strong>déductif</strong>, avec une procédure d’<strong>acceptation binaire</strong> entre H0 et H1 : faite pour les ingénieurs russes et américains, pas pour les connaissances.<br>
+Pour le travail d’inférence statistique :</p>
+<ul>
+<li><p>D’abord quels sont les motifs du travail expérimental</p></li>
+<li><p>Puis décision de prendre un critère ou non</p></li>
+<li><p>Pas forcément &lt; 0,05 <strong>mais choisi en temps que sujet libre</strong> basé sur les hypothèses !</p></li>
+</ul>
+<p>Pour Fisher : les statistiques doivent être enseignées par des personnes qui ont <strong>une expérience personnelle dans les Sciences Naturelles</strong>.<br>
+</p>
+<p><strong>Réponse de Neyman</strong> :</p>
+<ul>
+<li>Pour <strong>le comportement inductif</strong> : il faut avoir des <strong>règles <em>à priori</em></strong>.</li>
+</ul>
+</section>
+<section id="philosophie-inductioon---déduction---abduction" class="level2">
+<h2 class="anchored" data-anchor-id="philosophie-inductioon---déduction---abduction">Philosophie : inductioon - déduction - abduction</h2>
+<section id="déduction" class="level3">
+<h3 class="anchored" data-anchor-id="déduction">Déduction</h3>
+<p>= Règle <strong>mathématique</strong> :</p>
+<ul>
+<li><p>Partir de prémisses vraies</p></li>
+<li><p>Appliquer une règle logique</p></li>
+<li><p>Obtenir une conclusion vraie</p></li>
+</ul>
+<p><em><strong>Syllogisme</strong> : Tout homme est mortel. Socrate est un homme. Donc Socrate est mortel.</em></p>
+</section>
+<section id="induction" class="level3">
+<h3 class="anchored" data-anchor-id="induction">Induction</h3>
+<ul>
+<li><p>Partir de prémisses vraies</p></li>
+<li><p>Conclusions <strong>plausibles</strong></p></li>
+<li><p>Plausibilité basée sur la <strong>généralisation des conclusions à partir d’un échantillon</strong></p></li>
+</ul>
+<p><em><strong>Exemple</strong> : J’ai vu 1000 cygnes, tous blancs. Donc il est probable que tous les cygnes sont blancs.</em></p>
+</section>
+<section id="abduction-pensée-médicale" class="level3">
+<h3 class="anchored" data-anchor-id="abduction-pensée-médicale">Abduction = <strong>pensée médicale</strong></h3>
+<ul>
+<li><p>Partir d’une <strong>observation</strong> / <strong>un résultat</strong> que l’on considère comme <strong>vrai</strong></p></li>
+<li><p>On se demande quels sont les <strong>prémisses</strong> qui pourraient expliquer cette observation</p></li>
+</ul>
+<p><em><strong>Exemple</strong> : J’observe que le sol est mouillé. Donc il a probablement plu.</em><br>
+<br>
+</p>
+<p><u>NB : Pensée Bayesienne :</u></p>
+<ul>
+<li><p>Partir d’une <strong>hypothèse</strong> avec une <strong>probabilité a priori</strong> basée sur des connaissances antérieures</p></li>
+<li><p>Observer des données (une nouvelle information)</p></li>
+<li><p>Mettre à jour la probabilité de l’hypothèse en fonction des nouvelles données (<strong>probabilité a posteriori</strong>)</p></li>
+</ul>
+<p><br>
+</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p><u>Les tests statistiques permettent des <strong>déductions</strong>.</u></p>
+<p><strong>PROUVER</strong> : c’est une déduction</p>
+<ul>
+<li><p>Fisher : évaluer la force de l’évidence contre H0</p>
+<ul>
+<li><strong>SURTOUT POUR ANALYSES EXPLORATOIRES</strong></li>
+</ul></li>
+</ul>
+<p><br>
+</p>
+<ul>
+<li><p>Neyman &amp; Pearson : prendre une décision entre H0 et H1 avec des risques d’erreurs définis</p>
+<ul>
+<li><strong>POUR ANALYSES CONFIRMATOIRE : Efficacité de médicament Y/N</strong></li>
+</ul></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 33%">
+<col style="width: 26%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approche</th>
+<th>Objectif principal</th>
+<th>Nature de la conclusion</th>
+<th>Utilisation typique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fisher</td>
+<td>Évaluer la force de l’évidence contre H0</td>
+<td>Mesure de plausibilité (petit p)</td>
+<td>Analyses exploratoires</td>
+</tr>
+<tr class="even">
+<td>Neyman &amp; Pearson</td>
+<td>Prendre une décision entre H0 et H1 avec risques d’erreurs définis</td>
+<td></td>
+<td>Acceptation ou rejet binaire d’hypothèses</td>
+</tr>
+</tbody>
+</table>
+<p>NB :</p>
+<p>Théorie qui dit que la multiplicité des tests statistiques augmente le risque d’erreurs de type I (faux positifs) :</p>
+<ol type="1">
+<li><p>En épidémiologie (statistique exploratoire : on s’en fiche un peu)</p></li>
+<li><p>On est dans Fisher en épidémiologie : notre but est de décrire, on a pas calculé le nombre de sujets nécessaires etc et on peut interpréter la p-value.</p>
+<ul>
+<li>Si pas de risque alpha, pas d’ajustement !</li>
+</ul></li>
+</ol>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
