@@ -84,3 +84,341 @@ data(expsy)
 ```
 
 # Introduction
+
+Définition du bootstrap = technique de rééchantillonnage avec remise à partir d'un échantillon initial pour estimer la distribution d'un estimateur.
+
+Utile pour petits effectifs ou lorsque les hypothèses classiques ne sont pas respectées.
+
+En recherche clinique : souvent faible nombre de sujets et variance importantes.
+
+-   Si 2\*10 sujets :
+
+    -   ok pour tests non paramétriques : Wilcoxon et Mann-Whitney
+
+    -   bof pour tests paramétriques (car difficile de dire que ça suit une loi normale alors qu'on a peu de données) : t de Student, chi2, Fisher...
+
+-   Exemple si n = 100 et distribution très asymétrique :
+
+    -   test t pas terrible !!!
+
+    -   analyse de variance ou régression linéaire : il faudrait aussi une distribution normale !
+
+-   Solution : bootstrap ! = rééchantillonner avec remise à partir de l'échantillon initial pour estimer la distribution de l'estimateur.
+
+# Principe du bootstrap
+
+Imaginons qu'on veuille faire la régression : $$Y = a + bX1 + cX2 + \epsilon$$
+
+Sauf que Y ne suit pas du tout une loi normale.
+
+On reprend le jeu de données
+
+| ID  | Y   | X1  | X2  |
+|-----|-----|-----|-----|
+| 1   |     |     |     |
+| 2   |     |     |     |
+| 3   |     |     |     |
+| ... |     |     |     |
+| 100 |     |     |     |
+
+## Tirage avec remise
+
+On tire au hasard avec remise 100 observations parmi les 100 initiales, c'est à dire :
+
+-   On en tire au sort 1 : **le numéro 28**
+
+-   On le remet dans le sac
+
+-   On en tire au sort un deuxième : **le numéro 77**
+
+-   On le remet dans le sac
+
+-   On en tire au sort un troisième : **le numéro 28**
+
+ça donnera un tableau :
+
+| ID  | Y   | X1  | X2  |
+|-----|-----|-----|-----|
+| 28  |     |     |     |
+| 77  |     |     |     |
+| 28  |     |     |     |
+| ... |     |     |     |
+| 13  |     |     |     |
+
+Donc nouveau jeu de données !!
+
+Sur lequel on fait à nouveau la régression linéaire : $$Y = a + bX1 + cX2 + \epsilon$$
+
+$\rightarrow$ on met le b en mémoire !
+
+On refait la même chose !!
+
+| ID  | Y   | X1  | X2  |
+|-----|-----|-----|-----|
+| 6   |     |     |     |
+| 82  |     |     |     |
+| 15  |     |     |     |
+| ... |     |     |     |
+| 6   |     |     |     |
+
+Nouveau modèle de régression linéaire : $$Y = a + bX1 + cX2 + \epsilon$$
+
+$\rightarrow$ on obtient un nouveau b qu'on garde aussi
+
+Et ainsi de suite !!!
+
+On fait ça 10 000 fois (au delà de 10 000, pas vraiment interessant)
+
+## Histograme des 10 000 valeurs de b
+
+Objectif : test de b = 0 (c'est à dire pas d'effet de X1 sur Y)
+
+On trace l'histogramme des 10 000 valeurs de b obtenues
+
+![](images/paste-38.png)
+
+-   On prend les deux extrémités (2.5% et 97.5%) pour obtenir un intervalle de confiance à 95%
+
+-   L'intervalle de confiance n'a pas besoin de la normalité de la distribution car fait à la main directement à partir des données !
+
+-   Combien de b \< 0 donne la p value divisée par 2 ⇒ multipliée par 2 donne le vrai petit p du test b = 0 (c'est à dire pas d'effet de X1 sur Y)
+
+**QUESTIONS** : 
+
+-   Échantillons sont indépendants ?
+
+    -   Oui ! car on tire au hasard avec remise donc chaque tirage est indépendant des autres
+
+    -   C'est un tirage de 100 sujets parmi la population infinie !
+
+-   Machine learning ? 
+
+    -   Non : c'est plutôt une simulation statistique
+
+-   Nombre de régressions ?
+
+    -   10 000 régressions 
+
+## Faisabilité du bootstrap
+
+A partir de 30 - 50 sujets, le bootstrap est fiable.
+
+100 : on est serein ! 
+
+
+# Exemple en R sur expsy
+
+1.  Librairies nécessaires
+
+```{r}
+#| label: libraries
+#| echo: true
+library(boot)
+library(psy)
+
+# fabriquer une fonction pour faire le bootstrap de kappa
+# fonction entre accolades
+# x, tirer au sort à chaque ligne
+# 2, c'est pour récupérer kappa
+ckappa.boot <- function(data,x) {ckappa(data[x,])[[2]]}
+```
+
+2.  Faire le bootstrap
+
+```{r}
+#| label: fabriquer_fonction_bootstrap
+#| echo: true
+library(boot)
+library(psy)
+
+# fabriquer une fonction pour faire le bootstrap de kappa
+# fonction entre accolades
+# x, tirer au sort à chaque ligne
+# 2, c'est pour récupérer kappa
+ckappa.boot <- function(data,x) {ckappa(data[x,])[[2]]}
+```
+
+Syntaxe : 
+
+-   créer une fonction `ckappa.boot` qui prend en entrée data (jeu de données) et x (tirage au sort des lignes)
+
+-   à l'intérieur de la fonction, on calcule kappa sur les données rééchantillonnées data[x,] et on récupère la 2ème valeur (kappa)
+
+    -   pour savoir que c'est la 2ème valeur, on a fait `ckappa(expsy[,c(12,14)])` pour voir la sortie
+
+
+3.  Lancer le bootstrap
+
+```{r}
+#| label: bootstrap
+#| echo: true
+res <- boot(expsy[,c(12,14)],ckappa.boot,1000)
+```
+
+Syntaxe :
+
+-   `res` : objet qui va contenir le résultat du bootstrap
+
+-   `boot()` : fonction de la librairie boot pour faire le bootstrap
+
+-   `expsy[,c(12,14)]` : jeu de données
+
+    -   on ne prend que les colonnes 12 et 14 (2 évaluateurs)
+
+-   `ckappa.boot` : fonction créée précédemment pour calculer kappa sur les données rééchantillonnées
+
+-   `1000` : nombre de rééchantillons
+
+4.  Résultats
+
+```{r}
+#| label: resultats_ic
+#| echo: true
+res
+hist(res$t)
+```
+
+Syntaxe :
+
+-   `res` : affiche le résultat du bootstrap
+
+    -   `$t0` : kappa calculé sur les données initiales
+
+    -   `$t` : vecteur des 1000 kappa calculés sur les échantillons rééchantillonnés
+
+-   `hist(res$t)` : histogramme des 1000 kappa calculés sur les échantillons rééchantillonnés
+
+
+5.  Intervalles de confiance
+
+```{r}
+#| label: ic_bootstrap
+#| echo: true
+quantile(res$t,c(0.025,0.975))
+boot.ci(res,type="bca")
+ckappa(expsy[,c(11,13)])
+```
+
+
+Syntaxe :
+
+-   `quantile(res$t,c(0.025,0.975))` : calcul des quantiles 2.5% et 97.5% des kappa calculés sur les échantillons rééchantillonnés
+
+-   `boot.ci(res,type="bca")` : calcul de l'intervalle de confiance à 95%   
+    -   type = "bca" : méthode BCa (bias-corrected and accelerated) qui est meilleure que la méthode des quantiles
+
+6.  Test statistique : exemple pour kappa > 0.2
+
+Si on veut tester : 
+
+-   hypothèse nulle **H0: kappa ≤ 0.2** 
+
+-   hypothèse alternative **H1: kappa > 0.2**.
+
+```{r}
+#| label: test_statistique
+#| echo: true
+# On calcule le nombre de fois où le kappa des échantillons bootstrap est inférieur ou égal à 0.2
+n_inf <- sum(res$t <= 0.2)
+n_inf
+
+# La p-value est la proportion de ces cas
+p_value <- n_inf / length(res$t)
+p_value
+```
+
+
+```{r}
+#| label: p_value
+#| echo: true
+p_value <- (n / 1000)
+p_value
+#phrase pour résultat : 
+cat("La p-value unilatérale pour le test kappa < 0.2 est de ", p_value, "\n")
+```
+
+Avec une p-value < 0.025, on rejette l'hypothèse nulle au niveau de 2.5% et on conclut que le kappa est significativement supérieur à 0.2.
+
+# Second exemple en R sur SMP (CUSM)
+
+Modèle de régression linéaire expliquant la variable "durée de l'entretien" (`duree.interv`)
+
+```{r}
+#| label: lm_CUSM
+#| echo: true
+mod <- lm(duree.interv~schizophrenie+depression+abus.subst+ gravite+charactere+trauma.enfant+age+ factor(type.centre),data=smp)
+summary(mod)
+#histogramme des résidus
+hist(residuals(mod))
+```
+
+On constate que les résidus ne suivent pas une loi normale.
+
+On va donc faire un bootstrap pour obtenir des intervalles de confiance et des p-values pour les coefficients.
+
+1.  Créer la fonction de bootstrap
+
+Syntaxe :
+
+-   créer une fonction `lm.boot` : c'est la recette de cuisine, qui prend comme arguments `data` et `index`
+
+    -   `data` (jeu de données = liste d'ingrédients) : recevra le jeu de données `smp` qui passera dans la fonction `boot()`
+    
+    -   `index` (lignes qui seront tirées au sort avec remise par la fonction `boot()` = liste de course spécifiques) : vecteur des indices des lignes tirées au sort avec remise (peut ête ,x)
+    
+        -   Cet argument `index` est **automatiquement généré et fourni par la fonction `boot()`** à chaque itération.
+
+-   La seconde partie : le chef cuisinier boot() qui a accès au garde-manger (jeu de données initial `smp`) et à la recette de cuisine (fonction `lm.boot`).
+
+-   Le chef : 
+
+    -   crée lui même une liste de courses spécifiques (vecteur `index` des lignes tirées au sort avec remise)
+
+    -   prend la recette de cuisine (fonction `lm.boot`) et l'exécute avec les ingrédients (jeu de données `smp[index, ]`)
+
+    -   la fonction renvoie les coefficients du modèle ajusté sur l'échantillon bootstrap.
+
+    -   le chef récupère les coefficients et les stocke.
+
+    -   refait ça 10 000 fois.
+
+
+1.  Fonction `lm.boot` = recette de cuisine
+```{r}
+#| label: fonction_bootstrap_lm
+#| echo: true
+# fonction pour bootstrap des coefficients de régression linéaire
+lm.boot <- function(data, index) {
+    # 1. Création de l'échantillon bootstrap
+    # La fonction `boot()` appelle cette fonction en boucle.
+    # À chaque appel, `boot()` fournit un nouveau vecteur `index` qu'elle a généré.
+    smp.boot <- data[index,] 
+
+    # 2. Ajustement du modèle linéaire sur l'échantillon bootstrap
+    mod <- lm(duree.interv ~ schizophrenie + depression + abus.subst + gravite + charactere + trauma.enfant + age + factor(type.centre), data = smp.boot)
+
+    # 3. Extraction et renvoi des coefficients du modèle
+    coefficients(mod)
+}
+```
+
+2.  Application au jeu de données `smp` et affichage de l'histogramme des coefficients de la variable `scz.cons` (schizophrénie)
+
+```{r}
+#| label: fonction_bootstrap_lm2
+#| echo: true
+resboot <- boot(smp, lm.boot, 10000)
+
+# Calculer la p-value bootstrap (bilatérale) et l'intervalle de confiance BCa
+p_val_bootstrap <- 2 * sum(resboot$t[,2] <= 0) / resboot$R
+ci_bca <- boot.ci(resboot, index = 2, type = "bca")
+
+# Mettre en forme la sortie en une seule chaîne de caractères pour un affichage propre
+output_string <- paste0(
+  sprintf("L'intervalle de confiance à 95%% pour le coefficient de la variable scz.cons est [%.3f, %.3f].\n", ci_bca$bca[4], ci_bca$bca[5]),
+  sprintf("La p-value bilatérale pour le test du coefficient de la variable scz.cons est de %.4f.\n", p_val_bootstrap)
+)
+
+# Afficher le résultat final
+cat(output_string)
+```
