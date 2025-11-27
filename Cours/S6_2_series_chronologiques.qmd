@@ -84,165 +84,333 @@ data(expsy)
 alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
 ```
 
-# Introduction aux données manquantes
+# Introduction aux séries chronologiques
 
-1.  Considérer le problème  = **décrire les données manquantes** : combien ? où ? pourquoi ?
+Méthodes SARIMAX / ARMA / ARIMA
 
-2.  Gestion des données manquantes
+-   SARIMAX : Seasonal Autoregressive Integrated Moving Average with eXogenous regressors
 
-    -   **Virer les sujets avec données manquantes** (listwise deletion) = `na.rm=TRUE` : bof notamment si rajout de variables dans un modèle -> perte de sujets car modèle ajusté se fait sur les sujets avec données complètes
+-   ARMA : Autoregressive Moving Average
 
-    -   **Imputation des données manquantes** (remplir les valeurs manquantes avec des estimations)
+-   ARIMA : Autoregressive Integrated Moving Average
 
-        -   **Imputation simple** : mode (valeur la plus fréquente) pour les variables catégorielles, moyenne/médiane pour les variables continues (Library `Hmisc` : fonction `impute()` (imputation simple))
+## Modèle auto-régressif d'ordre 1 :
 
-        -   **Imputation multiple** : créer plusieurs jeux de données imputées, analyser chaque jeu de données, combiner les résultats (Library `mice` : fonction `mice()` (imputation multiple))
+Soit une variable $Y$ mesurée au temps $i$
 
-# Types de données manquantes
+-   Régression de Y sur ce qui se passe au temps $i-1$ : $Y_(i) = (a) + bY_(i-1) + \epsilon$
 
-## MCAR : Missing Completely At Random
+    -   Ce qui se passe au temps $i$ = une fonction linéaire de ce qui se passe au temps $i-1$ + un bruit aléatoire
 
-Les données manquantes sont indépendantes des valeurs observées et non observées. Exemple : perte de questionnaire.
+    -   Processus auto-régressif d'ordre 1 (AR(1))
 
-= Données manquantes **complètement au hasard**
+On observe une variable Y dans le temps : $Y_1$, $Y_2$, $Y_3$.
 
-## MAR : Missing At Random
+Le modèle AR(1) écrit :
 
-Les données manquantes **dépendent des valeurs observées** mais **pas des valeurs non observées**. 
+$Y_i = a + bY_{i-1} + \varepsilon_i$
 
-Exemple : 
+où $\varepsilon_i$ est un bruit aléatoire indépendant d’un instant à l’autre, c'est à dire qu'il n'y a pas de corrélation entre les $\varepsilon_i$ entre eux
 
--   les personnes âgées sont moins susceptibles de remplir un questionnaire en ligne.
+### Qu’est-ce qu’une régression (dans ce contexte) ?
 
--   les patients très musulmans répondent moins sur leur consommation d'alcool, mais on connaît leur âge et sexe.
+Une régression est un modèle qui cherche à expliquer une variable par une autre, en supposant une relation linéaire.
 
-    -   donc religion TRUE --> + de données manquantes et moins d'alcool
+Dans un AR(1), la variable explicative n’est pas une autre variable, mais l**a même variable observée juste avant**, c’est-à-dire $Y_{i-1}$.
 
-    -   religion FALSE --> peu de données manquantes, + d'alcool
+C’est donc une régression temporelle, ou auto-régression :
 
-    -   si on a religion dans le questionnaire : c'est ok ! sinon on sait pas pourquoi alcool est manquant (biais dans la donnée manquante)
+-   $Y_{i-1}$ est l’information disponible au temps précédent,
 
-Une fois qu'on enlève l'effet de toutes les variables mesurées susceptibles d'influencer à la fois la réponse d'une variable mesurée et à la fois la probabilité que cette variable soit manquante, ce qui reste dans la valeur manquante de la donnée : c'est du bruit
+-   $Y_i$ est ce qu’on cherche à prédire,
 
-Autrement dit : une fois ajusté sur les variables mesurées pertinentes, le caractère manquant d'une observation ne dépend plus de sa valeur non observée.
+-   $\varepsilon_i$ représente la part de $Y_i$ qui n’est pas expliquée par $Y_{i-1}$.
 
-:::callout-important
-**MAR** : le fait qu'une donnée soit manquante dépend uniquement des autres variables observées dans le jeu de données, pas de sa propre valeur non observée. 
+Autrement dit : le présent dépend linéairement du passé (*= c'est une fonction linéaire*), plus un terme aléatoire.
 
-Une fois ces variables observées prises en compte, le caractère manquant devient aléatoire.
-:::
+### Pourquoi dit-on souvent que « $a = 0$ » ?
 
-## MNAR : Missing Not At Random
+Le coefficient $a$ est une constante, comme l’intercept dans une régression classique.
 
-Les données manquantes **dépendent des valeurs non observées**.
+Cependant, dans la majorité des cours et logiciels :
 
-Exemple : les patients avec une dépression sévère sont moins susceptibles de remplir un questionnaire sur la dépression.
+1.  La série est centrée avant modélisation.
 
-= Données manquantes **non au hasard**
+    -   Centrer consiste à soustraire la moyenne : $Y_i \leftarrow Y_i - \bar Y$.
 
-Pour faire la différence entre MCAR et MNAR : 
+    -   Une série centrée a une moyenne égale à 0.
 
--   Les tests statistiques ne marchent pas terrible
+2.  Si la série est centrée, alors le terme constant devient inutile.
 
--   Souvent, on fait des hypothèses basées sur la connaissance du domaine
+    -   En effet, **la constante sert justement à ajuster une moyenne non nulle**.
 
-# Imputation multiple 
+    -   Donc, dans une série centrée : $Y_i = bY_{i-1} + \varepsilon_i$
 
-Surtout si bcp de données ou manquantes ou si données manquantes sur données importantes
+    -   et on peut prendre $a = 0$ par convention.
 
-## Principe de l'imputation multiple
+### Variance : définition générale
 
-Dans un modèle : 
+La variance est une mesure de la dispersion d’une variable autour de sa moyenne.
 
-$Y = a + bX_1 + cX_2 + \epsilon$
+-   Une grande variance = la variable varie beaucoup.
 
-On s'intéresse au paramètre b.
+-   Une petite variance = la variable varie peu.
 
-**Jeu de données** : 
+Mathématiquement :
 
-| ID | Y   | X1  | X2  |
-|----|-----|-----|-----|
-| 1  | 2.3 | 1.2 | NA  |
-| 2  | 3.1 | NA  | 0.5 |
-| 3  | NA  | 0.8 | 1.1 |
-| 4  | 4.0 | 1.5 | 0.9 |
-| 5  | 2.8 | 1.0 | 0.7 |
+$\text{Var}(Y) = E[(Y - E[Y])^2]$
 
-**Pour faire une imputation multiple :**
+Dans un AR(1), il y a deux sources de variance :
 
-### 1ère étape : tirage au sort
+1.  la variance du bruit $\varepsilon_i$
 
--   Tirer au sort la valeur manquante de Y par une autre valeur de Y (`df[3, "Y"]` est manquant, on le remplace par `df[5, "Y"]` = 2.8)
+2.  la propagation de ce bruit à travers le coefficient $b$
 
--   Idem pour X1 : `df[2, "X1"]` est manquant, on le remplace par `df[1, "X1"]` = 1.2
+### Variance du bruit : ce que c’est exactement
 
--   Idem pour X2 : `df[1, "X2"]` est manquant, on le remplace par `df[5, "X2"]` = 0.7
+Le bruit $\varepsilon_i$ est un terme aléatoire supposé :
 
-On obtient un jeu de données **INTERMÉDIAIRE** qui permet de réaliser une régression complète
+-   d’espérance 0 (= moyenne, c'està dire que le bruit n'a pas de tendance moyenne à être positif ou négatif),
 
-### 2ème étape : régressions 
+-   indépendant d’un instant à l’autre,
 
-3 régressions sur le jeu de données intermédiaire : 
+-   de variance constante $\sigma^2$.
 
--   $Y[3] = a + bX_1[3] + cX_2[3] + \epsilon$ permet d'obtenir la valeur estimée de Y[3]
+Cette variance $\sigma^2$ mesure l’amplitude des fluctuations imprévisibles.
 
--   $X_1[2] = a' + b'Y[2] + c'X_2[2] + \epsilon'$ permet d'obtenir la valeur estimée de X1[2]
+C’est la “source” de variabilité du modèle.
 
--   $X_2[1] = a'' + b''Y[1] + c''X_1[1] + \epsilon''$ permet d'obtenir la valeur estimée de X2[1]
+Si $\sigma^2$ est grande : chaque instant reçoit un choc important.
 
-Ainsi on obtient un jeu premier jeu données **IMPUTÉ** mais pas encore **convergent**
+Si $\sigma^2$ est petite : les variations imprévisibles sont faibles.
 
-*Convergent* : plus on impute, plus les jeux de données se ressemblent
+### Propagation de la variance dans un AR(1)
 
-### 3ème étape : itérations
+C’est ici que l’AR(1) devient différent d’une régression classique.
 
-On recommence les étapes 1 et 2 plusieurs fois (10 à 20 fois) pour obtenir un jeu de données **IMPUTÉ CONVERGENT**
+Dans une régression ordinaire, l’erreur affecte uniquement la valeur courante.
 
-Quand le jeu de données a convergé, il est parfaitement bien imputé car toutes les données manquantes sont construites à partir de toutes les données disponibles sur les autres variables.
+Dans un AR(1), l’erreur affecte toute la suite, car :
 
-### 4ème étape : répétition
+$Y_{i+1} = a + bY_i + \varepsilon_{i+1}$
 
--   Il faut **REFAIRE LE TIRAGE AU SORT** de départ pour obtenir un nouveau jeu de données intermédiaire
+Donc si $\varepsilon_i$ est grand :
 
--   Puis refaire les étapes 2 et 3 pour obtenir un **NOUVEAU JEU DE DONNÉES IMPUTÉ CONVERGENT**
+-   il fait monter ou descendre $Y_i$,
 
-On a donc un **DEUXIÈME JEU DE DONNÉES IMPUTÉ CONVERGENT**
+-   ce $Y_i$ influence $Y_{i+1}$ via le coefficient $b$,
 
-Puis répétition N fois (en général 5 à 10 fois) pour obtenir N jeux de données imputés convergents.
+-   et influence $Y_{i+2}$ via $b^2$, etc.
 
-### 5ème étape : analyse
+Ainsi, les erreurs se propagent dans le futur, et la variance totale est un équilibre entre :
 
-On réalise l'analyse statistique (régression linéaire, logistique, etc.) sur chaque jeu de données imputé convergent.
+-   la variabilité injectée à chaque instant ($\sigma^2$),
 
-jeu ' : $Y^{(')} = a^{(')} + b^{(')}X_1 + c^{(')}X_2 + \epsilon^{(')}$ 
+-   la quantité de mémoire du système (le coefficient $b$).
 
-jeu 1 : $Y^{(1)} = a^{(1)} + b^{(1)}X_1 + c^{(1)}X_2 + \epsilon^{(1)}$
+### Variance stationnaire : définition explicite
 
-jeu 20 : $Y^{(20)} = a^{(20)} + b^{(20)}X_1 + c^{(20)}X_2 + \epsilon^{(20)}$
+Une variance stationnaire signifie :
 
-On obtient donc 
+1.  La variance de $Y_i$ reste la même pour tous les instants : elle ne diverge pas, ne monte pas, ne descend pas.
 
--   20 estimations différentes de b. 
+2.  Le processus garde une variabilité “stable” dans le temps.
 
--   avec 20 variances de b différentes. (variance inter-modèle)
+Autrement dit : la série ne devient ni explosive, ni de plus en plus variable, ni de moins en moins variable.
 
--   et une variance de b1 à b20 = variance intra-modèle
+Cette situation n’est possible que si $|b| < 1$.
 
-Prendre :
+-   Si $|b| < 1$, les erreurs se propagent mais finissent par s’atténuer → variance stable.
 
--   La moyenne des 20 estimations de b comme estimation finale de b.
+-   Si $|b| = 1$, les erreurs se cumulent sans limite → variance infinie (marche aléatoire).
 
--   + variance inter-modèle + variance intra-modèle pour obtenir la variance finale de b.
+-   Si $|b| > 1$, la série explose → variance diverge.
 
-**b moyen = estimation non biaisée de b**
+Dans le cas stationnaire ($|b| < 1$) :
 
-**somme des variances intra + inter-modèle = variance non biaisée de b**
+$\text{Var}(Y_i) = \frac{\sigma^2}{1 - b^2}$
 
-## Gérer les analyses après imputation multiple
+Cette formule signifie :
 
-20 jeu de données imputés !
+-   la variance totale est plus grande que la variance du bruit,
 
+-   plus $b$ est grand, plus la variance de $Y_i$ augmente,
 
+-   car plus $b$ est grand, plus les erreurs anciennes continuent à influencer les valeurs futures.
 
+### Corrélation temporelle : définition explicite
 
+La corrélation mesure l’intensité du lien linéaire entre deux valeurs.
 
+Dans un AR(1) stationnaire:
+
+$\text{Corr}(Y_i, Y_{i-k}) = b^k$
+
+Donc :
+
+-   $\text{Corr}(Y_i, Y_{i-1}) = b$
+
+-   $\text{Corr}(Y_i, Y_{i-2}) = b^2$
+
+-   $\text{Corr}(Y_i, Y_{i-3}) = b^3$
+
+-   etc.
+
+C’est une corrélation **qui décroît exponentiellement avec la distance temporelle.**
+
+### Exemple chiffré complet
+
+Prenons un AR(1) :
+
+$Y_i = 0.8Y_{i-1} + \varepsilon_i, \quad \text{Var}(\varepsilon_i)=1$
+
+**Variance stationnaire**
+
+$\text{Var}(Y_i) = \frac{1}{1 - 0.8^2} = \frac{1}{1 - 0.64} = \frac{1}{0.36} \approx 2.78$
+
+Donc :
+
+-   la variance du processus est presque 3 fois la variance du bruit,
+
+-   car b=0.8 propage beaucoup les erreurs passées.
+
+## Simulation courte
+
+Supposons Y_0 = 10.
+
+-   $\varepsilon_1 = 0.5$
+
+$Y_1 = 0.8 \times 10 + 0.5 = 8.5$
+
+```         
+-   $\varepsilon_2 = -0.2$
+```
+
+\$Y_2 = 0.8 \times 8.5 - 0.2 = 6.6
+
+-   $\varepsilon_3 = 0.1$
+
+$Y_3 = 0.8 \times 6.6 + 0.1 = 5.38$
+
+La série décroît progressivement vers 0 (car $|b|<1$) et reste influencée par chaque erreur qui se propage.
+
+## Corrélation temporelle
+
+$\text{Corr}(Y_3, Y_2) = 0.8$
+
+$\text{Corr}(Y_3, Y_1) = 0.8^2 = 0.64$
+
+$\text{Corr}(Y_3, Y_0) = 0.8^3 = 0.512$
+
+Résumé
+
+Un AR(1) est un modèle où :
+
+-   le présent est expliqué par le passé (régression),
+
+-   le coefficient b crée une corrélation décroissante avec le passé,
+
+-   la variance totale résulte de l’équilibre entre :
+
+    -   la variance du bruit,
+
+    -   la propagation de cette variance via b,
+
+-   la variance stationnaire est une variance stable, finie, identique à travers le temps,
+
+-   la constante a disparaît si on travaille sur une série centrée.
+
+------------------------------------------------------------------------
+
+# Modèle MA = Moving Average
+
+Un modèle MA(q) exprime la valeur actuelle comme une **MOYENNE MOBILE** des **ERREURS PASSÉES**.
+
+Les **BRUITS** (ou erreurs) sont liés les uns avec les autres.
+
+Modèle MA(1) :
+
+$Y_{j} = \epsilon_{i} + \epsilon_{i-1}$
+
+$Y_{j-1} = \epsilon_{i-1} + \epsilon_{i-2}$
+
+La corrélation entre $Y_j$ et $Y_{j-1}$ est donc due à la présence commune de $\epsilon_{i-1}$ dans les deux équations.
+
+Donc corrélation ≠ 0 car il y a un terme commun.
+
+Alors que si on fait la corrélation entre $Y_j$ et $Y_{j-2}$ :
+
+$Y_{j} = \epsilon_{i} + \epsilon_{i-1}$
+
+$Y_{j-2} = \epsilon_{i-2} + \epsilon_{i-3}$
+
+**Il n'y a pas de terme commun entre les deux équations, donc corrélation = 0.**
+
+Donc avec :
+
+-   Un modèle AR(1) : la corrélation diminue exponentiellement avec le temps = autocorrélogramme.
+
+-   Un modèle MA(1) : la corrélation est nulle au-delà du lag 1.
+
+![](images/Untitled.png)
+
+Donc à partir de la réprésentation de la corrélation en fonction du lag (autocorrélogramme), on peut deviner si le modèle est AR ou MA.
+
+
+# Autocorrélogramme partiel
+
+Un autocorrélogramme partiel permet de voir la corrélation entre 
+
+-   $Y_i$ et $Y_{i-p}$ 
+
+-   ajusté sur $Y_{i-1}, Y_{i-2}, ..., Y_{i-(p-1)}$.
+
+Corrélation spécifique ajustée entre le passé ± lointain et le présent, en ajustant sur tout ce qui se passe entre les deux.
+
+Si on fait avec $p=2$$ : 
+
+-   On regarde la corrélation entre $Y_i$ et $Y_{i-2}$
+
+On a $Y_1$, $Y_2$, $Y_3$ (car p=2 donc on a besoin de 3 observations pour avoir un lag de 2 entre $Y_3$ et $Y_1$)
+
+-   Processus autorégressif d'ordre 1: $Y_1$ agit sur $Y_2$ (lag 1) et $Y_2$ agit sur $Y_3$ (lag 1)
+
+-   Corrélation entre $Y_1$ et $Y_3$ vaut la corrélation entre chaque $Y$ exponentiée par le lag : $b^2$
+
+-   Mais si on ajuste sur $Y_2$, on enlève l'effet de $Y_2$ sur $Y_3$, donc $Y_1$ n'a plus d'effet sur $Y_3$ ! 
+
+-   La corrélation entre $Y_1$ et $Y_3$ ajustée sur $Y_2$ vaut donc 0.
+
+Donc l'autocorrélogramme partiel va donner 0 au-delà du lag 1 pour un modèle MA(1).
+
+## Exemple
+
+$Yi = bY{i-1} + cY{i-2} + \epsilon_{i} + \epsilon_{i-1}$
+
+Modèle ARMA(2,1)
+
+Dans un modèle ARMA(p, q),
+
+-   p = ordre autorégressif (AR) → nombre de termes $Y$ retardés,
+
+-   q = ordre moyenne mobile (MA) → nombre de termes $\varepsilon$ retardés.
+
+1. Partie AR (autorégressive)
+
+    -   $Y_{i-1}$
+
+    -   $Y_{i-2}$
+
+Donc 2 termes AR → p = 2.
+
+2. Partie MA (moyenne mobile)
+
+    -   $\varepsilon_i$  → toujours présent, ce n’est pas compté dans q
+
+    -   $\varepsilon_{i-1}$
+
+Le terme $\varepsilon_{i}$ est l’erreur courante : on ne le compte pas dans l’ordre.
+
+On compte seulement les retards.
+
+Donc il y a 1 terme MA retardé → q = 1.
