@@ -1,5 +1,5 @@
 ---
-title: "S6_1_Donnees_manquantes"
+title: "S6_2_series_chronologiques"
 format:
     html:
         toc: true
@@ -20,8 +20,15 @@ format:
         pdf-engine: xelatex
         number-sections: true
         header-includes: |
-            % \usepackage{fontspec} 
-            % \setmainfont{Ubuntu}
+            % Réduit automatiquement la taille des titres des graphiques avant qu'ils ne dépassent
+            \usepackage{graphicx}
+            \usepackage{adjustbox}
+            % Réduction automatique de la taille des titres des figures (plots R)
+            \makeatletter
+            \AtBeginEnvironment{figure}{\small}
+            \makeatother
+            \usepackage{fontspec} 
+            \setmainfont{Helvetica}
             \usepackage{etoolbox}
             \renewcommand{\contentsname}{}
             \AtBeginDocument{
@@ -65,7 +72,7 @@ geometry: margin=2.5cm
 #| label: setup
 #| include: false
 #| echo: false
-
+library(forecast)
 library(plotrix)
 library(viridisLite)
 library(ggplot2)
@@ -80,6 +87,8 @@ library(psy)
 knitr::opts_chunk$set(echo = TRUE)
 
 load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
 data(expsy)
 alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
 ```
@@ -330,19 +339,17 @@ Les **BRUITS** (ou erreurs) sont liés les uns avec les autres.
 
 Modèle MA(1) :
 
-$Y_{j} = \epsilon_{i} + \epsilon_{i-1}$
+$Y_{j} = \varepsilon_{i} + \varepsilon_{i-1}$
 
-$Y_{j-1} = \epsilon_{i-1} + \epsilon_{i-2}$
+$Y_{j-1} = \varepsilon_{i-1} + \varepsilon_{i-2}$
 
-La corrélation entre $Y_j$ et $Y_{j-1}$ est donc due à la présence commune de $\epsilon_{i-1}$ dans les deux équations.
-
-Donc corrélation ≠ 0 car il y a un terme commun.
+La corrélation entre $Y_j$ et $Y_{j-1}$ est donc due à la présence commune de $\varepsilon_{i-1}$ dans les deux équations. Donc corrélation ≠ 0 car il y a un terme commun.
 
 Alors que si on fait la corrélation entre $Y_j$ et $Y_{j-2}$ :
 
-$Y_{j} = \epsilon_{i} + \epsilon_{i-1}$
+$Y_{j} = \varepsilon_{i} + \varepsilon_{i-1}$
 
-$Y_{j-2} = \epsilon_{i-2} + \epsilon_{i-3}$
+$Y_{j-2} = \varepsilon_{i-2} + \varepsilon_{i-3}$
 
 **Il n'y a pas de terme commun entre les deux équations, donc corrélation = 0.**
 
@@ -356,18 +363,17 @@ Donc avec :
 
 Donc à partir de la réprésentation de la corrélation en fonction du lag (autocorrélogramme), on peut deviner si le modèle est AR ou MA.
 
-
 # Autocorrélogramme partiel
 
-Un autocorrélogramme partiel permet de voir la corrélation entre 
+Un autocorrélogramme partiel permet de voir la corrélation entre
 
--   $Y_i$ et $Y_{i-p}$ 
+-   $Y_i$ et $Y_{i-p}$
 
 -   ajusté sur $Y_{i-1}, Y_{i-2}, ..., Y_{i-(p-1)}$.
 
 Corrélation spécifique ajustée entre le passé ± lointain et le présent, en ajustant sur tout ce qui se passe entre les deux.
 
-Si on fait avec $p=2$$ : 
+Si on fait avec $p=2$\$ :
 
 -   On regarde la corrélation entre $Y_i$ et $Y_{i-2}$
 
@@ -377,15 +383,15 @@ On a $Y_1$, $Y_2$, $Y_3$ (car p=2 donc on a besoin de 3 observations pour avoir 
 
 -   Corrélation entre $Y_1$ et $Y_3$ vaut la corrélation entre chaque $Y$ exponentiée par le lag : $b^2$
 
--   Mais si on ajuste sur $Y_2$, on enlève l'effet de $Y_2$ sur $Y_3$, donc $Y_1$ n'a plus d'effet sur $Y_3$ ! 
+-   Mais si on ajuste sur $Y_2$, on enlève l'effet de $Y_2$ sur $Y_3$, donc $Y_1$ n'a plus d'effet sur $Y_3$ !
 
 -   La corrélation entre $Y_1$ et $Y_3$ ajustée sur $Y_2$ vaut donc 0.
 
 Donc l'autocorrélogramme partiel va donner 0 au-delà du lag 1 pour un modèle MA(1).
 
-## Exemple
+## Exemple 1
 
-$Yi = bY{i-1} + cY{i-2} + \epsilon_{i} + \epsilon_{i-1}$
+$Yi = bY{i-1} + cY{i-2} + \varepsilon_{i} + \varepsilon_{i-1}$
 
 Modèle ARMA(2,1)
 
@@ -395,7 +401,7 @@ Dans un modèle ARMA(p, q),
 
 -   q = ordre moyenne mobile (MA) → nombre de termes $\varepsilon$ retardés.
 
-1. Partie AR (autorégressive)
+1.  Partie AR (autorégressive)
 
     -   $Y_{i-1}$
 
@@ -403,9 +409,9 @@ Dans un modèle ARMA(p, q),
 
 Donc 2 termes AR → p = 2.
 
-2. Partie MA (moyenne mobile)
+2.  Partie MA (moyenne mobile)
 
-    -   $\varepsilon_i$  → toujours présent, ce n’est pas compté dans q
+    -   $\varepsilon_i$ → toujours présent, ce n’est pas compté dans q
 
     -   $\varepsilon_{i-1}$
 
@@ -414,3 +420,337 @@ Le terme $\varepsilon_{i}$ est l’erreur courante : on ne le compte pas dans l�
 On compte seulement les retards.
 
 Donc il y a 1 terme MA retardé → q = 1.
+
+## Exemple 2
+
+Mesure de la TA tous les matins
+
+$Y_i$ = TA du jour i : il y en a donc 365
+
+### Modèle autorégressif AR(1)
+
+Les $Y_i$ ont une variance = 1 c'est à dire que la TA varie peu d'un jour à l'autre.
+
+$\rightarrow$ $Y_{i} = bY_{i-1} + \varepsilon_i$
+
+-   On peut pas faire une régression linéaire habituelle car $Y_{i}$ est à la fois à gauche et à droite de l'équation
+
+-   si variance = 1 / variance stationnaire :
+
+    -   $b$ = corrélation entre $Y_i$ et $Y_{i-1}$ quelque soit i
+
+    -   avec le temps : corrélation entre $Y_i$ et $Y_{i-2}$ = $b^2$
+
+    -   corrélation entre $Y_i$ et $Y_{i-k}$ = $b^k$
+
+    -   avec le temps, la corrélation tend vers 0 de façon exponentielle
+
+### Modèle moyenne mobile MA(1)
+
+$Y_i = \varepsilon_i + \varepsilon_{i-1}$
+
+-   2 bruits : régression linéaire impossible
+
+-   Le temps $i$ et le temps $i-1$ n'ont rien à voir l'un avec l'autre et sont liés au bruit
+
+    -   Appareil de mesure a aussi un bruit et a un défaut ponctuel à un moment donné
+
+    -   
+
+        -   stress du jour qui influe sur le bruit du jour aussi
+
+Globalement : dans la mesure du jour, le bruit observé vient d'un bruit issu de la mesure du jour + du bruit d'hier qui vient d'un contexte, influençant l'erreur de mesure qu'il y a dans $Y_i$ aujourd'hui.
+
+-   Corrélation entre $Y_i$ et $Y_{i-1}$ = $\varrho$ et est due au fait qu'il y a un terme commun dans les 2 équations : $\varepsilon_{i-1}$
+
+-   Corrélation entre $Y_i$ et $Y_{i-2}$ = 0 car pas de terme commun dans l'équation
+
+### Autocorrélogramme
+
+Permet assez facilement de visualiser si le modèle est AR ou MA
+
+### Autocorrélogramme partiel
+
+Corrélation entre $Y_i$ et $Y_{i-k}$ ajustée sur $Y_{i-1}, Y_{i-2}, ..., Y_{i-(k-1)}$ (ajusté sur toutes les mesures qu'on a entre les 2)
+
+Si modèle AR(1) :
+
+-   $Y_1$ agit sur $Y_2$ et $Y_2$ agit sur $Y_3$
+
+-   Mais $Y_1$ agit sur $Y_3$ uniquement via $Y_2$
+
+-   Donc si on ajuste sur $Y_2$, la corrélation entre $Y_1$ et $Y_3$ ajustée sur $Y_2$ = 0
+
+**Donc modèle AR(1) dans autocorrélogramme partiel ressemble au modèle MA(1) dans autocorrélogramme classique.**
+
+### Processus stationnaire
+
+= Processus dont les propriétés statistiques (moyenne, variance, autocorrélation) ne changent pas au cours du temps.
+
+# Différents modèles : AR, MA, ARMA, SARMA, SARIMA, SARIMAX
+
+On part d'un processus stationnaire.
+
+1.  **Description** : évolution au cours du temps =\> MOYENNE STABLE ? VARIANCE STABLE ?
+
+2.  **Modélisation** : autocorrélogramme et autoccorrélogramme partiel =\> modèle AR, MA ou ARMA ?
+
+    -   voire SARMA : saisonnier (avec saisonnalité)
+
+    -   voire SARIMA : avec dérive au cours du temps (écart à la stationnarité : I = Integrated c'est à dire qu'on intègre une tendance linéaire au modèle)
+
+    -   voire SARIMAX : avec des variables explicatives (exogènes)
+
+        -   exogènes = variables explicatives externes au modèle de la série chronologique
+
+        -   $Y_i = bY_{i-1} + cY_{i-2} + \varepsilon_i + \varepsilon_{i-1} + d\vartheta$
+
+------------------------------------------------------------------------
+
+# Exemple d'analyse de données avec R
+
+## Méthode graphique
+
+Le fichier `gs` contient des données sur les tendances de recherche Google (sur recherche = suicide entre Juin 2017 et Juin 2022).
+
+Voir si indice X = survenue du confinement modifie la recherche du mot "suicide"
+
+Modèle = ARMAX (avec X = facteur exogène = confinement)
+
+-   avec X
+
+1.  Transformation de la variable `gs$suicide` en une série chronologique grâce à la fonction `ts` = timeserie
+
+    -   si pas de fonction `ts`: on peut pas faire d'analyses sur séries chronologiques avec R.
+
+    -   syntaxe de la fonction `ts` :
+
+        -   `ts(data, frequency, start)`
+
+        -   `data` = données, 
+        
+        -   `frequency` = fréquence (ex: 52 semaines dans une année), 
+
+            -   permet de dire que la semaine $i$ et la semaine $i+52$ sont comparables (même semaine de l'année)
+        
+        -   `start` = date de début (ex: c(2017,24))
+
+2.  Affichage de la série chronologique avec la fonction `plot`
+
+```{r}
+#construction du datasat pour série chronologique
+gsts <- ts(data=gs$suicide,frequency=52,start=c(2017,24))
+#affichage du graphique qui montre l'évolution de la série chronologique
+plot(
+    gsts,
+    main = "Évolution temporelle du nombre standardisé de requêtes \nsur le moteur de recherche Google autour du mot « suicide »"
+)
+```
+
+-   On considère "à la louche" que la variance est stationnaire au cours du temps.
+
+-   Il y a peut-être une tendance à la baisse (le processus ne serait pas strictement stationnaire)
+
+-   2 pics d'incidence sont observés, respectivement vers la fin des années 2018 et 2021 : cela peut faire craindre des problèmes d’écart à l’hypothèse de normalité dans les analyses à venir.
+
+Pour obtenir un processus stationnaire : une solution classique est de modéliser la différence : 
+$\Delta Y_t = Y_t - Y_{t-1}$
+
+```{r}
+plot.ts(diff(gsts), main = "Évolution temporelle de la différence Delta Y_t = Y_t - Y_{t-1}. \nLe processus est rendu stationnaire, mais les écarts à la normalité persistent.")
+```
+
+-   Le processus est beaucoup plus stationnaire
+
+-   Il persiste un pic en 2019, qui fait que la variance est pas complètement constante, et la normalité des résidues $\varepsilon{i}$ ne sera pas parfaite.
+
+3.  Autocorrélogramme
+
+Fonction `acf` (auto correlation function) permet de tracer l'autocorrélogramme
+
+Faite sur la différence de la série chronologique pour rendre le processus stationnaire
+
+Syntaxe : 
+
+-   `acf(x, lag.max, main)`
+
+    -   `x` = série chronologique
+
+    -   `lag.max` = nombre maximum de lags à afficher
+
+    -   `main` = titre du graphique
+
+```{r}
+acf(diff(gsts), lag.max= 60, main="Autocorrélogramme de la différence de la série chronologique")
+``` 
+
+-   1ère mesure est fortement corrélée avec la mesure précédente (lag 1) (corrélation entre $Y_i$ et $Y_i$ donc on s'en fiche un peu)
+
+-   2e mesure : corrélation négative $Y_i$ et $Y_{i-1}$ largement au dessus du seuil de significativité (pointillés bleus)
+
+-   3e mesure : aucune corrélation
+
+Il y a un décrochage assez net pour k > 1 (lag > 1), ce qui est en faveur d'un modèle MA(1).
+
+**Donc au moins une compensante MA(1) !**
+
+4.  Autocorrélogramme partiel
+
+Fonction `pacf` (partial auto correlation function) permet de tracer l'autocorrélogramme partiel
+
+Syntaxe :
+
+-   `pacf(x, lag.max, main)`
+
+    -   `x` = série chronologique
+
+    -   `lag.max` = nombre maximum de lags à afficher
+
+    -   `main` = titre du graphique
+
+```{r}
+pacf(diff(gsts), lag.max= 60, main="Autocorrélogramme partiel de la différence de la série chronologique")
+``` 
+
+-   1ère corrélation partielle est élevée (lag 1)
+
+-   2e corrélation partielle est statistiquement significative (lag 2)
+
+-   Mais chute énorme de corrélation entre 1ère, 2e...
+
+Donc probablement une composante AR(1)
+
+Au total : probablement un modèle ARMA(1,1)
+
+## Méthode automatique avec fonction `auto.arima`
+
+1.  Sans variable exogène
+
+Fonction `auto.arima` du package `forecast` permet de faire une sélection automatique du modèle ARIMA le plus adapté aux données.
+
+Pour Falissard : c'est un piège car automatique et n'oblige pas à réfléchir ! 
+
+Syntaxe :
+
+-   `auto.arima(y, xreg, seasonal, trace)`
+
+    -   `y` = série chronologique
+
+    -   `xreg` = matrice de variables explicatives exogènes (optionnel)
+
+    -   `seasonal` = si TRUE, recherche de composantes saisonnières (optionnel)
+
+    -   `trace` = si TRUE, affiche les modèles testés (optionnel)
+
+```{r}
+auto.arima(diff(gsts), trace=TRUE)
+```
+
+-------------------
+
+
+**Ici : Modèle ARIMA(1,0,1) est sélectionné donc équivalent à ARMA(1,1)**
+
+-   Avec I pour Integrated = 0 (= dérive au cours du temps) (car on a différencié la série chronologique initiale)
+
+-   (1,0,1) car :
+
+    -   p = 1 (AR(1))
+
+    -   d = 0 (Integrated) 
+    
+        -   d=1 : ça veut dire qu'il y a une tendance linéaire à la baisse, ce qui aurait été le cas si on avait pris `gsts``
+
+        -   d=2 : tendance quadratique, c'est à dire courbe en U ou en cloche
+
+    -   q = 1 (MA(1))
+
+-   sans composante saisonnière (car pas de saisonnalité dans les données) (s'il y en avait une, ça aurait été noté ARIMA(p,d,q)(P,D,Q)[s] avec s = saisonnalité)
+
+2.  Avec variable exogène
+
+On regarde s'il y a une rupture le 17/03/20 = confinement
+
+    1.  Création de la variable exogène
+
+Variable `x` construite : 
+
+-   Elle vaut –1 pour les semaines avant la semaine 145 (date du 17 Mars 2020) 
+
+-   Et vaut 0 jusqu’en Juin 2022.
+
+-   Utiliser la fonction `rep` pour répéter les valeurs *(c'est à dire que `rep`(-1,145)` crée un vecteur de 145 valeurs égales à -1 et `rep(0,115)` crée un vecteur de 115 valeurs égales à 0)*
+
+```{r}
+x <- c(rep(-1,145), rep(0,115))
+```
+
+Puis même modèle `res` mais en y intégrant la variable exogène `x` via l'argument `xreg`
+
+Fonction `arima` permet de faire une modélisation ARIMA avec des variables exogènes
+
+Syntaxe :
+
+-   `arima(x, order, xreg)`
+
+    -   `x` = série chronologique
+
+    -   `order` = ordre du modèle ARIMA (p,d,q) (ici, on sait que c'est (1,0,1) d'après l'analyse précédente)
+
+    -   `xreg` = matrice de variables explicatives exogènes
+
+```{r}
+res <- arima(diff(gsts), order = c(1,0,1), xreg = x)
+res
+```
+
+-------
+
+Estimation de l'effet de `x` avec son écart-type.
+
+Si on fait le rapport de `x` sur son écart-type, on obtient une statistique de test de Wald
+
+On le compare à une loi normale centrée réduite pour obtenir une p-value : c'est à dire qu'on le compare à 1,96 (seuil de significativité à 5%).
+
+Le paramètre de `x`= 0.0855
+
+L'écart-type de `x` = 0.0472
+
+Rapport : 0.0855 / 0.0472 = 1.81 < 1.96 donc p-value > 0.05
+
+**Donc pas d'effet significatif du confinement sur les recherches Google autour du mot "suicide".**
+
+-------------------
+
+# Fonction `stl()`
+
+Fonction graphique purement exploratoire qui permet de décomposer une série chronologique en 3 composantes :
+
+-   données originales
+
+-   saisonnalité
+
+-   tendance
+
+-   résidus
+
+Syntaxe :
+
+-   `stl(x, s.window, t.window)`
+
+    -   `x` = série chronologique
+
+    -   `s.window` = fenêtre de lissage pour la saisonnalité (ex: "periodic")
+
+    -   `t.window` = fenêtre de lissage pour la tendance (ex: 13)
+
+```{r}
+plot(
+    stl(
+        gsts,
+        s.window="periodic"), 
+        main="Analyse graphique exploratoire d’une série chronologique à l’aide de la fonction `stl()`proposant une \ndécomposition en trois termes : une composante périodique, une composante de tendance et un résidu."
+    )
+```
+
+-   On observe une saisonnalité annuelle avec un pic fin Août (avant la rentrée scolaire)
