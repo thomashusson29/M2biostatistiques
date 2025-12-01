@@ -159,7 +159,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#références" id="toc-références" class="nav-link" data-scroll-target="#références"><span class="header-section-number">6</span> Références</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S8_1_GLM_Poisson.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="https://github.com/thomashusson29/M2biostatistiques/tree/main/Cours/S8_1_GLM_Poisson.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S8_1_GLM_Poisson.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S8_1_GLM_Poisson.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -508,15 +508,15 @@ glm(formula = Y ~ 1, family = poisson())
 
 Coefficients:
             Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) 2.484306   0.002888   860.3   &lt;2e-16 ***
+(Intercept) 2.491352   0.002877   865.8   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for poisson family taken to be 1)
 
-    Null deviance: 43199  on 9999  degrees of freedom
-Residual deviance: 43199  on 9999  degrees of freedom
-AIC: 83606
+    Null deviance: 43244  on 9999  degrees of freedom
+Residual deviance: 43244  on 9999  degrees of freedom
+AIC: 83766
 
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
@@ -533,7 +533,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(fit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
-    11.9928 </code></pre>
+    12.0776 </code></pre>
 </div>
 </div>
 <p>On trouve une moyenne de 11.96 (≈ 12), ce qui est cohérent avec la moyenne de Y (4*3 = 12).</p>
