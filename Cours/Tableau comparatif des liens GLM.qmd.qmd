@@ -1,0 +1,9 @@
+# Tableau comparatif des liens GLM
+
+| Lien (nom) | Formule du lien $g(p)$ ou $g(\mu)$ | Fonction inverse $g^{-1}(x)$ | Utilisation typique | Interprétation des coefficients | Commentaire |
+|------------|------------|------------|------------|------------|------------|
+| **Logit** | $g(p) = \log\left(\frac{p}{1 - p}\right)$ | $p = \frac{e^{x}}{1 + e^{x}}$ | Régression logistique (variable binaire 0/1) | Un coefficient $\beta$ donne un **odds ratio** : $OR = e^{\beta}$ | Transforme la probabilité en log-odds. Très utilisé en biomédical. |
+| **Probit** | $g(p) = \Phi^{-1}(p)$ où $\Phi^{-1}$ = quantile normal standard | $p = \Phi(x)$ | Modèles de choix, économétrie, psychologie | Un coefficient $\beta$ exprime l’effet sur une **variable latente normale** ; conversion approximative vers logit : $\beta_{\text{logit}} \approx 1.6 \, \beta_{\text{probit}}$ | Très proche du logit. Hypothèse d’une variable latente gaussienne. |
+| **Log (Poisson)** | $g(\mu) = \log(\mu)$ | $\mu = e^{x}$ | Régression de Poisson, binomial négatif (comptages) | $e^{\beta}$ = **risque relatif** associé à +1 unité de covariable | Assure $\mu>0$. Très utilisé pour les incidences, taux. |
+
+Il existe d'autres liens moins courants (ex. lien identité pour Poisson, lien complément log-log pour binaire, etc.) mais ceux-ci sont les plus fréquemment utilisés en pratique.
