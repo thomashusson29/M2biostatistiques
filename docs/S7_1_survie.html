@@ -158,8 +158,71 @@ window.Quarto = {
   <li><a href="#principe" id="toc-principe" class="nav-link" data-scroll-target="#principe"><span class="header-section-number">5.1</span> Principe</a></li>
   <li><a href="#test-de-log-rank-dans-r" id="toc-test-de-log-rank-dans-r" class="nav-link" data-scroll-target="#test-de-log-rank-dans-r"><span class="header-section-number">5.2</span> Test de Log-Rank dans R</a></li>
   </ul></li>
+  <li><a href="#modèle-de-cox-analyse-multivariée-de-survie" id="toc-modèle-de-cox-analyse-multivariée-de-survie" class="nav-link" data-scroll-target="#modèle-de-cox-analyse-multivariée-de-survie"><span class="header-section-number">6</span> Modèle de Cox : analyse multivariée de survie</a>
+  <ul>
+  <li><a href="#hypothèse-de-proportionnalité-des-risques" id="toc-hypothèse-de-proportionnalité-des-risques" class="nav-link" data-scroll-target="#hypothèse-de-proportionnalité-des-risques"><span class="header-section-number">6.1</span> Hypothèse de proportionnalité des risques</a></li>
+  <li><a href="#hypothèse-de-log-linéarité" id="toc-hypothèse-de-log-linéarité" class="nav-link" data-scroll-target="#hypothèse-de-log-linéarité"><span class="header-section-number">6.2</span> Hypothèse de log-linéarité</a></li>
+  <li><a href="#interprétation-des-coefficients-du-modèle-de-cox" id="toc-interprétation-des-coefficients-du-modèle-de-cox" class="nav-link" data-scroll-target="#interprétation-des-coefficients-du-modèle-de-cox"><span class="header-section-number">6.3</span> Interprétation des coefficients du modèle de Cox</a>
+  <ul>
+  <li><a href="#variable-discrète" id="toc-variable-discrète" class="nav-link" data-scroll-target="#variable-discrète"><span class="header-section-number">6.3.1</span> Variable discrète</a></li>
+  <li><a href="#variable-continue" id="toc-variable-continue" class="nav-link" data-scroll-target="#variable-continue"><span class="header-section-number">6.3.2</span> Variable continue</a></li>
+  <li><a href="#interprétation-du-hr" id="toc-interprétation-du-hr" class="nav-link" data-scroll-target="#interprétation-du-hr"><span class="header-section-number">6.3.3</span> Interprétation du HR</a></li>
+  <li><a href="#résumé" id="toc-résumé" class="nav-link" data-scroll-target="#résumé"><span class="header-section-number">6.3.4</span> Résumé</a></li>
+  <li><a href="#tableau-de-synthèse-interprétation-des-coefficients-du-modèle-de-cox" id="toc-tableau-de-synthèse-interprétation-des-coefficients-du-modèle-de-cox" class="nav-link" data-scroll-target="#tableau-de-synthèse-interprétation-des-coefficients-du-modèle-de-cox"><span class="header-section-number">6.3.5</span> Tableau de synthèse : interprétation des coefficients du modèle de Cox</a></li>
+  </ul></li>
+  <li><a href="#tests-statistiques-pour-les-coefficients-du-modèle-de-cox" id="toc-tests-statistiques-pour-les-coefficients-du-modèle-de-cox" class="nav-link" data-scroll-target="#tests-statistiques-pour-les-coefficients-du-modèle-de-cox"><span class="header-section-number">6.4</span> Tests statistiques pour les coefficients du modèle de Cox</a>
+  <ul>
+  <li><a href="#hypothèses" id="toc-hypothèses" class="nav-link" data-scroll-target="#hypothèses"><span class="header-section-number">6.4.1</span> Hypothèses</a></li>
+  <li><a href="#tests-disponibles-wald-et-rapport-de-vraisemblance-likelihood-ratio-test-lrt" id="toc-tests-disponibles-wald-et-rapport-de-vraisemblance-likelihood-ratio-test-lrt" class="nav-link" data-scroll-target="#tests-disponibles-wald-et-rapport-de-vraisemblance-likelihood-ratio-test-lrt"><span class="header-section-number">6.4.2</span> Tests disponibles : Wald et Rapport de vraisemblance (Likelihood Ratio Test, LRT)</a>
+  <ul class="collapse">
+  <li><a href="#test-de-wald" id="toc-test-de-wald" class="nav-link" data-scroll-target="#test-de-wald"><span class="header-section-number">6.4.2.1</span> Test de Wald</a></li>
+  <li><a href="#test-du-rapport-de-vraisemblance-likelihood-ratio-test-lrt" id="toc-test-du-rapport-de-vraisemblance-likelihood-ratio-test-lrt" class="nav-link" data-scroll-target="#test-du-rapport-de-vraisemblance-likelihood-ratio-test-lrt"><span class="header-section-number">6.4.2.2</span> Test du rapport de vraisemblance (Likelihood Ratio Test, LRT)</a></li>
+  <li><a href="#comparaison-des-deux-tests" id="toc-comparaison-des-deux-tests" class="nav-link" data-scroll-target="#comparaison-des-deux-tests"><span class="header-section-number">6.4.2.3</span> Comparaison des deux tests</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#tp" id="toc-tp" class="nav-link" data-scroll-target="#tp"><span class="header-section-number">7</span> TP</a>
+  <ul>
+  <li><a href="#modèle-de-cox-avec-r" id="toc-modèle-de-cox-avec-r" class="nav-link" data-scroll-target="#modèle-de-cox-avec-r"><span class="header-section-number">7.1</span> Modèle de Cox avec R</a>
+  <ul>
+  <li><a href="#exemple-avec-le-jeu-de-données-lung" id="toc-exemple-avec-le-jeu-de-données-lung" class="nav-link" data-scroll-target="#exemple-avec-le-jeu-de-données-lung"><span class="header-section-number">7.1.1</span> Exemple avec le jeu de données <code>lung</code></a>
+  <ul class="collapse">
+  <li><a href="#charger-et-afficher-les-premières-lignes-du-jeu-de-données-lung" id="toc-charger-et-afficher-les-premières-lignes-du-jeu-de-données-lung" class="nav-link" data-scroll-target="#charger-et-afficher-les-premières-lignes-du-jeu-de-données-lung"><span class="header-section-number">7.1.1.1</span> Charger et afficher les premières lignes du jeu de données <code>lung</code></a></li>
+  <li><a href="#créer-un-objet-de-type-surv-avec-les-colonnes-time-et-status" id="toc-créer-un-objet-de-type-surv-avec-les-colonnes-time-et-status" class="nav-link" data-scroll-target="#créer-un-objet-de-type-surv-avec-les-colonnes-time-et-status"><span class="header-section-number">7.1.1.2</span> Créer un objet de type <code>Surv</code> avec les colonnes <code>time</code> et <code>status</code></a></li>
+  <li><a href="#tester-leffet-du-sexe-sex-sur-la-survie-avec-un-log-rank-test" id="toc-tester-leffet-du-sexe-sex-sur-la-survie-avec-un-log-rank-test" class="nav-link" data-scroll-target="#tester-leffet-du-sexe-sex-sur-la-survie-avec-un-log-rank-test"><span class="header-section-number">7.1.1.3</span> Tester l’effet du sexe (<code>sex</code>) sur la survie avec un log-rank test</a></li>
+  <li><a href="#ajuster-un-modèle-de-cox-avec-sex-comme-covariable" id="toc-ajuster-un-modèle-de-cox-avec-sex-comme-covariable" class="nav-link" data-scroll-target="#ajuster-un-modèle-de-cox-avec-sex-comme-covariable"><span class="header-section-number">7.1.1.4</span> Ajuster un modèle de Cox avec <code>sex</code> comme covariable</a></li>
+  <li><a href="#obtenir-lintervalle-de-confiance-à-95-pour-le-hazard-ratio" id="toc-obtenir-lintervalle-de-confiance-à-95-pour-le-hazard-ratio" class="nav-link" data-scroll-target="#obtenir-lintervalle-de-confiance-à-95-pour-le-hazard-ratio"><span class="header-section-number">7.1.1.5</span> Obtenir l’intervalle de confiance à 95 % pour le hazard ratio</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#tp-2" id="toc-tp-2" class="nav-link" data-scroll-target="#tp-2"><span class="header-section-number">8</span> TP 2</a>
+  <ul>
+  <li><a href="#réponse" id="toc-réponse" class="nav-link" data-scroll-target="#réponse"><span class="header-section-number">8.1</span> Réponse</a>
+  <ul>
+  <li><a href="#nombre-dévènements-et-de-censures-dans-chaque-groupe" id="toc-nombre-dévènements-et-de-censures-dans-chaque-groupe" class="nav-link" data-scroll-target="#nombre-dévènements-et-de-censures-dans-chaque-groupe"><span class="header-section-number">8.1.1</span> Nombre d’évènements et de censures dans chaque groupe</a></li>
+  <li><a href="#nombre-de-sujets-exposés-au-risque-de-rechute-à-12-et-18-semaines-dans-chaque-groupe" id="toc-nombre-de-sujets-exposés-au-risque-de-rechute-à-12-et-18-semaines-dans-chaque-groupe" class="nav-link" data-scroll-target="#nombre-de-sujets-exposés-au-risque-de-rechute-à-12-et-18-semaines-dans-chaque-groupe"><span class="header-section-number">8.1.2</span> Nombre de sujets exposés au risque de rechute à 12 et 18 semaines dans chaque groupe</a></li>
+  <li><a href="#chi2-de-pearson-approprié" id="toc-chi2-de-pearson-approprié" class="nav-link" data-scroll-target="#chi2-de-pearson-approprié"><span class="header-section-number">8.1.3</span> <span class="math inline">\(Chi^2\)</span> de Pearson approprié ?</a></li>
+  <li><a href="#survie-sans-rechute-à-6-et-12-semaines-dans-les-deux-groupes-de-traitement" id="toc-survie-sans-rechute-à-6-et-12-semaines-dans-les-deux-groupes-de-traitement" class="nav-link" data-scroll-target="#survie-sans-rechute-à-6-et-12-semaines-dans-les-deux-groupes-de-traitement"><span class="header-section-number">8.1.4</span> Survie sans rechute à 6 et 12 semaines dans les deux groupes de traitement</a></li>
+  <li><a href="#médiane-de-survie-sans-rechute-dans-chaque-groupe-de-traitement" id="toc-médiane-de-survie-sans-rechute-dans-chaque-groupe-de-traitement" class="nav-link" data-scroll-target="#médiane-de-survie-sans-rechute-dans-chaque-groupe-de-traitement"><span class="header-section-number">8.1.5</span> Médiane de survie sans rechute dans chaque groupe de traitement</a></li>
+  <li><a href="#estimer-et-tracer-les-courbes-de-survie-de-kaplan-meier-pour-les-deux-groupes-de-traitement" id="toc-estimer-et-tracer-les-courbes-de-survie-de-kaplan-meier-pour-les-deux-groupes-de-traitement" class="nav-link" data-scroll-target="#estimer-et-tracer-les-courbes-de-survie-de-kaplan-meier-pour-les-deux-groupes-de-traitement"><span class="header-section-number">8.1.6</span> Estimer et tracer les courbes de survie de Kaplan-Meier pour les deux groupes de traitement</a></li>
+  <li><a href="#quel-test-pour-comparer-les-courbes-de-survie-entre-les-deux-groupes-de-traitement-justifiez-votre-choix." id="toc-quel-test-pour-comparer-les-courbes-de-survie-entre-les-deux-groupes-de-traitement-justifiez-votre-choix." class="nav-link" data-scroll-target="#quel-test-pour-comparer-les-courbes-de-survie-entre-les-deux-groupes-de-traitement-justifiez-votre-choix."><span class="header-section-number">8.1.7</span> Quel test pour comparer les courbes de survie entre les deux groupes de traitement ? Justifiez votre choix.</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#tp-3" id="toc-tp-3" class="nav-link" data-scroll-target="#tp-3"><span class="header-section-number">9</span> TP 3</a>
+  <ul>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">9.1</span> Questions</a></li>
+  <li><a href="#réponse-1" id="toc-réponse-1" class="nav-link" data-scroll-target="#réponse-1"><span class="header-section-number">9.2</span> Réponse</a>
+  <ul>
+  <li><a href="#description-des-données" id="toc-description-des-données" class="nav-link" data-scroll-target="#description-des-données"><span class="header-section-number">9.2.1</span> Description des données</a></li>
+  <li><a href="#estimation-dune-courbe-de-survie-de-kaplan-meier-globale" id="toc-estimation-dune-courbe-de-survie-de-kaplan-meier-globale" class="nav-link" data-scroll-target="#estimation-dune-courbe-de-survie-de-kaplan-meier-globale"><span class="header-section-number">9.2.2</span> Estimation d’une courbe de survie de Kaplan-Meier globale</a></li>
+  <li><a href="#influence-du-sexe-sur-la-survie" id="toc-influence-du-sexe-sur-la-survie" class="nav-link" data-scroll-target="#influence-du-sexe-sur-la-survie"><span class="header-section-number">9.2.3</span> Influence du sexe sur la survie</a></li>
+  <li><a href="#test-de-log-rank-et-modèle-de-cox-pour-comparer-les-courbes-de-survie-entre-les-groupes" id="toc-test-de-log-rank-et-modèle-de-cox-pour-comparer-les-courbes-de-survie-entre-les-groupes" class="nav-link" data-scroll-target="#test-de-log-rank-et-modèle-de-cox-pour-comparer-les-courbes-de-survie-entre-les-groupes"><span class="header-section-number">9.2.4</span> Test de Log-Rank et Modèle de Cox pour comparer les courbes de survie entre les groupes</a></li>
+  <li><a href="#si-on-regarde-en-ajustant-sur-lépaisseur-de-la-tumeur" id="toc-si-on-regarde-en-ajustant-sur-lépaisseur-de-la-tumeur" class="nav-link" data-scroll-target="#si-on-regarde-en-ajustant-sur-lépaisseur-de-la-tumeur"><span class="header-section-number">9.2.5</span> Si on regarde en ajustant sur l’épaisseur de la tumeur</a></li>
+  <li><a href="#interaction-entre-sexe-et-ulcération" id="toc-interaction-entre-sexe-et-ulcération" class="nav-link" data-scroll-target="#interaction-entre-sexe-et-ulcération"><span class="header-section-number">9.2.6</span> Interaction entre sexe et ulcération</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S7_1_survie.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S7_1_survie.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S7_1_survie.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="https://github.com/thomashusson29/M2biostatistiques/blob/main/Cours/S7_1_survie.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -444,9 +507,9 @@ Tip
 <hr>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 27%">
-<col style="width: 25%">
-<col style="width: 47%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -505,9 +568,9 @@ Tip
 <p>En résumé :</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 27%">
-<col style="width: 26%">
-<col style="width: 45%">
+<col style="width: 40%">
+<col style="width: 12%">
+<col style="width: 46%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -697,15 +760,15 @@ Tip
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>T <span class="ot">=</span> <span class="fu">floor</span>(<span class="fu">runif</span>(<span class="dv">80</span>,<span class="dv">0</span>,<span class="dv">50</span>)) <span class="co"># runif génère 1000 temps de survie entre 0 et 50 qui sont arrondis à l'entier inférieur avec floor</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 26  1 37  4 36 42</code></pre>
+<pre><code>[1] 46 15 23  3 25 15</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>T
- 0  1  2  3  4  5  6  7 11 12 14 16 17 18 19 21 23 24 25 26 27 28 29 30 31 32 
- 1  2  3  1  1  4  1  1  6  2  3  2  3  1  2  3  2  1  3  1  1  1  1  2  1  4 
-33 34 36 37 38 39 40 41 42 43 44 45 47 49 
- 1  2  3  2  1  1  4  1  3  3  2  2  1  1 </code></pre>
+ 0  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 21 22 23 24 25 26 27 
+ 2  2  3  2  1  2  6  2  4  2  3  1  1  1  3  2  1  1  3  1  2  1  3  3  2  2 
+28 29 30 32 33 35 37 38 41 42 43 44 46 49 
+ 2  1  1  4  1  1  2  1  2  1  2  3  2  1 </code></pre>
 </div>
 </div>
 <p>Le jeu de données est généré mais on a pas les valeurs uniques.</p>
@@ -721,8 +784,8 @@ Tip
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tt <span class="ot">&lt;-</span> <span class="fu">sort</span>(tt)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  0  1  2  3  4  5  6  7 11 12 14 16 17 18 19 21 23 24 25 26 27 28 29 30 31
-[26] 32 33 34 36 37 38 39 40 41 42 43 44 45 47 49</code></pre>
+<pre><code> [1]  0  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 21 22 23 24 25 26
+[26] 27 28 29 30 32 33 35 37 38 41 42 43 44 46 49</code></pre>
 </div>
 </div>
 <p>Pour regarder à la date 10 :</p>
@@ -733,11 +796,11 @@ Tip
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(T <span class="sc">&gt;</span> <span class="dv">10</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE</code></pre>
+<pre><code>[1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(T <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="co"># proportion de TRUE = proportion de survivants au delà de 10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.825</code></pre>
+<pre><code>[1] 0.675</code></pre>
 </div>
 </div>
 <p>On peut faire ça pour toutes les valeurs uniques de T.</p>
@@ -753,11 +816,11 @@ Tip
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">S</span>(<span class="dv">10</span>) <span class="co"># proportion de survivants au delà de 10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.825</code></pre>
+<pre><code>[1] 0.675</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">S</span>(<span class="dv">20</span>) <span class="co"># proportion de survivants au delà de 20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.5875</code></pre>
+<pre><code>[1] 0.475</code></pre>
 </div>
 </div>
 <p>On applique cette fonction à toutes les valeurs uniques de T avec <code>sapply</code>.</p>
@@ -767,10 +830,10 @@ Tip
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>S_values <span class="ot">&lt;-</span> <span class="fu">sapply</span>(tt, S)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>S_values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.9875 0.9625 0.9250 0.9125 0.9000 0.8500 0.8375 0.8250 0.7500 0.7250
-[11] 0.6875 0.6625 0.6250 0.6125 0.5875 0.5500 0.5250 0.5125 0.4750 0.4625
-[21] 0.4500 0.4375 0.4250 0.4000 0.3875 0.3375 0.3250 0.3000 0.2625 0.2375
-[31] 0.2250 0.2125 0.1625 0.1500 0.1125 0.0750 0.0500 0.0250 0.0125 0.0000</code></pre>
+<pre><code> [1] 0.9750 0.9500 0.9125 0.8875 0.8750 0.8500 0.7750 0.7500 0.7000 0.6750
+[11] 0.6375 0.6250 0.6125 0.6000 0.5625 0.5375 0.5250 0.5125 0.4750 0.4625
+[21] 0.4375 0.4250 0.3875 0.3500 0.3250 0.3000 0.2750 0.2625 0.2500 0.2000
+[31] 0.1875 0.1750 0.1500 0.1375 0.1125 0.1000 0.0750 0.0375 0.0125 0.0000</code></pre>
 </div>
 </div>
 <p>On peut tracer la fonction de survie estimée.</p>
@@ -903,7 +966,7 @@ Tip
 <col style="width: 16%">
 <col style="width: 16%">
 <col style="width: 16%">
-<col style="width: 20%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1069,7 +1132,7 @@ Note
 <li><p><code>data</code> : jeu de données contenant les variables utilisées dans la formule.</p></li>
 <li><p><code>~ 1</code> : signifie qu’il n’y a pas de variable explicative, on estime la survie globale.</p></li>
 </ul>
-<p><strong>Pour tracer la courbe de survie Kaplan Meier : </strong></p>
+<p><strong>Pour tracer la courbe de survie Kaplan Meier :</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    fit, </span>
@@ -1102,7 +1165,7 @@ Note
 <p>C’est <code>plot.survfit</code> qui est la méthode de traçage pour les objets de type <code>survfit</code>, l’aide ne se trouve pas dans <code>plot</code> seul car <code>plot</code> est une fonction générique qui peut être utilisée pour différents types d’objets.</p>
 </div>
 </div>
-<p><strong>Pour obtenir le résumé (la table) de l’estimation Kaplan Meier : </strong></p>
+<p><strong>Pour obtenir le résumé (la table) de l’estimation Kaplan Meier :</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1284,7 +1347,7 @@ sex=2  90     53    426     348     550</code></pre>
 <ul>
 <li><code>Surv(time, status) ~ sex</code> : on modélise la survie en fonction de la variable explicative <code>sex</code>.</li>
 </ul>
-<p><strong>Pour tracer la courbe de survie Kaplan Meier par sexe : </strong></p>
+<p><strong>Pour tracer la courbe de survie Kaplan Meier par sexe :</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    fit_sex, </span>
@@ -1403,6 +1466,1511 @@ Important
 </ol>
 </div>
 </div>
+<hr>
+</section>
+</section>
+<section id="modèle-de-cox-analyse-multivariée-de-survie" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Modèle de Cox : analyse multivariée de survie</h1>
+<p>Modèle de Cox = modèle semi-paramétrique = modélisation de l’effet des variables explicatives sur la fonction de risque sans faire d’hypothèse sur la forme de la fonction de risque.</p>
+<ul>
+<li><p>Décrire et tester la dépendance</p>
+<ul>
+<li><p>Entre une réponse (fonction de risque instantané <span class="math inline">\(h(t)\)</span> ou <span class="math inline">\(\lambda(t)\)</span>)</p></li>
+<li><p>et un vecteur de variables explicatives (covariables qualitatives ou quantitatives) <span class="math inline">\(Z = (Z_1, Z_2, ..., Z_p)\)</span></p></li>
+</ul></li>
+</ul>
+<p><span class="math inline">\(h(t|Z_1,...,Z_p) = h_0(t) \times \exp(\beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p)\)</span></p>
+<ul>
+<li><p><span class="math inline">\(h_0(t)\)</span> : fonction de risque de base (baseline hazard function) = fonction de risque instantané lorsque toutes les covariables <span class="math inline">\(Z_i\)</span> sont égales à 0.</p></li>
+<li><p><span class="math inline">\(\exp(\beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p)\)</span> : effet multiplicatif des P covariables sur la fonction de risque instantané.</p></li>
+<li><p><span class="math inline">\(\beta_i\)</span> : coefficient associé à la covariable <span class="math inline">\(Z_i\)</span>, représentant l’effet de cette covariable sur le risque instantané.</p>
+<ul>
+<li>Relation entre <span class="math inline">\(\beta_i\)</span> et le hazard ratio (HR) : <span class="math inline">\(HR = \exp(\beta_i)\)</span> (donc <span class="math inline">\(\beta_i = \log(HR)\)</span>)</li>
+</ul></li>
+</ul>
+<p><strong>2 hypothèses principales</strong> : <strong>proportionnalité des risques</strong> et <strong>log-linéarité</strong>.</p>
+<section id="hypothèse-de-proportionnalité-des-risques" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="hypothèse-de-proportionnalité-des-risques"><span class="header-section-number">6.1</span> Hypothèse de proportionnalité des risques</h2>
+<p><strong>Hypothèse de proportionnalité des risques</strong> : les rapports des risques entre les individus restent constants dans le temps, c’est à dire que l’effet des covariables sur le risque instantané est multiplicatif et ne dépend pas du temps.</p>
+<p><span class="math inline">\(\frac{h(t|Z_k = 1)}{h(t|Z_k = 0)} = \exp(\beta k) = \text constante\)</span></p>
+<p>Quand on compare 2 groupes (exemple : fumeur vs non-fumeur), le rapport de leurs risques instantanés reste le même tout au long du suivi, et ce rapport de risques = hazard ratio (HR).</p>
+<p>Dire que les risques sont proportionnels signifie :</p>
+<ul>
+<li><p>à chaque instant t, le groupe A a par exemple 1,5 fois plus de risque de l’événement que le groupe B ;</p></li>
+<li><p>ce facteur 1,5 ne change pas au cours du temps.</p></li>
+</ul>
+<p>Exemple : On suit 100 patients opérés.</p>
+<p>Variable explicative : fumeur (1) vs non-fumeur (0).</p>
+<p>Supposons : HR = 2.</p>
+<p>Cela veut dire :</p>
+<ul>
+<li><p>à tout moment du suivi, un fumeur a le double du risque instantané d’avoir une complication,</p></li>
+<li><p>même si le risque global diminue avec le temps (fin de la période postopératoire aiguë), le ratio reste stable entre fumeur et non fumeur.</p></li>
+</ul>
+<p>Si cette hypothèse n’est pas vraie (ex : au début les fumeurs sont à très haut risque, mais plus tard le risque redevient identique), alors le modèle de Cox classique n’est plus adapté. (<em>Dans ce cas, on peut utiliser des modèles de Cox avec effets temporels</em>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div style="font-family: monospace; font-size: 14px;">
+<pre>Risque instantané h(t)
+│
+│  groupe A  ────────────╲____________________
+│                         ╲
+│  groupe B  ───────╲______╲____________________
+│                    ╲      ╲
+│                     ╲      ╲
+└──────────────────────────────────────────────► temps
+
+→ Le ratio hA(t) / hB(t) reste constant dans le temps.
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="hypothèse-de-log-linéarité" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="hypothèse-de-log-linéarité"><span class="header-section-number">6.2</span> Hypothèse de log-linéarité</h2>
+<p><strong>Hypothèse de log-linéarité</strong> : <strong>concerne les variables quantitatives</strong>.</p>
+<p>L’effet des covariables est linéaire sur le logarithme du risque instantané et pas directement sur le risque.</p>
+<p>C’est à dire que chaque unité d’augmentation de la covariable <span class="math inline">\(Z_i\)</span> entraîne une augmentation constante du logarithme du risque instantané.</p>
+<p><span class="math inline">\(\rightarrow\)</span> Chaque augmentation d’une unité de la variable → produit le même pourcentage de variation du risque.</p>
+<p><span class="math inline">\(\log(h(t|Z_1,...,Z_p)) = \log(h_0(t)) + \beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p\)</span></p>
+<p>Exemple :</p>
+<p>Variable explicative : âge (en années).</p>
+<p>On suppose que <span class="math inline">\(\beta = 0,05\)</span> (avec <span class="math inline">\(\beta\)</span> le coefficient associé à l’âge dans le modèle de Cox).</p>
+<p>Cela veut dire :</p>
+<ul>
+<li><p>chaque année supplémentaire → multiplie le risque instantané par <span class="math inline">\(exp(0,05) ≈ 1,05\)</span></p></li>
+<li><p>donc +5 % de risque par année d’âge.</p>
+<ul>
+<li><p>Si on passe de 50 à 51 ans : +5 %.</p></li>
+<li><p>Si on passe de 70 à 71 ans : encore +5 %.</p></li>
+</ul></li>
+<li><p>L’effet est proportionnel, constant.</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div style="font-family: monospace; font-size: 14px;">
+<pre>Effet de l'âge sur log(h(t))
+│
+│                                   ●
+│                             ●
+│                       ●
+│                 ●
+│           ●
+│     ●
+└──────────────────────────────────────────────► âge
+
+→ Relation linéaire : effet constant par unité d'âge.
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="interprétation-des-coefficients-du-modèle-de-cox" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="interprétation-des-coefficients-du-modèle-de-cox"><span class="header-section-number">6.3</span> Interprétation des coefficients du modèle de Cox</h2>
+<p>Modèle de Cox : <span class="math inline">\(h(t\mid Z) = h_0(t)\times \exp(\beta Z)\)</span></p>
+<p>où :</p>
+<ul>
+<li><p><span class="math inline">\(h_0(t)\)</span> est le risque instantané de base,</p></li>
+<li><p><span class="math inline">\(Z\)</span> est la covariable (discrète ou continue),</p></li>
+<li><p><span class="math inline">\(\beta\)</span> est le coefficient associé,</p></li>
+<li><p><span class="math inline">\(\exp(\beta)\)</span> est le hazard ratio (HR).</p></li>
+</ul>
+<section id="variable-discrète" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="variable-discrète"><span class="header-section-number">6.3.1</span> Variable discrète</h3>
+<p><strong>Variable discrète</strong> (ex : sexe, fumeur/non-fumeur)** :</p>
+<p>Groupe de référence A avec <span class="math inline">\(Z_A = 0\)</span> et groupe comparé B avec <span class="math inline">\(Z_B = 1\)</span>.</p>
+<ul>
+<li><p><span class="math inline">\(Z_A = 0\)</span> : <span class="math inline">\(h_A(t) = h_0(t)\)</span> (risque instantané du groupe de référence))</p></li>
+<li><p><span class="math inline">\(Z_B = 1\)</span> : <span class="math inline">\(h_B(t) = h_0(t) \times \exp(\beta)\)</span> (risque instantané du groupe comparé))</p></li>
+</ul>
+<p>Le hazard ratio est :</p>
+<p><span class="math inline">\(HR = \frac{h_B(t)}{h_A(t)} = \frac{h_0(t) \times \exp(\beta)}{h_0(t)} = \exp(\beta)\)</span></p>
+<p>Points importants :</p>
+<ul>
+<li><p>Le HR ne dépend pas du risque de base <span class="math inline">\(h_0(t)\)</span> (mais seulement de <span class="math inline">\(\beta\)</span>)</p></li>
+<li><p>Il est supposé constant et multiplicatif dans le temps (proportionnalité des risques).</p></li>
+<li><p>Il s’interprète comme un rapport d’incidence instantané (ce n’est pas une probabilité).</p></li>
+</ul>
+<p>Exemple : On étudie la mortalité après chirurgie.</p>
+<p>Variable : fumeur (1) vs non-fumeur (0).</p>
+<p>Le modèle donne <span class="math inline">\(\beta = 0{,}69\)</span>.</p>
+<p>Alors :</p>
+<p><span class="math inline">\(HR = \exp(0{,}69) \approx 2\)</span></p>
+<p>Interprétation :</p>
+<ul>
+<li><p>À tout instant du suivi, un fumeur a deux fois plus de risque instantané de mourir qu’un non-fumeur.</p></li>
+<li><p>L’effet est multiplicatif et constant au cours du temps.</p></li>
+<li><p>Ce n’est pas une probabilité ; c’est un rapport de taux instantanés.</p></li>
+</ul>
+</section>
+<section id="variable-continue" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="variable-continue"><span class="header-section-number">6.3.2</span> Variable continue</h3>
+<p><strong>Variable continue</strong> (ex : âge, pression artérielle)** :</p>
+<p>Le modèle utilise :</p>
+<p><span class="math inline">\(h(t\mid X) = h_0(t)\times \exp(\beta X)\)</span></p>
+<p>Ici, <span class="math inline">\(\exp(\beta)\)</span> correspond au HR pour une unité d’augmentation de la variable.</p>
+<ul>
+<li><p>Le Hazard Ratio est exprimé en unité de <span class="math inline">\(x\)</span> (ex HR pour 1 an d’âge)</p></li>
+<li><p>Hypothèse de <strong>modélisation</strong> :</p>
+<ul>
+<li><p>Chaque unité d’augmentation de la variable → même pourcentage de variation du risque instantané</p></li>
+<li><p>L’effet d’un an de plus sur le risque instanté ne dépend pas de l’âge (il est indépendant du niveau de la variable)</p></li>
+<li><p>L’effet est constant dans le temps (proportionnalité des risques)</p></li>
+</ul></li>
+</ul>
+<p>Exemple : Variable : âge (en années).</p>
+<p>Supposons <span class="math inline">\(\beta = 0{,}05\)</span>.</p>
+<p>Alors : <span class="math inline">\(HR = \exp(0{,}05)\approx 1{,}051\)</span></p>
+<p>Interprétation :</p>
+<ul>
+<li><p>Pour chaque année supplémentaire, le risque instantané augmente de 5,1 %.</p></li>
+<li><p>Passer de 50 → 51 ans : +5,1 %.</p></li>
+<li><p>Passer de 70 → 71 ans : encore +5,1 %.</p></li>
+<li><p>Le modèle considère donc une pente constante sur le logarithme du risque.</p></li>
+</ul>
+<p>Cela découle directement de l’écriture :</p>
+<p><span class="math inline">\(\log h(t) = \log h_0(t) + \beta X\)</span></p>
+<p>qui impose une relation linéaire sur le log-risque.</p>
+</section>
+<section id="interprétation-du-hr" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="interprétation-du-hr"><span class="header-section-number">6.3.3</span> Interprétation du HR</h3>
+<ul>
+<li><p><strong>HR = 1</strong> : pas d’effet de la covariable sur le risque instantané.</p></li>
+<li><p><strong>HR &gt; 1</strong> : la covariable est associée à une augmentation du risque instantané.</p>
+<ul>
+<li><p>Ex : HR = 2 → doublement du risque instantané.</p></li>
+<li><p>Ex : HR = 1,5 → augmentation de 50 % du risque instantané.</p></li>
+</ul></li>
+<li><p><strong>HR &lt; 1</strong> : la covariable est associée à une diminution du risque instantané.</p></li>
+</ul>
+<p><strong>Modèle univariable</strong> : HR brut</p>
+<p><strong>Modèle multivariable</strong> : HR ajusté (pour les autres covariables du modèle)</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Ne pas confondre</strong> :</p>
+<ul>
+<li><p>Valeur vraie dans la population (interprétable directoement)</p></li>
+<li><p>Estimation dans l’échantillon (avec intervalle de confiance et test statistique)</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="résumé" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4" class="anchored" data-anchor-id="résumé"><span class="header-section-number">6.3.4</span> Résumé</h3>
+</section>
+<section id="tableau-de-synthèse-interprétation-des-coefficients-du-modèle-de-cox" class="level3" data-number="6.3.5">
+<h3 data-number="6.3.5" class="anchored" data-anchor-id="tableau-de-synthèse-interprétation-des-coefficients-du-modèle-de-cox"><span class="header-section-number">6.3.5</span> Tableau de synthèse : interprétation des coefficients du modèle de Cox</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Forme du modèle</th>
+<th>HR = <span class="math inline">\(exp(β)\)</span></th>
+<th>Interprétation</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Discrète binaire</strong> (0/1)</td>
+<td><span class="math inline">\(`h(t|Z)=h0(t)*exp(β Z)`\)</span></td>
+<td><span class="math inline">\(exp(β)\)</span></td>
+<td>Rapport de risque instantané entre Z=1 et Z=0, constant dans le temps</td>
+<td><span class="math inline">\(\beta = 0.69\)</span> → HR = 2 : risque doublé</td>
+</tr>
+<tr class="even">
+<td><strong>Discrète multicatégorielle</strong></td>
+<td>Référence + indicateurs</td>
+<td><span class="math inline">\(exp(β_k)\)</span></td>
+<td>Comparaison de chaque catégorie à la référence</td>
+<td>Réf = non-fumeur ; fumeur HR=2 ; ex-fumeur HR=1.3</td>
+</tr>
+<tr class="odd">
+<td><strong>Continue (par unité)</strong></td>
+<td><span class="math inline">\(`h(t|X)=h0(t)*exp(β X)`\)</span></td>
+<td><span class="math inline">\(exp(β)\)</span></td>
+<td>Variation du risque instantané pour +1 unité de X</td>
+<td><span class="math inline">\(\beta = 0.05\)</span> → HR = 1.051 : +5.1 % par unité</td>
+</tr>
+<tr class="even">
+<td><strong>Continue (pour ΔX unités)</strong></td>
+<td><span class="math inline">\(`h(t|X)=h0(t)*exp(β X)`\)</span></td>
+<td><span class="math inline">\(exp(β·ΔX)\)</span></td>
+<td>Variation du risque pour ΔX unités</td>
+<td><span class="math inline">\(\Delta X = 10\)</span> ans : HR = <span class="math inline">\(\exp(0.05\times10)=1.65\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Log-linéarité</strong></td>
+<td>Linéarité sur log(h)</td>
+<td>—</td>
+<td>Chaque unité → même pourcentage de variation du risque</td>
+<td>Effet constant : 50→51 = 70→71</td>
+</tr>
+<tr class="even">
+<td><strong>Proportionnalité des risques</strong></td>
+<td>HR constant dans le temps</td>
+<td>—</td>
+<td>L’effet ne change pas avec le temps</td>
+<td>Courbes “parallèles” en risque instantané</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="tests-statistiques-pour-les-coefficients-du-modèle-de-cox" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="tests-statistiques-pour-les-coefficients-du-modèle-de-cox"><span class="header-section-number">6.4</span> Tests statistiques pour les coefficients du modèle de Cox</h2>
+<p>Le modèle de Cox estime un ensemble de coefficients <span class="math inline">\(\beta\)</span> . Pour tester si une covariable a un effet significatif sur le risque instantané, deux tests principaux existent :</p>
+<ol type="1">
+<li><p>Le test de Wald</p></li>
+<li><p>Le test du rapport de vraisemblance (Likelihood Ratio Test, LRT)</p></li>
+</ol>
+<section id="hypothèses" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="hypothèses"><span class="header-section-number">6.4.1</span> Hypothèses</h3>
+<ul>
+<li><p><strong>Hypothèse nulle</strong> <span class="math inline">\(H_0\)</span> : la covariable n’a pas d’effet sur le risque instantané (<span class="math inline">\(\beta = 0\)</span> → <span class="math inline">\(HR = 1\)</span>)</p></li>
+<li><p><strong>Hypothèse alternative</strong> <span class="math inline">\(H_1\)</span> : la covariable a un effet sur le risque instantané (<span class="math inline">\(\beta \neq 0\)</span> → <span class="math inline">\(HR \neq 1\)</span>)</p></li>
+</ul>
+</section>
+<section id="tests-disponibles-wald-et-rapport-de-vraisemblance-likelihood-ratio-test-lrt" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="tests-disponibles-wald-et-rapport-de-vraisemblance-likelihood-ratio-test-lrt"><span class="header-section-number">6.4.2</span> Tests disponibles : Wald et Rapport de vraisemblance (Likelihood Ratio Test, LRT)</h3>
+<section id="test-de-wald" class="level4" data-number="6.4.2.1">
+<h4 data-number="6.4.2.1" class="anchored" data-anchor-id="test-de-wald"><span class="header-section-number">6.4.2.1</span> Test de Wald</h4>
+<p>Le modèle de Cox fournit une estimation de l’écart type du coefficient <span class="math inline">\(\hat{\beta}\)</span>.</p>
+<p>Le test de Wald utilise l’estimation du coefficient <span class="math inline">\(\hat{\beta}\)</span> et son écart type (son incertitude) pour calculer une statistique de test.</p>
+<p>Calcul de la statistique de Wald :</p>
+<p><span class="math inline">\(Z = \frac{\hat{\beta}}{SE(\hat{\beta})}\)</span></p>
+<p>Avec :</p>
+<ul>
+<li><p><span class="math inline">\(\hat{\beta}\)</span> : estimateur du coefficient de la covariable</p></li>
+<li><p><span class="math inline">\(SE(\hat{\beta})\)</span> : écart type de l’estimateur</p></li>
+</ul>
+<p>Sous l’hypothèse nulle, <span class="math inline">\(Z\)</span> suit une loi normale centrée réduite, parce que pour de grands échantillons, l’estimateur <span class="math inline">\(\hat{\beta}\)</span> est asymptotiquement normal, c’est à dire que sa distribution approche une loi normale lorsque la taille de l’échantillon augmente.</p>
+<p>On compare donc la valeur absolue de <span class="math inline">\(Z\)</span> à la table de la loi normale pour obtenir une p-value.</p>
+<p>ex : si <span class="math inline">\(|Z| &gt; 1.96\)</span>, p-value &lt; 0.05</p>
+<ul>
+<li><p>Si <span class="math inline">\(|Z|\)</span> est grand → la variable est significative.</p></li>
+<li><p>Si <span class="math inline">\(|Z| &lt; 1.96\)</span> → p-value &gt; 0.05 → variable non significative.</p></li>
+</ul>
+<p>Exemple : Supposons que le coefficient pour fumeur soit :</p>
+<ul>
+<li><p><span class="math inline">\(\hat{\beta}\)</span> = 0.69</p></li>
+<li><p><span class="math inline">\(SE(\hat{\beta})\)</span> = 0.30</p></li>
+</ul>
+<p><span class="math inline">\(Z = 0.69 / 0.30 = 2.30\)</span></p>
+<p>→ p-value &lt; 0.05 → effet significatif.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Le test de Wald donne une p-value pour chaque coefficient du modèle, parce qu’il teste chaque coefficient séparément.</p>
+</div>
+</div>
+<p><strong>Pourquoi le test de Wald donne une p-value par coefficient ?</strong></p>
+<ul>
+<li><p>Parce qu’il teste chaque coefficient séparément :</p></li>
+<li><p><span class="math inline">\(H_0 : \beta_i = 0\)</span></p></li>
+<li><p>et chaque coefficient <span class="math inline">\(\beta_i\)</span> est testé individuellement avec son propre estimateur <span class="math inline">\(\hat{\beta_i}\)</span> et son propre écart type <span class="math inline">\(SE(\hat{\beta_i})\)</span>.</p></li>
+<li><p>Donc, si le modèle contient :</p>
+<ul>
+<li><p>1 variable quantitative → 1 coefficient → 1 p-value</p></li>
+<li><p>1 variable qualitative à 3 modalités → 2 coefficients → 2 p-values</p></li>
+<li><p>p variables → p p-values</p></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="test-du-rapport-de-vraisemblance-likelihood-ratio-test-lrt" class="level4" data-number="6.4.2.2">
+<h4 data-number="6.4.2.2" class="anchored" data-anchor-id="test-du-rapport-de-vraisemblance-likelihood-ratio-test-lrt"><span class="header-section-number">6.4.2.2</span> Test du rapport de vraisemblance (Likelihood Ratio Test, LRT)</h4>
+<p>= modèles emboîtés que l’on compare</p>
+<p>= <strong>modèle complet</strong> = avec la covariable <em>vs</em> <strong>modèle réduit</strong> = sans la covariable</p>
+<p>On compare la log-vraisemblance des deux modèles (log-vraisemblance = mesure de l’adéquation du modèle aux données).</p>
+<p>Calcul de la statistique du rapport de vraisemblance :</p>
+<p><span class="math inline">\(LR = 2 \times (\log L_{2} - \log L_{1}) ~ \chi^2(\text p\ ddl)\)</span></p>
+<p>Avec :</p>
+<ul>
+<li><p><span class="math inline">\(L_1\)</span> : la log-vraisemblance du modèle réduit (le moins riche)</p></li>
+<li><p><span class="math inline">\(L_2\)</span> : la log-vraisemblance du modèle complet (le plus riche)</p></li>
+<li><p><span class="math inline">\(p\)</span> : nombre de paramètres ajoutés entre les deux modèles (nombre de degrés de liberté)</p></li>
+</ul>
+<p>Sous <span class="math inline">\(H_0\)</span>, le test du rapport de vraisemblance suit une loi du chi carré avec <span class="math inline">\(p\)</span> degrés de liberté.</p>
+<p><em>Quand on dit que le test est fait sous</em> <span class="math inline">\(H_0\)</span>, cela signifie que l’on suppose que la covariable n’a pas d’effet sur le risque instantané.</p>
+<p>On compare la valeur de <span class="math inline">\(LR\)</span> à la table du chi carré pour obtenir une p-value.</p>
+<p><strong>Pourquoi le LRT donne une seule p-value par variable ?</strong></p>
+<p>Car il ne teste pas <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span>, <span class="math inline">\(\beta_3\)</span> individuellement mais l’ensemble du bloc associé à la variable :</p>
+<p><span class="math inline">\(H_0 : \beta_1 = \beta_2 = \beta_3 = 0\)</span></p>
+<p>Donc :</p>
+<ul>
+<li><p>Une variable binaire → 1 coefficient → 1 p-value</p></li>
+<li><p>Une variable qualitative à 4 niveaux → 3 coefficients → 1 p-value globale</p></li>
+<li><p>Un bloc de variables (ex : spline, interaction, polynôme) → 1 p-value globale</p></li>
+</ul>
+</section>
+<section id="comparaison-des-deux-tests" class="level4" data-number="6.4.2.3">
+<h4 data-number="6.4.2.3" class="anchored" data-anchor-id="comparaison-des-deux-tests"><span class="header-section-number">6.4.2.3</span> Comparaison des deux tests</h4>
+<p><strong>Nombre de p-values</strong></p>
+<ul>
+<li><p>Wald → plusieurs p-values (une par coefficient)</p></li>
+<li><p>LRT → une seule p-value par variable, même si cette variable comporte plusieurs coefficients.</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Variable : statut fumeur (oui/non)</p>
+<ul>
+<li><p>Wald : 1 coefficient → 1 p-value</p></li>
+<li><p>LRT : 1 comparaison modèle complet vs réduit → 1 p-value</p></li>
+</ul>
+<p>Variable : IMC en 3 catégories (normal, surpoids, obésité) codée en 2 indicatrices car pour un facteur à <span class="math inline">\(k\)</span> modalités, un modèle de Cox crée <span class="math inline">\(k−1\)</span> variables indicatrices (dummy variables).</p>
+<p>Donc pour 3 catégories → 2 coefficients <span class="math inline">\(\beta_1\)</span> et <span class="math inline">\(\beta_2\)</span>.</p>
+<ul>
+<li><p>Wald : 2 coefficients → 2 p-values</p></li>
+<li><p>LRT : 1 comparaison modèle complet vs réduit → 1 p-value</p></li>
+</ul>
+</div>
+</div>
+<p><strong>Quel test utiliser ?</strong></p>
+<p>Le test du rapport de vraisemblance est plus utilisé pour tester un ensemble de covariables simultanément (modèle multivariable).</p>
+<p>À la limité d’une taille d’échantillon très grande, ces deux tests donnent des résultats similaires.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Le top : rapport de vraisemblance pour chaque variable, rapporté dans un tableau</p>
+</div>
+</div>
+<p><strong>Tableau comparatif</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Caractéristique</th>
+<th>Test de Wald</th>
+<th>Test du rapport de vraisemblance (LRT)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Ce qui est testé</strong></td>
+<td>Chaque coefficient séparément</td>
+<td>L’ensemble des coefficients d’une même variable</td>
+</tr>
+<tr class="even">
+<td><strong>Nombre de p-values obtenues</strong></td>
+<td>Une p-value par coefficient</td>
+<td>Une seule p-value par variable (ou par bloc de variables)</td>
+</tr>
+<tr class="odd">
+<td><strong>Ex : variable binaire</strong></td>
+<td>1 coefficient → 1 p-value</td>
+<td>1 degré de liberté → 1 p-value</td>
+</tr>
+<tr class="even">
+<td><strong>Ex : variable qualitative à 4 niveaux</strong></td>
+<td>3 coefficients → 3 p-values</td>
+<td>Test global sur les 3 coefficients → 1 p-value</td>
+</tr>
+<tr class="odd">
+<td><strong>Interprétation</strong></td>
+<td>Effet individuel de chaque niveau / coefficient</td>
+<td>Apport global de la variable au modèle</td>
+</tr>
+<tr class="even">
+<td><strong>Type de test</strong></td>
+<td>Normal (approximation asymptotique)</td>
+<td>Khi-deux</td>
+</tr>
+<tr class="odd">
+<td><strong>Fiabilité</strong></td>
+<td>Peut être instable si les SE sont mal estimés</td>
+<td>Plus robuste en théorie</td>
+</tr>
+<tr class="even">
+<td><strong>Usage typique</strong></td>
+<td>Lecture coefficient par coefficient</td>
+<td>Comparaison modèles (réduit vs complet)</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+<section id="tp" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> TP</h1>
+<section id="modèle-de-cox-avec-r" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="modèle-de-cox-avec-r"><span class="header-section-number">7.1</span> Modèle de Cox avec R</h2>
+<ul>
+<li><p>Charger la librairie <code>survival</code>.</p>
+<ul>
+<li><p><code>Surv</code> : créer un objet de survie</p></li>
+<li><p><code>survfit</code> : ajuster un modèle de survie (Kaplan Meier)</p></li>
+<li><p><code>survdiff</code> : test de Log-Rank</p></li>
+<li><p><code>coxph</code> : ajuster un modèle de Cox</p></li>
+</ul></li>
+<li><p>Conditions du df : “survival object” faisable</p>
+<ul>
+<li><p>Temps de suivi</p></li>
+<li><p>État de l’événement</p></li>
+</ul></li>
+</ul>
+<section id="exemple-avec-le-jeu-de-données-lung" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="exemple-avec-le-jeu-de-données-lung"><span class="header-section-number">7.1.1</span> Exemple avec le jeu de données <code>lung</code></h3>
+<section id="charger-et-afficher-les-premières-lignes-du-jeu-de-données-lung" class="level4" data-number="7.1.1.1">
+<h4 data-number="7.1.1.1" class="anchored" data-anchor-id="charger-et-afficher-les-premières-lignes-du-jeu-de-données-lung"><span class="header-section-number">7.1.1.1</span> Charger et afficher les premières lignes du jeu de données <code>lung</code></h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger la librairie survival</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les premières lignes du jeu de données</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lung)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  inst time status age sex ph.ecog ph.karno pat.karno meal.cal wt.loss
+1    3  306      2  74   1       1       90       100     1175      NA
+2    3  455      2  68   1       0       90        90     1225      15
+3    3 1010      1  56   1       0       90        90       NA      15
+4    5  210      2  57   1       1       90        60     1150      11
+5    1  883      2  60   1       0      100        90       NA       0
+6   12 1022      1  74   1       1       50        80      513       0</code></pre>
+</div>
+</div>
+</section>
+<section id="créer-un-objet-de-type-surv-avec-les-colonnes-time-et-status" class="level4" data-number="7.1.1.2">
+<h4 data-number="7.1.1.2" class="anchored" data-anchor-id="créer-un-objet-de-type-surv-avec-les-colonnes-time-et-status"><span class="header-section-number">7.1.1.2</span> Créer un objet de type <code>Surv</code> avec les colonnes <code>time</code> et <code>status</code></h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Créer un objet Surv</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>surv_obj <span class="ot">&lt;-</span> <span class="fu">Surv</span>(<span class="at">time =</span> lung<span class="sc">$</span>time, <span class="at">event =</span> lung<span class="sc">$</span>status)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>surv_obj</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1]  306   455  1010+  210   883  1022+  310   361   218   166   170   654 
+ [13]  728    71   567   144   613   707    61    88   301    81   624   371 
+ [25]  394   520   574   118   390    12   473    26   533   107    53   122 
+ [37]  814   965+   93   731   460   153   433   145   583    95   303   519 
+ [49]  643   765   735   189    53   246   689    65     5   132   687   345 
+ [61]  444   223   175    60   163    65   208   821+  428   230   840+  305 
+ [73]   11   132   226   426   705   363    11   176   791    95   196+  167 
+ [85]  806+  284   641   147   740+  163   655   239    88   245   588+   30 
+ [97]  179   310   477   166   559+  450   364   107   177   156   529+   11 
+[109]  429   351    15   181   283   201   524    13   212   524   288   363 
+[121]  442   199   550    54   558   207    92    60   551+  543+  293   202 
+[133]  353   511+  267   511+  371   387   457   337   201   404+  222    62 
+[145]  458+  356+  353   163    31   340   229   444+  315+  182   156   329 
+[157]  364+  291   179   376+  384+  268   292+  142   413+  266+  194   320 
+[169]  181   285   301+  348   197   382+  303+  296+  180   186   145   269+
+[181]  300+  284+  350   272+  292+  332+  285   259+  110   286   270    81 
+[193]  131   225+  269   225+  243+  279+  276+  135    79    59   240+  202+
+[205]  235+  105   224+  239   237+  173+  252+  221+  185+   92+   13   222+
+[217]  192+  183   211+  175+  197+  203+  116   188+  191+  105+  174+  177+</code></pre>
+</div>
+</div>
+</section>
+<section id="tester-leffet-du-sexe-sex-sur-la-survie-avec-un-log-rank-test" class="level4" data-number="7.1.1.3">
+<h4 data-number="7.1.1.3" class="anchored" data-anchor-id="tester-leffet-du-sexe-sex-sur-la-survie-avec-un-log-rank-test"><span class="header-section-number">7.1.1.3</span> Tester l’effet du sexe (<code>sex</code>) sur la survie avec un log-rank test</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test de Log-Rank pour le sexe</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>logrank_sex <span class="ot">&lt;-</span> <span class="fu">survdiff</span>(surv_obj <span class="sc">~</span> lung<span class="sc">$</span>sex)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(logrank_sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+survdiff(formula = surv_obj ~ lung$sex)
+
+             N Observed Expected (O-E)^2/E (O-E)^2/V
+lung$sex=1 138      112     91.6      4.55      10.3
+lung$sex=2  90       53     73.4      5.68      10.3
+
+ Chisq= 10.3  on 1 degrees of freedom, p= 0.001 </code></pre>
+</div>
+</div>
+</section>
+<section id="ajuster-un-modèle-de-cox-avec-sex-comme-covariable" class="level4" data-number="7.1.1.4">
+<h4 data-number="7.1.1.4" class="anchored" data-anchor-id="ajuster-un-modèle-de-cox-avec-sex-comme-covariable"><span class="header-section-number">7.1.1.4</span> Ajuster un modèle de Cox avec <code>sex</code> comme covariable</h4>
+<p>Fonction <code>coxph</code> (pour Cox Proportional Hazards) :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuster un modèle de Cox avec le sexe comme covariable</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>cox_model_sex <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_obj <span class="sc">~</span> lung<span class="sc">$</span>sex)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cox_model_sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+coxph(formula = surv_obj ~ lung$sex)
+
+  n= 228, number of events= 165 
+
+            coef exp(coef) se(coef)      z Pr(&gt;|z|)   
+lung$sex -0.5310    0.5880   0.1672 -3.176  0.00149 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+         exp(coef) exp(-coef) lower .95 upper .95
+lung$sex     0.588      1.701    0.4237     0.816
+
+Concordance= 0.579  (se = 0.021 )
+Likelihood ratio test= 10.63  on 1 df,   p=0.001
+Wald test            = 10.09  on 1 df,   p=0.001
+Score (logrank) test = 10.33  on 1 df,   p=0.001</code></pre>
+</div>
+</div>
+<hr>
+<p>Résultats :</p>
+<p><code>coef</code> :</p>
+<ul>
+<li><p>estimation du coefficient <span class="math inline">\(\hat{\beta}\)</span> pour la variable <code>sex</code> (-0.5310) =</p></li>
+<li><p>= <span class="math inline">\(h(t | \text{sex}) = h_0(t) \exp(\beta \times \text{sex})\)</span></p>
+<ul>
+<li><p>avec <code>sex</code> = 1 pour les femmes et 0 pour les hommes.</p></li>
+<li><p>coefficient <span class="math inline">\(\beta\)</span> correspond à l’impact du sexe (femme vs homme) sur le logarithme du risque instantané.</p></li>
+</ul></li>
+<li><p><code>exp(coef)</code> : estimation du hazard ratio (HR) pour les femmes par rapport aux hommes (0.5880)</p>
+<ul>
+<li><p><span class="math inline">\(\exp(\hat{\beta}) = HR\)</span></p></li>
+<li><p>= <span class="math inline">\(\exp(-0.5310) \approx 0.588\)</span></p></li>
+<li><p>Interprétation : à tout instant du suivi, les femmes ont environ 41.2 % (1 - 0.588) de risque instantané en moins de mourir par rapport aux hommes.</p></li>
+</ul></li>
+<li><p><code>se(coef)</code> : écart type de l’estimateur du coefficient (0.1672) =</p>
+<ul>
+<li><p>incertitude sur l’estimation de <span class="math inline">\(\hat{\beta}\)</span>.</p></li>
+<li><p>Utilisé pour le test de Wald (formule : <span class="math inline">\(Z = \hat{\beta} / SE(\hat{\beta})\)</span>).</p></li>
+<li><p>pour obtenir l’IC de l’HR : <span class="math inline">\(IC_{95\%} = \exp(\hat{\beta} \pm 1.96 \times SE(\hat{\beta}))\)</span></p></li>
+</ul></li>
+<li><p><code>z</code> : statistique de test de Wald (-3.176) =</p>
+<ul>
+<li><p>calculée comme <span class="math inline">\(z = \hat{\beta} / SE(\hat{\beta})\)</span>.</p></li>
+<li><p>Utilisée pour obtenir la p-value associée au test de Wald.</p></li>
+<li><p>Valeur absolue élevée de <code>z</code> indique un effet significatif.</p></li>
+<li><p>Plus bas, il est écrit 10.09, qui est le carré de -3.176 (car le test du chi carré est le carré du test de Wald).</p></li>
+</ul></li>
+<li><p><code>Pr(&gt;|z|)</code> : p-value associée au test de Wald (0.00149) =</p>
+<ul>
+<li><p>probabilité d’observer une statistique de test aussi extrême que <code>z</code> sous l’hypothèse nulle (<span class="math inline">\(\beta = 0\)</span>).</p></li>
+<li><p>p-value &lt; 0.05 indique que l’effet du sexe sur le risque instantané est statistiquement significatif.</p></li>
+</ul></li>
+<li><p><code>exp(-coef)</code> : inverse du hazard ratio (1.701) =</p>
+<ul>
+<li><p><span class="math inline">\(\exp(-\hat{\beta}) = 1 / HR\)</span></p></li>
+<li><p>Interprétation : à tout instant du suivi, les hommes ont environ 70.1 % (1.701 - 1) de risque instantané en plus de mourir par rapport aux femmes.</p></li>
+</ul></li>
+<li><p><code>lower .95</code> et <code>upper .95</code> : bornes inférieure et supérieure de l’intervalle de confiance à 95 % pour le hazard ratio (0.4237, 0.816) =</p>
+<ul>
+<li><p>Calculé comme <span class="math inline">\(IC_{95\%} = \exp(\hat{\beta} \pm 1.96 \times SE(\hat{\beta}))\)</span>.</p></li>
+<li><p>Indique la précision de l’estimation du HR.</p></li>
+<li><p>Si l’IC ne contient pas 1, l’effet est statistiquement significatif.</p></li>
+</ul></li>
+<li><p><code>Concordance</code> : mesure de la capacité prédictive du modèle (0.579) =</p>
+<ul>
+<li><p>Valeur entre 0.5 (aucune capacité prédictive) et 1 (prédiction parfaite).</p></li>
+<li><p>Indique dans quelle mesure le modèle classe correctement les individus en fonction de leur risque.</p></li>
+</ul></li>
+<li><p><code>Likelihood ratio test</code> : statistique du test du rapport de vraisemblance (10.63) avec sa p-value (0.001) =</p>
+<ul>
+<li><p>Compare le modèle complet (avec <code>sex</code>) au modèle réduit (sans <code>sex</code>).</p></li>
+<li><p>p-value &lt; 0.05 indique que l’ajout de <code>sex</code> améliore significativement le modèle.</p></li>
+</ul></li>
+<li><p><code>Wald test</code> : statistique du test de Wald (10.09) avec sa p-value (0.001) =</p>
+<ul>
+<li><p>Teste l’effet individuel de <code>sex</code> sur le risque instantané.</p></li>
+<li><p>p-value &lt; 0.05 indique que l’effet de <code>sex</code> est statistiquement significatif.</p></li>
+<li><p>Intérêt par rapport à <code>z</code> et <code>Pr(&gt;|z|)</code> : c’est la même information mais exprimée en chi carré.</p>
+<ul>
+<li><p>Exprimé en <span class="math inline">\(chi^2\)</span> pour faciliter la comparaison avec d’autres tests (comme le LRT).</p></li>
+<li><p>Mais en vrai, c’est juste le carré de <code>z</code>.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pourquoi le test de Wald global renvoie un chi-2 ?</strong></p>
+<p>Parce que le carré d’une variable normale centrée réduite suit une loi du chi-2 à 1 degré de liberté.</p>
+<p>C’est un théorème fondamental :</p>
+<p><span class="math inline">\(\left( \mathcal N(0,1) \right)^2 \sim \chi^2(1)\)</span></p>
+<p>Donc :</p>
+<p><span class="math inline">\(W = z^2\)</span></p>
+<p>Dans l’output :</p>
+<p><span class="math inline">\(z = −3.176\)</span></p>
+<p>$ ^2 = (−3.176)^2 = 10.09$</p>
+<p>Donc :</p>
+<ul>
+<li><p>Le test individuel affiche z (test indidividuel = test de Wald pour le coefficient)</p></li>
+<li><p>Le test global affiche z² = chi-2 (= test de Wald global pour la variable)</p></li>
+</ul>
+<p>Même p-value, présentation différente.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Qu’est-ce que</strong> <span class="math inline">\(N\)</span> dans <span class="math inline">\(N(0,1)\)</span> ?</p>
+<p><span class="math inline">\(N(0,1)\)</span> signifie loi Normale centrée réduite, c’est-à-dire :</p>
+<ul>
+<li><p>moyenne = 0</p></li>
+<li><p>variance = 1</p></li>
+<li><p>forme en cloche parfaitement définie</p></li>
+</ul>
+<p>Quand on écrit :</p>
+<p><span class="math inline">\(z \sim \mathcal{N}(0,1)\)</span></p>
+<p>cela veut dire : la statistique <span class="math inline">\(z\)</span> suit une loi normale de moyenne 0 et de variance 1.</p>
+<p>Dans ce contexte <span class="math inline">\(N\)</span> désigne la loi Normale : <span class="math inline">\(N(\mu, \sigma^2) = \text{loi normale de moyenne }\mu \text{ et variance }\sigma^2.\)</span></p>
+<p>Donc <span class="math inline">\(N\)</span> = normal distribution.</p>
+<p><strong>Pourquoi</strong> <span class="math inline">\(z\)</span> suit une loi normale <span class="math inline">\(N(0,1)\)</span> ?</p>
+<p>Dans un modèle de Cox, l’estimateur du coefficient <span class="math inline">\(\hat\beta\)</span> est asymptotiquement normal :</p>
+<p><span class="math inline">\(\hat\beta \approx \mathcal N(\beta, SE(\hat\beta)^2)\)</span></p>
+<p>Sous l’hypothèse nulle <span class="math inline">\(H_0:\beta=0\)</span>, cela devient :</p>
+<p><span class="math inline">\(\hat\beta \approx \mathcal N(0, SE^2)\)</span></p>
+<p>Si on divise par l’écart-type (on le fait pour standardiser la variable, c’est à dire pour lui donner une moyenne 0 et une variance 1) :</p>
+<p><span class="math inline">\(z = \frac{\hat\beta}{SE(\hat\beta)}\)</span></p>
+<p>Alors <span class="math inline">\(z\)</span> suit :</p>
+<p><span class="math inline">\(z \sim \mathcal N(0,1)\)</span></p>
+<p>Donc :</p>
+<ul>
+<li><p><span class="math inline">\(z\)</span> = coefficient standardisé</p></li>
+<li><p><span class="math inline">\(z\)</span> = suit une loi normale centrée réduite</p></li>
+<li><p>C’est pour ça qu’on calcule <span class="math inline">\(Pr(&gt;|z|)\)</span> avec la loi normale</p></li>
+</ul>
+<p>NB : diviser par l’écart-type est une opération classique en statistique pour standardiser une variable et obtenir une variable sans unité, ce qui permet de comparer des variables entre elles.</p>
+<p>Ça permet aussi d’obtenir une statistique de test qui suit une loi connue (ici la loi normale centrée réduite car on divise par l’écart-type).</p>
+</div>
+</div>
+</section>
+<section id="obtenir-lintervalle-de-confiance-à-95-pour-le-hazard-ratio" class="level4" data-number="7.1.1.5">
+<h4 data-number="7.1.1.5" class="anchored" data-anchor-id="obtenir-lintervalle-de-confiance-à-95-pour-le-hazard-ratio"><span class="header-section-number">7.1.1.5</span> Obtenir l’intervalle de confiance à 95 % pour le hazard ratio</h4>
+<p><strong>Coefficients</strong> <span class="math inline">\(\beta\)</span> et leur exponentielle (HR)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculer les coefficients ß</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(cox_model_sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  lung$sex 
+-0.5310235 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exponentielle (hazard ratio)</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coefficients</span>(cox_model_sex))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> lung$sex 
+0.5880028 </code></pre>
+</div>
+</div>
+<p><strong>Pour l’intervalle de confiance à 95 % :</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtenir l'intervalle de confiance à 95 % pour les coefficients</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(cox_model_sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              2.5 %     97.5 %
+lung$sex -0.8586875 -0.2033595</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtenir l'intervalle de confiance à 95 % pour le hazard ratio</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(cox_model_sex))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             2.5 %    97.5 %
+lung$sex 0.4237178 0.8159848</code></pre>
+</div>
+</div>
+<p><strong>Risque de base</strong> : fonction de risque de base estimée</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtenir la fonction de risque de base estimée</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>base_hazard <span class="ot">&lt;-</span> <span class="fu">basehaz</span>(cox_model_sex, <span class="at">centered =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(base_hazard)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       hazard time
+1 0.008907762    5
+2 0.035855686   11
+3 0.044934060   12
+4 0.063237497   13
+5 0.072463620   15
+6 0.081740068   26</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="tp-2" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> TP 2</h1>
+<p>Base de données <code>gehan</code> (disponible dans la librairie <code>MASS</code>) : 42 patients leucémiques avec 2 groupes de traitement 6-MP vs controls avec les durées de rémission</p>
+<ol type="1">
+<li><p>Combien y a-t-il d’évènements et de censures dans chacun des groupes ?</p></li>
+<li><p>Combien y-a-t-il de sujets exposés au risque de rechute à 12 et 18 semaines dans chaque groupe ?</p></li>
+<li><p>Un test du <span class="math inline">\(Chi^2\)</span> de Pearson serait-il approprié pour comparer les proportions d’évènements entre les deux groupes ? Justifiez votre réponse.</p></li>
+<li><p>Quelle est la survie sans rechute à 6 et 12 semaines dans les deux groupes de traitement ?</p></li>
+<li><p>Quelle est la médiane de survie sans rechute dans chaque groupe de traitement ?</p></li>
+<li><p>Estimez et tracez les courbes de survie de Kaplan-Meier pour les deux groupes de traitement.</p></li>
+<li><p>Quel test pour comparer les courbes de survie entre les deux groupes de traitement ? Justifiez votre choix.</p></li>
+</ol>
+<section id="réponse" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="réponse"><span class="header-section-number">8.1</span> Réponse</h2>
+<p>Import de la librairie et des données</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger la librairie survival</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les premières lignes des données</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gehan,<span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   pair time cens   treat
+1     1    1    1 control
+2     1   10    1    6-MP
+3     2   22    1 control
+4     2    7    1    6-MP
+5     3    3    1 control
+6     3   32    0    6-MP
+7     4   12    1 control
+8     4   23    1    6-MP
+9     5    8    1 control
+10    5   22    1    6-MP
+11    6   17    1 control
+12    6    6    1    6-MP
+13    7    2    1 control
+14    7   16    1    6-MP
+15    8   11    1 control
+16    8   34    0    6-MP
+17    9    8    1 control
+18    9   32    0    6-MP
+19   10   12    1 control
+20   10   25    0    6-MP</code></pre>
+</div>
+</div>
+<p>Colonnes :</p>
+<ul>
+<li><p><code>pair</code> : numéro de la paire de patients appariés</p></li>
+<li><p><code>time</code> : temps de suivi</p></li>
+<li><p><code>cens</code> : indicateur de censure (0 = censure, 1 = événement)</p></li>
+<li><p><code>treat</code> : groupe de traitement (control ou 6-MP)</p></li>
+</ul>
+<p>Donc c’est bizarre !</p>
+<ul>
+<li><p>Moins d’observations censurées (0) que d’observations non censurées (1) !</p></li>
+<li><p>Donc c’est probablement l’inverse ! :</p>
+<ul>
+<li><p><code>cens</code> = 1 → censure</p></li>
+<li><p><code>cens</code> = 0 → événement</p></li>
+</ul></li>
+<li><p><code>pair</code> : numéro de la paire de patients appariés mais on va l’ignorer ici</p></li>
+</ul>
+<section id="nombre-dévènements-et-de-censures-dans-chaque-groupe" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="nombre-dévènements-et-de-censures-dans-chaque-groupe"><span class="header-section-number">8.1.1</span> Nombre d’évènements et de censures dans chaque groupe</h3>
+<p>Fonction <code>table</code> pour obtenir un tableau croisé des événements et censures par groupe de traitement.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Résumé des événements et censures par groupe de traitement</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(gehan<span class="sc">$</span>treat, gehan<span class="sc">$</span>cens, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"Traitement"</span>, <span class="st">"Censure"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Censure
+Traitement  0  1
+   6-MP    12  9
+   control  0 21</code></pre>
+</div>
+</div>
+</section>
+<section id="nombre-de-sujets-exposés-au-risque-de-rechute-à-12-et-18-semaines-dans-chaque-groupe" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="nombre-de-sujets-exposés-au-risque-de-rechute-à-12-et-18-semaines-dans-chaque-groupe"><span class="header-section-number">8.1.2</span> Nombre de sujets exposés au risque de rechute à 12 et 18 semaines dans chaque groupe</h3>
+<p>Stratégie :</p>
+<ol type="1">
+<li><p>Créer un objet <code>Surv</code> qui contiendra les temps de suivi et l’état de censure en un seul objet</p>
+<ul>
+<li><p>Utiliser la fonction <code>Surv</code> du package <code>survival</code></p></li>
+<li><p>Syntaxe : <code>Surv(data$time, data$event)</code></p></li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>surv_object_gehan <span class="ot">&lt;-</span> <span class="fu">Surv</span>(<span class="at">time =</span> gehan<span class="sc">$</span>time, <span class="at">event =</span> gehan<span class="sc">$</span>cens)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>surv_object_gehan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  10  22   7   3  32+ 12  23   8  22  17   6   2  16  11  34+  8  32+ 12 
+[20] 25+  2  11+  5  20+  4  19+ 15   6   8  17+ 23  35+  5   6  11  13   4   9+
+[39]  1   6+  8  10+</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>Utiliser la fonction <code>survfit</code> pour calculer la survie</p>
+<ul>
+<li>Syntaxe : <code>survfit(Surv_object ~ group_variable, data = dataset)</code></li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>surv_fit_gehan <span class="ot">&lt;-</span> <span class="fu">survfit</span>(surv_object_gehan <span class="sc">~</span> gehan<span class="sc">$</span>treat, <span class="at">data =</span> gehan)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>surv_fit_gehan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call: survfit(formula = surv_object_gehan ~ gehan$treat, data = gehan)
+
+                     n events median 0.95LCL 0.95UCL
+gehan$treat=6-MP    21      9     23      16      NA
+gehan$treat=control 21     21      8       4      12</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li><p>Extraire le nombre de sujets à risque à 12 et 18 semaines en utilisant la fonction <code>summary</code></p>
+<ul>
+<li>Syntaxe : <code>summary(survfit_object, times = c(times_of_interest))</code></li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>summary_gehan_12_18 <span class="ot">&lt;-</span> <span class="fu">summary</span>(surv_fit_gehan, <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">18</span>))</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>summary_gehan_12_18</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call: survfit(formula = surv_object_gehan ~ gehan$treat, data = gehan)
+
+                gehan$treat=6-MP 
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+   12     12       5    0.753  0.0963        0.586        0.968
+   18      9       2    0.627  0.1141        0.439        0.896
+
+                gehan$treat=control 
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+   12      6      17   0.1905  0.0857       0.0789        0.460
+   18      2       2   0.0952  0.0641       0.0255        0.356</code></pre>
+</div>
+</div>
+</section>
+<section id="chi2-de-pearson-approprié" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="chi2-de-pearson-approprié"><span class="header-section-number">8.1.3</span> <span class="math inline">\(Chi^2\)</span> de Pearson approprié ?</h3>
+<p>Non, le test du <span class="math inline">\(Chi^2\)</span> de Pearson n’est pas approprié pour comparer les proportions d’évènements entre les deux groupes dans ce contexte de données de survie.</p>
+<p>Justification :</p>
+<ul>
+<li><p>Le test du <span class="math inline">\(Chi^2\)</span> de Pearson compare les proportions d’événements entre des groupes à un moment fixe, sans tenir compte du temps de suivi ni de la censure.</p></li>
+<li><p>Dans les données de survie, les temps de suivi varient entre les individus, et certains individus peuvent être censurés (c’est-à-dire que l’événement d’intérêt n’a pas été observé avant la fin du suivi).</p></li>
+<li><p>Le test du <span class="math inline">\(Chi^2\)</span> de Pearson ne prend pas en compte ces aspects temporels et de censure, ce qui peut biaiser les résultats.</p></li>
+<li><p>Pour comparer les courbes de survie entre les groupes, il est plus approprié d’utiliser le test de Log-Rank, qui tient compte des temps de suivi et de la censure.</p></li>
+</ul>
+</section>
+<section id="survie-sans-rechute-à-6-et-12-semaines-dans-les-deux-groupes-de-traitement" class="level3" data-number="8.1.4">
+<h3 data-number="8.1.4" class="anchored" data-anchor-id="survie-sans-rechute-à-6-et-12-semaines-dans-les-deux-groupes-de-traitement"><span class="header-section-number">8.1.4</span> Survie sans rechute à 6 et 12 semaines dans les deux groupes de traitement</h3>
+<p>Utiliser la fonction <code>summary</code> pour extraire les estimations de survie à 6 et 12 semaines.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>summary_gehan_6_12 <span class="ot">&lt;-</span> <span class="fu">summary</span>(surv_fit_gehan, <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">12</span>))</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>summary_gehan_6_12</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call: survfit(formula = surv_object_gehan ~ gehan$treat, data = gehan)
+
+                gehan$treat=6-MP 
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+    6     21       3    0.857  0.0764        0.720        1.000
+   12     12       2    0.753  0.0963        0.586        0.968
+
+                gehan$treat=control 
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+    6     12       9    0.571  0.1080       0.3945        0.828
+   12      6       8    0.190  0.0857       0.0789        0.460</code></pre>
+</div>
+</div>
+<p>Résultats :</p>
+<ul>
+<li><p>À 6 semaines :</p>
+<ul>
+<li><p>Groupe 6-MP : survie sans rechute = 85.7 % (IC 95 % : 72.0 % - 100 %)</p></li>
+<li><p>Groupe contrôle : survie sans rechute = 57.1 % (IC 95 % : 39.5 % - 82.8 %)</p></li>
+</ul></li>
+<li><p>À 12 semaines :</p>
+<ul>
+<li><p>Groupe 6-MP : survie sans rechute = 75.3 % (IC 95 % : 58.6 % - 96.8 %)</p></li>
+<li><p>Groupe contrôle : survie sans rechute = 19.0 % (IC 95 % : 7.9 % - 46.0 %)</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="médiane-de-survie-sans-rechute-dans-chaque-groupe-de-traitement" class="level3" data-number="8.1.5">
+<h3 data-number="8.1.5" class="anchored" data-anchor-id="médiane-de-survie-sans-rechute-dans-chaque-groupe-de-traitement"><span class="header-section-number">8.1.5</span> Médiane de survie sans rechute dans chaque groupe de traitement</h3>
+<p>La médiane est contenue dans l’objet crée avec <code>Surv</code> : <code>surv_fit_gehan</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtenir la médiane de survie pour chaque groupe</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>surv_fit_gehan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call: survfit(formula = surv_object_gehan ~ gehan$treat, data = gehan)
+
+                     n events median 0.95LCL 0.95UCL
+gehan$treat=6-MP    21      9     23      16      NA
+gehan$treat=control 21     21      8       4      12</code></pre>
+</div>
+</div>
+</section>
+<section id="estimer-et-tracer-les-courbes-de-survie-de-kaplan-meier-pour-les-deux-groupes-de-traitement" class="level3" data-number="8.1.6">
+<h3 data-number="8.1.6" class="anchored" data-anchor-id="estimer-et-tracer-les-courbes-de-survie-de-kaplan-meier-pour-les-deux-groupes-de-traitement"><span class="header-section-number">8.1.6</span> Estimer et tracer les courbes de survie de Kaplan-Meier pour les deux groupes de traitement</h3>
+<p>Tracer les courbes de survie de Kaplan-Meier pour les deux groupes de traitement</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tracer les courbes de survie</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(surv_fit_gehan, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>), <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Temps (semaines)"</span>, <span class="at">ylab =</span> <span class="st">"Probabilité de survie"</span>,</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Courbes de survie de Kaplan-Meier par groupe de traitement"</span>)</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">levels</span>(gehan<span class="sc">$</span>treat), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>), <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S7_1_survie_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Utiliser <code>ggsurvplot</code> pour une visualisation améliorée</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger la librairie survminer pour une meilleure visualisation</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tracer les courbes de survie avec ggsurvplot</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(surv_fit_gehan, <span class="at">data =</span> gehan,</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">pval =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="st">"Temps (semaines)"</span>,</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">ylab =</span> <span class="st">"Probabilité de survie"</span>,</span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">title =</span> <span class="st">"Courbes de survie de Kaplan-Meier par groupe de traitement"</span>,</span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.labs =</span> <span class="fu">levels</span>(gehan<span class="sc">$</span>treat),</span>
+<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>),</span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">surv.median.line =</span> <span class="st">"hv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Ignoring unknown labels:
+• colour : "Strata"</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S7_1_survie_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="quel-test-pour-comparer-les-courbes-de-survie-entre-les-deux-groupes-de-traitement-justifiez-votre-choix." class="level3" data-number="8.1.7">
+<h3 data-number="8.1.7" class="anchored" data-anchor-id="quel-test-pour-comparer-les-courbes-de-survie-entre-les-deux-groupes-de-traitement-justifiez-votre-choix."><span class="header-section-number">8.1.7</span> Quel test pour comparer les courbes de survie entre les deux groupes de traitement ? Justifiez votre choix.</h3>
+<p>Le test approprié pour comparer les courbes de survie entre les deux groupes de traitement est le <strong>test de Log-Rank</strong>.</p>
+<p>Justification :</p>
+<ul>
+<li><p>Le test de Log-Rank est spécifiquement conçu pour comparer les courbes de survie entre deux ou plusieurs groupes dans le contexte des données de survie.</p></li>
+<li><p>Il prend en compte les temps de suivi variables et la censure des données, ce qui est essentiel dans les analyses de survie.</p></li>
+<li><p>Le test de Log-Rank évalue si les différences observées dans les courbes de survie sont statistiquement significatives en comparant le nombre d’événements observés à celui attendu dans chaque groupe à chaque instant de temps.</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Effectuer le test de Log-Rank</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>logrank_test <span class="ot">&lt;-</span> <span class="fu">survdiff</span>(surv_object_gehan <span class="sc">~</span> gehan<span class="sc">$</span>treat)</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(logrank_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+survdiff(formula = surv_object_gehan ~ gehan$treat)
+
+                     N Observed Expected (O-E)^2/E (O-E)^2/V
+gehan$treat=6-MP    21        9     19.3      5.46      16.8
+gehan$treat=control 21       21     10.7      9.77      16.8
+
+ Chisq= 16.8  on 1 degrees of freedom, p= 4e-05 </code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="tp-3" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> TP 3</h1>
+<p>Base de données <code>Melanoma</code> dans le package <code>MASS</code> : étude de survie de patients atteints de mélanome avec différentes variables explicatives.</p>
+<section id="questions" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="questions"><span class="header-section-number">9.1</span> Questions</h2>
+<ol type="1">
+<li><p>Description des données</p></li>
+<li><p>Estimation d’une courbe de survie de Kaplan-Meier globale</p></li>
+<li><p>Influence du sexe sur la survie</p></li>
+<li><p>Test de Log-Rank pour tester la différence de survie en foncton du sexe, en stratifiant sur le niveau d’ulcération</p></li>
+</ol>
+</section>
+<section id="réponse-1" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="réponse-1"><span class="header-section-number">9.2</span> Réponse</h2>
+<section id="description-des-données" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="description-des-données"><span class="header-section-number">9.2.1</span> Description des données</h3>
+<p>Importer les données et la librairie nécessaire</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger la librairie MASS</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher les premières lignes des données Melanoma</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Melanoma)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  time status sex age year thickness ulcer
+1   10      3   1  76 1972      6.76     1
+2   30      3   1  56 1968      0.65     0
+3   35      2   1  41 1977      1.34     0
+4   99      3   0  71 1968      2.90     0
+5  185      1   1  52 1965     12.08     1
+6  204      1   1  28 1971      4.84     1</code></pre>
+</div>
+</div>
+<p>Colonnes :</p>
+<ul>
+<li><p><code>time</code> : temps de suivi en mois</p></li>
+<li><p><code>status</code> : état de l’événement (1 = décès dû au mélanome, 2 = alive, 3 = décès dû à d’autres causes)</p></li>
+<li><p><code>sex</code> : sexe (0 = femme, 1 = homme)</p></li>
+<li><p><code>age</code> : âge au moment du diagnostic</p></li>
+<li><p><code>year</code> : année du diagnostic</p></li>
+<li><p><code>thickness</code> : épaisseur de la tumeur en mm</p></li>
+<li><p><code>ulcer</code> : présence d’ulcération (0 = non, 1 = oui)</p></li>
+</ul>
+<p>Truc : pour l’analyse de survie, on va recoder <code>status</code> en binaire (1 et 3 = décès toute cause, 2 = censuré)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>Melanoma<span class="sc">$</span>status2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Melanoma<span class="sc">$</span>status <span class="sc">==</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="estimation-dune-courbe-de-survie-de-kaplan-meier-globale" class="level3" data-number="9.2.2">
+<h3 data-number="9.2.2" class="anchored" data-anchor-id="estimation-dune-courbe-de-survie-de-kaplan-meier-globale"><span class="header-section-number">9.2.2</span> Estimation d’une courbe de survie de Kaplan-Meier globale</h3>
+<ol type="1">
+<li>Créer un objet <code>Surv</code> avec les temps de suivi et l’état de l’événement</li>
+</ol>
+<p><code>Surv(time = data$time, event = data$status == 1)</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>surv_object_melanoma <span class="ot">&lt;-</span> <span class="fu">Surv</span>(<span class="at">time =</span> Melanoma<span class="sc">$</span>time, <span class="at">event =</span> Melanoma<span class="sc">$</span>status2 <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>surv_object_melanoma</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1]   10    30    35+   99   185   204   210   232   232   279   295   355 
+ [13]  386   426   469   493   529   621   629   659   667   718   752   779 
+ [25]  793   817   826   833   858   869   872   967   977   982  1041  1055 
+ [37] 1062  1075  1156  1228  1252  1271  1312  1427  1435  1499+ 1506  1508+
+ [49] 1510+ 1512+ 1516  1525  1542+ 1548  1557+ 1560  1563+ 1584  1605+ 1621 
+ [61] 1627+ 1634+ 1641+ 1641+ 1648+ 1652+ 1654+ 1654+ 1667  1678+ 1685+ 1690 
+ [73] 1710+ 1710+ 1726  1745+ 1762+ 1779+ 1787+ 1787+ 1793+ 1804+ 1812+ 1836+
+ [85] 1839+ 1839+ 1854+ 1856+ 1860  1864+ 1899+ 1914+ 1919+ 1920+ 1927+ 1933 
+ [97] 1942+ 1955+ 1956+ 1958+ 1963+ 1970+ 2005+ 2007+ 2011+ 2024+ 2028+ 2038+
+[109] 2056+ 2059+ 2061  2062  2075+ 2085  2102+ 2103  2104+ 2108  2112+ 2150+
+[121] 2156+ 2165+ 2209+ 2227+ 2227+ 2256  2264+ 2339+ 2361+ 2387+ 2388  2403+
+[133] 2426+ 2426+ 2431+ 2460+ 2467  2492+ 2493+ 2521+ 2542+ 2559+ 2565  2570+
+[145] 2660+ 2666+ 2676+ 2738+ 2782  2787+ 2984+ 3032+ 3040+ 3042  3067+ 3079+
+[157] 3101+ 3144+ 3152+ 3154  3180+ 3182  3185+ 3199+ 3228+ 3229+ 3278+ 3297+
+[169] 3328+ 3330+ 3338  3383+ 3384+ 3385+ 3388+ 3402+ 3441+ 3458  3459+ 3459+
+[181] 3476+ 3523+ 3667+ 3695+ 3695+ 3776+ 3776+ 3830+ 3856+ 3872+ 3909+ 3968+
+[193] 4001+ 4103+ 4119+ 4124+ 4207+ 4310+ 4390+ 4479+ 4492+ 4668+ 4688+ 4926+
+[205] 5565+</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Calculer la courbe de survie de Kaplan-Meier globale avec <code>survfit</code></li>
+</ol>
+<p><code>survfit</code>permet d’ajuster un modèle de survie de Kaplan-Meier.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>surv_fit_melanoma <span class="ot">&lt;-</span> <span class="fu">survfit</span>(surv_object_melanoma <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> Melanoma)</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>surv_fit_melanoma</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call: survfit(formula = surv_object_melanoma ~ 1, data = Melanoma)
+
+       n events median 0.95LCL 0.95UCL
+[1,] 205     71     NA    3338      NA</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Tracer la courbe de survie avec ‘ggsurvplot’ pour une meilleure visualisation</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger la librairie survminer pour une meilleure visualisation</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tracer la courbe de survie globale</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(surv_fit_melanoma, </span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> Melanoma,</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="st">"Temps (mois)"</span>,</span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">ylab =</span> <span class="st">"Probabilité de survie"</span>,</span>
+<span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">title =</span> <span class="st">"Courbe de survie de Kaplan-Meier globale"</span>,</span>
+<span id="cb86-11"><a href="#cb86-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">palette =</span> <span class="st">"darkblue"</span></span>
+<span id="cb86-12"><a href="#cb86-12" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Ignoring unknown labels:
+• fill : "Strata"
+Ignoring unknown labels:
+• fill : "Strata"
+Ignoring unknown labels:
+• fill : "Strata"
+Ignoring unknown labels:
+• fill : "Strata"
+Ignoring unknown labels:
+• colour : "Strata"</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S7_1_survie_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="influence-du-sexe-sur-la-survie" class="level3" data-number="9.2.3">
+<h3 data-number="9.2.3" class="anchored" data-anchor-id="influence-du-sexe-sur-la-survie"><span class="header-section-number">9.2.3</span> Influence du sexe sur la survie</h3>
+<ol type="1">
+<li>Calculer les courbes de survie de Kaplan-Meier par sexe</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>surv_fit_sex <span class="ot">&lt;-</span> <span class="fu">survfit</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex, <span class="at">data =</span> Melanoma)</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>surv_fit_sex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call: survfit(formula = surv_object_melanoma ~ Melanoma$sex, data = Melanoma)
+
+                 n events median 0.95LCL 0.95UCL
+Melanoma$sex=0 126     35     NA      NA      NA
+Melanoma$sex=1  79     36   3154    2103      NA</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Tracer les courbes de survie par sexe</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tracer les courbes de survie par sexe</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>        surv_fit_sex, </span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> Melanoma,</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Temps (mois)"</span>,</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Probabilité de survie"</span>,</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Courbes de survie de Kaplan-Meier par sexe"</span>,</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.labs =</span> <span class="fu">c</span>(<span class="st">"Femmes"</span>, <span class="st">"Hommes"</span>),</span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"deeppink"</span>, <span class="st">"blue"</span>),</span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">surv.median.line =</span> <span class="st">"hv"</span>,</span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">risk.table.height =</span> <span class="fl">0.25</span>,</span>
+<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">risk.table.y.text.col =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">risk.table.y.text =</span> <span class="cn">FALSE</span>,    </span>
+<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">censor =</span> <span class="cn">TRUE</span></span>
+<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Ignoring unknown labels:
+• colour : "Strata"</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S7_1_survie_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="test-de-log-rank-et-modèle-de-cox-pour-comparer-les-courbes-de-survie-entre-les-groupes" class="level3" data-number="9.2.4">
+<h3 data-number="9.2.4" class="anchored" data-anchor-id="test-de-log-rank-et-modèle-de-cox-pour-comparer-les-courbes-de-survie-entre-les-groupes"><span class="header-section-number">9.2.4</span> Test de Log-Rank et Modèle de Cox pour comparer les courbes de survie entre les groupes</h3>
+<ol type="1">
+<li>Effectuer le test de Log-Rank pour comparer les courbes de survie entre les groupes</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Effectuer le test de Log-Rank</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>logrank_test_sex <span class="ot">&lt;-</span> <span class="fu">survdiff</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex)</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(logrank_test_sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+survdiff(formula = surv_object_melanoma ~ Melanoma$sex)
+
+                 N Observed Expected (O-E)^2/E (O-E)^2/V
+Melanoma$sex=0 126       35     46.3      2.75       7.9
+Melanoma$sex=1  79       36     24.7      5.14       7.9
+
+ Chisq= 7.9  on 1 degrees of freedom, p= 0.005 </code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Ajuster un modèle de Cox avec le sexe comme covariable</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuster un modèle de Cox avec le sexe comme covariable</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>cox_model_sex <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex)</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cox_model_sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+coxph(formula = surv_object_melanoma ~ Melanoma$sex)
+
+  n= 205, number of events= 71 
+
+               coef exp(coef) se(coef)     z Pr(&gt;|z|)   
+Melanoma$sex 0.6559    1.9269   0.2376 2.761  0.00577 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+             exp(coef) exp(-coef) lower .95 upper .95
+Melanoma$sex     1.927      0.519      1.21      3.07
+
+Concordance= 0.585  (se = 0.031 )
+Likelihood ratio test= 7.51  on 1 df,   p=0.006
+Wald test            = 7.62  on 1 df,   p=0.006
+Score (logrank) test = 7.9  on 1 df,   p=0.005</code></pre>
+</div>
+</div>
+</section>
+<section id="si-on-regarde-en-ajustant-sur-lépaisseur-de-la-tumeur" class="level3" data-number="9.2.5">
+<h3 data-number="9.2.5" class="anchored" data-anchor-id="si-on-regarde-en-ajustant-sur-lépaisseur-de-la-tumeur"><span class="header-section-number">9.2.5</span> Si on regarde en ajustant sur l’épaisseur de la tumeur</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuster un modèle de Cox avec le sexe et l'épaisseur de la tumeur comme covariables</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>cox_model_sex_thickness <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex <span class="sc">+</span> Melanoma<span class="sc">$</span>thickness)</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cox_model_sex_thickness)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+coxph(formula = surv_object_melanoma ~ Melanoma$sex + Melanoma$thickness)
+
+  n= 205, number of events= 71 
+
+                      coef exp(coef) se(coef)     z Pr(&gt;|z|)    
+Melanoma$sex       0.56284   1.75565  0.23787 2.366    0.018 *  
+Melanoma$thickness 0.14883   1.16048  0.03011 4.942 7.72e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+                   exp(coef) exp(-coef) lower .95 upper .95
+Melanoma$sex           1.756     0.5696     1.101     2.798
+Melanoma$thickness     1.160     0.8617     1.094     1.231
+
+Concordance= 0.696  (se = 0.034 )
+Likelihood ratio test= 26.11  on 2 df,   p=2e-06
+Wald test            = 30.98  on 2 df,   p=2e-07
+Score (logrank) test = 34.19  on 2 df,   p=4e-08</code></pre>
+</div>
+</div>
+<p>Résultats :</p>
+<ul>
+<li><p>Le coefficient pour <code>Melanoma$sex</code> est 0.56284, ce qui signifie que les hommes ont un risque instantané de décès dû au mélanome environ 75.6 % plus élevé que les femmes, après ajustement pour l’épaisseur de la tumeur.</p>
+<ul>
+<li>HR = exp(0.56284) = 1.75565</li>
+</ul></li>
+<li><p>Le coefficient pour <code>Melanoma$thickness</code> est 0.14883, indiquant que pour chaque augmentation de 1 mm de l’épaisseur de la tumeur, le risque instantané de décès dû au mélanome augmente d’environ 16.0 %.</p>
+<ul>
+<li>HR = exp(0.14883) = 1.16048 en plus par mm (variable quantitative donc HR par unité)</li>
+</ul></li>
+</ul>
+<p>Mais le truc c’est que l’épaisseur de la tumeur est très variable !!</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Melanoma<span class="sc">$</span>thickness, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">main =</span> <span class="st">"Histogramme de l'épaisseur de la tumeur"</span>, <span class="at">xlab =</span> <span class="st">"Épaisseur (mm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S7_1_survie_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mais pour les dermatos : ce qui compte c’est si l’épaisseur est &gt; ou &lt; 1 mm (critère pronostique important)</p>
+<p>Donc on peut créer une variable binaire <code>thickness_bin</code> :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>Melanoma<span class="sc">$</span>thickness_bin <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Melanoma<span class="sc">$</span>thickness <span class="sc">&gt;</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Melanoma, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  time status sex age year thickness ulcer status2 thickness_bin
+1   10      3   1  76 1972      6.76     1       1             1
+2   30      3   1  56 1968      0.65     0       1             0
+3   35      2   1  41 1977      1.34     0       0             1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Melanoma<span class="sc">$</span>thickness_bin)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  0   1 
+ 56 149 </code></pre>
+</div>
+</div>
+<p>Puis ajuster le modèle de Cox avec cette variable binaire :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuster un modèle de Cox avec le sexe et l'épaisseur binaire de la tumeur comme covariables</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>cox_model_sex_thickness_bin <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex <span class="sc">+</span> Melanoma<span class="sc">$</span>thickness_bin)</span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cox_model_sex_thickness_bin)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+coxph(formula = surv_object_melanoma ~ Melanoma$sex + Melanoma$thickness_bin)
+
+  n= 205, number of events= 71 
+
+                         coef exp(coef) se(coef)     z Pr(&gt;|z|)   
+Melanoma$sex           0.6813    1.9764   0.2379 2.864  0.00419 **
+Melanoma$thickness_bin 1.1275    3.0879   0.3571 3.157  0.00159 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+                       exp(coef) exp(-coef) lower .95 upper .95
+Melanoma$sex               1.976     0.5060     1.240     3.151
+Melanoma$thickness_bin     3.088     0.3238     1.533     6.218
+
+Concordance= 0.651  (se = 0.031 )
+Likelihood ratio test= 20.51  on 2 df,   p=4e-05
+Wald test            = 17.75  on 2 df,   p=1e-04
+Score (logrank) test = 19.02  on 2 df,   p=7e-05</code></pre>
+</div>
+</div>
+<hr>
+<p>Résultats :</p>
+<ul>
+<li><p>Le coefficient pour <code>Melanoma$sex</code> est 0.6813 et HR = exp(0.6813) = 1.9764 donc risque instantané de décès dû au mélanome environ 97.6 % plus élevé pour les hommes par rapport aux femmes.</p></li>
+<li><p>Le coefficient pour <code>Melanoma$thickness_bin</code> est 1.1275 et HR = exp(1.1275) = 3.0879 donc risque instantané de décès dû au mélanome environ 208.8 % plus élevé pour les patients avec une épaisseur de tumeur &gt; 1 mm par rapport à ceux avec une épaisseur ≤ 1 mm.</p></li>
+</ul>
+<hr>
+<p>Pour savoir quel est le meilleur modèle entre <code>thickness</code> en quantitatif et binaire, on va comparer par rapport au modèle avec <code>sex</code> seul</p>
+<ol type="1">
+<li>On redéfinit les modèles</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>surv_object_melanoma <span class="ot">&lt;-</span> <span class="fu">Surv</span>(<span class="at">time =</span> Melanoma<span class="sc">$</span>time, <span class="at">event =</span> Melanoma<span class="sc">$</span>status2 <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>cox_model_sex <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex)</span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>cox_model_sex_thickness <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex <span class="sc">+</span> Melanoma<span class="sc">$</span>thickness)</span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>cox_model_sex_thickness_bin <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex <span class="sc">+</span> Melanoma<span class="sc">$</span>thickness_bin)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li>Comparaison avec le test du rapport de vraisemblance</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparaison des modèles avec le test du rapport de vraisemblance</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(cox_model_sex, cox_model_sex_thickness)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+ Cox model: response is  surv_object_melanoma
+ Model 1: ~ Melanoma$sex
+ Model 2: ~ Melanoma$sex + Melanoma$thickness
+   loglik  Chisq Df Pr(&gt;|Chi|)    
+1 -346.73                         
+2 -337.43 18.598  1  1.614e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(cox_model_sex, cox_model_sex_thickness_bin)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+ Cox model: response is  surv_object_melanoma
+ Model 1: ~ Melanoma$sex
+ Model 2: ~ Melanoma$sex + Melanoma$thickness_bin
+   loglik  Chisq Df Pr(&gt;|Chi|)    
+1 -346.73                         
+2 -340.23 12.997  1   0.000312 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>On a l’impression qu’en mettant la variable en QUANTITATIF , c’est mieux !</p>
+<ul>
+<li><p><span class="math inline">\(Chi^2\)</span> plus grand (18.598 &gt; 12.997)</p></li>
+<li><p>p-value plus petite</p></li>
+</ul>
+<p>Mais en vrai : ce sont des considérations uniquement statistiques !</p>
+<p>Si la variable qui compte c’est si l’épaisseur est &gt; ou &lt; 1 mm, on prendra le modèle avec la variable binaire</p>
+</section>
+<section id="interaction-entre-sexe-et-ulcération" class="level3" data-number="9.2.6">
+<h3 data-number="9.2.6" class="anchored" data-anchor-id="interaction-entre-sexe-et-ulcération"><span class="header-section-number">9.2.6</span> Interaction entre sexe et ulcération</h3>
+<p><strong>Modèle de Cox avec interaction entre sexe et ulcération</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuster un modèle de Cox avec interaction entre sexe et ulcération</span></span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>surv_cox_interaction <span class="ot">&lt;-</span> <span class="fu">Surv</span>(Melanoma<span class="sc">$</span>time, Melanoma<span class="sc">$</span>status2)</span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>cox_model_interaction <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_cox_interaction <span class="sc">~</span> Melanoma<span class="sc">$</span>sex <span class="sc">+</span> <span class="fu">strata</span>(Melanoma<span class="sc">$</span>ulcer))</span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cox_model_interaction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+coxph(formula = surv_cox_interaction ~ Melanoma$sex + strata(Melanoma$ulcer))
+
+  n= 205, number of events= 71 
+
+               coef exp(coef) se(coef)     z Pr(&gt;|z|)  
+Melanoma$sex 0.4995    1.6479   0.2396 2.084   0.0371 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+             exp(coef) exp(-coef) lower .95 upper .95
+Melanoma$sex     1.648     0.6068      1.03     2.636
+
+Concordance= 0.568  (se = 0.031 )
+Likelihood ratio test= 4.31  on 1 df,   p=0.04
+Wald test            = 4.34  on 1 df,   p=0.04
+Score (logrank) test = 4.43  on 1 df,   p=0.04</code></pre>
+</div>
+</div>
+<p><strong>Log rank et courbe de Kaplan-Meier stratifiée sur le niveau d’ulcération</strong></p>
+<ol type="1">
+<li>Effectuer le test de Log-Rank stratifié sur le niveau d’ulcération</li>
+</ol>
+<p>Syntaxe : <code>survdiff(Surv_object ~ group_variable + strata(stratification_variable))</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Effectuer le test de Log-Rank stratifié sur le niveau d'ulcération</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>logrank_test_stratified <span class="ot">&lt;-</span> <span class="fu">survdiff</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex <span class="sc">+</span> <span class="fu">strata</span>(Melanoma<span class="sc">$</span>ulcer))</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(logrank_test_stratified)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+survdiff(formula = surv_object_melanoma ~ Melanoma$sex + strata(Melanoma$ulcer))
+
+                 N Observed Expected (O-E)^2/E (O-E)^2/V
+Melanoma$sex=0 126       35     43.6      1.68      4.43
+Melanoma$sex=1  79       36     27.4      2.67      4.43
+
+ Chisq= 4.4  on 1 degrees of freedom, p= 0.04 </code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Tracer les courbes de survie de Kaplan-Meier par sexe, stratifiées sur le niveau d’ulcération</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tracer les courbes de survie par sexe, stratifiées sur le niveau d'ulcération</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(</span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">survfit</span>(surv_object_melanoma <span class="sc">~</span> Melanoma<span class="sc">$</span>sex <span class="sc">+</span> <span class="fu">strata</span>(Melanoma<span class="sc">$</span>ulcer), <span class="at">data =</span> Melanoma),</span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> Melanoma,</span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">conf.int =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Temps (mois)"</span>,</span>
+<span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Probabilité de survie"</span>,</span>
+<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Courbes de survie de Kaplan-Meier par sexe, stratifiées sur le niveau d'ulcération"</span>,</span>
+<span id="cb114-11"><a href="#cb114-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.labs =</span> <span class="fu">c</span>(<span class="st">"Femmes sans ulcération"</span>, <span class="st">"Hommes sans ulcération"</span>, <span class="st">"Femmes avec ulcération"</span>, <span class="st">"Hommes avec ulcération"</span>),</span>
+<span id="cb114-12"><a href="#cb114-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"deeppink"</span>, <span class="st">"blue"</span>, <span class="st">"lightcoral"</span>, <span class="st">"darkblue"</span>),</span>
+<span id="cb114-13"><a href="#cb114-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">risk.table.y.text.col =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb114-14"><a href="#cb114-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">risk.table.y.text =</span> <span class="cn">FALSE</span>,    </span>
+<span id="cb114-15"><a href="#cb114-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">censor =</span> <span class="cn">TRUE</span></span>
+<span id="cb114-16"><a href="#cb114-16" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Ignoring unknown labels:
+• colour : "Strata"</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S7_1_survie_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
