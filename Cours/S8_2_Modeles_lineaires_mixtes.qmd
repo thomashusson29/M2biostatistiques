@@ -483,6 +483,8 @@ Ici : `fit3 <- lmer(distance ~ time + (1 | id), data = dental_long, REML = TRUE)
 
 **En gros, on veut estimer l'effet moyen de l'âge (time) sur la distance dentaire en prenant en compte la non-indépendance des mesures répétées chez un même enfant (id)**
 
+------------
+
 ```{r}
 library(lmerTest)
 fit3 <- lmer(distance ~ time + (1 | id), data = dental_long, REML = TRUE)

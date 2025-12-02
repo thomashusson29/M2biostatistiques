@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>s8_a1_wrap_up_modeles_nlm</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="S8_A1_Wrap_up_modeles_NLM_files/libs/clipboard/clipboard.min.js"></script>
+<script src="S8_A1_Wrap_up_modeles_NLM_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="S8_A1_Wrap_up_modeles_NLM_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="S8_A1_Wrap_up_modeles_NLM_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="S8_A1_Wrap_up_modeles_NLM_files/libs/quarto-html/popper.min.js"></script>
+<script src="S8_A1_Wrap_up_modeles_NLM_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="S8_A1_Wrap_up_modeles_NLM_files/libs/quarto-html/anchor.min.js"></script>
+<link href="S8_A1_Wrap_up_modeles_NLM_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="S8_A1_Wrap_up_modeles_NLM_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="S8_A1_Wrap_up_modeles_NLM_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="S8_A1_Wrap_up_modeles_NLM_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="S8_A1_Wrap_up_modeles_NLM_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="régression-linéaire-multiple-rlm" class="level1">
+<h1>1. Régression Linéaire Multiple (RLM)</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sous-partie</th>
+<th style="text-align: left;">Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Intérêt (utilité du modèle)</strong></td>
+<td style="text-align: left;">La RLM est utilisée pour modéliser la relation entre une <strong>variable dépendante quantitative</strong> et plusieurs variables indépendantes (ou explicatives) <span class="math inline">\(X_k\)</span>. Elle sert à l’analyse multivariable (ajustement) pour estimer l’effet d’un facteur (<span class="math inline">\(X_1\)</span>) en maintenant les autres facteurs (<span class="math inline">\(X_2, \dots\)</span>) constants.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Nature de la variable dépendante <span class="math inline">\(Y\)</span></strong></td>
+<td style="text-align: left;">La variable <span class="math inline">\(Y\)</span> est attendue comme <strong>quantitative continue</strong>. Exemple typique : la pression artérielle, ou un score quantitatif de développement cognitif (BAS).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Structure du modèle (formule mathématique en <span class="math inline">\(\LaTeX\)</span>)</strong></td>
+<td style="text-align: left;">La formule canonique est : <span class="math display">\[Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k + \varepsilon\]</span>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Définition des termes :</strong> <span class="math inline">\(Y\)</span> est la variable dépendante (continue). <span class="math inline">\(X_1, X_2, \ldots, X_k\)</span> sont les variables indépendantes (quantitatives ou catégorielles). <span class="math inline">\(\beta_0\)</span> est l’ordonnée à l’origine (intercept). <span class="math inline">\(\beta_i\)</span> sont les coefficients de régression. <span class="math inline">\(\varepsilon\)</span> est le terme d’erreur (résidu théorique).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Fonction de lien et justification</strong></td>
+<td style="text-align: left;"><strong>Lien utilisé :</strong> <strong>Lien identité</strong>. Le modèle suppose une relation linéaire directe et additive entre le prédicteur linéaire et la moyenne de <span class="math inline">\(Y\)</span>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Formule inverse :</strong> <span class="math inline">\(\mathbb{E}(Y | X) = \beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k\)</span>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Conditions de validité / hypothèses du modèle</strong></td>
+<td style="text-align: left;">Les hypothèses principales portent sur le terme d’erreur <span class="math inline">\(\varepsilon\)</span> : 1. <strong>Moyenne nulle :</strong> <span class="math inline">\(\mathbb{E}(\varepsilon) = 0\)</span>. 2. <strong>Normalité :</strong> <span class="math inline">\(\varepsilon\)</span> suit une loi normale. 3. <strong>Variance constante (Homoscédasticité) :</strong> <span class="math inline">\(\text{Var}(\varepsilon) = \sigma^2\)</span> (variance non dépendante de <span class="math inline">\(X\)</span>). 4. <strong>Indépendance des résidus :</strong> Les <span class="math inline">\(\varepsilon_i\)</span> sont indépendants.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Vérification :</strong> On utilise l’histogramme et le QQ-plot des résidus pour la normalité, et le graphique des résidus en fonction des valeurs prédites (<span class="math inline">\(\hat{Y}_i\)</span>) pour l’homoscédasticité (vérifier l’absence d’hétéroscédasticité).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Gestion des variables catégorielles et interactions</strong></td>
+<td style="text-align: left;">Les variables catégorielles à <span class="math inline">\(K\)</span> modalités (<span class="math inline">\(K &gt; 2\)</span>) doivent être recodées en <strong><span class="math inline">\(K-1\)</span> variables binaires indicatrices</strong> (variables <em>dummy</em>) en choisissant une catégorie de référence. Le coefficient <span class="math inline">\(\beta_i\)</span> d’une variable indicatrice représente alors la différence moyenne de <span class="math inline">\(Y\)</span> entre cette modalité et la catégorie de référence.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Interactions :</strong> L’ajout d’un terme multiplicatif, comme <span class="math inline">\(\beta_3(X_1 X_2)\)</span>, modélise un <strong>effet multiplicatif</strong> (synergie) entre les variables explicatives. Attention, l’ajout d’interactions rend l’interprétation des coefficients isolés <span class="math inline">\(\beta_1\)</span> et <span class="math inline">\(\beta_2\)</span> difficile, à moins d’utiliser un codage spécifique (-1/1).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Interprétation des coefficients <span class="math inline">\(\beta\)</span></strong></td>
+<td style="text-align: left;"><strong>Si <span class="math inline">\(X_i\)</span> est continue :</strong> <span class="math inline">\(\beta_i\)</span> est la variation moyenne de <span class="math inline">\(Y\)</span> associée à une augmentation d’une unité de <span class="math inline">\(X_i\)</span>, toutes les autres variables <span class="math inline">\(X_j\)</span> étant maintenues constantes. <strong>Si <span class="math inline">\(X_i\)</span> est binaire (0/1) :</strong> <span class="math inline">\(\beta_i\)</span> est la <strong>différence moyenne</strong> de <span class="math inline">\(Y\)</span> entre les sujets avec <span class="math inline">\(X_i=1\)</span> et les sujets avec <span class="math inline">\(X_i=0\)</span>, toutes les autres variables <span class="math inline">\(X_j\)</span> étant maintenues constantes.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Mesure d’association clé (issue de <span class="math inline">\(e^{\beta}\)</span> ou des <span class="math inline">\(\beta\)</span>)</strong></td>
+<td style="text-align: left;">La mesure pertinente est la <strong>Différence de Moyenne</strong> (<span class="math inline">\(\beta\)</span>), qui exprime de combien la valeur de <span class="math inline">\(Y\)</span> augmente ou diminue.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Valeur neutre :</strong> <strong>0</strong> (zéro) signifie l’absence de différence de moyenne ou d’association.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Tests statistiques utilisés</strong></td>
+<td style="text-align: left;">Les tests sont typiquement basés sur la statistique <span class="math inline">\(t\)</span> (ou <span class="math inline">\(Z\)</span> pour de grands échantillons) pour évaluer <span class="math inline">\(H_0 : \beta_i = 0\)</span>. L’intervalle de confiance (IC) sur <span class="math inline">\(\beta\)</span> est utilisé.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Spécificités / extensions importantes</strong></td>
+<td style="text-align: left;">Limitation majeure : l’hypothèse d’indépendance des observations est souvent violée avec les données longitudinales ou groupées. Les extensions incluent les <strong>Modèles Linéaires Mixtes (MLM)</strong> pour gérer la non-indépendance et décomposer les variances.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Applications possibles : Exemple</strong></td>
+<td style="text-align: left;">Étude de l’effet de la durée de l’allaitement maternel (variable catégorielle) sur le score cognitif BAS (variable quantitative) chez l’enfant, en ajustant pour d’autres facteurs (régression linéaire multiple).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="régression-logistique" class="level1">
+<h1>2. Régression Logistique</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sous-partie</th>
+<th style="text-align: left;">Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Intérêt (utilité du modèle)</strong></td>
+<td style="text-align: left;">La régression logistique est un type de Modèle Linéaire Généralisé (GLM) utilisé pour modéliser une variable dépendante de nature <strong>binaire (dichotomique)</strong>. Elle permet d’étudier l’association entre des variables explicatives et la probabilité <span class="math inline">\(p\)</span> qu’un événement survienne.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Nature de la variable dépendante <span class="math inline">\(Y\)</span></strong></td>
+<td style="text-align: left;">La variable <span class="math inline">\(Y\)</span> est <strong>binaire dichotomique</strong> (0/1). Elle suit une loi de Bernoulli. Exemple typique : Maladie oui/non (ex. HTA oui/non, rejet de greffe oui/non).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Structure du modèle (formule mathématique en <span class="math inline">\(\LaTeX\)</span>)</strong></td>
+<td style="text-align: left;">On modélise le logit de <span class="math inline">\(p\)</span> comme une combinaison linéaire des variables explicatives : <span class="math display">\[\log\left( \frac{p}{1-p} \right) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k\]</span>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Définition des termes :</strong> <span class="math inline">\(p = P(Y=1|X)\)</span> est la probabilité que l’événement survienne. <span class="math inline">\(\frac{p}{1-p}\)</span> est la cote (Odds). <span class="math inline">\(\log\left( \frac{p}{1-p} \right)\)</span> est le logit de <span class="math inline">\(p\)</span>. <span class="math inline">\(\beta_k\)</span> sont les coefficients de régression.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Fonction de lien et justification</strong></td>
+<td style="text-align: left;"><strong>Lien utilisé :</strong> <strong>Logit (ou logistique)</strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Formule du lien :</strong> <span class="math inline">\(g(p) = \log \left( \frac{p}{1-p} \right)\)</span>. <strong>Justification :</strong> Le logit permet de transformer la probabilité <span class="math inline">\(p\)</span> (qui est contrainte entre 0 et 1) en une variable définie entre <span class="math inline">\(-\infty\)</span> et <span class="math inline">\(+\infty\)</span>, ce qui est adapté à un prédicteur linéaire. <strong>Fonction inverse (Expit) :</strong> <span class="math inline">\(p = \frac{e^{\beta_0 + \cdots + \beta_k X_k}}{1+e^{\beta_0 + \cdots + \beta_k X_k}}\)</span>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Conditions de validité / hypothèses du modèle</strong></td>
+<td style="text-align: left;">La condition principale est que la <strong>taille de l’échantillon soit suffisante</strong> (au minimum 10 événements par variable explicative). Les coefficients sont estimés par la méthode du maximum de vraisemblance.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Gestion des variables catégorielles et interactions</strong></td>
+<td style="text-align: left;"><strong>Variables catégorielles :</strong> L’approche est la même qu’en RLM : on définit une classe de référence, et chaque coefficient <span class="math inline">\(\beta_k\)</span> correspond au log-odds ratio entre la catégorie <span class="math inline">\(k\)</span> et la référence. <strong>Interactions :</strong> Elles sont gérées exactement de la même manière qu’en régression linéaire, en ajoutant un terme multiplicatif <span class="math inline">\(\beta_3(X_1 X_2)\)</span>. Le modèle multivarié suppose la <strong>multiplicativité des effets</strong> sur l’OR, sauf si une interaction est ajoutée.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Interprétation des coefficients <span class="math inline">\(\beta\)</span></strong></td>
+<td style="text-align: left;">Le coefficient <span class="math inline">\(\beta\)</span> correspond au <strong>logarithme de l’Odds Ratio</strong> (<span class="math inline">\(\ln(\text{OR})\)</span>). <span class="math inline">\(\exp(\beta)\)</span> est l’Odds Ratio (OR) ajusté sur les autres variables. <strong>Si <span class="math inline">\(X_i\)</span> est continue :</strong> <span class="math inline">\(\exp(\beta_i)\)</span> est l’OR associé à une augmentation d’une unité de <span class="math inline">\(X_i\)</span>. <strong>Si <span class="math inline">\(\beta_i = 0\)</span>, alors <span class="math inline">\(\text{OR} = 1\)</span>,</strong> signifiant l’absence d’association.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Mesure d’association clé (issue de <span class="math inline">\(e^{\beta}\)</span> ou des <span class="math inline">\(\beta\)</span>)</strong></td>
+<td style="text-align: left;">La mesure clé est l’<strong>Odds Ratio (OR)</strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Valeur neutre :</strong> <strong>1</strong> (OR = 1 signifie qu’il n’y a pas d’association).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Tests statistiques utilisés</strong></td>
+<td style="text-align: left;">1. <strong>Test de Wald :</strong> Permet de tester <span class="math inline">\(H_0 : \beta_k = 0\)</span> (ou <span class="math inline">\(\text{OR}_k = 1\)</span>) pour un coefficient individuel. Il repose sur le fait que <span class="math inline">\(\hat{\beta} / \text{SE}(\hat{\beta})\)</span> suit approximativement une loi normale centrée réduite <span class="math inline">\(\mathcal{N}(0, 1)\)</span> pour un grand échantillon. 2. <strong>Test du Rapport de Vraisemblance (LRT) :</strong> Compare la log-vraisemblance d’un modèle complet à celle d’un modèle réduit (sans la covariable testée). La statistique <span class="math inline">\(\Lambda = 2(\ell_{\text{complet}} - \ell_{\text{réduit}})\)</span> suit une loi du <span class="math inline">\(\chi^2\)</span>. Il est souvent plus robuste que le test de Wald, notamment pour les échantillons petits ou les événements rares.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Spécificités / extensions importantes</strong></td>
+<td style="text-align: left;">Le test de Wald peut être peu fiable en cas de petits échantillons, d’événements très rares ou d’effets extrêmes (séparation complète). L’OR est symétrique et peut être estimé dans les enquêtes cas-témoins (où le RR ne l’est pas). <strong>Extension :</strong> Les <strong>Modèles Linéaires Généralisés Mixtes (GLMM)</strong>, incluant la régression logistique mixte, permettent d’introduire des effets aléatoires pour les données corrélées (longitudinales ou groupées).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Applications possibles : Exemple</strong></td>
+<td style="text-align: left;">Modélisation du risque de rejet de greffe (Y binaire) en fonction de la dose d’un médicament (X binaire) et d’autres facteurs (multivariable). Étude des facteurs associés à la démence (Y binaire).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="régression-de-poisson-comptages-glm-poisson" class="level1">
+<h1>3. Régression de Poisson (comptages / GLM Poisson)</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sous-partie</th>
+<th style="text-align: left;">Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Intérêt (utilité du modèle)</strong></td>
+<td style="text-align: left;">La régression de Poisson est un GLM adapté à la modélisation des <strong>données de comptage</strong> (<span class="math inline">\(Y = 0, 1, 2, \ldots\)</span>). Elle est fréquemment utilisée en épidémiologie pour modéliser les <strong>taux d’incidence</strong> et obtenir des Risques Relatifs (RR) ou Rapports de Taux d’Incidence (IRR).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Nature de la variable dépendante <span class="math inline">\(Y\)</span></strong></td>
+<td style="text-align: left;">La variable <span class="math inline">\(Y\)</span> est une variable aléatoire <strong>discrète</strong> prenant des valeurs dans les entiers naturels positifs (<span class="math inline">\(0, 1, 2, \ldots\)</span>). Elle suit une loi de Poisson, <span class="math inline">\(Y \sim \text{Poisson}(\lambda)\)</span>, où <span class="math inline">\(\lambda &gt; 0\)</span> est le paramètre qui représente la moyenne et la variance théorique. Exemple typique : nombre de visites à l’hôpital, nombre de crises d’asthme.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Structure du modèle (formule mathématique en <span class="math inline">\(\LaTeX\)</span>)</strong></td>
+<td style="text-align: left;">On modélise le logarithme du paramètre de moyenne <span class="math inline">\(\lambda = \mathbb{E}(Y|X)\)</span> par un prédicteur linéaire : <span class="math display">\[\log(\lambda) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p\]</span>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Définition des termes :</strong> <span class="math inline">\(\lambda\)</span> est la moyenne (et la variance théorique) du comptage. <span class="math inline">\(X_k\)</span> sont les variables explicatives. <span class="math inline">\(\beta_k\)</span> sont les coefficients de régression. Si l’on modélise un taux d’incidence, on inclut souvent <span class="math inline">\(\log(\text{Temps d'exposition})\)</span> comme un <em>offset</em> dans le modèle.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Fonction de lien et justification</strong></td>
+<td style="text-align: left;"><strong>Lien utilisé :</strong> <strong>Logarithmique (Log)</strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Formule du lien :</strong> <span class="math inline">\(g(\mu) = \log(\mu)\)</span> avec <span class="math inline">\(\mu = \lambda\)</span>. <strong>Justification :</strong> L’exponentielle du prédicteur linéaire assure que <span class="math inline">\(\lambda = \mathbb{E}(Y|X)\)</span> est toujours positif (<span class="math inline">\(\lambda &gt; 0\)</span>), ce qui est nécessaire pour une moyenne de comptage. <strong>Fonction inverse :</strong> <span class="math inline">\(\lambda = e^{\beta_0 + \cdots + \beta_p X_p}\)</span>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Conditions de validité / hypothèses du modèle</strong></td>
+<td style="text-align: left;">L’hypothèse fondamentale de la distribution de Poisson est l’<strong>équidispersion</strong> : <strong>la moyenne est égale à la variance</strong> (<span class="math inline">\(\mathbb{E}(Y|X) = \text{Var}(Y|X) = \lambda\)</span>). En cas de violation de cette hypothèse (surdispersion : <span class="math inline">\(\text{Var}(Y) &gt; \mathbb{E}(Y)\)</span>), les erreurs standards et les tests statistiques deviennent incorrects.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Gestion des variables catégorielles et interactions</strong></td>
+<td style="text-align: left;"><strong>Variables catégorielles :</strong> Chaque <span class="math inline">\(\beta_k\)</span> représente le log du ratio des moyennes par rapport à la catégorie de référence. <strong>Interactions :</strong> Les effets sont additifs sur le <span class="math inline">\(\log(\lambda)\)</span>, ce qui signifie qu’ils sont <strong>multiplicatifs</strong> sur la moyenne <span class="math inline">\(\lambda\)</span> après exponentiation. Par exemple, si l’effet Fumeur et l’effet Diabète sont ajustés, leur effet combiné sur <span class="math inline">\(\lambda\)</span> est la multiplication de leurs <span class="math inline">\(\exp(\beta)\)</span>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Interprétation des coefficients <span class="math inline">\(\beta\)</span></strong></td>
+<td style="text-align: left;"><span class="math inline">\(\beta_i\)</span> représente le <strong>logarithme du Risque Relatif</strong> (<span class="math inline">\(\ln(\text{RR})\)</span>) ou du Rapport de Moyennes/Taux. <strong><span class="math inline">\(\exp(\beta_i)\)</span> est le Risque Relatif (RR)</strong> ajusté pour les autres variables.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Si <span class="math inline">\(X_i\)</span> est continu :</strong> <span class="math inline">\(\exp(\beta_i)\)</span> est le facteur multiplicatif (RR) sur la moyenne <span class="math inline">\(\lambda\)</span> associé à une augmentation d’une unité de <span class="math inline">\(X_i\)</span>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Mesure d’association clé (issue de <span class="math inline">\(e^{\beta}\)</span> ou des <span class="math inline">\(\beta\)</span>)</strong></td>
+<td style="text-align: left;">La mesure clé est le <strong>Risque Relatif (RR)</strong> ou le <strong>Rapport de Taux d’Incidence (IRR)</strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Valeur neutre :</strong> <strong>1</strong> (RR = 1 signifie l’absence d’association).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Tests statistiques utilisés</strong></td>
+<td style="text-align: left;"><strong>Test de Wald</strong> et <strong>Test du Rapport de Vraisemblance (LRT)</strong> sont utilisés pour l’inférence. L’estimation se fait par le maximum de vraisemblance.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Attention :</strong> En cas de surdispersion, le test de Wald est biaisé (trop de faux positifs). Il faut alors utiliser la <strong>variance robuste (estimateur sandwich)</strong> ou des modèles alternatifs (Quasi-Poisson, Binomiale Négative).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Spécificités / extensions importantes</strong></td>
+<td style="text-align: left;">1. <strong>Surdispersion :</strong> <span class="math inline">\(\text{Var}(Y) &gt; \mathbb{E}(Y)\)</span>. Corrigée par l’estimateur de variance <strong>sandwich</strong> (corrige l’inférence sans changer <span class="math inline">\(\hat{\beta}\)</span>) ou la régression <strong>Quasi-Poisson</strong> / <strong>Binomiale Négative</strong>. 2. <strong>Excès de zéros :</strong> Lorsque le nombre de <span class="math inline">\(Y=0\)</span> est supérieur à la prévision de Poisson. Traité par les modèles <strong>Hurdle</strong> ou <strong>Zero-Inflated</strong> (modèles à deux composantes).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Applications possibles : Exemple</strong></td>
+<td style="text-align: left;">Analyse du risque de saignement majeur (nombre d’événements) chez des patients exposés à des anticoagulants, en utilisant les trimestres-personnes comme exposition (pour calculer un taux d’incidence ajusté ou IRR).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="modèles-linéaires-mixtes-effets-fixes-aléatoires" class="level1">
+<h1>4. Modèles Linéaires Mixtes (effets fixes + aléatoires)</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sous-partie</th>
+<th style="text-align: left;">Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Intérêt (utilité du modèle)</strong></td>
+<td style="text-align: left;">Les Modèles Linéaires Mixtes (MLM) sont essentiels pour gérer la <strong>non-indépendance des observations</strong>. Ils sont utilisés dans les situations de données répétées (longitudinales) ou de données groupées (hiérarchiques), comme des patients suivis dans différents centres. Ils permettent d’estimer des effets fixes (covariables d’intérêt) tout en modélisant explicitement la corrélation au sein des groupes.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Nature de la variable dépendante <span class="math inline">\(Y\)</span></strong></td>
+<td style="text-align: left;">La variable <span class="math inline">\(Y\)</span> est attendue comme <strong>quantitative continue</strong>. Exemple typique : Mesures biologiques répétées chez un patient, score cognitif mesuré à différents temps.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Structure du modèle (formule mathématique en <span class="math inline">\(\LaTeX\)</span>)</strong></td>
+<td style="text-align: left;">Un MLM combine des effets fixes et des effets aléatoires. Exemple avec intercept aléatoire de groupe (cluster <span class="math inline">\(i\)</span>, observation <span class="math inline">\(j\)</span>) : <span class="math display">\[Y_{ij} = \beta_0 + \beta_1 X_{ij} + u_i + \varepsilon_{ij}\]</span>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Définition des termes :</strong> <span class="math inline">\(\beta_0, \beta_1\)</span> sont les <strong>effets fixes</strong> (effets moyens dans la population). <span class="math inline">\(X_{ij}\)</span> est la covariable. <span class="math inline">\(u_i\)</span> est l’<strong>effet aléatoire</strong> de groupe <span class="math inline">\(i\)</span> (e.g., centre, patient). On suppose <span class="math inline">\(u_i \sim \mathcal{N}(0, \tau^2)\)</span>. <span class="math inline">\(\varepsilon_{ij}\)</span> est l’erreur résiduelle individuelle. On suppose <span class="math inline">\(\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)\)</span>. <span class="math inline">\(\tau^2\)</span> est la variance inter-groupe, <span class="math inline">\(\sigma^2\)</span> est la variance intra-groupe (résiduelle).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Fonction de lien et justification</strong></td>
+<td style="text-align: left;"><strong>Lien utilisé :</strong> <strong>Lien identité</strong> (car <span class="math inline">\(Y\)</span> est quantitative et suppose une distribution Gaussienne, comme en RLM). La relation est linéaire sur la moyenne conditionnelle aux effets aléatoires.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Conditions de validité / hypothèses du modèle</strong></td>
+<td style="text-align: left;">Les hypothèses principales sont la <strong>normalité des effets aléatoires <span class="math inline">\(u_i\)</span></strong> et la <strong>normalité des erreurs résiduelles <span class="math inline">\(\varepsilon_{ij}\)</span></strong>. On suppose aussi l’homoscédasticité des erreurs résiduelles. L’indépendance est modélisée : les <span class="math inline">\(Y_{ij}\)</span> du même groupe sont corrélés via <span class="math inline">\(u_i\)</span>, mais <span class="math inline">\(\varepsilon_{ij}\)</span> sont indépendants.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Gestion des variables catégorielles et interactions</strong></td>
+<td style="text-align: left;"><strong>Effets fixes :</strong> Les variables catégorielles sont traitées comme en RLM (variable indicatrice par rapport à une catégorie de référence). Les interactions sont ajoutées comme des termes multiplicatifs. <strong>Effets aléatoires :</strong> Ils modélisent la structure de corrélation. On utilise la notation (1 <span class="math inline">\(|\)</span> groupe) pour un <strong>intercept aléatoire</strong> (niveau de <span class="math inline">\(Y\)</span> qui varie entre les groupes) et (temps <span class="math inline">\(|\)</span> patient) pour une <strong>pente aléatoire</strong> (l’effet du temps varie entre les patients). Les effets peuvent être <strong>emboîtés</strong> (patient dans centre) ou <strong>croisés</strong> (patient vu par plusieurs médecins).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Interprétation des coefficients <span class="math inline">\(\beta\)</span></strong></td>
+<td style="text-align: left;">Les <span class="math inline">\(\beta\)</span> sont les <strong>effets fixes</strong> : ils représentent l’effet moyen d’une covariable sur <span class="math inline">\(Y\)</span> <strong>dans l’ensemble de la population</strong>. L’interprétation est celle d’une <strong>différence de moyenne</strong> (si <span class="math inline">\(X\)</span> est binaire) ou d’une variation de la moyenne (si <span class="math inline">\(X\)</span> est continu), ajustée pour la corrélation interne des données.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Mesure d’association clé (issue de <span class="math inline">\(e^{\beta}\)</span> ou des <span class="math inline">\(\beta\)</span>)</strong></td>
+<td style="text-align: left;">La mesure principale est la <strong>Différence de Moyenne</strong> (<span class="math inline">\(\beta\)</span>) pour les effets fixes. Une autre mesure clé est le <strong>Coefficient de Corrélation Intraclasse (ICC)</strong>, calculé à partir des composantes de variance.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Formule de l’ICC :</strong> <span class="math inline">\(\rho = \frac{\tau^2}{\tau^2 + \sigma^2}\)</span>. <strong>Valeur neutre :</strong> <strong>0</strong> pour <span class="math inline">\(\beta\)</span> (pas d’effet fixe).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Tests statistiques utilisés</strong></td>
+<td style="text-align: left;">1. <strong>Test de Wald :</strong> Pour les coefficients des effets fixes (<span class="math inline">\(\beta_k\)</span>). Utilise des approximations (e.g., méthode de Satterthwaite) pour calculer les degrés de liberté. 2. <strong>Test du Rapport de Vraisemblance (LRT) :</strong> Pour comparer la pertinence de l’ajout d’un effet fixe ou d’un effet aléatoire. Nécessite l’estimation par <strong>Maximum de Vraisemblance (ML)</strong> pour comparer des modèles avec des effets fixes différents. L’estimation par défaut est souvent le <strong>REML</strong> (Maximum de Vraisemblance Restreint), qui donne des variances non biaisées.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Spécificités / extensions importantes</strong></td>
+<td style="text-align: left;">1. <strong>Décomposition de la variance :</strong> Les MLM permettent de quantifier la variabilité inter-groupe (<span class="math inline">\(\tau^2\)</span>) et intra-groupe (<span class="math inline">\(\sigma^2\)</span>), ce qui est impossible avec des modèles séparés. 2. <strong>Extensions :</strong> <strong>Modèles Linéaires Généralisés Mixtes (GLMM)</strong> pour des <span class="math inline">\(Y\)</span> non-Gaussiens (e.g., logistique mixte pour <span class="math inline">\(Y\)</span> binaire, Poisson mixte pour les comptages). <strong>Modèles Non Linéaires Mixtes (NLMM)</strong> pour les trajectoires de croissance complexes.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Applications possibles : Exemple</strong></td>
+<td style="text-align: left;">Analyse de la distance dentaire (mesure quantitative) mesurée à 8, 10, 12, 14 ans chez un même enfant. Le modèle inclut l’âge (effet fixe) et un intercept aléatoire par enfant (pour tenir compte de la non-indépendance des mesures répétées).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><em>Analogie de clôture pour le Modèle Linéaire Mixte (MLM):</em></p>
+<p>Imaginez que vous essayez d’estimer l’effet d’une nouvelle méthode d’enseignement sur la performance des élèves. Le <strong>Modèle Linéaire Multiple classique</strong> ne verrait qu’une masse unique d’élèves, comme si tous étudiaient dans la même pièce et étaient totalement indépendants. Si cette méthode marche mieux pour certains professeurs ou dans certaines écoles, le modèle classique serait trompé, car il mélangerait l’effet de la méthode avec la qualité de l’école (l’erreur de type I serait gonflée).</p>
+<p>Le <strong>Modèle Linéaire Mixte</strong> agit comme un filtre sophistiqué : il considère les élèves comme étant <strong>emboîtés</strong> dans des classes, elles-mêmes emboîtées dans des écoles. Les <strong>effets fixes</strong> mesurent l’effet moyen de la méthode d’enseignement pour <em>tous</em> les élèves (le résultat qui vous intéresse), tandis que les <strong>effets aléatoires</strong> mesurent à quel point chaque école ou chaque classe s’écarte de cette moyenne globale. C’est comme déterminer la hauteur moyenne des vagues sur l’océan (effet fixe), tout en reconnaissant que la marée varie d’une côte à l’autre (effet aléatoire inter-côtes) et que les vagues locales sont différentes selon la plage (effet aléatoire intra-côte).</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
