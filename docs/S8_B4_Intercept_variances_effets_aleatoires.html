@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>S8__B4__Intercept_variances_effets_aleatoires</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="S8__B4__Intercept_variances_effets_aleatoires_files/libs/clipboard/clipboard.min.js"></script>
+<script src="S8__B4__Intercept_variances_effets_aleatoires_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="S8__B4__Intercept_variances_effets_aleatoires_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="S8__B4__Intercept_variances_effets_aleatoires_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="S8__B4__Intercept_variances_effets_aleatoires_files/libs/quarto-html/popper.min.js"></script>
+<script src="S8__B4__Intercept_variances_effets_aleatoires_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="S8__B4__Intercept_variances_effets_aleatoires_files/libs/quarto-html/anchor.min.js"></script>
+<link href="S8__B4__Intercept_variances_effets_aleatoires_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="S8__B4__Intercept_variances_effets_aleatoires_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="S8__B4__Intercept_variances_effets_aleatoires_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="S8__B4__Intercept_variances_effets_aleatoires_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="S8__B4__Intercept_variances_effets_aleatoires_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#contexte-et-objectif" id="toc-contexte-et-objectif" class="nav-link active" data-scroll-target="#contexte-et-objectif"><span class="header-section-number">1</span> Contexte et objectif</a></li>
+  <li><a href="#rappel-droite-de-régression-et-intercept" id="toc-rappel-droite-de-régression-et-intercept" class="nav-link" data-scroll-target="#rappel-droite-de-régression-et-intercept"><span class="header-section-number">2</span> Rappel : droite de régression et « intercept »</a>
+  <ul>
+  <li><a href="#modèle-linéaire-simple" id="toc-modèle-linéaire-simple" class="nav-link" data-scroll-target="#modèle-linéaire-simple"><span class="header-section-number">2.1</span> Modèle linéaire simple</a></li>
+  <li><a href="#quest-ce-que-l-intercept" id="toc-quest-ce-que-l-intercept" class="nav-link" data-scroll-target="#quest-ce-que-l-intercept"><span class="header-section-number">2.2</span> Qu’est-ce que l’« intercept » ?</a></li>
+  <li><a href="#quest-ce-que-la-pente" id="toc-quest-ce-que-la-pente" class="nav-link" data-scroll-target="#quest-ce-que-la-pente"><span class="header-section-number">2.3</span> Qu’est-ce que la pente ?</a></li>
+  </ul></li>
+  <li><a href="#ajouter-des-groupes-modèle-linéaire-mixte-simple" id="toc-ajouter-des-groupes-modèle-linéaire-mixte-simple" class="nav-link" data-scroll-target="#ajouter-des-groupes-modèle-linéaire-mixte-simple"><span class="header-section-number">3</span> Ajouter des groupes : modèle linéaire mixte simple</a></li>
+  <li><a href="#les-deux-variances-entre-groupes-et-à-lintérieur-des-groupes" id="toc-les-deux-variances-entre-groupes-et-à-lintérieur-des-groupes" class="nav-link" data-scroll-target="#les-deux-variances-entre-groupes-et-à-lintérieur-des-groupes"><span class="header-section-number">4</span> Les deux variances : entre groupes et à l’intérieur des groupes</a>
+  <ul>
+  <li><a href="#variance-dune-observation-y_ij" id="toc-variance-dune-observation-y_ij" class="nav-link" data-scroll-target="#variance-dune-observation-y_ij"><span class="header-section-number">4.1</span> Variance d’une observation <span class="math inline">\(Y_{ij}\)</span></a></li>
+  <li><a href="#corrélation-entre-deux-observations-dun-même-groupe" id="toc-corrélation-entre-deux-observations-dun-même-groupe" class="nav-link" data-scroll-target="#corrélation-entre-deux-observations-dun-même-groupe"><span class="header-section-number">4.2</span> Corrélation entre deux observations d’un même groupe</a></li>
+  </ul></li>
+  <li><a href="#matrice-de-variancecovariance-expliquer-simplement" id="toc-matrice-de-variancecovariance-expliquer-simplement" class="nav-link" data-scroll-target="#matrice-de-variancecovariance-expliquer-simplement"><span class="header-section-number">5</span> Matrice de variance–covariance : expliquer simplement</a>
+  <ul>
+  <li><a href="#exemple-intercept-et-pente-aléatoires" id="toc-exemple-intercept-et-pente-aléatoires" class="nav-link" data-scroll-target="#exemple-intercept-et-pente-aléatoires"><span class="header-section-number">5.1</span> Exemple : intercept et pente aléatoires</a></li>
+  </ul></li>
+  <li><a href="#effets-aléatoires-emboîtés-vs-effets-aléatoires-croisés" id="toc-effets-aléatoires-emboîtés-vs-effets-aléatoires-croisés" class="nav-link" data-scroll-target="#effets-aléatoires-emboîtés-vs-effets-aléatoires-croisés"><span class="header-section-number">6</span> Effets aléatoires emboîtés vs effets aléatoires croisés</a>
+  <ul>
+  <li><a href="#effets-aléatoires-emboîtés-hierarchiques" id="toc-effets-aléatoires-emboîtés-hierarchiques" class="nav-link" data-scroll-target="#effets-aléatoires-emboîtés-hierarchiques"><span class="header-section-number">6.1</span> Effets aléatoires emboîtés (hierarchiques)</a></li>
+  <li><a href="#effets-aléatoires-croisés" id="toc-effets-aléatoires-croisés" class="nav-link" data-scroll-target="#effets-aléatoires-croisés"><span class="header-section-number">6.2</span> Effets aléatoires croisés</a></li>
+  </ul></li>
+  <li><a href="#petit-exemple-r-pour-illustrer-les-deux-variances" id="toc-petit-exemple-r-pour-illustrer-les-deux-variances" class="nav-link" data-scroll-target="#petit-exemple-r-pour-illustrer-les-deux-variances"><span class="header-section-number">7</span> Petit exemple R pour illustrer les deux variances</a></li>
+  <li><a href="#résumé" id="toc-résumé" class="nav-link" data-scroll-target="#résumé"><span class="header-section-number">8</span> Résumé</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S8__B4__Intercept_variances_effets_aleatoires.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S8__B4__Intercept_variances_effets_aleatoires.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">S8__B4__Intercept_variances_effets_aleatoires</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="contexte-et-objectif" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Contexte et objectif</h1>
+<p>On veut expliquer :</p>
+<ol type="1">
+<li><p>ce qu’est un intercept (et une pente) dans une régression,</p></li>
+<li><p>ce que fait un modèle linéaire mixte :</p>
+<ul>
+<li>deux composantes de variance : entre groupes et à l’intérieur des groupes,</li>
+</ul></li>
+<li><p>ce qu’est une matrice de variance–covariance (sans jargon inutile),</p></li>
+<li><p>la différence entre effets aléatoires emboîtés et effets aléatoires croisés.</p></li>
+</ol>
+<p>⸻</p>
+</section>
+<section id="rappel-droite-de-régression-et-intercept" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Rappel : droite de régression et « intercept »</h1>
+<section id="modèle-linéaire-simple" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="modèle-linéaire-simple"><span class="header-section-number">2.1</span> Modèle linéaire simple</h2>
+<p>On commence par un modèle de base avec une seule covariable <span class="math inline">\(X\)</span> :<br>
+</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i.
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(Y_i\)</span> : résultat pour l’individu <span class="math inline">\(i\)</span> (par exemple : tension artérielle).</p></li>
+<li><p><span class="math inline">\(X_i\)</span> : covariable (par exemple : âge).</p></li>
+<li><p><span class="math inline">\(\beta_0\)</span> et <span class="math inline">\(\beta_1\)</span> : paramètres du modèle.</p></li>
+<li><p><span class="math inline">\(\varepsilon_i\)</span> : part non expliquée (résidu) pour l’individu <span class="math inline">\(i\)</span>.</p></li>
+</ul>
+<p>Graphiquement, c’est une droite sur un nuage de points <span class="math inline">\((X_i, Y_i)\)</span>.</p>
+</section>
+<section id="quest-ce-que-l-intercept" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="quest-ce-que-l-intercept"><span class="header-section-number">2.2</span> Qu’est-ce que l’« intercept » ?</h2>
+<p>Dans la formule :</p>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> est appelé intercept.</li>
+</ul>
+<p>Interprétation :</p>
+<ul>
+<li><p>si on prolonge la droite jusqu’à <span class="math inline">\(X = 0\)</span>, la valeur de <span class="math inline">\(Y\)</span> lue sur l’axe vertical est <span class="math inline">\(\beta_0\)</span> ;</p></li>
+<li><p>donc l’intercept est la valeur moyenne de <span class="math inline">\(Y\)</span> quand <span class="math inline">\(X = 0\)</span> (dans le modèle).</p></li>
+</ul>
+<p>En français : c’est le « point de départ » de la droite.</p>
+<p>Représentation sur R :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1 <span class="sc">*</span> X <span class="sc">+</span> epsilon</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1) Ajuster les deux modèles</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>mod_avec_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X)       <span class="co"># avec intercept</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mod_sans_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X <span class="sc">-</span> <span class="dv">1</span>)   <span class="co"># sans intercept</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod_avec_int)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)           X 
+ 102.393325    1.921293 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod_sans_int)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      X 
+3.87073 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Intercept estimé du modèle avec intercept</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>beta0_hat <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod_avec_int)[<span class="dv">1</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>beta1_hat <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod_avec_int)[<span class="dv">2</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2) Limites des axes : on inclut les données ET l'intercept</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>xlim <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(X) <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>ylim <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(<span class="fu">c</span>(Y, beta0_hat)) <span class="sc">-</span> <span class="dv">5</span>, <span class="fu">max</span>(Y) <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## --- PLOT 1 : Modèle AVEC intercept (on montre clairement l'intercept) --- ##</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    X, Y,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">ylim =</span> ylim,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Modèle AVEC intercept"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Droite de régression ajustée (avec intercept)</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod_avec_int, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Point de l'intercept estimé : (X = 0, Y = beta0_hat)</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">0</span>, beta0_hat, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">cex =</span> <span class="fl">1.8</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Ligne horizontale au niveau de l'intercept</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> beta0_hat, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Petit texte explicatif à côté du point</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="dv">0</span>,</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> beta0_hat,</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="st">"Intercept estimé</span><span class="sc">\n</span><span class="st">Y ≈ "</span>, <span class="fu">round</span>(beta0_hat, <span class="dv">1</span>), <span class="st">" quand X = 0"</span>),</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">offset =</span> <span class="fl">0.7</span>, <span class="at">col =</span> <span class="st">"blue"</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"topleft"</span>,</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Droite avec intercept"</span>, <span class="st">"Intercept"</span>),</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">col    =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>),</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty    =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>),</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch    =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">19</span>),</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty    =</span> <span class="st">"n"</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="do">## --- PLOT 2 : Modèle SANS intercept (comparaison) --- ##</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    X, Y,</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">ylim =</span> ylim,</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Modèle SANS intercept"</span>,</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Droite ajustée SANS intercept (forcée à passer par (0,0))</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod_sans_int, <span class="at">col =</span> <span class="st">"darkgray"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">min</span>(xlim) <span class="sc">+</span> <span class="fu">diff</span>(xlim) <span class="sc">*</span> <span class="fl">0.05</span>,</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">min</span>(ylim) <span class="sc">+</span> <span class="fu">diff</span>(ylim) <span class="sc">*</span> <span class="fl">0.1</span>,</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="st">"Y = "</span>, <span class="fu">round</span>(<span class="fu">coef</span>(mod_sans_int)[<span class="dv">1</span>], <span class="dv">2</span>), <span class="st">" * X"</span>),</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">pos =</span> <span class="dv">4</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S8__B4__Intercept_variances_effets_aleatoires_files/figure-html/plot-intercept-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="quest-ce-que-la-pente" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="quest-ce-que-la-pente"><span class="header-section-number">2.3</span> Qu’est-ce que la pente ?</h2>
+<ul>
+<li><span class="math inline">\(\beta_1\)</span> est la pente de la droite.</li>
+</ul>
+<p>Interprétation :</p>
+<ul>
+<li>si <span class="math inline">\(X\)</span> augmente de 1 unité, la valeur moyenne de <span class="math inline">\(Y\)</span> augmente (ou diminue) en moyenne de <span class="math inline">\(\beta_1\)</span> unités.</li>
+</ul>
+<p>C’est l’effet moyen de <span class="math inline">\(X\)</span> sur <span class="math inline">\(Y\)</span>.</p>
+<p>⸻</p>
+</section>
+</section>
+<section id="ajouter-des-groupes-modèle-linéaire-mixte-simple" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Ajouter des groupes : modèle linéaire mixte simple</h1>
+<p>Maintenant, les individus sont regroupés :</p>
+<ul>
+<li><p>par exemple, des patients dans des centres,</p></li>
+<li><p>ou des mesures répétées dans des patients.</p></li>
+</ul>
+<p>On indexe :</p>
+<ul>
+<li><p><span class="math inline">\(i\)</span> = le groupe (centre),</p></li>
+<li><p><span class="math inline">\(j\)</span> = l’observation dans le groupe <span class="math inline">\(i\)</span> (patient ou visite).</p></li>
+</ul>
+<p>On propose un modèle linéaire mixte simple (intercept aléatoire de groupe) :</p>
+<p><span class="math display">\[
+Y_{ij} = \beta_0 + \beta_1 X_{ij} + u_i + \varepsilon_{ij}.
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(Y_{ij}\)</span> : réponse pour l’observation <span class="math inline">\(j\)</span> dans le groupe <span class="math inline">\(i\)</span>.</p></li>
+<li><p><span class="math inline">\(X_{ij}\)</span> : covariable (âge, temps, etc.).</p></li>
+<li><p><span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> : effets fixes (comme dans la régression simple).</p></li>
+<li><p><span class="math inline">\(u_i\)</span> : effet aléatoire de groupe <span class="math inline">\(i\)</span>.</p></li>
+<li><p><span class="math inline">\(\varepsilon_{ij}\)</span> : erreur résiduelle pour l’observation <span class="math inline">\(j\)</span> du groupe <span class="math inline">\(i\)</span>.</p></li>
+</ul>
+<p>Hypothèses sur les termes aléatoires :</p>
+<ul>
+<li><p><span class="math inline">\(u_i \sim \mathcal{N}(0, \sigma_u^2)\)</span> : les groupes ont des niveaux différents, mais ces niveaux suivent une loi normale autour de 0.</p></li>
+<li><p><span class="math inline">\(\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)\)</span> : bruit individuel.</p></li>
+<li><p><span class="math inline">\(u_i\)</span> est indépendant des <span class="math inline">\(\varepsilon_{ij}\)</span>.</p></li>
+</ul>
+<p>Intuition :</p>
+<ul>
+<li><p><span class="math inline">\(\beta_0\)</span> : niveau moyen global.</p></li>
+<li><p><span class="math inline">\(u_i\)</span> : décalage spécifique du groupe <span class="math inline">\(i\)</span> par rapport au niveau moyen (certains centres sont « un peu plus hauts », d’autres « un peu plus bas »).</p></li>
+<li><p><span class="math inline">\(\beta_1 X_{ij}\)</span> : effet de la covariable.</p></li>
+<li><p><span class="math inline">\(\varepsilon_{ij}\)</span> : bruit individuel autour de tout ça.</p></li>
+</ul>
+<p>⸻</p>
+</section>
+<section id="les-deux-variances-entre-groupes-et-à-lintérieur-des-groupes" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Les deux variances : entre groupes et à l’intérieur des groupes</h1>
+<p>On veut expliciter les 2 variances importantes :</p>
+<ol type="1">
+<li><p>variance entre groupes : <span class="math inline">\(\sigma_u^2\)</span>,</p></li>
+<li><p>variance à l’intérieur des groupes (résiduelle) : <span class="math inline">\(\sigma^2\)</span>.</p></li>
+</ol>
+<section id="variance-dune-observation-y_ij" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="variance-dune-observation-y_ij"><span class="header-section-number">4.1</span> Variance d’une observation <span class="math inline">\(Y_{ij}\)</span></h2>
+<p>On part du modèle :<br>
+</p>
+<p><span class="math display">\[
+Y_{ij} = \beta_0 + \beta_1 X_{ij} + u_i + \varepsilon_{ij}.
+\]</span></p>
+<p>On considère <span class="math inline">\(X_{ij}\)</span> comme donné (fixe). La partie aléatoire est <span class="math inline">\(u_i + \varepsilon_{ij}\)</span>.</p>
+<p>On cherche :<br>
+</p>
+<p><span class="math display">\[
+\text{Var}(Y_{ij} \mid X_{ij}) = \text{Var}(u_i + \varepsilon_{ij}).
+\]</span></p>
+<p>Comme <span class="math inline">\(u_i\)</span> et <span class="math inline">\(\varepsilon_{ij}\)</span> sont indépendants :<br>
+</p>
+<p><span class="math display">\[
+\text{Var}(u_i + \varepsilon_{ij}) = \text{Var}(u_i) + \text{Var}(\varepsilon_{ij}) = \sigma_u^2 + \sigma^2.
+\]</span></p>
+<p>Donc :</p>
+<ul>
+<li><p><span class="math inline">\(\sigma_u^2\)</span> est la part de la variance venant des différences entre groupes,</p></li>
+<li><p><span class="math inline">\(\sigma^2\)</span> est la part de la variance venant des différences entre individus à l’intérieur d’un groupe.</p></li>
+</ul>
+<p>La variance totale conditionnelle est :<br>
+</p>
+<p><span class="math display">\[
+\text{Var}(Y_{ij} \mid X_{ij}) = \sigma_u^2 + \sigma^2.
+\]</span></p>
+<p>Variance totale conditionelle = variance entre groupes + variance à l’intérieur des groupes.</p>
+</section>
+<section id="corrélation-entre-deux-observations-dun-même-groupe" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="corrélation-entre-deux-observations-dun-même-groupe"><span class="header-section-number">4.2</span> Corrélation entre deux observations d’un même groupe</h2>
+<p>Prenons deux observations différentes <span class="math inline">\(j\)</span> et <span class="math inline">\(k\)</span> dans le même groupe <span class="math inline">\(i\)</span> :</p>
+<ul>
+<li><p><span class="math inline">\(Y_{ij} = \beta_0 + \beta_1 X_{ij} + u_i + \varepsilon_{ij}\)</span>,</p></li>
+<li><p><span class="math inline">\(Y_{ik} = \beta_0 + \beta_1 X_{ik} + u_i + \varepsilon_{ik}\)</span>.</p></li>
+</ul>
+<p>On s’intéresse à :<br>
+</p>
+<p><span class="math display">\[
+\text{Cov}(Y_{ij}, Y_{ik} \mid X_{ij}, X_{ik}).
+\]</span></p>
+<p>Les termes déterministes (<span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1 X_{ij}\)</span>, <span class="math inline">\(\beta_1 X_{ik}\)</span>) n’apportent pas de variance parce que ce sont des constantes.</p>
+<p>Il reste :<br>
+</p>
+<p><span class="math display">\[
+\text{Cov}(u_i + \varepsilon_{ij}, u_i + \varepsilon_{ik}).
+\]</span></p>
+<p>En développant et en utilisant les indépendances :</p>
+<ul>
+<li><p><span class="math inline">\(\text{Cov}(u_i, u_i) = \text{Var}(u_i) = \sigma_u^2\)</span>,</p></li>
+<li><p>les autres covariances (entre <span class="math inline">\(u_i\)</span> et <span class="math inline">\(\varepsilon\)</span>, entre deux <span class="math inline">\(\varepsilon\)</span> différents) sont nulles.</p></li>
+</ul>
+<p>Donc :<br>
+</p>
+<p><span class="math display">\[
+\text{Cov}(Y_{ij}, Y_{ik} \mid X) = \sigma_u^2.
+\]</span></p>
+<p>La corrélation entre deux observations du même groupe est alors :<br>
+</p>
+<p><span class="math display">\[
+\text{Corr}(Y_{ij}, Y_{ik} \mid X)
+= \frac{\sigma_u^2}{\sigma_u^2 + \sigma^2}.
+\]</span></p>
+<p>Cette quantité est le coefficient de corrélation intraclasse (ICC).</p>
+<p>⸻</p>
+</section>
+</section>
+<section id="matrice-de-variancecovariance-expliquer-simplement" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Matrice de variance–covariance : expliquer simplement</h1>
+<p>Jusqu’ici, chaque groupe <span class="math inline">\(i\)</span> avait un seul effet aléatoire : <span class="math inline">\(u_i\)</span> (un « niveau » propre au groupe).</p>
+<p>Maintenant, imaginons qu’on autorise :</p>
+<ul>
+<li><p>un niveau propre au groupe,</p></li>
+<li><p>et une pente propre au groupe pour une variable (par exemple le temps).</p></li>
+</ul>
+<section id="exemple-intercept-et-pente-aléatoires" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="exemple-intercept-et-pente-aléatoires"><span class="header-section-number">5.1</span> Exemple : intercept et pente aléatoires</h2>
+<p>On écrit :<br>
+</p>
+<p><span class="math display">\[
+Y_{ij} = (\beta_0 + b_{0i}) + (\beta_1 + b_{1i}) , t_{ij} + \varepsilon_{ij}.
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(t_{ij}\)</span> : temps (ou autre covariable).</p></li>
+<li><p><span class="math inline">\(b_{0i}\)</span> : décalage du groupe <span class="math inline">\(i\)</span> sur l’axe vertical (niveau propre).</p></li>
+<li><p><span class="math inline">\(b_{1i}\)</span> : décalage de la pente du groupe <span class="math inline">\(i\)</span> (vitesse d’évolution propre).</p></li>
+</ul>
+<p>On suppose :</p>
+<ul>
+<li><p><span class="math inline">\(b_{0i}\)</span> et <span class="math inline">\(b_{1i}\)</span> sont aléatoires,</p></li>
+<li><p>ils ont une certaine variance chacun,</p></li>
+<li><p>et ils peuvent être corrélés (par exemple, les groupes qui partent plus haut vont aussi plus vite).</p></li>
+</ul>
+<p>On peut résumer ça dans un petit tableau <span class="math inline">\(2 \times 2\)</span> qu’on appelle matrice de variance–covariance :<br>
+</p>
+<p><span class="math display">\[
+\Sigma_b =
+\begin{pmatrix}
+\text{Var}(b_{0i}) &amp; \text{Cov}(b_{0i}, b_{1i}) \\
+\text{Cov}(b_{0i}, b_{1i}) &amp; \text{Var}(b_{1i})
+\end{pmatrix}.
+\]</span></p>
+<p>Concrètement :</p>
+<ul>
+<li><p><span class="math inline">\(\text{Var}(b_{0i})\)</span> : à quel point les niveaux des groupes sont dispersés,</p></li>
+<li><p><span class="math inline">\(\text{Var}(b_{1i})\)</span> : à quel point les pentes des groupes sont dispersées,</p></li>
+<li><p><span class="math inline">\(\text{Cov}(b_{0i}, b_{1i})\)</span> :</p>
+<ul>
+<li><p>positive : les groupes qui partent plus haut ont aussi des pentes plus grandes,</p></li>
+<li><p>négative : les groupes qui partent plus haut ont des pentes plus faibles.</p></li>
+</ul></li>
+</ul>
+<p>La « matrice de variance–covariance », c’est juste une façon compacte de stocker :</p>
+<ul>
+<li><p>plusieurs variances,</p></li>
+<li><p>et les covariances entre les effets aléatoires.</p></li>
+</ul>
+<p>⸻</p>
+</section>
+</section>
+<section id="effets-aléatoires-emboîtés-vs-effets-aléatoires-croisés" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Effets aléatoires emboîtés vs effets aléatoires croisés</h1>
+<section id="effets-aléatoires-emboîtés-hierarchiques" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="effets-aléatoires-emboîtés-hierarchiques"><span class="header-section-number">6.1</span> Effets aléatoires emboîtés (hierarchiques)</h2>
+<p>On dit que des effets sont emboîtés (ou imbriqués) quand chaque unité de niveau inférieur appartient à un seul niveau supérieur.</p>
+<p>Exemple typique :</p>
+<ul>
+<li><p>des patients dans des centres,</p></li>
+<li><p>chaque patient est suivi dans un seul centre.</p></li>
+</ul>
+<p>Notation :</p>
+<ul>
+<li><p><span class="math inline">\(i\)</span> : centre,</p></li>
+<li><p><span class="math inline">\(j\)</span> : patient dans le centre <span class="math inline">\(i\)</span>,</p></li>
+<li><p><span class="math inline">\(k\)</span> : mesure répétée dans le patient <span class="math inline">\(j\)</span> du centre <span class="math inline">\(i\)</span>.</p></li>
+</ul>
+<p>On pourrait écrire un modèle :<br>
+</p>
+<p><span class="math display">\[
+Y_{ijk} = \beta_0 + u_i + v_{ij} + \varepsilon_{ijk}.
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(u_i\)</span> : effet aléatoire de centre (tous les patients du centre <span class="math inline">\(i\)</span> partagent ce <span class="math inline">\(u_i\)</span>),</p></li>
+<li><p><span class="math inline">\(v_{ij}\)</span> : effet aléatoire de patient emboîté dans le centre <span class="math inline">\(i\)</span>,</p></li>
+<li><p><span class="math inline">\(\varepsilon_{ijk}\)</span> : bruit résiduel.</p></li>
+</ul>
+<p>Structure :</p>
+<ul>
+<li><p>patient emboîté dans centre,</p></li>
+<li><p>on note parfois « patient dans centre »,</p></li>
+<li><p>en R : (1 | centre/patient) ou (1 | centre) + (1 | centre:patient).</p></li>
+</ul>
+<p>Idée :</p>
+<ul>
+<li><p>on a une première source de variabilité entre centres,</p></li>
+<li><p>puis, à l’intérieur d’un centre donné, une variabilité entre patients.</p></li>
+</ul>
+</section>
+<section id="effets-aléatoires-croisés" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="effets-aléatoires-croisés"><span class="header-section-number">6.2</span> Effets aléatoires croisés</h2>
+<p>Effets croisés : une unité de niveau inférieur peut être associée à plusieurs modalités de deux facteurs.</p>
+<p>Exemples :</p>
+<ol type="1">
+<li>Patients et médecins :</li>
+</ol>
+<pre><code>-   un patient peut être vu par plusieurs médecins,
+
+-   un médecin voit plusieurs patients.
+
+-   Patients et médecins sont « croisés », pas hiérarchiques.</code></pre>
+<ol start="2" type="1">
+<li>Élèves × enseignants dans un système où les élèves ont plusieurs profs et les profs ont plusieurs classes.</li>
+</ol>
+<p>Modèle croisé simple :</p>
+<ul>
+<li><p><span class="math inline">\(i\)</span> : patient,</p></li>
+<li><p><span class="math inline">\(j\)</span> : médecin,</p></li>
+<li><p><span class="math inline">\(k\)</span> : consultation.</p></li>
+</ul>
+<p>On pourrait écrire :<br>
+</p>
+<p><span class="math display">\[
+Y_{ijk} = \beta_0 + u_i + v_j + \varepsilon_{ijk}.
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(u_i\)</span> : effet aléatoire du patient <span class="math inline">\(i\)</span>,</p></li>
+<li><p><span class="math inline">\(v_j\)</span> : effet aléatoire du médecin <span class="math inline">\(j\)</span>,</p></li>
+<li><p>chaque observation <span class="math inline">\(Y_{ijk}\)</span> reçoit un bout de variabilité propre au patient et un bout propre au médecin.</p></li>
+</ul>
+<p>En R, on écrirait par exemple :</p>
+<p><code>lmer(Y ~ 1 + (1 | patient) + (1 | medecin), data = ...)</code></p>
+<p>Différence clé :</p>
+<ul>
+<li><p>emboîté : chaque unité de niveau inférieur n’appartient qu’à un seul niveau supérieur (patient dans un centre).</p></li>
+<li><p>croisé : les deux facteurs se combinent librement (un patient peut être vu par plusieurs médecins, un médecin peut voir plusieurs patients).</p></li>
+</ul>
+<p>⸻</p>
+</section>
+</section>
+<section id="petit-exemple-r-pour-illustrer-les-deux-variances" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Petit exemple R pour illustrer les deux variances</h1>
+<p>On simule des données avec :</p>
+<ul>
+<li><p><span class="math inline">\(10\)</span> centres,</p></li>
+<li><p><span class="math inline">\(40\)</span> patients par centre,</p></li>
+<li><p>un intercept aléatoire de centre,</p></li>
+<li><p>une variance résiduelle.</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>J <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n_per_center <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>centre <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>J, <span class="at">each =</span> n_per_center))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(J <span class="sc">*</span> n_per_center, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>sigma_u <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># écart-type inter-centre</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>sigma_e <span class="ot">&lt;-</span> <span class="dv">2</span>    <span class="co"># écart-type intra-centre</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(J, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma_u)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>u_centre <span class="ot">&lt;-</span> u[centre]</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>eps <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(J <span class="sc">*</span> n_per_center, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma_e)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1 <span class="sc">*</span> x <span class="sc">+</span> u_centre <span class="sc">+</span> eps</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> y,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> x,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">centre =</span> centre</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          y          x centre
+1  5.578167  2.1988103      1
+2  2.607432  1.3124130      1
+3  6.051474 -0.2651451      1
+4  3.856798  0.5431941      1
+5  4.602392 -0.4143399      1
+6 -2.843757 -0.4762469      1</code></pre>
+</div>
+</div>
+<p>On ajuste un modèle mixte :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> centre), <span class="at">data =</span> dat, <span class="at">REML =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: y ~ x + (1 | centre)
+   Data: dat
+
+REML criterion at convergence: 1731.1
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.69721 -0.65353  0.03108  0.62633  2.71704 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ centre   (Intercept) 0.3296   0.5741  
+ Residual             4.2620   2.0645  
+Number of obs: 400, groups:  centre, 10
+
+Fixed effects:
+            Estimate Std. Error       df t value Pr(&gt;|t|)    
+(Intercept)   1.7175     0.2089   9.0058   8.222 1.77e-05 ***
+x             1.3779     0.1060 390.9037  13.004  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+  (Intr)
+x -0.019</code></pre>
+</div>
+</div>
+<p>Dans la sortie :</p>
+<ul>
+<li><p>partie Random effects :</p>
+<ul>
+<li><p>centre : estimation de <span class="math inline">\(\sigma_u^2\)</span> (variance entre centres),</p></li>
+<li><p>Residual : estimation de <span class="math inline">\(\sigma^2\)</span> (variance à l’intérieur des centres).</p></li>
+</ul></li>
+</ul>
+<p>On peut extraire les variances :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>vc <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">VarCorr</span>(mod))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>vc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       grp        var1 var2      vcov     sdcor
+1   centre (Intercept) &lt;NA&gt; 0.3296151 0.5741211
+2 Residual        &lt;NA&gt; &lt;NA&gt; 4.2619585 2.0644511</code></pre>
+</div>
+</div>
+<p>Et l’ICC :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sigma_u2_hat <span class="ot">&lt;-</span> vc<span class="sc">$</span>vcov[vc<span class="sc">$</span>grp <span class="sc">==</span> <span class="st">"centre"</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sigma2_hat   <span class="ot">&lt;-</span> vc<span class="sc">$</span>vcov[vc<span class="sc">$</span>grp <span class="sc">==</span> <span class="st">"Residual"</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>icc_hat <span class="ot">&lt;-</span> sigma_u2_hat <span class="sc">/</span> (sigma_u2_hat <span class="sc">+</span> sigma2_hat)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>icc_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07178695</code></pre>
+</div>
+</div>
+<p>Cela correspond à :<br>
+</p>
+<p><span class="math display">\[
+\rho = \frac{\sigma_u^2}{\sigma_u^2 + \sigma^2}.
+\]</span></p>
+<p>⸻</p>
+</section>
+<section id="résumé" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Résumé</h1>
+<ol type="1">
+<li>Intercept :</li>
+</ol>
+<pre><code>-   paramètre $\beta_0$,
+
+-   valeur moyenne de $Y$ quand $X = 0$,
+
+-   point où la droite coupe l’axe vertical.</code></pre>
+<ol start="2" type="1">
+<li>Modèle linéaire mixte simple :<br>
+</li>
+</ol>
+<p><span class="math display">\[
+Y_{ij} = \beta_0 + \beta_1 X_{ij} + u_i + \varepsilon_{ij}.
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(Y_{ij}\)</span> : observation <span class="math inline">\(j\)</span> dans le groupe <span class="math inline">\(i\)</span>,</p></li>
+<li><p><span class="math inline">\(X_{ij}\)</span> : covariable,</p></li>
+<li><p><span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> : effets fixes,</p></li>
+<li><p><span class="math inline">\(u_i\)</span> : effet aléatoire de groupe, variance <span class="math inline">\(\sigma_u^2\)</span> (entre groupes),</p></li>
+<li><p><span class="math inline">\(\varepsilon_{ij}\)</span> : bruit résiduel, variance <span class="math inline">\(\sigma^2\)</span> (dans les groupes).</p></li>
+</ul>
+<ol start="3" type="1">
+<li><p>Deux variances :</p>
+<ul>
+<li><p>variance entre groupes : <span class="math inline">\(\sigma_u^2\)</span>,</p></li>
+<li><p>variance à l’intérieur des groupes : <span class="math inline">\(\sigma^2\)</span>,</p></li>
+<li><p>variance totale : <span class="math inline">\(\sigma_u^2 + \sigma^2\)</span>,</p></li>
+<li><p>ICC : <span class="math inline">\(\rho = \sigma_u^2 / (\sigma_u^2 + \sigma^2)\)</span>.</p></li>
+</ul></li>
+<li><p>Matrice variance–covariance :</p>
+<ul>
+<li><p>sert à stocker les variances et covariances de plusieurs effets aléatoires (par exemple niveau et pente d’un même groupe),</p></li>
+<li><p>c’est juste un petit tableau <span class="math inline">\(2 \times 2\)</span> avec <span class="math inline">\(\text{Var}\)</span> et <span class="math inline">\(\text{Cov}\)</span>.</p></li>
+</ul></li>
+<li><p>Effets aléatoires :</p>
+<ul>
+<li><p>emboîtés : patients dans centres (chaque patient dans un seul centre),</p></li>
+<li><p>croisés : patient et médecin (un patient peut voir plusieurs médecins, un médecin voit plusieurs patients).</p></li>
+</ul></li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
