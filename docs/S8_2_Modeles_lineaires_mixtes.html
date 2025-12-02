@@ -135,6 +135,17 @@ window.Quarto = {
   <li><a href="#pertinence-de-la-variable-sex-dans-le-modèle" id="toc-pertinence-de-la-variable-sex-dans-le-modèle" class="nav-link" data-scroll-target="#pertinence-de-la-variable-sex-dans-le-modèle"><span class="header-section-number">3.2.5</span> Pertinence de la variable <code>sex</code> dans le modèle</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#applications-études-publiées" id="toc-applications-études-publiées" class="nav-link" data-scroll-target="#applications-études-publiées"><span class="header-section-number">4</span> Applications (études publiées)</a>
+  <ul>
+  <li><a href="#déclin-cognitif-des-personnes-âgées-aux-états-unis-pendant-et-après-la-covid" id="toc-déclin-cognitif-des-personnes-âgées-aux-états-unis-pendant-et-après-la-covid" class="nav-link" data-scroll-target="#déclin-cognitif-des-personnes-âgées-aux-états-unis-pendant-et-après-la-covid"><span class="header-section-number">4.1</span> Déclin cognitif des personnes âgées aux États-Unis pendant et après la Covid !!</a></li>
+  <li><a href="#analyse-statistique" id="toc-analyse-statistique" class="nav-link" data-scroll-target="#analyse-statistique"><span class="header-section-number">4.2</span> Analyse statistique</a></li>
+  <li><a href="#résultats" id="toc-résultats" class="nav-link" data-scroll-target="#résultats"><span class="header-section-number">4.3</span> Résultats</a></li>
+  </ul></li>
+  <li><a href="#modèles-linéaires-mixtes-extension" id="toc-modèles-linéaires-mixtes-extension" class="nav-link" data-scroll-target="#modèles-linéaires-mixtes-extension"><span class="header-section-number">5</span> Modèles linéaires mixtes : extension</a>
+  <ul>
+  <li><a href="#modèles-non-linéaires-mixtes-nlmm" id="toc-modèles-non-linéaires-mixtes-nlmm" class="nav-link" data-scroll-target="#modèles-non-linéaires-mixtes-nlmm"><span class="header-section-number">5.1</span> Modèles non linéaires mixtes (NLMM)</a></li>
+  <li><a href="#modèles-linéaires-généralisées-mixtes-glmm" id="toc-modèles-linéaires-généralisées-mixtes-glmm" class="nav-link" data-scroll-target="#modèles-linéaires-généralisées-mixtes-glmm"><span class="header-section-number">5.2</span> Modèles linéaires généralisées mixtes (GLMM)</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S8_2_Modeles_lineaires_mixtes.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S8_2_Modeles_lineaires_mixtes.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -725,6 +736,12 @@ timey14 -0.399  0.500  0.500</code></pre>
 <ul>
 <li><p>C’est comme si on avait “ignoré” la variabilité expliquée par l’âge dans les modèles précédents (sans <code>time</code>), donc la variabilité résiduelle diminue.</p></li>
 <li><p>On a donc diminué la variabilité individuelle (résiduelle) en expliquant une partie de cette variabilité par l’âge.</p></li>
+<li><p>On pourrait calculer un ICC en faisant :</p>
+<ul>
+<li><p>ICC = variance effet aléatoire / (variance effet aléatoire + variance résiduelle)</p></li>
+<li><p>ICC = 4.465 / (4.465 + 2.078) = 0.682</p></li>
+<li><p>Donc la variance expliquée par le patient compte à peu près pour 68.2% de la variance totale (après avoir ajusté pour l’âge)</p></li>
+</ul></li>
 <li><p>Avoir le minimum de variance résiduelle possible est important pour avoir des intervalles de confiance les plus précis possibles sur les effets fixes.</p></li>
 </ul></li>
 </ul>
@@ -758,6 +775,92 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p><code>sex</code> est une variable binaire donc c’est différent!</p>
 <p>On peut faire un test de Wald car on ne compare pas des vraisemblances restreintes entre deux modèles différents.</p>
 </section>
+</section>
+</section>
+<section id="applications-études-publiées" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Applications (études publiées)</h1>
+<section id="déclin-cognitif-des-personnes-âgées-aux-états-unis-pendant-et-après-la-covid" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="déclin-cognitif-des-personnes-âgées-aux-états-unis-pendant-et-après-la-covid"><span class="header-section-number">4.1</span> Déclin cognitif des personnes âgées aux États-Unis pendant et après la Covid !!</h2>
+<p><img src="images/paste-49.png" class="img-fluid"></p>
+<p>= Déclin cognitif des personnes âgées aux États-Unis pendant et après la Covid</p>
+<ul>
+<li><p>Données longtitudinales</p></li>
+<li><p>Patients de 50 ans ou plus</p></li>
+<li><p>3 périodes d’observation :</p>
+<ul>
+<li><p>Avant 1ère vague (jusqu’au 29 février 2020)</p></li>
+<li><p>Pendant 1ère vague (1er mars 2020 - 28 février 2021)</p></li>
+<li><p>Seconde vague (1er mars 2021 - 28 février 2022)</p></li>
+</ul></li>
+<li><p><em>NB : si on avait eu 2 temps : avant et après la 1ère vague, on aurait pu faire une analyse en différences de différences, c’est à dire en faisant juste la différence pour chaque patient, qui permet de retrouver des mesures indépendantes</em></p></li>
+<li><p>Ont utilisé un modèle linéaire mixte pour modéliser le déclin cognitif en fonction du temps (avant, pendant, après la 1ère vague)</p></li>
+</ul>
+</section>
+<section id="analyse-statistique" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="analyse-statistique"><span class="header-section-number">4.2</span> Analyse statistique</h2>
+<ul>
+<li><p>Scores cognitifs assignés à trois périodes : pré-pandémie, année 1, année 2.</p></li>
+<li><p>Modèle mixte linéaire :</p>
+<ul>
+<li><p>score cognition = à gauche comme outcome (quantitatif) = <span class="math inline">\(Y_{ij}\)</span></p></li>
+<li><p>Effets aléatoires individuels patients ajoutés (variation propre à chaque participant) : <span class="math inline">\((1 | id)\)</span> = <span class="math inline">\(\gamma_1 Z_{ij}\)</span></p></li>
+<li><p>Covariables : âge (continu), sexe — facteurs connus pour influencer la cognition : <span class="math inline">\(\beta X_{ij}\)</span></p></li>
+<li><p>année pandémie = variable explicative = variable d’intérêt : catégorielle à 3 niveaux (avant, année 1, année 2) = effet fixe = <span class="math inline">\(\beta X_{ij}\)</span></p></li>
+</ul></li>
+<li><p>Modèle utilisé pour estimer les différences entre moyennes selon les années pandémie.</p></li>
+<li><p>Analyses incluant les participants manquants à une ou deux périodes (tests t).</p></li>
+<li><p>Packages utilisés : <code>lmer</code>, <code>emmeans</code>.</p></li>
+<li><p>Résultats rapportés en Cohen’s d effect sizes + IC 95 % + p-values.</p>
+<ul>
+<li><p>Ils auraient pu rapporter des coefficients de régression (qui s’interprète comme une différence de moyenne dans un modèle linéaire)</p></li>
+<li><p>Le problème : c’est que les scores cognitifs n’ont pas d’unité claire (ils sont composites) donc difficile d’interpréter une différence de moyenne en “unités de score cognitif”</p>
+<ul>
+<li>Par exemple : une différence de moyenne de -3 unités de score cognitif entre avant et année 1 : est-ce que c’est beaucoup ? peu ? comment savoir ?</li>
+</ul></li>
+<li><p>Effect size de Cohen = (moyenne groupe 1 - moyenne groupe 2) / écart-type pooled = coefficient rapporté à l’écart-type en population = pas d’unité</p></li>
+<li><p>Objectif = <strong>ADIMENSIONNER</strong> le coefficient</p></li>
+<li><p><strong>on met donc en rapport la différence de score avec la dispersion des scores entre les patients</strong></p></li>
+</ul></li>
+</ul>
+<p>Si tu veux une version encore plus condensée ou orientée “méthodes stats”, je peux le faire.</p>
+</section>
+<section id="résultats" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="résultats"><span class="header-section-number">4.3</span> Résultats</h2>
+<p><img src="images/paste-50.png" class="img-fluid"></p>
+<ul>
+<li><p>0,15 : déclin (devrait être un signe négatif en vrai)</p>
+<ul>
+<li><p>ne correspond pas à un nombre de points</p></li>
+<li><p>correspond à “0,15 écarts-types en dessous à l’année 1 par rapport à l’année 0”</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="modèles-linéaires-mixtes-extension" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Modèles linéaires mixtes : extension</h1>
+<section id="modèles-non-linéaires-mixtes-nlmm" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="modèles-non-linéaires-mixtes-nlmm"><span class="header-section-number">5.1</span> Modèles non linéaires mixtes (NLMM)</h2>
+<p><img src="images/paste-51.png" class="img-fluid"></p>
+<p>Exemple : évolution d’un biomarqueur</p>
+<ul>
+<li><p>Modèle non linéaire (exponentiel, logistique, etc.)</p></li>
+<li><p>Incorporation d’effets aléatoires (patient, centre, etc.)</p></li>
+<li><p>Estimation des paramètres fixes et des composantes de la variance</p></li>
+</ul>
+<p>Différence avec un modèle linéaire mixte : la relation entre la variable dépendante et les covariables n’est pas linéaire.</p>
+<p>Donc ça ne s’interpète pas comme une différence de moyenne mais comme un paramètre de croissance, une constante de temps, etc.</p>
+</section>
+<section id="modèles-linéaires-généralisées-mixtes-glmm" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="modèles-linéaires-généralisées-mixtes-glmm"><span class="header-section-number">5.2</span> Modèles linéaires généralisées mixtes (GLMM)</h2>
+<p><img src="images/paste-52.png" class="img-fluid"></p>
+<p>Exemple : logistique mixte</p>
+<ul>
+<li><p>Variable dépendante binaire (oui/non)</p></li>
+<li><p>Incorporation d’effets aléatoires (patient, centre, etc.)</p></li>
+<li><p>Estimation des paramètres fixes (odds ratios) et des composantes de la variance</p></li>
+</ul>
+<p>Différence avec un modèle linéaire mixte : la variable dépendante n’est pas quantitative et suit une loi de probabilité d’une famille exponentielle (binomiale, Poisson, etc.)</p>
+<p>Donc ça ne s’interpète pas comme une différence de moyenne mais comme un odds ratio, un risque relatif, etc.</p>
 </section>
 </section>
 

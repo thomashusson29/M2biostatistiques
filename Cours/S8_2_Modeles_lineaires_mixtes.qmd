@@ -356,14 +356,13 @@ Avec :
 
     -   Par défaut, REML = TRUE donc pas besoin de le spécifier
 
-
 ```{r}
 library(lme4)
 fitl <- lmer(distance ~ 1 + (1 | id), data = dental_long, REML = TRUE)
 summary(fitl)
 ```
 
-------
+------------------------------------------------------------------------
 
 Vraisemblance restreinte à l'estimation des paramètres : 515.4 (difficile à interpréter)
 
@@ -371,7 +370,7 @@ Information sur les résidus (Scaled residuals) : min, 1er quartile, médiane, 3
 
 Informations sur les effets aléatoires :
 
--   Random effects : 
+-   Random effects :
 
     -   Nombre d'observations : 108
 
@@ -383,7 +382,7 @@ Informations sur les effets aléatoires :
 
         -   id (Intercept) : variance de l'effet aléatoire = patient = $\sigma^2_Z$ = 3.752
 
--   Fixed effects : 
+-   Fixed effects :
 
     -   Moyenne estimée : 24.0231
 
@@ -403,65 +402,56 @@ Syntaxe : `lme(fixed, data, random, correlation, weights, subset, method, na.act
 
 Ici : `fit2 <- lme(fixed = distance ~ 1, data = dental_long, random = ~ 1 | id, method = "REML")`
 
-2 formules séparées : 
+2 formules séparées :
 
--   Une pour la moyenne : `distance ~ 1` (1 = pas d'effet fixe = on estime juste la moyenne globale) 
+-   Une pour la moyenne : `distance ~ 1` (1 = pas d'effet fixe = on estime juste la moyenne globale)
 
 -   Une pour les effets aléatoires : `random = ~ 1 | id` (effet aléatoire du patient sur l'intercept)
 
 Avec :
 
--   `fixed` = Formule des effets fixes : `response ~ covariables`.  
+-   `fixed` = Formule des effets fixes : `response ~ covariables`.
 
     -   Exemple : `distance ~ age + sexe` pour estimer des effets moyens de l’âge et du sexe.
 
-
--   `data` = Jeu de données contenant toutes les variables du modèle.  
+-   `data` = Jeu de données contenant toutes les variables du modèle.
 
     -   Exemple : `data = dental_long`.
 
+-   `random` = Spécification des effets aléatoires.
 
--   `random` = Spécification des effets aléatoires.  
-    
-    -   Exemple : `~ 1 | patient` pour un intercept aléatoire par patient.  
+    -   Exemple : `~ 1 | patient` pour un intercept aléatoire par patient.
 
     -   Exemple : `~ age | patient` pour un intercept **et** une pente aléatoire selon l’âge.
 
-    
--   `correlation` = Structure de corrélation intra-groupe (optionnelle).  
+-   `correlation` = Structure de corrélation intra-groupe (optionnelle).
 
     Exemple : `corAR1(form = ~ time | patient)` pour une autocorrélation AR(1) dans le temps au sein de chaque patient.
 
-    
--   `weights` = Structure d’hétéroscédasticité (optionnelle).  
-    
+-   `weights` = Structure d’hétéroscédasticité (optionnelle).
+
     -   Exemple : `varIdent(form = ~ 1 | sexe)` pour autoriser une variance différente selon le sexe.
 
+-   `subset` = Sous-ensemble des lignes utilisées.
 
--   `subset` = Sous-ensemble des lignes utilisées.  
-    
     -   Exemple : `subset = age > 10` pour ne garder que certains individus.
 
+-   `method` =Méthode d’estimation : `"REML"` ou `"ML"`.
 
--   `method` =Méthode d’estimation : `"REML"` ou `"ML"`.  
     -   Exemple : utiliser `"ML"` si l’on compare des modèles à effets fixes différents.
 
-    
--   `na.action` = Comportement en présence de valeurs manquantes.  
-    
+-   `na.action` = Comportement en présence de valeurs manquantes.
+
     -   Par défaut : `na.fail` (le modèle s’arrête si NAs).
 
-    
--   `control` = Paramètres de contrôle de l’algorithme d’estimation.  
-    
+-   `control` = Paramètres de contrôle de l’algorithme d’estimation.
+
     -   Exemple : `control = lmeControl(msMaxIter = 200)` pour augmenter le nombre d’itérations.
 
-    
--   `contrasts` = Choix des contrastes pour les variables catégorielles.  
-    
+-   `contrasts` = Choix des contrastes pour les variables catégorielles.
+
     -   Exemple : définir des contrastes spécifiques pour un facteur.
 
-    
 -   `keep.data` = Indique si le jeu de données doit être conservé dans l’objet modèle. Utile pour réutiliser l’objet plus tard.
 
 ```{r}
@@ -469,8 +459,7 @@ fit2 <- lme(fixed = distance ~ 1, data = dental_long, random = ~ 1 | id, method 
 summary(fit2)
 ```
 
------
-
+------------------------------------------------------------------------
 
 Formula : donne des écarts-types (StdDev) pour l'effet aléatoire (Intercept) et pour les résidus (Residual) (et pas des variances comme avec lmer) (pour passer de l'un à l'autre, il faut faire variance = StdDev²)
 
@@ -478,7 +467,7 @@ Formula : donne des écarts-types (StdDev) pour l'effet aléatoire (Intercept) e
 
 -   StdDev des résidus (Residual) = 2.220312 $\rightarrow$ variance résiduelle = 4.930 (même valeur que précédemment avec lmer)
 
-Distance moyenne estimée = 24.02315 (même valeur que précédemment avec lmer). 
+Distance moyenne estimée = 24.02315 (même valeur que précédemment avec lmer).
 
 Interprétation = la distance moyenne dentaire chez les enfants est estimée à environ 24.02 unités.
 
@@ -500,7 +489,7 @@ fit3 <- lmer(distance ~ time + (1 | id), data = dental_long, REML = TRUE)
 summary(fit3)
 ```
 
-------
+------------------------------------------------------------------------
 
 -   3 coefficients estimés : la variable `time`a été exprimée comme une variable catégorielle avec 4 modalités (8, 10, 12 et 14 ans) avec 8 ans comme catégorie de référence
 
@@ -517,6 +506,14 @@ summary(fit3)
     -   C'est comme si on avait "ignoré" la variabilité expliquée par l'âge dans les modèles précédents (sans `time`), donc la variabilité résiduelle diminue.
 
     -   On a donc diminué la variabilité individuelle (résiduelle) en expliquant une partie de cette variabilité par l'âge.
+
+    -   On pourrait calculer un ICC en faisant :
+
+        -   ICC = variance effet aléatoire / (variance effet aléatoire + variance résiduelle)
+
+        -   ICC = 4.465 / (4.465 + 2.078) = 0.682
+
+        -   Donc la variance expliquée par le patient compte à peu près pour 68.2% de la variance totale (après avoir ajusté pour l'âge)
 
     -   Avoir le minimum de variance résiduelle possible est important pour avoir des intervalles de confiance les plus précis possibles sur les effets fixes.
 
@@ -536,14 +533,117 @@ On peut donc faire avec `anova()` qui utilise une approximation de Satterthwaite
 anova(fit3)
 ```
 
--   p-value globale pour la variable `time` < 2.2e-16 $\rightarrow$ la variable `time` est globalement significative dans le modèle
+-   p-value globale pour la variable `time` \< 2.2e-16 $\rightarrow$ la variable `time` est globalement significative dans le modèle
 
 Il faut donc bien mettre un effet fixe `time` dans le modèle et il y a un effet significatif de l'âge sur la distance dentaire chez les enfants.
 
 ### Pertinence de la variable `sex` dans le modèle
 
-`sex` est une variable binaire donc c'est différent! 
+`sex` est une variable binaire donc c'est différent!
 
 On peut faire un test de Wald car on ne compare pas des vraisemblances restreintes entre deux modèles différents.
 
+# Applications (études publiées)
+
+## Déclin cognitif des personnes âgées aux États-Unis pendant et après la Covid !!
+
+![](images/paste-49.png)
+
+= Déclin cognitif des personnes âgées aux États-Unis pendant et après la Covid
+
+-   Données longtitudinales
+
+-   Patients de 50 ans ou plus
+
+-   3 périodes d'observation :
+
+    -   Avant 1ère vague (jusqu'au 29 février 2020)
+
+    -   Pendant 1ère vague (1er mars 2020 - 28 février 2021)
+
+    -   Seconde vague (1er mars 2021 - 28 février 2022)
+
+-   *NB : si on avait eu 2 temps : avant et après la 1ère vague, on aurait pu faire une analyse en différences de différences, c'est à dire en faisant juste la différence pour chaque patient, qui permet de retrouver des mesures indépendantes*
+
+-   Ont utilisé un modèle linéaire mixte pour modéliser le déclin cognitif en fonction du temps (avant, pendant, après la 1ère vague)
+
+## Analyse statistique
+
+-   Scores cognitifs assignés à trois périodes : pré-pandémie, année 1, année 2.
+
+-   Modèle mixte linéaire :
+
+    -   score cognition = à gauche comme outcome (quantitatif) = $Y_{ij}$
+
+    -   Effets aléatoires individuels patients ajoutés (variation propre à chaque participant) : $(1 | id)$ = $\gamma_1 Z_{ij}$
+
+    -   Covariables : âge (continu), sexe — facteurs connus pour influencer la cognition : $\beta X_{ij}$
+
+    -   année pandémie = variable explicative = variable d'intérêt : catégorielle à 3 niveaux (avant, année 1, année 2) = effet fixe = $\beta X_{ij}$
+
+-   Modèle utilisé pour estimer les différences entre moyennes selon les années pandémie.
+
+-   Analyses incluant les participants manquants à une ou deux périodes (tests t).
+
+-   Packages utilisés : `lmer`, `emmeans`.
+
+-   Résultats rapportés en Cohen’s d effect sizes + IC 95 % + p-values.
+
+    -   Ils auraient pu rapporter des coefficients de régression (qui s'interprète comme une différence de moyenne dans un modèle linéaire)
+
+    -   Le problème : c'est que les scores cognitifs n'ont pas d'unité claire (ils sont composites) donc difficile d'interpréter une différence de moyenne en "unités de score cognitif"
+
+        -   Par exemple : une différence de moyenne de -3 unités de score cognitif entre avant et année 1 : est-ce que c'est beaucoup ? peu ? comment savoir ?
+
+    -   Effect size de Cohen = (moyenne groupe 1 - moyenne groupe 2) / écart-type pooled = coefficient rapporté à l'écart-type en population = pas d'unité
+
+    -   Objectif = **ADIMENSIONNER** le coefficient
+
+    -   **on met donc en rapport la différence de score avec la dispersion des scores entre les patients**
+
+Si tu veux une version encore plus condensée ou orientée “méthodes stats”, je peux le faire.
+
+## Résultats
+
+![](images/paste-50.png)
+
+-   0,15 : déclin (devrait être un signe négatif en vrai)
+
+    -   ne correspond pas à un nombre de points
+
+    -   correspond à "0,15 écarts-types en dessous à l'année 1 par rapport à l'année 0"
+
+# Modèles linéaires mixtes : extension
+
+## Modèles non linéaires mixtes (NLMM)
+
+![](images/paste-51.png)
+
+Exemple : évolution d'un biomarqueur
+
+-   Modèle non linéaire (exponentiel, logistique, etc.)
+
+-   Incorporation d'effets aléatoires (patient, centre, etc.)
+
+-   Estimation des paramètres fixes et des composantes de la variance
+
+Différence avec un modèle linéaire mixte : la relation entre la variable dépendante et les covariables n'est pas linéaire. 
+
+Donc ça ne s'interpète pas comme une différence de moyenne mais comme un paramètre de croissance, une constante de temps, etc.
+
+## Modèles linéaires généralisées mixtes (GLMM)
+
+![](images/paste-52.png)
+
+Exemple : logistique mixte
+
+-   Variable dépendante binaire (oui/non)
+
+-   Incorporation d'effets aléatoires (patient, centre, etc.)
+
+-   Estimation des paramètres fixes (odds ratios) et des composantes de la variance
+
+Différence avec un modèle linéaire mixte : la variable dépendante n'est pas quantitative et suit une loi de probabilité d'une famille exponentielle (binomiale, Poisson, etc.)
+
+Donc ça ne s'interpète pas comme une différence de moyenne mais comme un odds ratio, un risque relatif, etc.
 

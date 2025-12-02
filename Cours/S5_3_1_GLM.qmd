@@ -901,7 +901,7 @@ Sous $H_0 : \beta = 0$ et sous des conditions générales, $\Lambda$ suit une lo
 
 Le LRT présente plusieurs avantages :
 
--   il repose sur la comparaison globale des modèles et non sur l’approximation locale autour de \hat\beta ;
+-   il repose sur la comparaison globale des modèles et non sur l’approximation locale autour de $\hat\beta$ ;
 
 -   il est plus robuste que le test de Wald lorsque l’échantillon est petit, lorsque les événements sont rares, ou lorsque l’effet étudié est important ;
 
