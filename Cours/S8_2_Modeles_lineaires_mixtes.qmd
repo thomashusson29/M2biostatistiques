@@ -1,5 +1,5 @@
 ---
-title: "S1_CUSM_VISUALISATION_DES_DONNÉES"
+title: "S8_2_Modèles linéaires mixtes"
 format:
     html:
         toc: true
@@ -87,65 +87,34 @@ library(psy)
 knitr::opts_chunk$set(echo = TRUE)
 
 load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
-data("CUSM")
 gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
 load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
 data(expsy)
 alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
 ```
 
-# VISUALISATION DES DONNÉES
+# Plan du cours
 
-## Distribution d'une variable quantitative
+# Introduction aux modèles linéaires mixtes
 
-Très important de pouvoir visualiser la distribution d'une variable quantitative avant de faire des analyses statistiques. 
+-   Principale limitation du modèle linéaire : l'hypothèse des observations indépendantes = indépendance des résidus
 
-Le top : objectiver la normalité donc histogramme + Q-Q plot pour tests paramétriques ou non ensuite
+    -   Observations doivent rester indépendantes après avoir été ajustées pour les prédicteurs fixes (âge, sexe)
 
-### Histogramme 
+    -   Par ex : "patients-trimestres" : ce sont les mêmes patients qui sont mesurés à plusieurs reprises
 
--   Regroupe les données en classes (intervalles de valeurs)
+-   Problème : en pratique, il existe bcp de situation ou c'est pas raisonnable
 
--   Souffre d'effet de bord : la forme peut changer selon le choix des classes
+    -   patients d'un essai clinique sont inclus dans plusieurs centres : deux patients d'un même centre se ressemblent plus que deux patients de centres différents
 
-```{r}
-hist(smp$age, xlab="Age", ylab="Fréquence", col="white", cex.axis=1.8, cex.lab=1.8, main="")
-box()
-```
+    -   méta-analyse vise à synthétiser les résultats de plusieurs essais thérapeutiques
 
-*Figure 1 : Histogramme représentant la distribution de l’âge des détenus de l’étude santé mentale en prison. L’axe des y indique le nombre de sujets par tranches d’âge de 5 ans.* 
+    -   unité statistique est la "visite" d'un patient dans un service, mais le même patient peut revenir plusieurs fois
 
-*La distribution est asymétrique, avec un effet plancher légèrement en dessous de 20 ans, en lien avec l’âge limite pour être incarcéré dans un établissement pénitencier pour adulte*
+    -   la même mesure biologique est répétée plusieurs fois chez un même individu (données longitudinales)
 
-#### Variante d'histogramme
+-   Conséquence principale : le nombre de patients "effectif" est plus petit que la taille de la base de données $\rightarrow$ inflation de l'erreur de type 1
 
-Représenter sur un même schéma les distributions d'une variable quantitative observée dans plusieurs groupes.
-
-Distribution de l’âge des détenus en fonction de leur niveau de recherche de nouveauté.
-1 : faible ; 2 : modéré ; 3 : élevé.
-
-```{r}
-vir_3 <- viridis(n = 3) # palette de 3 couleurs
-
-x <- list(
-    smp$age[smp$recherche.nouv==1], 
-    smp$age[smp$recherche.nouv==2],
-    smp$age[smp$recherche.nouv==3])
-
-multhist(
-    x, 
-    ylab="Fréquence", 
-    xlab="Age", 
-    ylim=c(0,70), # ajuster selon les données
-    col=vir_3, 
-    legend.text=paste("Recherche de Nouveauté. = ",1:3))
-box()
-```
-
-*Histogrammes multiples représentant les distributions de l’âge de détenus ayant, respectivement, un faible niveau de recherche de nouveauté (R.N. = 1), un niveau modéré (R.N. = 2) ou un niveau élevé (R.N. = 3).*
-
-*La distribution des sujets « R.N. = 1 » semble décalée vers la gauche (ces sujets seraient donc globalement plus jeunes).*
-
-
-
-
+::: callout-note
+[Bonus Résidus](https://thomashusson29.github.io/M2biostatistiques/S8_bonus_residus.html)
+:::
