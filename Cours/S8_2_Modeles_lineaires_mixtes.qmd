@@ -328,6 +328,8 @@ head(dental_long2)
 
 ## Modèle linéaire mixte avec R
 
+Pour gérer les données manquantes : pas grave si elles sont MAR. R gère automatiquement les données manquantes en utilisant toutes les données disponibles pour chaque individu (approche "full information maximum likelihood" FIML)
+
 ### Utilisation de la fonction `lmer()` du package `lme4`
 
 Syntaxe : `lmer(response ~ fixed_effects + (random_intercept | grouping_factor_1) + (random_intercept | grouping_factor_2), data = data_frame, REML = TRUE )`
@@ -498,39 +500,6 @@ fit3 <- lmer(distance ~ time + (1 | id), data = dental_long, REML = TRUE)
 summary(fit3)
 ```
 
-> summary(fit3)
-Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-lmerModLmerTest]
-Formula: distance ~ time + (1 | id)
-   Data: dental_long
-
-REML criterion at convergence: 443.2
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--3.7376 -0.5248  0.0153  0.4027  3.7212 
-
-Random effects:
- Groups   Name        Variance Std.Dev.
- id       (Intercept) 4.465    2.113   
- Residual             2.078    1.442   
-Number of obs: 108, groups:  id, 27
-
-Fixed effects:
-            Estimate Std. Error      df t value Pr(>|t|)    
-(Intercept)  22.1852     0.4923 43.3911  45.066  < 2e-16 ***
-timey10       0.9815     0.3924 78.0000   2.501   0.0145 *  
-timey12       2.4630     0.3924 78.0000   6.277 1.80e-08 ***
-timey14       3.9074     0.3924 78.0000   9.958 1.52e-15 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Correlation of Fixed Effects:
-        (Intr) timy10 timy12
-timey10 -0.399              
-timey12 -0.399  0.500       
-timey14 -0.399  0.500  0.500
-
 ------
 
 -   3 coefficients estimés : la variable `time`a été exprimée comme une variable catégorielle avec 4 modalités (8, 10, 12 et 14 ans) avec 8 ans comme catégorie de référence
@@ -542,3 +511,39 @@ timey14 -0.399  0.500  0.500
     -   `timey14` = différence moyenne estimée entre 14 ans et 8 ans = 3.9074 (p-value = 1.52e-15)
 
 -   La library `lmerTest` fournit des p-values *relativement* valides y compris avec une estimation REML (mais pas parfaite non plus).
+
+-   Aussi !! La variance et l'écart-type ont ÉVOLUÉS : elles sont différentes de celles des modèles précédents car on a ajouté un effet fixe `time` dans le modèle.
+
+    -   C'est comme si on avait "ignoré" la variabilité expliquée par l'âge dans les modèles précédents (sans `time`), donc la variabilité résiduelle diminue.
+
+    -   On a donc diminué la variabilité individuelle (résiduelle) en expliquant une partie de cette variabilité par l'âge.
+
+    -   Avoir le minimum de variance résiduelle possible est important pour avoir des intervalles de confiance les plus précis possibles sur les effets fixes.
+
+### Pertinence de la variable `time` globale dans le modèle
+
+On pourrait faire un rapport de vraisemblance entre :
+
+-   Modèle complet avec `time` : `fit3 <- lmer(distance ~ time + (1 | id), data = dental_long, REML = TRUE)`
+
+-   Modèle sans `time` : `fitl <- lmer(distance ~ 1 + (1 | id), data = dental_long, REML = TRUE)`
+
+Le problème c'est qu'on a fitté les deux modèles avec REML (par défaut dans R) donc on ne peut pas faire de test de rapport de vraisemblance, parce que les vraisemblances restreintes ne sont pas comparables entre deux modèles avec des effets fixes différents.
+
+On peut donc faire avec `anova()` qui utilise une approximation de Satterthwaite pour calculer une p-value globale pour la variable `time`
+
+```{r}
+anova(fit3)
+```
+
+-   p-value globale pour la variable `time` < 2.2e-16 $\rightarrow$ la variable `time` est globalement significative dans le modèle
+
+Il faut donc bien mettre un effet fixe `time` dans le modèle et il y a un effet significatif de l'âge sur la distance dentaire chez les enfants.
+
+### Pertinence de la variable `sex` dans le modèle
+
+`sex` est une variable binaire donc c'est différent! 
+
+On peut faire un test de Wald car on ne compare pas des vraisemblances restreintes entre deux modèles différents.
+
+

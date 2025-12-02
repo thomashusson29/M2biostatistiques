@@ -131,6 +131,8 @@ window.Quarto = {
   <li><a href="#utilisation-de-la-fonction-lmer-du-package-lme4" id="toc-utilisation-de-la-fonction-lmer-du-package-lme4" class="nav-link" data-scroll-target="#utilisation-de-la-fonction-lmer-du-package-lme4"><span class="header-section-number">3.2.1</span> Utilisation de la fonction <code>lmer()</code> du package <code>lme4</code></a></li>
   <li><a href="#utilisation-de-la-fonction-lme-du-package-nlme" id="toc-utilisation-de-la-fonction-lme-du-package-nlme" class="nav-link" data-scroll-target="#utilisation-de-la-fonction-lme-du-package-nlme"><span class="header-section-number">3.2.2</span> Utilisation de la fonction <code>lme()</code> du package <code>nlme</code></a></li>
   <li><a href="#exemple-3-lmertest-obtention-de-p-values-pour-les-effets-fixes" id="toc-exemple-3-lmertest-obtention-de-p-values-pour-les-effets-fixes" class="nav-link" data-scroll-target="#exemple-3-lmertest-obtention-de-p-values-pour-les-effets-fixes"><span class="header-section-number">3.2.3</span> Exemple 3 : ‘lmerTest’ : obtention de p-values pour les effets fixes</a></li>
+  <li><a href="#pertinence-de-la-variable-time-globale-dans-le-modèle" id="toc-pertinence-de-la-variable-time-globale-dans-le-modèle" class="nav-link" data-scroll-target="#pertinence-de-la-variable-time-globale-dans-le-modèle"><span class="header-section-number">3.2.4</span> Pertinence de la variable <code>time</code> globale dans le modèle</a></li>
+  <li><a href="#pertinence-de-la-variable-sex-dans-le-modèle" id="toc-pertinence-de-la-variable-sex-dans-le-modèle" class="nav-link" data-scroll-target="#pertinence-de-la-variable-sex-dans-le-modèle"><span class="header-section-number">3.2.5</span> Pertinence de la variable <code>sex</code> dans le modèle</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -279,6 +281,7 @@ Note
 <li><p>Maximum de vraisemblance (ML)</p></li>
 <li><p>Maximum de vraisemblance restreint (REML) = option par défaut dans R</p></li>
 </ul>
+<p>Bonus : <a href="https://thomashusson29.github.io/M2biostatistiques/S8_B4_Intercept_variances_effets_aleatoires.html">bonus intercept - variances - effets aléatoires</a></p>
 </section>
 <section id="types-destimateurs" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="types-destimateurs"><span class="header-section-number">2.4</span> Types d’estimateurs</h2>
@@ -499,6 +502,7 @@ dropped</code></pre>
 </section>
 <section id="modèle-linéaire-mixte-avec-r" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="modèle-linéaire-mixte-avec-r"><span class="header-section-number">3.2</span> Modèle linéaire mixte avec R</h2>
+<p>Pour gérer les données manquantes : pas grave si elles sont MAR. R gère automatiquement les données manquantes en utilisant toutes les données disponibles pour chaque individu (approche “full information maximum likelihood” FIML)</p>
 <section id="utilisation-de-la-fonction-lmer-du-package-lme4" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="utilisation-de-la-fonction-lmer-du-package-lme4"><span class="header-section-number">3.2.1</span> Utilisation de la fonction <code>lmer()</code> du package <code>lme4</code></h3>
 <p>Syntaxe : <code>lmer(response ~ fixed_effects + (random_intercept | grouping_factor_1) + (random_intercept | grouping_factor_2), data = data_frame, REML = TRUE )</code></p>
@@ -708,20 +712,6 @@ timey12 -0.399  0.500
 timey14 -0.399  0.500  0.500</code></pre>
 </div>
 </div>
-<blockquote class="blockquote">
-<p>summary(fit3) Linear mixed model fit by REML. t-tests use Satterthwaite’s method [ lmerModLmerTest] Formula: distance ~ time + (1 | id) Data: dental_long</p>
-</blockquote>
-<p>REML criterion at convergence: 443.2</p>
-<p>Scaled residuals: Min 1Q Median 3Q Max -3.7376 -0.5248 0.0153 0.4027 3.7212</p>
-<p>Random effects: Groups Name Variance Std.Dev. id (Intercept) 4.465 2.113<br>
-Residual 2.078 1.442<br>
-Number of obs: 108, groups: id, 27</p>
-<p>Fixed effects: Estimate Std. Error df t value Pr(&gt;|t|)<br>
-(Intercept) 22.1852 0.4923 43.3911 45.066 &lt; 2e-16 <strong><em> timey10 0.9815 0.3924 78.0000 2.501 0.0145 </em><br>
-timey12 2.4630 0.3924 78.0000 6.277 1.80e-08 </strong><em> timey14 3.9074 0.3924 78.0000 9.958 1.52e-15 </em>** — Signif. codes: 0 ‘<em><strong>’ 0.001 ‘</strong>’ 0.01 ‘</em>’ 0.05 ‘.’ 0.1 ‘ ’ 1</p>
-<p>Correlation of Fixed Effects: (Intr) timy10 timy12 timey10 -0.399<br>
-timey12 -0.399 0.500<br>
-timey14 -0.399 0.500 0.500</p>
 <hr>
 <ul>
 <li><p>3 coefficients estimés : la variable <code>time</code>a été exprimée comme une variable catégorielle avec 4 modalités (8, 10, 12 et 14 ans) avec 8 ans comme catégorie de référence</p>
@@ -731,7 +721,42 @@ timey14 -0.399 0.500 0.500</p>
 <li><p><code>timey14</code> = différence moyenne estimée entre 14 ans et 8 ans = 3.9074 (p-value = 1.52e-15)</p></li>
 </ul></li>
 <li><p>La library <code>lmerTest</code> fournit des p-values <em>relativement</em> valides y compris avec une estimation REML (mais pas parfaite non plus).</p></li>
+<li><p>Aussi !! La variance et l’écart-type ont ÉVOLUÉS : elles sont différentes de celles des modèles précédents car on a ajouté un effet fixe <code>time</code> dans le modèle.</p>
+<ul>
+<li><p>C’est comme si on avait “ignoré” la variabilité expliquée par l’âge dans les modèles précédents (sans <code>time</code>), donc la variabilité résiduelle diminue.</p></li>
+<li><p>On a donc diminué la variabilité individuelle (résiduelle) en expliquant une partie de cette variabilité par l’âge.</p></li>
+<li><p>Avoir le minimum de variance résiduelle possible est important pour avoir des intervalles de confiance les plus précis possibles sur les effets fixes.</p></li>
+</ul></li>
 </ul>
+</section>
+<section id="pertinence-de-la-variable-time-globale-dans-le-modèle" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="pertinence-de-la-variable-time-globale-dans-le-modèle"><span class="header-section-number">3.2.4</span> Pertinence de la variable <code>time</code> globale dans le modèle</h3>
+<p>On pourrait faire un rapport de vraisemblance entre :</p>
+<ul>
+<li><p>Modèle complet avec <code>time</code> : <code>fit3 &lt;- lmer(distance ~ time + (1 | id), data = dental_long, REML = TRUE)</code></p></li>
+<li><p>Modèle sans <code>time</code> : <code>fitl &lt;- lmer(distance ~ 1 + (1 | id), data = dental_long, REML = TRUE)</code></p></li>
+</ul>
+<p>Le problème c’est qu’on a fitté les deux modèles avec REML (par défaut dans R) donc on ne peut pas faire de test de rapport de vraisemblance, parce que les vraisemblances restreintes ne sont pas comparables entre deux modèles avec des effets fixes différents.</p>
+<p>On peut donc faire avec <code>anova()</code> qui utilise une approximation de Satterthwaite pour calculer une p-value globale pour la variable <code>time</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type III Analysis of Variance Table with Satterthwaite's method
+     Sum Sq Mean Sq NumDF DenDF F value    Pr(&gt;F)    
+time 237.19  79.064     3    78   38.04 2.986e-15 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ul>
+<li>p-value globale pour la variable <code>time</code> &lt; 2.2e-16 <span class="math inline">\(\rightarrow\)</span> la variable <code>time</code> est globalement significative dans le modèle</li>
+</ul>
+<p>Il faut donc bien mettre un effet fixe <code>time</code> dans le modèle et il y a un effet significatif de l’âge sur la distance dentaire chez les enfants.</p>
+</section>
+<section id="pertinence-de-la-variable-sex-dans-le-modèle" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="pertinence-de-la-variable-sex-dans-le-modèle"><span class="header-section-number">3.2.5</span> Pertinence de la variable <code>sex</code> dans le modèle</h3>
+<p><code>sex</code> est une variable binaire donc c’est différent!</p>
+<p>On peut faire un test de Wald car on ne compare pas des vraisemblances restreintes entre deux modèles différents.</p>
 </section>
 </section>
 </section>
