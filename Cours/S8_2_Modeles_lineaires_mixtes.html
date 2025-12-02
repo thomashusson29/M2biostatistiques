@@ -80,6 +80,7 @@ window.Quarto = {
   <li><a href="#introduction-aux-modèles-linéaires-mixtes" id="toc-introduction-aux-modèles-linéaires-mixtes" class="nav-link" data-scroll-target="#introduction-aux-modèles-linéaires-mixtes"><span class="header-section-number">2</span> Introduction aux modèles linéaires mixtes</a>
   <ul>
   <li><a href="#quelques-stratégies-pour-gérer-la-non-indépendance-des-observations" id="toc-quelques-stratégies-pour-gérer-la-non-indépendance-des-observations" class="nav-link" data-scroll-target="#quelques-stratégies-pour-gérer-la-non-indépendance-des-observations"><span class="header-section-number">2.1</span> Quelques stratégies pour gérer la non-indépendance des observations</a></li>
+  <li><a href="#le-modèle-linéaire-mixte-formulation-mathématique" id="toc-le-modèle-linéaire-mixte-formulation-mathématique" class="nav-link" data-scroll-target="#le-modèle-linéaire-mixte-formulation-mathématique"><span class="header-section-number">2.2</span> Le modèle linéaire mixte (formulation mathématique)</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S8_2_Modeles_lineaires_mixtes.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S8_2_Modeles_lineaires_mixtes.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -127,19 +128,7 @@ window.Quarto = {
 </ul></li>
 <li><p>Conséquence principale : le nombre de patients “effectif” est plus petit que la taille de la base de données <span class="math inline">\(\rightarrow\)</span> inflation de l’erreur de type 1</p></li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
 <p><a href="https://thomashusson29.github.io/M2biostatistiques/S8_bonus_residus.html">Bonus Résidus</a></p>
-</div>
-</div>
 <section id="quelques-stratégies-pour-gérer-la-non-indépendance-des-observations" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="quelques-stratégies-pour-gérer-la-non-indépendance-des-observations"><span class="header-section-number">2.1</span> Quelques stratégies pour gérer la non-indépendance des observations</h2>
 <ul>
@@ -157,6 +146,33 @@ Note
 <li>Problème : perte de puissance, pas de quantification de la variabilité inter-centres / inter-patients, impossible si bcp de centres avec peu de patients par centre</li>
 </ul></li>
 </ul>
+<p><a href="https://thomashusson29.github.io/M2biostatistiques/S8_B2_Variabilit%C3%A9s%20interindividuelles.html">Bonus Variabilité</a></p>
+<p><strong>Stratégie privilégiée</strong> : Modèles linéaires mixtes (MLM) :</p>
+<ul>
+<li><p>Combine des effets <strong>fixes</strong> : covariables qui ont une influence sur la moyenne dont on veut estimer l’effet</p></li>
+<li><p>et des effets <strong>aléatoires</strong> : variables qui modélisent la structure de corrélation entre les observations (rendent compte de la non-indépendance des observations)</p></li>
+</ul>
+<p>Effets aléatoires : “covariables latentes” qui ne sont pas observées mais qui influencent la variable réponse</p>
+<p>(par exemple <span class="math inline">\(\rightarrow\)</span> le fait que les patients d’un même centre se ressemblent plus que des patients de centres différents)</p>
+<p><a href="https://thomashusson29.github.io/M2biostatistiques/S8_B3_Effets_fixes_aleatoires.html">Bonus effets</a></p>
+<p>Exemple d’effet aléatoire : <strong>niveau de programmation en R dans la salle</strong></p>
+<p>Probabilité de réponse dépend de la difficulté du questionnaire : impossible de la modéliser = effet non mesuré et aléatoire = effet aléatoire</p>
+</section>
+<section id="le-modèle-linéaire-mixte-formulation-mathématique" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="le-modèle-linéaire-mixte-formulation-mathématique"><span class="header-section-number">2.2</span> Le modèle linéaire mixte (formulation mathématique)</h2>
+<p>Modèle :<br>
+</p>
+<p><span class="math display">\[
+Y_{ij} = \beta X_{ij} + \gamma_1 Z_{ij} + \epsilon_{ij}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(Y_{ij}\)</span> : réponse (quantitative) pour l’observation du patient <span class="math inline">\(j\)</span> issu du cluster <span class="math inline">\(i\)</span> (par ex : mesure biologique au temps <span class="math inline">\(j\)</span> pour le patient <span class="math inline">\(i\)</span>)</p></li>
+<li><p><span class="math inline">\(\beta X_{ij}\)</span> : effet fixe (unique ici) dépendant de la variable <span class="math inline">\(X_{ij}\)</span> (âge, sexe, traitement, etc.)</p></li>
+<li><p><span class="math inline">\(\gamma_1 Z_{ij}\)</span> : effet aléatoire dépendant de la variable <span class="math inline">\(Z_{ij}\)</span> (par ex : centre, patient, etc.). Le coefficient <span class="math inline">\(\gamma_1\)</span> est commun à tous les patients du cluster <span class="math inline">\(i\)</span></p></li>
+<li><p><span class="math inline">\(\epsilon_{ij}\)</span> : erreur aléatoire (résidu) pour l’observation du patient <span class="math inline">\(j\)</span> du cluster <span class="math inline">\(i\)</span> (dont on fait l’hypothèse qu’elle suit une loi normale centrée réduite <span class="math inline">\(N(0,\sigma^2)\)</span>)</p></li>
+</ul>
+<p>L’effet aléatoire <span class="math inline">\(\gamma_i\)</span> n’est pas observé, il faut spécifier sa loi (<span class="math inline">\(\gamma_i \sim N(0,\sigma^2_Z)\)</span>)</p>
+<p>Ainsi, 2 patients du même cluster <span class="math inline">\(i\)</span> se ressemblent plus que 2 patients de clusters différents car ils partagent la même valeur de l’effet aléatoire <span class="math inline">\(\gamma_i\)</span></p>
 </section>
 </section>
 

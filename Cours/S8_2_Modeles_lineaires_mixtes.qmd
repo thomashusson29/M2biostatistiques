@@ -115,9 +115,7 @@ alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
 
 -   Conséquence principale : le nombre de patients "effectif" est plus petit que la taille de la base de données $\rightarrow$ inflation de l'erreur de type 1
 
-::: callout-note
 [Bonus Résidus](https://thomashusson29.github.io/M2biostatistiques/S8_bonus_residus.html)
-:::
 
 ## Quelques stratégies pour gérer la non-indépendance des observations
 
@@ -135,13 +133,40 @@ alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
 
     -   Problème : perte de puissance, pas de quantification de la variabilité inter-centres / inter-patients, impossible si bcp de centres avec peu de patients par centre
 
-:::callout-note
-[Bonus Résidus](https://thomashusson29.github.io/M2biostatistiques/S8_bonus_residus.html)
-:::
+[Bonus Variabilité](https://thomashusson29.github.io/M2biostatistiques/S8_B2_Variabilit%C3%A9s%20interindividuelles.html)
 
 **Stratégie privilégiée** : Modèles linéaires mixtes (MLM) : 
 
--   Combine des effets **fixes** : covariables dont on veut estimer l'effet
+-   Combine des effets **fixes** : covariables qui ont une influence sur la moyenne dont on veut estimer l'effet
 
--   et des effets **aléatoires** : variables qui modélisent la structure de corrélation entre les observations
+-   et des effets **aléatoires** : variables qui modélisent la structure de corrélation entre les observations (rendent compte de la non-indépendance des observations)
 
+Effets aléatoires : "covariables latentes" qui ne sont pas observées mais qui influencent la variable réponse
+
+(par exemple $\rightarrow$ le fait que les patients d'un même centre se ressemblent plus que des patients de centres différents)
+
+[Bonus effets](https://thomashusson29.github.io/M2biostatistiques/S8_B3_Effets_fixes_aleatoires.html)
+
+Exemple d'effet aléatoire : **niveau de programmation en R dans la salle**
+
+Probabilité de réponse dépend de la difficulté du questionnaire : impossible de la modéliser = effet non mesuré et aléatoire = effet aléatoire
+
+## Le modèle linéaire mixte (formulation mathématique)
+
+Modèle :\
+
+$$
+Y_{ij} = \beta X_{ij} + \gamma_1 Z_{ij} + \epsilon_{ij}
+$$
+
+-   $Y_{ij}$ : réponse (quantitative) pour l'observation du patient $j$ issu du cluster $i$ (par ex : mesure biologique au temps $j$ pour le patient $i$)
+
+-   $\beta X_{ij}$ : effet fixe (unique ici) dépendant de la variable $X_{ij}$ (âge, sexe, traitement, etc.)
+
+-   $\gamma_1 Z_{ij}$ : effet aléatoire dépendant de la variable $Z_{ij}$ (par ex : centre, patient, etc.). Le coefficient $\gamma_1$ est commun à tous les patients du cluster $i$ 
+
+-   $\epsilon_{ij}$ : erreur aléatoire (résidu) pour l'observation du patient $j$ du cluster $i$ (dont on fait l'hypothèse qu'elle suit une loi normale centrée réduite $N(0,\sigma^2)$)
+
+L'effet aléatoire $\gamma_i$ n'est pas observé, il faut spécifier sa loi ($\gamma_i \sim N(0,\sigma^2_Z)$)
+
+Ainsi, 2 patients du même cluster $i$ se ressemblent plus que 2 patients de clusters différents car ils partagent la même valeur de l'effet aléatoire $\gamma_i$
