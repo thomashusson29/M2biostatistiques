@@ -118,3 +118,30 @@ alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
 ::: callout-note
 [Bonus Résidus](https://thomashusson29.github.io/M2biostatistiques/S8_bonus_residus.html)
 :::
+
+## Quelques stratégies pour gérer la non-indépendance des observations
+
+-   Ignorer l'effet centre / le caractère longitudinal
+
+    -   Par ex : 4 visites pour 1 patient = 1 seul patient
+
+    -   Problème : perte d'information donc perte de puissance
+
+-   Estimer un modèle par centre / par patient et "combiner" les estimations
+
+    -   Problème : pas de quantification de la variabilité inter-centres / inter-patients
+
+-   Incorporer le centre / le patient comme effet fixe (c'est à dire comme une variable catégorielle / un facteur)
+
+    -   Problème : perte de puissance, pas de quantification de la variabilité inter-centres / inter-patients, impossible si bcp de centres avec peu de patients par centre
+
+:::callout-note
+[Bonus Résidus](https://thomashusson29.github.io/M2biostatistiques/S8_bonus_residus.html)
+:::
+
+**Stratégie privilégiée** : Modèles linéaires mixtes (MLM) : 
+
+-   Combine des effets **fixes** : covariables dont on veut estimer l'effet
+
+-   et des effets **aléatoires** : variables qui modélisent la structure de corrélation entre les observations
+
