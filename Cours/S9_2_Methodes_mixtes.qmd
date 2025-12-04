@@ -1,0 +1,404 @@
+---
+title: "S9_2_Méthodes mixtes"
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            % \usepackage{fontspec} 
+            % \setmainfont{Latin Modern}
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+            % --- GESTION DU CODE ---
+            \usepackage{fvextra}
+            % !!! CORRECTION ICI : Force le retour à la ligne pour les blocs de code Quarto !!!
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+            % -----------------------
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+# Les Fondamentaux de la Recherche Qualitative
+
+La recherche en sciences humaines, en médecine et en psychiatrie a longtemps été traversée par un clivage profond entre deux univers : celui des mots (qualitatif) et celui des nombres (quantitatif). Cette opposition façonne encore les représentations actuelles, bien qu’elle soit devenue largement insuffisante pour comprendre les méthodes réellement utilisées dans la recherche moderne.
+
+## Diversité des Approches et Origines
+
+Il n'existe pas *une* méthode qualitative, mais plusieurs, voire "plein".
+
+**Notions importantes : Exemples de méthodes qualitatives**
+
+1.  **Théorie Ancérée (Grounded Theory) :** C'est la méthode que les généralistes utilisent le plus souvent. Elle a été proposée à l'origine par des sociologues.
+2.  **IPA (Interpretative Phenomenological Analysis)** : Très utilisée en psychologie, elle se concentre sur l'expérience subjective des individus.
+3.  **Phénoménologie** : Approche philosophique visant à décrire les expériences vécues sans les interpréter.
+4.  **Analyse Thématique**.
+5.  **Analyse Lexicale**.
+6.  **Analyse de Cas**.
+7.  **IPSEA :** Développée par des collègues psychiatres français, elle est proche de l'IPA.
+
+La recherche qualitative existe depuis longtemps (ex: Freud avec l'introduction à la psychanalyse ou la psychopathologie de la vie quotidienne).
+
+Cependant, les travaux historiques comme ceux de Freud sont souvent considérés comme discutables par les spécialistes modernes de la recherche qualitative, car ils n'étaient **pas du tout rigoureux** selon les canons actuels.
+
+Leurs travaux n'incluaient ni **triangulation**, ni recueil d'un corpus *in extenso*, ni **codage**.
+
+-   Triangulation : codage en double (être 2 sur le même jeu de données)
+
+-   Saturation : on définit pas un nombre de sujets à inclure à l'avance : on arrête
+
+-   Purposive sampling : échantillonnage raisonné (= choix des sujets en fonction de critères précis, les plus hétérogènes possibles)
+
+## Exigence de Rigueur et Notions Clés du Protocole
+
+Historiquement, la **Théorie Ancérée (Glaser et Strauss)** est née d'une volonté de durcir la méthodologie des sciences humaines et sociales.
+
+Face aux critiques des sciences dites "dures" qui considéraient leurs travaux comme de la "littérature" et entraînaient une réduction des budgets, des doctorats et des postes, les sociologues ont décidé de rendre leur méthodologie plus rigoureuse.
+
+Selon les principes de la science, pour qu'une recherche soit scientifique, un **protocole écrit** est nécessaire.
+
+Le scientifique doit **choisir** (critères d'inclusion, d'exclusion, plan d'analyse) pour "bien regarder" et éviter de "mal regarder".
+
+Ce choix et cette organisation sont cruciaux et s'opposent aux approches cliniques non structurées (comme les *case reports* sans protocole défini).
+
+## Concepts Méthodologiques Essentiels
+
+### Positionnement du Chercheur : Neutralité et Distance
+
+Le concept de **neutralité axiologique** est très fort en Théorie Ancérée.
+
+-   **Neutralité Axiologique :** L'effort maximal pour **se soustraire de la question de recherche et se mettre à distance**. L'objectif est que la théorie "jaillisse" des entretiens et non de la tête du chercheur.
+
+-   **Implication du Chercheur :** *Attention, point clé:* En réalité, la neutralité est un mythe. **Même en recherche quantitative biomédicale, les chercheurs ne sont jamais neutres** et sont toujours impliqués émotionnellement dans leur objet de recherche.
+
+    -   *Exemple :* Un chirurgien évaluant une chirurgie ou un chercheur évaluant un médicament. Les scientifiques en médecine (s'intéressant à l'humain et aux maladies) sont souvent encore plus impliqués que, par exemple, les physiciens.
+
+-   **Réflexologie (ou Réflectologie) :**
+
+    -   Fait partie de la recherche qualitative rigoureuse.
+
+    -   C'est le chapitre où le chercheur "se demande ce qu\['il est\] par rapport à \[son\] objet d'étude".
+
+    -   Il s'agit de reconnaître les biais potentiels qui peuvent influencer l'interprétation des résultats. Par exemple, une doctorante enceinte travaillant sur l'adoption internationale doit réfléchir à l'influence de son état sur son travail.
+
+### La Question de Recherche et le Corpus
+
+-   **Question Ouverte :** La question de recherche doit être fondamentalement **ouverte**. L'objectif est de comprendre une situation ou une expérience (ex : "Quel est le vécu subjectif des gens qui sont seuls, qui ont 25 ans et qui sont confinés ?").
+-   **Corpus :** L'ensemble des données recueillies, souvent du texte (entretiens), mais aussi des vidéos ou des photos.
+-   **Entretiens :** Souvent longs (autour d'une heure) et très ouverts. Ils sont dits **semi-structurés** car certaines thématiques doivent être abordées. Le soignant doit parler peu et laisser le sujet parler beaucoup, tout en le ramenant au questionnement principal s'il s'égare.
+-   **Photo-Élicitation :** Technique alternative (ou complémentaire) où l'on montre des photos aux patients (ou on leur demande d'en prendre) pour les faire parler et "éliciter" une description de leur vécu subjectif.
+
+### L'Échantillonnage et le Codage
+
+-   **Purposive Sampling (Échantillonnage ciblé) :**
+
+    -   Contrairement au quantitatif, où l'on cherche l'aléatoire (le tirage au sort, bien que ce soit rarement le cas en pratique), le qualitativiste choisit des personnes avec un **maximum d'hétérogénéité** (hommes, femmes, vieux, jeunes, riches, pauvres, etc.) en fonction de la thématique étudiée.
+    -   L'objectif est d'éviter de saturer rapidement en incluant des sujets toujours similaires.
+
+-   **Corpus** : données recueillis *in extenso* (tout l'entretien, pas seulement des extraits) avec enregistrements et retranscription intégrale
+
+-   **Codage :**
+
+    -   L'étape de transformation du corpus. Le chercheur remplace une phrase par un mot ou une expression plus courte (**micro-codage**), puis remplace ces mots par des mots plus généraux.
+        -   L'objectif final est de réduire la complexité du corpus pour arriver à un nombre limité de **méga-catégories** (ou thèmes).
+        -   Outils : Des logiciels comme **NVivo, Atlas.ti** aident au codage, à l'enregistrement des codes, et à la récupération des phrases clés associées à un thème.
+
+#### Validation des Résultats
+
+-   **Triangulation :**
+    -   C'est le fait d'utiliser plusieurs juges ou **codeurs** pour effectuer le codage. Cela permet de discuter et de se mettre d'accord sur les différences de catégorisation.
+    -   C'est l'équivalent qualitatif d'un accord inter-juge.
+-   **Saturation :**
+    -   C'est le **critère d'arrêt de l'étude**.
+    -   Contrairement au quantitatif où le nombre de sujets est défini à l'avance, en quali, on arrête d'inclure des sujets quand l'analyse ne produit **plus de nouveaux codes**.
+    -   Les nouveaux patients ne font que confirmer les thèmes déjà établis.
+
+------------------------------------------------------------------------
+
+# Le Clivage Quantitatif/Qualitatif et les Méthodes Mixtes
+
+## Opposition Historique et Philosophique
+
+L'opposition entre les mots (Quali) et les nombres (Quanti) est très ancienne :
+
+-   **Mythos vs. Logos :** Chez les philosophes grecs, l'opposition existait déjà entre le **mythe** (récit pour comprendre ce que la logique n'explique pas) et le **logos** (raison, logique, géométrie, qui structure le quantitatif).
+
+-   **Esprit de Finesse vs. Esprit de Géométrie (Pascal) :**
+
+    -   **Esprit de Géométrie :** Conceptualiser, définir clairement, organiser les concepts pour obtenir des conclusions rigoureuses et partageables (Quantitatif).
+
+    -   **Esprit de Finesse :** Compréhension rapide, intuitive (comme le poète qui condense une vérité profonde en quelques mots).
+
+-   **Systèmes de Traitement de l'Information (Kahneman) :** Deux processus de prise de décision chez l'humain : lent et argumenté (Géométrie/Rationnel) contre rapide et intuitif (Finesse/Intuitif).
+
+### Le Conflit Académique et ses Enjeux
+
+Cette opposition se traduit par un **clivage** dans l'université (sciences dures vs. sciences molles).
+
+-   **Guerre Quanti/Quali :** Les quantitativistes peuvent percevoir les qualitativistes comme peu rigoureux ("charlots"), tandis que les qualitativistes peuvent voir les quantitativistes comme des "robots" manipulant des nombres sans comprendre l'intimité humaine.
+-   **Valorisation :**
+    -   Historiquement, la médecine a vu une évolution des profils littéraires (latin, grec) vers une forte pression sociale vers le quantitatif (mathématiques), accentuée par la digitalisation du monde.
+    -   Les grandes revues médicales restent frileuses envers le Quali, bien que les revues de spécialité publient de plus en plus d'articles qualitatifs et mixtes.
+
+## La Différence Méthodologique Fondamentale
+
+Les différences listées par des sociologues (comme Becker) entre quali et quanti (données ouvertes vs. fermées, étude du point de vue subjectif, étude en vraie vie, critères de validité différents) ne sont pas si claires ou tranchées, surtout avec l'avènement des nouvelles technologies (comme le Traitement Automatique du Langage/TAL).
+
+**Point clé : La différence intrinsèque actuelle réside dans le codeur humain**.
+
+-   **Théorie de l'Esprit :**
+    -   Lors du codage qualitatif, le codeur **rajoute énormément d'informations** à l'information brute du corpus.
+    -   Il se demande ce que le sujet a voulu dire, utilisant sa **théorie de l'esprit** (sa connaissance de ce qu'est un être humain et ce qu'il est susceptible de penser) pour simplifier et synthétiser la réponse.
+-   **Conséquence :** C'est cette "magie" du codeur humain qui permet d'obtenir des résultats profonds et généralisables avec un petit nombre de sujets (ex: 20 sujets).
+-   **L'Avenir et l'IA :**
+    -   Un logiciel de statistiques n'a pas (encore) une théorie de l'esprit.
+    -   Cependant, avec les outils de *deep learning* et l'analyse des requêtes (comme Google), on peut imaginer que l'Intelligence Artificielle pourrait acquérir une théorie de l'esprit, ce qui pourrait amenuiser cette différence méthodologique dans les prochaines années.
+
+## Stratégies des Méthodes Mixtes
+
+L'utilisation conjointe des méthodes qualitatives et quantitatives est appelée **méthodes mixtes** .
+
+Le mélange apporte une plus-value car le quantitatif offre une vision macroscopique et populationnelle, tandis que le qualitatif explore la réalité clinique en détail.
+
+Il existe plusieurs façons de les combiner :
+
+1.  **Qualitatif avant Quantitatif (Quali** $\to$ Quanti) :
+    -   *Objectif :* Le quali est exploratoire et aide à construire le quanti.
+    -   *Exemple :* Faire une étude qualitative pour comprendre les problèmes des patients atteints d'une maladie orpheline afin de créer ensuite un **critère d'efficacité** rigoureux pour un essai clinique quantitatif.
+2.  **Quantitatif avant Qualitatif (Quanti** $\to$ Quali) :
+    -   *Objectif :* Le quali est explicatif.
+    -   *Exemple :* Une étude quantitative montre un résultat surprenant (ex : les femmes héroïnomanes prennent moins de mesures de minimisation des risques que les hommes). Une étude qualitative subséquente (interviews des femmes) révèle que cela est dû au fait qu'elles sont en couple avec leur dealer, ce qui affecte leur partage de seringues.
+    -   *Avantage pour l'échantillonnage :* Les données quantitatives massives (âge, sexe, sévérité) permettent de réaliser un *purposive sampling* optimal pour le quali en assurant l'hétérogénéité maximale de l'échantillon qualitatif.
+3.  **Qualitatif et Quantitatif en Parallèle (Quali + Quanti) :**
+    -   *Objectif :* Triangulation.
+    -   *Exemple 1 :* Mener un essai randomisé (quanti) pour l'efficacité d'un anticancéreux, et en parallèle, une étude qualitative pour comprendre comment les patients tolèrent et vivent le médicament.
+    -   *Exemple 2 :* Appliquer une analyse de contenu qualitative (faite par des humains) et un **Traitement Automatique du Langage (TAL)** (statistique/quantitatif) au même corpus textuel. Les résultats du TAL sont souvent plus pauvres ou superficiels, mais la comparaison aide à trianguler et valider les thèmes, ou à comprendre les limites de l'outil textuel.
+
+## Vers une Typologie Épistémologique Élargie
+
+L'opposition simple quali/quanti n'est pas suffisante pour décrire tous les domaines scientifiques.
+
+Par exemple, la biologie moléculaire (qui utilise des mots/concepts et des "équations" comme "l'ARN vient de l'ADN") est considérée comme une science dure mais ne s'appuie pas sur des statistiques.
+
+Une typologie 3x3 permet de dépasser ce clivage en utilisant deux dimensions : la nature de l'objet d'étude et la méthode de relation.
+
+**Typologie de la Recherche Scientifique**:
+
+| Nature de l'Objet $\downarrow$ / Méthode de Relation $\rightarrow$ | Équations | Statistiques | Herméneutique |
+|:-----------------|:-----------------|:-----------------|:-----------------|
+| **Globalement Quantitatif** (Que des nombres) | **Physique** (Lois universelles) | Thermodynamique statistique | Théorie des catastrophes (René Thom) |
+| **Localement Quantitatif** (Mesures locales) | Pharmacocinétique (Demi-vie d'un médicament) | **Recherche Clinique & Épidémiologie** | Études N-of-1 (Représentation graphique sans tests stat.) |
+| **Globalement Qualitatif** (Que des mots) | **Biologie Moléculaire** (Équations avec des mots) | Traitement Automatique du Langage (TAL) | **Recherche Qualitative pure** |
+
+Cette grille montre qu'il existe d'autres manières de conceptualiser la recherche, où le Quantitatif et le Qualitatif ne sont que des aspects des méthodologies utilisées.
+
+L'épidémiologie utilise par exemple des statistiques sur des mesures locales (localement quantitatif), tandis que la recherche qualitative utilise une interprétation humaine (**herméneutique**) sur un corpus globalement qualitatif.
+
+**Analogie pour le concept de Triangulation/Méthodes Mixtes :**
+
+Considérez la recherche sur un sujet complexe, comme une personne face à une maladie.
+
+-   La **méthode quantitative** est comme une **photographie satellite** de la personne et de sa population : elle donne la taille, la fréquence des symptômes, la corrélation avec d'autres facteurs (statistiques) ou même des lois universelles (équations). C'est précis mais macroscopique.
+-   La **méthode qualitative** est comme le **journal intime** de la personne, décrypté et interprété par un psychologue (le codeur humain) : elle révèle la signification profonde, le vécu subjectif et les bifurcations existentielles (herméneutique). C'est fin et détaillé, mais local.
+
+La **méthode mixte** est l'association des deux : le scientifique dispose de la carte satellite (Quanti) pour bien cibler les zones importantes et des pages de journal (Quali) pour comprendre pourquoi les choses se passent ainsi sur le terrain, offrant une connaissance beaucoup plus complète que l'une ou l'autre méthode seule.
+
+# Vers une typologie plus riche : la matrice 3×3 de Falissard et al. (2013)
+
+1.  Dimension 1 : comment les objets sont représentés ?
+
+-   Littérairement : la réalité est décrite uniquement par des mots (psychanalyse classique, récits de cas, ethnographie).
+
+-   Mathématisation locale : Seules certaines facettes sont quantifiées (échelles de dépression, tests cognitifs, IRM fonctionnelle). Cas typique de la recherche clinique et épidémiologique.
+
+-   Mathématisation globale : La réalité est entièrement représentée par des structures mathématiques (physique classique, modèles formels complets).
+
+-   Dans le champ de la psychiatrie, seul un modèle marginal (spin glass) se rapproche de cette case.
+
+2.  Dimension 2 : comment les relations entre objets sont établies ?
+
+-   Herméneutique : Interprétation, induction, compréhension, exégèse. Typique de la psychanalyse ou de l’analyse de récits.
+
+-   Statistiques : Relations établies “en moyenne”, pas universelles. Typique de l’épidémiologie et des essais cliniques.
+
+-   Équations : Relations déterministes, formelles, universelles. Exemple : loi de la gravitation.
+
+3.  La matrice 3×3 (reproduction structurée)
+
+| **Objet / Relations** | **A. Herméneutique** | **B. Statistiques** | **C. Équations** |
+|----|----|----|----|
+| **1. Littéraire** | Psychanalyse, ethnopsychiatrie, récits cliniques | Text mining, analyses linguistiques automatisées | Mécanismes neurobiologiques formulés en langage structuré (ex : “fluoxétine = ISRS”) |
+| **2. Mathématisation locale** | Designs AB/ABAB interprétés visuellement | Épidémiologie, IRM, neurosciences cognitives, essais cliniques | Pharmacocinétique (demi-vie), formalisme lacanien |
+| **3. Mathématisation globale** | Modèles spin glass interprétés | Aucun exemple psychiatrique | Physique (mécanique classique, relativité) |
+
+⸻
+
+# Les méthodes mixtes : fondements, usages, typologies
+
+## Pourquoi mélanger les approches ?
+
+-   Le qualitatif permet :
+
+    -   de comprendre,
+
+    -   d’explorer,
+
+    -   d’expliquer les mécanismes,
+
+    -   d’accéder à l’expérience subjective.
+
+-   Le quantitatif permet :
+
+    -   de mesurer,
+
+    -   de tester,
+
+    -   de généraliser.
+
+Les méthodes mixtes utilisent les forces de chaque approche pour construire une validation croisée plus robuste.
+
+## Trois stratégies classiques de méthodes mixtes
+
+### Quali → Quanti (exploratoire)
+
+Le qualitatif sert à :
+
+-   définir les concepts,
+
+-   comprendre les mécanismes,
+
+-   identifier les dimensions pertinentes,
+
+-   préparer les questionnaires,
+
+-   construire les critères de jugement pour un essai.
+
+Exemple : comprendre le vécu des patients atteints d’une maladie orpheline pour élaborer un critère d’efficacité.
+
+### Quanti → Quali (explicatif)
+
+Le qualitatif sert à expliquer un résultat inattendu du quantitatif.
+
+Exemple célèbre cité dans l’article : Des femmes héroïnomanes prennent moins de mesures de réduction des risques que les hommes ; les entretiens révèlent que cela est lié à la relation asymétrique avec leur dealer.
+
+Le quantitatif aide aussi à sélectionner un échantillon qualitatif maximalement hétérogène.
+
+### Quanti + Quali en parallèle (triangulation)
+
+Deux corpus indépendants, deux analyses complémentaires.
+
+Peut inclure : 
+
+-   essai clinique + entretiens patients, 
+
+-   TAL (analyse automatique) + analyse humaine.
+
+### Pourquoi cela fonctionne-t-il scientifiquement ?
+
+Parce que l’analyse qualitative utilise la théorie de l’esprit du codage humain : le codeur ajoute énormément d’information implicite tirée de sa connaissance du monde, de la psychologie humaine, des interactions sociales.
+
+
+Cette capacité dépasse encore largement celle des systèmes automatiques contemporains.
+
+
+
+# Applications en psychiatrie, médecine et neurosciences
+
+L’article fournit de nombreux exemples concrets : 
+
+-   Psychanalyse : littéraire × herméneutique. 
+
+-   Texte automatique : littéraire × statistiques. 
+
+-   Neurobiologie : littéraire × équations (langage structuré quasi formel). 
+
+-   Épidémiologie : localement mathématique × statistiques. 
+
+-   Pharmacocinétique : localement mathématique × équations. 
+
+-   Modèles spin glass : globalement mathématique × herméneutique.
+
+La matrice démontre que la psychiatrie mobilise pratiquement toutes les cases, ce qui rend illusoire l’idée d’une domination exclusive du quantitatif.
+
+⸻
+
+#  Enjeux philosophiques, épistémologiques et politiques
+
+Le débat quali/quanti n’est pas seulement méthodologique : il est également idéologique et institutionnel.
+
+Falissard et al. rappellent : 
+
+-   certaines politiques publiques ont exigé “l’evidence-based” au détriment du qualitatif ; 
+
+-   certaines positions inverses rejettent les approches quantitatives en psychothérapie ; 
+
+-   la recherche clinique pourrait se couper du vécu des patients si elle se focalise trop sur les scores et les images cérébrales ; 
+
+-   la clinique souffre lorsqu’elle se coupe trop des résultats d’essais contrôlés.
+
+L’enjeu des méthodes mixtes est précisément de réconcilier ces pôles.
+
+
+
+#  Conclusion générale : pourquoi dépasser le clivage quali/quanti ? 
+
+-   Le clivage historique est trop pauvre. 
+
+-   La réalité contemporaine de la recherche mobilise des approches multiples. 
+
+-   La typologie 3×3 permet de comprendre cette diversité. 
+
+-   Les méthodes mixtes tirent parti de cette richesse. 
+
+-   Elles améliorent à la fois la compréhension et la généralisation. • Elles reconnectent recherche, clinique et compréhension du vécu.
+
+Les méthodes mixtes ne sont donc pas un compromis, mais une architecture épistémologique complète, s’appuyant sur les apports uniques des mots, des nombres, de la théorie de l’esprit humaine et des modèles formels.
+    
+Elles constituent aujourd’hui un cadre méthodologique central pour la recherche psychiatrique, médicale et psychosociale, permettant d’articuler compréhension, mesure et action scientifique.
