@@ -224,36 +224,6 @@ model_dental_num <- lmer(distance ~ sex + time_numeric2 + (1 | id), data = denta
 summary(model_dental_num)
 ```
 
-summary(model_dental_num)
-Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-lmerModLmerTest]
-Formula: distance ~ sex + time_numeric2 + (1 | id)
-   Data: dental_long
-
-REML criterion at convergence: 437.5
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--3.7489 -0.5503 -0.0252  0.4534  3.6575 
-
-Random effects:
- Groups   Name        Variance Std.Dev.
- id       (Intercept) 3.267    1.807   
- Residual             2.049    1.432   
-Number of obs: 108, groups:  id, 27
-
-Fixed effects:
-              Estimate Std. Error       df t value Pr(>|t|)    
-(Intercept)   15.38569    0.89598 87.59408  17.172  < 2e-16 ***
-sexBoy         2.32102    0.76142 25.00000   3.048  0.00538 ** 
-time_numeric2  0.66019    0.06161 80.00000  10.716  < 2e-16 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Correlation of Fixed Effects:
-            (Intr) sexBoy
-sexBoy      -0.504       
-time_numrc2 -0.756  0.000
 
 Interprétation :
 

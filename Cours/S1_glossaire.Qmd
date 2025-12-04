@@ -1,0 +1,173 @@
+---
+title: "S1_Glossaire"
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            \usepackage{fontspec} 
+            \setmainfont{Latin Modern}
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+            % --- GESTION DU CODE ---
+            \usepackage{fvextra}
+            % !!! CORRECTION ICI : Force le retour à la ligne pour les blocs de code Quarto !!!
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+            % -----------------------
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(tidyr)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(lmerTest)
+library(lme4)
+library(lattice)
+library(qgraph)
+library(nlme)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+load(url("http://alecri.github.io/downloads/data/dental.RData"))
+```
+
+
+# Loi Multinormale
+
+Une loi multinormale (ou normale multivariée) est une généralisation de la loi normale à plusieurs variables.
+
+Exemple : On mesure deux caractéristiques d’un os : la longueur X et la largeur Y.
+
+Dire que (X, Y) suit une loi multinormale signifie :
+
+-   la distribution de (X,Y) forme une ellipse dans le plan,
+
+-   cette ellipse est définie par une moyenne (centre),
+
+-   et par une matrice variance-covariance (qui décrit la dispersion et les corrélations entre variables).
+
+Autrement dit : Les points (X,Y) se répartissent comme un nuage de points en forme d’ellipse.
+
+Dans le cas de Fisher, on suppose :
+
+-   les hommes produisent un nuage de points elliptique,
+
+-   les femmes aussi,
+
+-   et ces deux ellipses ont la même matrice variance-covariance mais des moyennes différentes.
+
+Cette hypothèse permet une discrimination propre et mathématiquement optimale.
+
+# Matrice de variance-covariance : 
+
+Quand plusieurs variables sont mesurées sur chaque individu (exemple : longueur, largeur, épaisseur d’un os), il existe :
+
+1.	la variance de chaque variable, c’est-à-dire sa dispersion individuelle
+
+2.	la covariance entre deux variables, c’est-à-dire la manière dont elles varient ensemble
+
+La matrice variance-covariance rassemble toutes ces informations dans un tableau carré.
+
+Exemple avec deux variables : longueur X et largeur Y
+
+La matrice est :
+$$
+\Sigma =
+\begin{pmatrix}
+\text{Var}(X) & \text{Cov}(X,Y) \\
+\text{Cov}(Y,X) & \text{Var}(Y)
+\end{pmatrix}
+$$
+
+Où : 
+
+-   $Var(X)$ : dispersion des longueurs
+
+-   $Var(Y)$ : dispersion des largeurs
+
+-   $Cov(X,Y)$ : si les os plus longs sont aussi plus larges, cette valeur est positive ; si l’un augmente quand l’autre diminue, cette valeur est négative ; si aucun lien, elle est proche de zéro.
+
+Dans un nuage de points :
+
+-   les variances déterminent la taille de l’ellipse (verticalement et horizontalement)
+
+-   la covariance détermine l’inclinaison de l’ellipse
+
+Donc la matrice variance-covariance décrit la forme complète du nuage de points.
+
+Dans l’hypothèse de Fisher :
+
+-   les hommes ont un nuage elliptique
+
+-   les femmes ont un nuage elliptique
+
+-   et ces ellipses ont la même forme, c’est-à-dire la même matrice variance-covariance
+
+-   seule leur position (leur moyenne) change
