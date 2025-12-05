@@ -1,0 +1,959 @@
+---
+title: "S1_CUSM_RÉSUMÉ_STATISTIQUE"
+prefer-html: true
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            %\usepackage{fontspec} 
+            %\setmainfont{Latin Modern}
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+            % --- GESTION DU CODE ---
+            \usepackage{fvextra}
+            % !!! CORRECTION ICI : Force le retour à la ligne pour les blocs de code Quarto !!!
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+            % -----------------------
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(pROC)
+library(treemap)
+library(psy)
+library(MASS)
+library(rpart)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(mice)
+library(qgraph)
+library(nlme)
+library(ape)
+library(survival)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+load(url("http://alecri.github.io/downloads/data/dental.RData"))
+```
+
+```{r}
+#| echo: false
+#| include: false
+smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","gravite","recherche.nouv", "evit.danger","dep.recompense")]
+```
+
+# Position et dispersion
+
+## Position
+
+Paramètres de position = valeurs qui résument la tendance centrale d'une distribution.
+
+-   Moyenne
+
+-   Médiane
+
+-   Mode
+
+### Moyenne
+
+Moyenne = somme des valeurs divisée par le nombre de valeurs.\
+
+$$
+\frac{1}{n} \sum_{i=1}^{n} x_i
+$$
+
+Correspond au centre de gravité des points si on les représente sur une droite.
+
+Hypothèses :
+
+-   Les valeurs sont indépendantes
+
+-   Équivalence de la quantité (1 euro vaut 1 euro quelque soit sa position sur la droite des réels) : donc les notes c'est pas top en vrai !!
+
+-   Les valeurs sont continues
+
+### Médiane
+
+Signification plus directe : valeur qui partage la distribution en deux parties égales.
+
+Si la distribution est symétrique, la moyenne et la médiane sont égales.
+
+### Mode
+
+Mode = valeur la plus fréquente.
+
+## Dispersion
+
+Mesures de dispersion = valeurs qui résument la variabilité d'une distribution.
+
+-   Étendue = empan
+
+### Étendue = empan
+
+Correspond à la différence entre la valeur maximale et la valeur minimale.
+
+### Écart interquartile (IQR)
+
+= Q3 - Q1
+
+### Écart-type
+
+écart type = écart "le plus typique" par rapport à la moyenne.
+
+Si $m$ est la moyenne des observations $x_i$, l'écart type $s$ est défini par la racine carrée de la variance :
+
+$$
+s = \sqrt{[(x_1 - m^2) + \dots + (x_n - m)^2]/(n-1)}
+$$
+
+La variance correspond à la moyenne des carrés des écarts par rapport à la moyenne.
+
+Donc en gros : écart type = racine carrée des carrés des écarts par rapport à la moyenne.
+
+Pourquoi ajouter des carrés ?
+
+-   Positive les écarts négatifs
+
+-   Accentue les écarts importants
+
+-   Et pour une super propriété de l'écart-type :
+
+    -   La variance de deux variables indépendantes est égale à la somme de leurs variances.
+
+Comment l'interpréter ?
+
+-   Dans le cas d'une distribution normale,
+
+    -   environ 2/3 des observations se situent à moins d'un écart-type de la moyenne.
+
+    -   environ la moitié des observations se situent à $[m - (2/3)s ; m + (2/3)s]$
+
+### Variance
+
+Variance = écart type au carré
+
+ou moyenne des carrés des valeurs moins le carré de la moyenne.
+
+## Exemple sur R
+
+Utilisation du jeu de données `smp.d` (version réduite de `smp`) et de la fonction `summary()`
+
+```{r}
+summary(smp.d)
+```
+
+Deux inconvénients à la fonction `summary()`:
+
+-   Ne donne pas l'écart-type
+
+-   La disposition des résultats n'est pas très claire.
+
+On peut utiliser la fonction `describe()` du package `prettyR` pour un résumé plus complet.
+
+```{r}
+describe(smp.d)
+```
+
+# Analyses en sous groupe
+
+## Principe
+
+Dans un essai thérapeutique, il faut décrire es caractéristiques des patients inclus dans chaque groupe de traitement.
+
+Il faut donc les décrire en fonction de différentes modalités (groupes de traitement, sexe, âge, etc.)
+
+## Dans R
+
+On peut aussi utiliser la fonction `table()` pour faire des tableaux de contingence.
+
+```{r}
+table(
+    smp.d$profession, 
+    smp.d$depression,
+    deparse.level=2, # deparse.level fait apparaître les noms des variables dans le tableau
+    useNA="ifany")
+```
+
+Si on voulait les pourcentages plutôt :
+
+La fonction `prop.table()` permet de calculer des pourcentages à partir d'un tableau de contingence.
+
+L'option `margin` permet de choisir si on veut les pourcentages par ligne (margin=1) ou par colonne (margin=2).
+
+```{r}
+options(digits=3) # pour afficher 3 décimales
+prop.table(
+    table(
+        smp.d$profession, 
+        smp.d$depression,
+        deparse.level=2, # deparse.level fait apparaître les noms des variables dans le tableau
+        useNA="ifany"),
+    margin=1) # margin=1 pourcentage par ligne ; margin=2 pourcentage par colonne
+```
+
+Mais encore une fois, je trouve personnellement que le top est d'utiliser `tbl_summary` du package `gtsummary`.
+
+Il va falloir me convaincre de ne pas utiliser ce banger absolu : je ne vois pas pourquoi.
+
+A la limite, pourquoi pas `tableone` aussi.
+
+avec `tableone` : (fait des tests t pour les variables continues et Chi2 / Fisher pour les catégorielles par défaut)
+
+```{r}
+library(tableone)
+vars <- c("age","profession","nb.enfants", "gravite","recherche.nouv", "evit.danger","dep.recompense")
+catVars <- c("profession","gravite","recherche.nouv", "evit.danger","dep.recompense")
+table1 <- CreateTableOne(vars = vars, data = smp.d, factorVars = catVars, strata = "depression")
+print(table1, showAllLevels = TRUE, formatOptions = list(digits = 2))
+```
+
+avec `gtsummary` : 
+
+-   (attention il a tendance à faire des tests de Wilcoxon par défaut pour les variables continues, il faut lui dire de faire des t-tests si on veut ça)
+
+-   Pour les variables catégorielles, il fait par défaut des tests du Chi2 (ou Fisher si effectifs petits) donc autant ne pas lui donner d'instructions
+
+```{r}
+#| echo: true
+#| results: "hide"
+#| warning: false
+# utiliser smp.d.bis avec la variable depression en facteur recodé en "Dépressif" / "Non dépressif"
+smp.d.bis <- smp.d
+smp.d.bis$depression <- factor(smp.d.bis$depression, levels=c(0,1), labels=c("Non dépressif","Dépressif"))
+
+tableau <- smp.d.bis %>%
+    tbl_summary(
+        by = depression,
+        statistic = list(
+            all_continuous() ~ "{mean} ({sd})",
+            # all_continuous() ~ "{median} [{p25}, {p75}]",
+            all_categorical() ~ "{n} / {N} ({p}%)"
+            ),
+        digits = all_continuous() ~ 2,
+        missing = "no"
+        ) %>%
+        modify_header(label = "**Caractéristiques**") %>%
+        bold_labels() %>%
+        add_overall() %>%
+        add_p(
+            # test = list( (rajouter si tests spécifiques pr les 2)
+            all_continuous()  ~ "t.test" # ou "wilcox.test" pour test non paramétrique 
+            # all_categorical() ~ "chisq.test" # ou "fisher.test" si effectifs petits
+            )
+# ajouter les p-values pour les comparaisons entre groupes
+```
+
+Juste un peu chiant pour avoir un bel affichage en pdf mais franchement...
+
+```{r}
+#| label: afficher_tableau1_latex
+#| echo: true
+#| results: "asis"
+tableau %>%
+    # Conversion en objet kable (LaTeX standard)
+    as_kable_extra(booktabs = TRUE, longtable = TRUE) %>%
+    kableExtra::column_spec(1, width = "6cm") %>%
+    # (Optionnel) Ajuste la taille de la police si le tableau est encore trop large
+    kableExtra::kable_styling(latex_options = c("repeat_header"), font_size = 9)
+```
+
+# Dépendance, liaison et association
+
+Deux variables sont dépendantes si une valeur donne une information sur l'autre.
+
+Par exemple, le poids et la taille sont dépendantes : connaître la taille d'une personne permet d'avoir une idée de son poids.
+
+## Variables quantitatives
+
+3 types de liaisons entre variables quantitatives :
+
+-   Dépendance : connaître X permet de mieux estimer Y (par exemple tabac et maladie respiratoire, taille et poids, etc.)
+
+-   Dépendance monotone : X et Y varient dans le même sens (par exemple âge et pression artérielle)
+
+    -   Dépendance linéaire : relation linéaire entre X et Y (par exemple taille et poids chez les adultes)
+
+    -   Corrélation 
+
+    -   Variance partagée = proportion de la variance de Y expliquée par X dans une relation linéaire entre les deux variables
+
+-   Concordance : si X est plus grand pour un individu que pour un autre, alors Y est aussi plus grand pour le premier individu (par exemple taille et poids)
+
+    -   pour une variable quantitative : coefficient de corrélation intraclasse (ICC)
+
+### Dépendance
+
+Il n'existe pas de paramètre estimant parfaitement la dépendance ou l'indépendance entre deux variables quantitatives.
+
+L'idéal serait d'avoir un paramètre $\delta(X,Y)$ valant 0 quand X et Y sont indépendantes et 1 quand elles sont parfaitement dépendantes.
+
+### Dépendance monotone ou linéaire
+
+Le coefficient de corrélation de Pearson $r$ mesure la dépendance linéaire entre deux variables quantitatives X et Y.
+
+Il est désigné par les lettres $r$ ou $\rho$ (rho), en référence à Karl Pearson qui l'a introduit en 1895.
+
+Il varie entre -1 (les deux variables $X$ et $Y$ sont parfaitement linéairement dépendantes de façon négative) et +1 (les deux variables $X$ et $Y$ sont parfaitement linéairement dépendantes de façon positive).
+
+Corrélaton nulle ($r=0$) signifie que les deux variables sont linéairement indépendantes.
+
+NB : le coefficient ne matérialise pas la **force** de la dépendance, mais seulement son **type** !
+
+Pour matérialiser la force de la relation, on utilise le **coefficient de détermination** $r^2$.
+
+Le paramètre $r^2$ représente approximativement la **proportion de la variance de** $Y$ expliquée par la variance de $X$ dans une relation linéaire entre les deux variables.
+
+C'est à dire :
+
+-   $X$ est le nombre d'heures de révision
+
+-   $Y$ est la note obtenue à un examen
+
+On trouve un coefficent de corrélation $r=0.8$ entre $X$ et $Y$, alors $r^2=0.64$ soit 64%.
+
+Donc : 64% de la variabilité (de la variance) des notes $Y$ s'expliquer par le le modèle linéaire basé sur le nombre d'heures de révision $X$.
+
+Ce n'est pas la même chose que "$r^2$% des notes s'expliquent par le nombre d'heures de révision".
+
+::: callout-important
+**Coefficient de corrélation** $r$ :
+
+-   mesure la **direction** de la relation linéaire entre deux variables quantitatives.
+
+-   varie entre -1 et +1 (avec 0 = pas de relation linéaire).
+
+-   en pratique : mesure un peu la force quand même... mais il n'y a pas vraiment d'unité pour l'exprimer 
+
+------------------------------------------------------------------------
+
+**Coefficient de détermination** $r^2$ :\*
+
+-   mesure la **force** de la relation linéaire entre deux variables quantitatives avec une unité (en % de variance expliquée)
+
+-   varie entre 0 et 1 (avec 0 = pas de relation linéaire).
+
+-   représente la proportion de la variance de $Y$ expliquée par la variance de $X$ (et non pas le pourcentage de valeurs de $Y$ expliquées par $X$).
+:::
+
+#### Exemple sur R
+
+##### SMP
+
+Représentation graphique de la relation entre l'âge et le nombre d'enfants dans le jeu de données `smp`.
+
+```{r}
+plot(smp$age, smp$nb.enfants,
+        xlab="Âge",
+        ylab="Nombre d'enfants",
+        main="Relation entre l'âge et le nombre d'enfants",
+        pch=19) # pch = sert à choisir le type de point
+```
+
+Calcul du coefficient de corrélation de Pearson entre l'âge et le nombre d'enfants.
+
+```{r}
+cor(
+    smp$age, 
+    smp$nb.enfants, 
+    use="complete.obs") # ignore les valeurs manquantes
+```
+
+Le coefficient de corrélation est de 0.498, ce qui indique une dépendance linéaire positive entre l'âge et le nombre d'enfants.
+
+##### Données simulées
+
+```{r}
+set.seed(20230430)
+x <- rnorm(100000) # génère 100000 valeurs aléatoires suivant une loi normale
+y <- rnorm(100000)
+z <- rnorm(100000)
+X1 <- c(x,y) # concatène les deux vecteurs x et y
+X2 <- c(x,z)
+```
+
+Représentation graphique de la relation entre X1 et X2.
+
+```{r}
+plot(X1, X2,
+        xlab="X1",
+        ylab="X2",
+        main="Relation entre X1 et X2",
+        pch=19) 
+```
+
+Coorélation entre X1 et X2.
+
+```{r}
+round(cor(X1, X2),3)
+```
+
+Variance de X1 :
+
+```{r}
+round(var(X1),3)
+```
+
+logique ce soit = 1 car X1 est la concaténation de deux variables indépendantes de variance 1 (car générées par `rnorm` donc suivent une loi normale standard).
+
+Pour calculer la variance partagée entre X1 et X2, on utilise la formule de la variance de la somme de deux variables aléatoires indépendantes :
+
+$$
+Var(X1 + X2) = Var(X1) + Var(X2) + 2Cov(X1, X2)
+$$
+
+Sur R :
+
+```{r}
+# corrélation de Pearson mise au carrée donne la part de variance partagée
+rho2  <- (cor(X1, X2)^2)
+rho2
+```
+
+Une autre manière d'obtenir ça :
+
+1.  Construire un modèle linéaire de $Y$ en fonction de $X$
+
+2.  Extraire la part de variance résiduelle (non expliquée par $X$) du modèle
+
+3.  Variance expliquée par $X$ = **1 - variance résiduelle**
+
+(mais `summary(lm())` donne directement le R² dans la partie "Multiple R-squared")
+
+```{r}
+res <- lm(X1 ~ X2)
+# summary donne l'info dans "Multiple R-squared"
+summary(res)
+# variance résiduelle
+round(var(residuals(res)),3) 
+# variance expliquée par X2
+1 - round(var(residuals(res)),3) 
+```
+
+::: callout-important
+**NB : la variance partagée n'est pas la même chose que la covariance !!**
+
+Covariance = mesure comment deux variables varient ensemble, positive si les deux variables augmentent ensemble, négative si l'une augmente quand l'autre diminue.
+
+------------------------------------------------------------------------
+
+| Paramètre                    | Symbole        | Interprétation                                                                 | Formule / calcul R                   |
+|-----------------------------|----------------|----------------------------------------------------------------------------------|--------------------------------------|
+| Coefficient de corrélation  | $r$ ou $\rho$  | Direction et force de la relation linéaire entre deux variables quantitatives   | `cor(X, Y)`                           |
+| Variance partagée           | $r^2$          | Proportion de la variance de $Y$ expliquée par $X$ (force de la relation linéaire) | `rho2 <- cor(X, Y)^2`     |
+| Covariance                  | $\mathrm{Cov}(X,Y)$ | Mesure comment deux variables varient ensemble (positive : ensemble, négative : sens inverse) | `cov(X, Y)`                           |
+
+:::
+
+##### Matrice de corrélation
+
+Pour calculer la matrice de corrélation entre plusieurs variables quantitatives, on peut utiliser la fonction `cor()` en lui passant un data frame ou une matrice.
+
+```{r}
+quanti <- c("age","nb.enfants","depression","schizophrenie", "gravite","recherche.nouv","evit.danger","dep.recompense")
+round(cor(smp.d[,quanti],use="pairwise.complete.obs"),digits=3)
+```
+
+On peut représenter ça graphiquement avec la fonction `corrplot()` du package `corrplot`.
+
+```{r}
+library(corrplot)
+corrplot(
+    round(cor(smp.d[,quanti],use="pairwise.complete.obs"),digits=3),
+    method="circle",
+    addCoef.col = "red",
+    type="upper",
+    tl.col="black",
+    tl.srt=45)
+```
+
+Une matrice de corrélation est symétrique (mêmes valeurs de part et d'autre de la diagonale), car la corrélation entre $X$ et $Y$ est la même que celle entre $Y$ et $X$.
+
+::: callout-note
+**A quoi ça peut servir dans une étude rétropective ?**
+
+Dans une étude qui compare 2 techniques chirurgicales (A vs B), la matrice de corrélation sert surtout à explorer et comprendre les relations entre les nombreuses variables mesurées autour de l’intervention.
+
+-   Explorer les facteurs pré-opératoires entre eux (âge corrélé au score ASA, etc.)
+
+-   Repérer la colinéarité entre co-variables avant une régression ajustée
+
+-   Relier facteurs pré-op et outcomes post-op (âge, IMC, ASA vs durée d’hospitalisation, perte sanguine, etc.)
+
+    -   Notamment selon le type de chirurgie (groupe A vs groupe B) : est ce que les plus vieux ont plus de perte sanguine avec la technique A que B ?
+:::
+
+### Concordance
+
+#### Principle
+
+Par exemple, "concordance" entre deux échographies identiques fait par deux médecins différents.
+
+**Variables quantitiatives : concordance mesurée par le coefficient de corrélation intraclasse (ICC).**
+
+-   ICC varie entre 0 (pas de concordance) et 1 (concordance parfaite).
+
+-   Dans l'exemple du score échographique, le coefficient de corrélation intraclasse = 
+
+$$
+\frac{\text{variance inter-patients}}{\text{variance inter-patients} + \text{variance inter-radiologues} + \text{variance résiduelle}}
+$$
+
+Donc en gros : ICC = "**vrai signal**" / ("**vrai signal**" + "**bruit**")
+
+Vaut 1 quand il n'y a aucun bruit (variance inter-radiologues et résiduelle = 0).
+
+Vaut 0 quand il n'y a que de bruit, donc les mesures sont totalement indépendantes entre elles.
+
+#### Exemple sur R
+
+Dans l'étude `smp`, 2 cliniciens sont présentés lors des entretiens : un junior et un senior. 
+
+A la fin de chaque entretien, ils remplissaient plusieurs questionnaires, dont un comportait l'échelle *CGI = Clinical Global Impression* (échelle de 1 à 7, 1 = pas malade, 7 = très malade). 
+
+Il est possible de quantifier le niveau de concordance entre les notes CGI données par le junior et le senior à l'aide du coefficient de corrélation intraclasse (ICC).
+
+Dans ce cas : il s'agit d'un ICC de type "2-way random effects, absolute agreement, single rater/measurement" (notation ICC(2,1) de Shrout & Fleiss, 1979).
+
+-   2-way random effects : les deux évaluateurs (junior et senior) sont considérés comme des échantillons aléatoires d'une population plus large d'évaluateurs possibles.
+
+-   Absolute agreement : on s'intéresse à l'accord absolu entre les évaluateurs, pas seulement à la corrélation.
+
+-   Single rater/measurement : on considère les notes individuelles de chaque évaluateur, pas une moyenne.
+
+C'est le type d'ICC le plus couramment utilisé en pratique clinique.
+
+```{r}
+psy::icc(
+    smp.aij[,c("gravite.jun","gravite.sen")]
+)
+```
+
+-   `$subject.variance` : variance sujets = variance signal
+
+-   `$rater.variance` : variance évaluateurs = variance bruit due aux différences entre évaluateurs
+
+-   `$residual` : variance résiduelle = variance bruit due aux autres sources d'erreur
+
+-   `$icc.agreement` : coefficient de corrélation intraclasse ICC vaut 0,9
+
+Mais la librarie `irr` propose aussi une fonction `icc()` pour calculer le coefficient de corrélation intraclasse, il faut juste la paramétrer un peu plus mais l'output est plus clair.
+
+```{r}
+library(irr)
+irr::icc(
+    smp.aij[,c("gravite.jun","gravite.sen")],
+    model="twoway", # sinon oneway si un seul évaluateur par sujet
+    type="agreement", # sinon consistency = uniformité des réponses
+    unit="single" # single ou average
+)
+```
+
+\newpage
+
+### Résumé des paramètres de dépendance entre deux variables quantitatives
+
+Résumé des principaux paramètres de dépendance entre deux variables quantitatives :
+
+-   Dépendance
+
+-   Dépendance monotone ou linéaire
+
+    -   Coefficient de corrélation de Pearson
+
+    -   Coefficient de détermination = variance partagée (≠ covariance)
+
+-   Concordance = coefficient de corrélation intraclasse (ICC)
+
+------------------------------------------------------------------------
+
+| Paramètre                    | Symbole        | Interprétation                                                                 | Formule / calcul R                   |
+|-----------------------------|----------------|----------------------------------------------------------------------------------|--------------------------------------|
+| Coefficient de corrélation  | $r$ ou $\rho$  | Direction et force de la relation linéaire entre deux variables quantitatives   | `cor(X, Y)`                           |
+| Variance partagée           | $r^2$          | Proportion de la variance de $Y$ expliquée par $X$ (force de la relation linéaire) | `rho2 <- cor(X, Y)^2`     |
+| Covariance                  | $\mathrm{Cov}(X,Y)$ | Mesure comment deux variables varient ensemble (positive : ensemble, négative : sens inverse) | `cov(X, Y)`                           |
+| Coefficient de corrélation intraclasse | ICC | Mesure la concordance entre plusieurs mesures quantitatives | `psy::icc(dataframe)` ou `irr::icc(dataframe, model=..., type=..., unit=...)` |
+
+\newpage
+
+## Variables catégorielles
+
+### Dépendance
+
+#### Chi2 et associés
+
+-   Existe-t-il une relation entre les deux variables catégorielles ?
+
+-   Si oui, quelle est la force de cette relation ?
+
+Pour ces questions : on utilise
+
+-   **Le test du Chi2 d'indépendance** sert à évaluer l'existence d'une relation entre deux variables catégorielles.
+
+Et des transformations normalisées du Chi2 pour évaluer la force de cette relation :
+
+*(pour normaliser le Chi2 : racine carré de chi2/nombre d'observations)*
+
+-   **Le V de Cramer** pour la force de l'association entre deux variables catégorielles **non ordonnées** (type de chirurgie) (= on pourrait utiliser le coefficient de Pearson pour des variables binaires). 
+
+    -   Varie entre 0 (pas d'association) et 1 (association parfaite)
+
+-   Le coefficient de Pearson : plutôt pour variables quantitatives, mais utilisable pour des variables binaires (0/1)
+
+    -   Varie entre -1 et +1
+
+-   **Le coefficient de Spearman** : pour variables **ordinales** ou quantitatives non linéaires (rangées)
+
+    -   Coefficient de Spearman = corrélation de Pearson calculée sur les rangs des données
+
+    -   Varie entre -1 et +1
+
+
+:::callout-note
+**ANOVA ou V de Cramer pour variables catégorielles non ordonnées ?**
+
+-   **ANOVA** : 
+
+    -   1 variable quantitative, 1 ou plusieurs variables catégorielles non ordonnées
+
+    -   compare les moyennes de la variable quantitative entre les différentes modalités de la variable catégorielle
+
+    -   test statistique (p-value)
+
+    -   outcome quantitatif
+
+-   **V de Cramer** :
+
+    -   Variables catégorielles non ordonnées
+
+    -   mesure la force de l'association entre les variables
+
+    -   valeur entre 0 et 1
+
+    -   outcome catégoriel
+:::
+
+
+#### Odds-ratio et risque relatif
+
+Pour des X et Y binaires (0/1) :
+
+Exemple : association entre décès en USI et existence d'une infection ou non
+
+|                     | Décès (Y=1) | Pas de décès (Y=0) |
+|---------------------|-------------|--------------------|
+| Infection (X=1)     | a           | b                  |
+| Pas d'infection(X=0)| c           | d                  |
+
+-   **Risque relatif (RR)** = risque de décès chez les patients infectés / risque de décès chez les patients non infectés = [a/(a+b)] / [c/(c+d)]
+
+    -   On a RR fois plus de risque de décès si on est infecté
+
+    -   $RR = \frac{\text{\% de deces chez les infectes}}{\text{\% de deces chez les non infectes}} = \frac{a}{a+b} / \frac{c}{c+d}$
+
+-   **Odds-ratio (OR)** = rapports des côtes = interprétation plus subtile
+
+    -   Odds de décès chez les patients infectés = a/b (côte)
+
+    -   Odds de décès chez les patients non infectés = c/d
+
+    -   $OR = \frac{\dfrac{\text{morts infectes}}{\text{vivants infectes}}}{\dfrac{\text{morts non infectes}}{\text{vivants non infectes}}} = \frac{\frac{a}{b}}{\frac{c}{d}} = \frac{a \times d}{b \times c}$
+
+    -   Il y a OR fois plus de "morts par rapport aux vivants" si on est infecté que de "morts par rapport aux vivants" si on n'est pas infecté.
+
+RR et OR sont positifs et varient de 0 à l'infini.
+
+S'ils valent 1 : pas d'association entre X et Y, les variables sont indépendantes.
+
+S'ils valent 0 ou sont très grands : forte association entre X et Y.
+
+**Rapport entre RR et OR :**
+
+-   Si l'événement étudié est rare (<10%) : RR ≈ OR
+
+-   Si l'événement est fréquent (>10%) : **OR surestime le RR** (OR > RR si RR > 1 ; OR < RR si RR < 1)
+
+#### Exemple sur R
+
+Sur fichier `smp.d` : force de l'association entre la variable "dépression" (`smp.d$depression`) et le FDR "le prisonnier a un niveau élevé d'évitement du danger" (`smp.d$evit.danger`).
+
+La variable dépression est binaire (0 = non dépressif, 1 = dépressif).
+
+La variable evit.danger n'est pas binaire, mais codée 1, 2 ou 3 pour "faible", "moyen" ou "élevé".
+
+Il faut donc la recoder en binaire (0 = faible ou moyen, 1 = élevé).
+
+```{r}
+smp.d$evit.danger.b <- smp.d$evit.danger > 2
+smp.d$depression.b <- smp.d$depression == 1
+tb <- table(
+        smp.d$depression.b, 
+        smp.d$evit.danger.b, 
+        deparse.level=2
+        )
+tb
+```
+
+Pour obtenir facilement le RR et l'OR, on peut utiliser la fonction `epi.2by2()` du package `epiR`.
+
+```{r}
+epi.2by2(
+    tb,
+    method="cohort.count", # sinon case.control
+    conf.level=0.95
+    )
+```
+
+### Dépendance monotone 
+
+Une dépendance monotone ne peut s'envisager qu'entre des variables ordinales (rangées) ou entre une variable ordinale et une variable quantitative.
+
+-   **Coefficient de Spearman** : corrélation de Pearson calculée sur les rangs des données.
+
+    -   Varie entre -1 et +1
+
+    -   Utilisable pour des variables ordinales (rangées) ou quantitatives non linéaires
+
+Problème : donner du sens à une corrélation basée sur des rangs !! dépend ++ du codage
+
+#### Exemple sur R
+
+En pratique : dans l’étude santé mentale en prison, les deux variables de
+tempérament : « recherche de nouveauté » et « évitement du danger » sont codées
+en 1, 2 et 3 pour, respectivement, « bas », « moyen » et « élevé ». Si l’on souhaite
+apprécier dans quelle mesure un niveau élevé de recherche de nouveauté est associé
+à un niveau bas d’évitement du danger, il est possible d’estimer un coefficient de
+corrélation de Spearman ou de Pearson :
+
+Dans l'étude `smp` : variable "recherche de nouveauté" (`smp.d$recherche.nouv`) et variable "évitement du danger" (`smp.d$evit.danger`).
+
+-   les deux variables `recherche.nouv` et `evit.danger` sont codées 1, 2 ou 3 pour "faible", "moyen" ou "élevé".
+
+-   objectif : apprécier dans quelle mesure un niveau élevé de recherche de nouveauté est associé à un niveau bas d’évitement du danger.
+
+```{r}
+table(smp$recherche.nouv)
+table(smp$evit.danger)
+```
+
+Calcul du coefficient de corrélation de Spearman entre les deux variables.
+
+```{r}
+cor(
+    smp.d$recherche.nouv, 
+    smp.d$evit.danger, 
+    method="spearman",
+    use="complete.obs") # ignore les valeurs manquantes
+```
+
+Le coefficient de corrélation de Spearman est de 0.078, ce qui indique une très faible dépendance monotone positive entre la recherche de nouveauté et l’évitement du danger.
+
+NB : si on avait utilisé le coefficient de Pearson : 
+
+```{r}
+cor(
+    smp.d$recherche.nouv, 
+    smp.d$evit.danger, 
+    method="pearson",
+    use="complete.obs") # ignore les valeurs manquantes
+```
+
+Le coefficient de corrélation de Pearson est de 0.081 : les deux coefficients sont très proches (c'est assez fréquent quand les variables sont ordinales avec peu de modalités).
+
+### Concordance
+
+#### Coefficient kappa de Cohen
+
+Pour les variables catégorielles, on pourrait se dire que mesurer à quel point 2 variables s'accordent reviendraient à compter la proportion de fois ou elles ont la même valeur.
+
+Problème : cette proportion de concordance peut être due au hasard !! 
+
+On corrige ça avec le **kappa de Cohen**.\
+
+$$
+\text{kappa} = \frac{\text{concordance observee - concordance due au hasard}}{1 - \text{concordance due au hasard}}
+$$
+
+-   $\text{kappa} = 0$ : concordance observée = concordance due au hasard
+
+-   $\text{kappa} = 1$ : concordance parfaite
+
+#### Sensibilité, spécificité, VPP, VPN
+
+Le kappa de Cohen mesure une **concordance globale et symétrique** entre deux variables catégorielles.
+
+Mais parfois, on s'intéresse à la capacité d'une variable à s'approcher d'ue variable de référence 
+
+= mesurer à quel point $Y$ prédit correctement $X$.
+
+Dans ce cas, il vaut mieux utiliser des paramètres asymétriques :
+
+-   Sensibilité = proportion de vrais positifs parmi les positifs réels = $P(Y=1|X=1)$
+
+-   Spécificité = proportion de vrais négatifs parmi les négatifs réels = $P(Y=0|X=0)$
+
+Le problème avec la sensibilité et la spécificité : elles ne tiennent pas compte de la prévalence de la condition réelle $X$ (c'est à dire la proportion de $X=1$ dans la population).
+
+-   Valeur prédictive positive (VPP) = proportion de vrais positifs parmi les positifs prédits = $P(X=1|Y=1)$
+
+-   Valeur prédictive négative (VPN) = proportion de vrais négatifs parmi les négatifs prédits = $P(X=0|Y=0)$
+
+Dans un tableau de contingence :
+
+|                     | Y=1 (test positif) | Y=0 (test négatif) |
+|---------------------|--------------------|--------------------|
+| X=1 (condition réelle présente)     | a (vrais positifs)           | b (faux négatifs)                  |
+| X=0 (condition réelle absente)| c (faux positifs)           | d (vrais négatifs)                  |
+
+-   Sensibilité = a / (a + b)
+
+-   Spécificité = d / (c + d)
+
+-   Valeur prédictive positive (VPP) = a / (a + c)
+
+-   Valeur prédictive négative (VPN) = d / (b + d)
+
+
+On peut ainsi représenter une courbe ROC (Receiver Operating Characteristic) qui trace la sensibilité en fonction de 1 - spécificité pour différents seuils de décision.
+
+##### Exemple 1 sur R
+
+-   Les deux cliniciens (junior et senior) posent un diagnostic de schizophrénie (1 = oui, 0 = non) pour chaque patient.
+
+-   Niveau d'accord inter-juges pour une variable catégorielle : kappa de Cohen.
+
+```{r}
+psy::ckappa(
+    smp.aij[,c("scz.jun","scz.sen")]
+)
+```
+
+Autre méthode avec le package `irr` :
+
+```{r}
+irr::kappa2(
+    smp.aij[,c("scz.jun","scz.sen")],
+    weight="unweighted" # ou "equal" ou "squared" pour kappa pondéré
+)
+```
+
+Le clinicien junior a posé le diagnostic de schizophrénie chez 30 + 43 = 73 détenus alors que le clinicien senior l’a fait pour seulement 11 + 43 = 54. 
+
+Au total, le coefficient kappa vaut 0,65.
+
+##### Exemple 2 sur R
+
+-   Étude sur 244 patients déprimés hospitalisés : tâche de lecture de texte puis comptage de 1 à 10, enregistrement voix.
+
+-   Extraction de la fréquence fondamentale (hauteur de voix), connue pour être ~75–140 Hz chez les hommes et ~170–250 Hz chez les femmes.
+
+-   Objectif : voir dans quelle mesure la hauteur de voix prédit le sexe en testant un seuil de 155 Hz.
+
+-   Méthode : **calcul sensibilité et spécificité du seuil 155 Hz** pour discriminer hommes et femmes.
+
+```{r}
+sexe.f <- vox$sexe == 2
+voix.aigue <- vox$moyf0>155
+# moyenne des femmes avec voix aiguë = sensibilité
+# = proportion de femmes avec test positif
+mean(voix.aigue[sexe.f], na.rm=TRUE) 
+# moyenne des hommes sans voix aiguë = spécificité 
+# = proportion d'hommes avec test négatif
+mean(!voix.aigue[!sexe.f], na.rm=TRUE) 
+```
+
+Vérifier le seuil de 155 Hz avec une courbe ROC :
+
+```{r}
+rocf0 <- roc(sexe.f~vox$moyf0)
+plot(rocf0, 
+    main="Courbe ROC pour la hauteur de voix",
+    print.thres="best",
+    print.thres.best.method="youden",
+    print.auc=TRUE)
+```
+
+Seuil optimal calculé par indice de Youden (maximise la somme de la sensibilité et de la spécificité) = 158,17 Hz
+
+AUC : calcule la qualité globale du test
+
+-   Aire comprise entre 0 et 1
+
+-   = probabilité que la hauteur de voix d'une femme soit plus élevée que celle d'un homme pris au hasard

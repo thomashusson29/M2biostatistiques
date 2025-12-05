@@ -1,0 +1,291 @@
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(MASS)
+library(rpart)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(lattice)
+library(mice)
+library(qgraph)
+library(nlme)
+library(ape)
+library(survival)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+load(url("http://alecri.github.io/downloads/data/dental.RData"))
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","gravite","recherche.nouv", "evit.danger","dep.recompense")]
+summary(smp.d)
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+describe(smp.d)
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+table(
+    smp.d$profession, 
+    smp.d$depression,
+    deparse.level=2, # deparse.level fait apparaître les noms des variables dans le tableau
+    useNA="ifany")
+#
+#
+#
+#
+#
+#
+#
+#
+#
+options(digits=3) # pour afficher 3 décimales
+prop.table(
+    table(
+        smp.d$profession, 
+        smp.d$depression,
+        deparse.level=2, # deparse.level fait apparaître les noms des variables dans le tableau
+        useNA="ifany"),
+    margin=1) # margin=1 pourcentage par ligne ; margin=2 pourcentage par colonne
+#
+#
+#
+#
+#
+#
+#
+#
+#
+library(gtsummary)
+smp.d %>%
+    tbl_summary(
+        by = depression, # variable de regroupement
+        statistic = list(all_continuous() ~ "{mean} ({sd})", # moyenne (écart-type)
+                            all_categorical() ~ "{n} / {N} ({p}%)"), # n (%) pour les variables catégorielles
+        digits = all_continuous() ~ 2, # 2 décimales pour les variables continues
+        missing = "no" # ne pas afficher les données manquantes
+    ) %>%
+    modify_header(label = "**Caractéristiques**") %>% # modifier le titre de la première colonne
+    bold_labels() # mettre en gras les labels des variables
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#

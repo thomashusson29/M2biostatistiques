@@ -818,6 +818,9 @@ if (knitr::is_html_output()) {
 }
 ```
 
+
+
+
 ```{r}
 #| label: plot-lda-3d-pdf
 #| echo: false
