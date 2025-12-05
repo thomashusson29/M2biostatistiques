@@ -1,0 +1,103 @@
+---
+title: "S1_3 Bonus : Tableau récapitulatif des coefficients de corrélation"
+prefer-html: true
+format:
+  html:
+    toc: true
+    toc-depth: 5
+    toc-title: "Table of contents"
+    toc-location: left
+    toc-sticky: true
+    number-sections: true
+    theme: default
+
+  docx:
+    toc: true
+    toc-depth: 5
+
+  pdf:
+    classoption: [landscape]
+    toc-depth: 1
+    pdf-engine: xelatex
+    number-sections: true
+    header-includes: |
+      %\usepackage{fontspec} 
+      %\setmainfont{Latin Modern}
+      \usepackage{etoolbox}
+      \renewcommand{\contentsname}{}
+      \AtBeginDocument{
+        \addtocontents{toc}{\protect\smallskip}
+        \let\oldtableofcontents\tableofcontents
+        \renewcommand{\tableofcontents}{
+          \begingroup
+            \footnotesize
+            \setlength{\parskip}{2pt}
+            \oldtableofcontents
+          \endgroup
+        }
+      }
+      \setcounter{tocdepth}{5}
+      \makeatletter
+      \renewcommand{\@tocrmarg}{0pt}
+      \makeatother
+      \usepackage{fvextra}
+      \usepackage[section]{placeins}
+      
+      % --- MARGES TABLEAUX (0.3cm) ---
+      \usepackage{array}
+      \setlength{\tabcolsep}{0.3cm}      % Marge horizontale
+      \setlength{\extrarowheight}{0.3cm} % Marge verticale (hauteur ajoutée)
+      % -------------------------------
+
+      % --- GESTION DU CODE ---
+      \usepackage{fvextra}
+      % !!! CORRECTION ICI : Force le retour à la ligne pour les blocs de code Quarto !!!
+      \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+      % -----------------------
+      \usepackage{needspace}
+      \usepackage{float}
+      \floatplacement{figure}{H}
+      \floatplacement{table}{H}
+      \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+      \setlength{\parindent}{0pt}
+      \setlength{\parskip}{4pt}
+      \usepackage[most]{tcolorbox}
+      \usepackage{color}
+      \definecolor{lightgray}{gray}{0.95}
+      \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+      \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+      \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+      \renewcommand{\thesection}{\arabic{section}}
+      \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+      \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+Ce tableau présente les différents types de coefficients de corrélation et d'association décrits dans les sources, y compris leurs applications, conditions de validité, interprétations, et les détails relatifs aux tests de nullité.
+
+| Critère | Coefficient de Corrélation de **Pearson** ($r$ ou $\rho$) | Coefficient de Corrélation de **Spearman** ($\rho$) | Coefficient **Kappa de Cohen** ($\kappa$) | Coefficient de Corrélation **Intraclasse (ICC)** |
+|:--------------|:--------------|:--------------|:--------------|:--------------|
+| **Type de Coefficient** | Coefficient de corrélation de Pearson. | Coefficient de corrélation de Spearman. | Kappa de Cohen. | Coefficient de corrélation intraclasse (ICC). |
+| **Quand le faire (Variables)** | Mesure la dépendance **linéaire** entre deux variables **quantitatives continues**. Peut être utilisé pour des variables **binaires** (0/1). | Mesure la corrélation **monotone**. Utilisable pour des variables **ordinales** (rangées) ou **quantitatives non linéaires**. C'est la corrélation de Pearson calculée sur les **rangs des données**. | Mesure l’**accord** entre deux évaluateurs pour des variables **catégorielles**. Mesure une concordance globale et symétrique. | Mesure la **concordance** entre plusieurs mesures **quantitatives** (par exemple, entre deux échographies faites par deux médecins différents). Mesure la **fiabilité**. |
+| **Conditions de Validité** | Pour le test de nullité : l’idéal est que **X et Y soient distribuées normalement** dans la population. Le test de nullité reste faisable si $X$ est normale et $Y$ binaire, ou même si les deux sont binaires. | (Non spécifié pour le coefficient lui-même, mais il est calculé sur les rangs des données). | (Non spécifié) | (Non spécifié) |
+| **Interprétation** | Varie entre **-1** et **+1**. | Varie entre **-1** et **+1**. | Varie entre **0** et **1**. | Varie entre **0** et **1**. |
+| **Interprétation Détaillée** | Mesure la **direction** de la relation linéaire. $r=-1$ : dépendance linéaire parfaite négative. $r=+1$ : dépendance linéaire parfaite positive. $r=0$ : linéairement indépendantes. **Attention :** Le coefficient ne matérialise pas la *force* de la dépendance, mais seulement son *type*. | $r=-1$ : dépendance monotone négative parfaite. $r=+1$ : dépendance monotone positive parfaite. Problème : donner du sens à une corrélation basée sur des rangs dépend fortement du codage. | $\kappa = 0$ : la concordance observée est égale à la concordance due au hasard. $\kappa = 1$ : concordance parfaite. | $ICC = 1$ : concordance parfaite (aucun bruit). $ICC = 0$ : pas de concordance (que du bruit, mesures totalement indépendantes). Il est défini comme : **"vrai signal" / ("vrai signal" + "bruit")**. |
+| **Mesure de la Force (associée)** | La force de la relation linéaire est mesurée par le **coefficient de détermination** $r^2$. $r^2$ varie entre 0 et 1 et représente la proportion de la variance de $Y$ expliquée par la variance de $X$ dans une relation linéaire. | (Non spécifié) | (Non spécifié) | (L'ICC mesure intrinsèquement la fiabilité/concordance). |
+| **Test de Nullité (Applicabilité)** | Applicable. (Exemple : $H_0$: la vraie corrélation n'est pas égale à 0). | Applicable. | Applicable. | Applicable (Un test F est utilisé pour $H_0: r_0 = 0$). |
+| **Test de Nullité (Conditions)** | Idéalement, $X$ et $Y$ sont distribuées normalement. | (Non spécifié) | (Non spécifié) | (Non spécifié) |
+| **Test de Nullité (Interprétation)** | Tester la nullité de corrélation revient à tester l’**absence d’association linéaire** entre les variables, c’est-à-dire leur indépendance linéaire. Si la p-value est faible (p \< 0,05), on rejette l’hypothèse d’absence de corrélation linéaire : il est très peu probable que les variables soient indépendantes linéairement. | L'interprétation est similaire à Pearson, mais porte sur l'absence d'association monotone. | (Non spécifié) | Le test F porte sur $H_0: r_0 = 0$ (pas de concordance) vs $H_1: r_0 > 0$. |
+
+**Résumé sur les Tests de Nullité des Coefficients de Corrélation (Général)**
+
+Tester la nullité d'un coefficient de corrélation (que ce soit Pearson, Spearman, Kappa, ou ICC) revient à tester l'absence d'association linéaire (pour Pearson) ou d'association monotone (pour Spearman) ou de concordance entre les variables. Si deux variables sont indépendantes, elles ont nécessairement une absence de corrélation linéaire.
+
+Le test de nullité est applicable aux coefficients de corrélation de Pearson, de Spearman, de Kappa de Cohen et à l'ICC.
+
+En pratique, l'utilisation de la fonction `cor.test()` en R permet de tester l'hypothèse alternative que la vraie corrélation n'est pas égale à 0 (i.e., non-nullité).
+
+Pour saisir la distinction entre les coefficients de corrélation ($r$ ou $\rho$) et le coefficient de détermination ($r^2$), on peut imaginer la relation entre deux variables quantitatives comme une flèche tirée vers une cible :
+
+-   Le **Coefficient de Corrélation (**$r$) donne la **direction** de la flèche (indique si elle va vers le haut ou vers le bas, positif ou négatif).
+
+-   Le **Coefficient de Détermination (**$r^2$) mesure la **force** ou l'efficacité (la proportion de la cible atteinte), exprimée **en pourcentage de variance expliquée.**
