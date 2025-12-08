@@ -78,6 +78,7 @@ library(tidyr)
 library(epiR)
 library(viridisLite)
 library(ggplot2)
+library(binom)
 library(survminer)
 library(pROC)
 library(treemap)
@@ -94,9 +95,11 @@ library(kableExtra)
 library(gtsummary)
 library(dplyr)
 library(lattice)
+library(survey)
 library(mice)
 library(qgraph)
 library(nlme)
+library(pwr)
 library(ape)
 library(survival)
 library(gmodels)
@@ -121,6 +124,7 @@ load(url("http://alecri.github.io/downloads/data/dental.RData"))
 smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","gravite","recherche.nouv", "evit.danger","dep.recompense")]
 ```
 
+\newpage
 # Introduction : en pratique, comment utiliser les tests statistiques ?
 
 ## À quoi servent vraiment les tests statistiques ?
@@ -237,13 +241,11 @@ Dire “Shapiro est non significatif, donc la variable est normale” est un mé
 
 Les tests sont un outil chiffré parmi d’autres au service du raisonnement scientifique, pas un substitut au raisonnement.
 
-# Pratique des tests statistiques
+# Quels tests pour quelles hypohèses ?
 
-## Quels tests pour quelles hypohèses ?
+## Comparaison de 2 pourcentages
 
-### Comparaison de 2 pourcentages
-
-#### Test du chi2 de Pearson
+### Test du chi2 de Pearson
 
 Le test du chi2 de Pearson compare la **répartition** de deux variables qualitatives (ex : présence/absence d’un événement dans deux groupes).
 
@@ -263,7 +265,7 @@ Conditions de validité :
 
 -   Approximation de la loi binomiale par la loi normale
 
-##### Chi2 R
+#### Chi2 R
 
 dans l'étude smp : on teste l'hypothèse que le niveau de dépression est fonction de l'âge, avec âge binarisé pour \> ou \< 50 ans
 
@@ -325,7 +327,6 @@ CrossTable(
 ```
 
 \newpage
-
 En calculant le test "OR = 1" avec la fonction `epi.2by2` du package `epiR` :
 
 ```{r}
@@ -341,7 +342,7 @@ Ca revient exactement au même de tester l'hypothèse que l'OR = 1 dans un table
 Donc la p-value du chi2 et celle du test "OR = 1" sont identiques.
 :::
 
-#### Test exact de Fisher
+### Test exact de Fisher
 
 Le test exact de Fisher compare la **répartition** de deux variables qualitatives dans des petits échantillons (ex : présence/absence d’un événement dans deux groupes).
 
@@ -351,7 +352,7 @@ Conditions de validité :
 
 -   Indépendance des observations = pas de mesures répétées, pas de données appariées.
 
-##### Fisher R
+#### Fisher R
 
 ```{r}
 fisher.test(smp$age>75, smp$depression)
@@ -391,8 +392,7 @@ tableau_fisher %>%
 ```
 
 \newpage
-
-### Comparaison d'un pourcentage a un pourcentage théorique
+## Comparaison d'un pourcentage a un pourcentage théorique
 
 Situation peu fréquente !
 
@@ -404,7 +404,7 @@ binom.test(538, 1000, p = 0.5)
 
 p-value = 0.01766 : on rejette l'hypothèse d'équiprobabilité.
 
-### Comparaison de 3 pourcentages
+## Comparaison de 3 pourcentages
 
 Peu fréquente non plus !
 
@@ -500,8 +500,7 @@ tableau_trend %>%
 ```
 
 \newpage
-
-### Comparaison de 2 moyennes
+## Comparaison de 2 moyennes
 
 Repose sur :
 
@@ -533,7 +532,9 @@ Pour apprécier la comparabilité des variances :
 
 -   test de Levene : bof bof parce que c'est comme Shapiro : si p \> 0,05 on conclut que les variances sont égales (ce qui n'est pas une preuve !) et si p \< 0,05 on conclut que les variances sont différentes (ce qui peut être dû à un petit échantillon
 
-Si les variances ne sont vraiment pas égales : utiliser le test de Welch (var.equal=FALSE dans R) \newpage Conditions de normalité :
+Si les variances ne sont vraiment pas égales : utiliser le test de Welch (var.equal=FALSE dans R) 
+
+Conditions de validité :
 
 -   déjà : avec n\>30 par groupe, on s'en fiche un peu !! (sauf si différence ÉNORME de taille entre les groupes)
 
@@ -544,7 +545,7 @@ Si les variances ne sont vraiment pas égales : utiliser le test de Welch (var.e
 **Si c'est vraiment très éloigné d'une distribution normale (comme le nombre d'enfants) : utiliser un test non paramétrique (Wilcoxon)**
 
 ::: callout-note
-## **Wilcoxon / Mann Withney**
+**Wilcoxon / Mann Withney**
 
 **Wilcoxon (`wilcox.test` en R)**
 
@@ -558,7 +559,7 @@ Si les variances ne sont vraiment pas égales : utiliser le test de Welch (var.e
 -   sur R : `wilcox.test(var1 ~ var2, data=..., paired=FALSE)`
 :::
 
-##### Comparaison de 2 moyennes avec R
+#### Comparaison de 2 moyennes avec R
 
 On teste l'
 
@@ -593,7 +594,7 @@ wilcox.test(x, y, paired = TRUE, correct = FALSE)
 ```
 
 ::: callout-important
-## **Résumé des tests de comparaison de moyennes**
+**Résumé des tests de comparaison de moyennes**
 
 Comparaison de moyennes avec test t de Student :
 
@@ -609,8 +610,7 @@ Si effectifs très inégaux ou variances très différentes : test de Welch
 :::
 
 \newpage
-
-### Comparaison de 3 moyennes ou plus
+## Comparaison de 3 moyennes ou plus
 
 Comparaison pas si fréquente (idem que la comparaison de 3 pourcentages).
 
@@ -648,7 +648,7 @@ Conditions de validité :
 
 -   Normalité des résidus du modèle (avec la même résistance que pour le test t : si n\>30 par groupe et faible différences des deux groupes, on peut s'en fiche un peu).
 
-#### Exemple R
+### Exemple R
 
 Exemple : niveau d’évitement du danger mesuré avec un questionnaire codée en 1, 2 et 3 pour des niveaux respectivement « faible », « modéré » ou « élevé ».
 
@@ -686,7 +686,8 @@ anova(res)
 ```
 
 ::: callout-note
-## Lien entre ANOVA et régression linéaire
+**Lien entre ANOVA et régression linéaire**
+
 
 Fondamentalement, l'ANOVA et la régression linéaire sont la même méthode mathématique (elles appartiennent toutes deux au "Modèle Linéaire Général").
 
@@ -702,8 +703,7 @@ Elles utilisent toutes les deux le même moteur : analyser la variance pour sép
 :::
 
 \newpage
-
-### Test de nullité d'un coefficient de corrélation
+## Test de nullité d'un coefficient de corrélation
 
 Les coefficients de corrélation mesurent la force et la direction d'une association linéaire entre deux variables quantitatives.
 
@@ -733,7 +733,7 @@ Tester la nullité de corrélation revient à tester l'absence d'association lin
 
 -   Et même si les deux sont binaires !
 
-#### Test de nullité du coefficient de corrélation avec R
+### Test de nullité du coefficient de corrélation avec R
 
 Utilisation de la fonction `cor.test(...)` :
 
@@ -746,3 +746,395 @@ cor.test(smp$age, smp$recherche.nouv, method="pearson")
 -   p-value \< 0,0001 : on rejette l'hypothèse d'absence de corrélation linéaire entre âge et recherche de nouveauté : **il est très peu probable que les variables soient indépendantes linéairement**.
 
 [Tableau corrélation](https://thomashusson29.github.io/M2biostatistiques/S1_3bonus_correlation.html)
+
+## Tests appariés / non appariés
+
+Exemple de données appariées : 
+
+-   Mesures répétées sur les mêmes sujets (avant/après traitement).
+
+-   Paires de sujets liés (jumeaux, couples).
+
+-   Score de propension
+
+:::callout-important
+
+**Tests possibles sur données appariées :**
+
+-   Sur des moyennes :
+
+    -   Test t apparié (paired=TRUE dans R) : avec conditions de validité du test t.
+
+    -   Test de Wilcoxon apparié (paired=TRUE dans R) : si conditions de validité du test t non remplies (surtout asymétrie évidente)
+
+-   Sur des pourcentages :
+
+    -   Test du Chi2 de McNemar : pour comparer deux proportions appariées (ex : succès/échec avant/après traitement sur les mêmes sujets).
+
+    -   Test exact du Chi2 de McNemar : version exacte du test de McNemar, utilisé lorsque les effectifs sont petits.
+:::
+
+### Exemple R données appariées
+
+#### Exemple 1
+
+jeu de données `scl` : évolution au cours du temps du score SCL90 de patients déprimés hospitalisés
+
+Objectif : tester l'hypothèse que le score SCL90 au jour 0 est différent du score SCL90 au jour 4
+
+1.  Visualisation des données
+
+```{r}
+#| fig-height: 3.5
+head(scl)
+```
+
+Transformer en format long avec `dcast` du package `reshape2` :
+
+```{r}
+scl.w <- dcast(
+        scl[,c("NUMERO","VISIT","depression")],
+        NUMERO~VISIT, 
+        value.var="depression")
+```
+
+t-test apparié :
+
+```{r}
+t.test(scl.w$J0, scl.w$J4, paired=TRUE)
+```
+
+p-value = 1.223e-08 : on rejette l'hypothèse d'égalité des moyennes de score SCL90 entre le jour 0 et le jour 4.
+
+#### Exemple 2
+
+Comparaison de pourcentages = test du Chi2 de McNemar
+
+Ici, on teste l'hypothèse que la proportion de patients déprimés (score SCL90 \> 20) est la même au jour 0 et au jour 4.
+
+```{r}
+tab <- table(scl.w$J0>20, scl.w$J4>20, deparse.level=2)
+tab
+```
+
+Le tableau de contingence montre que :
+
+-   9 patients ne sont pas déprimés aux jours 0 et 4.
+
+-   75 patients sont déprimés aux jours 0 et 4.
+
+-   16 patients sont déprimés au jour 0 mais pas au jour 4.
+
+-   0 patients sont déprimés au jour 4 mais pas au jour 0.
+
+```{r}
+mcnemar.test(tab, correct=FALSE)
+```
+
+> mcnemar.test(tab, correct=FALSE)
+
+        McNemar's Chi-squared test
+
+data:  tab
+McNemar's chi-squared = 16, df = 1, p-value = 6.334e-05
+
+p-value = 6.334e-05 : on rejette l'hypothèse d'égalité des proportions de patients déprimés entre le jour 0 et le jour 4.
+
+#### tbl_summary apparié
+
+On met les deux : comparaison de moyennes et comparaison de pourcentages
+
+Après PSM : 
+
+```{r}
+#| eval: false
+table3adjusted <- m.final %>%
+    tbl_summary(
+        include = all_of(cols_to_include_in_table3),
+        missing = "ifany",
+        by = I_geste_comparaison_1HartmannCoelio,  # Comparaison entre groupes
+        percent = "column",
+        statistic = list(
+        all_categorical() ~ "{n} ({p}%)",
+        all_continuous() ~ "{median} [{p25}, {p75}]"
+        )
+    ) %>%
+    add_p(
+        test = list(
+        all_continuous() ~ "paired.wilcox.test",  # Test de Wilcoxon pour les donnees continues
+        all_categorical() ~ "mcnemar.test"  # Test de McNemar pour les donnees categoriques
+        ),
+        group = Pair_ID  # Utilisation de l'ID de paire
+    )
+```
+
+Mais selon chat, utilisation de `group = Pair_ID` n'est pas très safe et conseille de faire comme ça : 
+
+1.  Fonction Wilcoxon apparié personnalisée
+
+```{r}
+#| eval: false
+paired_wilcox_gts <- function(data, variable, by, ...) {
+    d <- data |>
+        dplyr::select(Pair_ID, all_of(by), all_of(variable)) |>
+        tidyr::pivot_wider(
+        names_from = !!rlang::sym(by),
+        values_from = !!rlang::sym(variable)
+        )
+
+    res <- wilcox.test(d[[1]], d[[2]], paired = TRUE)
+    tibble::tibble(p.value = res$p.value)
+    }
+```
+
+2.  Fonction McNemar personnalisée
+
+```{r}
+#| eval: false
+mcnemar_gts <- function(data, variable, by, ...) {
+    d <- data |>
+        dplyr::select(Pair_ID, all_of(by), all_of(variable)) |>
+        tidyr::pivot_wider(
+        names_from = !!rlang::sym(by),
+        values_from = !!rlang::sym(variable)
+        )
+
+    tab <- table(d[[1]], d[[2]])
+    res <- mcnemar.test(tab, correct = FALSE)
+
+    tibble::tibble(p.value = res$p.value)
+    }
+```
+
+3.  Fonction t de Student apparié personnalisée
+
+```{r}
+#| eval: false
+paired_ttest_gts <- function(data, variable, by, ...) {
+
+    d <- data %>%
+        dplyr::select(Pair_ID, !!rlang::sym(by), !!rlang::sym(variable)) %>%
+        tidyr::pivot_wider(
+        names_from  = !!rlang::sym(by),
+        values_from = !!rlang::sym(variable)
+        )
+
+    res <- t.test(d[[1]], d[[2]], paired = TRUE)
+
+    tibble::tibble(p.value = res$p.value)
+    }
+```
+
+4.  Tableau final
+
+```{r}
+#| eval: false
+table3adjusted <- m.final %>%
+    tbl_summary(
+        include = all_of(cols_to_include),
+        by = colonne_de_comparaison,  # Comparaison entre groupes
+        percent = "column",
+        statistic = list(
+        all_categorical() ~ "{n} ({p}%)",
+        all_continuous()  ~ "{median} [{p25}, {p75}]"
+        )
+    ) %>%
+    add_p(
+        test = list(
+        all_continuous()  ~ paired_wilcox_gts,   # ou paired_ttest_gts
+        all_categorical() ~ mcnemar_gts
+        )
+    )
+```
+
+\newpage
+# Calcul de $\beta$ et du nombre de sujets à inclure
+
+Dans la théorie de Neyman et Pearson, le calcul du nombre de sujets à inclure dans une étude est directement lié au contrôle des risques $\alpha$ et $\beta$.
+
+Exemple : équiprobabilité des naissances de garçons ($p_1$) et de filles ($p_2$)
+
+-   $H_0$ : $p_1 = 0,5$ (et donc $p_2 = 0,5$ également)
+
+-   $H_1$ : $p_1 = 0,55$ (et donc $p_2 = 0,45$)
+
+Pour $\alpha$ fixé (par exemple à 5%), on peut déterminer une règle de décision (seuil critique) qui permet de rejeter $H_0$ si le pourcentage de naissances de garçons est suffisamment éloigné de 50%.
+
+$\beta$ varie 
+
+-   la différence vraie : Plus l’effet réel est grand, plus il est facile à détecter, donc $\beta$ diminue (et la puissance augmente).
+
+-   le nombre de sujets inclus : Plus on inclut de sujets, plus on a d’informations, donc $\beta$ diminue (et la puissance augmente).
+
+-   $H_1$ choisi : plus $H_1$ est proche de $H_0$, plus il est difficile de détecter la différence, donc $\beta$ augmente (et la puissance diminue).
+
+Exemple : 
+
+-   hypothèse $p_1 = 0,55$ $\rightarrow$ pour $\alpha = 5\%$ et $\beta = 10\%$
+
+```{r}
+pwr.p.test(h=ES.h(0.5,0.55),power=0.9,sig.level=0.05,alternative="less")
+```
+
+Pour $p_1 = 0,55$, il faut environ 850 naissances pour obtenir une puissance de 90% avec un risque $\alpha$ de 5%.
+
+-   hypothèse $p_1 = 0,60$ $\rightarrow$ pour $\alpha = 5\%$ et $\beta = 10\%$
+
+```{r}
+pwr.p.test(h=ES.h(0.5,0.60),power=0.9,sig.level=0.05,alternative="less")
+```
+
+Pour $p_1 = 0,60$, il faut environ 200 naissances pour obtenir une puissance de 90% avec un risque $\alpha$ de 5%.
+
+-   hypothèse $p_1 = 0,52$ $\rightarrow$ pour $\alpha = 5\%$ et $\beta = 10\%$
+
+```{r}
+pwr.p.test(h=ES.h(0.5,0.52),power=0.9,sig.level=0.05,alternative="less")
+```
+
+Pour $p_1 = 0,52$, il faut environ 5000 naissances pour obtenir une puissance de 90% avec un risque $\alpha$ de 5%.
+
+## Exemple R
+
+enons l’exemple d’un essai évaluant l’efficacité d’une nouvelle molécule
+dans le sepsis sévère (étude comparative versus placebo). Compte tenu des critères
+d’inclusion, les données épidémiologiques font état d’une mortalité à 30 jours
+(critère d’efficacité) égale à 36%. 
+
+Exemple : efficacité d'une nouvelle molédcule.
+
+-   $H_0$ : mortalité = 36% (placebo)
+
+-   Investigateurs : "ne pas passer à côté d'une baisse de 10 points de la mortalité"
+
+-   $H_1$ : mortalité = 26% (nouvelle molécule)
+
+-   $\alpha$ = 5% (risque de conclure à tort que la molécule est efficace)
+
+-   $\beta$ = 10% (risque de ne pas détecter l'efficacité de la molécule)
+
+La fonction `pwr.2p.test` du package `pwr` permet de calculer le nombre de sujets nécessaires pour atteindre la puissance désirée dans une étude comparant deux proportions.
+
+```{r}
+pwr.2p.test(
+    h = ES.h(p1 = 0.36, p2 = 0.26), # taille d'effet
+    sig.level = 0.05, 
+    power= 0.90, 
+    alternative = "two.sided" 
+    )
+```
+
+Il faut donc inclure environ 447 patients par groupe (soit un total de 894 patients) pour détecter une différence de mortalité de 10 points entre les deux groupes avec une puissance de 90% et un risque $\alpha$ de 5%.
+
+\newpage
+# Tests uni- ou bilatéraux ?
+
+## Définitions
+
+-   Selon Fisher : 
+
+    -   inférence statistique bilatérale par nature
+
+    -   on cherche à apprécier l’adéquation entre un échantillon observé et une population hypothétique infinie sous-jacente.
+
+    -   donc on teste toujours si l’estimateur issu de l’échantillon est suffisamment différent du paramètre de la population sous-jacente (qu’il soit supérieur ou inférieur).
+
+-   Selon Neyman et Pearson :
+
+    -   inférence statistique unilatérale inférieure ou supérieure selon le choix des hypothèses $H_0$ et $H_1$.
+
+## Exemple
+
+1.  Essai randomisé : on teste 
+
+-   $H_0$ : la nouvelle thérapeutique n’est pas plus efficace que le placebo
+
+-   $H_1$ : la nouvelle thérapeutique est plus efficace que le placebo
+
+Mais on teste pas l'infériorité de la nouvelle thérapeutique par rapport au placebo.
+
+Donc en soit, c'est un test unilatéral supérieur, et le risque de première espèce $\alpha$ est à 2,5% (et non 5%).
+
+2.  Étude d'**inférence inductive** : on teste
+
+-   Formulation bilatéral
+
+-   Avec le risque de première espèce $\alpha$ égal à 5%.
+
+\newpage
+# Intervalles de confiance
+
+## Définitions
+
+"Vraie valeur" de la moyenne = espérance de la moyenne = 
+
+$$
+\mu \text{ +/- } \frac{\sigma}{\sqrt{n}}
+$$
+
+Avec : $\sigma$ = écart-type de la population et $n$ = taille de l'échantillon
+
+En fait : 
+
+-   Si âge : 40 [37-43] ans dans un échantillon de 100 personnes
+
+-   C'est l'intervalle de confiance qui a 95% de chances de contenir la vraie valeur de la moyenne d'âge dans la population.
+
+-   et pas "il y a 95% des valeurs de l'échantillon qui sont entre 37 et 43 ans".
+
+L'intervalle de confiance à 95% correspond à la grande majorité (95%) des valeurs **théoriques possibles** de ce paramètre, compatibles avec l’échantillon observé.
+
+Pour observer les fluctuations de l'estimation d’un paramètre dans un échantillon donné, il faut utiliser les intervalles empiriques ou les intervalles de fluctuation.
+
+En gardant à l’esprit que les observations sont considérées implicitement comme un échantillon aléatoire issu d’une population sous-jacente alors que ça n’est que rarement le cas dans les faits !
+
+## Exemple R
+
+Prévalence de la schizophrénie dans l’étude `smp`. 
+
+FOnction `binom.confint()` de la bibliothèque `binom` de R permet d'estimer la prévalence et un intervalle de confiance.
+
+```{r}
+y <- na.omit(smp$schizophrenie)
+binom.confint(x=sum(y), n=length(y), method="asymptotic")
+cat("Prévalence de la schizophrénie : ",
+    round(binom.confint(x=sum(y), n=length(y), method="asymptotic")$mean*100,2),
+    "% [",
+    round(binom.confint(x=sum(y), n=length(y), method="asymptotic")$lower*100,2),
+    "% ; ",
+    round(binom.confint(x=sum(y), n=length(y), method="asymptotic")$upper*100,2),
+    "%]"
+    )
+```
+
+Donc l’échantillon observé est compatible avec des populations infinies sous-jacentes pour lesquelles la « vraie » prévalence de schizophrénie serait comprise entre 6,1% et 9,9%.
+
+Le truc c'est qu'on a fait un sondage en grappe, donc il faut utiliser la bibliothèque `survey` de R pour calculer un intervalle de confiance correct.
+
+```{r}
+smp.design <- svydesign(ids=~1, data=smp)
+svyciprop(~schizophrenie, smp.design, na.rm=TRUE, method="beta")
+```
+
+
+
+Sur une variable quantitative : fonction `t.test()` de R permet d’estimer la moyenne et un intervalle de confiance.
+
+```{r}
+cat("Moyenne d'âge : ",
+    round(t.test(smp$age)$estimate,2),
+    " ans [",
+    round(t.test(smp$age)$conf.int[1],2),
+    " ans ; ",
+    round(t.test(smp$age)$conf.int[2],2),
+    " ans]"
+    )
+```
+
+Et pour sondage en grappe : 
+
+```{r}
+modsvy <- svyglm(age~1, design=smp.design)
+confint(modsvy)
+```
+

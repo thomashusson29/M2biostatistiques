@@ -193,6 +193,54 @@ Si $\sigma^2$ est grande : chaque instant reçoit un choc important.
 
 Si $\sigma^2$ est petite : les variations imprévisibles sont faibles.
 
+::: callout-note
+**"Choc" lié à une variance importante :**
+
+**Le Rôle de l'Erreur (Le Choc Ponctuel)**
+
+Dans le modèle AR(1) ($_i = a + bY_{i-1} + \varepsilon_i$), l'erreur $\varepsilon_i$ est appelée le **bruit aléatoire**.
+
+-   Le bruit $\varepsilon_i$ représente la part de la valeur actuelle $Y_i​$ qui **n'est pas expliquée** par la valeur précédente $Y_{i-1}$.
+
+-   Ce bruit est la **source de variabilité** du modèle. Sa variance ($\sigma^2$) mesure l'amplitude des fluctuations imprévisibles à un instant donné.
+
+-   Dans une **régression ordinaire (non temporelle)**, cette erreur $\varepsilon_i$ affecterait uniquement la valeur courante $Y_i$, puis son effet s'arrêterait là.
+
+**La Propagation Temporelle (La Mémoire)**
+
+Dans l'AR(1), l'erreur $\varepsilon_i$ ne disparaît pas immédiatement, car la valeur $Y_i$ qu'elle vient de modifier devient la **variable explicative** pour la période suivante.
+
+Ainsi, l'erreur $\varepsilon_i$ influence non seulement $Y_i$, mais aussi toutes les valeurs futures $Y_{i+1}, Y_{i+2}, ...$ à travers la relation autorégressive.
+
+1.   **L'effet sur** $Y_i$**:** Si $\varepsilon_i$ est grand (un "choc" important), il fait monter ou descendre la valeur $Y_i$.
+
+2.   **L'influence sur** $Y_{i+1}$ **(via** $b$**):** La valeur future $Y_{i+1}$ dépend de $Y_i$ via le coefficient $b$ ($Y_{i+1}=a+b_i+\varepsilon_{i+1}$). 
+    Comme $Y_i$ a été modifié par $\varepsilon_i$, l'erreur initiale $\varepsilon_i$ se répercute sur $Y_{i+1}$ à travers $Y_i$ et l'influence est mesurée par $b$.
+
+3.   **L'influence sur** $Y_{i+2}$ **(via** $b^2$**):** De même, $Y_{i+2}$ dépend de $Y_{i+1}$, qui lui-même contenait déjà l'influence du choc $\varepsilon_i$. L'effet de l'erreur initiale $\varepsilon_i$ est donc transmis à $Y_{i+2}$ via $b^2$.
+
+4.   **L'influence sur** $Y_{i+k}$**:** L'influence de l'erreur $\varepsilon_i$ sur une valeur lointaine $Y_{i+k}$ est mesurée par $b^k$.
+En résumé, l'erreur $\varepsilon_i$ se propage dans le futur, mais son impact **décroît exponentiellement** avec la distance temporelle (puisque k augmente). C'est ce que l'on appelle la **corrélation temporelle**.
+
+**L'Équilibre de la Variance Totale**
+
+La **variance** mesure la dispersion de la variable. 
+
+Puisque l'erreur $\varepsilon_i$ ne s'arrête jamais d'influencer les valeurs futures tant que le coefficient $b$ n'est pas nul, la variabilité totale observée dans la série $Y_i$ est la somme de toutes les influences passées. (si $b$ devient nul, l'effet de l'erreur s'arrête immédiatement car $Y_i$ ne dépend plus de $Y_{i-1}$ mais dépend uniquement de l'erreur actuelle $\varepsilon_i$ : la nouvelle équation sera $Y_i = a + (0 \times Y_{i-1}) + \varepsilon_i$)
+
+La **variance totale** de la série $Y_i$ est le résultat d'un équilibre entre deux facteurs : la variance du bruit $\sigma^2$ et la mémoire du système (le coefficient $b$).
+
+1.   **La variabilité injectée à chaque instant** : C'est la variance du bruit $\sigma^2$ qui mesure l'amplitude des fluctuations imprévisibles de $\varepsilon_i$. Si $\sigma^2$ est grande, cela signifie qu'il y a une grande quantité de variabilité nouvelle et imprévisible introduite à chaque pas de temps : chaque instant reçoit un "choc" important.
+
+2.   **La quantité de mémoire du système = la propagation de cette variabilité** Ceci est donné par le coefficient $b$. Plus $b$ est grand, plus les erreurs passées continuent à influencer fortement les valeurs futures parce que 
+
+Si la série est **stationnaire** (c'est-à-dire que $|b| < 1$), la variance totale est stable et finie. Elle est calculée par la formule : $Var(Y_i) = \frac{\sigma^2}{1 - b^2}$
+Cette formule montre clairement que la variance totale du processus est **plus grande que la variance du bruit seul** (σ2), car l'effet de la propagation des erreurs passées s'accumule (via le dénominateur $1−b^2$).
+
+Imaginons l'AR(1) comme un verre d'eau posé sur une table : le bruit ($\varepsilon_i$) est une petite goutte qui tombe dans l'eau à chaque instant (i). Dans une régression classique, l'ondulation de la goutte s'arrêterait immédiatement. Mais dans l'AR(1), si l'ondulation d'une goutte (l'erreur $\varepsilon_i$) est assez forte (si $b$ est grand), elle crée un mouvement qui influence l'emplacement des gouttes suivantes ($Y_{i+1}$, $Y_{i+2}$), ce qui fait que le niveau total d'agitation de l'eau (la variance totale) est bien supérieur à la simple force d'une seule goutte ($\sigma^2$).
+:::
+
+
 ### Propagation de la variance dans un AR(1)
 
 C’est ici que l’AR(1) devient différent d’une régression classique.
@@ -527,12 +575,12 @@ Modèle = ARMAX (avec X = facteur exogène = confinement)
 
         -   `ts(data, frequency, start)`
 
-        -   `data` = données, 
-        
-        -   `frequency` = fréquence (ex: 52 semaines dans une année), 
+        -   `data` = données,
+
+        -   `frequency` = fréquence (ex: 52 semaines dans une année),
 
             -   permet de dire que la semaine $i$ et la semaine $i+52$ sont comparables (même semaine de l'année)
-        
+
         -   `start` = date de début (ex: c(2017,24))
 
 2.  Affichage de la série chronologique avec la fonction `plot`
@@ -553,8 +601,7 @@ plot(
 
 -   2 pics d'incidence sont observés, respectivement vers la fin des années 2018 et 2021 : cela peut faire craindre des problèmes d’écart à l’hypothèse de normalité dans les analyses à venir.
 
-Pour obtenir un processus stationnaire : une solution classique est de modéliser la différence : 
-$\Delta Y_t = Y_t - Y_{t-1}$
+Pour obtenir un processus stationnaire : une solution classique est de modéliser la différence : $\Delta Y_t = Y_t - Y_{t-1}$
 
 ```{r}
 plot.ts(diff(gsts), main = "Évolution temporelle de la différence Delta Y_t = Y_t - Y_{t-1}. \nLe processus est rendu stationnaire, mais les écarts à la normalité persistent.")
@@ -570,7 +617,7 @@ Fonction `acf` (auto correlation function) permet de tracer l'autocorrélogramme
 
 Faite sur la différence de la série chronologique pour rendre le processus stationnaire
 
-Syntaxe : 
+Syntaxe :
 
 -   `acf(x, lag.max, main)`
 
@@ -582,7 +629,7 @@ Syntaxe :
 
 ```{r}
 acf(diff(gsts), lag.max= 60, main="Autocorrélogramme de la différence de la série chronologique")
-``` 
+```
 
 -   1ère mesure est fortement corrélée avec la mesure précédente (lag 1) (corrélation entre $Y_i$ et $Y_i$ donc on s'en fiche un peu)
 
@@ -590,7 +637,7 @@ acf(diff(gsts), lag.max= 60, main="Autocorrélogramme de la différence de la s�
 
 -   3e mesure : aucune corrélation
 
-Il y a un décrochage assez net pour k > 1 (lag > 1), ce qui est en faveur d'un modèle MA(1).
+Il y a un décrochage assez net pour k \> 1 (lag \> 1), ce qui est en faveur d'un modèle MA(1).
 
 **Donc au moins une compensante MA(1) !**
 
@@ -610,7 +657,7 @@ Syntaxe :
 
 ```{r}
 pacf(diff(gsts), lag.max= 60, main="Autocorrélogramme partiel de la différence de la série chronologique")
-``` 
+```
 
 -   1ère corrélation partielle est élevée (lag 1)
 
@@ -628,7 +675,7 @@ Au total : probablement un modèle ARMA(1,1)
 
 Fonction `auto.arima` du package `forecast` permet de faire une sélection automatique du modèle ARIMA le plus adapté aux données.
 
-Pour Falissard : c'est un piège car automatique et n'oblige pas à réfléchir ! 
+Pour Falissard : c'est un piège car automatique et n'oblige pas à réfléchir !
 
 Syntaxe :
 
@@ -646,8 +693,7 @@ Syntaxe :
 auto.arima(diff(gsts), trace=TRUE)
 ```
 
--------------------
-
+------------------------------------------------------------------------
 
 **Ici : Modèle ARIMA(1,0,1) est sélectionné donc équivalent à ARMA(1,1)**
 
@@ -657,29 +703,31 @@ auto.arima(diff(gsts), trace=TRUE)
 
     -   p = 1 (AR(1))
 
-    -   d = 0 (Integrated) 
-    
-        -   d=1 : ça veut dire qu'il y a une tendance linéaire à la baisse, ce qui aurait été le cas si on avait pris `gsts``
+    -   d = 0 (Integrated)
+
+        -   d=1 : ça veut dire qu'il y a une tendance linéaire à la baisse, ce qui aurait été le cas si on avait pris \`gsts\`\`
 
         -   d=2 : tendance quadratique, c'est à dire courbe en U ou en cloche
 
     -   q = 1 (MA(1))
 
--   sans composante saisonnière (car pas de saisonnalité dans les données) (s'il y en avait une, ça aurait été noté ARIMA(p,d,q)(P,D,Q)[s] avec s = saisonnalité)
+-   sans composante saisonnière (car pas de saisonnalité dans les données) (s'il y en avait une, ça aurait été noté ARIMA(p,d,q)(P,D,Q)\[s\] avec s = saisonnalité)
 
 2.  Avec variable exogène
 
 On regarde s'il y a une rupture le 17/03/20 = confinement
 
-    1.  Création de la variable exogène
+```         
+1.  Création de la variable exogène
+```
 
-Variable `x` construite : 
+Variable `x` construite :
 
--   Elle vaut –1 pour les semaines avant la semaine 145 (date du 17 Mars 2020) 
+-   Elle vaut –1 pour les semaines avant la semaine 145 (date du 17 Mars 2020)
 
 -   Et vaut 0 jusqu’en Juin 2022.
 
--   Utiliser la fonction `rep` pour répéter les valeurs *(c'est à dire que `rep`(-1,145)` crée un vecteur de 145 valeurs égales à -1 et `rep(0,115)` crée un vecteur de 115 valeurs égales à 0)*
+-   Utiliser la fonction `rep` pour répéter les valeurs *(c'est à dire que `rep`(-1,145)`crée un vecteur de 145 valeurs égales à -1 et`rep(0,115)\` crée un vecteur de 115 valeurs égales à 0)*
 
 ```{r}
 x <- c(rep(-1,145), rep(0,115))
@@ -704,7 +752,7 @@ res <- arima(diff(gsts), order = c(1,0,1), xreg = x)
 res
 ```
 
--------
+------------------------------------------------------------------------
 
 Estimation de l'effet de `x` avec son écart-type.
 
@@ -716,11 +764,11 @@ Le paramètre de `x`= 0.0855
 
 L'écart-type de `x` = 0.0472
 
-Rapport : 0.0855 / 0.0472 = 1.81 < 1.96 donc p-value > 0.05
+Rapport : 0.0855 / 0.0472 = 1.81 \< 1.96 donc p-value \> 0.05
 
 **Donc pas d'effet significatif du confinement sur les recherches Google autour du mot "suicide".**
 
--------------------
+------------------------------------------------------------------------
 
 # Fonction `stl()`
 
@@ -754,3 +802,4 @@ plot(
 ```
 
 -   On observe une saisonnalité annuelle avec un pic fin Août (avant la rentrée scolaire)
+:::
