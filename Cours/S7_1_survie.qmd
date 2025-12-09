@@ -111,6 +111,8 @@ alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
 
 -   **Manquante** : on ne sait pas si l'événement d'intérêt est survenu ou non
 
+NB : toutes les variables correspondant à une durée ne sont pas nécessairement censurées !
+
 ## Données de survie
 
 Donnée de survie = *survival time* ou *time to event data*
@@ -131,7 +133,7 @@ Donnée de survie = *survival time* ou *time to event data*
 
 -   tous les patients n'ont pas le même temps d'observation
 
-On aimerait observer $T_i$ = délai jusqu'à l'événement d'intérêt pour chaque individu $i$.
+On aimerait que le délai $T_i$ soit le délai jusqu'à l'événement d'intérêt pour chaque individu $i$.
 
 Mais on observe en fait :
 
@@ -170,7 +172,7 @@ Par exemple :
 
 -   les individus pour lesquels on ne sait pas si l'événement d'intérêt est survenu ou non avant la date de censure (on sait juste qu'ils ont "survécu" jusqu'à la censure)
 
-Donc colonnes dans la BDD pour le critère de survie :
+**Donc colonnes dans la BDD pour le critère de survie :**
 
 -   L'ÉVÈNEMENT :
 
@@ -402,7 +404,7 @@ Propriétés :
 ------------------------------------------------------------------------
 
 | Fonction | Notation | Définition |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Densité de probabilité | $f(t)$ | $\lim_{\Delta t \to 0} \frac{P(t < T < t + \Delta t)}{\Delta t}$ |
 | Fonction de répartition | $F(t)$ | $P(T \leq t) = \int_{0}^{t} f(u) du$ |
 | Fonction de survie | $S(t)$ | $P(T > t) = 1 - F(t) = \int_{t}^{\infty} f(u) du$ |
@@ -444,7 +446,7 @@ $S$ = fonction de survie = $1 - F(t)$ = $e^{-H(t)}$ car $H(t) = -\ln(S(t))$
 En résumé :
 
 | Fonction                      | Notation | Relation avec les autres fonctions |
-|-------------------------------|----------|------------------------------------|
+|--------------------------|----------------|-------------------------------|
 | Densité de probabilité        | $f(t)$   | $f(t) = h(t) \times S(t)$          |
 | Fonction de répartition       | $F(t)$   | $F(t) = 1 - S(t)$                  |
 | Fonction de survie            | $S(t)$   | $S(t) = e^{-H(t)}$                 |
@@ -471,7 +473,13 @@ En résumé :
 
 ### Estimation en absence de censure
 
-**En l'absence de censure, on remplace la probabilité théorique par une proportion basée sur les données observées.**
+En l'absence de censure (c'est-à-dire quand le délai de survenue de l'événement est connu pour tous les individus), l'approche non paramétrique consiste à **remplacer la probabilité théorique par une simple proportion** basée sur les données observées.
+
+L'estimateur empirique de la fonction de répartition $\hat{F}(t)$ représente la **proportion d’individus** dans la population étudiée qui ont présenté l’événement d'intérêt avant ou à un moment donné $t$.
+
+-   **Calcul :** Cette proportion est calculée en sommant les indicateurs (qui valent 1 si l'événement $T_i$ a eu lieu avant $t$, et 0 sinon) pour tous les individus, puis en divisant par le nombre total d'individus $n$,.
+
+-   **Propriété :** Cet estimateur est une **fonction en escalier, monotone, croissante de 0 à 1**.
 
 -   **Estimateur de la fonction de répartition** $F(t)$ à partir des données observées
 
@@ -487,11 +495,15 @@ En résumé :
 
     -   $\hat{F}(t)$ est un estimateur de la fonction de répartition $F(t)$, qui serait la proportion "vraie" d'individus ayant présenté l'évènement avant $t$ dans la population générale / idéale
 
-    -   Fonction en escalier, monotone, croissante de 0 à 1
-
 <!-- -->
 
 -   **Estimateur de la fonction de survie** $S(t)$ = $1 - \hat{F}(t)$
+
+L'estimateur empirique de la fonction de survie ($\hat{S}(t)$) est le complément direct de $\hat{F}(t)$, soit $\hat{S}(t) = 1 - \hat{F}(t)$.
+
+-   **Signification :** Il représente la **proportion d’individus n'ayant pas présenté l'événement avant** $t$, ou ayant « survécu au-delà de $t$ » dans la population étudiée. Il est calculé comme le nombre d'individus survivant au-delà de $t$, divisé par le nombre total d'individus.
+
+-   **Propriété :** C'est une **fonction en escalier, monotone, décroissante de 1 à 0**.
 
     $\hat{S}(t) = 1 - \hat{F}(t) = \frac{1}{n} \sum_{i=1}^{n} 1_{(T_i > t)}$
 
@@ -504,8 +516,6 @@ En résumé :
     -   Donc $\hat{S}(t)$ = estimateur empirique = proportion d'individus n'ayant pas présenté l'évènement avant $t$ (ayant survécu au delà de $t$) dans la population étudiée
 
     = $\hat{S}(t) = \frac{\text{Nombre d'individus survivant au dela de } t}{\text{Nombre total d'individus}}$\
-
-    -   Fonction en escalier, monotone, décroissante de 1 à 0.
 
 #### Exemple
 
@@ -653,6 +663,8 @@ plot(
     main="Fonction de survie sans censure (simulée)")
 ```
 
+\newpage
+
 ### Estimation en présence de censure : probabilités conditionnelles
 
 Probabilités conditionnelles = on ne considère que les individus "à risque" à chaque instant.
@@ -691,7 +703,7 @@ $Q_k$ = probabilité conditionnelle de survie au temps $t_k$ = $P(T > t_k \mid T
 $S_k$ = probabilité cumulée de survie jusqu'au temps $t_k$ = $S(t_k)$
 
 | $t_k$ (temps) | $N_k$ (nombre à risque en pendant la période) | $D_k$ (décès en début de période) | $C_k$ (censurés) | $Q_k$ (Probabilité conditionnelle de survie) | $S_k$ (Probabilité cumulée de survie) |
-|----|----|----|----|----|----|
+|------------|------------|------------|------------|------------|------------|
 | $t_0$ = 0 | $N_0$ = n | 0 | 0 | 1 | 1 |
 | $t_1$ | $N_1$ = $N$ | $d_1$ | $c_1$ | $Q_1 = \frac{1 - d_1}{N_1}$ | $S_1 = q_1$ |
 | $t_2$ | $N_2$ = $N_1 - D_1 - C_1$ | $d_2$ | $c_2$ | $Q_2 = \frac{N_2 - d_2}{N_2}$ | $S_2 = q_1q_2$ |
@@ -721,7 +733,7 @@ Par défaut, un évènement qui a lieu au temps 1 a lieu dans l'intervalle 1 à 
 Tableau :
 
 | Temps $t_k$ | Nombre à risque $N_k$ | Décès $D_k$ | Censurés $C_k$ | Probabilité conditionnelle de survie $Q_k$ | Probabilité cumulée de survie $S_k$ |
-|----|----|----|----|----|----|
+|------------|------------|------------|------------|------------|------------|
 | 0 | 14 | 0 | 0 | 1 | 1 |
 | 1 | 14 | 2 | 3 | 1 - 2/14 = 6/7 | 6/7 |
 | 2 | 9 | 3 | 1 | 1 - 3/9 = 6/9 | 6/7 \* 6/9 = 4/7 |
@@ -1218,7 +1230,7 @@ qui impose une relation linéaire sur le log-risque.
 ### Tableau de synthèse : interprétation des coefficients du modèle de Cox
 
 | Variable | Forme du modèle | HR = $exp(β)$ | Interprétation | Exemple |
-|----|----|----|----|----|
+|---------------|---------------|---------------|---------------|---------------|
 | **Discrète binaire** (0/1) | $`h(t|Z)=h0(t)*exp(β Z)`$ | $exp(β)$ | Rapport de risque instantané entre Z=1 et Z=0, constant dans le temps | $\beta = 0.69$ → HR = 2 : risque doublé |
 | **Discrète multicatégorielle** | Référence + indicateurs | $exp(β_k)$ | Comparaison de chaque catégorie à la référence | Réf = non-fumeur ; fumeur HR=2 ; ex-fumeur HR=1.3 |
 | **Continue (par unité)** | $`h(t|X)=h0(t)*exp(β X)`$ | $exp(β)$ | Variation du risque instantané pour +1 unité de X | $\beta = 0.05$ → HR = 1.051 : +5.1 % par unité |
@@ -1377,7 +1389,7 @@ Le top : rapport de vraisemblance pour chaque variable, rapporté dans un tablea
 **Tableau comparatif**
 
 | Caractéristique | Test de Wald | Test du rapport de vraisemblance (LRT) |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Ce qui est testé** | Chaque coefficient séparément | L'ensemble des coefficients d'une même variable |
 | **Nombre de p-values obtenues** | Une p-value par coefficient | Une seule p-value par variable (ou par bloc de variables) |
 | **Ex : variable binaire** | 1 coefficient → 1 p-value | 1 degré de liberté → 1 p-value |

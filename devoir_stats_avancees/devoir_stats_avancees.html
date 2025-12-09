@@ -8,7 +8,7 @@
 
 <meta name="author" content="Thomas Husson">
 
-<title>S4 3 Analyse Factorielle</title>
+<title>Devoir Statistiques Avancées</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -44,15 +79,45 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="devoir_stats_avancees.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../devoir_stats_avancees.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#import-des-données" id="toc-import-des-données" class="nav-link active" data-scroll-target="#import-des-données"><span class="header-section-number">0.1</span> Import des données</a></li>
+  <li><a href="#data-management" id="toc-data-management" class="nav-link" data-scroll-target="#data-management"><span class="header-section-number">0.2</span> Data management</a>
+  <ul>
+  <li><a href="#visualisation-des-données" id="toc-visualisation-des-données" class="nav-link" data-scroll-target="#visualisation-des-données"><span class="header-section-number">0.2.1</span> Visualisation des données</a></li>
+  <li><a href="#appliquer-les-groupes-de-patients-à-chacun-des-dataframe" id="toc-appliquer-les-groupes-de-patients-à-chacun-des-dataframe" class="nav-link" data-scroll-target="#appliquer-les-groupes-de-patients-à-chacun-des-dataframe"><span class="header-section-number">0.2.2</span> Appliquer les groupes de patients à chacun des dataframe</a></li>
+  <li><a href="#restructuration-des-données-reshape-long" id="toc-restructuration-des-données-reshape-long" class="nav-link" data-scroll-target="#restructuration-des-données-reshape-long"><span class="header-section-number">0.2.3</span> Restructuration des données : reshape long</a></li>
+  <li><a href="#création-dun-dataframe-large-unique-avec-toutes-les-informations" id="toc-création-dun-dataframe-large-unique-avec-toutes-les-informations" class="nav-link" data-scroll-target="#création-dun-dataframe-large-unique-avec-toutes-les-informations"><span class="header-section-number">0.2.4</span> Création d’un dataframe large unique avec toutes les informations :</a></li>
+  <li><a href="#gestion-des-valeurs-manquantes-et-notamment-de-la-question-16" id="toc-gestion-des-valeurs-manquantes-et-notamment-de-la-question-16" class="nav-link" data-scroll-target="#gestion-des-valeurs-manquantes-et-notamment-de-la-question-16"><span class="header-section-number">0.2.5</span> Gestion des valeurs manquantes (et notamment de la question 16)</a></li>
+  </ul></li>
+  <li><a href="#question-1-validation-de-léchelle-de-dépression-de-hamilton-aux-temps-j0-et-j56" id="toc-question-1-validation-de-léchelle-de-dépression-de-hamilton-aux-temps-j0-et-j56" class="nav-link" data-scroll-target="#question-1-validation-de-léchelle-de-dépression-de-hamilton-aux-temps-j0-et-j56"><span class="header-section-number">1</span> Question 1 : Validation de l’échelle de dépression de Hamilton aux temps J0 et J56</a>
+  <ul>
+  <li><a href="#inspection-des-données-pour-réponse-à-la-question" id="toc-inspection-des-données-pour-réponse-à-la-question" class="nav-link" data-scroll-target="#inspection-des-données-pour-réponse-à-la-question"><span class="header-section-number">1.1</span> Inspection des données pour réponse à la question</a>
+  <ul>
+  <li><a href="#nombre-de-patients-par-visite" id="toc-nombre-de-patients-par-visite" class="nav-link" data-scroll-target="#nombre-de-patients-par-visite"><span class="header-section-number">1.1.1</span> Nombre de patients par visite</a></li>
+  <li><a href="#structure-des-scores-aux-questions-hdrs" id="toc-structure-des-scores-aux-questions-hdrs" class="nav-link" data-scroll-target="#structure-des-scores-aux-questions-hdrs"><span class="header-section-number">1.1.2</span> Structure des scores aux questions HDRS</a></li>
+  </ul></li>
+  <li><a href="#validité-de-structure-que-mesure-réellement-linstrument" id="toc-validité-de-structure-que-mesure-réellement-linstrument" class="nav-link" data-scroll-target="#validité-de-structure-que-mesure-réellement-linstrument"><span class="header-section-number">1.2</span> Validité de structure : que mesure réellement l’instrument ?</a>
+  <ul>
+  <li><a href="#analyse-en-composantes-principales-acp" id="toc-analyse-en-composantes-principales-acp" class="nav-link" data-scroll-target="#analyse-en-composantes-principales-acp"><span class="header-section-number">1.2.1</span> Analyse en Composantes Principales (ACP)</a>
+  <ul class="collapse">
+  <li><a href="#préparation-des-données-pour-lacp-sous-ensembles-j0-et-j56" id="toc-préparation-des-données-pour-lacp-sous-ensembles-j0-et-j56" class="nav-link" data-scroll-target="#préparation-des-données-pour-lacp-sous-ensembles-j0-et-j56"><span class="header-section-number">1.2.1.1</span> Préparation des données pour l’ACP : sous ensembles J0 et J56</a></li>
+  <li><a href="#acp-à-j0" id="toc-acp-à-j0" class="nav-link" data-scroll-target="#acp-à-j0"><span class="header-section-number">1.2.1.2</span> ACP à J0</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="devoir_stats_avancees.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../devoir_stats_avancees.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">S4 3 Analyse Factorielle</h1>
+<h1 class="title">Devoir Statistiques Avancées</h1>
 </div>
 
 
@@ -75,7 +140,427 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div style="page-break-after: always;"></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consigne :</p>
+<ul>
+<li><p>Étude d’épidémiologie clinique avec mesures répétées</p></li>
+<li><p>Données :</p>
+<ul>
+<li><p>146 patients déprimés</p></li>
+<li><p>Évaluations à J0, J4, J7, J14, J21, J28, J42, J56</p></li>
+<li><p>Autoévaluation (SCL90) et hétéroévaluation (échelle de dépression de Hamilton)</p></li>
+</ul></li>
+<li><p>Questions :</p>
+<ol type="1">
+<li><p>Validation de l’échelle de dépression de Hamilton aux temps J0 et J56</p></li>
+<li><p>Comparaison de la réponse au traitement entre deux groupes de patients (groupe=0 et groupe=1) en utilisant le score brut de Hamilton avec une approche LOCF puis un modèle mixte</p></li>
+<li><p>Réponse à la question 2 en utilisant un critère binaire censuré « réponse au traitement » défini par une chute de 50% à l’échelle de Hamilton par rapport à J0</p></li>
+</ol></li>
+<li><p>Fichiers :</p>
+<ul>
+<li><p>Fichier groupe (<code>outil groupe.xlsx</code>) (2 sous-groupes de patients)</p></li>
+<li><p>Fichier autoévaluation (<code>outil autoeval.xlsx</code>) (SCL 90)</p></li>
+<li><p>Fichier hdrs (<code>outil hdrs.xlsx</code>) (échelle de Hamilton)</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"> # Gestion des données</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Le jeu de données comporte trois fichiers Excel :</td>
+</tr>
+</tbody>
+</table>
+<section id="import-des-données" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="import-des-données"><span class="header-section-number">0.1</span> Import des données</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>auto_eval <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>groupe <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>hdrs <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="data-management" class="level2" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="data-management"><span class="header-section-number">0.2</span> Data management</h2>
+<section id="visualisation-des-données" class="level3" data-number="0.2.1">
+<h3 data-number="0.2.1" class="anchored" data-anchor-id="visualisation-des-données"><span class="header-section-number">0.2.1</span> Visualisation des données</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(auto_eval)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 92
+  NUMERO VISIT    Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11
+   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     96 J0        2     3     4     4     1     0     0     3     4     4     4
+2     96 J4        0     4     4     4     2     0     0     4     4     4     4
+3     96 J7        3     3     3     3     1     0     0     4     4    34     4
+4     96 J14       0     1     0     4     1     0     0     1     3     3     4
+5     96 J21       0     0     1     1     1     0     0     1     1     1     3
+6     96 J28       0     1     0     1     1     0     0     4     4     3     4
+# ℹ 79 more variables: Q12 &lt;dbl&gt;, Q13 &lt;dbl&gt;, Q14 &lt;dbl&gt;, Q15 &lt;dbl&gt;, Q16 &lt;dbl&gt;,
+#   Q17 &lt;dbl&gt;, Q18 &lt;dbl&gt;, Q19 &lt;dbl&gt;, Q20 &lt;dbl&gt;, Q21 &lt;dbl&gt;, Q22 &lt;dbl&gt;,
+#   Q23 &lt;dbl&gt;, Q24 &lt;dbl&gt;, Q25 &lt;dbl&gt;, Q26 &lt;dbl&gt;, Q27 &lt;dbl&gt;, Q28 &lt;dbl&gt;,
+#   Q29 &lt;dbl&gt;, Q30 &lt;dbl&gt;, Q31 &lt;dbl&gt;, Q32 &lt;dbl&gt;, Q33 &lt;dbl&gt;, Q34 &lt;dbl&gt;,
+#   Q35 &lt;dbl&gt;, Q36 &lt;dbl&gt;, Q37 &lt;dbl&gt;, Q38 &lt;dbl&gt;, Q39 &lt;dbl&gt;, Q40 &lt;dbl&gt;,
+#   Q41 &lt;dbl&gt;, Q42 &lt;dbl&gt;, Q43 &lt;dbl&gt;, Q44 &lt;dbl&gt;, Q45 &lt;dbl&gt;, Q46 &lt;dbl&gt;,
+#   Q47 &lt;dbl&gt;, Q48 &lt;dbl&gt;, Q49 &lt;dbl&gt;, Q50 &lt;dbl&gt;, Q51 &lt;dbl&gt;, Q52 &lt;dbl&gt;, …</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hdrs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 20
+  NUMERO VISIT HAMD1 HAMD2 HAMD3 HAMD4 HAMD5 HAMD6 HAMD7 HAMD8 HAMD9 HAMD10
+   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1     96 J0        3     2     3     2     2     2     3     2     3      4
+2     96 J4        2     2     2     2     2     2     3     1     0      2
+3     96 J7        0     0     0     2     2     2     3     1     1      0
+4     96 J14       1     0     0     0     0     0     3     1     0      2
+5     96 J21       0     0     0     0     0     0     3     0     0      2
+6     96 J28       0     0     0     0     0     0     1     0     0      0
+# ℹ 8 more variables: HAMD11 &lt;dbl&gt;, HAMD12 &lt;dbl&gt;, HAMD13 &lt;dbl&gt;, HAMD14 &lt;dbl&gt;,
+#   HAMD15 &lt;dbl&gt;, HAMD16A &lt;dbl&gt;, HAMD16B &lt;dbl&gt;, HAMD17 &lt;dbl&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(groupe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  NUMERO GROUPE
+   &lt;dbl&gt;  &lt;dbl&gt;
+1     96      0
+2    157      1
+3     22      0
+4     21      0
+5     38      0
+6     37      1</code></pre>
+</div>
+</div>
+<p>Le dataframe <code>auto_eval</code> contient les scores d’autoévaluation (SCL90) pour chaque patient (<code>NUMERO</code>) à différents temps de visite (<code>VISIT</code>). Chaque colonne <code>Q1</code> à <code>Q90</code> représente une question spécifique du questionnaire.</p>
+<p>Le dataframe <code>hdrs</code> contient les scores d’hétéroévaluation (échelle de dépression de Hamilton) pour chaque patient à différents temps de visite. Chaque colonne <code>HAMD1</code> à <code>HAMD17</code> représente un item spécifique de l’échelle de Hamilton.</p>
+<p>Le dataframe <code>groupe</code> contient l’information sur le groupe de chaque patient (0 ou 1)</p>
+</section>
+<section id="appliquer-les-groupes-de-patients-à-chacun-des-dataframe" class="level3" data-number="0.2.2">
+<h3 data-number="0.2.2" class="anchored" data-anchor-id="appliquer-les-groupes-de-patients-à-chacun-des-dataframe"><span class="header-section-number">0.2.2</span> Appliquer les groupes de patients à chacun des dataframe</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>auto_eval <span class="ot">&lt;-</span> <span class="fu">merge</span>(auto_eval, groupe, <span class="at">by =</span> <span class="st">"NUMERO"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(auto_eval)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  NUMERO VISIT Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 Q11 Q12 Q13 Q14 Q15 Q16 Q17 Q18
+1      3    J0  3  3  2  1  1  2  0  0  2   2   3   3   0   3   1   0   1   3
+2      3    J4  2  4  2  1  3  0  0  0  2   2   3   4   0   4   1   0   2   2
+3      3    J7  1  3  3 30 13  1  0  0  2   3   3   3   0   4   1   0   1   1
+4      4    J0  3  3  4  2  3  2  3  1  2   3   4   4   1   3   2   0   1   2
+5      4    J4  2  1  1  0  0  0  0  0  2   2   1   3   0   3   1   0   1   0
+6      4    J7  2  2  2  1  0  0  1  0  3   3   3   3   0   3   1   0   1   2
+  Q19 Q20 Q21 Q22 Q23 Q24 Q25 Q26 Q27 Q28 Q29 Q30 Q31 Q32 Q33 Q34 Q35 Q36 Q37
+1   0   4   1   3   3   3   0   3   2   3   3   3   3   0   2   3   2   2   1
+2   3   4   1   3   3   3   0   4   1   4   3   4   3   0   3   2   3   1   0
+3   1   4   1   4   3   4   0   3   1   4   4   4   4   0   3   3   2   1   0
+4   1   2   2   0   2   3   0   4   2   3   3   4   4   4   1   1   2   1   0
+5   0   0   1   0   1   2   0   3   1   3   3   4   4   3   0   1   1   1   0
+6   1   1   1   0   1   2   0   4   0   4   1   3   3   2   1   0   0   1   1
+  Q38 Q39 Q40 Q41 Q42 Q43 Q44 Q45 Q46 Q47 Q48 Q49 Q50 Q51 Q52 Q53 Q54 Q55 Q56
+1   1   3   3   2   2   1   2   3   2   0   2   2   3   2   1   3   2   3   2
+2   2   4   4   2   1   1   3   1   3   0   2   2   3   1   1   3   2   4   2
+3   2   3   0   1   1   1   1   2   3   0   1   1   3   1   1   3   1   4   1
+4   3   4   4   4   3   3   0   3   3   0   3   3   3   2   3   2   4   4   3
+5   2   3   1   3   0   0   0   1   3   0   4   4   2   2   1   0   4   4   4
+6   2   4   2   3   1   2   0   1   3   0   4   2   1   3   2   1   4   4   2
+  Q57 Q58 Q59 Q60 Q61 Q62 Q63 Q64 Q65 Q66 Q67 Q68 Q69 Q70 Q71 Q72 Q73 Q74 Q75
+1   4   2   2   3   3   3   0   0   3   1   0   2   3   2   3   3   0   1   3
+2   4   1   1   0   1   0   0   2   2   3   0   0   2   0   4   4   0   1   3
+3   4   1   1   1   2   0   1   1   2   1   1   0   1   2   3   3   0   1   4
+4   4   3   2   1   2   3   4   0   2   3  NA   0   3   2   3   3   1   1   0
+5   3   1   1   0   0   2   3   0   2   3   3   1   2   1   3   2   1   0   0
+6   3   3   2   0   1   1   3   0   2   3   2   0   1   0   3   2   0   1   1
+  Q76 Q77 Q78 Q79 Q80 Q81 Q82 Q83 Q84 Q85 Q86 Q87 Q88 Q89 Q90 GROUPE
+1   1   3   3   1   1   0   1   1   0   0   2   3   0   1   3      1
+2   2   2   3   0   1   0   0   1   0   0   3   1   0   2   3      1
+3   3   3   3   1   0   1   0   1   0   0   3   1   1   3   1      1
+4   0   3   3   4   3   2   2   2   1   0   2   3   3   3   4      1
+5   1   2   3   4   1   0   1   0   1   0   2   3   2   3   4      1
+6   1   1   3   4   1   0   1   1   0   0   2   3   3   1   4      1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hdrs + groupe</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>hdrs <span class="ot">&lt;-</span> <span class="fu">merge</span>(hdrs, groupe, <span class="at">by =</span> <span class="st">"NUMERO"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hdrs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  NUMERO VISIT HAMD1 HAMD2 HAMD3 HAMD4 HAMD5 HAMD6 HAMD7 HAMD8 HAMD9 HAMD10
+1      0    J0     3     2     2     1     1     0     3     1     2      3
+2      3    J0     3     1     1     2     1     0     3     1     2      3
+3      3    J4     3     1     1     2     1     0     3     1     2      3
+4      3    J7     3     1     1     1     1     1     3     2     2      3
+5      4    J0     3     1     1     0     2     0     3     1     2      3
+6      4    J4     3     1     1     0     2     0     3     1     1      2
+  HAMD11 HAMD12 HAMD13 HAMD14 HAMD15 HAMD16A HAMD16B HAMD17 GROUPE
+1      4      0      2      2      2       0      NA      1      1
+2      3      0      2      1      2       0      NA      0      1
+3      3      2      2      1      2      NA       0      0      1
+4      3      2      2      2      3      NA       0      0      1
+5      3      1      2      2      3       1      NA      0      1
+6      3      0      2      2      3       0      NA      0      1</code></pre>
+</div>
+</div>
+<p>Une colonne <code>groupe</code> a été ajoutée à chaque dataframe.</p>
+</section>
+<section id="restructuration-des-données-reshape-long" class="level3" data-number="0.2.3">
+<h3 data-number="0.2.3" class="anchored" data-anchor-id="restructuration-des-données-reshape-long"><span class="header-section-number">0.2.3</span> Restructuration des données : reshape long</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>hdrs_long <span class="ot">&lt;-</span> <span class="fu">melt</span>(hdrs, <span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>, <span class="st">"GROUPE"</span>),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">variable.name =</span> <span class="st">"ITEM"</span>, <span class="at">value.name =</span> <span class="st">"SCORE"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hdrs_long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  NUMERO VISIT GROUPE  ITEM SCORE
+1      0    J0      1 HAMD1     3
+2      3    J0      1 HAMD1     3
+3      3    J4      1 HAMD1     3
+4      3    J7      1 HAMD1     3
+5      4    J0      1 HAMD1     3
+6      4    J4      1 HAMD1     3</code></pre>
+</div>
+</div>
+<p>Idem pour le dataframe <code>auto_eval</code> :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>auto_eval_long <span class="ot">&lt;-</span> <span class="fu">melt</span>(auto_eval, <span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>, <span class="st">"GROUPE"</span>),</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">variable.name =</span> <span class="st">"QUESTION"</span>, <span class="at">value.name =</span> <span class="st">"RESPONSE"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(auto_eval_long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  NUMERO VISIT GROUPE QUESTION RESPONSE
+1      3    J0      1       Q1        3
+2      3    J4      1       Q1        2
+3      3    J7      1       Q1        1
+4      4    J0      1       Q1        3
+5      4    J4      1       Q1        2
+6      4    J7      1       Q1        2</code></pre>
+</div>
+</div>
+</section>
+<section id="création-dun-dataframe-large-unique-avec-toutes-les-informations" class="level3" data-number="0.2.4">
+<h3 data-number="0.2.4" class="anchored" data-anchor-id="création-dun-dataframe-large-unique-avec-toutes-les-informations"><span class="header-section-number">0.2.4</span> Création d’un dataframe large unique avec toutes les informations :</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Ajouter le groupe à toutes les visites</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">merge</span>(auto_eval, groupe, <span class="at">by =</span> <span class="st">"NUMERO"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Fusionner auto-éval + HDRS par NUMERO + VISIT</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>df_all <span class="ot">&lt;-</span> <span class="fu">merge</span>(df1, hdrs, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>), <span class="at">all =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>On a donc :</p>
+<ul>
+<li><p>un dataframe large <code>df_all</code> avec toutes les informations</p></li>
+<li><p>deux dataframes larges <code>hdrs</code> et <code>auto_eval</code> pour les analyses globales, contenant les informations de groupe</p></li>
+<li><p>deux dataframes longs <code>hdrs_long</code> et <code>auto_eval_long</code> pour les analyses spécifiques, contenant les informations de groupe</p></li>
+</ul>
+</section>
+<section id="gestion-des-valeurs-manquantes-et-notamment-de-la-question-16" class="level3" data-number="0.2.5">
+<h3 data-number="0.2.5" class="anchored" data-anchor-id="gestion-des-valeurs-manquantes-et-notamment-de-la-question-16"><span class="header-section-number">0.2.5</span> Gestion des valeurs manquantes (et notamment de la question 16)</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(hdrs<span class="sc">$</span>HAMD16A, <span class="at">useNA =</span> <span class="st">"ifany"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1    2 &lt;NA&gt; 
+ 771  105   87   90 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(hdrs<span class="sc">$</span>HAMD16B, <span class="at">useNA =</span> <span class="st">"ifany"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1    2 &lt;NA&gt; 
+  70    8   11  964 </code></pre>
+</div>
+</div>
+<p>La question 16 de l’échelle de Hamilton est codée <code>hdrs$HAMD16A</code> ou <code>hdrs$HAMD16B</code> selon que la perte de poids est déclarée ou appréciée par des pesées hebdomadaires.</p>
+<p>Le problème est que : le fait que <code>hdrs$HAMD16A</code> soit rempli implique que <code>hdrs$HAMD16B</code> est manquant et vice-versa.</p>
+<p>On peut donc créer une nouvelle variable <code>HAMD16</code> qui prend la valeur de <code>HAMD16A</code> si elle est remplie, sinon la valeur de <code>HAMD16B</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hdrs<span class="sc">$</span>HAMD16 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(hdrs<span class="sc">$</span>HAMD16A), hdrs<span class="sc">$</span>HAMD16A, hdrs<span class="sc">$</span>HAMD16B)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(hdrs<span class="sc">$</span>HAMD16, <span class="at">useNA =</span> <span class="st">"ifany"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1    2 &lt;NA&gt; 
+ 841  113   98    1 </code></pre>
+</div>
+</div>
+<p>Ici, on a transformé les deux variables <code>HAMD16A</code> et <code>HAMD16B</code> en une seule variable <code>HAMD16</code> sans valeurs manquantes.</p>
+<p>La nouvelle variable <code>HAMD16</code> est codée 0 à 2 selon les valeurs initiales de <code>HAMD16A</code> et <code>HAMD16B</code>.</p>
+</section>
+</section>
+<section id="question-1-validation-de-léchelle-de-dépression-de-hamilton-aux-temps-j0-et-j56" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Question 1 : Validation de l’échelle de dépression de Hamilton aux temps J0 et J56</h1>
+<p>L’HDRS est :</p>
+<ul>
+<li><p>Une hétéro-évaluation</p></li>
+<li><p>Une échelle multi-items</p></li>
+<li><p>Et un instrument théorique permettant la mesure d’un construit latent : la sévérité dépressive (construit latent = quelque chose que l’on veut mesurer mais qu’on ne peut pas observer directement)</p></li>
+</ul>
+<p>Pour valider l’échelles de Hamilton, on propose 3 étapes :</p>
+<ol type="1">
+<li><p>Validité de structure : que mesure réellement l’instrument ?</p></li>
+<li><p>Précision / Fidélité : qualité technique de la mesure</p></li>
+<li><p>Validité de construit (convergente)</p>
+<ul>
+<li><p>Sa fiabilité / reproductibilité</p></li>
+<li><p>Sa structure interne aux temps spécifiés (J0 et J56)</p></li>
+</ul></li>
+</ol>
+<section id="inspection-des-données-pour-réponse-à-la-question" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="inspection-des-données-pour-réponse-à-la-question"><span class="header-section-number">1.1</span> Inspection des données pour réponse à la question</h2>
+<section id="nombre-de-patients-par-visite" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="nombre-de-patients-par-visite"><span class="header-section-number">1.1.1</span> Nombre de patients par visite</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(hdrs<span class="sc">$</span>VISIT, <span class="at">deparse.level =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ J0 J14 J21 J28  J4 J42 J56  J7 
+146 133 129 127 139 122 120 137 </code></pre>
+</div>
+</div>
+<ul>
+<li><p>146 patients à J0</p></li>
+<li><p>120 patients à J56 (donc 26 perdus de vue)</p></li>
+</ul>
+</section>
+<section id="structure-des-scores-aux-questions-hdrs" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="structure-des-scores-aux-questions-hdrs"><span class="header-section-number">1.1.2</span> Structure des scores aux questions HDRS</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(hdrs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Description of hdrs </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Numeric 
+         mean median     var    sd valid.n
+NUMERO  91.29     94 2780.79 52.73    1053
+HAMD1    1.74      2    1.38  1.17    1052
+HAMD2    0.91      1    0.70  0.84    1052
+HAMD3    0.55      0    0.63  0.79    1052
+HAMD4    0.94      1    0.66  0.81    1052
+HAMD5    0.89      1    0.63  0.79    1052
+HAMD6    0.74      1    0.60  0.78    1052
+HAMD7    1.94      2    1.57  1.25    1052
+HAMD8    0.84      1    0.73  0.86    1052
+HAMD9    0.94      1    0.92  0.96    1052
+HAMD10   1.80      2    1.12  1.06    1052
+HAMD11   1.34      1    0.80  0.89    1052
+HAMD12   0.65      1    0.47  0.69    1052
+HAMD13   1.14      1    0.58  0.76    1052
+HAMD14   1.17      1    0.59  0.77    1052
+HAMD15   1.09      1    0.88  0.94    1052
+HAMD16A  0.29      0    0.39  0.62     963
+HAMD16B  0.34      0    0.48  0.69      89
+HAMD17   0.14      0    0.14  0.37    1052
+GROUPE   0.47      0    0.25  0.50    1053
+HAMD16   0.29      0    0.39  0.63    1052
 
+ Factor 
+         
+VISIT         J0    J4     J7    J14    J21    J28    J42   J56
+  Count   146.00 139.0 137.00 133.00 129.00 127.00 122.00 120.0
+  Percent  13.87  13.2  13.01  12.63  12.25  12.06  11.59  11.4
+Mode J0 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compte des valeurs manquantes par variable</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(hdrs, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> NUMERO   VISIT   HAMD1   HAMD2   HAMD3   HAMD4   HAMD5   HAMD6   HAMD7   HAMD8 
+      0       0       1       1       1       1       1       1       1       1 
+  HAMD9  HAMD10  HAMD11  HAMD12  HAMD13  HAMD14  HAMD15 HAMD16A HAMD16B  HAMD17 
+      1       1       1       1       1       1       1      90     964       1 
+ GROUPE  HAMD16 
+      0       1 </code></pre>
+</div>
+</div>
+<p>Les items HDRS sont codés de 0 à 2 ou 0 à 4 selon les questions.</p>
+<p>Il y a des données avec peu de valeurs manquantes (1 valeur manquante par item sauf pour HAMD16A et HAMD16B, ce qui est logique car HAMD16A et HAMD16B sont exclusives l’une de l’autre).</p>
+</section>
+</section>
+<section id="validité-de-structure-que-mesure-réellement-linstrument" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="validité-de-structure-que-mesure-réellement-linstrument"><span class="header-section-number">1.2</span> Validité de structure : que mesure réellement l’instrument ?</h2>
+<p>L’objectif est de vérifier si les 17 items HDRS</p>
+<ul>
+<li><p>reflètent un seul facteur latent (dépression)</p></li>
+<li><p>ou plusieurs dimensions latentes (anxiété, somatisation, agitation, sommeil…), ce qui change l’interprétation du score total.</p></li>
+</ul>
+<p>On peut utiliser 2 méthodes :</p>
+<ul>
+<li><p>Analyse en Composantes Principales (ACP) : permet d’explorer rapidement la structure</p></li>
+<li><p>Analyse Factorielle (AF) : méthode standard pour les instruments multi-items subjectifs</p></li>
+</ul>
+<section id="analyse-en-composantes-principales-acp" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="analyse-en-composantes-principales-acp"><span class="header-section-number">1.2.1</span> Analyse en Composantes Principales (ACP)</h3>
+<section id="préparation-des-données-pour-lacp-sous-ensembles-j0-et-j56" class="level4" data-number="1.2.1.1">
+<h4 data-number="1.2.1.1" class="anchored" data-anchor-id="préparation-des-données-pour-lacp-sous-ensembles-j0-et-j56"><span class="header-section-number">1.2.1.1</span> Préparation des données pour l’ACP : sous ensembles J0 et J56</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Sélection des items utilisés pour l’ACP</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>items_acp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"HAMD1"</span>,<span class="st">"HAMD2"</span>,<span class="st">"HAMD3"</span>,<span class="st">"HAMD4"</span>,<span class="st">"HAMD5"</span>,<span class="st">"HAMD6"</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"HAMD7"</span>,<span class="st">"HAMD8"</span>,<span class="st">"HAMD9"</span>,<span class="st">"HAMD10"</span>,<span class="st">"HAMD11"</span>,<span class="st">"HAMD12"</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"HAMD13"</span>,<span class="st">"HAMD14"</span>,<span class="st">"HAMD15"</span>,<span class="st">"HAMD17"</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Sous-ensemble J0</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>hdrs_J0 <span class="ot">&lt;-</span> <span class="fu">subset</span>(hdrs, VISIT <span class="sc">==</span> <span class="st">"J0"</span>)[ , items_acp]</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Sous-ensemble J56</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>hdrs_J56 <span class="ot">&lt;-</span> <span class="fu">subset</span>(hdrs, VISIT <span class="sc">==</span> <span class="st">"J56"</span>)[ , items_acp]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Les 16 items de la HDRS retenus (hors item 16, trop incomplet) sont entièrement renseignés à J0 et à J56, avec une variabilité suffisante (3 à 5 modalités par item).</p>
+<p>Les distributions semblent montrer une amélioration clinique entre J0 et J56, avec une chute globale des scores, ce qui justifie de réaliser deux ACP distinctes pour explorer la structure dimensionnelle à chacun des deux temps.</p>
+</section>
+<section id="acp-à-j0" class="level4" data-number="1.2.1.2">
+<h4 data-number="1.2.1.2" class="anchored" data-anchor-id="acp-à-j0"><span class="header-section-number">1.2.1.2</span> ACP à J0</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ACP à J0</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>acp_J0 <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(hdrs_J0, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(acp_J0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Importance of components:
+                          PC1    PC2     PC3     PC4     PC5     PC6     PC7
+Standard deviation     1.3886 1.3325 1.25747 1.13662 1.11837 1.06891 1.02022
+Proportion of Variance 0.1205 0.1110 0.09883 0.08074 0.07817 0.07141 0.06505
+Cumulative Proportion  0.1205 0.2315 0.33032 0.41106 0.48923 0.56064 0.62570
+                           PC8     PC9    PC10    PC11    PC12    PC13    PC14
+Standard deviation     0.99051 0.93277 0.87021 0.83037 0.79789 0.77384 0.74435
+Proportion of Variance 0.06132 0.05438 0.04733 0.04309 0.03979 0.03743 0.03463
+Cumulative Proportion  0.68702 0.74139 0.78872 0.83182 0.87161 0.90903 0.94366
+                          PC15    PC16
+Standard deviation     0.68769 0.65458
+Proportion of Variance 0.02956 0.02678
+Cumulative Proportion  0.97322 1.00000</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphique des valeurs propres</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mdspca</span>(hdrs_J0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(acp_J0, <span class="at">main =</span> <span class="st">"Screeplot ACP à J0"</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>À J0, la première composante principale n’explique que 12 % de la variance, ce qui est trop faible pour soutenir une structure unidimensionnelle. La variance est répartie sur de nombreuses composantes (les six premières représentent seulement 56 % du total), ce qui indique que les items ne mesurent pas un unique construit commun. Cette dispersion est compatible avec la structure hétérogène connue de l’HDRS (mélange d’items d’humeur, d’anxiété, de sommeil et de somatisation). L’échelle apparaît donc clairement multidimensionnelle à J0.</p>
+</section>
+</section>
+</section>
+</section>
 
 </main>
 <!-- /main column -->

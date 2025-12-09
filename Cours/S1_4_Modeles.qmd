@@ -1,0 +1,1464 @@
+---
+title: "S1_4_Modèles"
+prefer-html: true
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table des matières"
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            % Force la police Computer Modern pour le titre principal
+            \makeatletter
+            \renewcommand{\maketitle}{
+            \begin{center}
+                {\Large\bfseries\rmfamily \@title \par}
+                \vskip 1.5em
+                {\large\rmfamily \@author \par}
+                \vskip 1em
+            \end{center}
+            }
+            \makeatother
+            % Tous les titres en police par défaut LaTeX
+            \usepackage{sectsty}
+            \allsectionsfont{\rmfamily}
+
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+
+            % Gestion des chunks de code
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(psy)
+library(MASS)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+```
+
+```{r}
+#| echo: false
+#| include: false
+smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","gravite","recherche.nouv", "evit.danger","dep.recompense")]
+```
+
+\newpage
+
+# Modèle linéaire
+
+## Principe et mise en œuvre
+
+Modèle linéaire = modèle de régression linéaire = régression linéaire.
+
+Utilisé quand une variable quantitative (continue) normalement distribuée $Y$ doit être mise en relation avec une ou plusieurs variables $X_1, X_2, ..., X_p$ (quantitatives ou qualitatives, binaires ou catégorielles (dans le cas de variables catégorielles, elles sont automatiquement transformées en variables binaires)).
+
+-   $Y$ = variable dépendante, expliquée, à prédire
+
+-   $X_1, X_2, ..., X_p$ = variables indépendantes, explicatives, prédictives, ou régresseurs
+
+Équation du modèle linéaire :\
+
+$$
+Y = \alpha_0 + \alpha_1 X_1 + \alpha_2 X_2 + ... + \alpha_p X_p + \epsilon
+$$
+
+où :
+
+-   $\alpha_0$ = ordonnée à l'origine (intercept)
+
+-   $\alpha_1, \alpha_2, ..., \alpha_p$ = coefficients de régression (pentes)
+
+-   $\epsilon$ = terme d'erreur (résidus), supposé suivre une loi normale centrée réduite (d'espérance nulle = 0, avec espérance = moyenne)
+
+Objectif de l'algorithme = estimer les coefficients de régression ($\alpha_0, \alpha_1, \alpha_2, ..., \alpha_p$) de façon à minimiser la variance estimée de $\epsilon$ (méthode des moindres carrés).
+
+En gros : l'objectif est de trouver le modèle pour lequel le bruit est minimal.
+
+**Conditions de validité**
+
+-   Normalité de la variable résiduelle $\epsilon$
+
+-   Homoscédasticité des résidus (variance constante de $\epsilon$ pour toutes les valeurs de $X$)
+
+-   Indépendance des résidus $\varepsilon$ (les résidus doivent être indépendants les uns des autres, c'est à dire pas de structure d'autocorrélation en particulier pas de structure temporelle)
+
+::: callout-note
+**Relation régression linéaire et ANOVA**
+
+L'ANOVA (analyse de la variance) est en fait un cas particulier de la régression linéaire où toutes les variables explicatives sont catégorielles. Ainsi, une ANOVA à un facteur est équivalente à une régression linéaire avec une variable explicative binaire.
+:::
+
+## Exemple avec le jeu de données `smp`
+
+Objectif : modéliser la durée de l’entretien en fonction de différentes variables explicatives.
+
+La variable à expliquer est : durée de l’entretien (quantitative, donc régression linéaire adaptée)
+
+-   âge (quantitative)
+
+-   trouble psychiatrique
+
+-   trouble de la personnalité
+
+-   traumatisme pendant l’enfance
+
+-   type de prison
+
+1.  Description des variables :
+
+-   Étude descriptive des variables
+
+-   Vérification des conditions de validité du modèle : notament la normalité de la variable à expliquer
+
+2.  Construction du modèle linéaire
+
+```{r}
+smp2 <- smp[smp$duree.interv>15,] # exclut valeurs aberrantes
+mod <- lm(
+    duree.interv~
+    schizophrenie + depression + abus.subst + gravite + charactere + trauma.enfant + age + factor(type.centre),
+    data=smp2)
+summary(mod)
+```
+
+-   Schizophrénie : augmentation de la durrée moyenne de 3 minutes, non significatif (p=0,28)
+
+-   Dépression : augmentation de la durée moyenne de 6 minutes, significatif
+
+-   Gravité : augmentation de la durée moyenne de **1 minute par point de gravité**, significatif
+
+-   Type de centre : deux lignes, car recodée en deux variables binaires (centre 2 vs centre 3, centre 3 vs centre 1)
+
+Mais la présentation ne permet pas de tester l’effet global de la variable « type de centre » , c’est-à-dire répondre à la question : la durée d'entretien est-elle indépendante du type de centre, à valeur égale des autres variables ?
+
+Dans ce cas : fonction `drop1()` :
+
+La fonction `drop1()` permet de tester l’effet global d’une variable explicative en comparant le modèle complet avec un modèle sans cette variable.
+
+Ici : `drop1(mod, test="F")` permet de tester l’effet global de chaque variable explicative en comparant le modèle complet avec un modèle sans cette variable, en utilisant un test F (test F = test de comparaison de modèles (ANOVA)).
+
+```{r}
+drop1(mod, test="F")
+```
+
+Le type de centre a donc un effet global significatif (p=0,005) sur la durée de l’entretien.
+
+3.  Vérification des conditions de validité du modèle
+
+```{r}
+par(mfrow=c(2,2))
+plot(mod, which=1:4)
+```
+
+Residuals vs Fitted : permet de vérifier que la variance des résidus est constante et globalement indépendante des valeurs prédites (homoscédasticité).
+
+Normal Q-Q : permet de vérifier la normalité des résidus (les points doivent être proches de la diagonale).
+
+Cook's distance : permet d'identifier les points influents (points avec une grande distance de Cook, au-dessus de la ligne pointillée).
+
+\newpage
+
+## Corrélation et modèle linéaire
+
+Rappel sur le coefficient de corrélation de Pearson (r) :
+
+-   $r$ varie entre -1 et 1
+
+-   $r = 1$ : corrélation positive parfaite (lorsque $X$ augmente, $Y$ augmente de façon linéaire)
+
+-   $r = -1$ : corrélation négative parfaite (lorsque $X$ augmente, $Y$ diminue de façon linéaire)
+
+-   $r = 0$ : absence de corrélation linéaire entre $X$ et $Y$
+
+Donc quand 2 variables $X$ et $Y$ sont parfaitement corrélées ($r$ = 1 ou -1), elles sont linéairement déterminées ($Y = a0 + a1 X$).
+
+**Proximité entre corrélation et régression linéaire** :
+
+-   Si $X$ et et $Y$ sont deux variables aléatoires, la régression linéaire de $Y$ en fonction de $X$ permet de prédire les valeurs de $Y$ à partir des valeurs de $X$.
+
+-   Si $X$ et $Y$ sont linéairement liés, le modèle de régression linéaire permet de quantifier cette relation linéaire.
+
+-   La corrélation sert uniquement à dire s’il existe un lien entre deux variables et si ce lien va dans le même sens ou en sens inverse.
+
+-   La régression sert à utiliser une variable pour estimer la valeur attendue d’une autre variable.
+
+-   La dispersion d’une variable correspond au fait que ses valeurs sont plus ou moins éloignées les unes des autres.
+
+-   Dire qu’une partie de la dispersion est expliquée signifie qu’une partie des différences observées dans Y est liée aux valeurs de X.
+
+-   Le carré de la corrélation correspond à la fraction de la dispersion de Y qui est expliquée par X à travers la relation linéaire.
+
+-   Une fraction signifie simplement une partie du tout, par exemple 40 % de ce qui varie dans Y.
+
+    -   Si cette fraction est faible, alors connaître X aide très peu à estimer Y.
+
+    -   Si cette fraction est élevée, alors connaître X aide beaucoup à estimer Y.
+
+-   Même si une grande partie de la dispersion est expliquée, cela ne prouve jamais que X est la cause de Y.
+
+-   Corrélation et régression décrivent donc le même lien linéaire, mais la corrélation mesure la force du lien et la régression sert à faire des estimations chiffrées de Y. Si un exemple numérique concret doit accompagner ces phrases pour ancrer chaque notion, cela peut être ajouté.
+
+```{r}
+## 1. Simulation des données
+
+set.seed(123)          # pour rendre l'exemple reproductible
+n <- 100               # nombre d'observations
+
+X <- rnorm(n, mean = 0, sd = 1)     # génération X 
+bruit <- rnorm(n, mean = 0, sd = 1) # génération du bruit
+
+Y <- 2 * X + bruit # création de Y en fonction de X avec du bruit
+```
+
+Corrélation entre X et Y :
+
+```{r}
+r <- cor(X, Y)
+r
+```
+
+r = 0.8786 : forte corrélation positive entre X et Y.
+
+3.  Régression linéaire de Y sur X
+
+Faire une régression linéaire de Y en fonction de X permet de construire une règle numérique qui permet de prédire Y à partir de X, à partir de données réelles (bruitées)
+
+```{r}
+mod <- lm(Y ~ X)
+summary(mod)
+```
+
+Affiche les coefficients, l'ordonnée à l'origine (intercept), la pente, le R², etc.
+
+$r^2$ correspond à la proportion de la variance de Y expliquée par X dans le modèle linéaire, c'est à dire la fraction de la variance de Y qui est expliquée par X à travers la relation linéaire.
+
+4.  Valeurs ajustées (prédictions pour les X observés)
+
+```{r}
+Y_chapeau <- fitted(mod)
+```
+
+L'instruction `fitted(mod)` permet d'obtenir les valeurs prédites de Y (notées $Y_{chapeau}$) pour chaque valeur observée de X, en utilisant le modèle de régression linéaire.
+
+5.  Vérification r\^2 = Var(Y_chapeau) / Var(Y)
+
+On vérifie ici que le $r^2$ obtenu dans le résumé du modèle est bien égal à la variance des valeurs prédites ($Y_{chapeau}$) divisée par la variance de Y.
+
+```{r}
+var_Y <- var(Y)
+var_Y_chapeau <- var(Y_chapeau)
+
+r2_via_cor <- r^2
+r2_via_var <- var_Y_chapeau / var_Y
+
+r2_via_cor
+r2_via_var
+```
+
+Si les deux valeurs sont égales, cela confirme que le $r^2$ du modèle linéaire correspond bien à la fraction de la variance de Y expliquée par X.
+
+Cela revient à dire :
+
+-   La corrélation dit à quel point X et Y vont ensemble.
+
+-   La régression dit combien des différences de Y on peut retrouver grâce à X (quelle est la part de la variance de Y expliquée par X = quelle part des variations de Y est liée aux variations de X).
+
+-   Le pourcentage de la variance de Y expliquée par X est donné par le carré du coefficient de corrélation (r²).
+
+-   Dans le cas d’une régression avec une seule variable X, ces deux informations sont numériquement équivalentes une fois mises au carré.
+
+**Avec une seule variable explicative X :**
+
+-   $r^2$ = carré du coefficient de corrélation
+
+-   = part de la variabilité de Y prédite par la régression
+
+-   = % de la variance de Y expliquée par X.
+
+```{r}
+#| echo: false
+## 6. Plot pour visualiser tout ça
+
+# On choisit quelques points pour ne pas surcharger le graphique avec les segments
+set.seed(123)
+idx <- sample.int(n, 10)
+
+plot(
+    X, Y,
+    xlab = "X",
+    ylab = "Y",
+    main = "Corrélation et régression linéaire",
+    pch = 16
+)
+
+# Droite de régression
+abline(mod, col = "red", lwd = 2)
+
+# Segments verticaux entre Y observé et Y_chapeau (résidus)
+segments(
+    x0 = X[idx], y0 = Y[idx],
+    x1 = X[idx], y1 = Y_chapeau[idx],
+    lty = 2
+)
+
+# Points sur la droite : valeurs prévues Y_chapeau
+points(
+    X[idx], Y_chapeau[idx],
+    pch = 1
+)
+
+# Affichage de r et r^2 sur le graphique
+# Affichage de r et r^2 à un endroit visible du graphique
+text(
+    x = quantile(X, 0.05),
+    y = quantile(Y, 0.95),
+    labels = paste0(
+        "r = ", round(r, 3), "\n",
+        "R^2 = ", round(r2_via_cor, 3)
+    ),
+    adj = c(0, 1),
+    cex = 1
+)
+```
+
+::: callout-important
+**Résumé : relation entre corrélation et régression linéaire**
+
+La corrélation mesure à quel point deux variables X et Y varient ensemble de façon linéaire.
+
+La régression utilise cette relation linéaire pour prédire les valeurs de Y à partir des valeurs de X, dans le cas où il y a une **seule** variable explicative X.
+:::
+
+\newpage
+
+## Le test t : un cas particulier du modèle linéaire
+
+Rappel : le test t permet de comparer **la moyenne** d’une variable quantitative entre deux groupes.
+
+Dans le cadre d’un modèle linéaire, on peut considérer que le test t est un cas particulier où :
+
+-   la variable à expliquer $Y$ est quantitative
+
+-   la variable explicative $X$ est binaire (deux groupes)
+
+-   le modèle linéaire devient un modèle de régression linéaire avec une seule variable binaire explicative (un facteur à deux modalités).
+
+$$
+Y = \alpha_0 + \alpha_1 \text{groupe}_i + \epsilon_i
+$$
+
+où $\text{groupe}_i$ est une variable binaire (0 ou 1) indiquant le groupe auquel appartient l'observation $i$.
+
+Dans ce cas, le modèle linéaire permet de tester si la moyenne de $Y$ est significativement différente entre les deux groupes.
+
+### Exemple R
+
+#### Test t
+
+On avait vu un test t qui comprarait la moyenne d'âge des détenus selon qu'ils étaient ou non déprimés.
+
+```{r}
+t.test(smp$age ~ smp$depression, var.equal=TRUE)
+```
+
+t = 2.634 : la moyenne d'âge des détenus déprimés est significativement plus basse que celle des détenus non déprimés.
+
+p-value = 0.008611 : la différence de moyenne est significative (p \< 0,05).
+
+#### Régression linéaire
+
+On peut aussi faire une régression linéaire avec la variable binaire `depression` comme variable explicative :
+
+```{r}
+summary(lm(age ~ depression, data=smp))
+```
+
+t value = - 2,634 et p value = 0,008611 : les résultats sont identiques à ceux du test t.
+
+### Relation entre test t et régression linéaire
+
+Le test t est donc un cas particulier de la régression linéaire où la variable explicative est binaire (un facteur à deux modalités).
+
+Dans ce cas, le modèle linéaire permet de tester si la moyenne de la variable à expliquer est significativement différente entre les deux groupes.
+
+Considérer le modèle llinéaire comme une généralisation du test t permet de transposer une partie des propriétés du test t à la régression linéaire :
+
+-   **Normalité des résidus** : **hypothèse faible**, pouvant être facilement compensée par un échantillon suffisamment grand
+
+-   **Indépendance des observations** : reste nécessaire
+
+-   **Homoscédasticité** : = égalité de la variance : peut être supprimée par un estimateur robuste
+
+    -   Estimateur "sandwich" : fonctionne en utilisant la matrice de variance-covariance des résidus pour ajuster les erreurs standards des coefficients du modèle.
+
+    -   Bootstrap : méthode de rééchantillonnage qui permet d'estimer la variance des coefficients du modèle en générant de multiples échantillons à partir des données originales.
+
+-   **Défaut de linéarité d'une variable quantitative** : peut poser problème, mais peut être compensé par une transformation de la variable (logarithmique, racine carrée, etc.) ou par l'utilisation de modèles non linéaires.
+
+::: callout-note
+**Méthode des moindres carrés**
+
+La régression linéaire utilise la méthode des moindres carrés pour estimer les coefficients du modèle, de manière à minimiser la somme des carrés des résidus (différences entre les valeurs observées et les valeurs prédites).
+
+L'objectif est de trouver les coefficients $\alpha_0$ et $\alpha_1$ qui minimisent la somme des carrés des erreurs (résidus) entre les valeurs observées de $Y$ et les valeurs prédites par le modèle.
+:::
+
+\newpage
+
+# Introduction aux GLM
+
+## Comment ça marche les GLM ?
+
+**Les modèles linéaires généralisés reposent sur 3 éléments:**
+
+1.  Un prédicteur linéaire
+
+2.  Une fonction de lien
+
+3.  Une structure des erreurs
+
+## Le prédicteur linéaire
+
+« prédicteur linéaire« , c’est un terme un peu complexe pour dire, que comme dans les modèles linéaires classiques, les réponses prédites par les modèles vont l’être à partir d’une **combinaison linéaire des variables prédictives**
+
+Le prédicteur linéaire est : $\eta_i$
+
+$$
+\eta_i = \sum_{j=1}^{p} \beta_j X_{ij}
+$$
+
+où :
+
+-   $\eta_i$ : **prédicteur linéaire** pour l’individu $i$.
+
+    -   C’est la combinaison linéaire de toutes les variables explicatives.
+
+    -   Dans un GLM, **c’est la quantité que la fonction de lien va transformer** pour produire la moyenne du modèle (ex : logit, log, identité…).
+
+-   $X_{ij}$ : **valeur de la variable explicative** $j$ pour l’individu $i$.
+
+    -   Chaque individu a un ensemble de covariables (âge, sexe, exposition, etc.), notées $X_{i1}, X_{i2}, \dots, X_{ip}$.
+
+-   $\beta_j$ : **coefficient associé à la variable explicative** $j$.
+
+    -   Il quantifie l’effet de $X_{ij}$ sur la quantité modélisée.
+
+    -   Dans un GLM :
+
+        -   en régression linéaire : effet moyen sur $Y$\
+        -   en logistique : effet sur les log-odds\
+        -   en Poisson : effet sur le log de l’incidence\
+        -   etc.
+
+-   $p$ : **nombre total de variables explicatives** incluses dans le modèle.
+
+-   La somme $\sum_{j=1}^{p} \beta_j X_{ij}$
+
+    -   signifie qu’on multiplie chaque covariable par son coefficient, puis qu’on additionne le tout pour obtenir le **résultat global pour l’individu** $i$.
+
+**En résumé :**
+
+Le prédicteur linéaire $\eta_i$ est la “combinaison linéaire” de toutes les covariables.
+
+C’est lui que le modèle va ensuite transformer (via la fonction de lien) en **probabilité**, **moyenne**, ou **taux**, selon le type de GLM.
+
+## La fonction de lien
+
+= étape délicate des GLM !
+
+Contrairement aux modèles linéaires classiques, les valeurs prédites par le prédicteur linéaire ne correspondent pas à la prédiction moyenne d’une observation, mais à la transformation (par une fonction mathématique) de celle-ci.
+
+En pratique, cela signifie que les valeurs du prédicteur linéaire sont obtenues en transformant préalablement les valeurs observées par la fonction de lien.
+
+Autrement dit, les beta sont estimés après transformation des réponses selon la fonction de lien choisie.
+
+Le prédicteur linéaire et la fonction de lien sont ainsi liés par une équation qui contraint les valeurs prédites par le modèle à être dans l’échelle des valeurs observées.
+
+Les formules sont complexes et incompréhnsibles mais globalement :
+
+::: {.landscape}
+### Tableau synthétique des modèles linéaires généralisés (GLM)
+
++-----------------------+-----------------------------------------------------+-----------------------------+-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+| Type de réponse       | Domaine des valeurs possibles                       | Distribution des erreurs    | Fonction de lien                                                                                                            | Comment la moyenne est obtenue                                                                                   | Fonction de la variance                                                                  |
++=======================+=====================================================+=============================+=============================================================================================================================+==================================================================================================================+==========================================================================================+
+| Quantitative continue | Toutes les valeurs réelles (négatives ou positives) | Gaussienne (normale)        | Identité : combinaison linéaire des variables explicatives = **la moyenne des résultats**                                   | La moyenne est la somme des effets des variables explicatives                                                    | La variance est constante = **homoscédasticité**                                         |
+|                       |                                                     |                             |                                                                                                                             |                                                                                                                  |                                                                                          |
+|                       |                                                     | = modèle linéaire classique |                                                                                                                             | Donc effet **additif**                                                                                           |                                                                                          |
++-----------------------+-----------------------------------------------------+-----------------------------+-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+| Comptage (0,1,2,3,…)  | Nombres entiers positifs                            | Poisson                     | Logarithme : transforme la moyenne avec un logarithme pour pouvoir modéliser des valeurs qui ne peuvent être que positives. | La moyenne est obtenue en appliquant l’exponentielle à la combinaison linéaire des variables.                    | La variance est proportionnelle à la moyenne                                             |
+|                       |                                                     |                             |                                                                                                                             |                                                                                                                  |                                                                                          |
+|                       |                                                     |                             |                                                                                                                             | Donc effet **multiplicatif**                                                                                     | Plus la moyenne est grande, plus la variance l'est aussi                                 |
++-----------------------+-----------------------------------------------------+-----------------------------+-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+| Binaire (oui/non)     | 0 ou 1                                              | Binomiale                   | Logit                                                                                                                       | La moyenne (probabilité) est obtenue en appliquant une fonction « en S » à la combinaison linéaire des variables | La variance dépend à la fois de la probabilité et de sa complémentaire (1 - probabilité) |
+|                       |                                                     |                             |                                                                                                                             |                                                                                                                  |                                                                                          |
+|                       |                                                     |                             |                                                                                                                             | Fonction **sigmoïde**                                                                                            | Si probabilité est faible ou élevée : faible variance                                    |
+|                       |                                                     |                             |                                                                                                                             |                                                                                                                  |                                                                                          |
+|                       |                                                     |                             |                                                                                                                             |                                                                                                                  | Si probabilité 50% : variance maximale                                                   |
++-----------------------+-----------------------------------------------------+-----------------------------+-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+
+En gros : dans les GLM, les données sont d’abord transformées et que cette transformation permet ensuite aux prédictions d’avoir des contraintes identiques aux réponses observées (par exemple, d’être toujours positives ou nulles), autrement dit de fournir des prédictions cohérentes !
+:::
+
+## La structure d'erreur 
+
+A une fonction de lien donnée, correspond généralement une structure d’erreur particulière.
+
+Il s’agit d’une famille de distribution des erreurs.
+
+Par exemple, pour les données de comptage, la fonction de lien est le log et la structure d’erreur correspondante est la distribution de Poisson.
+
+Cette structure d’erreur, permet notamment de spécifier correctement la relation entre la moyenne et la variance.
+
+Cette relation est utilisée par l’approche de maximum de vraisemblance pour estimer les coefficients des paramètres (les beta) du GLM.
+
+## Maximum de vraisemblance et déviance 
+
+Les coefficients des paramètres d’un GLM sont estimés par la méthode du maximum de vraisemblance, qui fait appelle à la notion de déviance.
+
+La déviance est en quelque sorte une généralisation de la variance.
+
+Elle mesure l’écart entre le modèle ajusté et le modèle saturé (modèle qui s’ajuste parfaitement aux données).
+
+L’objectif est de minimiser la déviance, c’est-à-dire de trouver les coefficients des paramètres qui rendent le modèle aussi proche que possible des données observées.
+
+\newpage
+# Modèle logistique
+
+## Modèle linéaire inadapté pour cas témoins
+
+En étude cas-témoins :
+
+-   on choisit un certain nombre de cas (Y=1) et un certain nombre de témoins (Y=0) de manière artificielle,
+
+-   donc la proportion de cas dans les données ne reflète pas le vrai risque dans la population.
+
+On ne peut donc pas interpréter :
+
+-   ni la moyenne de Y comme un risque,
+
+-   ni la différence de moyennes comme une différence absolue de risque.
+
+Or le modèle linéaire sur Y (0/1) raisonne justement en termes de moyennes et de différences absolues, donc ça ne marche pas en cas-témoins.
+
+En revanche, en cas-témoins, l’odds-ratio reste interprétable → d’où l’intérêt de la logistique.
+
+## Principe et mise en œuvre
+
+Objectif du modèle logistique : modéliser une variable binaire (0 ou 1) en fonction de variables explicatives quantitatives ou qualitatives.
+
+Modèle logistique = régression logistique.
+
+Équation du modèle logistique :
+
+$$
+Y = \log\left(\frac{p}{1-p}\right) = \alpha_0 + \alpha_1 X_1 + ... + \alpha_p X_p + \epsilon
+$$
+
+Il est très peu probable que $\varepsilon$ suive une loi normale :
+
+-   $Y$ est binaire (0 ou 1), donc la variance de $Y$ n'est pas constante (elle dépend de la valeur de $p$)
+
+-   Les valeurs de à droites varient entre $-\infty$ et $+\infty$
+
+NB : les résidus se calculent $\varepsilon = Y\ –\ (\alpha_0 + \alpha_1 X_1 + ... + \alpha_p X_p)$.
+
+En fait l'équation n'a pas de sens !
+
+-   À gauche : Y = 0 ou 1
+
+-   À droite : une combinaison linéaire + une erreur ε → ça peut être n’importe quel réel, positif ou négatif.
+
+-   Un modèle linéaire peut prédire des valeurs \< 0 ou \> 1, or on veut prédire quelque chose qui ressemble à une probabilité.
+
+-   Il n'y a ni log-linéarité, ni proportionnalité des risques.
+
+L'objectif est donc de modéliser la "probabilité" que Y = 1 en fonction des variables explicatives $X_1, X_2, ..., X_p$.
+
+C'est à dire $P(Y=1|X_1, X_2, ..., X_p)$. (pour probabilité de Y sachant X1, X2, ..., Xp)
+
+## Transformation de Y
+
+### Odds
+
+L'objectif est de modéliser la probabilité que Y = 1 en fonction des variables explicatives $X_1, X_2, ..., X_p$.
+
+Donc on cherche à modéliser $p = P(Y=1|X_1, X_2, ..., X_p)$.
+
+-   $p$ est compris entre 0 et 1.
+
+-   on cherche en fait à calculer l'odds = la cote = la probabilité que Y = 1 / probabilité que Y = 0 = $p/(1-p)$.
+
+Les odds varient entre 0 et +∞. Exemple :
+
+-   si p = 0.5 → odds = 0.5 / 0.5 = 1
+
+-   si p = 0.8 → odds = 0.8 / 0.2 = 4
+
+### Log-odds
+
+On applique la transformation logarithmique aux odds afin d'obtenir une variable qui varie entre -∞ et +∞ et de la rendre compatible avec une régression linéaire.
+
+Attention, on supprime $\varepsilon$ car :
+
+-   on ne peut pas avoir de terme d'erreur dans une régression logistique
+
+-   en fait, comme on modélise la probabilité que $Y=1$ à partir des données observées, l'erreur est "contenue" dans les données elles-mêmes.
+
+$$
+\log\left(\frac{p(Y=1)}{1-p(Y=1)}\right) = \alpha_0 + \alpha_1 X_1 + ... + \alpha_p X_p
+$$
+
+## Maximum de vraisemblance
+
+L'estimation des coefficients du modèle logistique se fait par la méthode du maximum de vraisemblance.
+
+Vraisemblance = probabilité d'observer les données réelles, en fonction des paramètres du modèle.
+
+L'idée est de trouver les coefficients $\alpha_0, \alpha_1, ..., \alpha_p$ qui maximisent la probabilité d'observer les données réelles, en supposant que le modèle est correct.
+
+Quand on dit "maximiser la log-vraisemblance", c'est équivalent à maximiser la vraisemblance, mais c'est plus facile à calculer avec des logarithmes.
+
+L'utilisation des logarithmes facilite les calculs car :
+
+-   la log-vraisemblance transforme les produits en sommes, ce qui est plus simple à manipuler mathématiquement.
+
+-   elle permet d'éviter des problèmes numériques liés à la manipulation de très petites probabilités.
+
+-   Elle est souvent utilisée en statistique pour simplifier les calculs d'optimisation.
+
+## Conditions de validité
+
+La condition de validité la plus importante : au moins 10 évènements par variable explicative dans le modèle (10 événements = 10 cas où Y=1).
+
+Cela permet d'assurer que les estimations des coefficients du modèle sont stables et fiables.
+
+## Exemple R
+
+La fonction `glm()` permet de faire une régression logistique en R.
+
+Objectif : modéliser l’existence d’un risque suicidaire élevé à l’aide des variables :
+
+-   abus dans l’enfance (oui/non),
+
+-   procédure disciplinaire pendant l’incarcération (oui/non),
+
+-   durée de la peine (\<1 mois, 1-6 mois, 6-12 mois, 1-5 ans, \>5 ans),
+
+-   âge (continue)
+
+-   type de prison (« 1 » pour maison centrale, « 2 » pour centre de détention et « 3 » pour maison d’arrêt).
+
+### Description des variables
+
+```{r}
+describe(
+    smp[, c("hr.suicide","abus.enfant","discipline", "duree.peine","age")], 
+    num.desc=c("mean","sd","median", "min","max","valid.n"))
+```
+
+### Fonction glm
+
+```{r}
+mod <- glm(
+    hr.suicide ~ 
+        abus.enfant + discipline + duree.peine + age + factor(type.centre), 
+    data=smp, 
+    family = "binomial")
+summary(mod)
+exp(coefficients(mod))
+exp(confint(mod))
+```
+
+Pour afficher tous les résultats en un seul tableau facilement exportable en latex (tableau gtsummary)
+
+```{r}
+res_table1 <- tbl_regression(
+    mod,
+    exponentiate = TRUE
+    ) |>
+    modify_table_styling(
+        columns = estimate,
+        footnote = "Estimates are odds ratios from a logistic regression model."
+    )
+
+res_table1
+```
+
+```{r}
+#| include: false 
+#| eval : false
+# Pour exporter en LaTeX
+gt_tbl <- as_gt(res_table)
+gt::as_latex(gt_tbl)
+```
+
+### Tester l'absence d'effet d'une variable
+
+Fonction `drop1` permet de tester si "globalement", l'effet d'une variable catégorielle a un effet sur `hr.suicide`
+
+La fonction `drop1` permet de "supprimer" la variable du modèle.
+
+```{r}
+drop1(mod,.~.,test="Chisq")
+```
+
+On utilise ici un test du Chi2 car on utilise le Maximum de Vraisemblance, qui suit une loi du Chi2 asymptotiquement.
+
+Pour un modèle linéaire, on utilisait un test F car on utilisait la méthode des moindres carrés, qui suit une loi F (pour Fisher) asymptotiquement.
+
+::: callout-note
+**Différence entre test F et test du Chi2 dans le contexte des modèles linéaires et logistiques**
+
+-   Test F : utilisé dans les modèles linéaires (régression linéaire) basés sur la méthode des moindres carrés. Il compare la variance expliquée par le modèle à la variance résiduelle pour évaluer la signification des variables explicatives.
+
+-   Test du Chi2 : utilisé dans les modèles logistiques basés sur le maximum de vraisemblance. Il compare la log-vraisemblance du modèle complet avec celle d'un modèle réduit (sans la variable testée) pour évaluer l'effet global de la variable explicative.
+:::
+
+\newpage
+
+# Modèle log-binomial
+
+Problème du modèle logistique : les odds-ratios sont ajustés et donc difficiles à interpréter.
+
+Comment traduire un OR en truc du quotidien (si la maladie est fréquente) ?
+
+Solution : modèle log-binomial.
+
+## Principe et mise en œuvre
+
+Objectif du modèle log-binomial : modéliser une variable binaire (0 ou 1) en fonction de variables explicatives quantitatives ou qualitatives, **en estimant directement les risques relatifs (RR) au lieu des odds-ratios (OR).**
+
+Modèle log-binomial = régression log-binomial.
+
+Équation du modèle log-binomial :\
+
+$$
+\log[p(Y=1)] = a_0 + a_1 X_1 + ... + a_p X_p
+$$
+
+où $p(Y=1)$ est la probabilité que Y = 1 (risque).
+
+Problème mathématique :
+
+-   à gauche : $\log[p(Y=1)]$ varie entre $-\infty$ et 0 (car $p(Y=1)$ varie entre 0 et 1) donc $\log[p(Y=1)]$ ne peut pas prendre toutes les valeurs réelles.
+
+-   à droite : une combinaison linéaire de variables explicatives qui peut prendre toutes les valeurs réelles (entre $-\infty$ et $+\infty$).
+
+On a donc un problème de convergence (on dit que l'algorithme converge quand il trouve une solution stable) :
+
+-   une probabilité doit être ≤ 1,
+
+-   mais $\exp(\cdot)$ peut dépasser 1 très facilement.
+
+Le modèle log-binomial fonctionne donc avec des contraintes :
+
+-   $\exp(a_0 + a_1 X_1 + ... ) \le 1$ : le modèle interdit des combinaisons de variables explicatives qui donneraient des probabilités \> 1.
+
+-   donc les coefficients sont fortement contraints à se rapprocher de 0.
+
+## Exemple R
+
+On utilise la fonction `logbin()` du package `logbin`.
+
+Objectif : idem que précédemment, modéliser l’existence d’un risque suicidaire élevé.
+
+```{r}
+mod2 <- logbin(
+    hr.suicide ~ 
+        abus.enfant + discipline + duree.peine + age + factor(type.centre),
+    data = smp
+)
+summary(mod2)
+exp(coefficients(mod2))
+exp(confint(mod2))
+```
+
+Et représentation en tableau :
+
+```{r}
+res_table2 <- tbl_regression(mod2, exponentiate = TRUE) |>
+    modify_table_styling(
+        columns = estimate,
+        footnote = "Estimates are risk ratios from a log-binomial model."
+    )
+res_table2
+```
+
+## Problème du modèle log-binomial
+
+## Limitations du modèle log-binomial et alternative pratique
+
+Le modèle **log-binomial**, utilisé pour estimer directement un **risque relatif (RR)** ajusté lorsque la maladie est fréquente, présente plusieurs limites majeures :
+
+-   méthodes d’estimation instables lorsque la prévalence est élevée ou que de nombreuses covariables sont incluses ;
+
+-   problèmes fréquents de **convergence**, car les probabilités prédites doivent rester ≤ 1 alors que la forme exponentielle peut facilement dépasser cette limite ;
+
+-   les coefficients sont contraints vers 0, ce qui produit des **risques relatifs artificiellement proches de 1** ;
+
+-   le modèle estime des **RR conditionnels**, difficiles à interpréter en présence de nombreuses covariables ou de covariables corrélées ;
+
+-   pour des maladies fréquentes, l’hypothèse d’absence d’interaction est souvent intenable, menant soit à des probabilités \> 100 %, soit à un aplatissement général des RR.
+
+## Alternative : calculer un RR marginal à partir d’un modèle logistique
+
+Une approche robuste consiste à :
+
+1.  ajuster une **régression logistique** ;
+
+2.  créer deux jeux de données contrefactuels :
+
+    -   un où l’exposition vaut $0$ pour tous les sujets ;
+
+    -   un où l’exposition vaut $1$ pour tous les sujets ;
+
+3.  prédire les probabilités dans chaque scénario ;
+
+4.  calculer :
+
+    -   le risque moyen non exposé : $p_0$ ;
+
+    -   le risque moyen exposé : $p_1$ ;
+
+    -   le risque relatif marginal : $RR = \dfrac{p_1}{p_0}$ ;
+
+    -   l’odds-ratio marginal : $OR = \dfrac{p_1/(1-p_1)}{p_0/(1-p_0)}$ ;
+
+    -   la différence absolue de risque : $DAR = p_1 - p_0$.
+
+\newpage
+
+# Modèle logistique pour *odds* proportionnels
+
+Ces modèles sont adaptés quand la variable à expliquer est qualitative ordonnée. p151 du pdf
+
+\newpage
+
+# Modèle de Poisson et binomial négatif pour taux d'incidence
+
+Variable de type "compte" (= entier positif)
+
+= nombre d'occurences d'un évènement dans un intervalle de temps donné (= nombre de buts marqués, d'œufs pondus...)
+
+Les modèles de Poisson et binomial négatif permettent de modéliser une variable de type "compte" en fonction de variables explicatives quantitatives ou qualitatives.
+
+Définition :
+
+-   Ce sont des GLM (= modèles linéaires généralisés)
+
+-   Fonction lien log = logarithme naturel
+
+-   Structure d'erreur de type Poisson.
+
+## Pourquoi les modèles linéaires classiques ne sont pas adaptés
+
+Données de compte : ne remplissent pas les conditions de validité des modèles linéaires classiques.
+
+-   Ne suivent pas une loi normale (mais une loi de Poisson)
+
+-   Leur variance n'est pas constante (mais proportionnelle à la moyenne)
+
+## La distribution de Poisson
+
+La distribution de Poisson est une distribution de probabilité discrète qui décrit le nombre d'événements se produisant dans un intervalle de temps ou d'espace fixe, lorsque ces événements se produisent avec une moyenne constante et indépendamment les uns des autres.
+
+Équation :
+
+$$
+P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
+$$
+
+Avec :
+
+-   $P(X = k)$ : probabilité d'observer exactement $k$ événements dans l'intervalle
+
+-   $\lambda$ : moyenne (et variance) du nombre d'événements dans l'intervalle
+
+-   $e$ : base du logarithme naturel (environ 2,71828)
+
+-   $k!$ : factorielle de $k$ (produit des entiers de 1 à $k$)
+
+Donc la distribution de Poisson est ainsi définie par un seul paramètre : $\lambda$ !
+
+Exemples de distributions de poisson avec différentes valeurs de $\lambda$ :
+
+Plus $\lambda$ augmente, plus la distribution de Poisson se rapproche d’une loi Normale.
+
+On dit qu’une loi de Poisson peur être approximée par une loi Normale quand $\lambda$ = égal 20 ou 30
+
+```{r}
+#| echo: false
+#| include: true
+#| warning: false
+# Valeurs de lambda
+lambdas <- c(0.1, 0.5, 1, 5, 10, 30)
+
+# Construction du dataset complet
+df <- bind_rows(lapply(lambdas, function(lam) {
+    xmax <- qpois(0.999, lam)    # borne max recommandée
+    tibble(
+        lambda = lam,
+        x = 0:xmax,
+        prob = dpois(0:xmax, lam)
+    )
+}))
+
+df$lambda <- factor(df$lambda)
+
+# Plot
+ggplot(df, aes(x = x, y = prob)) +
+    geom_col(width = 0.8, fill = "steelblue", color = "black", size = 1.2) +
+    facet_wrap(~ lambda, scales = "free_x") +
+    labs(
+        title = "Distributions de Poisson pour différents λ",
+        x = "x",
+        y = "P(X = x)"
+    ) +
+    theme_bw(base_size = 14) +
+    theme(
+        strip.text = element_text(size = 14, face = "bold"),
+        plot.title = element_text(size = 18, face = "bold")
+    )
+```
+
+**La distribution de Poisson possède deux éléments remarquables :**
+
+-   L’espérance ( ou moyenne) d’une variable aléatoire distribuée selon une loi de poisson est égale à Lambda :$E(y) = \lambda$
+
+-   La variance d’une variable aléatoire distribuée selon une loi de poisson est aussi égale à Lambda : $Var(y) = \lambda$
+
+## Caractéristique du GLM de Poisson
+
+1.  Prédicteur linéaire : combinaison linéaire des variables explicatives
+
+-   $\eta_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + ... + \beta_p X_{ip}$
+
+-   où $\eta_i$ est le prédicteur linéaire pour l'observation $i$.
+
+2.  Fonction de lien dans le modèle de Poisson : logarithme naturel
+
+-   $\log(\mu_i) = \eta_i$ = prédicteur linéaire
+
+En gros : les valeurs prédites par le prédicteur linéaire du GLM ne correspondent pas à la prédiction moyenne d’une observation, **mais à la transformation log de celle-ci**.
+
+Pour obtenir la prédiction moyenne, on applique l’exponentielle au prédicteur linéaire :
+
+-   $\mu_i = \exp(\eta_i)$
+
+3.  Structure d'erreur : distribution de Poisson
+
+-   La variable à expliquer suit une loi de Poisson.
+
+-   C'est à dire que son espérance (sa moyenne) et sa variance sont égales à $\lambda$.
+
+## Conditions de validité
+
+1.  les réponses sont indépendantes.
+
+2.  les réponses sont distribuées selon une loi de Poisson, de paramètre Lambda.
+
+3.  il n’existe pas de surdispersion
+
+### Indépendance des réponses
+
+-   Pas de structures de corrélation entre les données
+
+-   Par exemple pas de données répétées
+
+-   Si données répétées : utiliser un modèle linéaire généralisé à effet mixte (Generalized Linear
+Mixed Models, ou GLMM).
+
+### Distribution des réponses
+
+-   Généralement supposée
+
+-   On peut comparer la distribution des données *vs* une distribution théorique de Poisson
+
+### Absence de surdispersion
+
+-   Selon la loi de Poisson, la variance des réponses est égale à la moyenne des réponses.
+
+-   Surdispersion = variance réelle > variance théorique.
+
+    -   Dans ce cas : risque de sous-estimation de l’erreur standard des paramètres du modèle.
+
+    -   et donc de p-value excessivement faible.
+
+#### Comment mesurer la surdispersion
+
+On calcule un paramètre appelé $\phi$ :
+
+$$
+\phi = \frac{\text{variance observee}}{\text{variance theorique}} = 
+\frac{\text{variance observee}}{\text{moyenne}}.
+$$
+
+En pratique, comme la variance théorique d’un modèle de Poisson vaut la moyenne, $\phi$ indique directement à quel point les données sont plus dispersées que ce que le modèle prévoit.
+
+Dans un modèle ajusté, on n’a pas accès à la vraie variance, donc $\phi$ est estimé par :
+
+$$
+\hat{\phi} = \frac{\text{deviance residuelle}}{\text{nombre de degres de liberte}}.
+$$
+
+Avec la déviance résiduelle = mesure de l’écart entre le modèle ajusté et les données observées.
+
+- Si $\hat{\phi} \approx 1$ : les données sont compatibles avec la loi de Poisson.
+
+- Si $\hat{\phi} > 1$ : il y a surdispersion.
+
+- Il n’existe **pas de seuil universel** (1.5 ? 2 ?) : le seuil dépend aussi de la taille des données.
+
+Certains packages (comme `AER`) proposent un test dédié pour aider à prendre la décision.
+
+
+#### Causes fréquentes de surdispersion
+
+La surdispersion n’est pas un “bug”, mais un symptôme d’un problème réel dans les données :
+
+- corrélation entre les réponses (par exemple des mesures répétées),
+
+- variable explicative importante manquante,
+
+- excès de zéros par rapport à ce que prévoit une loi de Poisson.
+
+#### Que faire en cas de surdispersion ?
+
+Si $\hat{\phi}$ est clairement supérieur à 1, il faut changer le modèle, car la régression de Poisson n'est plus adaptée.
+
+Deux alternatives classiques :
+
+-   **quasi-Poisson** : 
+
+    -   même structure que Poisson, mais avec variance ajustée ;
+    
+    -   lève la contrainte d'égalité entre moyenne et variance.
+
+-   **binomiale négative** : 
+
+    -   variance plus flexible, souvent adaptée aux données avec beaucoup de dispersion.
+
+    -   modèle plus complexe, mais souvent plus robuste.
+
+Ces modèles corrigent l’erreur standard en la multipliant par :
+
+$$
+\sqrt{\hat{\phi}}.
+$$
+
+Ce qui remet les p-values à des niveaux plus réalistes.
+
+## Exemple R
+
+Modèle expliquant le nombre d’antécédents d’incarcération des détenus du df `smp`.
+
+-   Données de comptage d’événements non-indépendants car survenant chez un même sujet ! 
+
+-   Modèle de Poisson : inapproprié car adapté au comptage d’événements indépendant est manifestement inapproprié, 
+
+-   Modèles quasi-Poisson ou binomial négatifs restent possibles car ne reposent pas sur l’hypothèse d’indépendance.
+
+Pour mesurer le degré d'invalidité du modèle de Poisson, on compare la moyenne et la variance du nombre d'antécédents d'incarcération.
+
+```{r}
+mean(smp$n.prison, na.rm=TRUE)
+var(smp$n.prison, na.rm=TRUE)
+var(smp$n.prison, na.rm=TRUE) / mean(smp$n.prison, na.rm=TRUE)
+```
+
+### Modèle de Poisson
+
+Essayons de calculer un modèle de Poisson malgré tout incluant : 
+
+-   `charactere` (intensité d’un trouble de la personnalité), 
+
+-   `recherche.nouv` (dimension de recherche de la nouveauté), 
+
+-   `famille.prison` (antécédents familiaux d’incarcération), 
+
+-   `abus.enfant` (antécédents d’abus pendant l’enfance), 
+
+-   `age` (l’âge) 
+
+-   et `type.centre` (le type d’établissement pénitentiaire).
+
+```{r}
+mod_pois <- glm(
+    n.prison ~ charactere + recherche.nouv + famille.prison + abus.enfant + age + factor(type.centre),
+    data = smp,
+    family = poisson()
+)
+summary(mod_pois)
+```
+
+Affichage des résultats en tableau :
+
+```{r}
+res_table_pois <- tbl_regression(
+    mod_pois,
+    exponentiate = TRUE
+    ) |>
+    modify_table_styling(
+        columns = estimate,
+        footnote = "Estimates are incidence rate ratios from a Poisson regression model."
+    )
+res_table_pois
+```
+
+Le package `guideR` de Larmarange propose une fonction `guideR::observed_vs_theoretical()` qui permet justement de comparer la distribution observée avec la distribution théorique d’un modèle. 
+
+```{r}
+mod_pois |> 
+    guideR::observed_vs_theoretical()
+```
+
+Il existe même une fonction automatique évaluent la surdispersion dans le package `DHARMa`, qui fait un test de surdispersion.
+
+```{r}
+mod_pois |> 
+    performance::check_overdispersion()
+```
+
+### Modèle quasi-Poisson
+
+```{r}
+mod_quasi <- glm(
+    n.prison ~ charactere + recherche.nouv + famille.prison + abus.enfant + age + factor(type.centre),
+    data = smp,
+    family = quasipoisson()
+)
+summary(mod_quasi)
+```
+
+Affichage des résultats en tableau :
+
+```{r}
+#| echo: false
+#| include: true
+res_table_quasi <- tbl_regression(
+    mod_quasi,
+    exponentiate = TRUE
+    ) |>
+    modify_table_styling(
+        columns = estimate,
+        footnote = "Estimates are incidence rate ratios from a quasi-Poisson regression model."
+    )
+res_table_quasi
+```
+
+Comparaison avec un modèle théorique de quasi-Poisson : pas possible avec `guideR::observed_vs_theoretical()` car ne supporte pas le quasi-Poisson.
+
+On peut quand même vérifier la surdispersion avec `performance::check_overdispersion()` :
+
+```{r}
+mod_quasi |> 
+    performance::check_overdispersion()
+```
+
+### Modèle binomial négatif
+
+Library `MASS` propose la fonction `glm.nb()` pour ajuster un modèle binomial négatif.
+
+```{r}
+mod_nb <- glm.nb(
+    n.prison ~ charactere + recherche.nouv + famille.prison + abus.enfant + age + factor(type.centre),
+    data = smp
+)
+summary(mod_nb)
+```
+
+Affichage des résultats en tableau :
+
+```{r}
+#| echo: false
+#| include: true
+#| eval: true
+res_table_nb <- tbl_regression(
+    mod_nb,
+    exponentiate = TRUE
+    ) |>
+    modify_table_styling(
+        columns = estimate,
+        footnote = "Estimates are incidence rate ratios from a negative binomial regression model."
+    )
+res_table_nb
+```
+
+Comparaison avec un modèle théorique de binomial négatif :
+
+```{r}
+mod_nb |> 
+    guideR::observed_vs_theoretical()
+```
+
+Détection de surdispersion :
+
+```{r}
+mod_nb |> 
+    performance::check_overdispersion()
+```
+
+
+### Comment choisir directement le meilleur modèle
+
+Pour comparer objectivement les trois modèles ajustés ci‑dessus (Poisson, quasi‑Poisson, binomial négatif), on utilise :
+
+- l’AIC (quand disponible),
+- la surdispersion,
+- et l’adéquation modèle/données.
+
+\newpage
+# Modèles de survie 
+
+## Modèles de survie paramétrique : Weibull etc
+
+## Modèles de survie semi-paramétrique = Modèle de Cox
+
+Modèle de Cox = régression de Cox = modèle des risques proportionnels de Cox.
+
+Modèle semi-paramétrique similaire à la régression linéaire multiple ou à la régression logistique multiple, mais il est spécialement conçu pour les données de survie.
+
+≠ Test du log-rank qui compare deux courbes de survie de manière univariée (non ajustée)
+
+Équation du modèle de Cox :\
+
+$$
+h(t|Z_1,...,Z_p) = h_0(t) \times \exp(\beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p)
+$$
+
+-   $h_0(t)$ : fonction de risque de base (baseline hazard function) = fonction de risque instantané lorsque toutes les covariables $Z_i$ sont égales à 0.
+
+-   $\exp(\beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p)$ : effet multiplicatif constant des P covariables sur la fonction de risque instantané.
+
+-   $\beta_i$ : coefficient associé à la covariable $Z_i$, représentant l'effet de cette covariable sur le risque instantané.
+
+    -   Relation entre $\beta_i$ et le hazard ratio (HR) : $HR = \exp(\beta_i)$ (donc $\beta_i = \log(HR)$)
+
+**2 hypothèses principales** : **proportionnalité des risques** et **log-linéarité**.
+
+### Hypothèse de proportionnalité des risques
+
+**Hypothèse de proportionnalité des risques** : les rapports des risques entre les individus restent constants dans le temps, c'est à dire que l'effet des covariables sur le risque instantané est multiplicatif et ne dépend pas du temps.
+
+$\frac{h(t|Z_k = 1)}{h(t|Z_k = 0)} = \exp(\beta k) = \text constante$
+
+Quand on compare 2 groupes (exemple : fumeur vs non-fumeur), le rapport de leurs risques instantanés reste le même tout au long du suivi, et ce rapport de risques = hazard ratio (HR).
+
+Dire que les risques sont proportionnels signifie :
+
+-   à chaque instant t, le groupe A a par exemple 1,5 fois plus de risque de l’événement que le groupe B ;
+
+-   ce facteur 1,5 ne change pas au cours du temps.
+
+Exemple : On suit 100 patients opérés.
+
+Variable explicative : fumeur (1) vs non-fumeur (0).
+
+Supposons : HR = 2.
+
+Cela veut dire :
+
+-   à tout moment du suivi, un fumeur a le double du risque instantané d’avoir une complication,
+
+-   même si le risque global diminue avec le temps (fin de la période postopératoire aiguë), le ratio reste stable entre fumeur et non fumeur.
+
+Si cette hypothèse n’est pas vraie (ex : au début les fumeurs sont à très haut risque, mais plus tard le risque redevient identique), alors le modèle de Cox classique n’est plus adapté. (*Dans ce cas, on peut utiliser des modèles de Cox avec effets temporels*).
+
+### Hypothèse de log-linéarité
+
+**Hypothèse de log-linéarité** : **concerne les variables quantitatives**.
+
+L'effet des covariables est linéaire sur le logarithme du risque instantané et pas directement sur le risque.
+
+C'est à dire que chaque unité d'augmentation de la covariable $Z_i$ entraîne une augmentation constante du logarithme du risque instantané.
+
+$\rightarrow$ Chaque augmentation d’une unité de la variable → produit le même pourcentage de variation du risque.
+
+$\log(h(t|Z_1,...,Z_p)) = \log(h_0(t)) + \beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p$
+
+Exemple :
+
+Variable explicative : âge (en années).
+
+On suppose que $\beta = 0,05$ (avec $\beta$ le coefficient associé à l’âge dans le modèle de Cox).
+
+Cela veut dire :
+
+-   chaque année supplémentaire → multiplie le risque instantané par $exp(0,05) ≈ 1,05$
+
+-   donc +5 % de risque par année d’âge.
+
+    -   Si on passe de 50 à 51 ans : +5 %.
+
+    -   Si on passe de 70 à 71 ans : encore +5 %.
+
+-   L’effet est proportionnel, constant.
+
+### Exemple R
+
+295 patientes du jeu de données `ks` :
+
+-   `survival` : temps de survie en mois
+
+-   `eventdeath` : indicateur d'événement (1 = décès, 0 = censuré)
+
+-   `age` : âge en années
+
+-   `grade` : grade de la tumeur du sein (1, 2 ou 3)
+
+-   `hormonal` : statut hormonal (1 = positif, 0 = négatif)
+
+Objectif : modéliser le risque de décès en fonction de l’âge (> 40 ans), en prenant en compte le grade de la tumeur et le statut hormonal.
+
+```{r}
+mod <- coxph(
+    Surv(survival,eventdeath)
+    ~(age>40)+grade+ hormonal,
+    data=ks)
+summary(mod)
+```
+
+Affichage des résultats en tableau :
+
+```{r}
+#| echo: false
+#| include: true
+#| eval: true
+res_table_cox <- tbl_regression(
+    mod,
+    exponentiate = TRUE
+    ) |>
+    modify_table_styling(
+        columns = estimate,
+        footnote = "Estimates are hazard ratios from a Cox proportional hazards model."
+    )
+res_table_cox
+```
+
+Courbes de survie ajustées :
+
+```{r}
+#| echo: false
+#| include: true
+#| eval: true
+ggsurv <- ggsurvplot(
+    survfit(mod, newdata =
+        data.frame(
+            age = c(50, 30),
+            grade = c(2, 2),
+            hormonal = c(1, 1)
+        )
+    ),
+    data = ks,
+    conf.int = TRUE,
+    legend.labs = c("Age > 40 (50 ans)", "Age ≤ 40 (30 ans)"),
+    legend.title = "Age",
+    xlab = "Time in months",
+    ylab = "Survival probability",
+    title = "Adjusted survival curves by age group",
+    palette = c("blue", "red")
+)
+ggsurv
+```
+
