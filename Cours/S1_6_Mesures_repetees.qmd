@@ -1,0 +1,149 @@
+---
+title: "S1_6_Mesures_répétées"
+prefer-html: true
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table des matières"
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            % Force la police Computer Modern pour le titre principal
+            \makeatletter
+            \renewcommand{\maketitle}{
+            \begin{center}
+                {\Large\bfseries\rmfamily \@title \par}
+                \vskip 1.5em
+                {\large\rmfamily \@author \par}
+                \vskip 1em
+            \end{center}
+            }
+            \makeatother
+            % Tous les titres en police par défaut LaTeX
+            \usepackage{sectsty}
+            \allsectionsfont{\rmfamily}
+
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+
+            % Gestion des chunks de code
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+```
+
+```{r}
+#| echo: false
+#| include: false
+smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","gravite","recherche.nouv", "evit.danger","dep.recompense")]
+```
+
+\newpage
+
+# Introduction

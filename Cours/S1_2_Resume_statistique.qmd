@@ -206,6 +206,28 @@ Comment l'interpréter ?
 
     -   environ la moitié des observations se situent à $[m - (2/3)s ; m + (2/3)s]$
 
+Avantages et inconvénients : 
+
+-   Avantage : 
+
+    -   utilise toutes les valeurs de la distribution
+
+    -   propriétés mathématiques intéressantes : la variance de la somme de deux variables indépendantes est égale à la somme de leurs variances.
+
+    -   s'utilise dans de nombreux tests statistiques (t-test, ANOVA, régression linéaire, etc.)
+
+    -   Facile à manipuler mathématiquement
+
+    -   Interprétation claire dans le cas de distributions normales
+
+-   Inconvénient : 
+
+    -   sensible aux valeurs extrêmes (outliers)
+
+    -   ne s'interprète pas facilement dans le cas de distributions asymétriques
+
+    -   Pas adapté aux variables ordinales ou catégorielles
+
 ### Variance
 
 Variance = écart type au carré
