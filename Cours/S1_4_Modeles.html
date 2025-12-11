@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Thomas Husson">
 
-<title>Devoir Statistiques Avancées</title>
+<title>S1_4_Modèles</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,37 +126,77 @@ window.Quarto = {
   <li><a href="#relation-entre-test-t-et-régression-linéaire" id="toc-relation-entre-test-t-et-régression-linéaire" class="nav-link" data-scroll-target="#relation-entre-test-t-et-régression-linéaire"><span class="header-section-number">1.4.2</span> Relation entre test t et régression linéaire</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#modèle-logistique" id="toc-modèle-logistique" class="nav-link" data-scroll-target="#modèle-logistique"><span class="header-section-number">2</span> Modèle logistique</a>
+  <li><a href="#introduction-aux-glm" id="toc-introduction-aux-glm" class="nav-link" data-scroll-target="#introduction-aux-glm"><span class="header-section-number">2</span> Introduction aux GLM</a>
   <ul>
-  <li><a href="#modèle-linéaire-inadapté-pour-cas-témoins" id="toc-modèle-linéaire-inadapté-pour-cas-témoins" class="nav-link" data-scroll-target="#modèle-linéaire-inadapté-pour-cas-témoins"><span class="header-section-number">2.1</span> Modèle linéaire inadapté pour cas témoins</a></li>
-  <li><a href="#principe-et-mise-en-œuvre-1" id="toc-principe-et-mise-en-œuvre-1" class="nav-link" data-scroll-target="#principe-et-mise-en-œuvre-1"><span class="header-section-number">2.2</span> Principe et mise en œuvre</a></li>
-  <li><a href="#transformation-de-y" id="toc-transformation-de-y" class="nav-link" data-scroll-target="#transformation-de-y"><span class="header-section-number">2.3</span> Transformation de Y</a>
+  <li><a href="#comment-ça-marche-les-glm" id="toc-comment-ça-marche-les-glm" class="nav-link" data-scroll-target="#comment-ça-marche-les-glm"><span class="header-section-number">2.1</span> Comment ça marche les GLM ?</a></li>
+  <li><a href="#le-prédicteur-linéaire" id="toc-le-prédicteur-linéaire" class="nav-link" data-scroll-target="#le-prédicteur-linéaire"><span class="header-section-number">2.2</span> Le prédicteur linéaire</a></li>
+  <li><a href="#la-fonction-de-lien" id="toc-la-fonction-de-lien" class="nav-link" data-scroll-target="#la-fonction-de-lien"><span class="header-section-number">2.3</span> La fonction de lien</a>
   <ul>
-  <li><a href="#odds" id="toc-odds" class="nav-link" data-scroll-target="#odds"><span class="header-section-number">2.3.1</span> Odds</a></li>
-  <li><a href="#log-odds" id="toc-log-odds" class="nav-link" data-scroll-target="#log-odds"><span class="header-section-number">2.3.2</span> Log-odds</a></li>
+  <li><a href="#tableau-synthétique-des-modèles-linéaires-généralisés-glm" id="toc-tableau-synthétique-des-modèles-linéaires-généralisés-glm" class="nav-link" data-scroll-target="#tableau-synthétique-des-modèles-linéaires-généralisés-glm"><span class="header-section-number">2.3.1</span> Tableau synthétique des modèles linéaires généralisés (GLM)</a></li>
   </ul></li>
-  <li><a href="#maximum-de-vraisemblance" id="toc-maximum-de-vraisemblance" class="nav-link" data-scroll-target="#maximum-de-vraisemblance"><span class="header-section-number">2.4</span> Maximum de vraisemblance</a></li>
-  <li><a href="#conditions-de-validité" id="toc-conditions-de-validité" class="nav-link" data-scroll-target="#conditions-de-validité"><span class="header-section-number">2.5</span> Conditions de validité</a></li>
-  <li><a href="#exemple-r-1" id="toc-exemple-r-1" class="nav-link" data-scroll-target="#exemple-r-1"><span class="header-section-number">2.6</span> Exemple R</a>
+  <li><a href="#la-structure-derreur" id="toc-la-structure-derreur" class="nav-link" data-scroll-target="#la-structure-derreur"><span class="header-section-number">2.4</span> La structure d’erreur</a></li>
+  <li><a href="#maximum-de-vraisemblance-et-déviance" id="toc-maximum-de-vraisemblance-et-déviance" class="nav-link" data-scroll-target="#maximum-de-vraisemblance-et-déviance"><span class="header-section-number">2.5</span> Maximum de vraisemblance et déviance</a></li>
+  </ul></li>
+  <li><a href="#modèle-logistique" id="toc-modèle-logistique" class="nav-link" data-scroll-target="#modèle-logistique"><span class="header-section-number">3</span> Modèle logistique</a>
   <ul>
-  <li><a href="#description-des-variables" id="toc-description-des-variables" class="nav-link" data-scroll-target="#description-des-variables"><span class="header-section-number">2.6.1</span> Description des variables</a></li>
-  <li><a href="#fonction-glm" id="toc-fonction-glm" class="nav-link" data-scroll-target="#fonction-glm"><span class="header-section-number">2.6.2</span> Fonction glm</a></li>
-  <li><a href="#tester-labsence-deffet-dune-variable" id="toc-tester-labsence-deffet-dune-variable" class="nav-link" data-scroll-target="#tester-labsence-deffet-dune-variable"><span class="header-section-number">2.6.3</span> Tester l’absence d’effet d’une variable</a></li>
+  <li><a href="#modèle-linéaire-inadapté-pour-cas-témoins" id="toc-modèle-linéaire-inadapté-pour-cas-témoins" class="nav-link" data-scroll-target="#modèle-linéaire-inadapté-pour-cas-témoins"><span class="header-section-number">3.1</span> Modèle linéaire inadapté pour cas témoins</a></li>
+  <li><a href="#principe-et-mise-en-œuvre-1" id="toc-principe-et-mise-en-œuvre-1" class="nav-link" data-scroll-target="#principe-et-mise-en-œuvre-1"><span class="header-section-number">3.2</span> Principe et mise en œuvre</a></li>
+  <li><a href="#transformation-de-y" id="toc-transformation-de-y" class="nav-link" data-scroll-target="#transformation-de-y"><span class="header-section-number">3.3</span> Transformation de Y</a>
+  <ul>
+  <li><a href="#odds" id="toc-odds" class="nav-link" data-scroll-target="#odds"><span class="header-section-number">3.3.1</span> Odds</a></li>
+  <li><a href="#log-odds" id="toc-log-odds" class="nav-link" data-scroll-target="#log-odds"><span class="header-section-number">3.3.2</span> Log-odds</a></li>
+  </ul></li>
+  <li><a href="#maximum-de-vraisemblance" id="toc-maximum-de-vraisemblance" class="nav-link" data-scroll-target="#maximum-de-vraisemblance"><span class="header-section-number">3.4</span> Maximum de vraisemblance</a></li>
+  <li><a href="#conditions-de-validité" id="toc-conditions-de-validité" class="nav-link" data-scroll-target="#conditions-de-validité"><span class="header-section-number">3.5</span> Conditions de validité</a></li>
+  <li><a href="#exemple-r-1" id="toc-exemple-r-1" class="nav-link" data-scroll-target="#exemple-r-1"><span class="header-section-number">3.6</span> Exemple R</a>
+  <ul>
+  <li><a href="#description-des-variables" id="toc-description-des-variables" class="nav-link" data-scroll-target="#description-des-variables"><span class="header-section-number">3.6.1</span> Description des variables</a></li>
+  <li><a href="#fonction-glm" id="toc-fonction-glm" class="nav-link" data-scroll-target="#fonction-glm"><span class="header-section-number">3.6.2</span> Fonction glm</a></li>
+  <li><a href="#tester-labsence-deffet-dune-variable" id="toc-tester-labsence-deffet-dune-variable" class="nav-link" data-scroll-target="#tester-labsence-deffet-dune-variable"><span class="header-section-number">3.6.3</span> Tester l’absence d’effet d’une variable</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#modèle-log-binomial" id="toc-modèle-log-binomial" class="nav-link" data-scroll-target="#modèle-log-binomial"><span class="header-section-number">3</span> Modèle log-binomial</a>
+  <li><a href="#modèle-log-binomial" id="toc-modèle-log-binomial" class="nav-link" data-scroll-target="#modèle-log-binomial"><span class="header-section-number">4</span> Modèle log-binomial</a>
   <ul>
-  <li><a href="#principe-et-mise-en-œuvre-2" id="toc-principe-et-mise-en-œuvre-2" class="nav-link" data-scroll-target="#principe-et-mise-en-œuvre-2"><span class="header-section-number">3.1</span> Principe et mise en œuvre</a></li>
-  <li><a href="#exemple-r-2" id="toc-exemple-r-2" class="nav-link" data-scroll-target="#exemple-r-2"><span class="header-section-number">3.2</span> Exemple R</a></li>
-  <li><a href="#problème-du-modèle-log-binomial" id="toc-problème-du-modèle-log-binomial" class="nav-link" data-scroll-target="#problème-du-modèle-log-binomial"><span class="header-section-number">3.3</span> Problème du modèle log-binomial</a></li>
-  <li><a href="#limitations-du-modèle-log-binomial-et-alternative-pratique" id="toc-limitations-du-modèle-log-binomial-et-alternative-pratique" class="nav-link" data-scroll-target="#limitations-du-modèle-log-binomial-et-alternative-pratique"><span class="header-section-number">3.4</span> Limitations du modèle log-binomial et alternative pratique</a></li>
-  <li><a href="#alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique" id="toc-alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique" class="nav-link" data-scroll-target="#alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique"><span class="header-section-number">3.5</span> Alternative : calculer un RR marginal à partir d’un modèle logistique</a></li>
+  <li><a href="#principe-et-mise-en-œuvre-2" id="toc-principe-et-mise-en-œuvre-2" class="nav-link" data-scroll-target="#principe-et-mise-en-œuvre-2"><span class="header-section-number">4.1</span> Principe et mise en œuvre</a></li>
+  <li><a href="#exemple-r-2" id="toc-exemple-r-2" class="nav-link" data-scroll-target="#exemple-r-2"><span class="header-section-number">4.2</span> Exemple R</a></li>
+  <li><a href="#problème-du-modèle-log-binomial" id="toc-problème-du-modèle-log-binomial" class="nav-link" data-scroll-target="#problème-du-modèle-log-binomial"><span class="header-section-number">4.3</span> Problème du modèle log-binomial</a></li>
+  <li><a href="#limitations-du-modèle-log-binomial-et-alternative-pratique" id="toc-limitations-du-modèle-log-binomial-et-alternative-pratique" class="nav-link" data-scroll-target="#limitations-du-modèle-log-binomial-et-alternative-pratique"><span class="header-section-number">4.4</span> Limitations du modèle log-binomial et alternative pratique</a></li>
+  <li><a href="#alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique" id="toc-alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique" class="nav-link" data-scroll-target="#alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique"><span class="header-section-number">4.5</span> Alternative : calculer un RR marginal à partir d’un modèle logistique</a></li>
   </ul></li>
-  <li><a href="#modèle-logistique-pour-odds-proportionnels" id="toc-modèle-logistique-pour-odds-proportionnels" class="nav-link" data-scroll-target="#modèle-logistique-pour-odds-proportionnels"><span class="header-section-number">4</span> Modèle logistique pour <em>odds</em> proportionnels</a></li>
-  <li><a href="#modèle-de-poisson-et-binomial-négatif-pour-taux-dincidence" id="toc-modèle-de-poisson-et-binomial-négatif-pour-taux-dincidence" class="nav-link" data-scroll-target="#modèle-de-poisson-et-binomial-négatif-pour-taux-dincidence"><span class="header-section-number">5</span> Modèle de Poisson et binomial négatif pour taux d’incidence</a>
+  <li><a href="#modèle-logistique-pour-odds-proportionnels" id="toc-modèle-logistique-pour-odds-proportionnels" class="nav-link" data-scroll-target="#modèle-logistique-pour-odds-proportionnels"><span class="header-section-number">5</span> Modèle logistique pour <em>odds</em> proportionnels</a></li>
+  <li><a href="#modèle-de-poisson-et-binomial-négatif-pour-taux-dincidence" id="toc-modèle-de-poisson-et-binomial-négatif-pour-taux-dincidence" class="nav-link" data-scroll-target="#modèle-de-poisson-et-binomial-négatif-pour-taux-dincidence"><span class="header-section-number">6</span> Modèle de Poisson et binomial négatif pour taux d’incidence</a>
   <ul>
-  <li><a href="#pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés" id="toc-pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés" class="nav-link" data-scroll-target="#pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés"><span class="header-section-number">5.1</span> Pourquoi les modèles linéaires classiques ne sont pas adaptés</a></li>
-  <li><a href="#la-distribution-de-poisson" id="toc-la-distribution-de-poisson" class="nav-link" data-scroll-target="#la-distribution-de-poisson"><span class="header-section-number">5.2</span> La distribution de Poisson</a></li>
+  <li><a href="#pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés" id="toc-pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés" class="nav-link" data-scroll-target="#pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés"><span class="header-section-number">6.1</span> Pourquoi les modèles linéaires classiques ne sont pas adaptés</a></li>
+  <li><a href="#la-distribution-de-poisson" id="toc-la-distribution-de-poisson" class="nav-link" data-scroll-target="#la-distribution-de-poisson"><span class="header-section-number">6.2</span> La distribution de Poisson</a></li>
+  <li><a href="#caractéristique-du-glm-de-poisson" id="toc-caractéristique-du-glm-de-poisson" class="nav-link" data-scroll-target="#caractéristique-du-glm-de-poisson"><span class="header-section-number">6.3</span> Caractéristique du GLM de Poisson</a></li>
+  <li><a href="#conditions-de-validité-1" id="toc-conditions-de-validité-1" class="nav-link" data-scroll-target="#conditions-de-validité-1"><span class="header-section-number">6.4</span> Conditions de validité</a>
+  <ul>
+  <li><a href="#indépendance-des-réponses" id="toc-indépendance-des-réponses" class="nav-link" data-scroll-target="#indépendance-des-réponses"><span class="header-section-number">6.4.1</span> Indépendance des réponses</a></li>
+  <li><a href="#distribution-des-réponses" id="toc-distribution-des-réponses" class="nav-link" data-scroll-target="#distribution-des-réponses"><span class="header-section-number">6.4.2</span> Distribution des réponses</a></li>
+  <li><a href="#absence-de-surdispersion" id="toc-absence-de-surdispersion" class="nav-link" data-scroll-target="#absence-de-surdispersion"><span class="header-section-number">6.4.3</span> Absence de surdispersion</a>
+  <ul class="collapse">
+  <li><a href="#comment-mesurer-la-surdispersion" id="toc-comment-mesurer-la-surdispersion" class="nav-link" data-scroll-target="#comment-mesurer-la-surdispersion"><span class="header-section-number">6.4.3.1</span> Comment mesurer la surdispersion</a></li>
+  <li><a href="#causes-fréquentes-de-surdispersion" id="toc-causes-fréquentes-de-surdispersion" class="nav-link" data-scroll-target="#causes-fréquentes-de-surdispersion"><span class="header-section-number">6.4.3.2</span> Causes fréquentes de surdispersion</a></li>
+  <li><a href="#que-faire-en-cas-de-surdispersion" id="toc-que-faire-en-cas-de-surdispersion" class="nav-link" data-scroll-target="#que-faire-en-cas-de-surdispersion"><span class="header-section-number">6.4.3.3</span> Que faire en cas de surdispersion ?</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#exemple-r-3" id="toc-exemple-r-3" class="nav-link" data-scroll-target="#exemple-r-3"><span class="header-section-number">6.5</span> Exemple R</a>
+  <ul>
+  <li><a href="#modèle-de-poisson" id="toc-modèle-de-poisson" class="nav-link" data-scroll-target="#modèle-de-poisson"><span class="header-section-number">6.5.1</span> Modèle de Poisson</a></li>
+  <li><a href="#modèle-quasi-poisson" id="toc-modèle-quasi-poisson" class="nav-link" data-scroll-target="#modèle-quasi-poisson"><span class="header-section-number">6.5.2</span> Modèle quasi-Poisson</a></li>
+  <li><a href="#modèle-binomial-négatif" id="toc-modèle-binomial-négatif" class="nav-link" data-scroll-target="#modèle-binomial-négatif"><span class="header-section-number">6.5.3</span> Modèle binomial négatif</a></li>
+  <li><a href="#comment-choisir-directement-le-meilleur-modèle" id="toc-comment-choisir-directement-le-meilleur-modèle" class="nav-link" data-scroll-target="#comment-choisir-directement-le-meilleur-modèle"><span class="header-section-number">6.5.4</span> Comment choisir directement le meilleur modèle</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#modèles-de-survie" id="toc-modèles-de-survie" class="nav-link" data-scroll-target="#modèles-de-survie"><span class="header-section-number">7</span> Modèles de survie</a>
+  <ul>
+  <li><a href="#modèles-de-survie-paramétrique-weibull-etc" id="toc-modèles-de-survie-paramétrique-weibull-etc" class="nav-link" data-scroll-target="#modèles-de-survie-paramétrique-weibull-etc"><span class="header-section-number">7.1</span> Modèles de survie paramétrique : Weibull etc</a></li>
+  <li><a href="#modèles-de-survie-semi-paramétrique-modèle-de-cox" id="toc-modèles-de-survie-semi-paramétrique-modèle-de-cox" class="nav-link" data-scroll-target="#modèles-de-survie-semi-paramétrique-modèle-de-cox"><span class="header-section-number">7.2</span> Modèles de survie semi-paramétrique = Modèle de Cox</a>
+  <ul>
+  <li><a href="#hypothèse-de-proportionnalité-des-risques" id="toc-hypothèse-de-proportionnalité-des-risques" class="nav-link" data-scroll-target="#hypothèse-de-proportionnalité-des-risques"><span class="header-section-number">7.2.1</span> Hypothèse de proportionnalité des risques</a></li>
+  <li><a href="#hypothèse-de-log-linéarité" id="toc-hypothèse-de-log-linéarité" class="nav-link" data-scroll-target="#hypothèse-de-log-linéarité"><span class="header-section-number">7.2.2</span> Hypothèse de log-linéarité</a></li>
+  <li><a href="#exemple-r-4" id="toc-exemple-r-4" class="nav-link" data-scroll-target="#exemple-r-4"><span class="header-section-number">7.2.3</span> Exemple R</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="S1_4_Modeles.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../S1_4_Modeles.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -168,19 +207,13 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Devoir Statistiques Avancées</h1>
+<h1 class="title">S1_4_Modèles</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Thomas Husson </p>
-          </div>
-  </div>
     
   
     
@@ -594,10 +627,146 @@ Note
 </section>
 </section>
 </section>
-<section id="modèle-logistique" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Modèle logistique</h1>
-<section id="modèle-linéaire-inadapté-pour-cas-témoins" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="modèle-linéaire-inadapté-pour-cas-témoins"><span class="header-section-number">2.1</span> Modèle linéaire inadapté pour cas témoins</h2>
+<section id="introduction-aux-glm" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Introduction aux GLM</h1>
+<section id="comment-ça-marche-les-glm" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="comment-ça-marche-les-glm"><span class="header-section-number">2.1</span> Comment ça marche les GLM ?</h2>
+<p><strong>Les modèles linéaires généralisés reposent sur 3 éléments:</strong></p>
+<ol type="1">
+<li><p>Un prédicteur linéaire</p></li>
+<li><p>Une fonction de lien</p></li>
+<li><p>Une structure des erreurs</p></li>
+</ol>
+</section>
+<section id="le-prédicteur-linéaire" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="le-prédicteur-linéaire"><span class="header-section-number">2.2</span> Le prédicteur linéaire</h2>
+<p>« prédicteur linéaire« , c’est un terme un peu complexe pour dire, que comme dans les modèles linéaires classiques, les réponses prédites par les modèles vont l’être à partir d’une <strong>combinaison linéaire des variables prédictives</strong></p>
+<p>Le prédicteur linéaire est : <span class="math inline">\(\eta_i\)</span></p>
+<p><span class="math display">\[
+\eta_i = \sum_{j=1}^{p} \beta_j X_{ij}
+\]</span></p>
+<p>où :</p>
+<ul>
+<li><p><span class="math inline">\(\eta_i\)</span> : <strong>prédicteur linéaire</strong> pour l’individu <span class="math inline">\(i\)</span>.</p>
+<ul>
+<li><p>C’est la combinaison linéaire de toutes les variables explicatives.</p></li>
+<li><p>Dans un GLM, <strong>c’est la quantité que la fonction de lien va transformer</strong> pour produire la moyenne du modèle (ex : logit, log, identité…).</p></li>
+</ul></li>
+<li><p><span class="math inline">\(X_{ij}\)</span> : <strong>valeur de la variable explicative</strong> <span class="math inline">\(j\)</span> pour l’individu <span class="math inline">\(i\)</span>.</p>
+<ul>
+<li>Chaque individu a un ensemble de covariables (âge, sexe, exposition, etc.), notées <span class="math inline">\(X_{i1}, X_{i2}, \dots, X_{ip}\)</span>.</li>
+</ul></li>
+<li><p><span class="math inline">\(\beta_j\)</span> : <strong>coefficient associé à la variable explicative</strong> <span class="math inline">\(j\)</span>.</p>
+<ul>
+<li><p>Il quantifie l’effet de <span class="math inline">\(X_{ij}\)</span> sur la quantité modélisée.</p></li>
+<li><p>Dans un GLM :</p>
+<ul>
+<li>en régression linéaire : effet moyen sur <span class="math inline">\(Y\)</span><br>
+</li>
+<li>en logistique : effet sur les log-odds<br>
+</li>
+<li>en Poisson : effet sur le log de l’incidence<br>
+</li>
+<li>etc.</li>
+</ul></li>
+</ul></li>
+<li><p><span class="math inline">\(p\)</span> : <strong>nombre total de variables explicatives</strong> incluses dans le modèle.</p></li>
+<li><p>La somme <span class="math inline">\(\sum_{j=1}^{p} \beta_j X_{ij}\)</span></p>
+<ul>
+<li>signifie qu’on multiplie chaque covariable par son coefficient, puis qu’on additionne le tout pour obtenir le <strong>résultat global pour l’individu</strong> <span class="math inline">\(i\)</span>.</li>
+</ul></li>
+</ul>
+<p><strong>En résumé :</strong></p>
+<p>Le prédicteur linéaire <span class="math inline">\(\eta_i\)</span> est la “combinaison linéaire” de toutes les covariables.</p>
+<p>C’est lui que le modèle va ensuite transformer (via la fonction de lien) en <strong>probabilité</strong>, <strong>moyenne</strong>, ou <strong>taux</strong>, selon le type de GLM.</p>
+</section>
+<section id="la-fonction-de-lien" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="la-fonction-de-lien"><span class="header-section-number">2.3</span> La fonction de lien</h2>
+<p>= étape délicate des GLM !</p>
+<p>Contrairement aux modèles linéaires classiques, les valeurs prédites par le prédicteur linéaire ne correspondent pas à la prédiction moyenne d’une observation, mais à la transformation (par une fonction mathématique) de celle-ci.</p>
+<p>En pratique, cela signifie que les valeurs du prédicteur linéaire sont obtenues en transformant préalablement les valeurs observées par la fonction de lien.</p>
+<p>Autrement dit, les beta sont estimés après transformation des réponses selon la fonction de lien choisie.</p>
+<p>Le prédicteur linéaire et la fonction de lien sont ainsi liés par une équation qui contraint les valeurs prédites par le modèle à être dans l’échelle des valeurs observées.</p>
+<p>Les formules sont complexes et incompréhnsibles mais globalement :</p>
+<section id="tableau-synthétique-des-modèles-linéaires-généralisés-glm" class="level3 landscape" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="tableau-synthétique-des-modèles-linéaires-généralisés-glm"><span class="header-section-number">2.3.1</span> Tableau synthétique des modèles linéaires généralisés (GLM)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 12%">
+<col style="width: 6%">
+<col style="width: 28%">
+<col style="width: 25%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type de réponse</th>
+<th>Domaine des valeurs possibles</th>
+<th>Distribution des erreurs</th>
+<th>Fonction de lien</th>
+<th>Comment la moyenne est obtenue</th>
+<th>Fonction de la variance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quantitative continue</td>
+<td>Toutes les valeurs réelles (négatives ou positives)</td>
+<td><p>Gaussienne (normale)</p>
+<p>= modèle linéaire classique</p></td>
+<td>Identité : combinaison linéaire des variables explicatives = <strong>la moyenne des résultats</strong></td>
+<td><p>La moyenne est la somme des effets des variables explicatives</p>
+<p>Donc effet <strong>additif</strong></p></td>
+<td>La variance est constante = <strong>homoscédasticité</strong></td>
+</tr>
+<tr class="even">
+<td>Comptage (0,1,2,3,…)</td>
+<td>Nombres entiers positifs</td>
+<td>Poisson</td>
+<td>Logarithme : transforme la moyenne avec un logarithme pour pouvoir modéliser des valeurs qui ne peuvent être que positives.</td>
+<td><p>La moyenne est obtenue en appliquant l’exponentielle à la combinaison linéaire des variables.</p>
+<p>Donc effet <strong>multiplicatif</strong></p></td>
+<td><p>La variance est proportionnelle à la moyenne</p>
+<p>Plus la moyenne est grande, plus la variance l’est aussi</p></td>
+</tr>
+<tr class="odd">
+<td>Binaire (oui/non)</td>
+<td>0 ou 1</td>
+<td>Binomiale</td>
+<td>Logit</td>
+<td><p>La moyenne (probabilité) est obtenue en appliquant une fonction « en S » à la combinaison linéaire des variables</p>
+<p>Fonction <strong>sigmoïde</strong></p></td>
+<td><p>La variance dépend à la fois de la probabilité et de sa complémentaire (1 - probabilité)</p>
+<p>Si probabilité est faible ou élevée : faible variance</p>
+<p>Si probabilité 50% : variance maximale</p></td>
+</tr>
+</tbody>
+</table>
+<p>En gros : dans les GLM, les données sont d’abord transformées et que cette transformation permet ensuite aux prédictions d’avoir des contraintes identiques aux réponses observées (par exemple, d’être toujours positives ou nulles), autrement dit de fournir des prédictions cohérentes !</p>
+</section>
+</section>
+<section id="la-structure-derreur" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="la-structure-derreur"><span class="header-section-number">2.4</span> La structure d’erreur</h2>
+<p>A une fonction de lien donnée, correspond généralement une structure d’erreur particulière.</p>
+<p>Il s’agit d’une famille de distribution des erreurs.</p>
+<p>Par exemple, pour les données de comptage, la fonction de lien est le log et la structure d’erreur correspondante est la distribution de Poisson.</p>
+<p>Cette structure d’erreur, permet notamment de spécifier correctement la relation entre la moyenne et la variance.</p>
+<p>Cette relation est utilisée par l’approche de maximum de vraisemblance pour estimer les coefficients des paramètres (les beta) du GLM.</p>
+</section>
+<section id="maximum-de-vraisemblance-et-déviance" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="maximum-de-vraisemblance-et-déviance"><span class="header-section-number">2.5</span> Maximum de vraisemblance et déviance</h2>
+<p>Les coefficients des paramètres d’un GLM sont estimés par la méthode du maximum de vraisemblance, qui fait appelle à la notion de déviance.</p>
+<p>La déviance est en quelque sorte une généralisation de la variance.</p>
+<p>Elle mesure l’écart entre le modèle ajusté et le modèle saturé (modèle qui s’ajuste parfaitement aux données).</p>
+<p>L’objectif est de minimiser la déviance, c’est-à-dire de trouver les coefficients des paramètres qui rendent le modèle aussi proche que possible des données observées.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="modèle-logistique" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Modèle logistique</h1>
+<section id="modèle-linéaire-inadapté-pour-cas-témoins" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="modèle-linéaire-inadapté-pour-cas-témoins"><span class="header-section-number">3.1</span> Modèle linéaire inadapté pour cas témoins</h2>
 <p>En étude cas-témoins :</p>
 <ul>
 <li><p>on choisit un certain nombre de cas (Y=1) et un certain nombre de témoins (Y=0) de manière artificielle,</p></li>
@@ -611,8 +780,8 @@ Note
 <p>Or le modèle linéaire sur Y (0/1) raisonne justement en termes de moyennes et de différences absolues, donc ça ne marche pas en cas-témoins.</p>
 <p>En revanche, en cas-témoins, l’odds-ratio reste interprétable → d’où l’intérêt de la logistique.</p>
 </section>
-<section id="principe-et-mise-en-œuvre-1" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="principe-et-mise-en-œuvre-1"><span class="header-section-number">2.2</span> Principe et mise en œuvre</h2>
+<section id="principe-et-mise-en-œuvre-1" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="principe-et-mise-en-œuvre-1"><span class="header-section-number">3.2</span> Principe et mise en œuvre</h2>
 <p>Objectif du modèle logistique : modéliser une variable binaire (0 ou 1) en fonction de variables explicatives quantitatives ou qualitatives.</p>
 <p>Modèle logistique = régression logistique.</p>
 <p>Équation du modèle logistique :</p>
@@ -635,10 +804,10 @@ Y = \log\left(\frac{p}{1-p}\right) = \alpha_0 + \alpha_1 X_1 + ... + \alpha_p X_
 <p>L’objectif est donc de modéliser la “probabilité” que Y = 1 en fonction des variables explicatives <span class="math inline">\(X_1, X_2, ..., X_p\)</span>.</p>
 <p>C’est à dire <span class="math inline">\(P(Y=1|X_1, X_2, ..., X_p)\)</span>. (pour probabilité de Y sachant X1, X2, …, Xp)</p>
 </section>
-<section id="transformation-de-y" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="transformation-de-y"><span class="header-section-number">2.3</span> Transformation de Y</h2>
-<section id="odds" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="odds"><span class="header-section-number">2.3.1</span> Odds</h3>
+<section id="transformation-de-y" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="transformation-de-y"><span class="header-section-number">3.3</span> Transformation de Y</h2>
+<section id="odds" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="odds"><span class="header-section-number">3.3.1</span> Odds</h3>
 <p>L’objectif est de modéliser la probabilité que Y = 1 en fonction des variables explicatives <span class="math inline">\(X_1, X_2, ..., X_p\)</span>.</p>
 <p>Donc on cherche à modéliser <span class="math inline">\(p = P(Y=1|X_1, X_2, ..., X_p)\)</span>.</p>
 <ul>
@@ -651,8 +820,8 @@ Y = \log\left(\frac{p}{1-p}\right) = \alpha_0 + \alpha_1 X_1 + ... + \alpha_p X_
 <li><p>si p = 0.8 → odds = 0.8 / 0.2 = 4</p></li>
 </ul>
 </section>
-<section id="log-odds" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="log-odds"><span class="header-section-number">2.3.2</span> Log-odds</h3>
+<section id="log-odds" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="log-odds"><span class="header-section-number">3.3.2</span> Log-odds</h3>
 <p>On applique la transformation logarithmique aux odds afin d’obtenir une variable qui varie entre -∞ et +∞ et de la rendre compatible avec une régression linéaire.</p>
 <p>Attention, on supprime <span class="math inline">\(\varepsilon\)</span> car :</p>
 <ul>
@@ -664,8 +833,8 @@ Y = \log\left(\frac{p}{1-p}\right) = \alpha_0 + \alpha_1 X_1 + ... + \alpha_p X_
 \]</span></p>
 </section>
 </section>
-<section id="maximum-de-vraisemblance" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="maximum-de-vraisemblance"><span class="header-section-number">2.4</span> Maximum de vraisemblance</h2>
+<section id="maximum-de-vraisemblance" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="maximum-de-vraisemblance"><span class="header-section-number">3.4</span> Maximum de vraisemblance</h2>
 <p>L’estimation des coefficients du modèle logistique se fait par la méthode du maximum de vraisemblance.</p>
 <p>Vraisemblance = probabilité d’observer les données réelles, en fonction des paramètres du modèle.</p>
 <p>L’idée est de trouver les coefficients <span class="math inline">\(\alpha_0, \alpha_1, ..., \alpha_p\)</span> qui maximisent la probabilité d’observer les données réelles, en supposant que le modèle est correct.</p>
@@ -677,13 +846,13 @@ Y = \log\left(\frac{p}{1-p}\right) = \alpha_0 + \alpha_1 X_1 + ... + \alpha_p X_
 <li><p>Elle est souvent utilisée en statistique pour simplifier les calculs d’optimisation.</p></li>
 </ul>
 </section>
-<section id="conditions-de-validité" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="conditions-de-validité"><span class="header-section-number">2.5</span> Conditions de validité</h2>
+<section id="conditions-de-validité" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="conditions-de-validité"><span class="header-section-number">3.5</span> Conditions de validité</h2>
 <p>La condition de validité la plus importante : au moins 10 évènements par variable explicative dans le modèle (10 événements = 10 cas où Y=1).</p>
 <p>Cela permet d’assurer que les estimations des coefficients du modèle sont stables et fiables.</p>
 </section>
-<section id="exemple-r-1" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="exemple-r-1"><span class="header-section-number">2.6</span> Exemple R</h2>
+<section id="exemple-r-1" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="exemple-r-1"><span class="header-section-number">3.6</span> Exemple R</h2>
 <p>La fonction <code>glm()</code> permet de faire une régression logistique en R.</p>
 <p>Objectif : modéliser l’existence d’un risque suicidaire élevé à l’aide des variables :</p>
 <ul>
@@ -693,8 +862,8 @@ Y = \log\left(\frac{p}{1-p}\right) = \alpha_0 + \alpha_1 X_1 + ... + \alpha_p X_
 <li><p>âge (continue)</p></li>
 <li><p>type de prison (« 1 » pour maison centrale, « 2 » pour centre de détention et « 3 » pour maison d’arrêt).</p></li>
 </ul>
-<section id="description-des-variables" class="level3" data-number="2.6.1">
-<h3 data-number="2.6.1" class="anchored" data-anchor-id="description-des-variables"><span class="header-section-number">2.6.1</span> Description des variables</h3>
+<section id="description-des-variables" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="description-des-variables"><span class="header-section-number">3.6.1</span> Description des variables</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    smp[, <span class="fu">c</span>(<span class="st">"hr.suicide"</span>,<span class="st">"abus.enfant"</span>,<span class="st">"discipline"</span>, <span class="st">"duree.peine"</span>,<span class="st">"age"</span>)], </span>
@@ -714,8 +883,8 @@ age         38.94 13.26     37  19  84     797</code></pre>
 </div>
 </div>
 </section>
-<section id="fonction-glm" class="level3" data-number="2.6.2">
-<h3 data-number="2.6.2" class="anchored" data-anchor-id="fonction-glm"><span class="header-section-number">2.6.2</span> Fonction glm</h3>
+<section id="fonction-glm" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="fonction-glm"><span class="header-section-number">3.6.2</span> Fonction glm</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    hr.suicide <span class="sc">~</span> </span>
@@ -1320,8 +1489,8 @@ factor(type.centre)3 0.6406323 2.7632295</code></pre>
 </div>
 </div>
 </section>
-<section id="tester-labsence-deffet-dune-variable" class="level3" data-number="2.6.3">
-<h3 data-number="2.6.3" class="anchored" data-anchor-id="tester-labsence-deffet-dune-variable"><span class="header-section-number">2.6.3</span> Tester l’absence d’effet d’une variable</h3>
+<section id="tester-labsence-deffet-dune-variable" class="level3" data-number="3.6.3">
+<h3 data-number="3.6.3" class="anchored" data-anchor-id="tester-labsence-deffet-dune-variable"><span class="header-section-number">3.6.3</span> Tester l’absence d’effet d’une variable</h3>
 <p>Fonction <code>drop1</code> permet de tester si “globalement”, l’effet d’une variable catégorielle a un effet sur <code>hr.suicide</code></p>
 <p>La fonction <code>drop1</code> permet de “supprimer” la variable du modèle.</p>
 <div class="cell">
@@ -1365,25 +1534,20 @@ Note
 </section>
 </section>
 </section>
-<section id="modèle-log-binomial" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Modèle log-binomial</h1>
+<section id="modèle-log-binomial" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Modèle log-binomial</h1>
 <p>Problème du modèle logistique : les odds-ratios sont ajustés et donc difficiles à interpréter.</p>
 <p>Comment traduire un OR en truc du quotidien (si la maladie est fréquente) ?</p>
 <p>Solution : modèle log-binomial.</p>
-<section id="principe-et-mise-en-œuvre-2" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="principe-et-mise-en-œuvre-2"><span class="header-section-number">3.1</span> Principe et mise en œuvre</h2>
+<section id="principe-et-mise-en-œuvre-2" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="principe-et-mise-en-œuvre-2"><span class="header-section-number">4.1</span> Principe et mise en œuvre</h2>
 <p>Objectif du modèle log-binomial : modéliser une variable binaire (0 ou 1) en fonction de variables explicatives quantitatives ou qualitatives, <strong>en estimant directement les risques relatifs (RR) au lieu des odds-ratios (OR).</strong></p>
 <p>Modèle log-binomial = régression log-binomial.</p>
-<p>Équation du modèle log-binomial :</p>
-<br>
-
-<span class="math display">\[\begin{aligned}
-\log[p(Y=1)] &amp;= \alpha_0 + \alpha_1 X_1 + \dots + \alpha_p X_p \\
-\longleftrightarrow\quad
-p(Y=1 \mid X) &amp;= \exp(a_0 + a_1 X_1 + \dots + a_p X_p)
-\end{aligned}\]</span>
-<p><br>
+<p>Équation du modèle log-binomial :<br>
 </p>
+<p><span class="math display">\[
+\log[p(Y=1)] = a_0 + a_1 X_1 + ... + a_p X_p
+\]</span></p>
 <p>où <span class="math inline">\(p(Y=1)\)</span> est la probabilité que Y = 1 (risque).</p>
 <p>Problème mathématique :</p>
 <ul>
@@ -1401,8 +1565,8 @@ p(Y=1 \mid X) &amp;= \exp(a_0 + a_1 X_1 + \dots + a_p X_p)
 <li><p>donc les coefficients sont fortement contraints à se rapprocher de 0.</p></li>
 </ul>
 </section>
-<section id="exemple-r-2" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="exemple-r-2"><span class="header-section-number">3.2</span> Exemple R</h2>
+<section id="exemple-r-2" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="exemple-r-2"><span class="header-section-number">4.2</span> Exemple R</h2>
 <p>On utilise la fonction <code>logbin()</code> du package <code>logbin</code>.</p>
 <p>Objectif : idem que précédemment, modéliser l’existence d’un risque suicidaire élevé.</p>
 <div class="cell">
@@ -2011,11 +2175,11 @@ This warning is displayed once per session.</code></pre>
 </div>
 </div>
 </section>
-<section id="problème-du-modèle-log-binomial" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="problème-du-modèle-log-binomial"><span class="header-section-number">3.3</span> Problème du modèle log-binomial</h2>
+<section id="problème-du-modèle-log-binomial" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="problème-du-modèle-log-binomial"><span class="header-section-number">4.3</span> Problème du modèle log-binomial</h2>
 </section>
-<section id="limitations-du-modèle-log-binomial-et-alternative-pratique" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="limitations-du-modèle-log-binomial-et-alternative-pratique"><span class="header-section-number">3.4</span> Limitations du modèle log-binomial et alternative pratique</h2>
+<section id="limitations-du-modèle-log-binomial-et-alternative-pratique" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="limitations-du-modèle-log-binomial-et-alternative-pratique"><span class="header-section-number">4.4</span> Limitations du modèle log-binomial et alternative pratique</h2>
 <p>Le modèle <strong>log-binomial</strong>, utilisé pour estimer directement un <strong>risque relatif (RR)</strong> ajusté lorsque la maladie est fréquente, présente plusieurs limites majeures :</p>
 <ul>
 <li><p>méthodes d’estimation instables lorsque la prévalence est élevée ou que de nombreuses covariables sont incluses ;</p></li>
@@ -2025,8 +2189,8 @@ This warning is displayed once per session.</code></pre>
 <li><p>pour des maladies fréquentes, l’hypothèse d’absence d’interaction est souvent intenable, menant soit à des probabilités &gt; 100 %, soit à un aplatissement général des RR.</p></li>
 </ul>
 </section>
-<section id="alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique"><span class="header-section-number">3.5</span> Alternative : calculer un RR marginal à partir d’un modèle logistique</h2>
+<section id="alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="alternative-calculer-un-rr-marginal-à-partir-dun-modèle-logistique"><span class="header-section-number">4.5</span> Alternative : calculer un RR marginal à partir d’un modèle logistique</h2>
 <p>Une approche robuste consiste à :</p>
 <ol type="1">
 <li><p>ajuster une <strong>régression logistique</strong> ;</p></li>
@@ -2045,16 +2209,33 @@ This warning is displayed once per session.</code></pre>
 <li><p>la différence absolue de risque : <span class="math inline">\(DAR = p_1 - p_0\)</span>.</p></li>
 </ul></li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Régression logistique selon Firth</strong></p>
+<p>Firth modifie la régression logistique classique en ajoutant au critère à optimiser un terme supplémentaire qui devient très pénalisant quand un coefficient essaie de partir vers des valeurs extrêmes.</p>
+<p>Concrètement, ce terme repose sur la « courbure » de la vraisemblance : plus les données poussent un coefficient à devenir énorme (cas de séparation ou quasi-séparation), plus ce terme augmente et force la solution à rester finie.</p>
+<p>Mathématiquement, c’est exactement ce qu’on obtiendrait si on imposait une loi a priori très spécifique (la prior de Jeffreys) sur les coefficients, ce qui revient à ajouter une petite quantité d’« information artificielle » pour casser la séparation parfaite.</p>
+<p>Cette correction est construite pour compenser l’erreur systématique des estimateurs classiques, de sorte que, en situation de petits effectifs ou d’événement rare, les coefficients issus de Firth sont moins systématiquement trop grands en valeur absolue.</p>
+</div>
+</div>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="modèle-logistique-pour-odds-proportionnels" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Modèle logistique pour <em>odds</em> proportionnels</h1>
+<section id="modèle-logistique-pour-odds-proportionnels" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Modèle logistique pour <em>odds</em> proportionnels</h1>
 <p>Ces modèles sont adaptés quand la variable à expliquer est qualitative ordonnée. p151 du pdf</p>
 <div style="page-break-after: always;"></div>
 </section>
-<section id="modèle-de-poisson-et-binomial-négatif-pour-taux-dincidence" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Modèle de Poisson et binomial négatif pour taux d’incidence</h1>
+<section id="modèle-de-poisson-et-binomial-négatif-pour-taux-dincidence" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Modèle de Poisson et binomial négatif pour taux d’incidence</h1>
 <p>Variable de type “compte” (= entier positif)</p>
 <p>= nombre d’occurences d’un évènement dans un intervalle de temps donné (= nombre de buts marqués, d’œufs pondus…)</p>
 <p>Les modèles de Poisson et binomial négatif permettent de modéliser une variable de type “compte” en fonction de variables explicatives quantitatives ou qualitatives.</p>
@@ -2064,16 +2245,16 @@ This warning is displayed once per session.</code></pre>
 <li><p>Fonction lien log = logarithme naturel</p></li>
 <li><p>Structure d’erreur de type Poisson.</p></li>
 </ul>
-<section id="pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés"><span class="header-section-number">5.1</span> Pourquoi les modèles linéaires classiques ne sont pas adaptés</h2>
+<section id="pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="pourquoi-les-modèles-linéaires-classiques-ne-sont-pas-adaptés"><span class="header-section-number">6.1</span> Pourquoi les modèles linéaires classiques ne sont pas adaptés</h2>
 <p>Données de compte : ne remplissent pas les conditions de validité des modèles linéaires classiques.</p>
 <ul>
 <li><p>Ne suivent pas une loi normale (mais une loi de Poisson)</p></li>
 <li><p>Leur variance n’est pas constante (mais proportionnelle à la moyenne)</p></li>
 </ul>
 </section>
-<section id="la-distribution-de-poisson" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="la-distribution-de-poisson"><span class="header-section-number">5.2</span> La distribution de Poisson</h2>
+<section id="la-distribution-de-poisson" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="la-distribution-de-poisson"><span class="header-section-number">6.2</span> La distribution de Poisson</h2>
 <p>La distribution de Poisson est une distribution de probabilité discrète qui décrit le nombre d’événements se produisant dans un intervalle de temps ou d’espace fixe, lorsque ces événements se produisent avec une moyenne constante et indépendamment les uns des autres.</p>
 <p>Équation :</p>
 <p><span class="math display">\[
@@ -2086,8 +2267,10 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <li><p><span class="math inline">\(e\)</span> : base du logarithme naturel (environ 2,71828)</p></li>
 <li><p><span class="math inline">\(k!\)</span> : factorielle de <span class="math inline">\(k\)</span> (produit des entiers de 1 à <span class="math inline">\(k\)</span>)</p></li>
 </ul>
-<p>Donc la distribution de Poisson est ainsi définie par un seul paramètre : Lambda !</p>
-<p>Exemples de distributions de poisson avec différentes valeurs de λ :</p>
+<p>Donc la distribution de Poisson est ainsi définie par un seul paramètre : <span class="math inline">\(\lambda\)</span> !</p>
+<p>Exemples de distributions de poisson avec différentes valeurs de <span class="math inline">\(\lambda\)</span> :</p>
+<p>Plus <span class="math inline">\(\lambda\)</span> augmente, plus la distribution de Poisson se rapproche d’une loi Normale.</p>
+<p>On dit qu’une loi de Poisson peur être approximée par une loi Normale quand <span class="math inline">\(\lambda\)</span> = égal 20 ou 30</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -2097,6 +2280,2636 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 </div>
 </div>
+<p><strong>La distribution de Poisson possède deux éléments remarquables :</strong></p>
+<ul>
+<li><p>L’espérance ( ou moyenne) d’une variable aléatoire distribuée selon une loi de poisson est égale à Lambda :<span class="math inline">\(E(y) = \lambda\)</span></p></li>
+<li><p>La variance d’une variable aléatoire distribuée selon une loi de poisson est aussi égale à Lambda : <span class="math inline">\(Var(y) = \lambda\)</span></p></li>
+</ul>
+</section>
+<section id="caractéristique-du-glm-de-poisson" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="caractéristique-du-glm-de-poisson"><span class="header-section-number">6.3</span> Caractéristique du GLM de Poisson</h2>
+<ol type="1">
+<li>Prédicteur linéaire : combinaison linéaire des variables explicatives</li>
+</ol>
+<ul>
+<li><p><span class="math inline">\(\eta_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + ... + \beta_p X_{ip}\)</span></p></li>
+<li><p>où <span class="math inline">\(\eta_i\)</span> est le prédicteur linéaire pour l’observation <span class="math inline">\(i\)</span>.</p></li>
+</ul>
+<ol start="2" type="1">
+<li>Fonction de lien dans le modèle de Poisson : logarithme naturel</li>
+</ol>
+<ul>
+<li><span class="math inline">\(\log(\mu_i) = \eta_i\)</span> = prédicteur linéaire</li>
+</ul>
+<p>En gros : les valeurs prédites par le prédicteur linéaire du GLM ne correspondent pas à la prédiction moyenne d’une observation, <strong>mais à la transformation log de celle-ci</strong>.</p>
+<p>Pour obtenir la prédiction moyenne, on applique l’exponentielle au prédicteur linéaire :</p>
+<ul>
+<li><span class="math inline">\(\mu_i = \exp(\eta_i)\)</span></li>
+</ul>
+<ol start="3" type="1">
+<li>Structure d’erreur : distribution de Poisson</li>
+</ol>
+<ul>
+<li><p>La variable à expliquer suit une loi de Poisson.</p></li>
+<li><p>C’est à dire que son espérance (sa moyenne) et sa variance sont égales à <span class="math inline">\(\lambda\)</span>.</p></li>
+</ul>
+</section>
+<section id="conditions-de-validité-1" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="conditions-de-validité-1"><span class="header-section-number">6.4</span> Conditions de validité</h2>
+<ol type="1">
+<li><p>les réponses sont indépendantes.</p></li>
+<li><p>les réponses sont distribuées selon une loi de Poisson, de paramètre Lambda.</p></li>
+<li><p>il n’existe pas de surdispersion</p></li>
+</ol>
+<section id="indépendance-des-réponses" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="indépendance-des-réponses"><span class="header-section-number">6.4.1</span> Indépendance des réponses</h3>
+<ul>
+<li><p>Pas de structures de corrélation entre les données</p></li>
+<li><p>Par exemple pas de données répétées</p></li>
+<li><p>Si données répétées : utiliser un modèle linéaire généralisé à effet mixte (Generalized Linear Mixed Models, ou GLMM).</p></li>
+</ul>
+</section>
+<section id="distribution-des-réponses" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="distribution-des-réponses"><span class="header-section-number">6.4.2</span> Distribution des réponses</h3>
+<ul>
+<li><p>Généralement supposée</p></li>
+<li><p>On peut comparer la distribution des données <em>vs</em> une distribution théorique de Poisson</p></li>
+</ul>
+</section>
+<section id="absence-de-surdispersion" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="absence-de-surdispersion"><span class="header-section-number">6.4.3</span> Absence de surdispersion</h3>
+<ul>
+<li><p>Selon la loi de Poisson, la variance des réponses est égale à la moyenne des réponses.</p></li>
+<li><p>Surdispersion = variance réelle &gt; variance théorique.</p>
+<ul>
+<li><p>Dans ce cas : risque de sous-estimation de l’erreur standard des paramètres du modèle.</p></li>
+<li><p>et donc de p-value excessivement faible.</p></li>
+</ul></li>
+</ul>
+<section id="comment-mesurer-la-surdispersion" class="level4" data-number="6.4.3.1">
+<h4 data-number="6.4.3.1" class="anchored" data-anchor-id="comment-mesurer-la-surdispersion"><span class="header-section-number">6.4.3.1</span> Comment mesurer la surdispersion</h4>
+<p>On calcule un paramètre appelé <span class="math inline">\(\phi\)</span> :</p>
+<p><span class="math display">\[
+\phi = \frac{\text{variance observee}}{\text{variance theorique}} =
+\frac{\text{variance observee}}{\text{moyenne}}.
+\]</span></p>
+<p>En pratique, comme la variance théorique d’un modèle de Poisson vaut la moyenne, <span class="math inline">\(\phi\)</span> indique directement à quel point les données sont plus dispersées que ce que le modèle prévoit.</p>
+<p>Dans un modèle ajusté, on n’a pas accès à la vraie variance, donc <span class="math inline">\(\phi\)</span> est estimé par :</p>
+<p><span class="math display">\[
+\hat{\phi} = \frac{\text{deviance residuelle}}{\text{nombre de degres de liberte}}.
+\]</span></p>
+<p>Avec la déviance résiduelle = mesure de l’écart entre le modèle ajusté et les données observées.</p>
+<ul>
+<li><p>Si <span class="math inline">\(\hat{\phi} \approx 1\)</span> : les données sont compatibles avec la loi de Poisson.</p></li>
+<li><p>Si <span class="math inline">\(\hat{\phi} &gt; 1\)</span> : il y a surdispersion.</p></li>
+<li><p>Il n’existe <strong>pas de seuil universel</strong> (1.5 ? 2 ?) : le seuil dépend aussi de la taille des données.</p></li>
+</ul>
+<p>Certains packages (comme <code>AER</code>) proposent un test dédié pour aider à prendre la décision.</p>
+</section>
+<section id="causes-fréquentes-de-surdispersion" class="level4" data-number="6.4.3.2">
+<h4 data-number="6.4.3.2" class="anchored" data-anchor-id="causes-fréquentes-de-surdispersion"><span class="header-section-number">6.4.3.2</span> Causes fréquentes de surdispersion</h4>
+<p>La surdispersion n’est pas un “bug”, mais un symptôme d’un problème réel dans les données :</p>
+<ul>
+<li><p>corrélation entre les réponses (par exemple des mesures répétées),</p></li>
+<li><p>variable explicative importante manquante,</p></li>
+<li><p>excès de zéros par rapport à ce que prévoit une loi de Poisson.</p></li>
+</ul>
+</section>
+<section id="que-faire-en-cas-de-surdispersion" class="level4" data-number="6.4.3.3">
+<h4 data-number="6.4.3.3" class="anchored" data-anchor-id="que-faire-en-cas-de-surdispersion"><span class="header-section-number">6.4.3.3</span> Que faire en cas de surdispersion ?</h4>
+<p>Si <span class="math inline">\(\hat{\phi}\)</span> est clairement supérieur à 1, il faut changer le modèle, car la régression de Poisson n’est plus adaptée.</p>
+<p>Deux alternatives classiques :</p>
+<ul>
+<li><p><strong>quasi-Poisson</strong> :</p>
+<ul>
+<li><p>même structure que Poisson, mais avec variance ajustée ;</p></li>
+<li><p>lève la contrainte d’égalité entre moyenne et variance.</p></li>
+</ul></li>
+<li><p><strong>binomiale négative</strong> :</p>
+<ul>
+<li><p>variance plus flexible, souvent adaptée aux données avec beaucoup de dispersion.</p></li>
+<li><p>modèle plus complexe, mais souvent plus robuste.</p></li>
+</ul></li>
+</ul>
+<p>Ces modèles corrigent l’erreur standard en la multipliant par :</p>
+<p><span class="math display">\[
+\sqrt{\hat{\phi}}.
+\]</span></p>
+<p>Ce qui remet les p-values à des niveaux plus réalistes.</p>
+</section>
+</section>
+</section>
+<section id="exemple-r-3" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="exemple-r-3"><span class="header-section-number">6.5</span> Exemple R</h2>
+<p>Modèle expliquant le nombre d’antécédents d’incarcération des détenus du df <code>smp</code>.</p>
+<ul>
+<li><p>Données de comptage d’événements non-indépendants car survenant chez un même sujet !</p></li>
+<li><p>Modèle de Poisson : inapproprié car adapté au comptage d’événements indépendant est manifestement inapproprié,</p></li>
+<li><p>Modèles quasi-Poisson ou binomial négatifs restent possibles car ne reposent pas sur l’hypothèse d’indépendance.</p></li>
+</ul>
+<p>Pour mesurer le degré d’invalidité du modèle de Poisson, on compare la moyenne et la variance du nombre d’antécédents d’incarcération.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(smp<span class="sc">$</span>n.prison, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.839949</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(smp<span class="sc">$</span>n.prison, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11.94743</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(smp<span class="sc">$</span>n.prison, <span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">mean</span>(smp<span class="sc">$</span>n.prison, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.493348</code></pre>
+</div>
+</div>
+<section id="modèle-de-poisson" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="modèle-de-poisson"><span class="header-section-number">6.5.1</span> Modèle de Poisson</h3>
+<p>Essayons de calculer un modèle de Poisson malgré tout incluant :</p>
+<ul>
+<li><p><code>charactere</code> (intensité d’un trouble de la personnalité),</p></li>
+<li><p><code>recherche.nouv</code> (dimension de recherche de la nouveauté),</p></li>
+<li><p><code>famille.prison</code> (antécédents familiaux d’incarcération),</p></li>
+<li><p><code>abus.enfant</code> (antécédents d’abus pendant l’enfance),</p></li>
+<li><p><code>age</code> (l’âge)</p></li>
+<li><p>et <code>type.centre</code> (le type d’établissement pénitentiaire).</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>mod_pois <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    n.prison <span class="sc">~</span> charactere <span class="sc">+</span> recherche.nouv <span class="sc">+</span> famille.prison <span class="sc">+</span> abus.enfant <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">factor</span>(type.centre),</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> smp,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">poisson</span>()</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_pois)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = n.prison ~ charactere + recherche.nouv + famille.prison + 
+    abus.enfant + age + factor(type.centre), family = poisson(), 
+    data = smp)
+
+Coefficients:
+                      Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)          -1.232314   0.178078  -6.920 4.51e-12 ***
+charactere            0.300950   0.029450  10.219  &lt; 2e-16 ***
+recherche.nouv        0.236566   0.037707   6.274 3.52e-10 ***
+famille.prison        0.536230   0.059981   8.940  &lt; 2e-16 ***
+abus.enfant           0.402111   0.059269   6.785 1.16e-11 ***
+age                   0.006819   0.002381   2.864  0.00419 ** 
+factor(type.centre)2  0.322015   0.111315   2.893  0.00382 ** 
+factor(type.centre)3  0.276732   0.109034   2.538  0.01115 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 2834.4  on 633  degrees of freedom
+Residual deviance: 2360.4  on 626  degrees of freedom
+  (165 observations deleted due to missingness)
+AIC: 3289.6
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
+<p>Affichage des résultats en tableau :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>res_table_pois <span class="ot">&lt;-</span> <span class="fu">tbl_regression</span>(</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    mod_pois,</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">exponentiate =</span> <span class="cn">TRUE</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modify_table_styling</span>(</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">columns =</span> estimate,</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">footnote =</span> <span class="st">"Estimates are incidence rate ratios from a Poisson regression model."</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>res_table_pois</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="tjyfsdiydo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tjyfsdiydo table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#tjyfsdiydo thead, #tjyfsdiydo tbody, #tjyfsdiydo tfoot, #tjyfsdiydo tr, #tjyfsdiydo td, #tjyfsdiydo th {
+  border-style: none;
+}
+
+#tjyfsdiydo p {
+  margin: 0;
+  padding: 0;
+}
+
+#tjyfsdiydo .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#tjyfsdiydo .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tjyfsdiydo .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#tjyfsdiydo .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#tjyfsdiydo .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tjyfsdiydo .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#tjyfsdiydo .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#tjyfsdiydo .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#tjyfsdiydo .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#tjyfsdiydo .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#tjyfsdiydo .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tjyfsdiydo .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#tjyfsdiydo .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#tjyfsdiydo .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#tjyfsdiydo .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyfsdiydo .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#tjyfsdiydo .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#tjyfsdiydo .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#tjyfsdiydo .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyfsdiydo .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#tjyfsdiydo .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyfsdiydo .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#tjyfsdiydo .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyfsdiydo .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tjyfsdiydo .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tjyfsdiydo .gt_left {
+  text-align: left;
+}
+
+#tjyfsdiydo .gt_center {
+  text-align: center;
+}
+
+#tjyfsdiydo .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#tjyfsdiydo .gt_font_normal {
+  font-weight: normal;
+}
+
+#tjyfsdiydo .gt_font_bold {
+  font-weight: bold;
+}
+
+#tjyfsdiydo .gt_font_italic {
+  font-style: italic;
+}
+
+#tjyfsdiydo .gt_super {
+  font-size: 65%;
+}
+
+#tjyfsdiydo .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#tjyfsdiydo .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#tjyfsdiydo .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#tjyfsdiydo .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#tjyfsdiydo .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#tjyfsdiydo .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#tjyfsdiydo .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#tjyfsdiydo .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#tjyfsdiydo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings header">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>IRR</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="conf.low" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong></th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>p-value</strong></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">charactere</td>
+<td class="gt_row gt_center" headers="estimate">1.35</td>
+<td class="gt_row gt_center" headers="conf.low">1.28, 1.43</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">recherche.nouv</td>
+<td class="gt_row gt_center" headers="estimate">1.27</td>
+<td class="gt_row gt_center" headers="conf.low">1.18, 1.36</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">famille.prison</td>
+<td class="gt_row gt_center" headers="estimate">1.71</td>
+<td class="gt_row gt_center" headers="conf.low">1.52, 1.92</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">abus.enfant</td>
+<td class="gt_row gt_center" headers="estimate">1.49</td>
+<td class="gt_row gt_center" headers="conf.low">1.33, 1.68</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">age</td>
+<td class="gt_row gt_center" headers="estimate">1.01</td>
+<td class="gt_row gt_center" headers="conf.low">1.00, 1.01</td>
+<td class="gt_row gt_center" headers="p.value">0.004</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">factor(type.centre)</td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="conf.low"><br>
+</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;1</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="conf.low">—</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;2</td>
+<td class="gt_row gt_center" headers="estimate">1.38</td>
+<td class="gt_row gt_center" headers="conf.low">1.11, 1.73</td>
+<td class="gt_row gt_center" headers="p.value">0.004</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;3</td>
+<td class="gt_row gt_center" headers="estimate">1.32</td>
+<td class="gt_row gt_center" headers="conf.low">1.07, 1.64</td>
+<td class="gt_row gt_center" headers="p.value">0.011</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_footnotes odd">
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Estimates are incidence rate ratios from a Poisson regression model.</td>
+</tr>
+<tr class="gt_sourcenotes even">
+<td colspan="4" class="gt_sourcenote">Abbreviations: CI = Confidence Interval, IRR = Incidence Rate Ratio</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>Le package <code>guideR</code> de Larmarange propose une fonction <code>guideR::observed_vs_theoretical()</code> qui permet justement de comparer la distribution observée avec la distribution théorique d’un modèle.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>mod_pois <span class="sc">|&gt;</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    guideR<span class="sc">::</span><span class="fu">observed_vs_theoretical</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S1_4_Modeles_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Il existe même une fonction automatique évaluent la surdispersion dans le package <code>DHARMa</code>, qui fait un test de surdispersion.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>mod_pois <span class="sc">|&gt;</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    performance<span class="sc">::</span><span class="fu">check_overdispersion</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Overdispersion test
+
+       dispersion ratio =    5.512
+  Pearson's Chi-Squared = 3450.403
+                p-value =  &lt; 0.001</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Overdispersion detected.</code></pre>
+</div>
+</div>
+</section>
+<section id="modèle-quasi-poisson" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="modèle-quasi-poisson"><span class="header-section-number">6.5.2</span> Modèle quasi-Poisson</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mod_quasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    n.prison <span class="sc">~</span> charactere <span class="sc">+</span> recherche.nouv <span class="sc">+</span> famille.prison <span class="sc">+</span> abus.enfant <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">factor</span>(type.centre),</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> smp,</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">quasipoisson</span>()</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_quasi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = n.prison ~ charactere + recherche.nouv + famille.prison + 
+    abus.enfant + age + factor(type.centre), family = quasipoisson(), 
+    data = smp)
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          -1.232314   0.418080  -2.948 0.003322 ** 
+charactere            0.300950   0.069140   4.353 1.57e-05 ***
+recherche.nouv        0.236566   0.088526   2.672 0.007730 ** 
+famille.prison        0.536230   0.140820   3.808 0.000154 ***
+abus.enfant           0.402111   0.139148   2.890 0.003988 ** 
+age                   0.006819   0.005590   1.220 0.223032    
+factor(type.centre)2  0.322015   0.261338   1.232 0.218345    
+factor(type.centre)3  0.276732   0.255984   1.081 0.280090    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for quasipoisson family taken to be 5.511868)
+
+    Null deviance: 2834.4  on 633  degrees of freedom
+Residual deviance: 2360.4  on 626  degrees of freedom
+  (165 observations deleted due to missingness)
+AIC: NA
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
+<p>Affichage des résultats en tableau :</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="pfthynnyhk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pfthynnyhk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pfthynnyhk thead, #pfthynnyhk tbody, #pfthynnyhk tfoot, #pfthynnyhk tr, #pfthynnyhk td, #pfthynnyhk th {
+  border-style: none;
+}
+
+#pfthynnyhk p {
+  margin: 0;
+  padding: 0;
+}
+
+#pfthynnyhk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pfthynnyhk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pfthynnyhk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pfthynnyhk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pfthynnyhk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pfthynnyhk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pfthynnyhk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pfthynnyhk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pfthynnyhk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pfthynnyhk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pfthynnyhk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pfthynnyhk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pfthynnyhk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pfthynnyhk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pfthynnyhk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfthynnyhk .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pfthynnyhk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pfthynnyhk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pfthynnyhk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfthynnyhk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pfthynnyhk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfthynnyhk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pfthynnyhk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfthynnyhk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pfthynnyhk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfthynnyhk .gt_left {
+  text-align: left;
+}
+
+#pfthynnyhk .gt_center {
+  text-align: center;
+}
+
+#pfthynnyhk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pfthynnyhk .gt_font_normal {
+  font-weight: normal;
+}
+
+#pfthynnyhk .gt_font_bold {
+  font-weight: bold;
+}
+
+#pfthynnyhk .gt_font_italic {
+  font-style: italic;
+}
+
+#pfthynnyhk .gt_super {
+  font-size: 65%;
+}
+
+#pfthynnyhk .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pfthynnyhk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pfthynnyhk .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pfthynnyhk .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pfthynnyhk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pfthynnyhk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pfthynnyhk .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#pfthynnyhk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#pfthynnyhk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings header">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>IRR</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="conf.low" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong></th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>p-value</strong></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">charactere</td>
+<td class="gt_row gt_center" headers="estimate">1.35</td>
+<td class="gt_row gt_center" headers="conf.low">1.18, 1.55</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">recherche.nouv</td>
+<td class="gt_row gt_center" headers="estimate">1.27</td>
+<td class="gt_row gt_center" headers="conf.low">1.07, 1.51</td>
+<td class="gt_row gt_center" headers="p.value">0.008</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">famille.prison</td>
+<td class="gt_row gt_center" headers="estimate">1.71</td>
+<td class="gt_row gt_center" headers="conf.low">1.30, 2.25</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">abus.enfant</td>
+<td class="gt_row gt_center" headers="estimate">1.49</td>
+<td class="gt_row gt_center" headers="conf.low">1.14, 1.96</td>
+<td class="gt_row gt_center" headers="p.value">0.004</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">age</td>
+<td class="gt_row gt_center" headers="estimate">1.01</td>
+<td class="gt_row gt_center" headers="conf.low">1.00, 1.02</td>
+<td class="gt_row gt_center" headers="p.value">0.2</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">factor(type.centre)</td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="conf.low"><br>
+</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;1</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="conf.low">—</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;2</td>
+<td class="gt_row gt_center" headers="estimate">1.38</td>
+<td class="gt_row gt_center" headers="conf.low">0.85, 2.38</td>
+<td class="gt_row gt_center" headers="p.value">0.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;3</td>
+<td class="gt_row gt_center" headers="estimate">1.32</td>
+<td class="gt_row gt_center" headers="conf.low">0.82, 2.25</td>
+<td class="gt_row gt_center" headers="p.value">0.3</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_footnotes odd">
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Estimates are incidence rate ratios from a quasi-Poisson regression model.</td>
+</tr>
+<tr class="gt_sourcenotes even">
+<td colspan="4" class="gt_sourcenote">Abbreviations: CI = Confidence Interval, IRR = Incidence Rate Ratio</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>Comparaison avec un modèle théorique de quasi-Poisson : pas possible avec <code>guideR::observed_vs_theoretical()</code> car ne supporte pas le quasi-Poisson.</p>
+<p>On peut quand même vérifier la surdispersion avec <code>performance::check_overdispersion()</code> :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>mod_quasi <span class="sc">|&gt;</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    performance<span class="sc">::</span><span class="fu">check_overdispersion</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Overdispersion test
+
+       dispersion ratio =    5.512
+  Pearson's Chi-Squared = 3450.403
+                p-value =  &lt; 0.001</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Overdispersion detected.</code></pre>
+</div>
+</div>
+</section>
+<section id="modèle-binomial-négatif" class="level3" data-number="6.5.3">
+<h3 data-number="6.5.3" class="anchored" data-anchor-id="modèle-binomial-négatif"><span class="header-section-number">6.5.3</span> Modèle binomial négatif</h3>
+<p>Library <code>MASS</code> propose la fonction <code>glm.nb()</code> pour ajuster un modèle binomial négatif.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>mod_nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    n.prison <span class="sc">~</span> charactere <span class="sc">+</span> recherche.nouv <span class="sc">+</span> famille.prison <span class="sc">+</span> abus.enfant <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">factor</span>(type.centre),</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> smp</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_nb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = n.prison ~ charactere + recherche.nouv + famille.prison + 
+    abus.enfant + age + factor(type.centre), data = smp, init.theta = 0.4746238145, 
+    link = log)
+
+Coefficients:
+                      Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)          -1.330018   0.395188  -3.366 0.000764 ***
+charactere            0.304019   0.081209   3.744 0.000181 ***
+recherche.nouv        0.240279   0.081137   2.961 0.003063 ** 
+famille.prison        0.604064   0.146477   4.124 3.72e-05 ***
+abus.enfant           0.462282   0.147036   3.144 0.001667 ** 
+age                   0.008619   0.005423   1.589 0.111979    
+factor(type.centre)2  0.216223   0.246183   0.878 0.379780    
+factor(type.centre)3  0.286117   0.240209   1.191 0.233607    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(0.4746) family taken to be 1)
+
+    Null deviance: 680.90  on 633  degrees of freedom
+Residual deviance: 593.39  on 626  degrees of freedom
+  (165 observations deleted due to missingness)
+AIC: 2212
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  0.4746 
+          Std. Err.:  0.0430 
+
+ 2 x log-likelihood:  -2193.9550 </code></pre>
+</div>
+</div>
+<p>Affichage des résultats en tableau :</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="prxsdscbmd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#prxsdscbmd table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#prxsdscbmd thead, #prxsdscbmd tbody, #prxsdscbmd tfoot, #prxsdscbmd tr, #prxsdscbmd td, #prxsdscbmd th {
+  border-style: none;
+}
+
+#prxsdscbmd p {
+  margin: 0;
+  padding: 0;
+}
+
+#prxsdscbmd .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#prxsdscbmd .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#prxsdscbmd .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#prxsdscbmd .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#prxsdscbmd .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#prxsdscbmd .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#prxsdscbmd .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#prxsdscbmd .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#prxsdscbmd .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#prxsdscbmd .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#prxsdscbmd .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#prxsdscbmd .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#prxsdscbmd .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#prxsdscbmd .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#prxsdscbmd .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prxsdscbmd .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#prxsdscbmd .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#prxsdscbmd .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#prxsdscbmd .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prxsdscbmd .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#prxsdscbmd .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prxsdscbmd .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#prxsdscbmd .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prxsdscbmd .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#prxsdscbmd .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prxsdscbmd .gt_left {
+  text-align: left;
+}
+
+#prxsdscbmd .gt_center {
+  text-align: center;
+}
+
+#prxsdscbmd .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#prxsdscbmd .gt_font_normal {
+  font-weight: normal;
+}
+
+#prxsdscbmd .gt_font_bold {
+  font-weight: bold;
+}
+
+#prxsdscbmd .gt_font_italic {
+  font-style: italic;
+}
+
+#prxsdscbmd .gt_super {
+  font-size: 65%;
+}
+
+#prxsdscbmd .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#prxsdscbmd .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#prxsdscbmd .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#prxsdscbmd .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#prxsdscbmd .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#prxsdscbmd .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#prxsdscbmd .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#prxsdscbmd .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#prxsdscbmd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings header">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>IRR</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="conf.low" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong></th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>p-value</strong></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">charactere</td>
+<td class="gt_row gt_center" headers="estimate">1.36</td>
+<td class="gt_row gt_center" headers="conf.low">1.16, 1.59</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">recherche.nouv</td>
+<td class="gt_row gt_center" headers="estimate">1.27</td>
+<td class="gt_row gt_center" headers="conf.low">1.08, 1.49</td>
+<td class="gt_row gt_center" headers="p.value">0.003</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">famille.prison</td>
+<td class="gt_row gt_center" headers="estimate">1.83</td>
+<td class="gt_row gt_center" headers="conf.low">1.39, 2.43</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">abus.enfant</td>
+<td class="gt_row gt_center" headers="estimate">1.59</td>
+<td class="gt_row gt_center" headers="conf.low">1.19, 2.14</td>
+<td class="gt_row gt_center" headers="p.value">0.002</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">age</td>
+<td class="gt_row gt_center" headers="estimate">1.01</td>
+<td class="gt_row gt_center" headers="conf.low">1.00, 1.02</td>
+<td class="gt_row gt_center" headers="p.value">0.11</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">factor(type.centre)</td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="conf.low"><br>
+</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;1</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="conf.low">—</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;2</td>
+<td class="gt_row gt_center" headers="estimate">1.24</td>
+<td class="gt_row gt_center" headers="conf.low">0.75, 2.00</td>
+<td class="gt_row gt_center" headers="p.value">0.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;3</td>
+<td class="gt_row gt_center" headers="estimate">1.33</td>
+<td class="gt_row gt_center" headers="conf.low">0.82, 2.12</td>
+<td class="gt_row gt_center" headers="p.value">0.2</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_footnotes odd">
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Estimates are incidence rate ratios from a negative binomial regression model.</td>
+</tr>
+<tr class="gt_sourcenotes even">
+<td colspan="4" class="gt_sourcenote">Abbreviations: CI = Confidence Interval, IRR = Incidence Rate Ratio</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>Comparaison avec un modèle théorique de binomial négatif :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>mod_nb <span class="sc">|&gt;</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    guideR<span class="sc">::</span><span class="fu">observed_vs_theoretical</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S1_4_Modeles_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Détection de surdispersion :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>mod_nb <span class="sc">|&gt;</span> </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    performance<span class="sc">::</span><span class="fu">check_overdispersion</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Overdispersion test
+
+ dispersion ratio = 0.768
+          p-value = 0.352</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>No overdispersion detected.</code></pre>
+</div>
+</div>
+</section>
+<section id="comment-choisir-directement-le-meilleur-modèle" class="level3" data-number="6.5.4">
+<h3 data-number="6.5.4" class="anchored" data-anchor-id="comment-choisir-directement-le-meilleur-modèle"><span class="header-section-number">6.5.4</span> Comment choisir directement le meilleur modèle</h3>
+<p>Pour comparer objectivement les trois modèles ajustés ci‑dessus (Poisson, quasi‑Poisson, binomial négatif), on utilise&nbsp;:</p>
+<ul>
+<li>l’AIC (quand disponible),</li>
+<li>la surdispersion,</li>
+<li>et l’adéquation modèle/données.</li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+</section>
+<section id="modèles-de-survie" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Modèles de survie</h1>
+<section id="modèles-de-survie-paramétrique-weibull-etc" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="modèles-de-survie-paramétrique-weibull-etc"><span class="header-section-number">7.1</span> Modèles de survie paramétrique : Weibull etc</h2>
+</section>
+<section id="modèles-de-survie-semi-paramétrique-modèle-de-cox" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="modèles-de-survie-semi-paramétrique-modèle-de-cox"><span class="header-section-number">7.2</span> Modèles de survie semi-paramétrique = Modèle de Cox</h2>
+<p>Modèle de Cox = régression de Cox = modèle des risques proportionnels de Cox.</p>
+<p>Modèle semi-paramétrique similaire à la régression linéaire multiple ou à la régression logistique multiple, mais il est spécialement conçu pour les données de survie.</p>
+<p>≠ Test du log-rank qui compare deux courbes de survie de manière univariée (non ajustée)</p>
+<p>Équation du modèle de Cox :<br>
+</p>
+<p><span class="math display">\[
+h(t|Z_1,...,Z_p) = h_0(t) \times \exp(\beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p)
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(h_0(t)\)</span> : fonction de risque de base (baseline hazard function) = fonction de risque instantané lorsque toutes les covariables <span class="math inline">\(Z_i\)</span> sont égales à 0.</p></li>
+<li><p><span class="math inline">\(\exp(\beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p)\)</span> : effet multiplicatif constant des P covariables sur la fonction de risque instantané.</p></li>
+<li><p><span class="math inline">\(\beta_i\)</span> : coefficient associé à la covariable <span class="math inline">\(Z_i\)</span>, représentant l’effet de cette covariable sur le risque instantané.</p>
+<ul>
+<li>Relation entre <span class="math inline">\(\beta_i\)</span> et le hazard ratio (HR) : <span class="math inline">\(HR = \exp(\beta_i)\)</span> (donc <span class="math inline">\(\beta_i = \log(HR)\)</span>)</li>
+</ul></li>
+</ul>
+<p><strong>2 hypothèses principales</strong> : <strong>proportionnalité des risques</strong> et <strong>log-linéarité</strong>.</p>
+<section id="hypothèse-de-proportionnalité-des-risques" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="hypothèse-de-proportionnalité-des-risques"><span class="header-section-number">7.2.1</span> Hypothèse de proportionnalité des risques</h3>
+<p><strong>Hypothèse de proportionnalité des risques</strong> : les rapports des risques entre les individus restent constants dans le temps, c’est à dire que l’effet des covariables sur le risque instantané est multiplicatif et ne dépend pas du temps.</p>
+<p><span class="math inline">\(\frac{h(t|Z_k = 1)}{h(t|Z_k = 0)} = \exp(\beta k) = \text constante\)</span></p>
+<p>Quand on compare 2 groupes (exemple : fumeur vs non-fumeur), le rapport de leurs risques instantanés reste le même tout au long du suivi, et ce rapport de risques = hazard ratio (HR).</p>
+<p>Dire que les risques sont proportionnels signifie :</p>
+<ul>
+<li><p>à chaque instant t, le groupe A a par exemple 1,5 fois plus de risque de l’événement que le groupe B ;</p></li>
+<li><p>ce facteur 1,5 ne change pas au cours du temps.</p></li>
+</ul>
+<p>Exemple : On suit 100 patients opérés.</p>
+<p>Variable explicative : fumeur (1) vs non-fumeur (0).</p>
+<p>Supposons : HR = 2.</p>
+<p>Cela veut dire :</p>
+<ul>
+<li><p>à tout moment du suivi, un fumeur a le double du risque instantané d’avoir une complication,</p></li>
+<li><p>même si le risque global diminue avec le temps (fin de la période postopératoire aiguë), le ratio reste stable entre fumeur et non fumeur.</p></li>
+</ul>
+<p>Si cette hypothèse n’est pas vraie (ex : au début les fumeurs sont à très haut risque, mais plus tard le risque redevient identique), alors le modèle de Cox classique n’est plus adapté. (<em>Dans ce cas, on peut utiliser des modèles de Cox avec effets temporels</em>).</p>
+</section>
+<section id="hypothèse-de-log-linéarité" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="hypothèse-de-log-linéarité"><span class="header-section-number">7.2.2</span> Hypothèse de log-linéarité</h3>
+<p><strong>Hypothèse de log-linéarité</strong> : <strong>concerne les variables quantitatives</strong>.</p>
+<p>L’effet des covariables est linéaire sur le logarithme du risque instantané et pas directement sur le risque.</p>
+<p>C’est à dire que chaque unité d’augmentation de la covariable <span class="math inline">\(Z_i\)</span> entraîne une augmentation constante du logarithme du risque instantané.</p>
+<p><span class="math inline">\(\rightarrow\)</span> Chaque augmentation d’une unité de la variable → produit le même pourcentage de variation du risque.</p>
+<p><span class="math inline">\(\log(h(t|Z_1,...,Z_p)) = \log(h_0(t)) + \beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p\)</span></p>
+<p>Exemple :</p>
+<p>Variable explicative : âge (en années).</p>
+<p>On suppose que <span class="math inline">\(\beta = 0,05\)</span> (avec <span class="math inline">\(\beta\)</span> le coefficient associé à l’âge dans le modèle de Cox).</p>
+<p>Cela veut dire :</p>
+<ul>
+<li><p>chaque année supplémentaire → multiplie le risque instantané par <span class="math inline">\(exp(0,05) ≈ 1,05\)</span></p></li>
+<li><p>donc +5 % de risque par année d’âge.</p>
+<ul>
+<li><p>Si on passe de 50 à 51 ans : +5 %.</p></li>
+<li><p>Si on passe de 70 à 71 ans : encore +5 %.</p></li>
+</ul></li>
+<li><p>L’effet est proportionnel, constant.</p></li>
+</ul>
+</section>
+<section id="exemple-r-4" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="exemple-r-4"><span class="header-section-number">7.2.3</span> Exemple R</h3>
+<p>295 patientes du jeu de données <code>ks</code> :</p>
+<ul>
+<li><p><code>survival</code> : temps de survie en mois</p></li>
+<li><p><code>eventdeath</code> : indicateur d’événement (1 = décès, 0 = censuré)</p></li>
+<li><p><code>age</code> : âge en années</p></li>
+<li><p><code>grade</code> : grade de la tumeur du sein (1, 2 ou 3)</p></li>
+<li><p><code>hormonal</code> : statut hormonal (1 = positif, 0 = négatif)</p></li>
+</ul>
+<p>Objectif : modéliser le risque de décès en fonction de l’âge (&gt; 40 ans), en prenant en compte le grade de la tumeur et le statut hormonal.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">coxph</span>(</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Surv</span>(survival,eventdeath)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>(age<span class="sc">&gt;</span><span class="dv">40</span>)<span class="sc">+</span>grade<span class="sc">+</span> hormonal,</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>ks)</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+coxph(formula = Surv(survival, eventdeath) ~ (age &gt; 40) + grade + 
+    hormonal, data = ks)
+
+  n= 272, number of events= 77 
+
+                coef exp(coef) se(coef)      z Pr(&gt;|z|)    
+age &gt; 40TRUE -0.4279    0.6519   0.2439 -1.754   0.0794 .  
+grade         0.9528    2.5931   0.1822  5.229  1.7e-07 ***
+hormonal     -0.1867    0.8297   0.4357 -0.428   0.6683    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+             exp(coef) exp(-coef) lower .95 upper .95
+age &gt; 40TRUE    0.6519     1.5340    0.4041     1.051
+grade           2.5931     0.3856    1.8143     3.706
+hormonal        0.8297     1.2053    0.3532     1.949
+
+Concordance= 0.73  (se = 0.026 )
+Likelihood ratio test= 41.41  on 3 df,   p=5e-09
+Wald test            = 34.63  on 3 df,   p=1e-07
+Score (logrank) test = 39.58  on 3 df,   p=1e-08</code></pre>
+</div>
+</div>
+<p>Affichage des résultats en tableau :</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="wvfpyzoisb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wvfpyzoisb table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#wvfpyzoisb thead, #wvfpyzoisb tbody, #wvfpyzoisb tfoot, #wvfpyzoisb tr, #wvfpyzoisb td, #wvfpyzoisb th {
+  border-style: none;
+}
+
+#wvfpyzoisb p {
+  margin: 0;
+  padding: 0;
+}
+
+#wvfpyzoisb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wvfpyzoisb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wvfpyzoisb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wvfpyzoisb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wvfpyzoisb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wvfpyzoisb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wvfpyzoisb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wvfpyzoisb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wvfpyzoisb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#wvfpyzoisb .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#wvfpyzoisb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wvfpyzoisb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wvfpyzoisb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wvfpyzoisb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wvfpyzoisb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wvfpyzoisb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wvfpyzoisb .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wvfpyzoisb .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#wvfpyzoisb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wvfpyzoisb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wvfpyzoisb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wvfpyzoisb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wvfpyzoisb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wvfpyzoisb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wvfpyzoisb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wvfpyzoisb .gt_left {
+  text-align: left;
+}
+
+#wvfpyzoisb .gt_center {
+  text-align: center;
+}
+
+#wvfpyzoisb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wvfpyzoisb .gt_font_normal {
+  font-weight: normal;
+}
+
+#wvfpyzoisb .gt_font_bold {
+  font-weight: bold;
+}
+
+#wvfpyzoisb .gt_font_italic {
+  font-style: italic;
+}
+
+#wvfpyzoisb .gt_super {
+  font-size: 65%;
+}
+
+#wvfpyzoisb .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#wvfpyzoisb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wvfpyzoisb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wvfpyzoisb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wvfpyzoisb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wvfpyzoisb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wvfpyzoisb .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#wvfpyzoisb .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#wvfpyzoisb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings header">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>HR</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="conf.low" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong></th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>p-value</strong></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">age &gt; 40</td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="conf.low"><br>
+</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;FALSE</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="conf.low">—</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;TRUE</td>
+<td class="gt_row gt_center" headers="estimate">0.65</td>
+<td class="gt_row gt_center" headers="conf.low">0.40, 1.05</td>
+<td class="gt_row gt_center" headers="p.value">0.079</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">grade</td>
+<td class="gt_row gt_center" headers="estimate">2.59</td>
+<td class="gt_row gt_center" headers="conf.low">1.81, 3.71</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">hormonal</td>
+<td class="gt_row gt_center" headers="estimate">0.83</td>
+<td class="gt_row gt_center" headers="conf.low">0.35, 1.95</td>
+<td class="gt_row gt_center" headers="p.value">0.7</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_footnotes odd">
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Estimates are hazard ratios from a Cox proportional hazards model.</td>
+</tr>
+<tr class="gt_sourcenotes even">
+<td colspan="4" class="gt_sourcenote">Abbreviations: CI = Confidence Interval, HR = Hazard Ratio</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>Courbes de survie ajustées :</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+ℹ The deprecated feature was likely used in the ggpubr package.
+  Please report the issue at &lt;https://github.com/kassambara/ggpubr/issues&gt;.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="S1_4_Modeles_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 

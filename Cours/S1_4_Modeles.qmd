@@ -927,6 +927,18 @@ Une approche robuste consiste à :
 
     -   la différence absolue de risque : $DAR = p_1 - p_0$.
 
+:::callout-note
+**Régression logistique selon Firth**
+
+Firth modifie la régression logistique classique en ajoutant au critère à optimiser un terme supplémentaire qui devient très pénalisant quand un coefficient essaie de partir vers des valeurs extrêmes. 
+
+Concrètement, ce terme repose sur la « courbure » de la vraisemblance : plus les données poussent un coefficient à devenir énorme (cas de séparation ou quasi-séparation), plus ce terme augmente et force la solution à rester finie. 
+
+Mathématiquement, c’est exactement ce qu’on obtiendrait si on imposait une loi a priori très spécifique (la prior de Jeffreys) sur les coefficients, ce qui revient à ajouter une petite quantité d’« information artificielle » pour casser la séparation parfaite. 
+
+Cette correction est construite pour compenser l’erreur systématique des estimateurs classiques, de sorte que, en situation de petits effectifs ou d’événement rare, les coefficients issus de Firth sont moins systématiquement trop grands en valeur absolue.
+:::
+
 \newpage
 
 # Modèle logistique pour *odds* proportionnels

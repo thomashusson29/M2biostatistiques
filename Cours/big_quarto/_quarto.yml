@@ -1,0 +1,91 @@
+project:
+  type: book
+
+book:
+  title: "Mes notes de cours"
+  author: "Thomas Husson"
+  chapters:
+    - index.qmd
+    - 1_resume_statistique.qmd
+    - 6_effet_centre.qmd
+
+format:
+  html:
+    toc: true
+    toc-depth: 5
+    toc-title: "Table of contents"
+    toc-location: left
+    toc-sticky: true
+    number-sections: true
+    theme: default
+
+  docx:
+    toc: true
+    toc-depth: 5
+
+  pdf:
+    toc: true
+    toc-depth: 5
+    toc-title: "Table des matières"
+    pdf-engine: xelatex
+    number-sections: true
+    geometry: margin=2.5cm
+    header-includes: |
+      % Force la police Computer Modern pour le titre principal
+      \makeatletter
+      \renewcommand{\maketitle}{
+      \begin{center}
+          {\Large\bfseries\rmfamily \@title \par}
+          \vskip 1.5em
+          {\large\rmfamily \@author \par}
+          \vskip 1em
+      \end{center}
+      }
+      \makeatother
+      % Tous les titres en police par défaut LaTeX
+      \usepackage{sectsty}
+      \allsectionsfont{\rmfamily}
+
+      \usepackage{etoolbox}
+      \renewcommand{\contentsname}{}
+      \AtBeginDocument{
+          \addtocontents{toc}{\protect\smallskip}
+          \let\oldtableofcontents\tableofcontents
+          \renewcommand{\tableofcontents}{
+          \begingroup
+              \footnotesize
+              \setlength{\parskip}{2pt}
+              \oldtableofcontents
+          \endgroup
+          }
+      }
+      \setcounter{tocdepth}{5}
+      \makeatletter
+      \renewcommand{\@tocrmarg}{0pt}
+      \makeatother
+
+      \usepackage{fvextra}
+      \usepackage[section]{placeins}
+
+      % Gestion des chunks de code
+      \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+      \usepackage{needspace}
+      \usepackage{float}
+      \floatplacement{figure}{H}
+      \floatplacement{table}{H}
+
+      \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+      \setlength{\parindent}{0pt}
+      \setlength{\parskip}{4pt}
+
+      \usepackage[most]{tcolorbox}
+      \usepackage{color}
+      \definecolor{lightgray}{gray}{0.95}
+      \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+      \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+      \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+      \renewcommand{\thesection}{\arabic{section}}
+      \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+      \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
