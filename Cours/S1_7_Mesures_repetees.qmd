@@ -1,0 +1,487 @@
+---
+title: "Mesures_repetees"
+prefer-html: true
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table des matières"
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            % Force la police Computer Modern pour le titre principal
+            \makeatletter
+            \renewcommand{\maketitle}{
+            \begin{center}
+                {\Large\bfseries\rmfamily \@title \par}
+                \vskip 1.5em
+                {\large\rmfamily \@author \par}
+                \vskip 1em
+            \end{center}
+            }
+            \makeatother
+            % Tous les titres en police par défaut LaTeX
+            \usepackage{sectsty}
+            \allsectionsfont{\rmfamily}
+
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+
+            % Gestion des chunks de code
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(dplyr)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(gt)
+library(gee)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(ClusterBootstrap)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+```
+
+```{r}
+#| echo: false
+#| include: false
+smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","gravite","recherche.nouv", "evit.danger","dep.recompense")]
+```
+
+\newpage
+
+## Problème posé
+
+Ici, c'est un effet "sujet" (≠ d'un effet "centre"). 
+
+Mais ça ne se traite pas pareil :
+
+-   Les sujets d’un même centre (une classe, un service hospitalier, etc.) sont en général considérés comme homogènes. 
+
+    -   Mis à part les variables explicatives du modèle (âge, sexe, etc.), rien ne permet de distinguer ces sujets entre eux. 
+
+    -   On peut donc supposer que la corrélation de la variable étudiée est la même pour toutes les paires de sujets d’un centre (corrélation constante égale à 1), ce qui simplifie beaucoup les calculs.
+
+-   Avec des mesures répétées, la situation change. 
+
+    -   Si l’on mesure chaque jour pendant un mois, la valeur observée un jour donné sera en général plus proche de celle du lendemain que de celle observée 10 ou 20 jours plus tard : la corrélation dépend alors de l’écart de temps entre les mesures.
+
+## Exemple R 1
+
+-   Jeu de données `scl90`  : mesures répétées du score SCL90 à 8 reprises sur 56 jours chez 146 sujets. 
+
+```{r}
+#| echo: false
+#| include: true
+#| fig.height: 5
+#| fig-cap: "Évolution du score de dépression en fonction du temps et de l'âge"
+d1 <- aggregate(scl$depression,by=list(scl$VISIT,scl$age>30),FUN=mean)
+names(d1) <- c("date","age","mean")
+d1$date.num <- as.numeric(gsub("J", "", d1$date))
+d2 <- aggregate(scl$depression,
+by=list(scl$VISIT,scl$age>30),FUN=sd)
+d3 <- aggregate(scl$depression,
+by=list(scl$VISIT,scl$age>30),FUN=length)
+d1$sem <- d2$x/sqrt(d3$x)
+offset = 0.3
+x1 <- d1$date.num[d1$age==FALSE] - offset
+x2 <- d1$date.num[d1$age==TRUE] + offset
+y1 <- d1$mean[d1$age==FALSE]
+y2 <- d1$mean[d1$age==TRUE]
+se1 <- d1$sem[d1$age==FALSE]
+se2 <- d1$sem[d1$age==TRUE]
+plot(x1,y1,type="b",ylim=c(0, max(d1$mean+d1$sem)),
+ylab="Score de dépression (m +/- sem)",
+xlab="Date de visite",col= viridis(n=3)[3],lwd=2,xaxt = "n")
+lines(x2,y2,type="b",col= viridis(n=3)[2],lwd=2)
+axis(1,at=x1,
+labels=c("J0","J4","J7","J14","J21","J28","J42","J56"))
+eps <- 0.4
+size <- 0.05
+arrows(x1,y1+eps,x1,y1+se1,length=size,angle=90,code=2)
+arrows(x1,y1-eps,x1,y1-se1,length=size,angle=90,code=2)
+arrows(x2,y2+eps,x2,y2+se2,length=size,angle=90,code=2)
+arrows(x2,y2-eps,x2,y2-se2,length=size,angle=90,code=2)
+legend("topright", legend = c(">30", "<=30"), title = "Age",
+pch = 16, col = viridis(n=3)[2:3])
+```
+
+Question : étude de l'évolution du score SCL90 au cours du temps.
+
+1.   Data management :
+
+```{r}
+scl$VISIT.NUM <- recode(scl$VISIT,J0=1,J4=2,J7=3,J14=4,J21=5,J28=6,J42=7,J56=8)
+```
+
+###  Approche naïve : régression linéaire classique entre score et temps.
+
+```{r}
+mod1 <- lm(depression ~ VISIT.NUM + age, data=scl, na.action=na.exclude)
+tbl_mod1 <- tbl_regression(
+    mod1,
+    label = list(VISIT.NUM ~ "Visit Number", age ~ "Age (years)")
+    ) %>%
+    modify_footnote(
+        estimate ~ "Coefficients calculated from linear regression model without accounting for repeated measures."
+    )
+tbl_mod1
+```
+
+Résultats : 
+
+-   Interprétables pour le calcul du coefficient de régression (beta), 
+
+-   mais est à proscrire pour le calcul de son incertitude (erreur type) car il ignore la structure d’autocorrélation des résidus (liés par l’effet « sujet »), violant la condition de validité d’indépendance des résidus de la régression linéaire
+
+On pourrait vérifier en regardant les résidus du modèle avec QQplot et histogramme :
+```{r}
+#| echo: false
+#| include: true
+#| fig.height: 3
+#| fig-cap: "Diagnostic des résidus du modèle linéaire classique"
+par(mfrow=c(1,2))
+qqnorm(residuals(mod1))
+hist(residuals(mod1), breaks=20, main="Histogramme des résidus", xlab="Résidus")
+```
+
+C'est pas terrible !! 
+
+Examen dans le détail de la structure de corrélation :
+
+```{r}
+# création d'un tableau des résidus
+dtresid <- na.omit(data.frame(scl$NUMERO, scl$VISIT.NUM, residuals(mod1)))
+
+# reshaping pour avoir une colonne par visite (transformation en "large")
+names(dtresid) <- c("NUMERO","VISIT.NUM","RESID")
+dtresid.w <- reshape(dtresid, v.names="RESID", idvar="NUMERO", timevar="VISIT.NUM", direction="wide")
+
+# calcul de la matrice de corrélation des résidus
+round(cor(dtresid.w[,2:9], use="pairwise.complete.obs"),2)
+```
+
+Pour mieux illustrer la matrice de corrélation des résidus : correlation plot
+
+```{r}
+#| echo: false
+#| include: true
+#| fig.height: 4
+#| fig-cap: "Matrice de corrélation des résidus"
+cor_mat <- cor(dtresid.w[,2:9], use="pairwise.complete.obs")
+colnames(cor_mat) <- paste0("Visit ", 1:8)
+rownames(cor_mat) <- paste0("Visit ", 1:8)
+corrplot::corrplot(cor_mat, method="color", type="upper", tl.col="black", tl.srt=45, addCoef.col="white", number.cex=1)
+```
+
+Il y a : 
+
+-   Une forte corrélation des résidus consécutifs
+
+-   Décroissance des résidus si on passe des résidus mesurés à des temps consécutifs aux résidus mesurés à des temps éloignés
+
+Illustration par une ACP : 
+
+```{r}
+#| echo: false
+#| include: true
+#| fig.height: 4
+#| fig-cap: "ACP des résidus : les corrélations décroissent avec l'éloignement temporel"
+library(psy)
+mdspca(dtresid.w[,2:9])
+```
+
+Pour contourner : on peut faire un bootstrap (car le bootstrap ne fait pas d'hypothèse d'indépendance des observations).
+
+Au lieu de piocher des mesures individuelles au hasard (ce qui casserait la dépendance), on pioche des sujets entiers.
+
+Cela fonctionne car cette méthode préserve la structure de corrélation temporelle à l'intérieur de chaque sujet. L'hypothèse se déplace : on ne suppose plus que les mesures sont indépendantes, mais que les sujets sont indépendants entre eux
+
+```{r}
+set.seed(1)
+mod.clusboot <- clusbootglm(depression~VISIT.NUM,data=scl,clusterid=NUMERO)
+mod.clusboot$lm.coefs
+mod.clusboot$boot.sds
+```
+
+Les résultats sont "bruts" : calculés sur l'échantillon dans son ensemble.
+
+Une approche conditionnelle rechercherait une association entre `depression` et `VISIT.NUM` au sein de chaque sujet, en contrôlant pour les différences entre sujets.
+
+
+**Exemples d'approches conditionnelles pour les mesures répétées :**
+
+-   Régression logistique conditionnelle (effets fixes sujet)
+
+    -   On conditionne sur chaque sujet (on lui donne un intercept propre, non estimé explicitement). 
+    
+    -   On compare les mesures d’un même sujet entre elles, ce qui contrôle parfaitement pour toutes ses caractéristiques fixes (observées ou non). On obtient un effet « conditionnel au sujet ».
+
+-   Modèles linéaires mixtes / GLMM (effets aléatoires sujet)
+
+    -   On introduit des effets aléatoires (souvent un intercept aléatoire par sujet, parfois des pentes aléatoires) pour modéliser la variabilité entre sujets et la corrélation intra-sujet. 
+    
+    -   On obtient aussi un effet « conditionnel » (effet du temps ou du traitement pour un sujet typique donné ses effets aléatoires).
+
+-   GEE (Generalized Estimating Equations)
+
+    -   On ne modélise pas explicitement les effets aléatoires, mais directement la corrélation des mesures répétées (structure AR(1), échangeable, etc.). 
+    
+    -   L’effet estimé est plutôt « marginal/population-averaged » (effet moyen dans la population), mais on spécifie malgré tout la dépendance intra-sujet via une matrice de corrélation.
+
+### Modèle conditionnel à effets mixtes (LMM)
+
+Inutilisable ici car la structure de la matrice de corrélation des résidus n'est pas homogène (décroissance avec le temps).
+
+Pour un LMM : il faudrait une corrélation égale entre toutes les paires de mesures d'un sujet, ou une structure de corrélation plus riche (AR(1), etc...)
+
+**On peut tout de même faire un bootstrap** qui portera sur un modèle linéaire ajusté sur la variable `NUMERO` car : 
+
+-   On ne suppose plus que les mesures répétées sont indépendantes, on suppose seulement que les sujets sont indépendants entre eux (car on ré-échantillonne par sujet).
+
+-   En ré-échantillonnant des sujets entiers (NUMERO) avec toutes leurs visites, on préserve la structure de corrélation temporelle réelle (décroissance avec le temps, non homogène, etc.).
+
+-   Le modèle linéaire est alors ajusté sur chaque échantillon bootstrap « par sujet », et la variabilité des estimateurs est obtenue empiriquement, sans imposer de forme paramétrique correcte à la matrice de corrélation (contrairement au LMM mal spécifié).
+
+```{r}
+set.seed(1)
+mod.clusbootcond <- clusbootglm(depression ~ VISIT.NUM + factor(NUMERO),data=scl,clusterid=NUMERO)
+mod.clusbootcond$lm.coefs[1:2]
+mod.clusbootcond$boot.sds[1:2]
+```
+
+### Modèle linéaire avec effets mixtes (intercept et pentes fixes + aléatoires)
+
+Équation du modèle :
+
+$$
+y_{ij} = a + (a_{sujet_j}) + b x_{ij} + (b_{sujet_j}) x_{ij} + \varepsilon_{ij}
+$$
+
+Où : 
+
+-   $a$ : intercept fixe (moyen dans la population) et $b$ : pente fixe (moyenne dans la population)
+
+-   $a_{sujet_j}$ : intercept aléatoire du sujet j (écart du sujet j par rapport à l'intercept moyen) et $b_{sujet_j}$ : pente aléatoire du sujet j (écart du sujet j par rapport à la pente moyenne)
+
+On fournit ici l'argument $\varepsilon_{ij}$ à la fonction `lme` pour modéliser la structure de corrélation des résidus (ici, une corrélation linéaire décroissante avec le temps entre les mesures répétées d'un même sujet) :
+
+$\varepsilon_{ij}$ = `random=~VISIT.NUM|NUMERO` : correspond à une corrélation linéaire décroissante avec le temps entre les mesures répétées d'un même sujet.
+
+`random = ~ VISIT.NUM | NUMERO` : pour chaque sujet (NUMERO), on ajoute un intercept aléatoire (niveau de base propre au sujet), etune pente aléatoire de `VISIT.NUM` (évolution propre au sujet)
+
+```{r}
+modCS <- lme(
+            depression~VISIT.NUM,
+            random=~VISIT.NUM|NUMERO
+            ,data=scl,
+            na.action=na.omit)
+summary(modCS)
+```
+
+#### Structure auto-régressive (AR(1))
+
+Les corrélations des résidués mesurés à des temps immédiatement successifs sont tous identitques et égals à un paramètre à estimer $\rho$.
+
+Entre t et t+2 : les corrélations sont toutes égales à $\rho^2$
+
+Entre t et t+3 : les corrélations sont toutes égales à $\rho^3$
+
+Par défaut : 
+
+-   Variance résiduelle constante $\sigma^2$
+
+-   Matrice de variance-covariance des résidus = $\sigma^2 \begin{pmatrix}1 & \rho & \rho^2 & ... & \rho^{n-1} \\ \rho & 1 & \rho & ... & \rho^{n-2} \\ \rho^2 & \rho & 1 & ... & \rho^{n-3} \\ ... & ... & ... & ... & ... \\ \rho^{n-1} & \rho^{n-2} & \rho^{n-3} & ... & 1 \end{pmatrix}$
+
+```{r}
+modAR1 <- lme(
+            depression~VISIT.NUM,
+            random=~VISIT.NUM|NUMERO,
+            correlation=corAR1(form=~VISIT.NUM),
+            data=scl,
+            na.action=na.omit)
+```
+
+NB : `VISIT.NUM` doit être numérique entier croissant (1,2,3,...).
+
+Ici, l'algorithme ne converge pas car le modèle est complexe, et le nombre d'itérations maximum est limité
+
+On change des paramètres : 
+
+```{r}
+modAR1 <- lme(
+            depression~VISIT.NUM,
+            random=~VISIT.NUM|NUMERO,
+            correlation=corAR1(form=~VISIT.NUM),
+            data=scl,
+            na.action=na.omit,
+            control=list(msMaxIter=1000,msMaxEval=1000,
+            opt="optim", optimMethod="Nelder-Mead"))
+summary(modAR1)
+```
+
+AIC et BIC : indices de parcimonie.
+
+Variance et covariance des effets aléatoires dans la partie "Random effects" ; des effets fixes dans la partie "Fixed effects"
+
+Le paramètre de corrélation $\rho$ est estimé dans la partie "Correlation Structure" et appelé "Phi".
+
+Pour retrouver le paramètre de corrélation entre résidus consécutifs :
+
+```{r}
+# 1ère façon
+modAR1$modelStruct$corStruct
+# 2ème façon
+round(cov2cor(getVarCov(modAR1,type="conditional", individual=9)[[1]]),2)
+```
+
+Comme $\rho$ est inférieur à 1, les corrélations entre résidus décroissent avec l'éloignement temporel des mesures répétées car $\rho^k$ diminue quand $k$ augmente.
+
+#### Modèle à structure de covariance non structurée (unstructured)
+
+Les blocs de corrélation 8x8 ont une structure libre, avec 24 paramètres de corrélation à estimer (toutes les corrélations entre paires de mesures répétées sont distinctes).
+
+```{r}
+modSymm <- lme(depression~VISIT.NUM,
+                random=~VISIT.NUM|NUMERO,
+                data=scl,
+                correlation=corSymm(form=~VISIT.NUM),
+                na.action=na.omit,
+                control=list(msMaxIter=1000,msMaxEval=1000,
+                opt="optim", 
+                optimMethod="BFGS")
+                )
+summary(modSymm)
+```
+
+Les estimations des effets aléatoires ont changé : l'écart type de l'intercept est passé de 2,87 pour le modèle AR(1) à 6,30 pour le modèle non structuré.
+
+Comme c'est pas structuré, les effets aléatoires et les résidus participent tous deux à la modélisation de la variance et covariance des observations : une modification de l'un impacte l'autre.
+
+-   Plusieurs briques décrivent la même covariance, donc elles se « partagent le travail ».
+
+    -   La covariance mesure comment 2 mesures varient ensemble : si, pour un même sujet, quand la dépression à la visite 1 est élevée, la dépression à la visite 4 a tendance à être élevée aussi, la covariance entre ces deux visites est positive.
+
+    -   Dans un modèle à mesures répétées, la matrice de covariance regroupe toutes ces covariances entre paires de visites.
+
+-   Les effets aléatoires (intercept/pente aléatoires par sujet) génèrent déjà une partie de la variance et des covariances intra-sujet : ils expliquent que les mesures d’un même sujet aient tendance à être « ensemble » plus hautes ou plus basses.
+
+-   La structure corSymm non structurée ajoute, en plus, une matrice de covariance très flexible pour les résidus : chaque covariance (et donc corrélation) résiduelle entre deux visites est librement estimée.
+
+-   Au total : la covariance observée entre deux mesures = covariance due aux effets aléatoires + covariance due aux résidus corrélés. 
+
+#### Comment choisir ?
+
+-   Les effets fixes sont proches entre les modèles, mais ce ne sera pas toujours vrai, et on ne sait pas spontanément quel modèle choisir.
+
+-   On peut modéliser la corrélation des résidus, càd tenir compte du fait que deux erreurs pour un même sujet et des temps proches ont tendance à être semblables (elles ne sont pas indépendantes). 
+
+    -   En théorie, si on gère bien cette corrélation, on donne moins de poids à des observations très redondantes et on améliore la précision des estimations.
+
+-   Dans notre exemple, ce gain théorique ne se voit presque pas : les erreurs-types sont très proches avec le bootstrap et avec `lme`, voire un peu plus grandes avec `lme`.
+
+-   Si le modèle est mal spécifié (non-linéarité, non-additivité…), on ne sait pas bien comment se comportent les estimateurs de `lme`.
+
+-   Avantage possible de `lme` : on peut estimer la variance des pentes entre sujets ou le $\rho$ d’autocorrélation. Mais la fiabilité de ces paramètres n’est pas toujours claire.
+
+-   Problème pratique : il faut choisir une structure de covariance des résidus (AR(1), non structurée, etc.). Certains utilisent tests de rapport de vraisemblance ou critères (AIC, BIC) de lme(), mais cette démarche est discutable.

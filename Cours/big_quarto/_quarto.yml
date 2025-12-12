@@ -7,6 +7,8 @@ book:
   chapters:
     - index.qmd
     - 1_resume_statistique.qmd
+    - 2_Tests_statistiques_et_IC.qmd
+    - 3_Modeles.qmd
     - 6_effet_centre.qmd
 
 format:
