@@ -1,0 +1,242 @@
+
+
+
+### Visualisation des données
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+head(auto_eval)
+head(hdrs)
+head(groupe)
+```
+
+Le dataframe `auto_eval` contient les scores d'autoévaluation (SCL90) pour chaque patient (`NUMERO`) à différents temps de visite (`VISIT`). Chaque colonne `Q1` à `Q90` représente une question spécifique du questionnaire.
+
+Le dataframe `hdrs` contient les scores d'hétéroévaluation (échelle de dépression de Hamilton) pour chaque patient à différents temps de visite. Chaque colonne `HAMD1` à `HAMD17` représente un item spécifique de l'échelle de Hamilton.
+
+Le dataframe `groupe` contient l'information sur le groupe de chaque patient (0 ou 1)
+
+### Appliquer les groupes de patients à chacun des dataframe
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+auto_eval <- merge(auto_eval, groupe, by = "NUMERO", all.x = TRUE)
+head(auto_eval)
+
+# hdrs + groupe
+hdrs <- merge(hdrs, groupe, by = "NUMERO", all.x = TRUE)
+head(hdrs)
+```
+
+Une colonne `groupe` a été ajoutée à chaque dataframe.
+
+### Restructuration des données : reshape long
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+library(reshape2)
+hdrs_long <- melt(hdrs, id.vars = c("NUMERO", "VISIT", "GROUPE"),
+                    variable.name = "ITEM", value.name = "SCORE")
+head(hdrs_long)
+```
+
+Idem pour le dataframe `auto_eval` :
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+auto_eval_long <- melt(auto_eval, id.vars = c("NUMERO", "VISIT", "GROUPE"),
+                        variable.name = "QUESTION", value.name = "RESPONSE")
+head(auto_eval_long)
+```
+
+### Création d'un dataframe large unique avec toutes les informations :
+
+```{r}
+# 1. Ajouter le groupe à toutes les visites
+df1 <- merge(auto_eval, groupe, by = "NUMERO", all.x = TRUE)
+# 2. Fusionner auto-éval + HDRS par NUMERO + VISIT
+df_all <- merge(df1, hdrs, by = c("NUMERO", "VISIT"), all = TRUE)
+```
+
+On a donc :
+
+-   un dataframe large `df_all` avec toutes les informations
+
+-   deux dataframes larges `hdrs` et `auto_eval` pour les analyses globales, contenant les informations de groupe
+
+-   deux dataframes longs `hdrs_long` et `auto_eval_long` pour les analyses spécifiques, contenant les informations de groupe
+
+### Gestion des valeurs manquantes (et notamment de la question 16)
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+table(hdrs$HAMD16A, useNA = "ifany")
+table(hdrs$HAMD16B, useNA = "ifany")
+```
+
+La question 16 de l'échelle de Hamilton est codée `hdrs$HAMD16A` ou `hdrs$HAMD16B` selon que la perte de poids est déclarée ou appréciée par des pesées hebdomadaires.
+
+Le problème est que : le fait que `hdrs$HAMD16A` soit rempli implique que `hdrs$HAMD16B` est manquant et vice-versa.
+
+On peut donc créer une nouvelle variable `HAMD16` qui prend la valeur de `HAMD16A` si elle est remplie, sinon la valeur de `HAMD16B`.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+hdrs$HAMD16 <- ifelse(!is.na(hdrs$HAMD16A), hdrs$HAMD16A, hdrs$HAMD16B)
+table(hdrs$HAMD16, useNA = "ifany")
+```
+
+Ici, on a transformé les deux variables `HAMD16A` et `HAMD16B` en une seule variable `HAMD16` sans valeurs manquantes.
+
+La nouvelle variable `HAMD16` est codée 0 à 2 selon les valeurs initiales de `HAMD16A` et `HAMD16B`.
+
+# Question 1 : Validation de l’échelle de dépression de Hamilton aux temps J0 et J56
+
+L'HDRS est :
+
+-   Une hétéro-évaluation
+
+-   Une échelle multi-items
+
+-   Et un instrument théorique permettant la mesure d’un construit latent : la sévérité dépressive (construit latent = quelque chose que l'on veut mesurer mais qu'on ne peut pas observer directement)
+
+Pour valider l'échelles de Hamilton, on propose 3 étapes :
+
+1.  Validité de structure : que mesure réellement l’instrument ?
+
+2.  Précision / Fidélité : qualité technique de la mesure
+
+3.  Validité de construit (convergente)
+
+    -   Sa fiabilité / reproductibilité
+
+    -   Sa structure interne aux temps spécifiés (J0 et J56)
+
+## Inspection des données pour réponse à la question
+
+### Nombre de patients par visite
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+table(hdrs$VISIT, deparse.level = 1)
+```
+
+-   146 patients à J0
+
+-   120 patients à J56 (donc 26 perdus de vue)
+
+### Structure des scores aux questions HDRS
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+describe(hdrs)
+# compte des valeurs manquantes par variable
+sapply(hdrs, function(x) sum(is.na(x)))
+```
+
+Les items HDRS sont codés de 0 à 2 ou 0 à 4 selon les questions.
+
+Il y a des données avec peu de valeurs manquantes (1 valeur manquante par item sauf pour HAMD16A et HAMD16B, ce qui est logique car HAMD16A et HAMD16B sont exclusives l'une de l'autre).
+
+## Validité de structure : que mesure réellement l’instrument ?
+
+L'objectif est de vérifier si les 17 items HDRS
+
+-   reflètent un seul facteur latent (dépression)
+
+-   ou plusieurs dimensions latentes (anxiété, somatisation, agitation, sommeil…), ce qui change l’interprétation du score total.
+
+On peut utiliser 2 méthodes :
+
+-   Analyse en Composantes Principales (ACP) : permet d'explorer rapidement la structure
+
+-   Analyse Factorielle (AF) : méthode standard pour les instruments multi-items subjectifs
+
+### Analyse en Composantes Principales (ACP)
+
+#### Préparation des données pour l’ACP : sous ensembles J0 et J56
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+## Sélection des items utilisés pour l’ACP
+items_acp <- c("HAMD1","HAMD2","HAMD3","HAMD4","HAMD5","HAMD6",
+                "HAMD7","HAMD8","HAMD9","HAMD10","HAMD11","HAMD12",
+                "HAMD13","HAMD14","HAMD15","HAMD17")
+
+## Sous-ensemble J0
+hdrs_J0 <- subset(hdrs, VISIT == "J0")[ , items_acp]
+
+## Sous-ensemble J56
+hdrs_J56 <- subset(hdrs, VISIT == "J56")[ , items_acp]
+```
+
+Les 16 items de la HDRS retenus (hors item 16, trop incomplet) sont entièrement renseignés à J0 et à J56, avec une variabilité suffisante (3 à 5 modalités par item).
+
+Les distributions semblent montrer une amélioration clinique entre J0 et J56, avec une chute globale des scores, ce qui justifie de réaliser deux ACP distinctes pour explorer la structure dimensionnelle à chacun des deux temps.
+
+#### ACP à J0
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+# ACP à J0
+acp_J0 <- prcomp(hdrs_J0, center = TRUE, scale. = TRUE)
+summary(acp_J0)
+# Graphique des valeurs propres
+mdspca(hdrs_J0)
+screeplot(acp_J0, main = "Screeplot ACP à J0", col = "blue", pch = 19)
+```
+
+À J0, la première composante principale n’explique que 12 % de la variance, ce qui est trop faible pour soutenir une structure unidimensionnelle. La variance est répartie sur de nombreuses composantes (les six premières représentent seulement 56 % du total), ce qui indique que les items ne mesurent pas un unique construit commun. Cette dispersion est compatible avec la structure hétérogène connue de l’HDRS (mélange d’items d’humeur, d’anxiété, de sommeil et de somatisation). L’échelle apparaît donc clairement multidimensionnelle à J0.
+
+#### ACP à J56
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+# ACP à J56
+acp_J56 <- prcomp(hdrs_J56, center = TRUE, scale. = TRUE)
+summary(acp_J56)
+# Graphique des valeurs propres
+mdspca(hdrs_J56)
+screeplot(acp_J56, main = "Screeplot ACP à J56", col = "blue", pch = 19)
+```
+
+
+
+
+
+
+#imputation par le mode 
+scl_questions <- c(names(select(scl90,starts_with("Q"))))
+for (question in scl_questions) {
+    original <- scl90[[question]]
+    factorized <- as.factor(original)
+    mode_value <- as.integer(names(which.max(table(factorized))))
+    imputed <- original
+    imputed[is.na(imputed)] <- mode_value
+    scl90[[question]] <- imputed
+}
+
+# vérifier qu'il n'y a plus de NA
+sum(is.na(scl90))

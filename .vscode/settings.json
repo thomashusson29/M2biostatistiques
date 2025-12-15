@@ -1,5 +1,12 @@
 {
     "github.copilot.enable": {
         "quarto": true
+    },
+    "chat.mcp.serverSampling": {
+        "M2biostatistiques/.vscode/mcp.json: perplexity": {
+            "allowedModels": [
+                "copilot/auto"
+            ]
+        }
     }
 }
