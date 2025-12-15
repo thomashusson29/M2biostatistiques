@@ -1,0 +1,142 @@
+# Document complet sur la méthode en mesures subjectives
+
+La mesure de la subjectivité, comme la qualité de vie, la douleur ou la satisfaction, concerne le sujet en tant qu’être conscient (« sujet pensant »), par opposition aux mesures objectives qui concernent le corps (« sujet vivant »).
+
+L’étape cruciale de la validation d’un instrument vise à étayer le sens des scores obtenus et à confirmer que l’outil mesure bien ce qu’il est censé mesurer, avec une précision suffisante.
+
+La stratégie de validation est traditionnellement structurée autour de deux questions fondamentales :
+
+- **Que mesure l’instrument ?** (la validité)
+- **Que vaut la mesure ?** (la fidélité / reproductibilité)
+
+---
+
+## Partie I – Que mesure l’instrument ?  
+### Validité et structure
+
+La réponse à la question de savoir ce que mesure l’instrument implique l’explicitation et la vérification de la théorie définitoire et de la théorie nomologique sous-jacentes à l’instrument.
+
+---
+
+### I.1. L’exploration de la structure dimensionnelle
+
+La structure factorielle de l’échelle, ou validité de structure, vise à vérifier l’architecture interne de l’instrument, notamment l’unidimensionnalité de l’ensemble des items.
+
+L’unidimensionnalité est un postulat central en psychométrie, signifiant que tous les items sont le reflet d’un seul et unique attribut.
+
+---
+
+### Analyse en composantes principales (ACP) et analyse factorielle (AF)
+
+L’analyse en composantes principales (ACP) est un outil statistique incontournable pour explorer la structure dimensionnelle d’un instrument.
+
+- L’ACP traite les variables d’une matrice de corrélation comme des points sur une hypersphère, qu’il est ensuite possible de projeter sur un plan optimal, appelé le premier plan principal.
+- Le diagramme des valeurs propres (scree plot) issu de l’ACP est essentiel pour déterminer le nombre de dimensions qui émergent de l’instrument.
+- Si une valeur propre (λ₁) est très supérieure aux autres, les points sont approximativement alignés sur une droite, suggérant un ensemble unidimensionnel.
+
+L’analyse factorielle (AF), développée par Spearman, est un modèle qui vise à expliquer les corrélations entre les items par une variable latente commune (θᵢ).
+
+- L’AF modélise la réponse à chaque item comme une régression linéaire simple sur cette caractéristique commune, appelée facteur.
+- Pour un instrument à plusieurs dimensions, l’analyse factorielle avec rotation (par exemple une rotation varimax) permet de déterminer quels items se regroupent dans quelles dimensions ou facteurs.
+
+---
+
+### Stabilité factorielle
+
+La stabilité factorielle correspond à la validité de structure lorsqu’elle est confirmée dans une nouvelle population.
+
+L’analyse factorielle confirmatoire est la technique statistique spécifiquement adaptée pour tester si les données correspondent à une structure factorielle prédéfinie.
+
+---
+
+### I.2. La validité de construit (nomologique)
+
+La validité de construit est l’approche la plus large. Elle cherche à s’assurer que l’instrument se comporte de manière logique dans son environnement théorique, c’est-à-dire au sein de sa théorie nomologique.
+
+---
+
+### Validité convergente et divergente
+
+Cette approche repose sur des hypothèses concernant la manière dont la nouvelle mesure devrait être reliée, ou non, à d’autres variables externes.
+
+- **Validité convergente** : elle est étayée lorsque l’instrument est fortement corrélé avec d’autres instruments mesurant le même concept ou des concepts théoriquement proches.
+- **Validité divergente** : elle est étayée lorsque l’instrument est faiblement corrélé avec des instruments mesurant des concepts théoriquement distincts.
+
+---
+
+### Validité concourante
+
+La validité concourante, qui relève de la validité critérielle, examine si le score de l’instrument est fortement corrélé avec une mesure de référence, telle qu’un gold standard ou un autre outil validé, obtenue au même moment.
+
+---
+
+## Partie II – Que vaut la mesure ?  
+### Fidélité et reproductibilité
+
+La réponse à la question « Que vaut la mesure ? » concerne la précision de la mesure et sa sensibilité au changement.
+
+La fidélité correspond à l’estimation de l’erreur de mesure.
+
+---
+
+### II.1. Validité interne (consistance interne)
+
+Le terme de validité interne est souvent utilisé de manière interchangeable avec la consistance interne ou la fiabilité d’un instrument. Elle évalue si les items du questionnaire sont cohérents entre eux.
+
+#### Coefficient alpha de Cronbach
+
+Le coefficient alpha de Cronbach est l’outil le plus couramment utilisé pour estimer la consistance interne.
+
+Ce coefficient correspond à une estimation de la précision de la mesure liée à l’échantillonnage des items. Plus sa valeur est élevée, plus les items sont statistiquement liés et cohérents entre eux.
+
+L’alpha peut être calculé sur le score total lorsque l’instrument est envisagé comme globalement unidimensionnel.  
+Il peut également être calculé séparément pour chaque dimension lorsque l’instrument présente une structure multidimensionnelle, afin d’évaluer la cohérence interne propre à chaque sous-échelle.
+
+---
+
+### II.2. La fidélité inter-juges
+
+Une fidélité inter-juges élevée est indispensable en hétéro-évaluation, lorsque l’évaluation est réalisée par un tiers, afin de limiter l’erreur de mesure liée aux divergences d’appréciation entre évaluateurs.
+
+---
+
+### Coefficient Kappa de Cohen (qualitatif)
+
+Le coefficient Kappa de Cohen est utilisé pour quantifier le niveau de concordance entre juges lorsque la variable étudiée est qualitative ou catégorielle, par exemple un diagnostic présent ou absent.
+
+- Il corrige le pourcentage de concordance observée en soustrayant la part de concordance attribuable au pur hasard.
+- La définition de la concordance attendue par hasard repose sur le produit des marges du tableau de contingence.
+
+---
+
+### Coefficient Kappa de Light (qualitatif, plus de deux juges)
+
+Le coefficient Kappa de Light est une extension du Kappa classique utilisée lorsque plus de deux cliniciens évaluent les mêmes patients.
+
+Il est calculé comme la moyenne des coefficients Kappa obtenus pour toutes les paires possibles de juges.
+
+---
+
+### Coefficient de corrélation intraclasse (CCI) – quantitatif
+
+Le coefficient de corrélation intraclasse est utilisé pour évaluer l’accord inter-juges lorsque la variable étudiée est quantitative, comme un score ou une échelle numérique.
+
+- Il est défini à partir d’une analyse de variance.
+- Il représente la proportion de la variance totale attribuable à la variabilité inter-patients, par rapport à la variabilité inter-juges et à la variance résiduelle.
+- Il permet d’estimer directement l’importance de l’erreur de mesure.
+
+---
+
+### II.3. La fidélité test–retest
+
+La fidélité test–retest évalue la part d’erreur dans la mesure liée aux fluctuations temporelles. Elle est estimée en répétant les évaluations après un certain intervalle de temps.
+
+Son interprétation est délicate en médecine, car l’objectif même de la prise en charge est souvent de modifier l’état du patient. Une variation du score peut alors refléter un changement clinique réel plutôt qu’une instabilité du processus de mesure.
+
+---
+
+## Métaphore de synthèse
+
+Le processus de validation des mesures subjectives peut être comparé à l’évaluation d’un navire.  
+La validité permet de vérifier qu’il s’agit bien d’un cargo, c’est-à-dire qu’il possède la bonne structure dimensionnelle et transporte les bonnes marchandises (validité convergente et divergente).  
+La fidélité permet de s’assurer que ses instruments de navigation, tels que les compas ou les sondes, sont suffisamment précis (Kappa, CCI, alpha de Cronbach) pour naviguer sans erreur excessive, même lorsque la mer, c’est-à-dire le phénomène subjectif étudié, est agitée.

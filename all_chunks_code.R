@@ -1,91 +1,3 @@
----
-title: "Devoir Statistiques Avancées"
-author: "Thomas Husson, Groupe 52"
-prefer-pdf: true
-format:
-    html:
-        toc: true
-        toc-depth: 5
-        toc-title: "Table of contents"
-        toc-location: left
-        toc-sticky: true
-        number-sections: true
-        theme: default
-
-    docx:
-        toc: true
-        toc-depth: 5
-
-    pdf:
-        toc: true
-        toc-depth: 5
-        toc-title: "Table des matières"
-        pdf-engine: xelatex
-        number-sections: true
-        header-includes: |
-            % Force la police Computer Modern pour le titre principal
-            \makeatletter
-            \renewcommand{\maketitle}{
-            \begin{center}
-                {\Large\bfseries\rmfamily \@title \par}
-                \vskip 1.5em
-                {\large\rmfamily \@author \par}
-                \vskip 1em
-            \end{center}
-            }
-            \makeatother
-            % Tous les titres en police par défaut LaTeX
-            \usepackage{sectsty}
-            \allsectionsfont{\rmfamily}
-
-            \usepackage{etoolbox}
-            \renewcommand{\contentsname}{}
-            \AtBeginDocument{
-                \addtocontents{toc}{\protect\smallskip}
-                \let\oldtableofcontents\tableofcontents
-                \renewcommand{\tableofcontents}{
-                \begingroup
-                    \footnotesize
-                    \setlength{\parskip}{2pt}
-                    \oldtableofcontents
-                \endgroup
-                }
-            }
-            \setcounter{tocdepth}{5}
-            \makeatletter
-            \renewcommand{\@tocrmarg}{0pt}
-            \makeatother
-
-            \usepackage{fvextra}
-            \usepackage[section]{placeins}
-
-            % Gestion des chunks de code
-            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
-
-            \usepackage{needspace}
-            \usepackage{float}
-            \floatplacement{figure}{H}
-            \floatplacement{table}{H}
-
-            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
-            \setlength{\parindent}{0pt}
-            \setlength{\parskip}{4pt}
-
-            \usepackage[most]{tcolorbox}
-            \usepackage{color}
-            \definecolor{lightgray}{gray}{0.95}
-            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
-            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
-            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
-
-            \renewcommand{\thesection}{\arabic{section}}
-            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
-            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
-
-geometry: margin=2.5cm
----
-
-```{r}
 #| label: setup
 #| include: false
 #| echo: false
@@ -130,104 +42,7 @@ library(e1071)
 library(psy)
 library(reshape2)
 knitr::opts_chunk$set(echo = TRUE)
-```
 
-
-\newpage
-:::callout-important
-**Utilisation de l'IA**
-
-Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâches principales :
-
--   En cas de problème d'éxécution du code R (pour suggérer correction et amélioration)
-
--   Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF. Notamment certaines fonctions dont l'output R n'est pas compatible avec le rendu pdf (par exemple, `factanal()` pour l'analyse factorielle ou le rendu des tableaux automatisé des coefficients alpha de Cronbach et leur IC)
-
-Utilisation des modèles Open Source disponibles sur Hugging Face ou ollama.
-:::
-
-\newpage
-# Énoncé et présentation des échelles
-
-## Énoncé du devoir
-
-Consigne :
-
--   Étude d'épidémiologie clinique avec mesures répétées
-
--   Données :
-
-    -   146 patients déprimés
-
-    -   Évaluations à J0, J4, J7, J14, J21, J28, J42, J56
-
-    -   Autoévaluation (SCL90) et hétéroévaluation (échelle de dépression de Hamilton)
-
--   Questions :
-
-    1.  Validation de l’échelle de dépression de Hamilton aux temps J0 et J56
-
-    2.  Comparaison de la réponse au traitement entre deux groupes de patients (groupe=0 et groupe=1) en utilisant le score brut de Hamilton avec une approche LOCF puis un modèle mixte
-
-    3.  Réponse à la question 2 en utilisant un critère binaire censuré « réponse au traitement » défini par une chute de 50% à l’échelle de Hamilton par rapport à J0
-
--   Fichiers :
-
-    -   Fichier groupe (`outil groupe.xlsx`) (2 sous-groupes de patients)
-
-    -   Fichier autoévaluation (`outil autoeval.xlsx`) (SCL 90)
-
-    -   Fichier hdrs (`outil hdrs.xlsx`) (échelle de Hamilton)
-
-## Échelles
-
-Table 1: Présentation des échelles utilisées dans le devoir
-
-|          | Échelle de Hamilton (HDRS) | Échelle SCL90 |
-|----------|----------------------------|---------------|
-| Objectif | Mesure l'intensité de la symptomatologie dépressive | "Inconfort psychopathologique" selon plusieurs dimensions. |
-| Type     | Hétéro-évaluation | Autoévaluation |
-| Méthode  | 17 items codés de 2 à 4<br><br>- Score ≤ 7 : pas de dépression clinique<br>- Score 8–15 : dépression mineure<br>- Score > 15 : dépression majeure | 10 dimensions : somatisation, symptômes obsessionnels, sensibilité interpersonnelle, dépression, anxiété, hostilité, phobies, traits paranoïaques, traits psychotiques et symptômes divers. |
-
-: {tbl-colwidths="[10,45,45]"}
-
-\newpage
-# Gestion des données
-
-## Présentation des fichiers de données
-
-Les 3 fichiers sont en format "large" : chaque ligne correspond à une visite d'un patient et une colonne par item de l'échelle (sauf l'item 16 = PERTE DE POIDS qui est codé en deux variables HAMD16A et HAMD16B dans l'échelle de Hamilton, selon que la perte de poids est déclarée par le patient ou appréciée par le médecin)
-
-On créera donc une colonne `hdrs$HAMD16` qui prendra la valeur de `hdrs$HAMD16A` si elle est remplie, sinon la valeur de `hdrs$HAMD16B`.
-
-### Fichier Hamilton
-
--   1053 observations, 20 variables pour 146 patients
-
--   On ajoute une colonne `score` qui contient le score total de l'échelle de Hamilton (somme des items)
-
--   Les données d'une ligne (J7 du 128ème patient) sont manquantes $\rightarrow$ on supprime cette ligne.
-
-### Fichier scl90
-
--   1034 observations, 92 variables, 146 patients. 
-
--   On crée 10 nouvelles variables représentant les scores moyen des 10 dimensions de l'échelle SCL90.
-
--   Données aberrantes parfois, qui sont recodées en données manquantes et représentent ainsi 0.6% des données totales.
-
-
-### Fichier groupe
-
--   Répartit les 146 patients en 2 groupes (1 et 0)
-
--   Pas de NA
-
-## Import des données et data management
-
-Les données sont importées à partir de fichiers Excel.
-
-```{r}
 #| label: import données
 #| echo: false
 #| results: hide
@@ -237,25 +52,7 @@ library(readxl)
 scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
 groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
 hdrs <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
-```
 
-### SCL90
-
-Le jeu de données `scl90` est traité de la manière suivante :
-
--   Visites ordonnées chronologiquement
-
--   Identification des doublons
-
--   Visualisation et gestion des données aberrantes
-
--   Imputation des données manquantes par le mode pour chaque question
-
--   Création des scores moyens par dimension (10 dimensions)
-
--   Nouveau dataframe `scl90_dim` avec uniquement les 10 dimensions
-
-```{r}
 #| label: gestion scl90
 #| echo: false #affiche le code
 #| eval: true #execute le code
@@ -317,21 +114,7 @@ scl90$sympt_divers <- apply(scl90[,c(21,46,61,62,66,68,91)],1,mean,na.rm=TRUE)
 # création d'un nouveau dataframe avec uniquement les 10 dimensions
 dimensions <- c("somatisation", "symptomes_obsession", "vulnerabilite", "depression", "anxiete", "hostilite", "phobies", "paranoia", "psychotique", "sympt_divers")
 scl90_dim <- scl90[, c("NUMERO", "VISIT", dimensions)]
-```
 
-###  HDRS
-
-Le jeu de données `hdrs` est traité de la manière suivante :
-
--   Visites ordonnées chronologiquement
-
--   Identification des doublons
-
--   Fusion des variables HAMD16A et HAMD16B en une seule variable HAMD16
-
--   Création du score total HDRS (ajouté dans la colonne `hdrs$score`)
-
-```{r}
 #| label: gestion hdrs
 #| echo: false #affiche le code
 #| eval: true #execute le code
@@ -389,11 +172,7 @@ hdrs <- hdrs[-741, ]
 
 # supprimer HAMD16A et HAMD16B si présentes
 hdrs <- hdrs[, setdiff(names(hdrs), c("HAMD16A", "HAMD16B"))]
-```
 
-### Groupes 
-
-```{r}
 #| label: gestion groupes
 #| echo: false #affiche le code
 #| eval: true #execute le code
@@ -407,11 +186,7 @@ length(unique(groupe$NUMERO))
 
 # ordonner en fonction du numéro de patient
 groupe <- groupe[order(groupe$NUMERO), ] # Questions 1 et 2
-```
 
-### Fusion des 3 fichiers
-
-```{r}
 #| label: fusion
 #| echo: false #affiche le code
 #| eval: true #execute le code
@@ -422,11 +197,7 @@ groupe <- groupe[order(groupe$NUMERO), ] # Questions 1 et 2
 hdrs_groupe <- merge(hdrs, groupe, by = "NUMERO", all.x = TRUE)
 scl90_groupe <- merge(scl90, groupe, by = "NUMERO", all.x = TRUE)
 df_total_wide <- merge(hdrs_groupe, scl90, by = c("NUMERO", "VISIT"), all.x = TRUE)
-```
 
-Convertir `hdrs_groupe`, `scl90_groupe` et `df_total_wide` de format "large" à format "long"
-
-```{r}
 #| label: reshape
 #| echo: false #affiche le code
 #| eval: true #execute le code
@@ -458,53 +229,7 @@ df_total_long <- melt(
     variable.name = "item",
     value.name = "value"
 )
-```
 
-\newpage
-# Question 1 : Validation de l'échelle Hamilton
-
-:::callout-note
-**Consigne de la question 1** : Lorsque l’on utilise un instrument de mesure subjective dans une étude clinique, il est toujours bon de le (re)valider rapidement. Procédez ici à cette **vérification** sur l’échelle de dépression de Hamilton, aux temps J0 et J56.
-:::
-
--   Vérification d'une échelle de mesure subjective = 1/ Que mesure l'instrument ? 2/ Que vaut la mesure ?
-
--   Premier temps : Évaluation préliminaire des réponses aux items, puis chercher une corrélation entre eux par une matrice de corrélation 2 à 2
-
--   Second temps : Analyse de la structure dimensionnelle = **que mesure l'instrument ?**
-
-    -   Exploration de la structure par analyse en composante principale  : visualiser les relations entre les items
-
-    -   Détermination du nombre de dimensions : diagramme des valeurs propres (*scree plot*) permet de déterminer le nombre de dimensions (composantes principales)
-
-    -   Si structure dimensionnelle identifiée : **analyse factorielle** permet de déterminer quels items se regroupent dans chaque dimension
-
--   Troisième temps : Évaluation de la fiabilité interne = **que vaut la mesure ?**
-
-    -   La consistance interne des items (évalue si les items sont cohérents entre eux) sera évaluée par le calcul de l'alpha de Cronbach, calculé sur l'échelle totale et sur chaque dimension identifiée précédemment.
-
--   Quatrième temps : Évaluation de la validité = **l'instrument mesure-t-il ce qu'il est censé mesurer ?** (similaire à la question "que mesure l'instrument ?")
-
-    -   Validité interne : déjà évaluée au cours du second temps (structure dimensionnelle)
-
-    -   Validité externe : corrélation avec d'autres instruments de mesure (ici les dimensions de l'échelle SCL90)
-
-
-## Valdidation.à J0
-
-### Description 
-
-Les réponses sont représentées : 
-
--   par des histogrammes pour chaque item de l'échelle de Hamilton à J0
-
--   par une matrice de corrélation 2 à 2 entre les items
-
-NB : le code R utilise une fonction pour faciliter la création des histogrammes pour chaque item.
-
-La fonction crée un histogramme pour chaque item listés dans un vecteur crée précédemment (`hdrs_items`).
-
-```{r}
 #| label: histo items J0
 #| echo: false
 #| eval: true
@@ -564,9 +289,7 @@ if (length(hdrs_items) > 9) {
     }
     par(mfrow = c(1, 1))
 }
-```
 
-```{r}
 #| label: matrice corrélation J0
 #| echo: false
 #| eval: true
@@ -589,21 +312,7 @@ corrplot(corr_matrix_J0,
             tl.srt = 45,
             col = viridis::plasma(100)
             )
-```
 
--   Il n'y a pas de données manquantes. 
-
--   Les histogrammes montrent que certains items ont une distribution asymétrique (ex : insomnie quelque soit le moment de la nuit, symptômes généraux, perte de poids...)
-
--   La matrice de corrélation des items 2 à 2 ne retrouve pas de coefficient de corrélation supérieure à 0,50 en valeur absolu, il n’existe pas de redondance entre les items de l’échelle Hamilton.
-
-### Validité interne : structure dimensionnelle, analyse factorielle
-
-#### Exploration de la structure dimensionnelle : analyse en composantes principales
-
--   On peut réaliser une analyse en composantes principales (ACP) pour visualiser les relations entre les items.
-
-```{r}
 #| label: ACP J0
 #| echo: false
 #| eval: true
@@ -619,23 +328,7 @@ colnames(hdrs_J0_PCA) <- c("1","2","3","4","5","6",
                             "7","8","9","10","11","12",
                             "13","14","15", "16", "17")
 mdspca(hdrs_J0_PCA)
-```
 
--   Chaque point représente un item de l'échelle de Hamilton.
-
--   Deux axes principaux : 
-
-    -   l'axe horizontale `x` représente la première composante principale (PC1) qui explique 11% de la variance totale, l'axe verticale `y` représente la deuxième composante principale (PC2) qui explique 10% de la variance totale. 
-
-    -   Ensemble, les deux premières composantes principales expliquent 21% de la variance totale, ce qui est relativement faible.
-
--   La majorité des variables sont proches du centre, ce qui indique qu'elles ne contribuent pas fortement aux premières composantes principales.
-
--   Au total, cette ACP ne révèle pas de structure dimensionnelle claire parmi les items de l'échelle de Hamilton à J0.
-
-#### Exploration de la structure dimensionnelle : analyse factorielle
-
-```{r}
 #| label: analyse factorielle J0
 #| echo: false
 #| eval: true
@@ -647,21 +340,7 @@ mdspca(hdrs_J0_PCA)
 #| fig-cap : "Diagramme des valeurs propres (scree plot) des items de l'échelle de Hamilton à J0 avec représentation de données simulées (analyse parallèle)"
 head(hdrs_J0[,c(hdrs_items)])
 scree.plot(hdrs_J0[,c(hdrs_items)], simu=20, use = "P")
-```
 
--   À J0, le *scree plot* ne permet pas d'identifier un nombre clair de facteurs : les valeurs propres décroissent progressivement sans "coude" net.
-
--   En analyse parallèle, on observe au moins 3 dimensions ayant une valeur propre supérieure à celle obtenue sur des données simulées.
-
--   On pourrait réaliser des tests statistiques qui permettraient de déterminer le nombre optimal de dimensions, mais ces tests sont sujets à plusieurs biais : 
-
-    -   on calculerait une p-value pour l'hypothèse "n facteurs sont suffisants"
-
-    -   mais ces tests sont difficiles à interpréter et sensibles à la taille de l'échantillon
-
-    -   On retient donc 3 facteurs principaux pour l'analyse factorielle.
-
-```{r}
 #| label: af loadings J0
 #| echo: false
 #| eval: true
@@ -696,21 +375,7 @@ knitr::kable(
     booktabs = TRUE,
     align = "lccc"
 )
-```
 
--   À J0, l’analyse factorielle exploratoire avec rotation varimax met en évidence 3 facteurs latents expliquant cumulativement 21,9 % de la variance des réponses aux items du score de Hamilton.
-
--   Concernant chacun des 3 facteurs : 
-
-    -   Facteur 1 : 8, 12, 14, 16 (principalement des symptômes somatiques).
-
-    -   Facteur 2 : 4, 13 (relatifs à l’asthénie).
-
-    -   Facteur 3 : les items restants (symptômes dépressifs psychiatriques proprement dits).
-
-On peut rajouter 3 "sous-scores" au score total de Hamilton à J0, correspondant aux scores moyens des items chargés sur chaque facteur.
-
-```{r}
 #| label: sous-scores J0
 #| echo: false
 #| eval: true
@@ -720,11 +385,7 @@ On peut rajouter 3 "sous-scores" au score total de Hamilton à J0, correspondant
 hdrs_J0$f1_somatique <- rowMeans(hdrs_J0[,c("8_ralentissement","12_symptomes_gastro","14_symptomes_genitaux","16_perte_poids")], na.rm=TRUE)
 hdrs_J0$f2_asthenie <- rowMeans(hdrs_J0[,c("4_insomnie_debut","13_symptomes_generaux")], na.rm=TRUE)
 hdrs_J0$f3_depressif <- rowMeans(hdrs_J0[,c("1_humeur_depressive","2_sentim_culpabilite","3_suicide","5_insomnie_milieu","6_insomnie_matin","7_travail_activite","9_agitation","10_anxiete_psychique","11_anxiete_somatique","15_hypochondrie","17_prise_conscience")], na.rm=TRUE)
-```
 
--   A titre exploratoire, on peut refaire une ACP sur ces 3 sous-scores pour visualiser leur relation.
-
-```{r}
 #| label: ACP sous-scores J0
 #| echo: false
 #| eval: true
@@ -737,15 +398,7 @@ hdrs_J0$f3_depressif <- rowMeans(hdrs_J0[,c("1_humeur_depressive","2_sentim_culp
 hdrs_J0_subscores <- hdrs_J0[,c("f1_somatique","f2_asthenie","f3_depressif")]
 colnames(hdrs_J0_subscores) <- c("F1_somatique","F2_asthenie","F3_depressif")
 mdspca(hdrs_J0_subscores)
-```
 
--   Les 3 sous-scores sont bien représentés (proches du cercle). Le facteur "symptômes dépressifs" semble orthogonal aux deux autres facteurs.
-
--   La variance totale expliquée par ces 3 sous-score est de 69%.
-
-Une ACP focalisée sur ces 3 sous-scores et le score total de Hamilton permet de visualiser la relation entre le score total et les sous-scores.
-
-```{r}
 #| label: ACP focalisée J0
 #| echo: false
 #| eval: true
@@ -764,24 +417,7 @@ fpca(
     score_total ~ .,
     data = df_fpca
 )
-```
 
-Le score total de Hamilton semble plus corrélé aux symptômes dépressifs (F3) qu'aux deux autres sous-scores.
-
-### Fiabilité interne = que vaut la mesure ?
-
-#### Consistance interne : alpha de Cronbach
-
-
-La consistance interne des items de l'échelle de Hamilton à J0 est évaluée par le calcul de l'alpha de Cronbach, qui correspond globalement au **pourcentage de « variance partagée »** entre le score vrai (hypothétique) et la mesure obtenue.
-
-Il permet ainsi de mesurer la cohérence entre les items d'une échelle de mesure, et est élevé lorsque les items sont fortement corrélés entre eux.
-
-On peut donc calculer dans un premier temps l'alpha de Cronbach sur l'ensemble des items de l'échelle de Hamilton à J0, puis sur chacun des 3 facteurs identifiés précédemment.
-
-Les intervalles de confiance (IC) à 95% des alpha de Cronbach sont estimés par la méthode du bootstrap avec 1000 rééchantillonnages. Le bootstrap est possible ici car il y a > 100 observations.
-
-```{r}
 #| label: alpha de Cronbach J0
 #| echo: false
 #| eval: true
@@ -812,10 +448,7 @@ boot.ci(boot_alpha_f2, type = "bca")
 # Facteur 3
 boot_alpha_f3 <- boot(hdrs_J0[,c("1_humeur_depressive","2_sentim_culpabilite","3_suicide","5_insomnie_milieu","6_insomnie_matin","7_travail_activite","9_agitation","10_anxiete_psychique","11_anxiete_somatique","15_hypochondrie","17_prise_conscience")], alpha_bootstrap, R = 1000)
 boot.ci(boot_alpha_f3, type = "bca")
-```
 
-
-```{r}
 #| label: tableau alpha de Cronbach J0
 #| echo: false
 #| eval: true
@@ -850,21 +483,7 @@ knitr::kable(
     booktabs = TRUE,
     align = "lccc"
 )
-```
 
-Au total, quelque soit le niveau d'analyse (global ou par facteur), les alpha de Cronbach sont < 0.5, indiquant une faible consistance interne des items de l'échelle de Hamilton à J0.
-
-### Validité externe = l'instrument mesure-t-il ce qu'il est censé mesurer ?
-
--   Validité externe d'un instrument cherche à démontrer que l'instrument se comporte logiquement par rapport au réseau théorique qui lui est associé.
-
--   Selon la théorie nomologique (c'est à dire selon les relations postulées entre les différents concepts d'une même discipline), la dépression mesurée par l'échelle de Hamilton doit être fortement liée à d'autres manifestations de la détresse psychologique générale (mesurée par le SCL-90), mais distincte de certains autres concepts.
-
-    -   Ici, la validité du construit peut être évaluée en évaluant la validité convergente (corrélation forte entre des concepts proches).
-
-    -   Il est plus difficile d'évaluer la validité divergente (corrélation faible entre des concepts différents) car le SCL-90 mesure principalement des dimensions de la détresse psychologique ; de même pour la validité concurrente (corrélation forte avec un *gold-standard*, car nous ne disposons pas d'un instrument de mesure de la dépression reconnu comme un *gold-standard* ici).
-
-```{r}
 #| label: validité J0
 #| echo: false
 #| eval: true
@@ -877,13 +496,7 @@ scl90_J0 <- scl90_J0[,c("NUMERO","VISIT",dimensions)]
 scl90_J0 <- scl90_J0[order(scl90_J0$NUMERO), ]
 hdrs_J0 <- hdrs_J0[order(hdrs_J0$NUMERO), ]
 hdrs_scl90_J0 <- merge(hdrs_J0, scl90_J0, by = c("NUMERO", "VISIT"), all.x = TRUE)
-```
 
-#### Corrélation entre le score de Hamilton et les dimensions du SCL-90 à J0
-
--   On peut représenter une matrice de corrélation entre le score total de Hamilton et les 10 dimensions du SCL-90 à J0.
-
-```{r}
 #| label: corrélation J0
 #| echo: false
 #| eval: true
@@ -914,11 +527,7 @@ corrplot(
     tl.srt = 30,
     col = viridis::plasma(100)
 )
-```
 
-La corrélation est au maximum à 0.37 avec la composante "somatisation" du SCL-90 et de 0.40 avec la composante "symptômes divers" du SCL-90, indiquant une validité convergente modérée entre le score total de Hamilton et cette dimension du SCL-90 à J0.
-
-```{r}
 #| label: corrélation sous-scores J0
 #| echo: false
 #| eval: true
@@ -945,34 +554,7 @@ corrplot(
     tl.srt = 30,
     col = viridis::plasma(100)
 )
-```
 
--   Il n'y a pas non plus de corrélation forte entre les sous-scores de Hamilton et les dimensions du SCL-90 à J0.
-
--   Par exemple, le sous-score "symptômes somatiques" de Hamilton est faiblement corrélé avec la dimension "somatisation" du SCL-90 (r = 0.07 !!).
-
-#### Conclusion validité externe à J0
-
-La validité convergente entre le score total de Hamilton et les dimensions du SCL-90 à J0 est faible à modérée, suggérant que l'échelle de Hamilton mesure partiellement des aspects de la détresse psychologique générale, mais pas de manière très forte.
-
-### Conclusion globale à J0
-
-À J0, l'échelle de dépression de Hamilton présente une structure dimensionnelle peu claire, avec une faible consistance interne des items (alpha de Cronbach < 0.5) et une validité convergente modérée avec les dimensions du SCL-90. 
-
-Ces résultats suggèrent que l'échelle de Hamilton pourrait ne pas être un instrument optimal pour mesurer la dépression dans cette population à ce moment précis.
-
-\newpage
-## Validation à J56
-
-### Description
-
-Comme à J0, les réponses sont représentées :
-
--   par des histogrammes pour chaque item de l'échelle de Hamilton à J56
-
--   par une matrice de corrélation 2 à 2 entre les items
-
-```{r}
 #| label: histo items J56
 #| echo: false
 #| eval: true
@@ -1029,9 +611,7 @@ if (length(hdrs_items) > 9) {
     }
     par(mfrow = c(1, 1))
 }
-```
 
-```{r}
 #| label: matrice corrélation J56
 #| echo: false
 #| eval: true
@@ -1054,29 +634,11 @@ corrplot(corr_matrix_J56,
             tl.srt = 45,
             col = viridis::plasma(100)
             )
-```
 
-
-
-### Description
-
-### Validité interne : structure dimensionnelle, analyse factorielle
-
-### Validité externe
-
-# Question 2 : Comparaison de la réponse au traitement entre deux groupes de patients
-
-
-# Annexe – Code R 
-
-```{r}
 #| echo: false
-#| results: asis
+#| eval: true
+knitr::purl(
+    input  = knitr::current_input(),
+    output = stdout()
+)
 
-# lire le fichier code généré
-code <- readLines("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R", warn = FALSE)
-
-cat("```r\n")
-cat(code, sep = "\n")
-cat("\n```")
-```

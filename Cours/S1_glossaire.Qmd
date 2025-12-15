@@ -184,7 +184,7 @@ Voici le fonctionnement du coefficient $\alpha$ de façon simple et globale :
 
 Lorsqu'on utilise une échelle multi-items (comme l'échelle de Hamilton), l'idée sous-jacente est que les questions posées ne sont qu'un **échantillon** ("un tirage au sort") d'un **univers d’items** infiniment plus vaste qui pourrait mesurer le même concept.
 
-*   Le **score vrai** est le score qu'un sujet obtiendrait s'il répondait à *tous* les items de cet univers.
+*   Le **score vrai** est le score qu'un sujet obtiendrait s'il répondait à *tous* les items de cet univers. Il est supposé et pas directement observable.
 
 *   La **mesure** est le score réellement obtenu à partir des items du questionnaire.
 
