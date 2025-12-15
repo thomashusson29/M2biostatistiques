@@ -103,8 +103,17 @@ window.Quarto = {
   <li><a href="#valdidation.à-j0" id="toc-valdidation.à-j0" class="nav-link" data-scroll-target="#valdidation.à-j0"><span class="header-section-number">3.1</span> Valdidation.à J0</a>
   <ul>
   <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description"><span class="header-section-number">3.1.1</span> Description</a></li>
-  <li><a href="#validité-interne-structure-dimensionnelle-analyse-factorielle" id="toc-validité-interne-structure-dimensionnelle-analyse-factorielle" class="nav-link" data-scroll-target="#validité-interne-structure-dimensionnelle-analyse-factorielle"><span class="header-section-number">3.1.2</span> Validité interne : structure dimensionnelle, analyse factorielle</a></li>
-  <li><a href="#validité-externe" id="toc-validité-externe" class="nav-link" data-scroll-target="#validité-externe"><span class="header-section-number">3.1.3</span> Validité externe</a></li>
+  <li><a href="#validité-interne-structure-dimensionnelle-analyse-factorielle" id="toc-validité-interne-structure-dimensionnelle-analyse-factorielle" class="nav-link" data-scroll-target="#validité-interne-structure-dimensionnelle-analyse-factorielle"><span class="header-section-number">3.1.2</span> Validité interne : structure dimensionnelle, analyse factorielle</a>
+  <ul class="collapse">
+  <li><a href="#exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales" id="toc-exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales" class="nav-link" data-scroll-target="#exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales"><span class="header-section-number">3.1.2.1</span> Exploration de la structure dimensionnelle : analyse en composantes principales</a></li>
+  <li><a href="#exploration-de-la-structure-dimensionnelle-analyse-factorielle" id="toc-exploration-de-la-structure-dimensionnelle-analyse-factorielle" class="nav-link" data-scroll-target="#exploration-de-la-structure-dimensionnelle-analyse-factorielle"><span class="header-section-number">3.1.2.2</span> Exploration de la structure dimensionnelle : analyse factorielle</a></li>
+  </ul></li>
+  <li><a href="#fiabilité-interne-que-vaut-la-mesure" id="toc-fiabilité-interne-que-vaut-la-mesure" class="nav-link" data-scroll-target="#fiabilité-interne-que-vaut-la-mesure"><span class="header-section-number">3.1.3</span> Fiabilité interne = que vaut la mesure ?</a>
+  <ul class="collapse">
+  <li><a href="#consistance-interne-alpha-de-cronbach" id="toc-consistance-interne-alpha-de-cronbach" class="nav-link" data-scroll-target="#consistance-interne-alpha-de-cronbach"><span class="header-section-number">3.1.3.1</span> Consistance interne : alpha de Cronbach<br>
+  </a></li>
+  </ul></li>
+  <li><a href="#validité-externe" id="toc-validité-externe" class="nav-link" data-scroll-target="#validité-externe"><span class="header-section-number">3.1.4</span> Validité externe</a></li>
   </ul></li>
   <li><a href="#validation-à-j56" id="toc-validation-à-j56" class="nav-link" data-scroll-target="#validation-à-j56"><span class="header-section-number">3.2</span> Validation à J56</a>
   <ul>
@@ -115,7 +124,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients" id="toc-question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients" class="nav-link" data-scroll-target="#question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients"><span class="header-section-number">4</span> Question 2 : Comparaison de la réponse au traitement entre deux groupes de patients</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="devoir_stats_avancees.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../devoir_stats_avancees.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="devoir_stats_avancees.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="devoir_stats_avancees.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -147,6 +156,26 @@ window.Quarto = {
 
 
 <div style="page-break-after: always;"></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Utilisation de l’IA</strong></p>
+<p>Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâches principales :</p>
+<ul>
+<li><p>En cas de problème d’éxécution du code R (pour suggérer correction et amélioration)</p></li>
+<li><p>Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF. Notamment certaines fonctions dont l’output R n’est pas compatible avec le rendu pdf (par exemple, <code>factanal()</code> pour l’analyse factorielle)</p></li>
+</ul>
+<p>Utilisation des modèles Open Source disponibles sur Hugging Face ou ollama.</p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
 <section id="énoncé-et-présentation-des-échelles" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Énoncé et présentation des échelles</h1>
 <section id="énoncé-du-devoir" class="level2" data-number="1.1">
@@ -176,6 +205,7 @@ window.Quarto = {
 </section>
 <section id="échelles" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="échelles"><span class="header-section-number">1.2</span> Échelles</h2>
+<p>Table 1: Présentation des échelles utilisées dans le devoir</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 10%">
@@ -320,38 +350,304 @@ Note
 <li><p>par une matrice de corrélation 2 à 2 entre les items</p></li>
 </ul>
 <p>NB : le code R utilise une fonction pour faciliter la création des histogrammes pour chaque item.</p>
-<p>La fonction crée</p>
+<p>La fonction crée un histogramme pour chaque item listés dans un vecteur crée précédemment (<code>hdrs_items</code>).</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="devoir_stats_avancees_files/figure-html/histo%20items%20J0-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Histogrammes des scores des items de l’échelle de Hamilton à J0</figcaption>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="devoir_stats_avancees_files/figure-html/histo%20items%20J0-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Histogrammes des scores des items de l’échelle de Hamilton à J0</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="devoir_stats_avancees_files/figure-html/matrice%20corrélation%20J0-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="devoir_stats_avancees_files/figure-html/matrice%20corrélation%20J0-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption>Matrice de corrélation entre les items de l’échelle de Hamilton à J0</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<ul>
+<li><p>Il n’y a pas de données manquantes.</p></li>
+<li><p>Les histogrammes montrent que certains items ont une distribution asymétrique (ex : insomnie quelque soit le moment de la nuit, symptômes généraux, perte de poids…)</p></li>
+<li><p>La matrice de corrélation des items 2 à 2 ne retrouve pas de coefficient de corrélation supérieure à 0,50 en valeur absolu, il n’existe pas de redondance entre les items de l’échelle Hamilton.</p></li>
+</ul>
 </section>
 <section id="validité-interne-structure-dimensionnelle-analyse-factorielle" class="level3" data-number="3.1.2">
 <h3 data-number="3.1.2" class="anchored" data-anchor-id="validité-interne-structure-dimensionnelle-analyse-factorielle"><span class="header-section-number">3.1.2</span> Validité interne : structure dimensionnelle, analyse factorielle</h3>
+<section id="exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales" class="level4" data-number="3.1.2.1">
+<h4 data-number="3.1.2.1" class="anchored" data-anchor-id="exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales"><span class="header-section-number">3.1.2.1</span> Exploration de la structure dimensionnelle : analyse en composantes principales</h4>
+<ul>
+<li>On peut réaliser une analyse en composantes principales (ACP) pour visualiser les relations entre les items.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/ACP%20J0-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption>Analyse en composantes principales des items de l’échelle de Hamilton à J0</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Chaque point représente un item de l’échelle de Hamilton.</p></li>
+<li><p>Deux axes principaux :</p>
+<ul>
+<li><p>l’axe horizontale <code>x</code> représente la première composante principale (PC1) qui explique 11% de la variance totale, l’axe verticale <code>y</code> représente la deuxième composante principale (PC2) qui explique 10% de la variance totale.</p></li>
+<li><p>Ensemble, les deux premières composantes principales expliquent 21% de la variance totale, ce qui est relativement faible.</p></li>
+</ul></li>
+<li><p>La majorité des variables sont proches du centre, ce qui indique qu’elles ne contribuent pas fortement aux premières composantes principales.</p></li>
+<li><p>Au total, cette ACP ne révèle pas de structure dimensionnelle claire parmi les items de l’échelle de Hamilton à J0.</p></li>
+</ul>
 </section>
-<section id="validité-externe" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="validité-externe"><span class="header-section-number">3.1.3</span> Validité externe</h3>
+<section id="exploration-de-la-structure-dimensionnelle-analyse-factorielle" class="level4" data-number="3.1.2.2">
+<h4 data-number="3.1.2.2" class="anchored" data-anchor-id="exploration-de-la-structure-dimensionnelle-analyse-factorielle"><span class="header-section-number">3.1.2.2</span> Exploration de la structure dimensionnelle : analyse factorielle</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/analyse%20factorielle%20J0-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Diagramme des valeurs propres (scree plot) des items de l’échelle de Hamilton à J0 avec représentation de données simulées (analyse parallèle)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>À J0, le <em>scree plot</em> ne permet pas d’identifier un nombre clair de facteurs : les valeurs propres décroissent progressivement sans “coude” net.</p></li>
+<li><p>En analyse parallèle, on observe au moins 3 dimensions ayant une valeur propre supérieure à celle obtenue sur des données simulées.</p></li>
+<li><p>On pourrait réaliser des tests statistiques qui permettraient de déterminer le nombre optimal de dimensions, mais ces tests sont sujets à plusieurs biais :</p>
+<ul>
+<li><p>on calculerait une p-value pour l’hypothèse “n facteurs sont suffisants”</p></li>
+<li><p>mais ces tests sont difficiles à interpréter et sensibles à la taille de l’échantillon</p></li>
+<li><p>On retient donc 3 facteurs principaux pour l’analyse factorielle.</p></li>
+</ul></li>
+</ul>
+<table class="caption-top table">
+<caption>Contribution des facteurs à la variance de la réponse à chaque item du score de Hamilton évalué à J0 (analyse factorielle avec rotation varimax à 3 facteurs)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: center;">Factor1</th>
+<th style="text-align: center;">Factor2</th>
+<th style="text-align: center;">Factor3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1_humeur_depressive</td>
+<td style="text-align: center;">0.006</td>
+<td style="text-align: center;">0.028</td>
+<td style="text-align: center;">0.263</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2_sentim_culpabilite</td>
+<td style="text-align: center;">-0.057</td>
+<td style="text-align: center;">-0.076</td>
+<td style="text-align: center;">0.240</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3_suicide</td>
+<td style="text-align: center;">-0.021</td>
+<td style="text-align: center;">-0.120</td>
+<td style="text-align: center;">0.207</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4_insomnie_debut</td>
+<td style="text-align: center;">0.110</td>
+<td style="text-align: center;">0.359</td>
+<td style="text-align: center;">-0.050</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5_insomnie_milieu</td>
+<td style="text-align: center;">0.004</td>
+<td style="text-align: center;">0.118</td>
+<td style="text-align: center;">0.240</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6_insomnie_matin</td>
+<td style="text-align: center;">0.132</td>
+<td style="text-align: center;">-0.155</td>
+<td style="text-align: center;">0.427</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7_travail_activite</td>
+<td style="text-align: center;">0.124</td>
+<td style="text-align: center;">0.121</td>
+<td style="text-align: center;">0.320</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8_ralentissement</td>
+<td style="text-align: center;">0.183</td>
+<td style="text-align: center;">-0.105</td>
+<td style="text-align: center;">0.101</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9_agitation</td>
+<td style="text-align: center;">-0.107</td>
+<td style="text-align: center;">-0.228</td>
+<td style="text-align: center;">0.501</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10_anxiete_psychique</td>
+<td style="text-align: center;">0.066</td>
+<td style="text-align: center;">-0.152</td>
+<td style="text-align: center;">0.255</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11_anxiete_somatique</td>
+<td style="text-align: center;">-0.029</td>
+<td style="text-align: center;">0.070</td>
+<td style="text-align: center;">0.316</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">12_symptomes_gastro</td>
+<td style="text-align: center;">0.992</td>
+<td style="text-align: center;">0.044</td>
+<td style="text-align: center;">-0.091</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">13_symptomes_generaux</td>
+<td style="text-align: center;">0.046</td>
+<td style="text-align: center;">0.977</td>
+<td style="text-align: center;">0.194</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">14_symptomes_genitaux</td>
+<td style="text-align: center;">0.238</td>
+<td style="text-align: center;">0.120</td>
+<td style="text-align: center;">0.147</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15_hypochondrie</td>
+<td style="text-align: center;">0.076</td>
+<td style="text-align: center;">0.089</td>
+<td style="text-align: center;">0.226</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16_perte_poids</td>
+<td style="text-align: center;">0.424</td>
+<td style="text-align: center;">0.155</td>
+<td style="text-align: center;">-0.100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">17_prise_conscience</td>
+<td style="text-align: center;">0.022</td>
+<td style="text-align: center;">-0.004</td>
+<td style="text-align: center;">0.176</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>À J0, l’analyse factorielle exploratoire avec rotation varimax met en évidence 3 facteurs latents expliquant cumulativement 21,9 % de la variance des réponses aux items du score de Hamilton.</p></li>
+<li><p>Concernant chacun des 3 facteurs :</p>
+<ul>
+<li><p>Facteur 1 : 8, 12, 14, 16 (principalement des symptômes somatiques).</p></li>
+<li><p>Facteur 2 : 4, 13 (relatifs à l’asthénie).</p></li>
+<li><p>Facteur 3 : les items restants (symptômes dépressifs psychiatriques proprement dits).</p></li>
+</ul></li>
+</ul>
+<p>On peut rajouter 3 “sous-scores” au score total de Hamilton à J0, correspondant aux scores moyens des items chargés sur chaque facteur.</p>
+<ul>
+<li>A titre exploratoire, on peut refaire une ACP sur ces 3 sous-scores pour visualiser leur relation.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/ACP%20sous-scores%20J0-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Analyse en composantes principales des sous-scores de l’échelle de Hamilton à J0</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Les 3 sous-scores sont bien représentés (proches du cercle). Le facteur “symptômes dépressifs” semble orthogonal aux deux autres facteurs.</p></li>
+<li><p>La variance totale expliquée par ces 3 sous-score est de 69%.</p></li>
+</ul>
+<p>Une ACP focalisée sur ces 3 sous-scores et le score total de Hamilton permet de visualiser la relation entre le score total et les sous-scores.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/ACP%20focalisée%20J0-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Analyse en composantes principales focalisée des sous-scores de l’échelle de Hamilton à J0</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Le score total de Hamilton semble plus corrélé aux symptômes dépressifs (F3) qu’aux deux autres sous-scores.</p>
+</section>
+</section>
+<section id="fiabilité-interne-que-vaut-la-mesure" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="fiabilité-interne-que-vaut-la-mesure"><span class="header-section-number">3.1.3</span> Fiabilité interne = que vaut la mesure ?</h3>
+<section id="consistance-interne-alpha-de-cronbach" class="level4" data-number="3.1.3.1">
+<h4 data-number="3.1.3.1" class="anchored" data-anchor-id="consistance-interne-alpha-de-cronbach"><span class="header-section-number">3.1.3.1</span> Consistance interne : alpha de Cronbach<br>
+</h4>
+<p>La consistance interne des items de l’échelle de Hamilton à J0 est évaluée par le calcul de l’alpha de Cronbach, qui correspond globalement au <strong>pourcentage de « variance partagée »</strong> entre le score vrai (hypothétique) et la mesure obtenue.</p>
+<p>Il permet ainsi de mesurer la cohérence entre les items d’une échelle de mesure, et est élevé lorsque les items sont fortement corrélés entre eux.</p>
+<p>On peut donc calculer dans un premier temps l’alpha de Cronbach sur l’ensemble des items de l’échelle de Hamilton à J0, puis sur chacun des 3 facteurs identifiés précédemment.</p>
+<ul>
+<li><p>Le coefficient alpha global de Cronbach pour l’échelle de Hamilton à J0 est de 0.46</p></li>
+<li><p>Pour le facteur 1 (<code>f1_somatique</code>) : alpha = 0.38</p></li>
+<li><p>Pour le facteur 2 (<code>f2_asthenie</code>) : alpha = 0.49</p></li>
+<li><p>Pour le facteur 3 (<code>f3_depressif</code>) : alpha = 0.49</p></li>
+</ul>
+<pre><code>     Scale Alpha CI_lower CI_upper</code></pre>
+<p>1 Global 0.456 0.262 0.624 2 F1_somatique 0.381 0.188 0.530 3 F2_asthenie 0.490 0.266 0.653 4 F3_depressif 0.486 0.349 0.622</p>
+<table class="caption-top table">
+<caption>Alpha de Cronbach et intervalles de confiance à 95% pour l’échelle de Hamilton à J0 et ses sous-échelles</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Scale</th>
+<th style="text-align: center;">Alpha</th>
+<th style="text-align: center;">CI_lower</th>
+<th style="text-align: center;">CI_upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Global</td>
+<td style="text-align: center;">0.456</td>
+<td style="text-align: center;">0.262</td>
+<td style="text-align: center;">0.624</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F1_somatique</td>
+<td style="text-align: center;">0.381</td>
+<td style="text-align: center;">0.188</td>
+<td style="text-align: center;">0.530</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F2_asthenie</td>
+<td style="text-align: center;">0.490</td>
+<td style="text-align: center;">0.266</td>
+<td style="text-align: center;">0.653</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F3_depressif</td>
+<td style="text-align: center;">0.486</td>
+<td style="text-align: center;">0.349</td>
+<td style="text-align: center;">0.622</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="validité-externe" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="validité-externe"><span class="header-section-number">3.1.4</span> Validité externe</h3>
 </section>
 </section>
 <section id="validation-à-j56" class="level2" data-number="3.2">

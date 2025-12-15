@@ -171,3 +171,41 @@ Dans l’hypothèse de Fisher :
 -   et ces ellipses ont la même forme, c’est-à-dire la même matrice variance-covariance
 
 -   seule leur position (leur moyenne) change
+
+# Alpha de Cronbach
+
+Le coefficient **Alpha de Cronbach** ($\alpha$) est l'outil le plus couramment utilisé en psychométrie, issu de la **théorie classique des tests**, pour évaluer la **précision** d'un instrument de mesure subjectif. 
+
+Son objectif est de quantifier la **consistance interne**, c'est-à-dire de vérifier si les différents items d’un questionnaire sont cohérents entre eux.
+
+Voici le fonctionnement du coefficient $\alpha$ de façon simple et globale :
+
+### 1. Le modèle théorique : l'univers d'items
+
+Lorsqu'on utilise une échelle multi-items (comme l'échelle de Hamilton), l'idée sous-jacente est que les questions posées ne sont qu'un **échantillon** ("un tirage au sort") d'un **univers d’items** infiniment plus vaste qui pourrait mesurer le même concept.
+
+*   Le **score vrai** est le score qu'un sujet obtiendrait s'il répondait à *tous* les items de cet univers.
+
+*   La **mesure** est le score réellement obtenu à partir des items du questionnaire.
+
+### 2. L'interprétation de l'Alpha de Cronbach
+
+Le coefficient $\alpha$ sert à déterminer à quel point notre mesure (le score obtenu) est un bon reflet du score vrai (le concept théorique).
+
+*   **Variance partagée :** L'Alpha de Cronbach est interprété comme le **pourcentage de « variance partagée »** entre le score vrai et la mesure obtenue.
+
+*   **Fiabilité et erreur :** Le coefficient $\alpha$ est mathématiquement le carré de la corrélation ($r^2$) entre la mesure et le score vrai. Si $\alpha$ est proche de 1, cela signifie que la mesure est très proche du score vrai. 
+
+Inversement, la quantité $1 - \alpha$ représente le pourcentage de la variance totale qui est due à l'**erreur de mesure** (ou « erreur d’échantillonnage »).
+
+### 3. Les conditions pour un instrument précis
+
+Pour qu'un instrument soit considéré comme précis (avec un $\alpha$ élevé, proche de 1), il faut que les items soient très bien échantillonnés et cohérents. Cela est atteint si :
+
+1.  Le nombre d’items ($k$) est élevé.
+
+2.  Ou si la corrélation moyenne entre les items est élevée.
+
+En d'autres termes, si vous ajoutez des questions qui mesurent toutes la même chose et sont fortement liées, vous réduisez l'erreur d'échantillonnage, et votre instrument gagne en précision. 
+
+Cependant, si les items sont **trop fortement corrélés** (par exemple, $r$ voisin de 0,9), cela pourrait signifier qu'ils mesurent exactement la même chose, rendant l'utilité de l'instrument discutable.

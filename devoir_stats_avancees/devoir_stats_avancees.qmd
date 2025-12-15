@@ -1,7 +1,7 @@
 ---
 title: "Devoir Statistiques Avancées"
 author: "Thomas Husson, Groupe 52"
-prefer-html: true
+prefer-pdf: true
 format:
     html:
         toc: true
@@ -133,7 +133,19 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 \newpage
+:::callout-important
+**Utilisation de l'IA**
 
+Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâches principales :
+
+-   En cas de problème d'éxécution du code R (pour suggérer correction et amélioration)
+
+-   Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF. Notamment certaines fonctions dont l'output R n'est pas compatible avec le rendu pdf (par exemple, `factanal()` pour l'analyse factorielle ou le rendu des tableaux automatisé des coefficients alpha de Cronbach et leur IC)
+
+Utilisation des modèles Open Source disponibles sur Hugging Face ou ollama.
+:::
+
+\newpage
 # Énoncé et présentation des échelles
 
 ## Énoncé du devoir
@@ -168,6 +180,7 @@ Consigne :
 
 ## Échelles
 
+Table 1: Présentation des échelles utilisées dans le devoir
 
 |          | Échelle de Hamilton (HDRS) | Échelle SCL90 |
 |----------|----------------------------|---------------|
@@ -562,7 +575,7 @@ if (length(hdrs_items) > 9) {
 #| results : hide
 #| warning: false
 #| fig-width: 8
-#| fig-height: 5
+#| fig-height: 4.5
 #| fig-cap : "Matrice de corrélation entre les items de l'échelle de Hamilton à J0"
 hdrs_J0_matrix <- hdrs_J0[, hdrs_items]
 corr_matrix_J0 <- cor(hdrs_J0_matrix, use = "pairwise.complete.obs")
@@ -587,6 +600,42 @@ corrplot(corr_matrix_J0,
 
 ### Validité interne : structure dimensionnelle, analyse factorielle
 
+#### Exploration de la structure dimensionnelle : analyse en composantes principales
+
+-   On peut réaliser une analyse en composantes principales (ACP) pour visualiser les relations entre les items.
+
+```{r}
+#| label: ACP J0
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+#| fig-width: 8
+#| fig-height: 4
+#| fig-cap : "Analyse en composantes principales des items de l'échelle de Hamilton à J0"
+#renommer les noms des variables dans un nouveau df copié pour éviter la superposition
+hdrs_J0_PCA <- hdrs_J0[,c(hdrs_items)]
+colnames(hdrs_J0_PCA) <- c("1","2","3","4","5","6",
+                            "7","8","9","10","11","12",
+                            "13","14","15", "16", "17")
+mdspca(hdrs_J0_PCA)
+```
+
+-   Chaque point représente un item de l'échelle de Hamilton.
+
+-   Deux axes principaux : 
+
+    -   l'axe horizontale `x` représente la première composante principale (PC1) qui explique 11% de la variance totale, l'axe verticale `y` représente la deuxième composante principale (PC2) qui explique 10% de la variance totale. 
+
+    -   Ensemble, les deux premières composantes principales expliquent 21% de la variance totale, ce qui est relativement faible.
+
+-   La majorité des variables sont proches du centre, ce qui indique qu'elles ne contribuent pas fortement aux premières composantes principales.
+
+-   Au total, cette ACP ne révèle pas de structure dimensionnelle claire parmi les items de l'échelle de Hamilton à J0.
+
+#### Exploration de la structure dimensionnelle : analyse factorielle
+
 ```{r}
 #| label: analyse factorielle J0
 #| echo: false
@@ -594,16 +643,217 @@ corrplot(corr_matrix_J0,
 #| message: false
 #| results : hide
 #| warning: false
-#| fig-width: 8
-#| fig-height: 5
-#| fig-cap : "Diagramme des valeurs propres (scree plot) des items de l'échelle de Hamilton à J0"
+#| fig-width: 5
+#| fig-height: 4
+#| fig-cap : "Diagramme des valeurs propres (scree plot) des items de l'échelle de Hamilton à J0 avec représentation de données simulées (analyse parallèle)"
 head(hdrs_J0[,c(hdrs_items)])
 scree.plot(hdrs_J0[,c(hdrs_items)], simu=20, use = "P")
 ```
 
-On estime à la louche 2 à 4 dimensions proéminentes.
+-   À J0, le *scree plot* ne permet pas d'identifier un nombre clair de facteurs : les valeurs propres décroissent progressivement sans "coude" net.
+
+-   En analyse parallèle, on observe au moins 3 dimensions ayant une valeur propre supérieure à celle obtenue sur des données simulées.
+
+-   On pourrait réaliser des tests statistiques qui permettraient de déterminer le nombre optimal de dimensions, mais ces tests sont sujets à plusieurs biais : 
+
+    -   on calculerait une p-value pour l'hypothèse "n facteurs sont suffisants"
+
+    -   mais ces tests sont difficiles à interpréter et sensibles à la taille de l'échantillon
+
+    -   On retient donc 3 facteurs principaux pour l'analyse factorielle.
+
+```{r}
+#| label: af loadings J0
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+af_J0 <- factanal(
+    na.omit(hdrs_J0[hdrs_items]),
+    factors = 3,
+    rotation = "varimax"
+)
+
+# Extraction propre des loadings
+loadings_df <- as.data.frame(unclass(af_J0$loadings))
+
+# Création explicite de la colonne Variable à partir des rownames
+loadings_df$Variable <- rownames(loadings_df)
+
+# Suppression des rownames pour éviter toute ambiguïté
+rownames(loadings_df) <- NULL
+
+# Réorganisation : Variable en première colonne
+loadings_df <- loadings_df[, c("Variable", colnames(loadings_df)[1:3])]
+
+# Arrondi
+loadings_df[, -1] <- round(loadings_df[, -1], 3)
+
+# Affichage LaTeX
+knitr::kable(
+    loadings_df,
+    caption = "Contribution des facteurs à la variance de la réponse à chaque item du score de Hamilton évalué à J0 (analyse factorielle avec rotation varimax à 3 facteurs)",
+    booktabs = TRUE,
+    align = "lccc"
+)
+```
+
+-   À J0, l’analyse factorielle exploratoire avec rotation varimax met en évidence 3 facteurs latents expliquant cumulativement 21,9 % de la variance des réponses aux items du score de Hamilton.
+
+-   Concernant chacun des 3 facteurs : 
+
+    -   Facteur 1 : 8, 12, 14, 16 (principalement des symptômes somatiques).
+
+    -   Facteur 2 : 4, 13 (relatifs à l’asthénie).
+
+    -   Facteur 3 : les items restants (symptômes dépressifs psychiatriques proprement dits).
+
+On peut rajouter 3 "sous-scores" au score total de Hamilton à J0, correspondant aux scores moyens des items chargés sur chaque facteur.
+
+```{r}
+#| label: sous-scores J0
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+hdrs_J0$f1_somatique <- rowMeans(hdrs_J0[,c("8_ralentissement","12_symptomes_gastro","14_symptomes_genitaux","16_perte_poids")], na.rm=TRUE)
+hdrs_J0$f2_asthenie <- rowMeans(hdrs_J0[,c("4_insomnie_debut","13_symptomes_generaux")], na.rm=TRUE)
+hdrs_J0$f3_depressif <- rowMeans(hdrs_J0[,c("1_humeur_depressive","2_sentim_culpabilite","3_suicide","5_insomnie_milieu","6_insomnie_matin","7_travail_activite","9_agitation","10_anxiete_psychique","11_anxiete_somatique","15_hypochondrie","17_prise_conscience")], na.rm=TRUE)
+```
+
+-   A titre exploratoire, on peut refaire une ACP sur ces 3 sous-scores pour visualiser leur relation.
+
+```{r}
+#| label: ACP sous-scores J0
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+#| fig-width: 5
+#| fig-height: 3
+#| fig-cap : "Analyse en composantes principales des sous-scores de l'échelle de Hamilton à J0"
+hdrs_J0_subscores <- hdrs_J0[,c("f1_somatique","f2_asthenie","f3_depressif")]
+colnames(hdrs_J0_subscores) <- c("F1_somatique","F2_asthenie","F3_depressif")
+mdspca(hdrs_J0_subscores)
+```
+
+-   Les 3 sous-scores sont bien représentés (proches du cercle). Le facteur "symptômes dépressifs" semble orthogonal aux deux autres facteurs.
+
+-   La variance totale expliquée par ces 3 sous-score est de 69%.
+
+Une ACP focalisée sur ces 3 sous-scores et le score total de Hamilton permet de visualiser la relation entre le score total et les sous-scores.
+
+```{r}
+#| label: ACP focalisée J0
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+#| fig-width: 5
+#| fig-height: 3
+#| fig-cap : "Analyse en composantes principales focalisée des sous-scores de l'échelle de Hamilton à J0"
+df_fpca <- data.frame(
+    score_total = hdrs_J0$score,
+    hdrs_J0_subscores
+)
+
+fpca(
+    score_total ~ .,
+    data = df_fpca
+)
+```
+
+Le score total de Hamilton semble plus corrélé aux symptômes dépressifs (F3) qu'aux deux autres sous-scores.
+
+### Fiabilité interne = que vaut la mesure ?
+
+#### Consistance interne : alpha de Cronbach\
 
 
+La consistance interne des items de l'échelle de Hamilton à J0 est évaluée par le calcul de l'alpha de Cronbach, qui correspond globalement au **pourcentage de « variance partagée »** entre le score vrai (hypothétique) et la mesure obtenue.
+
+Il permet ainsi de mesurer la cohérence entre les items d'une échelle de mesure, et est élevé lorsque les items sont fortement corrélés entre eux.
+
+On peut donc calculer dans un premier temps l'alpha de Cronbach sur l'ensemble des items de l'échelle de Hamilton à J0, puis sur chacun des 3 facteurs identifiés précédemment.
+
+Les intervalles de confiance (IC) à 95% des alpha de Cronbach sont estimés par la méthode du bootstrap avec 1000 rééchantillonnages. Le bootstrap est possible ici car il y a > 100 observations.
+
+```{r}
+#| label: alpha de Cronbach J0
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+cronbach(hdrs_J0[,hdrs_items])
+cronbach(hdrs_J0[,c("8_ralentissement","12_symptomes_gastro","14_symptomes_genitaux","16_perte_poids")])
+cronbach(hdrs_J0[,c("4_insomnie_debut","13_symptomes_generaux")])
+cronbach(hdrs_J0[,c("1_humeur_depressive","2_sentim_culpabilite","3_suicide","5_insomnie_milieu","6_insomnie_matin","7_travail_activite","9_agitation","10_anxiete_psychique","11_anxiete_somatique","15_hypochondrie","17_prise_conscience")])
+
+#estimation des IC par bootstrap 
+set.seed(123)
+alpha_bootstrap <- function(data, indices) {
+    d <- data[indices, ]
+    return(cronbach(d)$alpha)
+}
+library(boot)
+# Alpha global
+boot_alpha_global <- boot(hdrs_J0[,hdrs_items], alpha_bootstrap, R = 1000)
+boot.ci(boot_alpha_global, type = "bca")
+# Facteur 1
+boot_alpha_f1 <- boot(hdrs_J0[,c("8_ralentissement","12_symptomes_gastro","14_symptomes_genitaux","16_perte_poids")], alpha_bootstrap, R = 1000)
+boot.ci(boot_alpha_f1, type = "bca")
+# Facteur 2
+boot_alpha_f2 <- boot(hdrs_J0[,c("4_insomnie_debut","13_symptomes_generaux")], alpha_bootstrap, R = 1000)
+boot.ci(boot_alpha_f2, type = "bca")
+# Facteur 3
+boot_alpha_f3 <- boot(hdrs_J0[,c("1_humeur_depressive","2_sentim_culpabilite","3_suicide","5_insomnie_milieu","6_insomnie_matin","7_travail_activite","9_agitation","10_anxiete_psychique","11_anxiete_somatique","15_hypochondrie","17_prise_conscience")], alpha_bootstrap, R = 1000)
+boot.ci(boot_alpha_f3, type = "bca")
+```
+
+
+```{r}
+#| label: tableau alpha de Cronbach J0
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+#représentation des alpha de Cronbach avec IC en tableau
+alpha_df <- data.frame(
+    Scale = c("Global", "F1_somatique", "F2_asthenie", "F3_depressif"),
+    Alpha = c(
+        round(cronbach(hdrs_J0[,hdrs_items])$alpha, 3),
+        round(cronbach(hdrs_J0[,c("8_ralentissement","12_symptomes_gastro","14_symptomes_genitaux","16_perte_poids")])$alpha, 3),
+        round(cronbach(hdrs_J0[,c("4_insomnie_debut","13_symptomes_generaux")])$alpha, 3),
+        round(cronbach(hdrs_J0[,c("1_humeur_depressive","2_sentim_culpabilite","3_suicide","5_insomnie_milieu","6_insomnie_matin","7_travail_activite","9_agitation","10_anxiete_psychique","11_anxiete_somatique","15_hypochondrie","17_prise_conscience")])$alpha, 3)
+    ),
+    CI_lower = c(
+        round(boot.ci(boot_alpha_global, type = "bca")$bca[4], 3),
+        round(boot.ci(boot_alpha_f1, type = "bca")$bca[4], 3),
+        round(boot.ci(boot_alpha_f2, type = "bca")$bca[4], 3),
+        round(boot.ci(boot_alpha_f3, type = "bca")$bca[4], 3)
+    ),
+    CI_upper = c(
+        round(boot.ci(boot_alpha_global, type = "bca")$bca[5], 3),
+        round(boot.ci(boot_alpha_f1, type = "bca")$bca[5], 3),
+        round(boot.ci(boot_alpha_f2, type = "bca")$bca[5], 3),
+        round(boot.ci(boot_alpha_f3, type = "bca")$bca[5], 3)
+    )
+)
+knitr::kable(
+    alpha_df,
+    caption = "Alpha de Cronbach et intervalles de confiance à 95% pour l'échelle de Hamilton à J0 et ses sous-échelles",
+    booktabs = TRUE,
+    align = "lccc"
+)
+```
+
+Au total, quelque soit le niveau d'analyse (global ou par facteur), les alpha de Cronbach sont < 0.5, indiquant une faible consistance interne des items de l'échelle de Hamilton à J0.
 
 ### Validité externe
 

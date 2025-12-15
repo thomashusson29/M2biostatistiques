@@ -1,0 +1,1 @@
+print(factanal(na.omit(j0hdrs[,3:19]), factors = 3), cutoff = 0)
