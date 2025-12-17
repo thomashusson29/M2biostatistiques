@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -110,21 +145,48 @@ window.Quarto = {
   </ul></li>
   <li><a href="#fiabilité-interne-que-vaut-la-mesure" id="toc-fiabilité-interne-que-vaut-la-mesure" class="nav-link" data-scroll-target="#fiabilité-interne-que-vaut-la-mesure"><span class="header-section-number">3.1.3</span> Fiabilité interne = que vaut la mesure ?</a>
   <ul class="collapse">
-  <li><a href="#consistance-interne-alpha-de-cronbach" id="toc-consistance-interne-alpha-de-cronbach" class="nav-link" data-scroll-target="#consistance-interne-alpha-de-cronbach"><span class="header-section-number">3.1.3.1</span> Consistance interne : alpha de Cronbach<br>
-  </a></li>
+  <li><a href="#consistance-interne-alpha-de-cronbach" id="toc-consistance-interne-alpha-de-cronbach" class="nav-link" data-scroll-target="#consistance-interne-alpha-de-cronbach"><span class="header-section-number">3.1.3.1</span> Consistance interne : alpha de Cronbach</a></li>
   </ul></li>
-  <li><a href="#validité-externe" id="toc-validité-externe" class="nav-link" data-scroll-target="#validité-externe"><span class="header-section-number">3.1.4</span> Validité externe</a></li>
+  <li><a href="#validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer" id="toc-validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer" class="nav-link" data-scroll-target="#validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer"><span class="header-section-number">3.1.4</span> Validité externe = l’instrument mesure-t-il ce qu’il est censé mesurer ?</a>
+  <ul class="collapse">
+  <li><a href="#corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j0" id="toc-corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j0" class="nav-link" data-scroll-target="#corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j0"><span class="header-section-number">3.1.4.1</span> Corrélation entre le score de Hamilton et les dimensions du SCL-90 à J0</a></li>
+  <li><a href="#conclusion-validité-externe-à-j0" id="toc-conclusion-validité-externe-à-j0" class="nav-link" data-scroll-target="#conclusion-validité-externe-à-j0"><span class="header-section-number">3.1.4.2</span> Conclusion validité externe à J0</a></li>
+  </ul></li>
+  <li><a href="#conclusion-globale-à-j0" id="toc-conclusion-globale-à-j0" class="nav-link" data-scroll-target="#conclusion-globale-à-j0"><span class="header-section-number">3.1.5</span> Conclusion globale à J0</a></li>
   </ul></li>
   <li><a href="#validation-à-j56" id="toc-validation-à-j56" class="nav-link" data-scroll-target="#validation-à-j56"><span class="header-section-number">3.2</span> Validation à J56</a>
   <ul>
   <li><a href="#description-1" id="toc-description-1" class="nav-link" data-scroll-target="#description-1"><span class="header-section-number">3.2.1</span> Description</a></li>
-  <li><a href="#validité-interne-structure-dimensionnelle-analyse-factorielle-1" id="toc-validité-interne-structure-dimensionnelle-analyse-factorielle-1" class="nav-link" data-scroll-target="#validité-interne-structure-dimensionnelle-analyse-factorielle-1"><span class="header-section-number">3.2.2</span> Validité interne : structure dimensionnelle, analyse factorielle</a></li>
-  <li><a href="#validité-externe-1" id="toc-validité-externe-1" class="nav-link" data-scroll-target="#validité-externe-1"><span class="header-section-number">3.2.3</span> Validité externe</a></li>
+  <li><a href="#validité-interne-structure-dimensionnelle-analyse-factorielle-1" id="toc-validité-interne-structure-dimensionnelle-analyse-factorielle-1" class="nav-link" data-scroll-target="#validité-interne-structure-dimensionnelle-analyse-factorielle-1"><span class="header-section-number">3.2.2</span> Validité interne : structure dimensionnelle, analyse factorielle</a>
+  <ul class="collapse">
+  <li><a href="#exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales-1" id="toc-exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales-1" class="nav-link" data-scroll-target="#exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales-1"><span class="header-section-number">3.2.2.1</span> Exploration de la structure dimensionnelle : analyse en composantes principales</a></li>
+  <li><a href="#exploration-de-la-structure-dimensionnelle-analyse-factorielle-1" id="toc-exploration-de-la-structure-dimensionnelle-analyse-factorielle-1" class="nav-link" data-scroll-target="#exploration-de-la-structure-dimensionnelle-analyse-factorielle-1"><span class="header-section-number">3.2.2.2</span> Exploration de la structure dimensionnelle : analyse factorielle</a></li>
+  </ul></li>
+  <li><a href="#fiabilité-interne-que-vaut-la-mesure-1" id="toc-fiabilité-interne-que-vaut-la-mesure-1" class="nav-link" data-scroll-target="#fiabilité-interne-que-vaut-la-mesure-1"><span class="header-section-number">3.2.3</span> Fiabilité interne = que vaut la mesure ?</a>
+  <ul class="collapse">
+  <li><a href="#consistance-interne-alpha-de-cronbach-1" id="toc-consistance-interne-alpha-de-cronbach-1" class="nav-link" data-scroll-target="#consistance-interne-alpha-de-cronbach-1"><span class="header-section-number">3.2.3.1</span> Consistance interne : alpha de Cronbach</a></li>
+  </ul></li>
+  <li><a href="#validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer-1" id="toc-validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer-1" class="nav-link" data-scroll-target="#validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer-1"><span class="header-section-number">3.2.4</span> Validité externe = l’instrument mesure-t-il ce qu’il est censé mesurer ?</a>
+  <ul class="collapse">
+  <li><a href="#corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j56" id="toc-corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j56" class="nav-link" data-scroll-target="#corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j56"><span class="header-section-number">3.2.4.1</span> Corrélation entre le score de Hamilton et les dimensions du SCL-90 à J56</a></li>
+  <li><a href="#conclusion-validité-externe-à-j56" id="toc-conclusion-validité-externe-à-j56" class="nav-link" data-scroll-target="#conclusion-validité-externe-à-j56"><span class="header-section-number">3.2.4.2</span> Conclusion validité externe à J56</a></li>
+  </ul></li>
+  <li><a href="#conclusion-globale-à-j56" id="toc-conclusion-globale-à-j56" class="nav-link" data-scroll-target="#conclusion-globale-à-j56"><span class="header-section-number">3.2.5</span> Conclusion globale à J56</a></li>
+  <li><a href="#synthèse-des-résultats-de-validation-de-léchelle-de-hamilton-à-j0-et-j56" id="toc-synthèse-des-résultats-de-validation-de-léchelle-de-hamilton-à-j0-et-j56" class="nav-link" data-scroll-target="#synthèse-des-résultats-de-validation-de-léchelle-de-hamilton-à-j0-et-j56"><span class="header-section-number">3.2.6</span> Synthèse des résultats de validation de l’échelle de Hamilton à J0 et J56</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients" id="toc-question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients" class="nav-link" data-scroll-target="#question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients"><span class="header-section-number">4</span> Question 2 : Comparaison de la réponse au traitement entre deux groupes de patients</a></li>
+  <li><a href="#question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients" id="toc-question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients" class="nav-link" data-scroll-target="#question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients"><span class="header-section-number">4</span> Question 2 : Comparaison de la réponse au traitement entre deux groupes de patients</a>
+  <ul>
+  <li><a href="#gestion-des-données-1" id="toc-gestion-des-données-1" class="nav-link" data-scroll-target="#gestion-des-données-1"><span class="header-section-number">4.1</span> Gestion des données</a></li>
+  <li><a href="#scores-bruts-à-j0-dans-chaque-groupe" id="toc-scores-bruts-à-j0-dans-chaque-groupe" class="nav-link" data-scroll-target="#scores-bruts-à-j0-dans-chaque-groupe"><span class="header-section-number">4.2</span> Scores bruts à J0 dans chaque groupe</a></li>
+  <li><a href="#évolution-des-scores-bruts-entre-j0-et-j56-dans-chaque-groupe" id="toc-évolution-des-scores-bruts-entre-j0-et-j56-dans-chaque-groupe" class="nav-link" data-scroll-target="#évolution-des-scores-bruts-entre-j0-et-j56-dans-chaque-groupe"><span class="header-section-number">4.3</span> Évolution des scores bruts entre J0 et J56 dans chaque groupe</a>
+  <ul>
+  <li><a href="#évolution-du-nombre-de-patients-dans-chaque-groupe-à-chaque-visite" id="toc-évolution-du-nombre-de-patients-dans-chaque-groupe-à-chaque-visite" class="nav-link" data-scroll-target="#évolution-du-nombre-de-patients-dans-chaque-groupe-à-chaque-visite"><span class="header-section-number">4.3.1</span> Évolution du nombre de patients dans chaque groupe à chaque visite</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#annexe-code-r" id="toc-annexe-code-r" class="nav-link" data-scroll-target="#annexe-code-r"><span class="header-section-number">5</span> Annexe – Code R</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="devoir_stats_avancees.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="devoir_stats_avancees.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="devoir_stats_avancees.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../devoir_stats_avancees.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -170,9 +232,9 @@ Important
 <p>Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâches principales :</p>
 <ul>
 <li><p>En cas de problème d’éxécution du code R (pour suggérer correction et amélioration)</p></li>
-<li><p>Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF. Notamment certaines fonctions dont l’output R n’est pas compatible avec le rendu pdf (par exemple, <code>factanal()</code> pour l’analyse factorielle)</p></li>
+<li><p>Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF. Notamment certaines fonctions dont l’output R n’est pas compatible avec le rendu pdf (par exemple, <code>factanal()</code> pour l’analyse factorielle ou le rendu des tableaux automatisé des coefficients alpha de Cronbach et leur IC)</p></li>
 </ul>
-<p>Utilisation des modèles Open Source disponibles sur Hugging Face ou ollama.</p>
+<p>Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.</p>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -331,8 +393,7 @@ Note
 </ul></li>
 <li><p>Troisième temps : Évaluation de la fiabilité interne = <strong>que vaut la mesure ?</strong></p>
 <ul>
-<li><p>La consistance interne des items (évalue si les items sont cohérents entre eux) sera évaluée par le calcul de l’alpha de Cronbach</p></li>
-<li><p>Échelle de Hamilton = hétéro-évaluation donc on peut aussi évaluer la concordance inter-juges (ici entre les items) par le coefficient de corrélation intraclasse (CCI)</p></li>
+<li>La consistance interne des items (évalue si les items sont cohérents entre eux) sera évaluée par le calcul de l’alpha de Cronbach, calculé sur l’échelle totale et sur chaque dimension identifiée précédemment.</li>
 </ul></li>
 <li><p>Quatrième temps : Évaluation de la validité = <strong>l’instrument mesure-t-il ce qu’il est censé mesurer ?</strong> (similaire à la question “que mesure l’instrument ?”)</p>
 <ul>
@@ -373,7 +434,7 @@ Note
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="devoir_stats_avancees_files/figure-html/matrice%20corrélation%20J0-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="devoir_stats_avancees_files/figure-html/matrice%20corrélation%20J0-1.png" class="img-fluid figure-img" width="480"></p>
 <figcaption>Matrice de corrélation entre les items de l’échelle de Hamilton à J0</figcaption>
 </figure>
 </div>
@@ -396,7 +457,7 @@ Note
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="devoir_stats_avancees_files/figure-html/ACP%20J0-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="devoir_stats_avancees_files/figure-html/ACP%20J0-1.png" class="img-fluid figure-img" width="528"></p>
 <figcaption>Analyse en composantes principales des items de l’échelle de Hamilton à J0</figcaption>
 </figure>
 </div>
@@ -552,7 +613,12 @@ Note
 </table>
 <ul>
 <li><p>À J0, l’analyse factorielle exploratoire avec rotation varimax met en évidence 3 facteurs latents expliquant cumulativement 21,9 % de la variance des réponses aux items du score de Hamilton.</p></li>
-<li><p>Concernant chacun des 3 facteurs :</p>
+<li><p>Concernant l’interprétation du tableau des “loadings” (charges factorielles) :</p>
+<ul>
+<li><p>Les “loadings” (charges factorielles) indiquent la contribution de chaque item à chaque facteur. Ils mesure la force de la régression linéaire entre chaque item et chaque facteur latent. Plus l’item est proche de 1, plus il est expliqué par le facteur latent commun.</p></li>
+<li><p>Il n’existe pas de “seuil” universel pour déterminer si un loading est “élevé” ou “faible”, mais généralement, un loading supérieur à 0,4 ou 0,5 est considéré comme significatif.</p></li>
+</ul></li>
+<li><p>On peut interpréter les 3 facteurs identifiés comme suit :</p>
 <ul>
 <li><p>Facteur 1 : 8, 12, 14, 16 (principalement des symptômes somatiques).</p></li>
 <li><p>Facteur 2 : 4, 13 (relatifs à l’asthénie).</p></li>
@@ -594,19 +660,11 @@ Note
 <section id="fiabilité-interne-que-vaut-la-mesure" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="fiabilité-interne-que-vaut-la-mesure"><span class="header-section-number">3.1.3</span> Fiabilité interne = que vaut la mesure ?</h3>
 <section id="consistance-interne-alpha-de-cronbach" class="level4" data-number="3.1.3.1">
-<h4 data-number="3.1.3.1" class="anchored" data-anchor-id="consistance-interne-alpha-de-cronbach"><span class="header-section-number">3.1.3.1</span> Consistance interne : alpha de Cronbach<br>
-</h4>
+<h4 data-number="3.1.3.1" class="anchored" data-anchor-id="consistance-interne-alpha-de-cronbach"><span class="header-section-number">3.1.3.1</span> Consistance interne : alpha de Cronbach</h4>
 <p>La consistance interne des items de l’échelle de Hamilton à J0 est évaluée par le calcul de l’alpha de Cronbach, qui correspond globalement au <strong>pourcentage de « variance partagée »</strong> entre le score vrai (hypothétique) et la mesure obtenue.</p>
 <p>Il permet ainsi de mesurer la cohérence entre les items d’une échelle de mesure, et est élevé lorsque les items sont fortement corrélés entre eux.</p>
 <p>On peut donc calculer dans un premier temps l’alpha de Cronbach sur l’ensemble des items de l’échelle de Hamilton à J0, puis sur chacun des 3 facteurs identifiés précédemment.</p>
-<ul>
-<li><p>Le coefficient alpha global de Cronbach pour l’échelle de Hamilton à J0 est de 0.46</p></li>
-<li><p>Pour le facteur 1 (<code>f1_somatique</code>) : alpha = 0.38</p></li>
-<li><p>Pour le facteur 2 (<code>f2_asthenie</code>) : alpha = 0.49</p></li>
-<li><p>Pour le facteur 3 (<code>f3_depressif</code>) : alpha = 0.49</p></li>
-</ul>
-<pre><code>     Scale Alpha CI_lower CI_upper</code></pre>
-<p>1 Global 0.456 0.262 0.624 2 F1_somatique 0.381 0.188 0.530 3 F2_asthenie 0.490 0.266 0.653 4 F3_depressif 0.486 0.349 0.622</p>
+<p>Les intervalles de confiance (IC) à 95% des alpha de Cronbach sont estimés par la méthode du bootstrap avec 1000 rééchantillonnages. Le bootstrap est possible ici car il y a &gt; 100 observations.</p>
 <table class="caption-top table">
 <caption>Alpha de Cronbach et intervalles de confiance à 95% pour l’échelle de Hamilton à J0 et ses sous-échelles</caption>
 <thead>
@@ -644,27 +702,1120 @@ Note
 </tr>
 </tbody>
 </table>
+<p>Au total, quelque soit le niveau d’analyse (global ou par facteur), les alpha de Cronbach sont &lt; 0.5, indiquant une faible consistance interne des items de l’échelle de Hamilton à J0.</p>
 </section>
 </section>
-<section id="validité-externe" class="level3" data-number="3.1.4">
-<h3 data-number="3.1.4" class="anchored" data-anchor-id="validité-externe"><span class="header-section-number">3.1.4</span> Validité externe</h3>
+<section id="validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer"><span class="header-section-number">3.1.4</span> Validité externe = l’instrument mesure-t-il ce qu’il est censé mesurer ?</h3>
+<ul>
+<li><p>Validité externe d’un instrument cherche à démontrer que l’instrument se comporte logiquement par rapport au réseau théorique qui lui est associé.</p></li>
+<li><p>Selon la théorie nomologique (c’est à dire selon les relations postulées entre les différents concepts d’une même discipline), la dépression mesurée par l’échelle de Hamilton doit être fortement liée à d’autres manifestations de la détresse psychologique générale (mesurée par le SCL-90), mais distincte de certains autres concepts.</p>
+<ul>
+<li><p>Ici, la validité du construit peut être évaluée en évaluant la validité convergente (corrélation forte entre des concepts proches).</p></li>
+<li><p>Il est plus difficile d’évaluer la validité divergente (corrélation faible entre des concepts différents) car le SCL-90 mesure principalement des dimensions de la détresse psychologique ; de même pour la validité concurrente (corrélation forte avec un <em>gold-standard</em>, car nous ne disposons pas d’un instrument de mesure de la dépression reconnu comme un <em>gold-standard</em> ici).</p></li>
+</ul></li>
+</ul>
+<section id="corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j0" class="level4" data-number="3.1.4.1">
+<h4 data-number="3.1.4.1" class="anchored" data-anchor-id="corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j0"><span class="header-section-number">3.1.4.1</span> Corrélation entre le score de Hamilton et les dimensions du SCL-90 à J0</h4>
+<ul>
+<li>On peut représenter une matrice de corrélation entre le score total de Hamilton et les 10 dimensions du SCL-90 à J0.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/corrélation%20J0-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Corrélation entre le score total de l’échelle de Hamilton et les dimensions du SCL-90 à J0</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La corrélation est au maximum à 0.37 avec la composante “somatisation” du SCL-90 et de 0.40 avec la composante “symptômes divers” du SCL-90, indiquant une validité convergente modérée entre le score total de Hamilton et cette dimension du SCL-90 à J0.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/corrélation%20sous-scores%20J0-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Corrélation entre les sous-scores de l’échelle de Hamilton et les dimensions SCL-90 à J0</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Il n’y a pas non plus de corrélation forte entre les sous-scores de Hamilton et les dimensions du SCL-90 à J0.</p></li>
+<li><p>Par exemple, le sous-score “symptômes somatiques” de Hamilton est faiblement corrélé avec la dimension “somatisation” du SCL-90 (r = 0.07 !!).</p></li>
+</ul>
+</section>
+<section id="conclusion-validité-externe-à-j0" class="level4" data-number="3.1.4.2">
+<h4 data-number="3.1.4.2" class="anchored" data-anchor-id="conclusion-validité-externe-à-j0"><span class="header-section-number">3.1.4.2</span> Conclusion validité externe à J0</h4>
+<p>La validité convergente entre le score total de Hamilton et les dimensions du SCL-90 à J0 est faible à modérée, suggérant que l’échelle de Hamilton mesure partiellement des aspects de la détresse psychologique générale, mais pas de manière très forte.</p>
+</section>
+</section>
+<section id="conclusion-globale-à-j0" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="conclusion-globale-à-j0"><span class="header-section-number">3.1.5</span> Conclusion globale à J0</h3>
+<p>À J0, l’échelle de dépression de Hamilton présente une structure dimensionnelle peu claire, avec une faible consistance interne des items (alpha de Cronbach &lt; 0.5) et une validité convergente modérée avec les dimensions du SCL-90.</p>
+<p>Ces résultats suggèrent que l’échelle de Hamilton pourrait ne pas être un instrument optimal pour mesurer la dépression dans cette population à ce moment précis.</p>
+<div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="validation-à-j56" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="validation-à-j56"><span class="header-section-number">3.2</span> Validation à J56</h2>
 <section id="description-1" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="description-1"><span class="header-section-number">3.2.1</span> Description</h3>
+<p>À J56, 120 des 146 patients présents à J0 ont répondu à tous les items : 17.8% des patients ont été perdus de vue</p>
+<p>Comme à J0, les réponses sont représentées :</p>
+<ul>
+<li><p>par des histogrammes pour chaque item de l’échelle de Hamilton à J56</p></li>
+<li><p>par une matrice de corrélation 2 à 2 entre les items</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/histo%20items%20J56-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Histogrammes des scores des items de l’échelle de Hamilton à J56</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/histo%20items%20J56-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Histogrammes des scores des items de l’échelle de Hamilton à J56</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/matrice%20corrélation%20J56-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Matrice de corrélation entre les items de l’échelle de Hamilton à J56</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Sur les histogrammes, on observe un effet plancher, c’est à dire que de nombreux patients ont des scores faibles sur plusieurs items. Il est probable que ce soit lié à l’amélioration de la symptomatologie dépressive entre J0 et J56.</p></li>
+<li><p>La matrice de corrélation des items met en évidence des coefficients de corrélation plus élevés que ceux observés à J0, avec plusieurs coefficients supérieurs à 0.5 en valeur absolue, indiquant une certaine redondance entre les items de l’échelle Hamilton à J56.</p>
+<ul>
+<li>Il est possible que cette redondance soit liée à l’effet plancher observé sur les histogrammes, où de nombreux patients ont des scores faibles sur plusieurs items, ce qui peut augmenter artificiellement les corrélations entre ces items.</li>
+</ul></li>
+</ul>
 </section>
 <section id="validité-interne-structure-dimensionnelle-analyse-factorielle-1" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="validité-interne-structure-dimensionnelle-analyse-factorielle-1"><span class="header-section-number">3.2.2</span> Validité interne : structure dimensionnelle, analyse factorielle</h3>
+<section id="exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales-1" class="level4" data-number="3.2.2.1">
+<h4 data-number="3.2.2.1" class="anchored" data-anchor-id="exploration-de-la-structure-dimensionnelle-analyse-en-composantes-principales-1"><span class="header-section-number">3.2.2.1</span> Exploration de la structure dimensionnelle : analyse en composantes principales</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/ACP%20J56-1.png" class="img-fluid figure-img" width="528"></p>
+<figcaption>Analyse en composantes principales des items de l’échelle de Hamilton à J56</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>La première composante principale explique 28% de la variance totale, la deuxième composante principale explique 10% de la variance totale.</p>
+<ul>
+<li><p>Les deux premières composantes principales expliquent 38% de la variance totale, ce qui est une amélioration par rapport à J0.</p></li>
+<li><p>Certaines variables sont un peu plus éloignées du centre qu’à J0, il est possible qu’elles contribuent davantage aux premières composantes principales.</p></li>
+</ul></li>
+</ul>
 </section>
-<section id="validité-externe-1" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="validité-externe-1"><span class="header-section-number">3.2.3</span> Validité externe</h3>
+<section id="exploration-de-la-structure-dimensionnelle-analyse-factorielle-1" class="level4" data-number="3.2.2.2">
+<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="exploration-de-la-structure-dimensionnelle-analyse-factorielle-1"><span class="header-section-number">3.2.2.2</span> Exploration de la structure dimensionnelle : analyse factorielle</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/analyse%20factorielle%20J56-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Diagramme des valeurs propres (scree plot) des items de l’échelle de Hamilton à J56 avec représentation de données simulées (analyse parallèle)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>À J56, le <em>scree plot</em> n’est pas du tout le même qu’à J0 : on observe un “coude” net après la première valeur propre.</p></li>
+<li><p><strong>L’échelle Hamilton à J56 semble donc essentiellement unidimensionnelle.</strong></p></li>
+</ul>
+<table class="caption-top table">
+<caption>Contribution du facteur unique à la variance de la réponse à chaque item du score de Hamilton évalué à J56 (analyse factorielle avec rotation varimax à 1 facteur)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: center;">Factor1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1_humeur_depressive</td>
+<td style="text-align: center;">0.802</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2_sentim_culpabilite</td>
+<td style="text-align: center;">0.468</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3_suicide</td>
+<td style="text-align: center;">0.706</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4_insomnie_debut</td>
+<td style="text-align: center;">0.333</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5_insomnie_milieu</td>
+<td style="text-align: center;">0.456</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6_insomnie_matin</td>
+<td style="text-align: center;">0.282</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7_travail_activite</td>
+<td style="text-align: center;">0.745</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8_ralentissement</td>
+<td style="text-align: center;">0.657</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9_agitation</td>
+<td style="text-align: center;">0.328</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10_anxiete_psychique</td>
+<td style="text-align: center;">0.624</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11_anxiete_somatique</td>
+<td style="text-align: center;">0.401</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">12_symptomes_gastro</td>
+<td style="text-align: center;">0.471</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">13_symptomes_generaux</td>
+<td style="text-align: center;">0.495</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">14_symptomes_genitaux</td>
+<td style="text-align: center;">0.252</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15_hypochondrie</td>
+<td style="text-align: center;">0.494</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16_perte_poids</td>
+<td style="text-align: center;">0.125</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">17_prise_conscience</td>
+<td style="text-align: center;">-0.132</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Les valeurs numériques mesurent la force de la relation linéaire entre chaque item observé et le facteur latent unique.</p></li>
+<li><p>Les symptômes centraux de la dépression (humeur dépressive, ralentissement, baisse d’activité) présentent les charges factorielles les plus élevées, indiquant qu’ils sont de bons indicateurs du facteur latent unique (la dépression).</p></li>
+<li><p>Certains items périphériques (perte de poids, symptômes génitaux) ont une très faible charge, ils peuvent être peu informatifs et faiblement contribuer à la mesure du concept unique de dépression à J56. Leur pertinence dans le score total de l’instrument peut être remise en question.</p></li>
+</ul>
+</section>
+</section>
+<section id="fiabilité-interne-que-vaut-la-mesure-1" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="fiabilité-interne-que-vaut-la-mesure-1"><span class="header-section-number">3.2.3</span> Fiabilité interne = que vaut la mesure ?</h3>
+<section id="consistance-interne-alpha-de-cronbach-1" class="level4" data-number="3.2.3.1">
+<h4 data-number="3.2.3.1" class="anchored" data-anchor-id="consistance-interne-alpha-de-cronbach-1"><span class="header-section-number">3.2.3.1</span> Consistance interne : alpha de Cronbach</h4>
+<p>La consistance interne des items de l’échelle de Hamilton à J56 est évaluée par le calcul de l’alpha de Cronbach, et son IC à 95% par la méthode du bootstrap avec 1000 rééchantillonnages.</p>
+<table class="caption-top table">
+<caption>Alpha de Cronbach et intervalle de confiance à 95% pour l’échelle de Hamilton à J56</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Scale</th>
+<th style="text-align: center;">Alpha</th>
+<th style="text-align: center;">CI_lower</th>
+<th style="text-align: center;">CI_upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Global</td>
+<td style="text-align: center;">0.82</td>
+<td style="text-align: center;">0.76</td>
+<td style="text-align: center;">0.86</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>A J56, l’alpha de Cronbach est de 0.82, avec un intervalle de confiance à 95% de [0.75 ; 0.86], indiquant une bonne consistance interne des items de l’échelle de Hamilton à ce moment. Elle n’est pas exagérément lourde ni redondante.</li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer-1" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="validité-externe-linstrument-mesure-t-il-ce-quil-est-censé-mesurer-1"><span class="header-section-number">3.2.4</span> Validité externe = l’instrument mesure-t-il ce qu’il est censé mesurer ?</h3>
+<p>De la même manière qu’à J0, la validité externe de l’échelle de Hamilton à J56 peut être évaluée en examinant la corrélation entre le score total de Hamilton et les dimensions du SCL-90.</p>
+<section id="corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j56" class="level4" data-number="3.2.4.1">
+<h4 data-number="3.2.4.1" class="anchored" data-anchor-id="corrélation-entre-le-score-de-hamilton-et-les-dimensions-du-scl-90-à-j56"><span class="header-section-number">3.2.4.1</span> Corrélation entre le score de Hamilton et les dimensions du SCL-90 à J56</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/corrélation%20J56-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Corrélation entre score total de Hamilton et les dimensions du SCL-90 à J56</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/corrélation%20sous-scores%20J56-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>ACP focalisée du score total de l’échelle de Hamilton et des dimensions du SCL-90 à J56</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Les corrélations sont plus importantes entre les sous-scores de SCL90 et le score d’Hamilton à J56, : ces deux échelles mesurent probablement la même chose.</p></li>
+<li><p>La sous échelle dépression du SCL90 est particulièrement corrélée avec le score d’Hamilton.</p></li>
+</ul>
+</section>
+<section id="conclusion-validité-externe-à-j56" class="level4" data-number="3.2.4.2">
+<h4 data-number="3.2.4.2" class="anchored" data-anchor-id="conclusion-validité-externe-à-j56"><span class="header-section-number">3.2.4.2</span> Conclusion validité externe à J56</h4>
+<p>La validité convergente entre le score total de Hamilton et les dimensions du SCL-90 à J56 est modérée à forte, suggérant que l’échelle de Hamilton mesure des aspects pertinents de la détresse psychologique générale à ce moment.</p>
+</section>
+</section>
+<section id="conclusion-globale-à-j56" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="conclusion-globale-à-j56"><span class="header-section-number">3.2.5</span> Conclusion globale à J56</h3>
+<p>À J56, l’échelle de dépression de Hamilton présente une structure dimensionnelle essentiellement unidimensionnelle, avec une bonne consistance interne des items (alpha de Cronbach = 0.82) et une validité convergente modérée à forte avec les dimensions du SCL-90.</p>
+<p>Au total, ces résultats suggèrent que l’échelle de Hamilton est un instrument valide et fiable pour mesurer la dépression dans cette population à J56.</p>
+</section>
+<section id="synthèse-des-résultats-de-validation-de-léchelle-de-hamilton-à-j0-et-j56" class="level3" data-number="3.2.6">
+<h3 data-number="3.2.6" class="anchored" data-anchor-id="synthèse-des-résultats-de-validation-de-léchelle-de-hamilton-à-j0-et-j56"><span class="header-section-number">3.2.6</span> Synthèse des résultats de validation de l’échelle de Hamilton à J0 et J56</h3>
+<p>Tableau récapitulatif des principaux résultats de validation de l’échelle de Hamilton à J0 et J56 :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspect</th>
+<th>J0</th>
+<th>J56</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Structure dimensionnelle</td>
+<td>Multidimensionnelle (3 facteurs)</td>
+<td>Essentiellement unidimensionnelle</td>
+</tr>
+<tr class="even">
+<td>Consistance interne (<span class="math inline">\(Alpha\)</span> de Cronbach)</td>
+<td>Faible (<span class="math inline">\(\alpha\)</span> = 0.45 [0.39 ; 0.51])</td>
+<td>Bonne (<span class="math inline">\(\alpha\)</span> = 0.82 [0.75 ; 0.86])</td>
+</tr>
+<tr class="odd">
+<td>Validité convergente (corrélation avec SCL-90)</td>
+<td>Modérée (max = 0.40)</td>
+<td>Plus élevée (max = 0.85)</td>
+</tr>
+<tr class="even">
+<td>Conclusion globale</td>
+<td>Structure dimensionnelle peu claire, faible consistance interne, validité convergente modérée</td>
+<td>Essentiellement unidimensionnelle, bonne consistance interne, validité convergente modérée à forte</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Validité divergente</strong></p>
+<p>La validité divergente (ou discriminante) fait référence à la capacité d’un instrument de mesure à ne pas être fortement corrélé avec des concepts ou des mesures qui sont théoriquement distincts. En d’autres termes, un instrument doit montrer qu’il mesure un concept spécifique sans être influencé de manière significative par d’autres concepts non liés.</p>
+<p>En l’occurence, on ne dispose pas d’instruments mesurant des concepts clairement distincts de la dépression dans ce jeu de données, ce qui limite notre capacité à évaluer la validité divergente de l’échelle de Hamilton dans ce contexte.</p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
 </section>
 </section>
 </section>
 <section id="question-2-comparaison-de-la-réponse-au-traitement-entre-deux-groupes-de-patients" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Question 2 : Comparaison de la réponse au traitement entre deux groupes de patients</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Consigne</strong></p>
+<p>“A partir du score brut de Hamilton, déterminez si les patients du groupe <code>groupe=1</code> répondent mieux au traitement que les patients du groupe <code>groupe=0</code>. (utilisez d’abord une approche LOCF (last observation carried forward), puis un modèle mixte).”</p>
+</div>
+</div>
+<section id="gestion-des-données-1" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="gestion-des-données-1"><span class="header-section-number">4.1</span> Gestion des données</h2>
+<p>Il faut utiliser</p>
+</section>
+<section id="scores-bruts-à-j0-dans-chaque-groupe" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="scores-bruts-à-j0-dans-chaque-groupe"><span class="header-section-number">4.2</span> Scores bruts à J0 dans chaque groupe</h2>
+<p>Présentation en tableau des scores bruts de l’échelle de Hamilton à J0 dans chaque groupe de traitement avec effectifs, moyennes, écarts-types, médianes et intervalles interquartiles.</p>
+<table class="caption-top table">
+<caption>Scores bruts de l’échelle de Hamilton à J0 par groupe de traitement</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">GROUPE</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">Moyenne</th>
+<th style="text-align: center;">Écart type</th>
+<th style="text-align: center;">Médiane</th>
+<th style="text-align: center;">Q1</th>
+<th style="text-align: center;">Q3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">28.1</td>
+<td style="text-align: center;">4.43</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">71</td>
+<td style="text-align: center;">27.8</td>
+<td style="text-align: center;">3.97</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">30</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="évolution-des-scores-bruts-entre-j0-et-j56-dans-chaque-groupe" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="évolution-des-scores-bruts-entre-j0-et-j56-dans-chaque-groupe"><span class="header-section-number">4.3</span> Évolution des scores bruts entre J0 et J56 dans chaque groupe</h2>
+<section id="évolution-du-nombre-de-patients-dans-chaque-groupe-à-chaque-visite" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="évolution-du-nombre-de-patients-dans-chaque-groupe-à-chaque-visite"><span class="header-section-number">4.3.1</span> Évolution du nombre de patients dans chaque groupe à chaque visite</h3>
+<ul>
+<li>Calcul du nombre de données entre chaque visite entre J0 et J56 dans chaque groupe de traitement (Visite J0 Visite J4 Visite J7 Visite J14 Visite J21 Visite J28 Visite J42 Visite J56)</li>
+</ul>
+<p>Sans utiliser tidyverse</p>
+<p>On avait fait ça : <code>hdrs_long &lt;- melt(     hdrs_groupe,     id.vars = c("NUMERO", "VISIT", "GROUPE"),     variable.name = "item",     value.name = "value" )</code></p>
+<table class="caption-top table">
+<caption>Nombre de patients par groupe de traitement et visite</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Groupe</th>
+<th style="text-align: center;">J0</th>
+<th style="text-align: center;">J4</th>
+<th style="text-align: center;">J7</th>
+<th style="text-align: center;">J14</th>
+<th style="text-align: center;">J21</th>
+<th style="text-align: center;">J28</th>
+<th style="text-align: center;">J42</th>
+<th style="text-align: center;">J56</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Groupe 0</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">71</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">64</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Groupe 1</td>
+<td style="text-align: center;">71</td>
+<td style="text-align: center;">67</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">63</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">57</td>
+<td style="text-align: center;">56</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="annexe-code-r" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Annexe – Code R</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotrix)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epiR)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridisLite)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(binom)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treemap)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psy)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prettyR)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nord)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wesanderson)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qgraph)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pwr)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httpgd)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psy)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>file_qmd <span class="ot">&lt;-</span> <span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">readLines</span>(file_qmd)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># trouver les débuts de chunks R</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>starts <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"^```</span><span class="sc">\\</span><span class="st">{r"</span>, lines)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># trouver les fins de chunks</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>ends   <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"^```</span><span class="sc">\\</span><span class="st">s*$"</span>, lines)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(starts) <span class="sc">!=</span> <span class="fu">length</span>(ends)) {</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Extraction des chunks R impossible : démarcations incohérentes"</span>)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>code_r <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="dv">0</span>)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(starts)) {</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># lignes à l’intérieur du chunk (excluant les balises de début et fin)</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    chunk_lines <span class="ot">&lt;-</span> lines[(starts[i] <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(ends[i] <span class="sc">-</span> <span class="dv">1</span>)]</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># filtrer : garder seulement les lignes qui **ne sont pas des options Quarto**</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    real_code <span class="ot">&lt;-</span> chunk_lines[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"^</span><span class="sc">\\</span><span class="st">s*#</span><span class="sc">\\</span><span class="st">|"</span>, chunk_lines)]</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ajouter au vecteur final</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    code_r <span class="ot">&lt;-</span> <span class="fu">c</span>(code_r, real_code, <span class="st">""</span>)</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>outfile <span class="ot">&lt;-</span> <span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R"</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(code_r, <span class="at">file =</span> outfile, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>scl90 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls"</span>)</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>groupe <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls"</span>)</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>hdrs <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls"</span>)</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(scl90)</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(scl90)</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co"># ordonne chronologiquement les visites pour chaque patient</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>VISIT <span class="ot">&lt;-</span> <span class="fu">factor</span>(scl90<span class="sc">$</span>VISIT,</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"J0"</span>, <span class="st">"J4"</span>, <span class="st">"J7"</span>, <span class="st">"J14"</span>, <span class="st">"J21"</span>, <span class="st">"J28"</span>, <span class="st">"J42"</span>, <span class="st">"J56"</span>),</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="co"># ordonner les visites en fonction du numéro de patient</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>scl90 <span class="ot">&lt;-</span> scl90[<span class="fu">order</span>(scl90<span class="sc">$</span>NUMERO, scl90<span class="sc">$</span>VISIT), ] </span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="co"># identification des doublons </span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>NUMERO[<span class="fu">duplicated</span>(scl90)]</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="co"># nombre de patients uniques</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(scl90<span class="sc">$</span>NUMERO))</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="co"># visualisation des données aberrantes</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(scl90, <span class="dv">2</span>, table, <span class="at">useNA =</span> <span class="st">"always"</span>)</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>scl90[, <span class="dv">3</span><span class="sc">:</span><span class="dv">92</span>][scl90[, <span class="dv">3</span><span class="sc">:</span><span class="dv">92</span>] <span class="sc">&gt;</span> <span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(scl90, <span class="dv">2</span>, table, <span class="at">useNA =</span> <span class="st">"always"</span>)</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="co"># données manquantes</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(scl90))</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="co"># proportion : </span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(scl90)) <span class="sc">/</span> (<span class="fu">nrow</span>(scl90) <span class="sc">*</span> <span class="fu">ncol</span>(scl90))<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="co">#imputation par le mode pour chaque question </span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>scl_questions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">names</span>(<span class="fu">select</span>(scl90,<span class="fu">starts_with</span>(<span class="st">"Q"</span>))))</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (question <span class="cf">in</span> scl_questions) {</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>    original <span class="ot">&lt;-</span> scl90[[question]]</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>    factorized <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(original)</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>    mode_value <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">names</span>(<span class="fu">which.max</span>(<span class="fu">table</span>(factorized))))</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>    imputed <span class="ot">&lt;-</span> original</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>    imputed[<span class="fu">is.na</span>(imputed)] <span class="ot">&lt;-</span> mode_value</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>    scl90[[question]] <span class="ot">&lt;-</span> imputed</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="co"># vérifier qu'il n'y a plus de NA</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(scl90))</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="co"># création des scores moyens par dimension</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>somatisation <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">14</span>,<span class="dv">29</span>,<span class="dv">44</span>,<span class="dv">50</span>,<span class="dv">51</span>,<span class="dv">54</span>,<span class="dv">55</span>,<span class="dv">58</span>,<span class="dv">60</span>,<span class="dv">42</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>symptomes_obsession <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">5</span>,<span class="dv">47</span>,<span class="dv">48</span>,<span class="dv">53</span>,<span class="dv">57</span>,<span class="dv">67</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>vulnerabilite <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">23</span>,<span class="dv">36</span>,<span class="dv">38</span>,<span class="dv">39</span>,<span class="dv">43</span>,<span class="dv">63</span>,<span class="dv">71</span>,<span class="dv">75</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>depression <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">22</span>,<span class="dv">24</span>,<span class="dv">28</span>,<span class="dv">31</span>,<span class="dv">32</span>,<span class="dv">33</span>,<span class="dv">34</span>,<span class="dv">56</span>,<span class="dv">73</span>,<span class="dv">81</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>anxiete <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">19</span>,<span class="dv">25</span>,<span class="dv">35</span>,<span class="dv">41</span>,<span class="dv">59</span>,<span class="dv">74</span>,<span class="dv">80</span>,<span class="dv">82</span>,<span class="dv">88</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>hostilite <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">13</span>,<span class="dv">26</span>,<span class="dv">65</span>,<span class="dv">69</span>,<span class="dv">76</span>,<span class="dv">83</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>phobies <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">15</span>,<span class="dv">27</span>,<span class="dv">49</span>,<span class="dv">72</span>,<span class="dv">77</span>,<span class="dv">84</span>,<span class="dv">52</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>paranoia <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">45</span>,<span class="dv">70</span>,<span class="dv">78</span>,<span class="dv">85</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>psychotique <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">18</span>,<span class="dv">37</span>,<span class="dv">64</span>,<span class="dv">79</span>,<span class="dv">86</span>,<span class="dv">87</span>,<span class="dv">89</span>,<span class="dv">92</span>,<span class="dv">90</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>scl90<span class="sc">$</span>sympt_divers <span class="ot">&lt;-</span> <span class="fu">apply</span>(scl90[,<span class="fu">c</span>(<span class="dv">21</span>,<span class="dv">46</span>,<span class="dv">61</span>,<span class="dv">62</span>,<span class="dv">66</span>,<span class="dv">68</span>,<span class="dv">91</span>)],<span class="dv">1</span>,mean,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="co"># création d'un nouveau dataframe avec uniquement les 10 dimensions</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>dimensions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"somatisation"</span>, <span class="st">"symptomes_obsession"</span>, <span class="st">"vulnerabilite"</span>, <span class="st">"depression"</span>, <span class="st">"anxiete"</span>, <span class="st">"hostilite"</span>, <span class="st">"phobies"</span>, <span class="st">"paranoia"</span>, <span class="st">"psychotique"</span>, <span class="st">"sympt_divers"</span>)</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>scl90_dim <span class="ot">&lt;-</span> scl90[, <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>, dimensions)]</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>hdrs<span class="sc">$</span>VISIT <span class="ot">&lt;-</span> <span class="fu">factor</span>(hdrs<span class="sc">$</span>VISIT,</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"J0"</span>, <span class="st">"J4"</span>, <span class="st">"J7"</span>, <span class="st">"J14"</span>, <span class="st">"J21"</span>, <span class="st">"J28"</span>, <span class="st">"J42"</span>, <span class="st">"J56"</span>),</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="co"># ordonner les visites en fonction du numéro de patient</span></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>hdrs <span class="ot">&lt;-</span> hdrs[<span class="fu">order</span>(hdrs<span class="sc">$</span>NUMERO, hdrs<span class="sc">$</span>VISIT), ] </span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="co"># identification des doublons </span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>hdrs<span class="sc">$</span>NUMERO[<span class="fu">duplicated</span>(hdrs)]</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="co"># nombre de patients uniques</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(hdrs<span class="sc">$</span>NUMERO))</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="co"># fusion des variables HAMD16A et HAMD16B en une seule variable HAMD16</span></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>hdrs<span class="sc">$</span>HAMD16 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(hdrs<span class="sc">$</span>HAMD16A), hdrs<span class="sc">$</span>HAMD16A, hdrs<span class="sc">$</span>HAMD16B)</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(hdrs<span class="sc">$</span>HAMD16, <span class="at">useNA =</span> <span class="st">"ifany"</span>)</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="co"># calcul du score total HDRS</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"HAMD1"</span>,<span class="st">"HAMD2"</span>,<span class="st">"HAMD3"</span>,<span class="st">"HAMD4"</span>,<span class="st">"HAMD5"</span>,<span class="st">"HAMD6"</span>,</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>            <span class="st">"HAMD7"</span>,<span class="st">"HAMD8"</span>,<span class="st">"HAMD9"</span>,<span class="st">"HAMD10"</span>,<span class="st">"HAMD11"</span>,<span class="st">"HAMD12"</span>,</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>            <span class="st">"HAMD13"</span>,<span class="st">"HAMD14"</span>,<span class="st">"HAMD15"</span>, <span class="st">"HAMD16"</span>, <span class="st">"HAMD17"</span>)</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a><span class="co">#renommer la colonne hdrs$HAMD1 en hdrs$humeur_depressive</span></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD1"</span>] <span class="ot">&lt;-</span> <span class="st">"1_humeur_depressive"</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD2"</span>] <span class="ot">&lt;-</span> <span class="st">"2_sentim_culpabilite"</span></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD3"</span>] <span class="ot">&lt;-</span> <span class="st">"3_suicide"</span></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD4"</span>] <span class="ot">&lt;-</span> <span class="st">"4_insomnie_debut"</span></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD5"</span>] <span class="ot">&lt;-</span> <span class="st">"5_insomnie_milieu"</span></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD6"</span>] <span class="ot">&lt;-</span> <span class="st">"6_insomnie_matin"</span></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD7"</span>] <span class="ot">&lt;-</span> <span class="st">"7_travail_activite"</span></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD8"</span>] <span class="ot">&lt;-</span> <span class="st">"8_ralentissement"</span></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD9"</span>] <span class="ot">&lt;-</span> <span class="st">"9_agitation"</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD10"</span>] <span class="ot">&lt;-</span> <span class="st">"10_anxiete_psychique"</span></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD11"</span>] <span class="ot">&lt;-</span> <span class="st">"11_anxiete_somatique"</span></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD12"</span>] <span class="ot">&lt;-</span> <span class="st">"12_symptomes_gastro"</span></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD13"</span>] <span class="ot">&lt;-</span> <span class="st">"13_symptomes_generaux"</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD14"</span>] <span class="ot">&lt;-</span> <span class="st">"14_symptomes_genitaux"</span></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD15"</span>] <span class="ot">&lt;-</span> <span class="st">"15_hypochondrie"</span></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD16"</span>] <span class="ot">&lt;-</span> <span class="st">"16_perte_poids"</span></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs)[<span class="fu">colnames</span>(hdrs) <span class="sc">==</span> <span class="st">"HAMD17"</span>] <span class="ot">&lt;-</span> <span class="st">"17_prise_conscience"</span></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="co"># calcul du score total HDRS</span></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>hdrs_items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1_humeur_depressive"</span>,<span class="st">"2_sentim_culpabilite"</span>,<span class="st">"3_suicide"</span>,<span class="st">"4_insomnie_debut"</span>,<span class="st">"5_insomnie_milieu"</span>,<span class="st">"6_insomnie_matin"</span>,<span class="st">"7_travail_activite"</span>,<span class="st">"8_ralentissement"</span>,<span class="st">"9_agitation"</span>,<span class="st">"10_anxiete_psychique"</span>,<span class="st">"11_anxiete_somatique"</span>,<span class="st">"12_symptomes_gastro"</span>,<span class="st">"13_symptomes_generaux"</span>,<span class="st">"14_symptomes_genitaux"</span>,<span class="st">"15_hypochondrie"</span>,<span class="st">"16_perte_poids"</span>,<span class="st">"17_prise_conscience"</span>)</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>hdrs<span class="sc">$</span>score <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(hdrs[, hdrs_items], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="co"># supprimer la ligne 741 de hdrs</span></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>hdrs <span class="ot">&lt;-</span> hdrs[<span class="sc">-</span><span class="dv">741</span>, ]</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a><span class="co"># supprimer HAMD16A et HAMD16B si présentes</span></span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>hdrs <span class="ot">&lt;-</span> hdrs[, <span class="fu">setdiff</span>(<span class="fu">names</span>(hdrs), <span class="fu">c</span>(<span class="st">"HAMD16A"</span>, <span class="st">"HAMD16B"</span>))]</span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(groupe)</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(groupe)</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>groupe<span class="sc">$</span>NUMERO[<span class="fu">duplicated</span>(groupe)]</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(groupe<span class="sc">$</span>NUMERO))</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="co"># ordonner en fonction du numéro de patient</span></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>groupe <span class="ot">&lt;-</span> groupe[<span class="fu">order</span>(groupe<span class="sc">$</span>NUMERO), ] <span class="co"># Questions 1 et 2</span></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a><span class="co"># fusion des 3 dataframes</span></span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>hdrs_groupe <span class="ot">&lt;-</span> <span class="fu">merge</span>(hdrs, groupe, <span class="at">by =</span> <span class="st">"NUMERO"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>scl90_groupe <span class="ot">&lt;-</span> <span class="fu">merge</span>(scl90, groupe, <span class="at">by =</span> <span class="st">"NUMERO"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>df_total_wide <span class="ot">&lt;-</span> <span class="fu">merge</span>(hdrs_groupe, scl90, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>), <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a><span class="do">## HDRS -&gt; long</span></span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>hdrs_long <span class="ot">&lt;-</span> <span class="fu">melt</span>(</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>    hdrs_groupe,</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>    <span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>, <span class="st">"GROUPE"</span>),</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable.name =</span> <span class="st">"item"</span>,</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>    <span class="at">value.name =</span> <span class="st">"value"</span></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="do">## SCL90 -&gt; long</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>scl90_long <span class="ot">&lt;-</span> <span class="fu">melt</span>(</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>    scl90_groupe,</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>    <span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>, <span class="st">"GROUPE"</span>),</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable.name =</span> <span class="st">"item"</span>,</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>    <span class="at">value.name =</span> <span class="st">"value"</span></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a><span class="do">## TOTAL (HDRS + SCL90) -&gt; long</span></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>df_total_long <span class="ot">&lt;-</span> <span class="fu">melt</span>(</span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>    df_total_wide,</span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>    <span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>, <span class="st">"GROUPE"</span>),</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable.name =</span> <span class="st">"item"</span>,</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>    <span class="at">value.name =</span> <span class="st">"value"</span></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>hdrs_J0 <span class="ot">&lt;-</span> <span class="fu">subset</span>(hdrs_groupe, VISIT <span class="sc">==</span> <span class="st">"J0"</span>)</span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a><span class="co"># Vraie palette Nord (package nord)</span></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a><span class="co"># On prend une palette qualitative (frost) et on l’étend à 5 couleurs</span></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>cols_nord <span class="ot">&lt;-</span> nord<span class="sc">::</span><span class="fu">nord</span>(<span class="st">"frost"</span>, <span class="dv">5</span>)</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a><span class="co"># Première série de graphiques (9 au maximum)</span></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>items1 <span class="ot">&lt;-</span> hdrs_items[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(<span class="dv">9</span>, <span class="fu">length</span>(hdrs_items))]</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (item <span class="cf">in</span> items1) {</span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>    val <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(hdrs_J0[[item]])</span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(val) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>        m <span class="ot">&lt;-</span> <span class="fu">max</span>(val)</span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hist</span>(val,</span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> item,</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="st">"Score"</span>,</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> cols_nord[<span class="dv">1</span><span class="sc">:</span>(m <span class="sc">+</span> <span class="dv">1</span>)],</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>            <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>            <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>, m <span class="sc">+</span> <span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>            <span class="at">xaxt =</span> <span class="st">"n"</span>)</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>        <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span>m)</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot.new</span>()</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>        <span class="fu">title</span>(<span class="at">main =</span> <span class="fu">paste</span>(item, <span class="st">"(pas de données)"</span>))</span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a><span class="co"># Deuxième série de graphiques (8 au maximum, de 10 à 17)</span></span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(hdrs_items) <span class="sc">&gt;</span> <span class="dv">9</span>) {</span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>    items2 <span class="ot">&lt;-</span> hdrs_items[<span class="dv">10</span><span class="sc">:</span><span class="fu">min</span>(<span class="dv">17</span>, <span class="fu">length</span>(hdrs_items))]</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (item <span class="cf">in</span> items2) {</span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>        val <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(hdrs_J0[[item]])</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(val) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>        m <span class="ot">&lt;-</span> <span class="fu">max</span>(val)</span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hist</span>(val,</span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> item,</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="st">"Score"</span>,</span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> cols_nord[<span class="dv">1</span><span class="sc">:</span>(m <span class="sc">+</span> <span class="dv">1</span>)],</span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>            <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>            <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>, m <span class="sc">+</span> <span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>            <span class="at">xaxt =</span> <span class="st">"n"</span>)</span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>        <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span>m)</span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot.new</span>()</span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>        <span class="fu">title</span>(<span class="at">main =</span> <span class="fu">paste</span>(item, <span class="st">"(pas de données)"</span>))</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>hdrs_J0_matrix <span class="ot">&lt;-</span> hdrs_J0[, hdrs_items]</span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>corr_matrix_J0 <span class="ot">&lt;-</span> <span class="fu">cor</span>(hdrs_J0_matrix, <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix_J0,</span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a>            <span class="at">method =</span> <span class="st">"color"</span>,</span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>            <span class="at">type =</span> <span class="st">"upper"</span>,</span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>            <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>            <span class="at">addCoef.col =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>            <span class="at">number.cex =</span> <span class="fl">0.35</span>,</span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a>            <span class="at">tl.cex =</span> <span class="fl">0.6</span>,</span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a>            <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> viridis<span class="sc">::</span><span class="fu">plasma</span>(<span class="dv">100</span>)</span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a><span class="co">#renommer les noms des variables dans un nouveau df copié pour éviter la superposition</span></span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>hdrs_J0_PCA <span class="ot">&lt;-</span> hdrs_J0[,<span class="fu">c</span>(hdrs_items)]</span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs_J0_PCA) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"3"</span>,<span class="st">"4"</span>,<span class="st">"5"</span>,<span class="st">"6"</span>,</span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"7"</span>,<span class="st">"8"</span>,<span class="st">"9"</span>,<span class="st">"10"</span>,<span class="st">"11"</span>,<span class="st">"12"</span>,</span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"13"</span>,<span class="st">"14"</span>,<span class="st">"15"</span>, <span class="st">"16"</span>, <span class="st">"17"</span>)</span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a><span class="fu">mdspca</span>(hdrs_J0_PCA)</span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hdrs_J0[,<span class="fu">c</span>(hdrs_items)])</span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a><span class="fu">scree.plot</span>(hdrs_J0[,<span class="fu">c</span>(hdrs_items)], <span class="at">simu=</span><span class="dv">20</span>, <span class="at">use =</span> <span class="st">"P"</span>)</span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a>af_J0 <span class="ot">&lt;-</span> <span class="fu">factanal</span>(</span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a>    <span class="fu">na.omit</span>(hdrs_J0[hdrs_items]),</span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a>    <span class="at">factors =</span> <span class="dv">3</span>,</span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a>    <span class="at">rotation =</span> <span class="st">"varimax"</span></span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction propre des loadings</span></span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>loadings_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">unclass</span>(af_J0<span class="sc">$</span>loadings))</span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Création explicite de la colonne Variable à partir des rownames</span></span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>loadings_df<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="fu">rownames</span>(loadings_df)</span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a><span class="co"># Suppression des rownames pour éviter toute ambiguïté</span></span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(loadings_df) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a><span class="co"># Réorganisation : Variable en première colonne</span></span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a>loadings_df <span class="ot">&lt;-</span> loadings_df[, <span class="fu">c</span>(<span class="st">"Variable"</span>, <span class="fu">colnames</span>(loadings_df)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])]</span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrondi</span></span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>loadings_df[, <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(loadings_df[, <span class="sc">-</span><span class="dv">1</span>], <span class="dv">3</span>)</span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage LaTeX</span></span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>    loadings_df,</span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Contribution des facteurs à la variance de la réponse à chaque item du score de Hamilton évalué à J0 (analyse factorielle avec rotation varimax à 3 facteurs)"</span>,</span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>    <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"lccc"</span></span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a>hdrs_J0<span class="sc">$</span>f1_somatique <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"8_ralentissement"</span>,<span class="st">"12_symptomes_gastro"</span>,<span class="st">"14_symptomes_genitaux"</span>,<span class="st">"16_perte_poids"</span>)], <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>hdrs_J0<span class="sc">$</span>f2_asthenie <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"4_insomnie_debut"</span>,<span class="st">"13_symptomes_generaux"</span>)], <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>hdrs_J0<span class="sc">$</span>f3_depressif <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"1_humeur_depressive"</span>,<span class="st">"2_sentim_culpabilite"</span>,<span class="st">"3_suicide"</span>,<span class="st">"5_insomnie_milieu"</span>,<span class="st">"6_insomnie_matin"</span>,<span class="st">"7_travail_activite"</span>,<span class="st">"9_agitation"</span>,<span class="st">"10_anxiete_psychique"</span>,<span class="st">"11_anxiete_somatique"</span>,<span class="st">"15_hypochondrie"</span>,<span class="st">"17_prise_conscience"</span>)], <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>hdrs_J0_subscores <span class="ot">&lt;-</span> hdrs_J0[,<span class="fu">c</span>(<span class="st">"f1_somatique"</span>,<span class="st">"f2_asthenie"</span>,<span class="st">"f3_depressif"</span>)]</span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs_J0_subscores) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"F1_somatique"</span>,<span class="st">"F2_asthenie"</span>,<span class="st">"F3_depressif"</span>)</span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a><span class="fu">mdspca</span>(hdrs_J0_subscores)</span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a>df_fpca <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a>    <span class="at">score_total =</span> hdrs_J0<span class="sc">$</span>score,</span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a>    hdrs_J0_subscores</span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a><span class="fu">fpca</span>(</span>
+<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a>    score_total <span class="sc">~</span> .,</span>
+<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> df_fpca</span>
+<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a><span class="fu">cronbach</span>(hdrs_J0[,hdrs_items])</span>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a><span class="fu">cronbach</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"8_ralentissement"</span>,<span class="st">"12_symptomes_gastro"</span>,<span class="st">"14_symptomes_genitaux"</span>,<span class="st">"16_perte_poids"</span>)])</span>
+<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a><span class="fu">cronbach</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"4_insomnie_debut"</span>,<span class="st">"13_symptomes_generaux"</span>)])</span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a><span class="fu">cronbach</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"1_humeur_depressive"</span>,<span class="st">"2_sentim_culpabilite"</span>,<span class="st">"3_suicide"</span>,<span class="st">"5_insomnie_milieu"</span>,<span class="st">"6_insomnie_matin"</span>,<span class="st">"7_travail_activite"</span>,<span class="st">"9_agitation"</span>,<span class="st">"10_anxiete_psychique"</span>,<span class="st">"11_anxiete_somatique"</span>,<span class="st">"15_hypochondrie"</span>,<span class="st">"17_prise_conscience"</span>)])</span>
+<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a><span class="co">#estimation des IC par bootstrap </span></span>
+<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a>alpha_bootstrap <span class="ot">&lt;-</span> <span class="cf">function</span>(data, indices) {</span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> data[indices, ]</span>
+<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">cronbach</span>(d)<span class="sc">$</span>alpha)</span>
+<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a><span class="co"># Alpha global</span></span>
+<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a>boot_alpha_global <span class="ot">&lt;-</span> <span class="fu">boot</span>(hdrs_J0[,hdrs_items], alpha_bootstrap, <span class="at">R =</span> <span class="dv">1000</span>)</span>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(boot_alpha_global, <span class="at">type =</span> <span class="st">"bca"</span>)</span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a><span class="co"># Facteur 1</span></span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a>boot_alpha_f1 <span class="ot">&lt;-</span> <span class="fu">boot</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"8_ralentissement"</span>,<span class="st">"12_symptomes_gastro"</span>,<span class="st">"14_symptomes_genitaux"</span>,<span class="st">"16_perte_poids"</span>)], alpha_bootstrap, <span class="at">R =</span> <span class="dv">1000</span>)</span>
+<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(boot_alpha_f1, <span class="at">type =</span> <span class="st">"bca"</span>)</span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a><span class="co"># Facteur 2</span></span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a>boot_alpha_f2 <span class="ot">&lt;-</span> <span class="fu">boot</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"4_insomnie_debut"</span>,<span class="st">"13_symptomes_generaux"</span>)], alpha_bootstrap, <span class="at">R =</span> <span class="dv">1000</span>)</span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(boot_alpha_f2, <span class="at">type =</span> <span class="st">"bca"</span>)</span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a><span class="co"># Facteur 3</span></span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a>boot_alpha_f3 <span class="ot">&lt;-</span> <span class="fu">boot</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"1_humeur_depressive"</span>,<span class="st">"2_sentim_culpabilite"</span>,<span class="st">"3_suicide"</span>,<span class="st">"5_insomnie_milieu"</span>,<span class="st">"6_insomnie_matin"</span>,<span class="st">"7_travail_activite"</span>,<span class="st">"9_agitation"</span>,<span class="st">"10_anxiete_psychique"</span>,<span class="st">"11_anxiete_somatique"</span>,<span class="st">"15_hypochondrie"</span>,<span class="st">"17_prise_conscience"</span>)], alpha_bootstrap, <span class="at">R =</span> <span class="dv">1000</span>)</span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(boot_alpha_f3, <span class="at">type =</span> <span class="st">"bca"</span>)</span>
+<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a><span class="co">#représentation des alpha de Cronbach avec IC en tableau</span></span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a>alpha_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a>    <span class="at">Scale =</span> <span class="fu">c</span>(<span class="st">"Global"</span>, <span class="st">"F1_somatique"</span>, <span class="st">"F2_asthenie"</span>, <span class="st">"F3_depressif"</span>),</span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a>    <span class="at">Alpha =</span> <span class="fu">c</span>(</span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">cronbach</span>(hdrs_J0[,hdrs_items])<span class="sc">$</span>alpha, <span class="dv">3</span>),</span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">cronbach</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"8_ralentissement"</span>,<span class="st">"12_symptomes_gastro"</span>,<span class="st">"14_symptomes_genitaux"</span>,<span class="st">"16_perte_poids"</span>)])<span class="sc">$</span>alpha, <span class="dv">3</span>),</span>
+<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">cronbach</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"4_insomnie_debut"</span>,<span class="st">"13_symptomes_generaux"</span>)])<span class="sc">$</span>alpha, <span class="dv">3</span>),</span>
+<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">cronbach</span>(hdrs_J0[,<span class="fu">c</span>(<span class="st">"1_humeur_depressive"</span>,<span class="st">"2_sentim_culpabilite"</span>,<span class="st">"3_suicide"</span>,<span class="st">"5_insomnie_milieu"</span>,<span class="st">"6_insomnie_matin"</span>,<span class="st">"7_travail_activite"</span>,<span class="st">"9_agitation"</span>,<span class="st">"10_anxiete_psychique"</span>,<span class="st">"11_anxiete_somatique"</span>,<span class="st">"15_hypochondrie"</span>,<span class="st">"17_prise_conscience"</span>)])<span class="sc">$</span>alpha, <span class="dv">3</span>)</span>
+<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_lower =</span> <span class="fu">c</span>(</span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_global, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">4</span>], <span class="dv">3</span>),</span>
+<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_f1, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">4</span>], <span class="dv">3</span>),</span>
+<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_f2, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">4</span>], <span class="dv">3</span>),</span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_f3, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">4</span>], <span class="dv">3</span>)</span>
+<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_upper =</span> <span class="fu">c</span>(</span>
+<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_global, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">5</span>], <span class="dv">3</span>),</span>
+<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_f1, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">5</span>], <span class="dv">3</span>),</span>
+<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_f2, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">5</span>], <span class="dv">3</span>),</span>
+<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_f3, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">5</span>], <span class="dv">3</span>)</span>
+<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a>    alpha_df,</span>
+<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Alpha de Cronbach et intervalles de confiance à 95% pour l'échelle de Hamilton à J0 et ses sous-échelles"</span>,</span>
+<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a>    <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"lccc"</span></span>
+<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a><span class="co">#création fichier large avec hdrs_J0 et scl90_dim à J0</span></span>
+<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a>scl90_J0 <span class="ot">&lt;-</span> <span class="fu">subset</span>(scl90_dim, VISIT <span class="sc">==</span> <span class="st">"J0"</span>)</span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a>scl90_J0 <span class="ot">&lt;-</span> scl90_J0[,<span class="fu">c</span>(<span class="st">"NUMERO"</span>,<span class="st">"VISIT"</span>,dimensions)]</span>
+<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a>scl90_J0 <span class="ot">&lt;-</span> scl90_J0[<span class="fu">order</span>(scl90_J0<span class="sc">$</span>NUMERO), ]</span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a>hdrs_J0 <span class="ot">&lt;-</span> hdrs_J0[<span class="fu">order</span>(hdrs_J0<span class="sc">$</span>NUMERO), ]</span>
+<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a>hdrs_scl90_J0 <span class="ot">&lt;-</span> <span class="fu">merge</span>(hdrs_J0, scl90_J0, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>), <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrice de corrélation complète</span></span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a>corr_validite_J0 <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a>    hdrs_scl90_J0[, <span class="fu">c</span>(<span class="st">"score"</span>, dimensions)],</span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a>    <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span></span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a><span class="co"># Corrplot</span></span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(</span>
+<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a>    corr_validite_J0[<span class="st">"score"</span>, , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"color"</span>,</span>
+<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"full"</span>,</span>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a>    <span class="at">addCoef.col =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a>    <span class="at">number.cex =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl.cex =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl.srt =</span> <span class="dv">30</span>,</span>
+<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> viridis<span class="sc">::</span><span class="fu">plasma</span>(<span class="dv">100</span>)</span>
+<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a>corr_validité_sousscores_J0 <span class="ot">&lt;-</span> <span class="fu">cor</span>(hdrs_scl90_J0[,<span class="fu">c</span>(<span class="st">"f1_somatique"</span>,<span class="st">"f2_asthenie"</span>,<span class="st">"f3_depressif"</span>, dimensions)], <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a><span class="co"># Corrplot</span></span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(</span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a>    corr_validité_sousscores_J0[<span class="fu">c</span>(<span class="st">"f1_somatique"</span>,<span class="st">"f2_asthenie"</span>,<span class="st">"f3_depressif"</span>), , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"color"</span>,</span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"full"</span>,</span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a>    <span class="at">addCoef.col =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a>    <span class="at">number.cex =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl.cex =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl.srt =</span> <span class="dv">30</span>,</span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> viridis<span class="sc">::</span><span class="fu">plasma</span>(<span class="dv">100</span>)</span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a>hdrs_J56 <span class="ot">&lt;-</span> <span class="fu">subset</span>(hdrs_groupe, VISIT <span class="sc">==</span> <span class="st">"J56"</span>)</span>
+<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a><span class="co"># Vraie palette Nord (package nord)</span></span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a><span class="co"># On prend une palette qualitative (aurora) et on l’étend à 5 couleurs</span></span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a>cols_nord <span class="ot">&lt;-</span> nord<span class="sc">::</span><span class="fu">nord</span>(<span class="st">"aurora"</span>, <span class="dv">5</span>)</span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a><span class="co"># Première série de graphiques (9 au maximum)</span></span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a>items1 <span class="ot">&lt;-</span> hdrs_items[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(<span class="dv">9</span>, <span class="fu">length</span>(hdrs_items))]</span>
+<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (item <span class="cf">in</span> items1) {</span>
+<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a>    val <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(hdrs_J56[[item]])</span>
+<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(val) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a>        m <span class="ot">&lt;-</span> <span class="fu">max</span>(val)</span>
+<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hist</span>(val,</span>
+<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> item,</span>
+<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="st">"Score"</span>,</span>
+<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> cols_nord[<span class="dv">1</span><span class="sc">:</span>(m <span class="sc">+</span> <span class="dv">1</span>)],</span>
+<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a>            <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a>            <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>, m <span class="sc">+</span> <span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a>            <span class="at">xaxt =</span> <span class="st">"n"</span>)</span>
+<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a>        <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span>m)</span>
+<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot.new</span>()</span>
+<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a>        <span class="fu">title</span>(<span class="at">main =</span> <span class="fu">paste</span>(item, <span class="st">"(pas de données)"</span>))</span>
+<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a><span class="co"># Deuxième série de graphiques (8 au maximum, de 10 à 17)</span></span>
+<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(hdrs_items) <span class="sc">&gt;</span> <span class="dv">9</span>) {</span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a>    items2 <span class="ot">&lt;-</span> hdrs_items[<span class="dv">10</span><span class="sc">:</span><span class="fu">min</span>(<span class="dv">17</span>, <span class="fu">length</span>(hdrs_items))]</span>
+<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (item <span class="cf">in</span> items2) {</span>
+<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a>        val <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(hdrs_J56[[item]])</span>
+<span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(val) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a>        m <span class="ot">&lt;-</span> <span class="fu">max</span>(val)</span>
+<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hist</span>(val,</span>
+<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> item,</span>
+<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="st">"Score"</span>,</span>
+<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> cols_nord[<span class="dv">1</span><span class="sc">:</span>(m <span class="sc">+</span> <span class="dv">1</span>)],</span>
+<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a>            <span class="at">border =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a>            <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>, m <span class="sc">+</span> <span class="fl">0.5</span>, <span class="dv">1</span>),</span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a>            <span class="at">xaxt =</span> <span class="st">"n"</span>)</span>
+<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a>        <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span>m)</span>
+<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot.new</span>()</span>
+<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a>        <span class="fu">title</span>(<span class="at">main =</span> <span class="fu">paste</span>(item, <span class="st">"(pas de données)"</span>))</span>
+<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a>hdrs_J56_matrix <span class="ot">&lt;-</span> hdrs_J56[, hdrs_items]</span>
+<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a>corr_matrix_J56 <span class="ot">&lt;-</span> <span class="fu">cor</span>(hdrs_J56_matrix, <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
+<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix_J56,</span>
+<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a>            <span class="at">method =</span> <span class="st">"color"</span>,</span>
+<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a>            <span class="at">type =</span> <span class="st">"upper"</span>,</span>
+<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a>            <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a>            <span class="at">addCoef.col =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a>            <span class="at">number.cex =</span> <span class="fl">0.35</span>,</span>
+<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a>            <span class="at">tl.cex =</span> <span class="fl">0.6</span>,</span>
+<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a>            <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
+<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> viridis<span class="sc">::</span><span class="fu">plasma</span>(<span class="dv">100</span>)</span>
+<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a><span class="co">#renommer les noms des variables dans un nouveau df copié pour éviter la superposition</span></span>
+<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a>hdrs_J56_PCA <span class="ot">&lt;-</span> hdrs_J56[,<span class="fu">c</span>(hdrs_items)]</span>
+<span id="cb1-507"><a href="#cb1-507" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hdrs_J56_PCA) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"3"</span>,<span class="st">"4"</span>,<span class="st">"5"</span>,<span class="st">"6"</span>,</span>
+<span id="cb1-508"><a href="#cb1-508" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"7"</span>,<span class="st">"8"</span>,<span class="st">"9"</span>,<span class="st">"10"</span>,<span class="st">"11"</span>,<span class="st">"12"</span>,</span>
+<span id="cb1-509"><a href="#cb1-509" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"13"</span>,<span class="st">"14"</span>,<span class="st">"15"</span>, <span class="st">"16"</span>, <span class="st">"17"</span>)</span>
+<span id="cb1-510"><a href="#cb1-510" aria-hidden="true" tabindex="-1"></a><span class="fu">mdspca</span>(hdrs_J56_PCA)</span>
+<span id="cb1-511"><a href="#cb1-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-512"><a href="#cb1-512" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hdrs_J56[,<span class="fu">c</span>(hdrs_items)])</span>
+<span id="cb1-513"><a href="#cb1-513" aria-hidden="true" tabindex="-1"></a><span class="fu">scree.plot</span>(hdrs_J56[,<span class="fu">c</span>(hdrs_items)], <span class="at">simu=</span><span class="dv">20</span>, <span class="at">use =</span> <span class="st">"P"</span>)</span>
+<span id="cb1-514"><a href="#cb1-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-515"><a href="#cb1-515" aria-hidden="true" tabindex="-1"></a>af_J56 <span class="ot">&lt;-</span> <span class="fu">factanal</span>(</span>
+<span id="cb1-516"><a href="#cb1-516" aria-hidden="true" tabindex="-1"></a>    <span class="fu">na.omit</span>(hdrs_J56[hdrs_items]),</span>
+<span id="cb1-517"><a href="#cb1-517" aria-hidden="true" tabindex="-1"></a>    <span class="at">factors =</span> <span class="dv">1</span>,</span>
+<span id="cb1-518"><a href="#cb1-518" aria-hidden="true" tabindex="-1"></a>    <span class="at">rotation =</span> <span class="st">"varimax"</span></span>
+<span id="cb1-519"><a href="#cb1-519" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-520"><a href="#cb1-520" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction propre des loadings</span></span>
+<span id="cb1-521"><a href="#cb1-521" aria-hidden="true" tabindex="-1"></a>loadings_df_J56 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">unclass</span>(af_J56<span class="sc">$</span>loadings))</span>
+<span id="cb1-522"><a href="#cb1-522" aria-hidden="true" tabindex="-1"></a><span class="co"># Création explicite de la colonne Variable à partir des rownames</span></span>
+<span id="cb1-523"><a href="#cb1-523" aria-hidden="true" tabindex="-1"></a>loadings_df_J56<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="fu">rownames</span>(loadings_df_J56)</span>
+<span id="cb1-524"><a href="#cb1-524" aria-hidden="true" tabindex="-1"></a><span class="co"># Suppression des rownames pour éviter toute ambiguïté</span></span>
+<span id="cb1-525"><a href="#cb1-525" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(loadings_df_J56) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-526"><a href="#cb1-526" aria-hidden="true" tabindex="-1"></a><span class="co"># Réorganisation : Variable en première colonne</span></span>
+<span id="cb1-527"><a href="#cb1-527" aria-hidden="true" tabindex="-1"></a>loadings_df_J56 <span class="ot">&lt;-</span> loadings_df_J56[, <span class="fu">c</span>(<span class="st">"Variable"</span>, <span class="fu">colnames</span>(loadings_df_J56)[<span class="dv">1</span>])]</span>
+<span id="cb1-528"><a href="#cb1-528" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrondi</span></span>
+<span id="cb1-529"><a href="#cb1-529" aria-hidden="true" tabindex="-1"></a>loadings_df_J56[, <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(loadings_df_J56[, <span class="sc">-</span><span class="dv">1</span>], <span class="dv">3</span>)</span>
+<span id="cb1-530"><a href="#cb1-530" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage LaTeX</span></span>
+<span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb1-532"><a href="#cb1-532" aria-hidden="true" tabindex="-1"></a>    loadings_df_J56,</span>
+<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Contribution du facteur unique à la variance de la réponse à chaque item du score de Hamilton évalué à J56 (analyse factorielle avec rotation varimax à 1 facteur)"</span>,</span>
+<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a>    <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"lccc"</span></span>
+<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-537"><a href="#cb1-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-538"><a href="#cb1-538" aria-hidden="true" tabindex="-1"></a><span class="fu">cronbach</span>(hdrs_J56[,hdrs_items])</span>
+<span id="cb1-539"><a href="#cb1-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-540"><a href="#cb1-540" aria-hidden="true" tabindex="-1"></a><span class="co">#estimation des IC par bootstrap</span></span>
+<span id="cb1-541"><a href="#cb1-541" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-542"><a href="#cb1-542" aria-hidden="true" tabindex="-1"></a>boot_alpha_J56 <span class="ot">&lt;-</span> <span class="fu">boot</span>(hdrs_J56[,hdrs_items], alpha_bootstrap, <span class="at">R =</span> <span class="dv">1000</span>)</span>
+<span id="cb1-543"><a href="#cb1-543" aria-hidden="true" tabindex="-1"></a><span class="fu">boot.ci</span>(boot_alpha_J56, <span class="at">type =</span> <span class="st">"bca"</span>)</span>
+<span id="cb1-544"><a href="#cb1-544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-545"><a href="#cb1-545" aria-hidden="true" tabindex="-1"></a><span class="co">#représentation des alpha de Cronbach avec IC en tableau</span></span>
+<span id="cb1-546"><a href="#cb1-546" aria-hidden="true" tabindex="-1"></a>alpha_J56_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-547"><a href="#cb1-547" aria-hidden="true" tabindex="-1"></a>    <span class="at">Scale =</span> <span class="fu">c</span>(<span class="st">"Global"</span>),</span>
+<span id="cb1-548"><a href="#cb1-548" aria-hidden="true" tabindex="-1"></a>    <span class="at">Alpha =</span> <span class="fu">c</span>(</span>
+<span id="cb1-549"><a href="#cb1-549" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">cronbach</span>(hdrs_J56[,hdrs_items])<span class="sc">$</span>alpha, <span class="dv">3</span>)</span>
+<span id="cb1-550"><a href="#cb1-550" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-551"><a href="#cb1-551" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_lower =</span> <span class="fu">c</span>(</span>
+<span id="cb1-552"><a href="#cb1-552" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_J56, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">4</span>], <span class="dv">2</span>)</span>
+<span id="cb1-553"><a href="#cb1-553" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-554"><a href="#cb1-554" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_upper =</span> <span class="fu">c</span>(</span>
+<span id="cb1-555"><a href="#cb1-555" aria-hidden="true" tabindex="-1"></a>        <span class="fu">round</span>(<span class="fu">boot.ci</span>(boot_alpha_J56, <span class="at">type =</span> <span class="st">"bca"</span>)<span class="sc">$</span>bca[<span class="dv">5</span>], <span class="dv">2</span>)</span>
+<span id="cb1-556"><a href="#cb1-556" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-557"><a href="#cb1-557" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-558"><a href="#cb1-558" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb1-559"><a href="#cb1-559" aria-hidden="true" tabindex="-1"></a>    alpha_J56_df,</span>
+<span id="cb1-560"><a href="#cb1-560" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Alpha de Cronbach et intervalle de confiance à 95% pour l'échelle de Hamilton à J56"</span>,</span>
+<span id="cb1-561"><a href="#cb1-561" aria-hidden="true" tabindex="-1"></a>    <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"lccc"</span></span>
+<span id="cb1-563"><a href="#cb1-563" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-564"><a href="#cb1-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-565"><a href="#cb1-565" aria-hidden="true" tabindex="-1"></a><span class="co">#création fichier large avec hdrs_J56 et scl90_dim à J56</span></span>
+<span id="cb1-566"><a href="#cb1-566" aria-hidden="true" tabindex="-1"></a>scl90_J56 <span class="ot">&lt;-</span> <span class="fu">subset</span>(scl90_dim, VISIT <span class="sc">==</span> <span class="st">"J56"</span>)</span>
+<span id="cb1-567"><a href="#cb1-567" aria-hidden="true" tabindex="-1"></a>scl90_J56 <span class="ot">&lt;-</span> scl90_J56[,<span class="fu">c</span>(<span class="st">"NUMERO"</span>,<span class="st">"VISIT"</span>,dimensions)]</span>
+<span id="cb1-568"><a href="#cb1-568" aria-hidden="true" tabindex="-1"></a>scl90_J56 <span class="ot">&lt;-</span> scl90_J56[<span class="fu">order</span>(scl90_J56<span class="sc">$</span>NUMERO), ]</span>
+<span id="cb1-569"><a href="#cb1-569" aria-hidden="true" tabindex="-1"></a>hdrs_J56 <span class="ot">&lt;-</span> hdrs_J56[<span class="fu">order</span>(hdrs_J56<span class="sc">$</span>NUMERO), ]</span>
+<span id="cb1-570"><a href="#cb1-570" aria-hidden="true" tabindex="-1"></a>hdrs_scl90_J56 <span class="ot">&lt;-</span> <span class="fu">merge</span>(hdrs_J56, scl90_J56, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"NUMERO"</span>, <span class="st">"VISIT"</span>), <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-571"><a href="#cb1-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-572"><a href="#cb1-572" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrice de corrélation complète</span></span>
+<span id="cb1-573"><a href="#cb1-573" aria-hidden="true" tabindex="-1"></a>corr_validite_J56 <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
+<span id="cb1-574"><a href="#cb1-574" aria-hidden="true" tabindex="-1"></a>    hdrs_scl90_J56[, <span class="fu">c</span>(<span class="st">"score"</span>, dimensions)],</span>
+<span id="cb1-575"><a href="#cb1-575" aria-hidden="true" tabindex="-1"></a>    <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span></span>
+<span id="cb1-576"><a href="#cb1-576" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-577"><a href="#cb1-577" aria-hidden="true" tabindex="-1"></a><span class="co"># Corrplot</span></span>
+<span id="cb1-578"><a href="#cb1-578" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(</span>
+<span id="cb1-579"><a href="#cb1-579" aria-hidden="true" tabindex="-1"></a>    corr_validite_J56[<span class="st">"score"</span>, , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb1-580"><a href="#cb1-580" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"color"</span>,</span>
+<span id="cb1-581"><a href="#cb1-581" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"full"</span>,</span>
+<span id="cb1-582"><a href="#cb1-582" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb1-583"><a href="#cb1-583" aria-hidden="true" tabindex="-1"></a>    <span class="at">addCoef.col =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-584"><a href="#cb1-584" aria-hidden="true" tabindex="-1"></a>    <span class="at">number.cex =</span> <span class="fl">0.65</span>,</span>
+<span id="cb1-585"><a href="#cb1-585" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl.cex =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1-586"><a href="#cb1-586" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl.srt =</span> <span class="dv">25</span>,</span>
+<span id="cb1-587"><a href="#cb1-587" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> viridis<span class="sc">::</span><span class="fu">magma</span>(<span class="dv">100</span>)</span>
+<span id="cb1-588"><a href="#cb1-588" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-589"><a href="#cb1-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-590"><a href="#cb1-590" aria-hidden="true" tabindex="-1"></a>df_fpca_J56 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-591"><a href="#cb1-591" aria-hidden="true" tabindex="-1"></a>    <span class="at">score_total =</span> hdrs_scl90_J56<span class="sc">$</span>score,</span>
+<span id="cb1-592"><a href="#cb1-592" aria-hidden="true" tabindex="-1"></a>    hdrs_scl90_J56[, dimensions]</span>
+<span id="cb1-593"><a href="#cb1-593" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-594"><a href="#cb1-594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-595"><a href="#cb1-595" aria-hidden="true" tabindex="-1"></a><span class="fu">fpca</span>(</span>
+<span id="cb1-596"><a href="#cb1-596" aria-hidden="true" tabindex="-1"></a>    score_total <span class="sc">~</span> .,</span>
+<span id="cb1-597"><a href="#cb1-597" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> df_fpca_J56</span>
+<span id="cb1-598"><a href="#cb1-598" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-599"><a href="#cb1-599" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-600"><a href="#cb1-600" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-601"><a href="#cb1-601" aria-hidden="true" tabindex="-1"></a>hdrs_J0_grouped <span class="ot">&lt;-</span> hdrs_J0 <span class="sc">%&gt;%</span></span>
+<span id="cb1-602"><a href="#cb1-602" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(GROUPE) <span class="sc">%&gt;%</span></span>
+<span id="cb1-603"><a href="#cb1-603" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb1-604"><a href="#cb1-604" aria-hidden="true" tabindex="-1"></a>        <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-605"><a href="#cb1-605" aria-hidden="true" tabindex="-1"></a>        <span class="at">Moyenne =</span> <span class="fu">round</span>(<span class="fu">mean</span>(score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">1</span>),</span>
+<span id="cb1-606"><a href="#cb1-606" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Écart type"</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">sd</span>(score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb1-607"><a href="#cb1-607" aria-hidden="true" tabindex="-1"></a>        Médiane <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">median</span>(score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb1-608"><a href="#cb1-608" aria-hidden="true" tabindex="-1"></a>        <span class="at">Q1 =</span> <span class="fu">round</span>(<span class="fu">quantile</span>(score, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb1-609"><a href="#cb1-609" aria-hidden="true" tabindex="-1"></a>        <span class="at">Q3 =</span> <span class="fu">round</span>(<span class="fu">quantile</span>(score, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)</span>
+<span id="cb1-610"><a href="#cb1-610" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-611"><a href="#cb1-611" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb1-612"><a href="#cb1-612" aria-hidden="true" tabindex="-1"></a>    hdrs_J0_grouped,</span>
+<span id="cb1-613"><a href="#cb1-613" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Scores bruts de l'échelle de Hamilton à J0 par groupe de traitement"</span>,</span>
+<span id="cb1-614"><a href="#cb1-614" aria-hidden="true" tabindex="-1"></a>    <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-615"><a href="#cb1-615" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"lcccccc"</span></span>
+<span id="cb1-616"><a href="#cb1-616" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-617"><a href="#cb1-617" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-618"><a href="#cb1-618" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-619"><a href="#cb1-619" aria-hidden="true" tabindex="-1"></a>visits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"J0"</span>, <span class="st">"J4"</span>, <span class="st">"J7"</span>, <span class="st">"J14"</span>, <span class="st">"J21"</span>, <span class="st">"J28"</span>, <span class="st">"J42"</span>, <span class="st">"J56"</span>)</span>
+<span id="cb1-620"><a href="#cb1-620" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-621"><a href="#cb1-621" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
+<span id="cb1-622"><a href="#cb1-622" aria-hidden="true" tabindex="-1"></a>    hdrs_groupe<span class="sc">$</span>GROUPE,</span>
+<span id="cb1-623"><a href="#cb1-623" aria-hidden="true" tabindex="-1"></a>    <span class="fu">factor</span>(hdrs_groupe<span class="sc">$</span>VISIT, <span class="at">levels =</span> visits)</span>
+<span id="cb1-624"><a href="#cb1-624" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-625"><a href="#cb1-625" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-626"><a href="#cb1-626" aria-hidden="true" tabindex="-1"></a>nb_patients <span class="ot">&lt;-</span> <span class="fu">as.data.frame.matrix</span>(tab)</span>
+<span id="cb1-627"><a href="#cb1-627" aria-hidden="true" tabindex="-1"></a>nb_patients <span class="ot">&lt;-</span> nb_patients[, visits, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb1-628"><a href="#cb1-628" aria-hidden="true" tabindex="-1"></a>nb_patients<span class="sc">$</span>Groupe <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Groupe"</span>, <span class="fu">rownames</span>(nb_patients))</span>
+<span id="cb1-629"><a href="#cb1-629" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-630"><a href="#cb1-630" aria-hidden="true" tabindex="-1"></a>nb_patients <span class="ot">&lt;-</span> nb_patients[, <span class="fu">c</span>(<span class="st">"Groupe"</span>, visits)]</span>
+<span id="cb1-631"><a href="#cb1-631" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-632"><a href="#cb1-632" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb1-633"><a href="#cb1-633" aria-hidden="true" tabindex="-1"></a>    nb_patients,</span>
+<span id="cb1-634"><a href="#cb1-634" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Nombre de patients par groupe de traitement et visite"</span>,</span>
+<span id="cb1-635"><a href="#cb1-635" aria-hidden="true" tabindex="-1"></a>    <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-636"><a href="#cb1-636" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"lcccccccc"</span>)</span>
+<span id="cb1-637"><a href="#cb1-637" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-638"><a href="#cb1-638" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-639"><a href="#cb1-639" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-640"><a href="#cb1-640" aria-hidden="true" tabindex="-1"></a><span class="co"># lire le fichier code généré</span></span>
+<span id="cb1-641"><a href="#cb1-641" aria-hidden="true" tabindex="-1"></a>code <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R"</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-642"><a href="#cb1-642" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-643"><a href="#cb1-643" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"```r</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb1-644"><a href="#cb1-644" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(code, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb1-645"><a href="#cb1-645" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">```"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 
 </main>

@@ -40,6 +40,33 @@ library(psy)
 library(reshape2)
 knitr::opts_chunk$set(echo = TRUE)
 
+file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
+
+lines <- readLines(file_qmd)
+
+# trouver les débuts de chunks R
+starts <- grep("^```\\{r", lines)
+# trouver les fins de chunks
+ends   <- grep("^```\\s*$", lines)
+
+if (length(starts) != length(ends)) {
+    stop("Extraction des chunks R impossible : démarcations incohérentes")
+}
+
+code_r <- character(0)
+
+for (i in seq_along(starts)) {
+    # lignes à l’intérieur du chunk (excluant les balises de début et fin)
+    chunk_lines <- lines[(starts[i] + 1):(ends[i] - 1)]
+    # filtrer : garder seulement les lignes qui **ne sont pas des options Quarto**
+    real_code <- chunk_lines[!grepl("^\\s*#\\|", chunk_lines)]
+    # ajouter au vecteur final
+    code_r <- c(code_r, real_code, "")
+}
+
+outfile <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R"
+cat(code_r, file = outfile, sep = "\n")
+
 library(readxl)
 scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
 groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
@@ -147,7 +174,7 @@ hdrs_items <- c("1_humeur_depressive","2_sentim_culpabilite","3_suicide","4_inso
 
 hdrs$score <- rowSums(hdrs[, hdrs_items], na.rm = TRUE)
 
-# supprimer la ligne 741 de hdrs
+# supprimer la ligne 741 de hdrs car les données sont manquantes
 hdrs <- hdrs[-741, ]
 
 # supprimer HAMD16A et HAMD16B si présentes
@@ -383,12 +410,9 @@ corr_validite_J0 <- cor(
     use = "pairwise.complete.obs"
 )
 
-# Ne garder que la première ligne (par exemple "score")
-corr_validite_J0_ligne1 <- corr_validite_J0["score", , drop = FALSE]
-
 # Corrplot
 corrplot(
-    corr_validite_J0_ligne1,
+    corr_validite_J0["score", , drop = FALSE],
     method = "color",
     type = "full",
     tl.col = "black",
@@ -401,12 +425,9 @@ corrplot(
 
 corr_validité_sousscores_J0 <- cor(hdrs_scl90_J0[,c("f1_somatique","f2_asthenie","f3_depressif", dimensions)], use = "pairwise.complete.obs")
 
-#ne garder que les 3 lignes (sous-scores)
-corr_validité_sousscores_J0 <- corr_validité_sousscores_J0[c("f1_somatique","f2_asthenie","f3_depressif"), , drop = FALSE]
-
 # Corrplot
 corrplot(
-    corr_validité_sousscores_J0,
+    corr_validité_sousscores_J0[c("f1_somatique","f2_asthenie","f3_depressif"), , drop = FALSE],
     method = "color",
     type = "full",
     tl.col = "black",
@@ -416,6 +437,13 @@ corrplot(
     tl.srt = 30,
     col = viridis::plasma(100)
 )
+
+n_J56 <- nrow(subset(hdrs_groupe, VISIT == "J56"))
+n_J56
+n_J0 <- nrow(subset(hdrs_groupe, VISIT == "J0"))
+n_J0
+pct_present_J56 <- (n_J56 / n_J0) * 100
+pct_present_J56
 
 
 hdrs_J56 <- subset(hdrs_groupe, VISIT == "J56")
@@ -480,6 +508,236 @@ corrplot(corr_matrix_J56,
             tl.srt = 45,
             col = viridis::plasma(100)
             )
+
+#renommer les noms des variables dans un nouveau df copié pour éviter la superposition
+hdrs_J56_PCA <- hdrs_J56[,c(hdrs_items)]
+colnames(hdrs_J56_PCA) <- c("1","2","3","4","5","6",
+                            "7","8","9","10","11","12",
+                            "13","14","15", "16", "17")
+mdspca(hdrs_J56_PCA)
+
+head(hdrs_J56[,c(hdrs_items)])
+scree.plot(hdrs_J56[,c(hdrs_items)], simu=20, use = "P")
+
+af_J56 <- factanal(
+    na.omit(hdrs_J56[hdrs_items]),
+    factors = 1,
+    rotation = "varimax"
+)
+# Extraction propre des loadings
+loadings_df_J56 <- as.data.frame(unclass(af_J56$loadings))
+# Création explicite de la colonne Variable à partir des rownames
+loadings_df_J56$Variable <- rownames(loadings_df_J56)
+# Suppression des rownames pour éviter toute ambiguïté
+rownames(loadings_df_J56) <- NULL
+# Réorganisation : Variable en première colonne
+loadings_df_J56 <- loadings_df_J56[, c("Variable", colnames(loadings_df_J56)[1])]
+# Arrondi
+loadings_df_J56[, -1] <- round(loadings_df_J56[, -1], 3)
+# Affichage LaTeX
+knitr::kable(
+    loadings_df_J56,
+    caption = "Contribution du facteur unique à la variance de la réponse à chaque item du score de Hamilton évalué à J56 (analyse factorielle avec rotation varimax à 1 facteur)",
+    booktabs = TRUE,
+    align = "lccc"
+)
+
+cronbach(hdrs_J56[,hdrs_items])
+
+#estimation des IC par bootstrap
+set.seed(123)
+boot_alpha_J56 <- boot(hdrs_J56[,hdrs_items], alpha_bootstrap, R = 1000)
+boot.ci(boot_alpha_J56, type = "bca")
+
+#représentation des alpha de Cronbach avec IC en tableau
+alpha_J56_df <- data.frame(
+    Scale = c("Global"),
+    Alpha = c(
+        round(cronbach(hdrs_J56[,hdrs_items])$alpha, 3)
+    ),
+    CI_lower = c(
+        round(boot.ci(boot_alpha_J56, type = "bca")$bca[4], 2)
+    ),
+    CI_upper = c(
+        round(boot.ci(boot_alpha_J56, type = "bca")$bca[5], 2)
+    )
+)
+knitr::kable(
+    alpha_J56_df,
+    caption = "Alpha de Cronbach et intervalle de confiance à 95% pour l'échelle de Hamilton à J56",
+    booktabs = TRUE,
+    align = "lccc"
+)
+
+#création fichier large avec hdrs_J56 et scl90_dim à J56
+scl90_J56 <- subset(scl90_dim, VISIT == "J56")
+scl90_J56 <- scl90_J56[,c("NUMERO","VISIT",dimensions)]
+scl90_J56 <- scl90_J56[order(scl90_J56$NUMERO), ]
+hdrs_J56 <- hdrs_J56[order(hdrs_J56$NUMERO), ]
+hdrs_scl90_J56 <- merge(hdrs_J56, scl90_J56, by = c("NUMERO", "VISIT"), all.x = TRUE)
+
+# Matrice de corrélation complète
+corr_validite_J56 <- cor(
+    hdrs_scl90_J56[, c("score", dimensions)],
+    use = "pairwise.complete.obs"
+)
+# Corrplot
+corrplot(
+    corr_validite_J56["score", , drop = FALSE],
+    method = "color",
+    type = "full",
+    tl.col = "black",
+    addCoef.col = "white",
+    number.cex = 0.65,
+    tl.cex = 0.4,
+    tl.srt = 25,
+    col = viridis::magma(100)
+)
+
+df_fpca_J56 <- data.frame(
+    score_total = hdrs_scl90_J56$score,
+    hdrs_scl90_J56[, dimensions]
+)
+
+fpca(
+    score_total ~ .,
+    data = df_fpca_J56
+)
+
+library(dplyr)
+hdrs_J0_grouped <- hdrs_J0 %>%
+    group_by(GROUPE) %>%
+    summarise(
+        N = n(),
+        Moyenne = round(mean(score, na.rm = TRUE), 1),
+        "Écart type" = round(sd(score, na.rm = TRUE), 2),
+        Médiane = round(median(score, na.rm = TRUE), 2),
+        Q1 = round(quantile(score, 0.25, na.rm = TRUE), 2),
+        Q3 = round(quantile(score, 0.75, na.rm = TRUE), 2)
+    )
+knitr::kable(
+    hdrs_J0_grouped,
+    caption = "Scores bruts de l'échelle de Hamilton à J0 par groupe de traitement",
+    booktabs = TRUE,
+    align = "lcccccc"
+)
+
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+# Histogramme des scores bruts par groupe (côté à côte)
+hist(hdrs_J0$score[hdrs_J0$GROUPE == 0], 
+        col = "#bf616a", 
+        main = " ", 
+        xlab = "Score brut Hamilton", 
+        ylab = "Fréquence", 
+        xlim = range(hdrs_J0$score), 
+        ylim = c(0, max(table(cut(hdrs_J0$score, breaks = 4)))))
+hist(hdrs_J0$score[hdrs_J0$GROUPE == 1], 
+        col = paste0("#88c0d0", "80"),
+        add = TRUE, #permet de superposer les histogrammes
+        breaks = 4)
+legend("topright", legend = c("Groupe 0", "Groupe 1"), 
+        fill = c("#bf616a", "#88c0d0"))
+# Boxplot
+boxplot(score ~ GROUPE,
+    data = hdrs_J0,
+    main = " ",
+    xlab = "Groupe de traitement",
+    ylab = "Score brut Hamilton",
+    col = c("#bf616a", "#88c0d0"),
+    names = c("Groupe 0", "Groupe 1")
+)
+par(mfrow = c(1, 1))
+
+t_test_J0 <- hdrs_J0 %>%
+    tbl_summary(
+        include = score,
+        by = GROUPE,
+        statistic = all_continuous() ~ "{mean} ({sd})",
+        digits = all_continuous() ~ 2
+    ) %>%
+    add_p(
+        test = all_continuous() ~ "t.test",
+        test.args = all_continuous() ~ list(var.equal = TRUE)
+    )
+t_test_J0
+
+
+visits <- c("J0", "J4", "J7", "J14", "J21", "J28", "J42", "J56")
+
+tab <- table(
+    hdrs_groupe$GROUPE,
+    factor(hdrs_groupe$VISIT, levels = visits)
+)
+tab
+
+knitr::kable(
+    tab,
+    caption = "Nombre de patients par groupe de traitement et visite",
+    booktabs = TRUE,
+    align = c("lcccccccc")
+)
+
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+# Groupe 0
+hdrs_groupe0 <- subset(hdrs_groupe, GROUPE == 0)
+boxplot(score ~ VISIT,
+    data = hdrs_groupe0,
+    main = "Groupe 0",
+    xlab = "",
+    ylab = "Score brut Hamilton",
+    col = "#bf616a"
+)
+# Groupe 1
+hdrs_groupe1 <- subset(hdrs_groupe, GROUPE == 1)
+boxplot(score ~ VISIT,
+    data = hdrs_groupe1,
+    main = "Groupe 1",
+    xlab = "",
+    ylab = "",
+    col = "#88c0d0"
+)
+par(mfrow = c(1, 1))
+
+# utilisation de ggplot2 pour les diagrammes en spaghetti avec ggparcoord
+library(ggplot2)
+library(GGally)
+palette_nord <- c("#bf616a", "#88c0d0")
+
+hdrs_wide <- reshape2::dcast(
+    hdrs_groupe,
+    NUMERO + GROUPE ~ VISIT,
+    value.var = "score"
+)
+hdrs_wide$GROUPE <- factor(hdrs_wide$GROUPE)
+ggparcoord(
+    data = hdrs_wide,
+    columns = 3:10,
+    groupColumn = "GROUPE",
+    scale = "globalminmax",
+    missing = "exclude"
+) +
+    theme_minimal() +
+    labs(
+        title = " ",
+        x = " ",
+        y = "Score brut Hamilton",
+        color = "Groupe"
+    ) +
+    scale_color_manual(
+        values = palette_nord,
+        labels = c("Groupe 0", "Groupe 1")
+    )
+
+hdrs_J56 <- subset(hdrs_groupe, VISIT %in% c("J56"))
+boxplot(score ~ GROUPE,
+    data = hdrs_J56,
+    main = " ",
+    xlab = " ",
+    ylab = "Score brut Hamilton",
+    col = c("#bf616a", "#88c0d0"),
+    names = c("Groupe 0", "Groupe 1")
+)
+
 
 
 # lire le fichier code généré

@@ -1,0 +1,705 @@
+---
+title: "Méthodes non supervisées"
+prefer-html: true
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table des matières"
+        pdf-engine: xelatex
+        number-sections: true
+        header-includes: |
+            % Force la police Computer Modern pour le titre principal
+            \makeatletter
+            \renewcommand{\maketitle}{
+            \begin{center}
+                {\Large\bfseries\rmfamily \@title \par}
+                \vskip 1.5em
+                {\large\rmfamily \@author \par}
+                \vskip 1em
+            \end{center}
+            }
+            \makeatother
+            % Tous les titres en police par défaut LaTeX
+            \usepackage{sectsty}
+            \allsectionsfont{\rmfamily}
+
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+
+            % Gestion des chunks de code
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(dplyr)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(gt)
+library(gee)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(FactoMineR)
+library(factoextra)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(ClusterBootstrap)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+```
+
+```{r}
+#| echo: false
+#| include: false
+smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","gravite","recherche.nouv", "evit.danger","dep.recompense")]
+```
+
+\newpage
+
+# Introduction aux méthodes non supervisées
+
+-   Objectif des méthodes non supervisées = mettre en évidence des groupes homogènes de **sujets** ou de **variables**.
+
+-   2 options :
+
+    -   Réduction du nombre de dimensions pour rendre compatible avec nos yeux : **ACP**
+
+    -   Demander à l'rdinateur de se substituer à nous : nuées dynamiques, classification hierarchiques...
+
+## Groupes homogènes de sujets
+
+### Analyse en composantes principales
+
+#### Principe
+
+-   But = réduire le nombre de dimensions (sujets ou variables) tout en conservant un maximum d'information.
+
+![Représentation géométrique d’un tableau de données : les sujets sont symbolisés par des points (ici des « O »), les variables par les dimensions de l’espace.](images/paste-73.png){width="468"}
+
+```{r}
+#| echo: false
+
+if (knitr::is_html_output()) {
+    set.seed(123)
+    n <- 50
+    t <- rnorm(n)
+    x <- 1.0 * t + rnorm(n, sd = 0.35)
+    y <- 0.8 * t + rnorm(n, sd = 0.35)
+    z <- 1.2 * t + rnorm(n, sd = 0.35)
+    data_3d <- data.frame(x, y, z)
+    plot_ly(data_3d, x = ~x, y = ~y, z = ~z, type = 'scatter3d', mode = 'markers')
+}
+```
+
+**La première composante principale** est la droite dans le nuage de points qui **explique le maximum de variance**, c'est à dire la direction suivant laquelle le nuage de points s’étire au maximum.
+
+Il s'agit donc d'une combinaison linéaire des variables initiales (ici x, y et z) qui maximise la variance des projections des points sur cette droite.
+
+![On recherche dans un premier temps la direction suivant laquelle le nuage de points s’étire au maximum](images/paste-74.png){width="488"}
+
+Représentation R de cette droite sur le plot précédent (avec les distances de chaque point à cette droite) :
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+if (knitr::is_html_output()) {
+    X <- as.matrix(data_3d)
+    pca <- prcomp(X, center = TRUE, scale. = FALSE)
+    p0 <- unname(pca$center)
+    d1 <- unname(pca$rotation[, 1])
+    d1 <- d1 / sqrt(sum(d1^2))
+
+    Xc <- sweep(X, 2, p0, "-")
+    scores <- as.vector(Xc %*% d1)
+    X_line <- sweep(scores %o% d1, 2, p0, "+")
+
+    t_range <- range(scores)
+    t_pad <- 0.2 * diff(t_range)
+    t_line <- c(t_range[1] - t_pad, t_range[2] + t_pad)
+    line_pts <- sweep(t_line %o% d1, 2, p0, "+")
+
+    x_seg <- as.vector(rbind(X[, 1], X_line[, 1], rep(NA_real_, nrow(X))))
+    y_seg <- as.vector(rbind(X[, 2], X_line[, 2], rep(NA_real_, nrow(X))))
+    z_seg <- as.vector(rbind(X[, 3], X_line[, 3], rep(NA_real_, nrow(X))))
+
+    plot_ly(data_3d, x = ~x, y = ~y, z = ~z, type = "scatter3d", mode = "markers",
+            marker = list(size = 3), name = "Points") %>%
+        add_trace(x = line_pts[, 1], y = line_pts[, 2], z = line_pts[, 3],
+                    type = "scatter3d", mode = "lines",
+                    line = list(color = "red", width = 5), name = "PC1") %>%
+        add_trace(x = x_seg, y = y_seg, z = z_seg,
+                    type = "scatter3d", mode = "lines",
+                    line = list(color = "gray", width = 2),
+                    showlegend = FALSE) %>%
+        add_trace(x = X_line[, 1], y = X_line[, 2], z = X_line[, 3],
+                    type = "scatter3d", mode = "markers",
+                    marker = list(size = 2, color = "red"),
+                    name = "Projections sur PC1")
+}
+```
+
+![A cette direction correspond une variable dont la variance est maximale : c’est la première composante principale](images/paste-75.png){width="493"}
+
+Pour obtenir la seconde composante principale :
+
+-   Il faut d'abord projeter les points sujets sur un plan perpandiculaire à la droite première composante
+
+![Pour obtenir la seconde composante principale, il faut projeter les points sur un plan perpendiculaire à la première composante](images/paste-76.png){width="499"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+if (knitr::is_html_output()) {
+    X <- as.matrix(data_3d)
+    pca <- prcomp(X, center = TRUE, scale. = FALSE)
+    p0 <- unname(pca$center)
+    nvec <- unname(pca$rotation[, 1])
+    nvec <- nvec / sqrt(sum(nvec^2))
+
+    cross3 <- function(a, b) {
+        c(
+            a[2] * b[3] - a[3] * b[2],
+            a[3] * b[1] - a[1] * b[3],
+            a[1] * b[2] - a[2] * b[1]
+        )
+    }
+
+    a <- if (abs(nvec[1]) < 0.9) c(1, 0, 0) else c(0, 1, 0)
+    u <- cross3(nvec, a)
+    u <- u / sqrt(sum(u^2))
+    v <- cross3(nvec, u)
+    v <- v / sqrt(sum(v^2))
+
+    Xc <- sweep(X, 2, p0, "-")
+    dist_along_n <- as.vector(Xc %*% nvec)
+    X_plane <- X - dist_along_n %o% nvec
+
+    max_r <- max(sqrt(rowSums(Xc^2)))
+    grid <- seq(-max_r, max_r, length.out = 15)
+    U <- matrix(rep(grid, each = length(grid)), nrow = length(grid))
+    V <- t(U)
+
+    plane_x <- p0[1] + U * u[1] + V * v[1]
+    plane_y <- p0[2] + U * u[2] + V * v[2]
+    plane_z <- p0[3] + U * u[3] + V * v[3]
+
+    x_seg <- as.vector(rbind(X[, 1], X_plane[, 1], rep(NA_real_, nrow(X))))
+    y_seg <- as.vector(rbind(X[, 2], X_plane[, 2], rep(NA_real_, nrow(X))))
+    z_seg <- as.vector(rbind(X[, 3], X_plane[, 3], rep(NA_real_, nrow(X))))
+
+    t_range <- range(dist_along_n)
+    t_pad <- 0.2 * diff(t_range)
+    t_line <- c(t_range[1] - t_pad, t_range[2] + t_pad)
+    line_pts <- sweep(t_line %o% nvec, 2, p0, "+")
+
+    plot_ly() %>%
+        add_surface(x = plane_x, y = plane_y, z = plane_z,
+                    opacity = 0.35, showscale = FALSE,
+                    colorscale = list(c(0, "#1f77b4"), c(1, "#1f77b4")),
+                    name = "Plan ⟂ PC1") %>%
+        add_trace(data = data_3d, x = ~x, y = ~y, z = ~z,
+                    type = "scatter3d", mode = "markers",
+                    marker = list(size = 3, color = "black"),
+                    name = "Points") %>%
+        add_trace(x = line_pts[, 1], y = line_pts[, 2], z = line_pts[, 3],
+                    type = "scatter3d", mode = "lines",
+                    line = list(color = "red", width = 5),
+                    name = "PC1") %>%
+        add_trace(x = x_seg, y = y_seg, z = z_seg,
+                    type = "scatter3d", mode = "lines",
+                    line = list(color = "gray", width = 2),
+                    showlegend = FALSE) %>%
+        add_trace(x = X_plane[, 1], y = X_plane[, 2], z = X_plane[, 3],
+                    type = "scatter3d", mode = "markers",
+                    marker = list(size = 2, color = "#1f77b4"),
+                    name = "Projections sur le plan")
+}
+```
+
+Pour obtenir la seconde composante principale : idem : direction suivant laquelle la projection des points s'étire au maximum
+
+![Recherchons dans un second temps la direction suivant laquelle les projections s’étirent au maximum.](images/paste-77.png){width="516"}
+
+![A cette direction correspond une variable dont la variance est maximale : c’est la seconde composante principale.](images/paste-78.png){width="541"}
+
+Et la troisième composante principale est représentée de la même manière
+
+![En dimension 3, la troisième et dernière composante principale est perpendiculaire aux deux premières.](images/paste-79.png){width="508"}
+
+Code R qui montre les trois composantes principales dans un espace 3D avec une longueur proportionnelle à la variance expliquée :
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+if (knitr::is_html_output()) {
+    X <- as.matrix(data_3d)
+    pca <- prcomp(X, center = TRUE, scale. = FALSE)
+    p0 <- unname(pca$center)
+    nvec <- unname(pca$rotation[, 1])
+    nvec <- nvec / sqrt(sum(nvec^2))
+
+    cross3 <- function(a, b) {
+        c(
+            a[2] * b[3] - a[3] * b[2],
+            a[3] * b[1] - a[1] * b[3],
+            a[1] * b[2] - a[2] * b[1]
+        )
+    }
+    a <- if (abs(nvec[1]) < 0.9) c(1, 0, 0) else c(0, 1, 0)
+    u <- cross3(nvec, a)
+    u <- u / sqrt(sum(u^2))
+    v <- cross3(nvec, u)
+    v <- v / sqrt(sum(v^2))
+    w <- cross3(nvec, v)
+    w <- w / sqrt(sum(w^2))
+
+    Xc <- sweep(X, 2, p0, "-")
+    dist_along_n <- as.vector(Xc %*% nvec)
+    dist_along_u <- as.vector(Xc %*% u)
+    dist_along_v <- as.vector(Xc %*% v)
+    dist_along_w <- as.vector(Xc %*% w)
+    X_plane <- X - dist_along_n %o% nvec - dist_along_u %o% u - dist_along_v %o% v
+
+    max_r <- max(sqrt(rowSums(Xc^2)))
+    grid <- seq(-max_r, max_r, length.out = 15)
+    U <- matrix(rep(grid, each = length(grid)), nrow = length(grid))
+    V <- t(U)
+
+    plane_x <- p0[1] + U * nvec[1] + V * u[1]
+    plane_y <- p0[2] + U * nvec[2] + V * u[2]
+    plane_z <- p0[3] + U * nvec[3] + V * u[3]
+    plane2_x <- p0[1] + U * nvec[1] + V * v[1]
+    plane2_y <- p0[2] + U * nvec[2] + V * v[2]
+    plane2_z <- p0[3] + U * nvec[3] + V * v[3]
+    plane3_x <- p0[1] + U * nvec[1] + V * w[1]
+    plane3_y <- p0[2] + U * nvec[2] + V * w[2]
+    plane3_z <- p0[3] + U * nvec[3] + V * w[3]
+    t_range <- range(dist_along_n)
+    t_pad <- 0.2 * diff(t_range)
+    t_line <- c(t_range[1] - t_pad, t_range[2] + t_pad)
+    line_pts <- sweep(t_line %o% nvec, 2, p0, "+")
+    t_range <- range(dist_along_u)
+    t_pad <- 0.2 * diff(t_range)
+    t_line <- c(t_range[1] - t_pad, t_range[2] + t_pad)
+    line2_pts <- sweep(t_line %o% u, 2, p0, "+")
+    t_range <- range(dist_along_v)
+    t_pad <- 0.2 * diff(t_range)
+    t_line <- c(t_range[1] - t_pad, t_range[2] + t_pad)
+    line3_pts <- sweep(t_line %o% v, 2, p0, "+")
+    t_range <- range(dist_along_w)
+    t_pad <- 0.2 * diff(t_range)
+    t_line <- c(t_range[1] - t_pad, t_range[2] + t_pad)
+    line4_pts <- sweep(t_line %o% w, 2, p0, "+")
+    x_seg <- as.vector(rbind(X[, 1], X_plane[, 1], rep(NA_real_, nrow(X))))
+    y_seg <- as.vector(rbind(X[, 2], X_plane[, 2], rep(NA_real_, nrow(X))))
+    z_seg <- as.vector(rbind(X[, 3], X_plane[, 3], rep(NA_real_, nrow(X))))
+    plot_ly() %>%
+        add_surface(x = plane_x, y = plane_y, z = plane_z,
+                    opacity = 0.25, showscale = FALSE,
+                    colorscale = list(c(0, "#1f77b4"), c(1, "#1f77b4")),
+                    name = "Plan ⟂ PC1 & PC2") %>%
+        add_surface(x = plane2_x, y = plane2_y, z = plane2_z,
+                    opacity = 0.25, showscale = FALSE,
+                    colorscale = list(c(0, "#ff7f0e"), c(1, "#ff7f0e")),
+                    name = "Plan ⟂ PC1 & PC3") %>%
+        add_surface(x = plane3_x, y = plane3_y, z = plane3_z,
+                    opacity = 0.25, showscale = FALSE,
+                    colorscale = list(c(0, "#2ca02c"), c(1, "#2ca02c")),
+                    name = "Plan ⟂ PC2 & PC3") %>%
+        add_trace(data = data_3d, x = ~x, y = ~y, z = ~z,
+                    type = "scatter3d", mode = "markers",
+                    marker = list(size = 3, color = "black"),
+                    name = "Points") %>%
+        add_trace(x = line_pts[, 1], y = line_pts[, 2], z = line_pts[, 3],
+                    type = "scatter3d", mode = "lines",
+                    line = list(color = "red", width = 5),
+                    name = "PC1") %>%
+        add_trace(x = line2_pts[, 1], y = line2_pts[, 2], z = line2_pts[, 3],
+                    type = "scatter3d", mode = "lines",
+                    line = list(color = "blue", width = 5),
+                    name = "PC2") %>%
+        add_trace(x = line3_pts[, 1], y = line3_pts[, 2], z = line3_pts[, 3],
+                    type = "scatter3d", mode = "lines",
+                    line = list(color = "green", width = 5),
+                    name = "PC3") %>%
+        add_trace(x = x_seg, y = y_seg, z = z_seg,
+                    type = "scatter3d", mode = "lines",
+                    line = list(color = "gray", width = 2),
+                    showlegend = FALSE) %>%
+        add_trace(x = X_plane[, 1], y = X_plane[, 2], z = X_plane[, 3],
+                    type = "scatter3d", mode = "markers",
+                    marker = list(size = 2, color = "purple"),
+                    name = "Projection") %>%
+        layout(scene = list(
+            xaxis = list(title = "X"),
+            yaxis = list(title = "Y"),
+            zaxis = list(title = "Z")
+        ))
+}
+```
+
+-   Relation entre les composantes principales et les valeurs propres / vecteurs propres
+
+    -   Chacun des vecteurs est appelé une **composante principale** = un **vecteur propre** de la matrice de covariance des variables initiales.
+
+    -   Sa longueur est proportionnelle à la variance expliquée par cette composante principale et correspond à une **valeur propre**.
+
+![Si l’on projette les points sur le plan formé par les deux premières composantes principales, ce plan maximise la somme des di2 et minimise la somme des \$\text{e}\_i\^2](images/paste-80.png){width="580"}
+
+-   Propriétés mathématiques des composantes principales
+
+    -   Les composantes principales sont orthogonales entre elles.
+
+    -   Le plan formé par les deux premières composantes principales est appelé le premier plan principal.
+
+    -   Si l’on projette les points sur ce plan, par une application du théorème de Pythagore, on montre que la variance des projections est maximale.
+
+        -   $\text{d}$ correspond à la distance entre le centre de gravité des points (leur moyenne) et la projection du point sur le plan principal.
+
+        -   $\text{e}$ correspond à la distance entre le point initial et sa projection sur le plan principal (c’est la partie “non expliquée” par le plan principal).
+
+    -   Le premier plan principal maximise la variance des projections, donc maximise (au total) les distances $\text{d}$.
+
+    -   Donc, par le théorème de Pythagore, il minimise (au total) les distances $\text{e}$.
+
+    -   La somme des distances $\text{d}$ et $\text{e}$ est constante car elle correspond elle correspond à la “dispersion totale” du nuage autour du centre de gravité (inertie totale, proportionnelle à la variance totale).
+
+    -   Autrement dit, le premier plan principal est aussi celui qui minimise la somme des carrés des distances entre les points et leurs projections :
+
+        -   c’est le plan qui passe au plus près des points (distance globale minimale au sens des moindres carrés).
+
+#### Application pratique avec R
+
+Fichier `abd`: regroupe 24 signes et symptômes codés 0/1 chez des patients consultant pour des douleurs abdominales.
+
+Une interprétation géométrique serait de dire que chaque patient est un point dans un espace à 24 dimensions (une dimension par symptôme).
+
+On peut projeter ces points dans un espace à 2 dimensions (le premier plan principal) pour visualiser les similarités entre patients.
+
+```{r}
+abd.signes <- colnames(abd)[1:24]
+pc <- princomp(abd[, abd.signes], cor = TRUE)
+summary(pc)
+```
+
+La fonction montre les variances expliquées par dimension. L'option `cor=TRUE` permet ici de normaliser les variables (on aurait pu s'en passer car les variables sont toutes binaires).
+
+-   Étapes :
+
+    -   Création d'un df avec les scores des deux premières composantes principales et le diagnostic
+
+    -   Calcul des écart-types des points projetés sur chaque composante principale
+
+        -   les écarts types correspondent géométriquement à la "longueur" de chaque axe = à la variance expliquée par chaque composante
+
+        -   le carré des écarts types correspond aux valeurs propres de chaque composante principale, c'est à dire à la variance expliquée par chaque composante
+
+    -   
+
+```{r}
+# d'abord création d'un dataframe avec les scores des deux premières composantes principales et le diagnostic
+dt.pc <- data.frame(pc$scores[,1],pc$scores[,2],abd$diagnostic)
+
+# écart type des points projetés sur chaque composante principale (correspond géométriquement à la "longueur" de chaque axe = à la variance expliquée par chaque composante)
+# le carré des écart-types correspond aux valeurs propres
+
+#calcul des écarts types et des variances des deux premières composantes principales (variance = écart type au carré)
+ecarts_types_12 <- pc$sdev[1:2]
+variance_ecarts_types_12 <- ecarts_types_12^2
+valeur_propres_12 <- variance_ecarts_types_12
+
+valeur_propres_12
+
+# pour calculer le pourcentage de variance expliquée par chaque composante principale
+
+pourcentage_variance_expliquee_12 <- valeur_propres_12 / sum(pc$sdev^2) * 100
+pourcentage_variance_expliquee_12
+
+names(dt.pc) <- c("pc1","pc2","diagnostic")
+min.x <- min(dt.pc$pc1)
+max.x <- max(dt.pc$pc1)
+min.y <- min(dt.pc$pc2)
+max.y <- max(dt.pc$pc2)
+couleur <- as.vector(c("#D43F3A80","#EEA23680","#5CB85C80",
+"#46B8DA80","#357EBD80","#9632B880"))
+plot(dt.pc$pc1, dt.pc$pc2,
+    col=couleur[as.numeric((factor(dt.pc$diagnostic)))],
+    xlim = c(min.x, max.x), ylim = c(min.y, max.y), pch=16,
+    xlab="Composante n°1", ylab="Composante n°2")
+legend( "topright", 
+        legend=levels(factor(dt.pc$diagnostic)), 
+        bty="n", 
+        text.col="black", 
+        col=couleur, 
+        pch=16, 
+        cex=0.8
+)
+```
+
+Une façon beaucoup plus simple de calculer tout ça et d'avoir des jolis graphiques est d'utiliser la fonction `PCA()` du package `FactoMineR` :
+
+```{r}
+# Données : variables quantitatives + une variable qualitative "diagnostic"
+X <- abd
+X$diagnostic <- factor(X$diagnostic)
+
+# PCA (diagnostic en qualitative supplémentaire)
+quali_idx <- which(names(X) == "diagnostic")
+res.pca <- PCA(X, quali.sup = quali_idx, scale.unit = TRUE, graph = FALSE)
+
+# 1) Variance expliquée (équivalent de pc$sdev^2/sum(pc$sdev^2))
+eig <- get_eigenvalue(res.pca)
+eig[1:2, ]              # PC1 et PC2 (valeur propre, %, cumul)
+
+# (alternative base FactoMineR)
+res.pca$eig[1:2, ]       # eigenvalue, percentage of variance, cumulative
+
+# 2) Tableau équivalent à dt.pc
+dt.pc <- data.frame(
+    pc1 = res.pca$ind$coord[, 1],
+    pc2 = res.pca$ind$coord[, 2],
+    diagnostic = X$diagnostic
+)
+
+# 3) Graphe des individus colorés par diagnostic
+fviz_pca_ind(
+    res.pca,
+    axes = c(1, 2),
+    geom = "point",
+    habillage = "diagnostic",
+    addEllipses = FALSE
+)
+
+# Bonus (si besoin des cos2 / contributions sans calcul manuel)
+ind <- get_pca_ind(res.pca)   # ind$coord, ind$cos2, ind$contrib
+var <- get_pca_var(res.pca)   # var$coord, var$cos2, var$contrib
+```
+
+::: callout-note
+Dans le cadre de l’ACP, les termes **valeur propre** et **variance expliquée** sont synonymes.
+
+-   **eigenvalue** = valeur propre de la matrice sur laquelle l’ACP est faite (matrice de covariance si données centrées, ou matrice de corrélations si données centrées-réduites).
+
+-   Cette valeur propre est égale à la variance des scores (projections des individus) sur la composante correspondante, donc à la “variance portée / extraite” par cette composante. ￼
+
+-   La **proportion de variance expliquée** par une composante = **valeur propre de cette composante / somme des valeurs propres.**
+:::
+
+::: callout-note
+Dans le cadre de l’ACP, un **scree plot** est un graphique qui trace les valeurs propres (ou leur pourcentage) en fonction du numéro de la composante principale.
+
+**Cas de l’ACP (PCA)**
+
+-   Dans l’ACP, les valeurs propres correspondent bien à la variance portée par chaque composante (variance des scores/projections sur l’axe). Un scree plot d’ACP trace donc ces valeurs (ou parfois leur pourcentage).
+
+-   Dans R, plot(prcomp_obj) produit précisément ce scree plot, et `sdev^2` correspond aux variances des composantes. ￼
+
+**Cas de l’analyse factorielle exploratoire (EFA)**
+
+-   Un scree plot est aussi utilisé en analyse factorielle : il trace des valeurs propres pour aider à choisir le nombre de facteurs/composantes.
+
+-   Mais l’interprétation “variance expliquée” dépend de la méthode d’extraction : en PCA on parle de réduction de dimension (variance totale), en analyse factorielle “commune” on cherche plutôt des facteurs latents et toute la variance n’est pas traitée de la même façon (variance commune vs spécifique). ￼
+
+**Cas de l’analyse des correspondances (CA)**
+
+-   En analyse des correspondances, on trace aussi un scree plot, mais ce qui est décomposé n’est pas une variance de variables quantitatives : ce sont des inerties (souvent présentées via des valeurs propres / valeurs singulières au carré).
+
+-   Le scree plot montre alors la part d’inertie captée par chaque dimension. ￼
+
+**Conclusion**
+
+-   ACP : valeur propre = variance portée par une composante (et donc base du “% expliqué”). ￼
+
+-   Scree plot : graphique des valeurs propres (ou de leurs pourcentages), quelle que soit la méthode. ￼
+
+-   Autres méthodes : les “valeurs propres” existent souvent, mais elles peuvent représenter de l’inertie ou une autre notion proche, pas forcément la même “variance expliquée” que dans l’ACP.
+:::
+
+\newpage
+
+### Classifications hiérarchiques
+
+#### Principe
+
+-   Pas de réduction de dimension
+
+-   Regroupe les points (sujets) par ordre de proximité décroissante
+
+![](images/paste-81.png){width="171"}
+
+Sur 5 points, 2 et 3 sont proches.
+
+![](images/paste-82.png){width="373"}
+
+La hauteur $\text{d}1$ correspondant à la distance entre les points 2 et 3.
+
+Un point 6 est placé au "centre" de 2 et 3. En réalité, il s'agit d'un cluster de points.
+
+![](images/paste-83.png){width="394"}
+
+Idem pour les points 4 et 5, dont la distance donne une hauteur $\text{d}2$ et sont remplacés par un cluster correspondant au point 7.
+
+![](images/paste-84.png){width="407"}
+
+Le regroupement entre les points 1 et 6 et fait, donnant un cluster 8.
+
+Puis finalement :
+
+![](images/paste-85.png){width="409"}
+
+#### Application pratique avec R
+
+Toujours sur les données `abd` :
+
+-   La fonction `hclust()` réalise la classification hiérarchique.
+
+-   Il faut calculer une matrice de distances entre les sujets avant, avec la fonction `dist()`.
+
+-   La méthode de regroupement choisie ici est la méthode de Ward (`method = "ward.D"`).
+
+-   La fonction `cut()` permet de couper l'arbre à une hauteur donnée pour obtenir des groupes. Ici, on coupe `upper`, ce qui correspond aux plus hautes branches de l'arbre.
+
+```{r}
+abd.signes <- colnames(abd)[1:24]
+cha <- hclust(dist(abd[, abd.signes]), method = "ward.D")
+plot(cut(as.dendrogram(cha), h = 100)$upper, main = "", leaflab = "none")
+```
+
+On retient une solution à 5 clusters (choix subjectif et assumé).
+
+La fonction `cutree()` permet d'obtenir l'appartenance de chaque sujet à un cluster.
+
+```{r}
+abd.5clust <- cutree(cha, k = 5)
+abd.5clust[1:10]
+```
+
+Le sujet 1 est affecté au cluster 1, le 2 au cluster 2, le 3 au cluster 2, etc.
+
+-   L'interprétation est un peu hasardeuse : 
+
+    -   On peut faire une analyse des correspondances entre les clusters et les diagnostics (ça ressemble à une ACP mais c'est fait pour les variables catégorielles).
+
+```{r}
+tbl <- table(abd.5clust, abd$diagnostic)
+res.CA <- CA(tbl)
+plot(res.CA,col.row=viridis(n=3)[2],col.col=viridis(n=3)[1])
+```
+
+-   On voit bien que le cluster 3 est juste à côté du diagnostic "cholécystite"
+
+-   Mais si on regarde combien il y a de cholécystites dans le cluster 3 : on voit que c'est seulement 47% (même si elle est bcp plus rare dans les autres clusters)
+
+-   Syntaxe R : `prop.table(tbl, 1)` permet de calculer des pourcentages dans un tableau de contingence. 
+
+    -   Pour calculer les pourcentages par ligne (i.e. par cluster), on met `1` en second argument.
+
+    -   Pour calculer les pourcentages par colonne (i.e. par diagnostic), on met `2` en second argument.
+
+```{r}
+round(prop.table(tbl, 1),2)
+#ici, (tbl, 1) signifie qu'on calcule les pourcentages par ligne (i.e. par cluster)
+```
+
+\newpage
+### Nuées dynamiques
+

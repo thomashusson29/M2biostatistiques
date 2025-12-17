@@ -1551,3 +1551,14 @@ L'extension **"group lasso"** a été développée spécifiquement pour corriger
 
 En conclusion, alors que le LASSO excelle pour la prédiction et la sélection de variables indépendantes, il peut se comporter de manière ambiguë face aux variables catégorielles recodées en blocs binaires.
 :::
+
+
+
+```{r}
+library(mice)
+set.seed(1)
+training <- training <- sample(1:nrow(voxmultidim), as.integer(nrow(voxmultidim)/2))
+xcols <- paste0("x",1:80)
+````
+
+

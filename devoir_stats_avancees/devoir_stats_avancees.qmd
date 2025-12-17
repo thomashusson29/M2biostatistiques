@@ -18,7 +18,7 @@ format:
 
     pdf:
         toc: true
-        toc-depth: 5
+        toc-depth: 3
         toc-title: "Table des matières"
         pdf-engine: xelatex
         number-sections: true
@@ -132,9 +132,43 @@ library(reshape2)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+#| label: extract code chunks
+#| echo: false
+#| results: hide
+#| message: false
+#| warning: false
+file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
+
+lines <- readLines(file_qmd)
+
+# trouver les débuts de chunks R
+starts <- grep("^```\\{r", lines)
+# trouver les fins de chunks
+ends   <- grep("^```\\s*$", lines)
+
+if (length(starts) != length(ends)) {
+    stop("Extraction des chunks R impossible : démarcations incohérentes")
+}
+
+code_r <- character(0)
+
+for (i in seq_along(starts)) {
+    # lignes à l’intérieur du chunk (excluant les balises de début et fin)
+    chunk_lines <- lines[(starts[i] + 1):(ends[i] - 1)]
+    # filtrer : garder seulement les lignes qui **ne sont pas des options Quarto**
+    real_code <- chunk_lines[!grepl("^\\s*#\\|", chunk_lines)]
+    # ajouter au vecteur final
+    code_r <- c(code_r, real_code, "")
+}
+
+outfile <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R"
+cat(code_r, file = outfile, sep = "\n")
+```
 
 \newpage
-:::callout-important
+
+::: callout-important
 **Utilisation de l'IA**
 
 Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâches principales :
@@ -143,10 +177,11 @@ Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâ
 
 -   Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF. Notamment certaines fonctions dont l'output R n'est pas compatible avec le rendu pdf (par exemple, `factanal()` pour l'analyse factorielle ou le rendu des tableaux automatisé des coefficients alpha de Cronbach et leur IC)
 
-Utilisation des modèles Open Source disponibles sur Hugging Face ou ollama.
+Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.
 :::
 
 \newpage
+
 # Énoncé et présentation des échelles
 
 ## Énoncé du devoir
@@ -183,15 +218,16 @@ Consigne :
 
 Table 1: Présentation des échelles utilisées dans le devoir
 
-|          | Échelle de Hamilton (HDRS) | Échelle SCL90 |
-|----------|----------------------------|---------------|
+|   | Échelle de Hamilton (HDRS) | Échelle SCL90 |
+|-----------------|------------------------------------|-------------------|
 | Objectif | Mesure l'intensité de la symptomatologie dépressive | "Inconfort psychopathologique" selon plusieurs dimensions. |
-| Type     | Hétéro-évaluation | Autoévaluation |
-| Méthode  | 17 items codés de 2 à 4<br><br>- Score ≤ 7 : pas de dépression clinique<br>- Score 8–15 : dépression mineure<br>- Score > 15 : dépression majeure | 10 dimensions : somatisation, symptômes obsessionnels, sensibilité interpersonnelle, dépression, anxiété, hostilité, phobies, traits paranoïaques, traits psychotiques et symptômes divers. |
+| Type | Hétéro-évaluation | Autoévaluation |
+| Méthode | 17 items codés de 2 à 4<br><br>- Score ≤ 7 : pas de dépression clinique<br>- Score 8–15 : dépression mineure<br>- Score \> 15 : dépression majeure | 10 dimensions : somatisation, symptômes obsessionnels, sensibilité interpersonnelle, dépression, anxiété, hostilité, phobies, traits paranoïaques, traits psychotiques et symptômes divers. |
 
-: {tbl-colwidths="[10,45,45]"}
+: {tbl-colwidths="\[10,45,45\]"}
 
 \newpage
+
 # Gestion des données
 
 ## Présentation des fichiers de données
@@ -210,12 +246,11 @@ On créera donc une colonne `hdrs$HAMD16` qui prendra la valeur de `hdrs$HAMD16A
 
 ### Fichier scl90
 
--   1034 observations, 92 variables, 146 patients. 
+-   1034 observations, 92 variables, 146 patients.
 
 -   On crée 10 nouvelles variables représentant les scores moyen des 10 dimensions de l'échelle SCL90.
 
 -   Données aberrantes parfois, qui sont recodées en données manquantes et représentent ainsi 0.6% des données totales.
-
 
 ### Fichier groupe
 
@@ -319,7 +354,7 @@ dimensions <- c("somatisation", "symptomes_obsession", "vulnerabilite", "depress
 scl90_dim <- scl90[, c("NUMERO", "VISIT", dimensions)]
 ```
 
-###  HDRS
+### HDRS
 
 Le jeu de données `hdrs` est traité de la manière suivante :
 
@@ -384,14 +419,14 @@ hdrs_items <- c("1_humeur_depressive","2_sentim_culpabilite","3_suicide","4_inso
 
 hdrs$score <- rowSums(hdrs[, hdrs_items], na.rm = TRUE)
 
-# supprimer la ligne 741 de hdrs
+# supprimer la ligne 741 de hdrs car les données sont manquantes
 hdrs <- hdrs[-741, ]
 
 # supprimer HAMD16A et HAMD16B si présentes
 hdrs <- hdrs[, setdiff(names(hdrs), c("HAMD16A", "HAMD16B"))]
 ```
 
-### Groupes 
+### Groupes
 
 ```{r}
 #| label: gestion groupes
@@ -461,9 +496,10 @@ df_total_long <- melt(
 ```
 
 \newpage
+
 # Question 1 : Validation de l'échelle Hamilton
 
-:::callout-note
+::: callout-note
 **Consigne de la question 1** : Lorsque l’on utilise un instrument de mesure subjective dans une étude clinique, il est toujours bon de le (re)valider rapidement. Procédez ici à cette **vérification** sur l’échelle de dépression de Hamilton, aux temps J0 et J56.
 :::
 
@@ -473,7 +509,7 @@ df_total_long <- melt(
 
 -   Second temps : Analyse de la structure dimensionnelle = **que mesure l'instrument ?**
 
-    -   Exploration de la structure par analyse en composante principale  : visualiser les relations entre les items
+    -   Exploration de la structure par analyse en composante principale : visualiser les relations entre les items
 
     -   Détermination du nombre de dimensions : diagramme des valeurs propres (*scree plot*) permet de déterminer le nombre de dimensions (composantes principales)
 
@@ -489,12 +525,11 @@ df_total_long <- melt(
 
     -   Validité externe : corrélation avec d'autres instruments de mesure (ici les dimensions de l'échelle SCL90)
 
-
 ## Valdidation.à J0
 
-### Description 
+### Description
 
-Les réponses sont représentées : 
+Les réponses sont représentées :
 
 -   par des histogrammes pour chaque item de l'échelle de Hamilton à J0
 
@@ -591,7 +626,7 @@ corrplot(corr_matrix_J0,
             )
 ```
 
--   Il n'y a pas de données manquantes. 
+-   Il n'y a pas de données manquantes.
 
 -   Les histogrammes montrent que certains items ont une distribution asymétrique (ex : insomnie quelque soit le moment de la nuit, symptômes généraux, perte de poids...)
 
@@ -623,9 +658,9 @@ mdspca(hdrs_J0_PCA)
 
 -   Chaque point représente un item de l'échelle de Hamilton.
 
--   Deux axes principaux : 
+-   Deux axes principaux :
 
-    -   l'axe horizontale `x` représente la première composante principale (PC1) qui explique 11% de la variance totale, l'axe verticale `y` représente la deuxième composante principale (PC2) qui explique 10% de la variance totale. 
+    -   l'axe horizontale `x` représente la première composante principale (PC1) qui explique 11% de la variance totale, l'axe verticale `y` représente la deuxième composante principale (PC2) qui explique 10% de la variance totale.
 
     -   Ensemble, les deux premières composantes principales expliquent 21% de la variance totale, ce qui est relativement faible.
 
@@ -653,7 +688,7 @@ scree.plot(hdrs_J0[,c(hdrs_items)], simu=20, use = "P")
 
 -   En analyse parallèle, on observe au moins 3 dimensions ayant une valeur propre supérieure à celle obtenue sur des données simulées.
 
--   On pourrait réaliser des tests statistiques qui permettraient de déterminer le nombre optimal de dimensions, mais ces tests sont sujets à plusieurs biais : 
+-   On pourrait réaliser des tests statistiques qui permettraient de déterminer le nombre optimal de dimensions, mais ces tests sont sujets à plusieurs biais :
 
     -   on calculerait une p-value pour l'hypothèse "n facteurs sont suffisants"
 
@@ -700,7 +735,13 @@ knitr::kable(
 
 -   À J0, l’analyse factorielle exploratoire avec rotation varimax met en évidence 3 facteurs latents expliquant cumulativement 21,9 % de la variance des réponses aux items du score de Hamilton.
 
--   Concernant chacun des 3 facteurs : 
+-   Concernant l'interprétation du tableau des "loadings" (charges factorielles) :
+
+    -   Les "loadings" (charges factorielles) indiquent la contribution de chaque item à chaque facteur. Ils mesure la force de la régression linéaire entre chaque item et chaque facteur latent. Plus l'item est proche de 1, plus il est expliqué par le facteur latent commun.
+
+    -   Il n'existe pas de "seuil" universel pour déterminer si un loading est "élevé" ou "faible", mais généralement, un loading supérieur à 0,4 ou 0,5 est considéré comme significatif.
+
+-   On peut interpréter les 3 facteurs identifiés comme suit :
 
     -   Facteur 1 : 8, 12, 14, 16 (principalement des symptômes somatiques).
 
@@ -772,14 +813,13 @@ Le score total de Hamilton semble plus corrélé aux symptômes dépressifs (F3)
 
 #### Consistance interne : alpha de Cronbach
 
-
 La consistance interne des items de l'échelle de Hamilton à J0 est évaluée par le calcul de l'alpha de Cronbach, qui correspond globalement au **pourcentage de « variance partagée »** entre le score vrai (hypothétique) et la mesure obtenue.
 
 Il permet ainsi de mesurer la cohérence entre les items d'une échelle de mesure, et est élevé lorsque les items sont fortement corrélés entre eux.
 
 On peut donc calculer dans un premier temps l'alpha de Cronbach sur l'ensemble des items de l'échelle de Hamilton à J0, puis sur chacun des 3 facteurs identifiés précédemment.
 
-Les intervalles de confiance (IC) à 95% des alpha de Cronbach sont estimés par la méthode du bootstrap avec 1000 rééchantillonnages. Le bootstrap est possible ici car il y a > 100 observations.
+Les intervalles de confiance (IC) à 95% des alpha de Cronbach sont estimés par la méthode du bootstrap avec 1000 rééchantillonnages. Le bootstrap est possible ici car il y a \> 100 observations.
 
 ```{r}
 #| label: alpha de Cronbach J0
@@ -813,7 +853,6 @@ boot.ci(boot_alpha_f2, type = "bca")
 boot_alpha_f3 <- boot(hdrs_J0[,c("1_humeur_depressive","2_sentim_culpabilite","3_suicide","5_insomnie_milieu","6_insomnie_matin","7_travail_activite","9_agitation","10_anxiete_psychique","11_anxiete_somatique","15_hypochondrie","17_prise_conscience")], alpha_bootstrap, R = 1000)
 boot.ci(boot_alpha_f3, type = "bca")
 ```
-
 
 ```{r}
 #| label: tableau alpha de Cronbach J0
@@ -852,7 +891,7 @@ knitr::kable(
 )
 ```
 
-Au total, quelque soit le niveau d'analyse (global ou par facteur), les alpha de Cronbach sont < 0.5, indiquant une faible consistance interne des items de l'échelle de Hamilton à J0.
+Au total, quelque soit le niveau d'analyse (global ou par facteur), les alpha de Cronbach sont \< 0.5, indiquant une faible consistance interne des items de l'échelle de Hamilton à J0.
 
 ### Validité externe = l'instrument mesure-t-il ce qu'il est censé mesurer ?
 
@@ -899,12 +938,9 @@ corr_validite_J0 <- cor(
     use = "pairwise.complete.obs"
 )
 
-# Ne garder que la première ligne (par exemple "score")
-corr_validite_J0_ligne1 <- corr_validite_J0["score", , drop = FALSE]
-
 # Corrplot
 corrplot(
-    corr_validite_J0_ligne1,
+    corr_validite_J0["score", , drop = FALSE],
     method = "color",
     type = "full",
     tl.col = "black",
@@ -930,12 +966,9 @@ La corrélation est au maximum à 0.37 avec la composante "somatisation" du SCL-
 #| fig-cap : "Corrélation entre les sous-scores de l'échelle de Hamilton et les dimensions SCL-90 à J0"
 corr_validité_sousscores_J0 <- cor(hdrs_scl90_J0[,c("f1_somatique","f2_asthenie","f3_depressif", dimensions)], use = "pairwise.complete.obs")
 
-#ne garder que les 3 lignes (sous-scores)
-corr_validité_sousscores_J0 <- corr_validité_sousscores_J0[c("f1_somatique","f2_asthenie","f3_depressif"), , drop = FALSE]
-
 # Corrplot
 corrplot(
-    corr_validité_sousscores_J0,
+    corr_validité_sousscores_J0[c("f1_somatique","f2_asthenie","f3_depressif"), , drop = FALSE],
     method = "color",
     type = "full",
     tl.col = "black",
@@ -957,14 +990,32 @@ La validité convergente entre le score total de Hamilton et les dimensions du S
 
 ### Conclusion globale à J0
 
-À J0, l'échelle de dépression de Hamilton présente une structure dimensionnelle peu claire, avec une faible consistance interne des items (alpha de Cronbach < 0.5) et une validité convergente modérée avec les dimensions du SCL-90. 
+À J0, l'échelle de dépression de Hamilton présente une structure dimensionnelle peu claire, avec une faible consistance interne des items (alpha de Cronbach \< 0.5) et une validité convergente modérée avec les dimensions du SCL-90.
 
 Ces résultats suggèrent que l'échelle de Hamilton pourrait ne pas être un instrument optimal pour mesurer la dépression dans cette population à ce moment précis.
 
 \newpage
+
 ## Validation à J56
 
 ### Description
+
+```{r}
+#| label: taux de présence J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+n_J56 <- nrow(subset(hdrs_groupe, VISIT == "J56"))
+n_J56
+n_J0 <- nrow(subset(hdrs_groupe, VISIT == "J0"))
+n_J0
+pct_present_J56 <- (n_J56 / n_J0) * 100
+pct_present_J56
+```
+
+À J56, 120 des 146 patients présents à J0 ont répondu à tous les items : 17.8% des patients ont été perdus de vue.
 
 Comme à J0, les réponses sont représentées :
 
@@ -1056,18 +1107,566 @@ corrplot(corr_matrix_J56,
             )
 ```
 
+-   Sur les histogrammes, on observe un effet plancher, c'est à dire que de nombreux patients ont des scores faibles sur plusieurs items. Il est probable que ce soit lié à l'amélioration de la symptomatologie dépressive entre J0 et J56.
 
+-   La matrice de corrélation des items met en évidence des coefficients de corrélation plus élevés que ceux observés à J0, avec plusieurs coefficients supérieurs à 0.5 en valeur absolue, indiquant une certaine redondance entre les items de l’échelle Hamilton à J56.
 
-### Description
+    -   Il est possible que cette redondance soit liée à l'effet plancher observé sur les histogrammes, où de nombreux patients ont des scores faibles sur plusieurs items, ce qui peut augmenter artificiellement les corrélations entre ces items.
 
 ### Validité interne : structure dimensionnelle, analyse factorielle
 
-### Validité externe
+#### Exploration de la structure dimensionnelle : analyse en composantes principales
+
+```{r}
+#| label: ACP J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+#| fig-width: 5.5
+#| fig-height: 3
+#| fig-cap : "Analyse en composantes principales des items de l'échelle de Hamilton à J56"
+#renommer les noms des variables dans un nouveau df copié pour éviter la superposition
+hdrs_J56_PCA <- hdrs_J56[,c(hdrs_items)]
+colnames(hdrs_J56_PCA) <- c("1","2","3","4","5","6",
+                            "7","8","9","10","11","12",
+                            "13","14","15", "16", "17")
+mdspca(hdrs_J56_PCA)
+```
+
+-   La première composante principale explique 28% de la variance totale, la deuxième composante principale explique 10% de la variance totale.
+
+    -   Les deux premières composantes principales expliquent 38% de la variance totale, ce qui est une amélioration par rapport à J0.
+
+    -   Certaines variables sont un peu plus éloignées du centre qu'à J0, il est possible qu'elles contribuent davantage aux premières composantes principales.
+
+#### Exploration de la structure dimensionnelle : analyse factorielle
+
+```{r}
+#| label: analyse factorielle J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+#| fig-width: 5
+#| fig-height: 3.5
+#| fig-cap : "Diagramme des valeurs propres (scree plot) des items de l'échelle de Hamilton à J56 avec représentation de données simulées (analyse parallèle)"
+head(hdrs_J56[,c(hdrs_items)])
+scree.plot(hdrs_J56[,c(hdrs_items)], simu=20, use = "P")
+```
+
+-   À J56, le *scree plot* n'est pas du tout le même qu'à J0 : on observe un "coude" net après la première valeur propre.
+
+-   **L'échelle Hamilton à J56 semble donc essentiellement unidimensionnelle.**
+
+```{r}
+#| label: af loadings J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+af_J56 <- factanal(
+    na.omit(hdrs_J56[hdrs_items]),
+    factors = 1,
+    rotation = "varimax"
+)
+# Extraction propre des loadings
+loadings_df_J56 <- as.data.frame(unclass(af_J56$loadings))
+# Création explicite de la colonne Variable à partir des rownames
+loadings_df_J56$Variable <- rownames(loadings_df_J56)
+# Suppression des rownames pour éviter toute ambiguïté
+rownames(loadings_df_J56) <- NULL
+# Réorganisation : Variable en première colonne
+loadings_df_J56 <- loadings_df_J56[, c("Variable", colnames(loadings_df_J56)[1])]
+# Arrondi
+loadings_df_J56[, -1] <- round(loadings_df_J56[, -1], 3)
+# Affichage LaTeX
+knitr::kable(
+    loadings_df_J56,
+    caption = "Contribution du facteur unique à la variance de la réponse à chaque item du score de Hamilton évalué à J56 (analyse factorielle avec rotation varimax à 1 facteur)",
+    booktabs = TRUE,
+    align = "lccc"
+)
+```
+
+-   Les valeurs numériques mesurent la force de la relation linéaire entre chaque item observé et le facteur latent unique.
+
+-   Les symptômes centraux de la dépression (humeur dépressive, ralentissement, baisse d'activité) présentent les charges factorielles les plus élevées, indiquant qu'ils sont de bons indicateurs du facteur latent unique (la dépression).
+
+-   Certains items périphériques (perte de poids, symptômes génitaux) ont une très faible charge, ils peuvent être peu informatifs et faiblement contribuer à la mesure du concept unique de dépression à J56. Leur pertinence dans le score total de l'instrument peut être remise en question.
+
+### Fiabilité interne = que vaut la mesure ?
+
+#### Consistance interne : alpha de Cronbach
+
+La consistance interne des items de l'échelle de Hamilton à J56 est évaluée par le calcul de l'alpha de Cronbach, et son IC à 95% par la méthode du bootstrap avec 1000 rééchantillonnages.
+
+```{r}
+#| label: alpha de Cronbach J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+cronbach(hdrs_J56[,hdrs_items])
+
+#estimation des IC par bootstrap
+set.seed(123)
+boot_alpha_J56 <- boot(hdrs_J56[,hdrs_items], alpha_bootstrap, R = 1000)
+boot.ci(boot_alpha_J56, type = "bca")
+```
+
+```{r}
+#| label: tableau alpha de Cronbach J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+#représentation des alpha de Cronbach avec IC en tableau
+alpha_J56_df <- data.frame(
+    Scale = c("Global"),
+    Alpha = c(
+        round(cronbach(hdrs_J56[,hdrs_items])$alpha, 3)
+    ),
+    CI_lower = c(
+        round(boot.ci(boot_alpha_J56, type = "bca")$bca[4], 2)
+    ),
+    CI_upper = c(
+        round(boot.ci(boot_alpha_J56, type = "bca")$bca[5], 2)
+    )
+)
+knitr::kable(
+    alpha_J56_df,
+    caption = "Alpha de Cronbach et intervalle de confiance à 95% pour l'échelle de Hamilton à J56",
+    booktabs = TRUE,
+    align = "lccc"
+)
+```
+
+-   A J56, l'alpha de Cronbach est de 0.82, avec un intervalle de confiance à 95% de \[0.75 ; 0.86\], indiquant une bonne consistance interne des items de l'échelle de Hamilton à ce moment. Elle n'est pas exagérément lourde ni redondante.
+
+\newpage
+
+### Validité externe = l'instrument mesure-t-il ce qu'il est censé mesurer ?
+
+De la même manière qu'à J0, la validité externe de l'échelle de Hamilton à J56 peut être évaluée en examinant la corrélation entre le score total de Hamilton et les dimensions du SCL-90.
+
+```{r}
+#| label: validité J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+#création fichier large avec hdrs_J56 et scl90_dim à J56
+scl90_J56 <- subset(scl90_dim, VISIT == "J56")
+scl90_J56 <- scl90_J56[,c("NUMERO","VISIT",dimensions)]
+scl90_J56 <- scl90_J56[order(scl90_J56$NUMERO), ]
+hdrs_J56 <- hdrs_J56[order(hdrs_J56$NUMERO), ]
+hdrs_scl90_J56 <- merge(hdrs_J56, scl90_J56, by = c("NUMERO", "VISIT"), all.x = TRUE)
+```
+
+#### Corrélation entre le score de Hamilton et les dimensions du SCL-90 à J56
+
+```{r}
+#| label: corrélation J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+#| fig-height: 1.6
+#| fig-cap : "Corrélation entre score total de Hamilton et les dimensions du SCL-90 à J56"
+# Matrice de corrélation complète
+corr_validite_J56 <- cor(
+    hdrs_scl90_J56[, c("score", dimensions)],
+    use = "pairwise.complete.obs"
+)
+# Corrplot
+corrplot(
+    corr_validite_J56["score", , drop = FALSE],
+    method = "color",
+    type = "full",
+    tl.col = "black",
+    addCoef.col = "white",
+    number.cex = 0.65,
+    tl.cex = 0.4,
+    tl.srt = 25,
+    col = viridis::magma(100)
+)
+```
+
+```{r}
+#| label: corrélation sous-scores J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+#| fig-width: 5
+#| fig-height: 4
+#| fig-cap : "ACP focalisée du score total de l'échelle de Hamilton et des dimensions du SCL-90 à J56"
+df_fpca_J56 <- data.frame(
+    score_total = hdrs_scl90_J56$score,
+    hdrs_scl90_J56[, dimensions]
+)
+
+fpca(
+    score_total ~ .,
+    data = df_fpca_J56
+)
+```
+
+-   Les corrélations sont plus importantes entre les sous-scores de SCL90 et le score d’Hamilton à J56, : ces deux échelles mesurent probablement la même chose.
+
+-   La sous échelle dépression du SCL90 est particulièrement corrélée avec le score d’Hamilton.
+
+#### Conclusion validité externe à J56
+
+La validité convergente entre le score total de Hamilton et les dimensions du SCL-90 à J56 est modérée à forte, suggérant que l'échelle de Hamilton mesure des aspects pertinents de la détresse psychologique générale à ce moment.
+
+### Conclusion globale à J56
+
+À J56, l'échelle de dépression de Hamilton présente une structure dimensionnelle essentiellement unidimensionnelle, avec une bonne consistance interne des items (alpha de Cronbach = 0.82) et une validité convergente modérée à forte avec les dimensions du SCL-90.
+
+Au total, ces résultats suggèrent que l'échelle de Hamilton est un instrument valide et fiable pour mesurer la dépression dans cette population à J56.
+
+### Synthèse des résultats de validation de l'échelle de Hamilton à J0 et J56
+
+Tableau récapitulatif des principaux résultats de validation de l'échelle de Hamilton à J0 et J56 :
+
+| Aspect | J0 | J56 |
+|-------------------|-------------------------|-----------------------------|
+| Structure dimensionnelle | Multidimensionnelle (3 facteurs) | Essentiellement unidimensionnelle |
+| Consistance interne ($Alpha$ de Cronbach) | Faible ($\alpha$ = 0.45 \[0.39 ; 0.51\]) | Bonne ($\alpha$ = 0.82 \[0.75 ; 0.86\]) |
+| Validité convergente (corrélation avec SCL-90) | Modérée (max = 0.40) | Plus élevée (max = 0.85) |
+| Conclusion globale | Structure dimensionnelle peu claire, faible consistance interne, validité convergente modérée | Essentiellement unidimensionnelle, bonne consistance interne, validité convergente modérée à forte |
+
+: {tbl-colwidths="\[30,35,35\]"}
+
+::: callout-note
+**Validité divergente**
+
+La validité divergente (ou discriminante) fait référence à la capacité d'un instrument de mesure à ne pas être fortement corrélé avec des concepts ou des mesures qui sont théoriquement distincts. En d'autres termes, un instrument doit montrer qu'il mesure un concept spécifique sans être influencé de manière significative par d'autres concepts non liés.
+
+En l'occurence, on ne dispose pas d'instruments mesurant des concepts clairement distincts de la dépression dans ce jeu de données, ce qui limite notre capacité à évaluer la validité divergente de l'échelle de Hamilton dans ce contexte.
+:::
+
+\newpage
 
 # Question 2 : Comparaison de la réponse au traitement entre deux groupes de patients
 
+::: callout-note
+**Consigne** 
 
-# Annexe – Code R 
+"A partir du score brut de Hamilton, déterminez si les patients du groupe `groupe=1` répondent mieux au traitement que les patients du groupe `groupe=0`. (utilisez d’abord une approche LOCF (last observation carried forward), puis un modèle mixte)."
+:::
+
+## Gestion des données
+
+Il faut utiliser
+
+## Scores bruts à J0 dans chaque groupe
+
+-   Présentation en tableau des scores bruts de l'échelle de Hamilton à J0 dans chaque groupe de traitement avec effectifs, moyennes, écarts-types, médianes et intervalles interquartiles.
+
+```{r}
+#| label: scores bruts J0 par groupe
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+library(dplyr)
+hdrs_J0_grouped <- hdrs_J0 %>%
+    group_by(GROUPE) %>%
+    summarise(
+        N = n(),
+        Moyenne = round(mean(score, na.rm = TRUE), 1),
+        "Écart type" = round(sd(score, na.rm = TRUE), 2),
+        Médiane = round(median(score, na.rm = TRUE), 2),
+        Q1 = round(quantile(score, 0.25, na.rm = TRUE), 2),
+        Q3 = round(quantile(score, 0.75, na.rm = TRUE), 2)
+    )
+knitr::kable(
+    hdrs_J0_grouped,
+    caption = "Scores bruts de l'échelle de Hamilton à J0 par groupe de traitement",
+    booktabs = TRUE,
+    align = "lcccccc"
+)
+```
+
+```{r}
+#| label: histo et boxplot J0 par groupe
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| fig-width: 6
+#| fig-height: 3
+#| fig-cap : "Histogramme et boxplot présentant les scores bruts de l'échelle de Hamilton à J0"
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+# Histogramme des scores bruts par groupe (côté à côte)
+hist(hdrs_J0$score[hdrs_J0$GROUPE == 0], 
+        col = "#bf616a", 
+        main = " ", 
+        xlab = "Score brut Hamilton", 
+        ylab = "Fréquence", 
+        xlim = range(hdrs_J0$score), 
+        ylim = c(0, max(table(cut(hdrs_J0$score, breaks = 4)))))
+hist(hdrs_J0$score[hdrs_J0$GROUPE == 1], 
+        col = paste0("#88c0d0", "80"),
+        add = TRUE, #permet de superposer les histogrammes
+        breaks = 4)
+legend("topright", legend = c("Groupe 0", "Groupe 1"), 
+        fill = c("#bf616a", "#88c0d0"))
+# Boxplot
+boxplot(score ~ GROUPE,
+    data = hdrs_J0,
+    main = " ",
+    xlab = "Groupe de traitement",
+    ylab = "Score brut Hamilton",
+    col = c("#bf616a", "#88c0d0"),
+    names = c("Groupe 0", "Groupe 1")
+)
+par(mfrow = c(1, 1))
+```
+
+
+### Comparaison des scores bruts à J0 entre les deux groupes
+
+-   Un histogramme des scores bruts à J0 à déjà été présenté ci-dessus.
+
+-   La distribution semble approximativement normale dans chaque groupe.
+
+-   On peut donc comparer les scores bruts moyens entre les deux groupes par un test t de Student pour échantillons indépendants.
+
+```{r}
+#| label: test t J0 par groupe
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+t_test_J0 <- hdrs_J0 %>%
+    tbl_summary(
+        include = score,
+        by = GROUPE,
+        statistic = all_continuous() ~ "{mean} ({sd})",
+        digits = all_continuous() ~ 2
+    ) %>%
+    add_p(
+        test = all_continuous() ~ "t.test",
+        test.args = all_continuous() ~ list(var.equal = TRUE)
+    )
+t_test_J0
+```
+
+NB : la fonction utilisée ici est `tbl_summary` du package `gtsummary` permet de réaliser des tableaux de synthèse avec des tests statistiques intégrés, ce qui facilite la présentation des résultats.
+
+## Évolution des scores bruts entre J0 et J56 dans chaque groupe
+
+### Évolution du nombre de patients dans chaque groupe à chaque visite
+
+-   Nombre de données entre chaque visite entre J0 et J56 dans chaque groupe :
+
+A la visite J56, les visites manquent pour 11 patients sur 75 dans le groupe 0 (14,7%), contre
+15 patients sur 56 dans le groupe 1 (26,8%).
+```{r}
+#| label: nb patients par visite et groupe
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+
+visits <- c("J0", "J4", "J7", "J14", "J21", "J28", "J42", "J56")
+
+tableau_patients_jours <- table(
+    hdrs_groupe$GROUPE,
+    factor(hdrs_groupe$VISIT, levels = visits)
+)
+tableau_patients_jours
+
+knitr::kable(
+    tableau_patients_jours,
+    caption = "Nombre de patients par groupe de traitement et visite",
+    booktabs = TRUE,
+    align = c("lcccccccc")
+)
+```
+
+A la visite J56, les visites manquent pour 11 patients sur 75 dans le groupe 0 (14,7%), contre
+15 patients sur 56 dans le groupe 1 (26,8%).
+
+### Évolution des scores bruts moyens entre J0 et J56 dans chaque groupe
+
+On peut représenter :
+
+-   L'évolution des scores bruts moyens dans chacun des groupes avec des boxplot à chaque visite
+
+```{r}
+#| label: boxplot scores bruts par visite et groupe
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| fig-height: 3
+#| fig-cap : "Évolution des scores moyens entre J0 et J56 dans chaque groupe"
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+# Groupe 0
+hdrs_groupe0 <- subset(hdrs_groupe, GROUPE == 0)
+boxplot(score ~ VISIT,
+    data = hdrs_groupe0,
+    main = "Groupe 0",
+    xlab = "",
+    ylab = "Score brut Hamilton",
+    col = "#bf616a"
+)
+# Groupe 1
+hdrs_groupe1 <- subset(hdrs_groupe, GROUPE == 1)
+boxplot(score ~ VISIT,
+    data = hdrs_groupe1,
+    main = "Groupe 1",
+    xlab = "",
+    ylab = "",
+    col = "#88c0d0"
+)
+par(mfrow = c(1, 1))
+```
+
+-   L'évolution par patients (dans chacun des groupes), avec un diagramme en spaghetti, d'interprétation plus difficile mais qui montre les trajectories individuelles.
+
+```{r}
+#| label: spaghetti scores bruts par visite et groupe
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| fig-height: 4
+#| fig-cap : "Évolution individuelle des scores entre J0 et J56 dans chaque groupe "
+# utilisation de ggplot2 pour les diagrammes en spaghetti avec ggparcoord
+library(ggplot2)
+library(GGally)
+palette_nord <- c("#bf616a", "#88c0d0")
+
+hdrs_wide <- reshape2::dcast(
+    hdrs_groupe,
+    NUMERO + GROUPE ~ VISIT,
+    value.var = "score"
+)
+hdrs_wide$GROUPE <- factor(hdrs_wide$GROUPE)
+ggparcoord(
+    data = hdrs_wide,
+    columns = 3:10,
+    groupColumn = "GROUPE",
+    scale = "globalminmax",
+    missing = "exclude"
+) +
+    theme_minimal() +
+    labs(
+        title = " ",
+        x = " ",
+        y = "Score brut Hamilton",
+        color = "Groupe"
+    ) +
+    scale_color_manual(
+        values = palette_nord,
+        labels = c("Groupe 0", "Groupe 1")
+    )
+```
+
+-   De nouveaux boxplots qui montre le score à J56 côte à côte pour chaque groupe. 
+
+```{r}
+#| label: boxplot scores bruts J0 et J56 par groupe
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| fig-height: 4
+#| fig-cap : "Scores bruts de l'échelle de Hamilton à J56 dans chaque groupe de traitement"
+hdrs_J56 <- subset(hdrs_groupe, VISIT %in% c("J56"))
+boxplot(score ~ GROUPE,
+    data = hdrs_J56,
+    main = " ",
+    xlab = " ",
+    ylab = "Score brut Hamilton",
+    col = c("#bf616a", "#88c0d0"),
+    names = c("Groupe 0", "Groupe 1")
+)
+```
+
+Quelque soit la méthode de visualiation, on observe une tendance diminution des scores bruts moyens de l'échelle de Hamilton entre J0 et J56 dans les deux groupes de traitement.
+
+La diminution semble plus marquée dans le groupe 0 que dans le groupe 1.
+
+## Comparaison de la réponse au traitement entre deux groupes de patients
+
+L'objectif est donc de déterminer si un des groupes répond mieux au traitement que l'autre, en comparant l'évolution des scores bruts entre J0 et J56 dans chaque groupe.
+
+### Imputation des données manquantes par la méthode LOCF (last observation carried forward)
+
+Méthode LOCF = on remplace les valeurs manquantes par la dernière valeur observée pour chaque patient.
+
+On a vu précédemment que 
+
+```{r}
+#| label: imputation LOCF
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+
+# LOCF "simple" (style de ton 2e exemple) :
+# 1) passer en wide pour matérialiser les visites absentes en NA
+# 2) repasser en long (146*8 lignes)
+# 3) LOCF par patient
+library(zoo)
+
+lhdrs <- reshape2::dcast(
+    hdrs_groupe,
+    NUMERO + GROUPE ~ VISIT,
+    value.var = "score"
+)
+
+hdrs_groupe_locf <- reshape(
+    data = lhdrs,
+    idvar = c("NUMERO", "GROUPE"),
+    varying = visits,
+    times = visits,
+    v.names = "score",
+    timevar = "VISIT",
+    direction = "long"
+)
+hdrs_groupe_locf <- hdrs_groupe_locf[order(hdrs_groupe_locf$NUMERO, hdrs_groupe_locf$VISIT), ]
+
+# LOCF avec zoo::na.locf, patient par patient (pas de tidyverse / pas de apply)
+hdrs_groupe_locf$score_locf <- hdrs_groupe_locf$score
+ids <- unique(hdrs_groupe_locf$NUMERO)
+for (k in seq_along(ids)) {
+    idx <- hdrs_groupe_locf$NUMERO == ids[k]
+    hdrs_groupe_locf$score_locf[idx] <- zoo::na.locf(hdrs_groupe_locf$score[idx], na.rm = FALSE)
+}
+
+# Effectifs après LOCF (toutes les visites existent maintenant)
+tableau_patients_jours_locf <- table(hdrs_groupe_locf$GROUPE, hdrs_groupe_locf$VISIT)
+tableau_patients_jours_locf
+
+knitr::kable(
+    tableau_patients_jours_locf,
+    caption = "Nombre de patients par groupe de traitement et visite après imputation LOCF",
+    booktabs = TRUE,
+    align = c("lcccccccc")
+)
+```
+
+
+# Annexe – Code R
 
 ```{r}
 #| echo: false
