@@ -18,7 +18,7 @@ format:
 
     pdf:
         toc: true
-        toc-depth: 3
+        toc-depth: 2
         toc-title: "Table des matières"
         pdf-engine: xelatex
         number-sections: true
@@ -109,6 +109,7 @@ library(lmerTest)
 library(psych)
 library(lme4)
 library(prettyR)
+library(zoo)
 library(kableExtra)
 library(gtsummary)
 library(dplyr)
@@ -470,13 +471,20 @@ Convertir `hdrs_groupe`, `scl90_groupe` et `df_total_wide` de format "large" à 
 #| warning: false #  Cache les avertissements
 library(reshape2)
 
-## HDRS -> long
+## HDRS -> wide
+hdrs_wide <- reshape2::dcast(
+    hdrs_groupe,
+    NUMERO + GROUPE ~ VISIT,
+    value.var = "score"
+)
+
 hdrs_long <- melt(
     hdrs_groupe,
     id.vars = c("NUMERO", "VISIT", "GROUPE"),
     variable.name = "item",
     value.name = "value"
 )
+
 
 ## SCL90 -> long
 scl90_long <- melt(
@@ -1466,7 +1474,7 @@ t_test_J0 <- hdrs_J0 %>%
 t_test_J0
 ```
 
-NB : la fonction utilisée ici est `tbl_summary` du package `gtsummary` permet de réaliser des tableaux de synthèse avec des tests statistiques intégrés, ce qui facilite la présentation des résultats.
+NB : la fonction utilisée ici est `tbl_summary` du package `gtsummary` permet de réaliser des tableaux de synthèse avec des tests statistiques intégrés.
 
 ## Évolution des scores bruts entre J0 et J56 dans chaque groupe
 
@@ -1477,7 +1485,7 @@ NB : la fonction utilisée ici est `tbl_summary` du package `gtsummary` permet d
 A la visite J56, les visites manquent pour 11 patients sur 75 dans le groupe 0 (14,7%), contre
 15 patients sur 56 dans le groupe 1 (26,8%).
 ```{r}
-#| label: nb patients par visite et groupe
+#| label: Nombre patients par visite et groupe
 #| echo: false
 #| eval: true
 #| message: false
@@ -1490,7 +1498,6 @@ tableau_patients_jours <- table(
     hdrs_groupe$GROUPE,
     factor(hdrs_groupe$VISIT, levels = visits)
 )
-tableau_patients_jours
 
 knitr::kable(
     tableau_patients_jours,
@@ -1607,35 +1614,39 @@ La diminution semble plus marquée dans le groupe 0 que dans le groupe 1.
 
 ## Comparaison de la réponse au traitement entre deux groupes de patients
 
-L'objectif est donc de déterminer si un des groupes répond mieux au traitement que l'autre, en comparant l'évolution des scores bruts entre J0 et J56 dans chaque groupe.
+L'objectif est donc de déterminer si un des groupes répond mieux au traitement que l'autre, en comparant l'évolution des scores bruts entre J0 et J56 dans chaque group, en utilisant d'abord une approche LOCF (last observation carried forward), puis un modèle mixte.
 
-### Imputation des données manquantes par la méthode LOCF (last observation carried forward)
+### Compraison de la réponse en utilisant la méthode LOCF
+
+#### Imputation des données manquantes par la méthode LOCF (last observation carried forward)
 
 Méthode LOCF = on remplace les valeurs manquantes par la dernière valeur observée pour chaque patient.
 
-On a vu précédemment que 
+On applique la fonction `na.locf` du package `zoo` pour réaliser cette imputation.
 
 ```{r}
 #| label: imputation LOCF
 #| echo: false
 #| eval: true
+#| results: hide # CACHE le résultat texte
 #| message: false
 #| warning: false
+#on reprend hdrs_wide créé précédemment (hdrs au format large, qui contient les scores à chaque visite en colonnes)
+hdrs_wide
 
-# LOCF "simple" (style de ton 2e exemple) :
-# 1) passer en wide pour matérialiser les visites absentes en NA
-# 2) repasser en long (146*8 lignes)
-# 3) LOCF par patient
-library(zoo)
+hdrs_wide_locf <- hdrs_wide
+#fonction na.locf de zoo pour imputer les valeurs manquantes par la dernière valeur observée
+hdrs_wide_locf[, visits] <- t(zoo::na.locf(t(as.matrix(hdrs_wide[, visits])), na.rm = FALSE))
+#vérification de l'imputation (format wide)
+hdrs_wide_locf
 
-lhdrs <- reshape2::dcast(
-    hdrs_groupe,
-    NUMERO + GROUPE ~ VISIT,
-    value.var = "score"
-)
+# ajout d'une variable "difference" qui correspond à la différence entre le score à J56 et le score à J0 (après imputation LOCF)
+hdrs_wide_locf$difference <- hdrs_wide_locf$J56 - hdrs_wide_locf$J0
 
+# retour au format long après imputation LOCF
+head(hdrs_wide_locf)
 hdrs_groupe_locf <- reshape(
-    data = lhdrs,
+    data = hdrs_wide_locf,
     idvar = c("NUMERO", "GROUPE"),
     varying = visits,
     times = visits,
@@ -1643,19 +1654,32 @@ hdrs_groupe_locf <- reshape(
     timevar = "VISIT",
     direction = "long"
 )
-hdrs_groupe_locf <- hdrs_groupe_locf[order(hdrs_groupe_locf$NUMERO, hdrs_groupe_locf$VISIT), ]
+head(hdrs_groupe_locf)
 
-# LOCF avec zoo::na.locf, patient par patient (pas de tidyverse / pas de apply)
-hdrs_groupe_locf$score_locf <- hdrs_groupe_locf$score
-ids <- unique(hdrs_groupe_locf$NUMERO)
-for (k in seq_along(ids)) {
-    idx <- hdrs_groupe_locf$NUMERO == ids[k]
-    hdrs_groupe_locf$score_locf[idx] <- zoo::na.locf(hdrs_groupe_locf$score[idx], na.rm = FALSE)
-}
+
+# garder aussi le score observé (avant imputation) dans le même df
+hdrs_groupe_obs <- reshape(
+    data = hdrs_wide,
+    idvar = c("NUMERO", "GROUPE"),
+    varying = visits,
+    times = visits,
+    v.names = "score_obs",
+    timevar = "VISIT",
+    direction = "long"
+)
 
 # Effectifs après LOCF (toutes les visites existent maintenant)
 tableau_patients_jours_locf <- table(hdrs_groupe_locf$GROUPE, hdrs_groupe_locf$VISIT)
 tableau_patients_jours_locf
+```
+
+```{r}
+#| label: Nombre patients par visite et groupe après imputation LOCF
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
 
 knitr::kable(
     tableau_patients_jours_locf,
@@ -1664,6 +1688,317 @@ knitr::kable(
     align = c("lcccccccc")
 )
 ```
+
+#### Comparaison de la réponse au traitement entre les deux groupes après imputation LOCF
+
+Il faut comparer l'évolution des scores bruts moyens entre J0 et J56, donc la différence de score entre J56 et J0, entre les deux groupes.
+
+Pour ça, on crée une nouvelle variable "difference" qui correspond à la différence entre le score à J56 et le score à J0 (après imputation LOCF).
+
+On fait maintenant un test t de Student pour comparer la différence moyenne de score entre J0 et J56 entre les deux groupes.
+
+```{r}
+#| label: conditions de validité du test t sur la différence LOCF
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+#| fig-width: 6
+#| fig-height: 3
+#| fig-cap : "Histogramme et QQ-plot de la différence de score entre J0 et J56 (après imputation LOCF) sur l'échantillon complet"
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+hist(hdrs_wide_locf$difference,
+    main = " ",
+    xlab = "Différence de score (J56 - J0)",
+    col = "#81a1c1",
+    border = "white",
+    breaks = 10,
+    freq = FALSE
+)
+curve(dnorm(x, mean = mean(hdrs_wide_locf$difference), sd = sd(hdrs_wide_locf$difference)),
+    col = "red",
+    lwd = 2,
+    add = TRUE
+)
+qqnorm(hdrs_wide_locf$difference,
+    main = " ",
+    col = "#81a1c1"
+)
+qqline(hdrs_wide_locf$difference, col = "red")
+par(mfrow = c(1, 1))
+```
+
+Les conditions de validité semblent respectées pour le test t de Student sur la différence de score entre J0 et J56 (après imputation LOCF) sur l'échantillon complet.
+
+```{r}
+#| label: test t différence LOCF
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+t_test_diff_locf <- hdrs_wide_locf %>%
+    tbl_summary(
+        include = difference,
+        by = GROUPE,
+        statistic = all_continuous() ~ "{mean} ({sd})",
+        digits = all_continuous() ~ 2
+    ) %>%
+    add_p(
+        test = all_continuous() ~ "t.test",
+        test.args = all_continuous() ~ list(var.equal = TRUE)
+    )
+t_test_diff_locf
+```
+
+Le test t montre une différence moyenne de score entre J0 et J56 significativement plus élevée das le groupe 0 (-19,92) que dans le groupe 1 (-14,79), avec une p-value < 0.001.
+
+Le problème majeur de cette méthode est qu'elle ne tient pas en compte que les mesures sont répétées chez les mêmes patients !
+
+En utilisant un modèle mixte, on va pouvoir prendre en compte cette dépendance entre les mesures répétées en modélisant un effet aléatoire pour chaque patient.
+
+### Comparaison de la réponse en utilisant un modèle mixte
+
+Ici on veut comparer l'évolution du score HDRS entre les groupes **en tenant compte des mesures répétées** (plusieurs visites par patient). 
+
+Un modèle linéaire mixte (LMM) est adapté car il modélise la corrélation intra-patient.
+
+-   Variable à expliquer : `score` (après imputation LOCF), quantitative, discrète. 
+
+-   Effets fixes : `VISIT` et `GROUPE`.
+
+-   Effet aléatoire : un intercept par patient `(1|NUMERO)` pour tenir compte du niveau moyen différent selon les patients, donc une ordonnée à l'origine différente pour chaque patient.
+
+On peut envisager deux modèles :
+
+-   **Sans interaction** : suppose des trajectoires « parallèles » à chaque visite (différence entre groupes constante au cours du temps).
+
+-   **Avec interaction `VISIT*GROUPE`** : teste si l'évolution au cours du temps diffère entre groupes (c'est le test principal pour « répond mieux »).
+
+La question résiduelle est le codage de la variable `VISIT` : on peut la traiter comme une variable catégorielle (facteur) ou continue (temps).
+
+Dans le code, on fera les deux pour voir si ça change les résultats.
+
+#### Modèle mixte sans interaction
+
+##### Modèle mixte sans interaction avec `VISIT` comme facteur et J0 comme référence
+
+```{r}
+#| label: modèle mixte sans interaction VISIT facteur
+#| echo: false
+#| eval: true
+#| message: false
+#| results: hide # CACHE le résultat texte
+#| warning: false
+# ordonner les niveaux de VISIT pour avoir J0 en référence et J56 en dernier
+# ne pas faire sur les données imputées (données AVANT LOCF)
+hdrs_groupe$VISIT <- factor(as.character(hdrs_groupe$VISIT),
+                            levels = c("J0","J4","J7","J14","J21","J28","J42","J56"))
+
+modele_mixte_sans_interaction <- lmer(
+            score ~ VISIT + GROUPE + (1 | NUMERO), 
+            data = hdrs_groupe
+            )
+
+summary(modele_mixte_sans_interaction)
+```
+
+```{r}
+#| label: tableau modèle mixte sans interaction VISIT facteur
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+# Extraction des coefficients, IC et p-values
+coef_summary <- summary(modele_mixte_sans_interaction)$coefficients
+conf_int <- confint(modele_mixte_sans_interaction, level = 0.95, parm = "beta_")
+p_values <- coef_summary[, "Pr(>|t|)"]
+# Création du tableau récapitulatif
+modele_mixte_sans_interaction_df <- data.frame(
+    Coefficient = rownames(coef_summary),
+    Estimate = round(coef_summary[, "Estimate"], 3),
+    Std_Error = round(coef_summary[, "Std. Error"], 3),
+    t_value = round(coef_summary[, "t value"], 3),
+    CI_lower = round(conf_int[, 1], 3),
+    CI_upper = round(conf_int[, 2], 3),
+    p_value = round(p_values, 4)
+)
+# Affichage LaTeX
+knitr::kable(
+    modele_mixte_sans_interaction_df,
+    caption = "Estimation des coefficients du modèle mixte sans interaction entre VISIT (facteur) et GROUPE",
+    booktabs = TRUE,
+    align = "lcccccc",
+    row.names = FALSE
+)
+```
+
+-   La t-value et la p-value de l'intercept n'ont pas d'intérêt ici, car le test de Wald pour l'intercept n'a pas de signification pratique, il teste l'hypothèse H0 : intercept = 0, ce qui n'a pas de sens dans ce contexte.
+
+-   Intercept (26.523) : score moyen estimé à J0 dans le groupe de référence (groupe 0).
+
+-   Effet du temps (VISIT) : tous les coefficients VISITJx sont négatifs et significatifs → le score diminue significativement par rapport à J0. À J56, la baisse moyenne est de 20.010 points (IC95% [-21.030 ; -18.990]).
+
+    -   NB : ici l'effet du temps est fait quelque soit le groupe !
+
+-   Effet du groupe (GROUPE = 2.883) : à visite donnée, le groupe 1 a en moyenne +2.883 points de score par rapport au groupe 0 (IC95% [1.324 ; 4.440], p = 0.0004), donc des scores plus élevés en moyenne sur l’ensemble du suivi.
+
+Ce modèle décrit une amélioration globale au cours du temps et un décalage moyen entre groupes, mais il ne permet pas de conclure sur une différence de réponse “en pente” entre groupes (il faut le modèle avec interaction VISIT×GROUPE pour ça)
+
+##### Modèle mixte sans interaction avec `VISIT` comme variable continue
+
+```{r}
+#| label: modèle mixte sans interaction VISIT continue
+#| echo: false
+#| eval: true
+#| message: false
+#| results: hide # CACHE le résultat texte
+#| warning: false
+# convertir VISIT en variable numérique (jours)
+hdrs_groupe$VISIT_num <- as.numeric(sub("J", "", as.character(hdrs_groupe$VISIT))) 
+modele_mixte_sans_interaction_continu <- lmer(
+            score ~ VISIT_num + GROUPE + (1 | NUMERO), 
+            data = hdrs_groupe
+            )
+summary(modele_mixte_sans_interaction_continu)
+```
+
+```{r}
+#| label: tableau modèle mixte sans interaction VISIT continue
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+# Extraction des coefficients, IC et p-values
+coef_summary_continu <- summary(modele_mixte_sans_interaction_continu)$coefficients
+conf_int_continu <- confint(modele_mixte_sans_interaction_continu, level = 0.95, parm = "beta_")
+p_values_continu <- coef_summary_continu[, "Pr(>|t|)"]
+# Création du tableau récapitulatif
+modele_mixte_sans_interaction_continu_df <- data.frame(
+    Coefficient = rownames(coef_summary_continu),
+    Estimate = round(coef_summary_continu[, "Estimate"], 3),
+    Std_Error = round(coef_summary_continu[, "Std. Error"], 3),
+    t_value = round(coef_summary_continu[, "t value"], 3),
+    CI_lower = round(conf_int_continu[, 1], 3),
+    CI_upper = round(conf_int_continu[, 2], 3),
+    p_value = round(p_values_continu, 4)
+)
+# Affichage LaTeX
+knitr::kable(
+    modele_mixte_sans_interaction_continu_df,
+    caption = "Estimation des coefficients du modèle mixte sans interaction entre VISIT (continue) et GROUPE",
+    booktabs = TRUE,
+    align = "lcccccc",
+    row.names = FALSE
+)
+```
+
+-   Intercept = 22.968 : score HDRS prédit pour le groupe de référence (groupe 0) quand VISIT_num = 0 (jour 0), selon le modèle linéaire en jours. Ce n’est pas forcément égal à la moyenne empirique à J0.
+
+    -   NB : l'intercept correspond donc ici à la valeur prédite par la droite ajustée sur toutes les visites !
+
+-   VISIT_num = −0.352 : le score diminue en moyenne de 0.352 point par jour (IC95% [−0.369 ; −0.335], p<0.001). Sur 56 jours, ça correspond à une baisse attendue d’environ 0.352×56 ≈ 19.7 points.
+
+-   GROUPE = +2.997 : à temps donné (même jour), le groupe 1 a un score moyen plus élevé d’environ 3 points que le groupe 0 (IC95% [1.431 ; 4.562], p=0.0003). Sans interaction, cette différence est supposée constante dans le temps.
+
+Le score baisse avec le temps (modélisé linéairement en jours) et le groupe 1 reste en moyenne plus haut que le groupe 0 ; ce modèle ne teste pas une différence d’évolution entre groupes (il faudrait ajouter l’interaction VISIT_num * GROUPE).
+
+#### Modèle mixte avec interaction
+
+##### Modèle mixte avec interaction avec `VISIT` comme facteur et J0 comme référence
+
+```{r}
+#| label: modèle mixte avec interaction VISIT facteur
+#| echo: false
+#| eval: true
+#| results: hide
+#| message: false
+#| warning: false
+modele_mixte_avec_interaction <- lmer(
+            score ~ VISIT * GROUPE + (1 | NUMERO), 
+            data = hdrs_groupe
+            )
+summary(modele_mixte_avec_interaction)
+```
+
+```{r}
+#| label: tableau modèle mixte avec interaction VISIT facteur
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+# Extraction des coefficients, IC et p-values
+coef_summary <- summary(modele_mixte_avec_interaction)$coefficients
+p_values <- coef_summary[, "Pr(>|t|)"]
+# Création du tableau récapitulatif
+modele_mixte_interaction_df <- data.frame(
+    Coefficient = rownames(coef_summary),
+    Estimate = round(coef_summary[, "Estimate"], 3),
+    Std_Error = round(coef_summary[, "Std. Error"], 3),
+    t_value = round(coef_summary[, "t value"], 3),
+    p_value = round(p_values, 4)
+)
+# Affichage LaTeX
+knitr::kable(
+    modele_mixte_interaction_df,
+    caption = "Estimation des coefficients du modèle mixte avec interaction entre VISIT (facteur) et GROUPE",
+    booktabs = TRUE,
+    align = "lcccc",
+    row.names = FALSE
+)
+```
+
+
+
+##### Modèle mixte avec interaction avec `VISIT` comme variable continue
+
+```{r}
+#| label: modèle mixte avec interaction VISIT continue
+#| echo: false
+#| eval: true
+#| results: hide
+#| message: false
+#| warning: false
+modele_mixte_avec_interaction_continu <- lmer(
+            score ~ VISIT_num * GROUPE + (1 | NUMERO), 
+            data = hdrs_groupe
+            )
+summary(modele_mixte_avec_interaction_continu)
+```
+
+```{r}
+#| label: tableau modèle mixte avec interaction VISIT continue
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+# Extraction des coefficients, IC et p-values
+coef_summary_continu <- summary(modele_mixte_avec_interaction_continu)$coefficients
+p_values_continu <- coef_summary_continu[, "Pr(>|t|)"]
+# Création du tableau récapitulatif
+modele_mixte_interaction_continu_df <- data.frame(
+    Coefficient = rownames(coef_summary_continu),
+    Estimate = round(coef_summary_continu[, "Estimate"], 3),
+    Std_Error = round(coef_summary_continu[, "Std. Error"], 3),
+    t_value = round(coef_summary_continu[, "t value"], 3),
+    p_value = round(p_values_continu, 4)
+)
+# Affichage LaTeX
+knitr::kable(
+    modele_mixte_interaction_continu_df,
+    caption = "Estimation des coefficients du modèle mixte avec interaction entre VISIT (continue) et GROUPE",
+    booktabs = TRUE,
+    align = "lcccc",
+    row.names = FALSE
+)
+```
+
+##### Test de l'effet d'interaction par rapport au modèle sans interaction
 
 
 # Annexe – Code R

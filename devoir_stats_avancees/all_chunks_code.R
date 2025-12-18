@@ -18,6 +18,7 @@ library(lmerTest)
 library(psych)
 library(lme4)
 library(prettyR)
+library(zoo)
 library(kableExtra)
 library(gtsummary)
 library(dplyr)
@@ -195,13 +196,20 @@ df_total_wide <- merge(hdrs_groupe, scl90, by = c("NUMERO", "VISIT"), all.x = TR
 
 library(reshape2)
 
-## HDRS -> long
+## HDRS -> wide
+hdrs_wide <- reshape2::dcast(
+    hdrs_groupe,
+    NUMERO + GROUPE ~ VISIT,
+    value.var = "score"
+)
+
 hdrs_long <- melt(
     hdrs_groupe,
     id.vars = c("NUMERO", "VISIT", "GROUPE"),
     variable.name = "item",
     value.name = "value"
 )
+
 
 ## SCL90 -> long
 scl90_long <- melt(
@@ -664,14 +672,13 @@ t_test_J0
 
 visits <- c("J0", "J4", "J7", "J14", "J21", "J28", "J42", "J56")
 
-tab <- table(
+tableau_patients_jours <- table(
     hdrs_groupe$GROUPE,
     factor(hdrs_groupe$VISIT, levels = visits)
 )
-tab
 
 knitr::kable(
-    tab,
+    tableau_patients_jours,
     caption = "Nombre de patients par groupe de traitement et visite",
     booktabs = TRUE,
     align = c("lcccccccc")
@@ -738,6 +745,151 @@ boxplot(score ~ GROUPE,
     names = c("Groupe 0", "Groupe 1")
 )
 
+#on reprend hdrs_wide créé précédemment (hdrs au format large, qui contient les scores à chaque visite en colonnes)
+hdrs_wide
+
+hdrs_wide_locf <- hdrs_wide
+#fonction na.locf de zoo pour imputer les valeurs manquantes par la dernière valeur observée
+hdrs_wide_locf[, visits] <- t(zoo::na.locf(t(as.matrix(hdrs_wide[, visits])), na.rm = FALSE))
+#vérification de l'imputation (format wide)
+hdrs_wide_locf
+
+# ajout d'une variable "difference" qui correspond à la différence entre le score à J56 et le score à J0 (après imputation LOCF)
+hdrs_wide_locf$difference <- hdrs_wide_locf$J56 - hdrs_wide_locf$J0
+
+# retour au format long après imputation LOCF
+head(hdrs_wide_locf)
+hdrs_groupe_locf <- reshape(
+    data = hdrs_wide_locf,
+    idvar = c("NUMERO", "GROUPE"),
+    varying = visits,
+    times = visits,
+    v.names = "score",
+    timevar = "VISIT",
+    direction = "long"
+)
+head(hdrs_groupe_locf)
+
+
+# garder aussi le score observé (avant imputation) dans le même df
+hdrs_groupe_obs <- reshape(
+    data = hdrs_wide,
+    idvar = c("NUMERO", "GROUPE"),
+    varying = visits,
+    times = visits,
+    v.names = "score_obs",
+    timevar = "VISIT",
+    direction = "long"
+)
+
+# Effectifs après LOCF (toutes les visites existent maintenant)
+tableau_patients_jours_locf <- table(hdrs_groupe_locf$GROUPE, hdrs_groupe_locf$VISIT)
+tableau_patients_jours_locf
+
+
+knitr::kable(
+    tableau_patients_jours_locf,
+    caption = "Nombre de patients par groupe de traitement et visite après imputation LOCF",
+    booktabs = TRUE,
+    align = c("lcccccccc")
+)
+
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+hist(hdrs_wide_locf$difference,
+    main = " ",
+    xlab = "Différence de score (J56 - J0)",
+    col = "#81a1c1",
+    border = "white",
+    breaks = 10,
+    freq = FALSE
+)
+curve(dnorm(x, mean = mean(hdrs_wide_locf$difference), sd = sd(hdrs_wide_locf$difference)),
+    col = "red",
+    lwd = 2,
+    add = TRUE
+)
+qqnorm(hdrs_wide_locf$difference,
+    main = " ",
+    col = "#81a1c1"
+)
+qqline(hdrs_wide_locf$difference, col = "red")
+par(mfrow = c(1, 1))
+
+t_test_diff_locf <- hdrs_wide_locf %>%
+    tbl_summary(
+        include = difference,
+        by = GROUPE,
+        statistic = all_continuous() ~ "{mean} ({sd})",
+        digits = all_continuous() ~ 2
+    ) %>%
+    add_p(
+        test = all_continuous() ~ "t.test",
+        test.args = all_continuous() ~ list(var.equal = TRUE)
+    )
+t_test_diff_locf
+
+# ordonner les niveaux de VISIT pour avoir J0 en référence et J56 en dernier
+# ne pas faire sur les données imputées (données AVANT LOCF)
+hdrs_groupe$VISIT <- factor(as.character(hdrs_groupe$VISIT),
+                            levels = c("J0","J4","J7","J14","J21","J28","J42","J56"))
+
+modele_mixte_sans_interaction <- lmer(
+            score ~ VISIT + GROUPE + (1 | NUMERO), 
+            data = hdrs_groupe
+            )
+
+summary(modele_mixte_sans_interaction)
+
+# Extraction des coefficients, IC et p-values
+coef_summary <- summary(modele_mixte_sans_interaction)$coefficients
+conf_int <- confint(modele_mixte_sans_interaction, level = 0.95, parm = "beta_")
+p_values <- coef_summary[, "Pr(>|t|)"]
+# Création du tableau récapitulatif
+modele_mixte_sans_interaction_df <- data.frame(
+    Coefficient = rownames(coef_summary),
+    Estimate = round(coef_summary[, "Estimate"], 3),
+    Std_Error = round(coef_summary[, "Std. Error"], 3),
+    t_value = round(coef_summary[, "t value"], 3),
+    CI_lower = round(conf_int[, 1], 3),
+    CI_upper = round(conf_int[, 2], 3),
+    p_value = round(p_values, 4)
+)
+# Affichage LaTeX
+knitr::kable(
+    modele_mixte_sans_interaction_df,
+    caption = "Estimation des coefficients du modèle mixte sans interaction entre VISIT (facteur) et GROUPE",
+    booktabs = TRUE,
+    align = "lcccccc"
+)
+
+# ordonner les niveaux de VISIT pour avoir J0 en référence et J56 en dernier
+hdrs_groupe$VISIT <- factor(as.character(hdrs_groupe$VISIT),
+                            levels = c("J0","J4","J7","J14","J21","J28","J42","J56"))
+modele_mixte_avec_interaction <- lmer(
+            score ~ VISIT * GROUPE + (1 | NUMERO), 
+            data = hdrs_groupe
+            )
+summary(modele_mixte_avec_interaction)
+
+# Extraction des coefficients et des intervalles de confiance
+conf_int <- confint(modele_mixte_avec_interaction, level = 0.95, parm = "beta_")
+# Création du tableau récapitulatif
+modele_mixte_interaction_df <- data.frame(
+    Coefficient = rownames(coef_summary),
+    Estimate = round(coef_summary[, "Estimate"], 3),
+    Std_Error = round(coef_summary[, "Std. Error"], 3),
+    t_value = round(coef_summary[, "t value"], 3),
+    CI_lower = round(conf_int[, 1], 3),
+    CI_upper = round(conf_int[, 2], 3)
+)
+# Affichage LaTeX
+knitr::kable(
+    modele_mixte_interaction_df,
+    caption = "Estimation des coefficients du modèle mixte avec interaction entre VISIT (facteur) et GROUPE",
+    booktabs = TRUE,
+    align = "lccccc",
+    row.names = FALSE
+)
 
 
 # lire le fichier code généré
