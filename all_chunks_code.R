@@ -94,7 +94,7 @@ for (question in scl_questions) {
     mode_value <- as.integer(names(which.max(table(factorized))))
     imputed <- original
     imputed[is.na(imputed)] <- mode_value
-    scl90[[question]] <- imputed
+    scl90[[question]] <- imputed 
 }
 # vérifier qu'il n'y a plus de NA
 sum(is.na(scl90))
