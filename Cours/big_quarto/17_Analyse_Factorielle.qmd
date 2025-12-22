@@ -1,0 +1,231 @@
+---
+title: "Analyse Factorielle"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(plotrix)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(qgraph)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+```
+
+## Principes de l'analyse factorielle
+-   Modèles : comme régression (avec résidus etc)
+
+-   Hyper utile pour données subjectives
+
+-   Ne permet pas de conclure
+
+## Analyse factorielle à un facteur
+On imagine une réponse des sujets i à des variables 1, 2, 3, 4, 5
+
+$I^i_1 = a_1 + b_1 \theta^i + e^i_1$
+
+$I^i_2 = a_2 + b_2 \theta^i + e^i_2$
+
+$I^i_3 = a_3 + b_3 \theta^i + e^i_3$
+
+$I^i_4 = a_4 + b_4 \theta^i + e^i_4$
+
+$I^i_5 = a_5 + b_5 \theta^i + e^i_5$
+
+Avec
+
+-   $\theta_i$ : caractéristique commune aux variables
+
+-   $e^i$ : terme regroupant l'erreur de mesure et la part spécifique à la variable
+
+### Modélisation
+On modélise ces variables sous la forme d'une **régression linéaire simple** (car analyse en un facteur)
+
+Avec $\theta_i$ : variable dont on fait l'hypothèse qu'elle existe, mais n'est pas mesurée (elle n'est pas dans le jeu de données)
+
+Pour calculer les paramètres, on combine les équations pour supprimer $\theta_i$.
+
+### Exemple
+On fait un test de QI avec 5 "subtests" (variables)
+
+$\rightarrow$ donc 5 tests
+
+On fait l'hypothèse que la réponse à chacun de ces tests = une régression linéaire sur une seule variable = le QI global
+
+$\rightarrow$ Donc c'est la même variable pour tous les 5 tests
+
+Si ces 5 épreuves cognitives sont reliées à une seule et même variable : ils sont reliés à la **capacité cognitive générale**.
+
+Donc si quelque soit l'épreuve, le répondant réussit bien, c'est qu'il existe une variable latente $\theta$ (capacité cognitive générale) qui explique la performance à chaque épreuve.
+
+$\rightarrow$ Et ainsi on peut estimer $\theta$ = l'intelligence en la **quantifiant**.
+
+::: graybox
+C'est pourquoi on ne peut parfois pas faire de test de QI car les composantes sont trop différentes entre elles.
+:::
+
+## Utilisation : surtout analyse factorielle à \> 1 facteur
+On rajoute un facteur $\mu$
+
+$I^i_1 = a_1 + b_1 \theta^i + c_1 \mu^i + e^i_1$ (calcul)
+
+$I^i_2 = a_2 + b_2 \theta^i + c_2 \mu^i + e^i_2$ (problèmes)
+
+$I^i_3 = a_3 + b_3 \theta^i + c_3 \mu^i + e^i_3$ (récitation)
+
+$I^i_4 = a_4 + b_4 \theta^i + c_4 \mu^i + e^i_4$ (histoire)
+
+$I^i_5 = a_5 + b_5 \theta^i + c_5 \mu^i + e^i_5$ (grammaire)
+
+Imaginons : que $\theta$ soit dominant pour certains tests / et $\mu$ pour d'autres (pour lesquels $\theta$ est tout petit, et inversement)
+
+Et donc on peut dire (avec un raisonnement inductif et exploratoire) que :
+
+-   $\theta$ = capacité verbale = QI verbal
+
+-   $\mu$ = capacité calculatoire = QI de performance
+
+*et plein d'autres dimensions*
+
+### Indétermination
+On peut se poser la question si toutes ces variables dépendent d'une **méta-variable** (facteur supérieur).
+
+Le pb : c'est que l'équation actuelle (le modèle des 5 réponses) est indéterminé, c'est à dire qu'il a un nombre infini de solutions.
+
+Mais toutes ces solutions sont interprétées de la même façon : donc elles disent toutes la même chose.
+
+Indétermination : quand on a une solution, on peut en trouver une autre grace à une **"rotation"** (c comme ça)
+
+### Rotation
+Tout le monde utilise la même rotation : la rotation varimax (orthogonale)
+
+Donc en fait c'est plus vraiment indéterminé.
+
+C'est comme si on faisait une ACP et qu'on réorganisait les axes pour mieux comprendre et mieux voir les choses.
+
+A gauche : avant rotation varimax, à droite : après. On voit que c'est plus flagrant que les variables sont indépendantes.
+
+![](images/paste-23.png)
+
+## 
+
+## A nouveau l'exemple sur la dépression :
+### Analyse factorielle à 4 facteurs avec rotation varimax.
+![](images/paste-24.png){width="566"}
+
+-   En gras : coefficients [élevés]{.underline}
+
+-   Ici : Factor 1 ( $\theta$ ) correspond à un groupe de variables (instabilité émotionnelle : en + et en -) $\rightarrow$ **dimension** car de -1 à +1
+
+-   Factor 2 ( $\mu$ ) : symptômes ressentis (*Felt symptoms*)
+
+-   Factor 3 ( $\nu$ ) : anhédonie
+
+-   Factor 4 ( $\xi$ ) : tristesse + mimique inquiète + hyperexpressivité émotionnelle
+
+## Relation ACP / Analyse factorielle
+Si on avait fait une analyse factorielle à 2 facteurs, on aurait retrouvé à peu près les mêmes résultats que l'ACP.
+
+Mais c'est pas pareil :
+
+-   ACP : droites avec directions qui représentent l'étirement maximal des variables
+
+-   Analyse factorielle : modèle avec coefficients et résidus
+
+Donc pendant longtemps, on a fait de l'ACP (plus simple) pour faire de l'analyse factorielle car l'un était une approximation de l'autre.
+
+Sur R :
+
+-   `factanal()` : fonction pour faire de l'analyse factorielle (package : stats)
+
+-   `printcomp()` ou `mdspca` : fonction pour faire de l'ACP (packages : psych, psy)
+
+## Comment choisir le nb de facteurs ?
+Il existe un "test d'adéquation" mais en vrai c'est pas terrible car on cherche toujours à rejeter l'hypothèse nulle (et on ne connait pas $\beta$)
+
+Autre méthode :
+
+1.  Faire une ACP (qui enferme le jeu de données dans une autre boîte)
+
+2.  Si une dimension enferme bcp de données (c'est à dire qu'elle a une grosse valeur propre) : on la garde
+
+    -   valeurs propres : dans la boite de l'ACP (la première dimension) : chaque valeur propre correspond à une "longueur" de la boîte
+
+    -   1ère valeur propre = plus grande longueur de la boîte
+
+    -   Donc valeur propre = **variance des points sur les composantes principales**
+
+    -   ![](images/paste-28.png){width="525"}
+
+    -   Si la 1ère est très longue et les autres non : la boite rssemble à un stylo
+
+    -   Dans ce cas on fera une analyse factorielle à 1 facteur
+
+3.  Pour faire une sélection : on fait une analyse parallèle
+
+    1.  On simule des données aléatoires au sein du jeu de données (même nb de variables et d'observations) : par ex 20
+
+    2.  On fait un scree plot (= diagramme des valeurs propres) pour voir où il y a un coude, et on garde les facteurs avant le coude.
+
+![](images/paste-26.png){width="727"}
+
+Code R pour faire un scree plot : `fa.parallel()`
+
+Questions :
+
+Si les facteurs n'évoquent rien de tangible / connu $\rightarrow$ : dans ce cas on essaie d'autres facteurs / en prendre +...
+
+
+
+
+
+
+
+
+
+
+Bonus : 
+
+Qu’est-ce qu’une valeur propre (dans une ACP ou analyse factorielle) ?
+
+On imagine un gros nuage de points (les données) avec une direction : un axe.
+
+$\rightarrow$ La valeur propre = la quantité de variabilité (d’information) que cet axe arrive à capturer.
+
+
+-   Une grande valeur propre = l’axe explique beaucoup de choses dans les données.
+
+-   donc cet axe (= ce facteur) est utile, on le garde. 
+
+-   Une petite valeur propre = l’axe n’explique pas grand-chose, il est presque du bruit = on ne le garde pas.
+
+
+Il faut imaginer qu'on regarde les données dans un certain sens : 
+
+-   Si on regarde dans le bon sens, on voit que les données sont très étirées : grande valeur propre.
+
+-   Si on regarde les données dans un sens ou les formes sont rondes : petite valeur propre.
+
+
+## Références
+Vidéo Falissard:
+
+<iframe src="https://drive.google.com/file/d/1U_W6GC3uFV048368TnTbLqFYjBbq4Neg/preview" width="640" height="480" allow="autoplay">
+
+</iframe>
+
+-   [Blog larmarange](https://larmarange.github.io/guide-R/analyses_avancees/analyse-factorielle.html)
+
+-   [Exercice CNRS](https://mate-shs.cnrs.fr/actions/tutomate/tuto32-les-analyses-factorielles-multiples-afm-amand/analyse-factorielle-multiple-avec-r/)
+
+-   [Lyon](https://lbmc.gitbiopages.ens-lyon.fr/biocomp/posts/2019/acp/)

@@ -1,0 +1,1961 @@
+---
+title: "Survie"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(qgraph)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+```
+
+## Plan du cours
+1.  Introduction : données de survie et censure
+
+2.  Estimation de la fonction de survie : estimateur de Kaplan-Meier
+
+3.  Comparaison de fonctions de survie : test du log-rank
+
+4.  Modélisation de la survie : modèle de Cox
+
+## Introduction
+**Donnée censuré ≠ donnée manquante** :
+
+-   **Censurée** : on sait que l'événement d'intérêt n'est pas survenu avant un certain temps (par ex : pas de récidive jusqu'à la perte de vue)
+
+-   **Manquante** : on ne sait pas si l'événement d'intérêt est survenu ou non
+
+NB : toutes les variables correspondant à une durée ne sont pas nécessairement censurées !
+
+### Données de survie
+Donnée de survie = *survival time* ou *time to event data*
+
+-   Définition : délai de survenue d'un événement d'intérêt (*endpoint event*) à partir d'un temps de départ (souvent le temps 0)
+
+-   Correspond à tout délai entre deux dates d'intérêt =
+
+    -   Censure à gauche : point de départ !
+
+    -   Censure à droite : événement non survenu avant la fin de l'étude
+
+![](images/paste-40.png){width="753"}
+
+### Problème de la censure
+-   certains ne présentent pas l'événement d'intérêt pendant la période d'étude
+
+-   tous les patients n'ont pas le même temps d'observation
+
+On aimerait que le délai $T_i$ soit le délai jusqu'à l'événement d'intérêt pour chaque individu $i$.
+
+Mais on observe en fait :
+
+-   $min(T_i, C)$ et $1_{T_i > C}$ c'est à dire que :
+
+    -   $min(T_i, C)$ : on cherche la plus petite valeur entre le délai jusqu'à l'événement d'intérêt $T_i$ et une durée d'observation maximale fixe $C$
+
+    -   $1_{T_i > C}$ : 1 à chaque fois que $T_i$ est supérieur à $C$ (censure à droite) = c'est à dire que l'événement n'est pas survenu avant la fin de l'étude
+
+    -   0 sinon : si l'évènemet est survenu avant la censure
+
+-   ou $min(T_i, C_i)$, $1_{T_i > C_i}$
+
+C : durée d'observation maximale fixe
+
+C_i : durée d'observation variable selon les individus = **censure aléatoire**
+
+Information partielle = censure à droite.
+
+Par exemple :
+
+-   C = 3 ans (censure à 3 ans pour tous les individus)
+
+-   $T_i$ = délai jusqu'à la récidive pour le patient i
+
+-   Si le patient i récidive à 2 ans : on observe $min(2, 3) = 2$ et $1_{2 > 3} = 0$ (événement observé avant la censure)
+
+-   Si le patient i ne récidive pas avant 3 ans : on observe $min(T_i, 3) = 3$ et $1_{T_i > 3} = 1$ (événement non observé avant la censure)
+
+------------------------------------------------------------------------
+
+::: callout-tip
+**En gros : il faut différencier**
+
+-   les individus pour lesquels on observe l'événement d'intérêt avant la date de censure (on connaît leur temps de survie exact, parce qu'ils "n'ont pas survécu" jusqu'à la censure)
+
+-   les individus pour lesquels on ne sait pas si l'événement d'intérêt est survenu ou non avant la date de censure (on sait juste qu'ils ont "survécu" jusqu'à la censure)
+
+**Donc colonnes dans la BDD pour le critère de survie :**
+
+-   L'ÉVÈNEMENT :
+
+    -   Survenue ou non (0/1)
+
+    -   Date et délai par rapport au temps de départ
+
+-   DURÉE DE SUIVI
+
+    -   Indépendante de la survenue ou non de l'événement d'intérêt
+
+    -   Depuis de le temps de départ
+:::
+
+------------------------------------------------------------------------
+
+## Données de survie
+### Modélisation satistique
+Analyse statistique dépend de la question de recherche :
+
+-   Est-ce que l'évènement s'est produit (pendant la période d'étude) ? = **modèle binaire** = régression logistique
+
+-   Quand l'évènement s'est-il produit ? = **modèle de survie** = régression de Cox
+
+### Applications
+-   **Essai thérapeutique** : comparer l'efficacité de deux interventions revient à comparer les durées de survie après intervention dans les deux groupes
+
+-   **Étude épidémiologique** : estimation de l'association entre un facteur de risque et la durée de survie ou le temps de survenue d'une maladie
+
+### Terminologie
+-   **Date d'origine** : point de départ, varie selon patient, pour le calcul des durées de survie (ex : date de diagnostic, date de traitement, date d'inclusion dans l'étude)
+
+-   **Date des dernières nouvelles** : date de la dernière information connue sur le patient (ex : date de décès, date de la dernière consultation, date de la fin de l'étude)
+
+-   **Date de point** : commune à tous les patients, pour le calcul des durées de survie (ex : date de fin de l'étude)
+
+-   **Censure** : information incomplète, l'événement d'intérêt n'est pas survenu avant la date de point
+
+-   **Temps de participation** : variable d'étude
+
+    -   Évènement avant date de point (décès, récidive, etc.) : temps de participation = délai entre date d'origine et date de l'événement
+
+    -   Pas d'évènement avant date de point (censure) :
+
+        -   La date des dernières nouvelles est antérieure à la date de point : perdus de vue
+
+        -   La date des dernières nouvelles est égale à la date de point : censure administrative
+
+### Ce qui est nécessaire
+Pour chaque sujet, on doit disposer de :
+
+-   **Temps de participation** (délai entre date d'origine et date de l'événement ou date des dernières nouvelles)
+
+-   **État de l'événement** (1 = événement survenu, 0 = censuré) à la fin du temps de participation
+
+![](images/paste-41.png)
+
+![](images/paste-42.png)
+
+#### Exercice
+![](images/paste-43.png)
+
+Suivi :
+
+-   Patient 1 : 30 jours (évènement à 35 jours)
+
+-   Patient 2 : 24 jours (évènement à 24 jours)
+
+![](images/paste-44.png)
+
+### Loi de probabilité de T
+Loi de probabilité de T = délai jusqu'à l'évenement (non observée)
+
+Décrite par l'une de ces fonctions :
+
+-   Densité de probabilité, $f(t)$
+
+-   Fonction de répartition, $F(t)$
+
+-   Fonction de survie, $S(t)$
+
+-   Fonction de risque instantané, $h(t)$
+
+-   Fonction de risque cumulée, $H(t)$
+
+#### **Densité de probabilité**
+$f(t)$ = $\lim_{\Delta t \to 0} \frac{P(T < t + \Delta t) - P(T < t)}{\Delta t}$
+
+-   $lim_{\Delta t \to 0}$ : signifie que l'on regarde un intervalle de temps de plus en plus petit autour de t (on réduit l'intervalle $\Delta t$ jusqu'à ce qu'il tende vers 0).
+
+-   $T$ : variable aléatoire représentant le délai jusqu'à l'événement d'intérêt = moment où l'événement se produit.
+
+-   $t$ : moment spécifique dans le temps où l'on évalue la densité de probabilité.
+
+-   $P(T < t)$ : probabilité que l'événement d'intérêt $T$ se produise avant le temps $t$.
+
+On calcule la densité de probabilité $f(t)$ en prenant la limite lorsque l'intervalle de temps $\Delta t$ autour de $t$ devient très petit. Cela nous permet d'estimer la probabilité que l'événement $T$ se produise précisément à ce moment $t$.
+
+En gros :
+
+1.  Différence entre :
+
+    -   La probabilité que l'évènement $T$ se produise avant un certain temps $t + \Delta t$ (un intervalle de temps très petit autour de $t$)
+
+    -   et la probabilité que l'évènement $T$ se produise avant un certain temps $t$
+
+2.  Diviser le résultat par la taille de l'intervalle de temps $\Delta t$
+
+3.  On obtient ainsi un "taux moyen" de probabilité par unité de temps dans cet intervalle très petit autour de $t$
+
+4.  En prenant la limite lorsque $\Delta t$ tend vers 0, on obtient la **densité de probabilité instantanée**
+
+#### Fonction de répartition
+Probabilité que la variable aléatoire $T$ prenne une valeur inférieure ou égale à une quantité $t$ :
+
+$F(t) = P(T \leq t) = \int_{0}^{t} f(u) du$
+
+-   $F(t)$ : fonction de répartition, qui donne la probabilité que l'événement d'intérêt $T$ se produise avant ou à un moment spécifique $t$.
+
+-   $P(T \leq t)$ : probabilité que l'événement $T$ se produise avant ou à temps $t$.
+
+-   $\int_{0}^{t} f(u) du$ : intégrale de la densité de probabilité $f(u)$ de 0 à $t$, qui calcule la probabilité cumulative jusqu'à ce moment.
+
+![](images/paste-45.png)
+
+**Propriétés :**
+
+-   Fonction croissante (plus on attend, plus la probabilité que l'événement se soit produit augmente)
+
+-   La vitesse de croissance dépend de la densité de probabilité $f(t)$ = caractérise la loi de la variable aléatoire $T$
+
+-   $F(0) = 0$ : si on n'attend pas, la probabilité de voir l'évènement = 0
+
+-   $\lim_{t \to \infty} F(t) = 1$ : si on attend indéfiniment, la probabilité de voir l'évènement = 1
+
+-   $F$ dérivable et $F'=f$ avec $f$ la densité de probabilité (la dérivée de la fonction de répartition = la fonction de densité).
+
+#### Fonction de survie
+Représente la fraction d'individus encore en vie en $t$.
+
+$S(t) = P(T > t) = 1 - F(t) = \int_{t}^{\infty} f(u) du$
+
+![](images/paste-46.png)
+
+Propriétés :
+
+-   Fonction décroissante (plus on attend, plus la probabilité de survie diminue)
+
+-   La vitesse de décroissance dépend de la densité de probabilité $f(t)$ = caractérise la loi de la variable aléatoire $T$
+
+-   $S(0) = 1$ : si on n'attend pas, la probabilité de survie = 1
+
+-   $\lim_{t \to \infty} S(t) = 0$ : si on attend indéfiniment, la probabilité de survie = 0
+
+-   $S$ dérivable et $S'=-f$ avec $f$ la densité de probabilité (la dérivée de la fonction de survie = l'opposé de la fonction de densité).
+
+#### Fonction de risque instantané
+Définition : fonction de "hazard" ou "hasard". Représente le risque instantané de survenue de l'événement à l'instant $t$, conditionnellement au fait que l'individu ait survécu jusqu'à ce temps $t$.
+
+Densité "**conditionnelle**" de l'événement à l'instant $t$ sachant que l'individu est encore en vie à ce moment.
+
+$h(t) = \lim_{\Delta t \to 0} \frac{P(t \leq T < t + \Delta t \mid T \geq t)}{\Delta t}$
+
+NB : la barre verticale "$|$" signifie "conditionnellement à".
+
+-   $h(t)$ : fonction de risque instantané, qui mesure le risque de survenue de l'événement d'intérêt à un moment spécifique $t$, conditionnellement au fait que l'individu ait survécu jusqu'à ce temps $t$.
+
+-   $P(t \leq T < t + \Delta t \mid T \geq t)$ :
+
+    -   probabilité que l'événement $T$ se produise dans l'intervalle de temps entre $t$ et $t + \Delta t$,
+
+    -   **conditionnellement** au fait que l'individu ait survécu jusqu'à temps $t$.
+
+-   $\Delta t$ : intervalle de temps très petit autour de $t$.
+
+-   $\lim_{\Delta t \to 0}$ : signifie que l'on regarde un intervalle de temps de plus en plus petit autour de t (on réduit l'intervalle $\Delta t$ jusqu'à ce qu'il tende vers 0).
+
+    -   Permet d'obtenir un taux instantané de risque à ce moment précis $t$.
+
+    -   Sinon, on obtiendrait une moyenne sur un intervalle de temps plus large.
+
+En résumé : c'est une **densité conditionnelle** qui mesure le risque instantané de survenue de l'événement à un moment spécifique $t$, en tenant compte du fait que l'individu a déjà survécu jusqu'à ce temps $t$ ET NE L'A PAS ENCORE PRÉSENTÉ !
+
+On peut représenter plus simplement la fonction en :
+
+$h(t) = \frac{f(t)}{S(t)} = -\frac{S'(t)}{S(t)}$
+
+C'est à dire que la fonction de risque instantané est le rapport entre la densité de probabilité et la fonction de survie.
+
+C'est logique ! parce que :
+
+-   Fonction de densité $f(t)$ : probabilité que l'événement se produise précisément à l'instant $t$
+
+-   Fonction de survie $S(t)$ : probabilité que l'individu soit encore en vie à temps $t$ (donc n'ait pas encore présenté l'événement)
+
+-   Donc le rapport $f(t)/S(t)$ : probabilité que l'événement se produise à l'instant $t$ sachant que l'individu est encore en vie à ce moment.
+
+-   Le signe négatif dans $-\frac{S'(t)}{S(t)}$ vient du fait que la dérivée de la fonction de survie $S'(t)$ est négative (puisque $S(t)$ est décroissante). Donc en prenant l'opposé, on obtient une valeur positive pour la fonction de risque instantané.
+
+#### Fonction de risque cumulée
+Représente le risque cumulé de survenue de l'événement jusqu'au temps $t$.
+
+$H(t) = \int_{0}^{t} h(u) du$
+
+Propriétés :
+
+-   Fonction croissante (plus on attend, plus le risque cumulé augmente)
+
+-   La vitesse de croissance dépend de la densité de probabilité $f(t)$ = caractérise la loi de la variable aléatoire $T$
+
+-   $H(0) = 0$ : si on n'attend pas, le risque cumulé = 0
+
+-   $\lim_{t \to \infty} H(t) = \infty$ : si on attend indéfiniment, le risque cumulé = infini
+
+#### Relations entre les fonctions
+------------------------------------------------------------------------
+
+| Fonction | Notation | Définition |
+|------------------------|------------------------|------------------------|
+| Densité de probabilité | $f(t)$ | $\lim_{\Delta t \to 0} \frac{P(t < T < t + \Delta t)}{\Delta t}$ |
+| Fonction de répartition | $F(t)$ | $P(T \leq t) = \int_{0}^{t} f(u) du$ |
+| Fonction de survie | $S(t)$ | $P(T > t) = 1 - F(t) = \int_{t}^{\infty} f(u) du$ |
+| Fonction de risque instantané | $h(t)$ | $\lim_{\Delta t \to 0} \frac{P(t \leq T < t + \Delta t \mid T \geq t)}{\Delta t}$ |
+| Fonction de risque cumulée | $H(t)$ | $\int_{0}^{t} h(u) du$ |
+
+------------------------------------------------------------------------
+
+$P(t < T < t + \Delta t) = P(t < T < t+ \Delta t \mid T > t) \times P(T > t)$
+
+$P(t < T < t + \Delta t)$ = la probabilité que l’événement se produise dans l’intervalle de temps entre $t$ et $t + \Delta t$.
+
+Mais en fait 2 probabilités en une :
+
+1.  **probabilité** que l'individu soit encore en vie au temps $t$ : $P(T > t)$ = la probabilité que l'individu ait survécu jusqu'à temps $t$ (donc n'ait pas encore présenté l'événement avant $t$).\
+    *NB : c'est la fonction de survie* $S(t)$
+
+2.  **probabilité** que l'événement se produise dans l'intervalle de temps entre $t$ et $t + \Delta t$ PARMI LES INDIVIDUS ayant survécu jusqu'à temps $t$ : $P(t \leq T < t + \Delta t \mid T \geq t)$.\
+    *NB : c'est la fonction de risque instantané* $h(t)$ multipliée par la taille de l'intervalle $\Delta t$
+
+Et sachant que :
+
+$f$ = densité de probabilité = $\lim_{\Delta t \to 0} \frac{P(t < T < t + \Delta t)}{\Delta t}$
+
+$h$ = fonction de risque instantané = $\lim_{\Delta t \to 0} \frac{P(t \leq T < t + \Delta t \mid T \geq t)}{\Delta t}$
+
+$S$ = fonction de survie = $P(T > t)$
+
+donc on en déduit :
+
+$f(t) = h(t) \times S(t)$
+
+Et sachant que :
+
+$f$ = densité de probabilité = $-S'(t)$
+
+$S$ = fonction de survie = $1 - F(t)$ = $e^{-H(t)}$ car $H(t) = -\ln(S(t))$
+
+En résumé :
+
+| Fonction                      | Notation | Relation avec les autres fonctions |
+|--------------------------|----------------|-------------------------------|
+| Densité de probabilité        | $f(t)$   | $f(t) = h(t) \times S(t)$          |
+| Fonction de répartition       | $F(t)$   | $F(t) = 1 - S(t)$                  |
+| Fonction de survie            | $S(t)$   | $S(t) = e^{-H(t)}$                 |
+| Fonction de risque instantané | $h(t)$   | $h(t)       = \frac{f(t)}{S(t)}$   |
+| Fonction de risque cumulée    | $H(t)$   | $H(t) = -\ln(S(t))$                |
+
+## Estimation d'une courbe de survie : estimateur de Kaplan-Meier
+### Objectif de l'analyse de survie
+-   Estimer le délai médian avant la survenue de l'événement d'intérêt
+
+-   Comparer ce délai entre plusieurs groupes de patients
+
+-   Étudier l'effet de variables explicatives sur ce délai
+
+### Approches
+-   **Approche paramétrique** : modélisation de la fonction de risque = on fait une hypothèse sur la forme de la fonction de risque (ex : loi exponentielle)
+
+-   **Approche non paramétrique** : estimation de la fonction de survie sans faire d'hypothèse sur la forme de la fonction de risque = estimateur de Kaplan-Meier
+
+-   **Approche semi-paramétrique** : modèle multivarié : modélisation de l'effet des variables explicatives sur la fonction de risque sans faire d'hypothèse sur la forme de la fonction de risque = modèle de Cox
+
+#### Estimation en absence de censure
+En l'absence de censure (c'est-à-dire quand le délai de survenue de l'événement est connu pour tous les individus), l'approche non paramétrique consiste à **remplacer la probabilité théorique par une simple proportion** basée sur les données observées.
+
+L'estimateur empirique de la fonction de répartition $\hat{F}(t)$ représente la **proportion d’individus** dans la population étudiée qui ont présenté l’événement d'intérêt avant ou à un moment donné $t$.
+
+-   **Calcul :** Cette proportion est calculée en sommant les indicateurs (qui valent 1 si l'événement $T_i$ a eu lieu avant $t$, et 0 sinon) pour tous les individus, puis en divisant par le nombre total d'individus $n$,.
+
+-   **Propriété :** Cet estimateur est une **fonction en escalier, monotone, croissante de 0 à 1**.
+
+-   **Estimateur de la fonction de répartition** $F(t)$ à partir des données observées
+
+    $\hat{F}(t) = \frac{1}{n} \sum_{i=1}^{n} 1_{(T_i \leq t)}$ .
+
+    -   $1_{(T_i \leq t)}$ = indicatrice qui vaut 1 si $T_i \leq t$ (si l'évènement $T$ a eu lieu avant $t$) et 0 sinon.
+
+    -   $\sum_{i=1}^n 1_{(T_i \le t)}$ = somme des 0 et des 1 pour tous les individus = nombre d'individus ayant présenté l'évènement avant $t$.
+
+    -   diviser le tout par le nombre total d'individus $n$ permet d'obtenir la proportion d'individus ayant présenté l'évènement avant $t$.
+
+    -   Donc $\hat{F}(t)$ = estimateur empirique = proportion d'individus ayant présenté l'évènement avant $t$ dans la population étudiée
+
+    -   $\hat{F}(t)$ est un estimateur de la fonction de répartition $F(t)$, qui serait la proportion "vraie" d'individus ayant présenté l'évènement avant $t$ dans la population générale / idéale
+
+<!-- -->
+
+-   **Estimateur de la fonction de survie** $S(t)$ = $1 - \hat{F}(t)$
+
+L'estimateur empirique de la fonction de survie ($\hat{S}(t)$) est le complément direct de $\hat{F}(t)$, soit $\hat{S}(t) = 1 - \hat{F}(t)$.
+
+-   **Signification :** Il représente la **proportion d’individus n'ayant pas présenté l'événement avant** $t$, ou ayant « survécu au-delà de $t$ » dans la population étudiée. Il est calculé comme le nombre d'individus survivant au-delà de $t$, divisé par le nombre total d'individus.
+
+-   **Propriété :** C'est une **fonction en escalier, monotone, décroissante de 1 à 0**.
+
+    $\hat{S}(t) = 1 - \hat{F}(t) = \frac{1}{n} \sum_{i=1}^{n} 1_{(T_i > t)}$
+
+    -   $1_{(T_i > t)}$ = indicatrice qui vaut 1 si $T_i > t$ (si l'évènement $T$ a eu lieu après $t$) et 0 sinon.
+
+    -   $\sum_{i=1}^n 1_{(T_i > t)}$ = somme des 0 et des 1 pour tous les individus = nombre d'individus n'ayant pas présenté l'évènement avant $t$ (ayant survécu au delà de $t$).
+
+    -   diviser le tout par le nombre total d'individus $n$ permet d'obtenir la proportion d'individus n'ayant pas présenté l'évènement avant $t$ (ayant survécu au delà de $t$).
+
+    -   Donc $\hat{S}(t)$ = estimateur empirique = proportion d'individus n'ayant pas présenté l'évènement avant $t$ (ayant survécu au delà de $t$) dans la population étudiée
+
+    = $\hat{S}(t) = \frac{\text{Nombre d'individus survivant au dela de } t}{\text{Nombre total d'individus}}$\
+
+##### Exemple
+1.  Données = temps de décès (en mois) de 10 patients :
+
+    13, 13, 14, 13, 15, 11, 17, 13, 14, 15
+
+2.  Estimation de la fonction de survie
+
+Estimateur de $S(t)$ = $1 - {F}(t)$
+
+$\hat{S}(t) = \frac{1}{n} \sum_{i=1}^{n} 1_{(T_i > t)} = \frac{\text{Nombre d'individus survivant au dela de } t}{\text{Nombre total d'individus}}$
+
+en tableau :
+
+-   Premier décès à 11 mois, compté dans l'intervalle 11 - 12 par convention.
+
+| t   | Nb décès | Nb décès cumulé | $\hat{S}(t)$ |
+|-----|----------|-----------------|--------------|
+| 0   | 0        | 0               | 10/10 = 1.0  |
+| 11  | 1        | 1               | 9/10 = 0.9   |
+| 13  | 4        | 5               | 5/10 = 0.5   |
+| 14  | 2        | 7               | 3/10 = 0.3   |
+| 15  | 2        | 9               | 1/10 = 0.1   |
+| 17  | 1        | 10              | 0/10 = 0.0   |
+
+3.  Tracé de la fonction de survie sans Kaplan Meier
+
+```{r}
+#| label: survie_no_censure
+library(survival)
+
+# 1) Données 
+temps <- c(13, 13, 14, 13, 15, 11, 17, 13, 14, 15)
+
+# Comme il n'y a PAS de censure : event = 1 pour tout le monde
+event <- rep(1, length(temps))
+
+# Objet Surv
+surv_object <- Surv(time = temps, event = event)
+
+# 2) Estimation de la fonction de survie
+surv_fit <- survfit(surv_object ~ 1)
+
+# 3) Tracé de la fonction de survie
+plot(
+    surv_fit, 
+    xlab = "Temps (mois)", 
+    ylab = "Probabilité de survie S(t)", 
+    main = "Fonction de survie sans censure")
+```
+
+##### 2e exemple avec temps simulés
+On utilise `runif` qui génère des nombres aléatoires suivant une loi uniforme (uniforme = tous les intervalles de même longueur ont la même probabilité d'être choisis).
+
+`floor` arrondit à l'entier inférieur.
+
+```{r}
+#| label: survie_no_censure_simule
+T = floor(runif(80,0,50)) # runif génère 1000 temps de survie entre 0 et 50 qui sont arrondis à l'entier inférieur avec floor
+head(T)
+table(T)
+```
+
+Le jeu de données est généré mais on a pas les valeurs uniques.
+
+```{r}
+#| label: survie_no_censure_simule2
+tt <- unique(T)
+length(tt) # 39 valeurs uniques
+```
+
+Il faut aussi ordonner les valeurs uniques.
+
+```{r}
+#| label: survie_no_censure_simule2b
+tt <- sort(tt)
+tt
+```
+
+Pour regarder à la date 10 :
+
+-   avec `head()` : R prend chacune des valeurs de T et regarde si elle est supérieure à 10 (TRUE) ou non (FALSE).
+
+-   avec `mean()` : R calcule la proportion de TRUE (donc la proportion de survivants au delà de 10), en convertissant TRUE en 1 et FALSE en 0.
+
+```{r}
+#| label: survie_no_censure_simule3
+head(T > 10) 
+mean(T > 10) # proportion de TRUE = proportion de survivants au delà de 10
+```
+
+On peut faire ça pour toutes les valeurs uniques de T.
+
+```{r}
+#| label: survie_no_censure_simule4
+S <- function(t) mean(T > t)
+```
+
+Syntaxe : `function(t) mean(T > t)`
+
+-   `function(t)` : on définit une fonction qui prend un argument `t`
+
+-   `mean(T > t)` : la fonction calcule la proportion de survivants au delà de `t`
+
+Pas de séparation par des virgules car une seule instruction dans le corps de la fonction = R comprend que tout ce qui suit `function(t)` fait partie du corps de la fonction.
+
+```{r}
+#| label: survie_no_censure_simule5
+S(10) # proportion de survivants au delà de 10
+S(20) # proportion de survivants au delà de 20
+```
+
+On applique cette fonction à toutes les valeurs uniques de T avec `sapply`.
+
+`sapply` applique une fonction (ici une fonction anonyme) à chaque élément d'un vecteur (ici `tt`).
+
+≠ `lapply` qui renvoie une liste, `sapply` renvoie un vecteur ou une matrice.
+
+```{r}
+#| label: survie_no_censure_simule6
+S_values <- sapply(tt, S)
+S_values
+```
+
+On peut tracer la fonction de survie estimée.
+
+Syntaxe de `plot` : `plot(x, y, type, xlab, ylab, main)`
+
+-   `x` : valeurs sur l'axe des x (ici `tt`)
+
+-   `y` : valeurs sur l'axe des y (ici `S_values`)
+
+-   `type="s"` : pour une fonction en escalier
+
+```{r}
+#| label: survie_no_censure_simule7
+plot(
+    tt, # x values = temps
+    S_values, # y values = probabilité de survie S(t) calculée
+    type="s", # type = "s" pour une fonction en escalier
+    xlab="Temps", 
+    ylab="Probabilité de survie S(t)", 
+    main="Fonction de survie sans censure (simulée)")
+```
+
+\newpage
+
+#### Estimation en présence de censure : probabilités conditionnelles
+Probabilités conditionnelles = on ne considère que les individus "à risque" à chaque instant.
+
+-   À chaque temps $t_j$ où un événement est observé, on calcule la probabilité de survie conditionnelle **sachant que l'individu a survécu jusqu'à ce temps** $t_j$.
+
+-   On multiplie ces probabilités conditionnelles pour obtenir la probabilité de survie jusqu'à un temps $t$ donné.
+
+Par exemple :
+
+Probabilité d'être en vie à 2 et 3 ans : probabilité décomposée en deux parties :
+
+$S(2) = P(T > 2) = P(T > 2 \mid T > 1) \times P(T > 1 )$
+
+$S(3) = P(T > 3)  = P(T > 3 \mid T > 2) \times P(T > 2)$
+
+$S(3) = P(T > 3 \mid T > 2) \times S (2)$
+
+= Probabilité de survivre entre 1 et 2 ans sachant qu'on a survécu jusqu'à 1 an multipliée par la probabilité de survivre jusqu'à 1 an.
+
+On généralise à un ensemble de $K$ temps ordonnés définis arbitraitement et aléatoirement
+
+On "découpe" la période d'étude pour obtenir des petits intervalles $[t_{k-1}, t_k)$.
+
+$S(t_k) = P(T > t_k \mid T > t_{k-1}) \times P(T > t_{k-1})
+=   P(T > t_k \mid T > t_{k-1}) \times S(t_{k-1})$
+
+Parce que $S(t_{k-1}) = P(T > t_{k-1})$
+
+Tableau de données Kaplan Meier :
+
+$N_k$ = nombre d'individus à risque au temps $t_k$ (ayant survécu jusqu'à $t_k$)
+
+$Q_k$ = probabilité conditionnelle de survie au temps $t_k$ = $P(T > t_k \mid T > t_{k-1})$
+
+$S_k$ = probabilité cumulée de survie jusqu'au temps $t_k$ = $S(t_k)$
+
+| $t_k$ (temps) | $N_k$ (nombre à risque en pendant la période) | $D_k$ (décès en début de période) | $C_k$ (censurés) | $Q_k$ (Probabilité conditionnelle de survie) | $S_k$ (Probabilité cumulée de survie) |
+|------------|------------|------------|------------|------------|------------|
+| $t_0$ = 0 | $N_0$ = n | 0 | 0 | 1 | 1 |
+| $t_1$ | $N_1$ = $N$ | $d_1$ | $c_1$ | $Q_1 = \frac{1 - d_1}{N_1}$ | $S_1 = q_1$ |
+| $t_2$ | $N_2$ = $N_1 - D_1 - C_1$ | $d_2$ | $c_2$ | $Q_2 = \frac{N_2 - d_2}{N_2}$ | $S_2 = q_1q_2$ |
+| ... | ... | ... | ... | ... | ... |
+| $t_k$ | $N_k = N_{k-1} - D_{k-1} - C_{k-1}$ | $d_k$ | $c_k$ | $Q_k = \frac{N_k - d_k}{N_k}$ | $S_k = q_kq_{k-1}..q_2q_1$ |
+
+Calculs à faire :
+
+-   $N_k$ : nombre de sujet à risques (à chaque teps diminuée du nombre de décès et de censure durant la période précédante)
+
+-   $Q_k$ : quantités de survie conditionnelle
+
+($\frac{\text{Nombre de personne sur la periode} - \text{Nombre deces sur la periode}}{\text{Nombre de personne sur la periode}}$)
+
+![](images/paste-47.png)
+
+##### Exemple 1
+Données de survie avec censure :
+
+1, 1, 1+, 1+, 1+, 2, 2, 2, 2+, 3, 3, 3+, 4+, 5+, avec "+" représente une censure.
+
+Donc 14 individus au total.
+
+Par défaut, un évènement qui a lieu au temps 1 a lieu dans l'intervalle 1 à 2, donc représenté sur la deuxième ligne.
+
+Tableau :
+
+| Temps $t_k$ | Nombre à risque $N_k$ | Décès $D_k$ | Censurés $C_k$ | Probabilité conditionnelle de survie $Q_k$ | Probabilité cumulée de survie $S_k$ |
+|------------|------------|------------|------------|------------|------------|
+| 0 | 14 | 0 | 0 | 1 | 1 |
+| 1 | 14 | 2 | 3 | 1 - 2/14 = 6/7 | 6/7 |
+| 2 | 9 | 3 | 1 | 1 - 3/9 = 6/9 | 6/7 \* 6/9 = 4/7 |
+| 3 | 5 | 2 | 1 | 1 - 2/5 = 3/5 | 4/7 \* 3/5 = 12/35 |
+| 4 | 2 | 0 | 1 | 1 - 0/2 = 1 | 12/35 \* 1 = 12/35 |
+| 5 | 1 | 0 | 1 | 1 - 0/1 = 1 | 12/35 \* 1 = 12/35 |
+
+Survie médiane à 3 semaines
+
+![](images/paste-48.png)
+
+Sur une courbe de survie, décrire la médiane de survie (la où la barre horizontale coupe la barre verticale à 0.5).
+
+##### Exemple 2 avec R
+Faire un objet de type surv reprenant les données de survie.
+
+D'abord charger la librairie `survival`.
+
+```{r}
+#| label: survie_censure_data
+library(survival)
+```
+
+Utiliser un jeu de données avec censure (ex : `lung` dans la librairie `survival`).
+
+```{r}
+#| label: survie_censure_data2
+head(lung) # afficher les premières lignes
+```
+
+Les colonnes importantes :
+
+-   `lung$time` : temps de SUIVI (en jours) = follow-up time
+
+-   `lung$status` : état de l'événement (1 = censuré, 2 = décès) = censoring status
+
+Ensuite : on crée un objet de type `Surv`.
+
+Un objet de type `Surv` combine les informations de temps de suivi et d'état de l'événement.
+
+En gros, dans une équation contenant des données de survie, il faut mettre un objet `Surv` pour représenter la variable dépendante, qui contient à la fois le temps de suivi et l'état de l'événement.
+
+```{r}
+#| label: survie_censure_data3
+Surv(lung$time, lung$status)
+```
+
+::: callout-note
+```{r}
+#| label: survie_censure_data4
+#| echo: true
+#| eval: false
+Surv(
+    time, 
+    time2,
+    event, 
+    type=c('right', 'left', 'interval', 'counting', 'interval2', 'mstate'), 
+    origin=0) 
+is.Surv(x)
+```
+
+-   `time`: temps de suivi pour les données à censure à droite (pour les données à censure par intervalle, le premier argument est le temps de début de l'intervalle).
+
+-   `time2`: temps de fin de l'intervalle pour les données à censure par intervalle ou les données de processus de comptage uniquement. Les intervalles sont supposés être ouverts à gauche et fermés à droite, (début, fin\].
+
+-   `event`: indicateur de statut, normalement 0=vivant, 1=décédé. D'autres choix sont TRUE/FAUX (TRUE = décès) ou 1/2 (2=décès).
+
+-   `type=c('right', 'left', 'interval', 'counting', 'interval2', 'mstate')`: type de censure
+
+-   `origin=0`: pour les données de processus de comptage, l'origine de la fonction de risque, c'est à dire le temps à partir duquel on commence à compter les événements.
+
+-   `is.Surv(x)`: fonction pour vérifier si un objet `x` est de type `Surv`.
+:::
+
+Pour faire la table de Kaplan Meier, on utilise la fonction `survfit`.
+
+```{r}
+#| label: survie_censure_km
+fit <- survfit(Surv(lung$time, lung$status)~ 1)
+fit
+```
+
+Syntaxe :
+
+-   `survfit(formula, data, ...)`
+
+-   `formula` : formule de modélisation, où la variable dépendante est un objet `Surv` et le côté droit de la formule spécifie les variables explicatives
+
+-   `data` : jeu de données contenant les variables utilisées dans la formule.
+
+-   `~ 1` : signifie qu'il n'y a pas de variable explicative, on estime la survie globale.
+
+**Pour tracer la courbe de survie Kaplan Meier :**
+
+```{r}
+#| label: survie_censure_km_plot
+plot(
+    fit, 
+    xlab = "Temps (jours)", 
+    ylab = "Probabilité de survie S(t)", 
+    main = "Courbe de survie Kaplan-Meier")
+```
+
+::: callout-note
+Pour obtenir de l'aide sur les fonctions :
+
+```{r}
+#| label: survie_censure_km_help
+#| echo: true
+#| eval: false
+?survfit
+?plot.survfit
+```
+
+C'est `plot.survfit` qui est la méthode de traçage pour les objets de type `survfit`, l'aide ne se trouve pas dans `plot` seul car `plot` est une fonction générique qui peut être utilisée pour différents types d'objets.
+:::
+
+**Pour obtenir le résumé (la table) de l'estimation Kaplan Meier :**
+
+```{r}
+#| label: survie_censure_km_summary
+summary(fit)
+```
+
+Pour faire un autre tracé avec "ggsurvplot" de la librairie "survminer" :
+
+```{r}
+#| label: survie_censure_km_ggsurvplot
+library(survminer)
+ggsurvplot(fit, data = lung)
+```
+
+On va essayer de faire la même chose en comparant les groupes de sexe (variable `sex` dans le jeu de données `lung`).
+
+```{r}
+#| label: survie_censure_km_sex
+fit_sex <- survfit(Surv(time, status) ~ sex, data = lung)
+fit_sex
+```
+
+Syntaxe :
+
+-   `Surv(time, status) ~ sex` : on modélise la survie en fonction de la variable explicative `sex`.
+
+**Pour tracer la courbe de survie Kaplan Meier par sexe :**
+
+```{r}
+#| label: survie_censure_km_sex_plot
+plot(
+    fit_sex, 
+    xlab = "Temps (jours)", 
+    ylab = "Probabilité de survie S(t)", 
+    main = "Courbe de survie Kaplan-Meier par sexe",
+    col = c("blue", "deeppink"),
+    conf.int = FALSE # pas d'intervalle de confiance
+)
+```
+
+On le refait avec `ggsurvplot` + ajout de l'intervalle de confiance + test de log-rank.
+
+```{r}
+#| label: survie_censure_km_sex_ggsurvplot
+ggsurvplot(
+    fit_sex, 
+    data = lung,
+    conf.int = TRUE,
+    pval = TRUE,
+    risk.table = TRUE,
+    risk.table.col = "strata",
+    legend.labs = c("Homme", "Femme"),
+    legend.title = "Sexe",
+    palette = c("blue", "deeppink"),
+    surv.median.line = "hv"
+)
+```
+
+## Comparaison de courbes de survie : test de Log-Rank
+2 cadres principaux :
+
+-   Essai comparatif : différence de délais de survie entre 2 groupes
+
+-   Étude épidémiologique (cohorte) : impact de facteurs de risque sur la survie
+
+Comparaison des fonctions de survie dans leur ensemble.
+
+### Principe
+Comparaison de deux (p) fonctions de survie à partir de deux (p) échantillons indépendants.
+
+Comparaison de deux fonctions de survie / totalité des courbes
+
+Hypothèse nulle $H_0$ : les deux fonctions de survie ne sont pas différentes
+
+Hypothèse alternative $H_1$ : les deux fonctions de survie sont différentes
+
+### Test de Log-Rank dans R
+Utilisation de la fonction `survdiff` de la librairie `survival`.
+
+```{r}
+#| label: logrank_test
+# Charger les librairies nécessaires
+library(survival)
+library(survminer)
+# Créer un objet Surv
+surv_object <- Surv(time = lung$time, event = lung$status)
+# Ajuster le modèle de survie par sexe
+surv_fit <- survfit(surv_object ~ lung$sex)
+# Effectuer le test de Log-Rank : fonction survdiff
+logrank_test <- survdiff(surv_object ~ lung$sex)
+# Afficher les résultats du test
+print(logrank_test)
+```
+
+**Résultats** :
+
+-   **N** : nombre d'individus dans chaque groupe (138 hommes, 90 femmes).
+
+-   **Observed** : nombre d'événements observés (décès) dans chaque groupe (112 hommes, 53 femmes).
+
+-   **Expected** : nombre d'événements attendus dans chaque groupe sous l'hypothèse nulle (91.6 hommes, 73.4 femmes).
+
+-   **(O-E)\^2/E** : contribution de chaque groupe au test du chi carré basé sur la différence entre les événements observés et attendus.
+
+-   **(O-E)\^2/V** : contribution de chaque groupe au test du chi carré basé sur la variance des différences observées-attendues.
+
+-   **Chisq** : statistique du test du chi carré (10.3).
+
+-   **degrees of freedom** : degrés de liberté du test (1, car deux groupes).
+
+-   **p** : valeur p associée au test (0.001).
+
+**Interprétation** :
+
+-   La valeur p (0.001) est inférieure au seuil de signification habituel (0.05), ce qui indique une différence statistiquement significative entre les fonctions de survie des hommes et des femmes.
+
+Conclusion : on rejette l'hypothèse nulle et on conclut qu'il y a une différence significative entre les fonctions de survie des hommes et des femmes dans cette étude.
+
+::: callout-important
+Donc les étapes sont:
+
+1.  Créer un objet de survie `Surv` comprenant les temps de suivi et l'état de l'événement.
+
+2.  Ajuster un modèle de survie avec `survfit` en fonction de la variable explicative (ici le sexe).
+
+3.  Effectuer le test de Log-Rank avec la fonction `survdiff`.
+:::
+
+------------------------------------------------------------------------
+
+## Modèle de Cox : analyse multivariée de survie
+Modèle de Cox = modèle semi-paramétrique = modélisation de l'effet des variables explicatives sur la fonction de risque sans faire d'hypothèse sur la forme de la fonction de risque.
+
+-   Décrire et tester la dépendance
+
+    -   Entre une réponse (fonction de risque instantané $h(t)$ ou $\lambda(t)$)
+
+    -   et un vecteur de variables explicatives (covariables qualitatives ou quantitatives) $Z = (Z_1, Z_2, ..., Z_p)$
+
+$h(t|Z_1,...,Z_p) = h_0(t) \times \exp(\beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p)$
+
+-   $h_0(t)$ : fonction de risque de base (baseline hazard function) = fonction de risque instantané lorsque toutes les covariables $Z_i$ sont égales à 0.
+
+-   $\exp(\beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p)$ : effet multiplicatif des P covariables sur la fonction de risque instantané.
+
+-   $\beta_i$ : coefficient associé à la covariable $Z_i$, représentant l'effet de cette covariable sur le risque instantané.
+
+    -   Relation entre $\beta_i$ et le hazard ratio (HR) : $HR = \exp(\beta_i)$ (donc $\beta_i = \log(HR)$)
+
+**2 hypothèses principales** : **proportionnalité des risques** et **log-linéarité**.
+
+### Hypothèse de proportionnalité des risques
+**Hypothèse de proportionnalité des risques** : les rapports des risques entre les individus restent constants dans le temps, c'est à dire que l'effet des covariables sur le risque instantané est multiplicatif et ne dépend pas du temps.
+
+$\frac{h(t|Z_k = 1)}{h(t|Z_k = 0)} = \exp(\beta k) = \text constante$
+
+Quand on compare 2 groupes (exemple : fumeur vs non-fumeur), le rapport de leurs risques instantanés reste le même tout au long du suivi, et ce rapport de risques = hazard ratio (HR).
+
+Dire que les risques sont proportionnels signifie :
+
+-   à chaque instant t, le groupe A a par exemple 1,5 fois plus de risque de l’événement que le groupe B ;
+
+-   ce facteur 1,5 ne change pas au cours du temps.
+
+Exemple : On suit 100 patients opérés.
+
+Variable explicative : fumeur (1) vs non-fumeur (0).
+
+Supposons : HR = 2.
+
+Cela veut dire :
+
+-   à tout moment du suivi, un fumeur a le double du risque instantané d’avoir une complication,
+
+-   même si le risque global diminue avec le temps (fin de la période postopératoire aiguë), le ratio reste stable entre fumeur et non fumeur.
+
+Si cette hypothèse n’est pas vraie (ex : au début les fumeurs sont à très haut risque, mais plus tard le risque redevient identique), alors le modèle de Cox classique n’est plus adapté. (*Dans ce cas, on peut utiliser des modèles de Cox avec effets temporels*).
+
+:::: callout-note
+::: {style="font-family: monospace; font-size: 14px;"}
+```{=html}
+<pre>
+Risque instantané h(t)
+│
+│  groupe A  ────────────╲____________________
+│                         ╲
+│  groupe B  ───────╲______╲____________________
+│                    ╲      ╲
+│                     ╲      ╲
+└──────────────────────────────────────────────► temps
+
+→ Le ratio hA(t) / hB(t) reste constant dans le temps.
+</pre>
+```
+:::
+::::
+
+### Hypothèse de log-linéarité
+**Hypothèse de log-linéarité** : **concerne les variables quantitatives**.
+
+L'effet des covariables est linéaire sur le logarithme du risque instantané et pas directement sur le risque.
+
+C'est à dire que chaque unité d'augmentation de la covariable $Z_i$ entraîne une augmentation constante du logarithme du risque instantané.
+
+$\rightarrow$ Chaque augmentation d’une unité de la variable → produit le même pourcentage de variation du risque.
+
+$\log(h(t|Z_1,...,Z_p)) = \log(h_0(t)) + \beta_1 Z_1 + \beta_2 Z_2 + ... + \beta_p Z_p$
+
+Exemple :
+
+Variable explicative : âge (en années).
+
+On suppose que $\beta = 0,05$ (avec $\beta$ le coefficient associé à l’âge dans le modèle de Cox).
+
+Cela veut dire :
+
+-   chaque année supplémentaire → multiplie le risque instantané par $exp(0,05) ≈ 1,05$
+
+-   donc +5 % de risque par année d’âge.
+
+    -   Si on passe de 50 à 51 ans : +5 %.
+
+    -   Si on passe de 70 à 71 ans : encore +5 %.
+
+-   L’effet est proportionnel, constant.
+
+:::: callout-note
+::: {style="font-family: monospace; font-size: 14px;"}
+```{=html}
+<pre>
+Effet de l'âge sur log(h(t))
+│
+│                                   ●
+│                             ●
+│                       ●
+│                 ●
+│           ●
+│     ●
+└──────────────────────────────────────────────► âge
+
+→ Relation linéaire : effet constant par unité d'âge.
+</pre>
+```
+:::
+::::
+
+### Interprétation des coefficients du modèle de Cox
+Modèle de Cox : $h(t\mid Z) = h_0(t)\times \exp(\beta Z)$
+
+où :
+
+-   $h_0(t)$ est le risque instantané de base,
+
+-   $Z$ est la covariable (discrète ou continue),
+
+-   $\beta$ est le coefficient associé,
+
+-   $\exp(\beta)$ est le hazard ratio (HR).
+
+#### Variable discrète
+**Variable discrète** (ex : sexe, fumeur/non-fumeur)\*\* :
+
+Groupe de référence A avec $Z_A = 0$ et groupe comparé B avec $Z_B = 1$.
+
+-   $Z_A = 0$ : $h_A(t) = h_0(t)$ (risque instantané du groupe de référence))
+
+-   $Z_B = 1$ : $h_B(t) = h_0(t) \times \exp(\beta)$ (risque instantané du groupe comparé))
+
+Le hazard ratio est :
+
+$HR = \frac{h_B(t)}{h_A(t)} = \frac{h_0(t) \times \exp(\beta)}{h_0(t)} = \exp(\beta)$
+
+Points importants :
+
+-   Le HR ne dépend pas du risque de base $h_0(t)$ (mais seulement de $\beta$)
+
+-   Il est supposé constant et multiplicatif dans le temps (proportionnalité des risques).
+
+-   Il s’interprète comme un rapport d’incidence instantané (ce n'est pas une probabilité).
+
+Exemple : On étudie la mortalité après chirurgie.
+
+Variable : fumeur (1) vs non-fumeur (0).
+
+Le modèle donne $\beta = 0{,}69$.
+
+Alors :
+
+$HR = \exp(0{,}69) \approx 2$
+
+Interprétation :
+
+-   À tout instant du suivi, un fumeur a deux fois plus de risque instantané de mourir qu’un non-fumeur.
+
+-   L’effet est multiplicatif et constant au cours du temps.
+
+-   Ce n’est pas une probabilité ; c’est un rapport de taux instantanés.
+
+#### Variable continue
+**Variable continue** (ex : âge, pression artérielle)\*\* :
+
+Le modèle utilise :
+
+$h(t\mid X) = h_0(t)\times \exp(\beta X)$
+
+Ici, $\exp(\beta)$ correspond au HR pour une unité d’augmentation de la variable.
+
+-   Le Hazard Ratio est exprimé en unité de $x$ (ex HR pour 1 an d'âge)
+
+-   Hypothèse de **modélisation** :
+
+    -   Chaque unité d'augmentation de la variable → même pourcentage de variation du risque instantané
+
+    -   L'effet d'un an de plus sur le risque instanté ne dépend pas de l'âge (il est indépendant du niveau de la variable)
+
+    -   L'effet est constant dans le temps (proportionnalité des risques)
+
+Exemple : Variable : âge (en années).
+
+Supposons $\beta = 0{,}05$.
+
+Alors : $HR = \exp(0{,}05)\approx 1{,}051$
+
+Interprétation :
+
+-   Pour chaque année supplémentaire, le risque instantané augmente de 5,1 %.
+
+-   Passer de 50 → 51 ans : +5,1 %.
+
+-   Passer de 70 → 71 ans : encore +5,1 %.
+
+-   Le modèle considère donc une pente constante sur le logarithme du risque.
+
+Cela découle directement de l’écriture :
+
+$\log h(t) = \log h_0(t) + \beta X$
+
+qui impose une relation linéaire sur le log-risque.
+
+#### Interprétation du HR
+-   **HR = 1** : pas d'effet de la covariable sur le risque instantané.
+
+-   **HR \> 1** : la covariable est associée à une augmentation du risque instantané.
+
+    -   Ex : HR = 2 → doublement du risque instantané.
+
+    -   Ex : HR = 1,5 → augmentation de 50 % du risque instantané.
+
+-   **HR \< 1** : la covariable est associée à une diminution du risque instantané.
+
+**Modèle univariable** : HR brut
+
+**Modèle multivariable** : HR ajusté (pour les autres covariables du modèle)
+
+::: callout-important
+**Ne pas confondre** :
+
+-   Valeur vraie dans la population (interprétable directoement)
+
+-   Estimation dans l'échantillon (avec intervalle de confiance et test statistique)
+:::
+
+#### Résumé
+#### Tableau de synthèse : interprétation des coefficients du modèle de Cox
+| Variable | Forme du modèle | HR = $exp(β)$ | Interprétation | Exemple |
+|---------------|---------------|---------------|---------------|---------------|
+| **Discrète binaire** (0/1) | $`h(t|Z)=h0(t)*exp(β Z)`$ | $exp(β)$ | Rapport de risque instantané entre Z=1 et Z=0, constant dans le temps | $\beta = 0.69$ → HR = 2 : risque doublé |
+| **Discrète multicatégorielle** | Référence + indicateurs | $exp(β_k)$ | Comparaison de chaque catégorie à la référence | Réf = non-fumeur ; fumeur HR=2 ; ex-fumeur HR=1.3 |
+| **Continue (par unité)** | $`h(t|X)=h0(t)*exp(β X)`$ | $exp(β)$ | Variation du risque instantané pour +1 unité de X | $\beta = 0.05$ → HR = 1.051 : +5.1 % par unité |
+| **Continue (pour ΔX unités)** | $`h(t|X)=h0(t)*exp(β X)`$ | $exp(β·ΔX)$ | Variation du risque pour ΔX unités | $\Delta X = 10$ ans : HR = $\exp(0.05\times10)=1.65$ |
+| **Log-linéarité** | Linéarité sur log(h) | — | Chaque unité → même pourcentage de variation du risque | Effet constant : 50→51 = 70→71 |
+| **Proportionnalité des risques** | HR constant dans le temps | — | L’effet ne change pas avec le temps | Courbes “parallèles” en risque instantané |
+
+### Tests statistiques pour les coefficients du modèle de Cox
+Le modèle de Cox estime un ensemble de coefficients $\beta$ . Pour tester si une covariable a un effet significatif sur le risque instantané, deux tests principaux existent :
+
+1.  Le test de Wald
+
+2.  Le test du rapport de vraisemblance (Likelihood Ratio Test, LRT)
+
+#### Hypothèses
+-   **Hypothèse nulle** $H_0$ : la covariable n’a pas d’effet sur le risque instantané ($\beta = 0$ → $HR = 1$)
+
+-   **Hypothèse alternative** $H_1$ : la covariable a un effet sur le risque instantané ($\beta \neq 0$ → $HR \neq 1$)
+
+#### Tests disponibles : Wald et Rapport de vraisemblance (Likelihood Ratio Test, LRT)
+##### Test de Wald
+Le modèle de Cox fournit une estimation de l'écart type du coefficient $\hat{\beta}$.
+
+Le test de Wald utilise l'estimation du coefficient $\hat{\beta}$ et son écart type (son incertitude) pour calculer une statistique de test.
+
+Calcul de la statistique de Wald :
+
+$Z = \frac{\hat{\beta}}{SE(\hat{\beta})}$
+
+Avec :
+
+-   $\hat{\beta}$ : estimateur du coefficient de la covariable
+
+-   $SE(\hat{\beta})$ : écart type de l'estimateur
+
+Sous l'hypothèse nulle, $Z$ suit une loi normale centrée réduite, parce que pour de grands échantillons, l'estimateur $\hat{\beta}$ est asymptotiquement normal, c'est à dire que sa distribution approche une loi normale lorsque la taille de l'échantillon augmente.
+
+On compare donc la valeur absolue de $Z$ à la table de la loi normale pour obtenir une p-value.
+
+ex : si $|Z| > 1.96$, p-value \< 0.05
+
+-   Si $|Z|$ est grand → la variable est significative.
+
+-   Si $|Z| < 1.96$ → p-value \> 0.05 → variable non significative.
+
+Exemple : Supposons que le coefficient pour fumeur soit :
+
+-   $\hat{\beta}$ = 0.69
+
+-   $SE(\hat{\beta})$ = 0.30
+
+$Z = 0.69 / 0.30 = 2.30$
+
+→ p-value \< 0.05 → effet significatif.
+
+::: callout-important
+Le test de Wald donne une p-value pour chaque coefficient du modèle, parce qu'il teste chaque coefficient séparément.
+:::
+
+**Pourquoi le test de Wald donne une p-value par coefficient ?**
+
+-   Parce qu’il teste chaque coefficient séparément :
+
+-   $H_0 : \beta_i = 0$
+
+-   et chaque coefficient $\beta_i$ est testé individuellement avec son propre estimateur $\hat{\beta_i}$ et son propre écart type $SE(\hat{\beta_i})$.
+
+-   Donc, si le modèle contient :
+
+    -   1 variable quantitative → 1 coefficient → 1 p-value
+
+    -   1 variable qualitative à 3 modalités → 2 coefficients → 2 p-values
+
+    -   p variables → p p-values
+
+------------------------------------------------------------------------
+
+##### Test du rapport de vraisemblance (Likelihood Ratio Test, LRT)
+= modèles emboîtés que l'on compare
+
+= **modèle complet** = avec la covariable *vs* **modèle réduit** = sans la covariable
+
+On compare la log-vraisemblance des deux modèles (log-vraisemblance = mesure de l'adéquation du modèle aux données).
+
+Calcul de la statistique du rapport de vraisemblance :
+
+$LR = 2 \times (\log L_{2} - \log L_{1}) ~ \chi^2(\text p\ ddl)$
+
+Avec :
+
+-   $L_1$ : la log-vraisemblance du modèle réduit (le moins riche)
+
+-   $L_2$ : la log-vraisemblance du modèle complet (le plus riche)
+
+-   $p$ : nombre de paramètres ajoutés entre les deux modèles (nombre de degrés de liberté)
+
+Sous $H_0$, le test du rapport de vraisemblance suit une loi du chi carré avec $p$ degrés de liberté.
+
+*Quand on dit que le test est fait sous* $H_0$, cela signifie que l'on suppose que la covariable n'a pas d'effet sur le risque instantané.
+
+On compare la valeur de $LR$ à la table du chi carré pour obtenir une p-value.
+
+**Pourquoi le LRT donne une seule p-value par variable ?**
+
+Car il ne teste pas $\beta_1$, $\beta_2$, $\beta_3$ individuellement mais l’ensemble du bloc associé à la variable :
+
+$H_0 : \beta_1 = \beta_2 = \beta_3 = 0$
+
+Donc :
+
+-   Une variable binaire → 1 coefficient → 1 p-value
+
+-   Une variable qualitative à 4 niveaux → 3 coefficients → 1 p-value globale
+
+-   Un bloc de variables (ex : spline, interaction, polynôme) → 1 p-value globale
+
+##### Comparaison des deux tests
+**Nombre de p-values**
+
+-   Wald → plusieurs p-values (une par coefficient)
+
+-   LRT → une seule p-value par variable, même si cette variable comporte plusieurs coefficients.
+
+::: callout-note
+Variable : statut fumeur (oui/non)
+
+-   Wald : 1 coefficient → 1 p-value
+
+-   LRT : 1 comparaison modèle complet vs réduit → 1 p-value
+
+Variable : IMC en 3 catégories (normal, surpoids, obésité) codée en 2 indicatrices car pour un facteur à $k$ modalités, un modèle de Cox crée $k−1$ variables indicatrices (dummy variables).
+
+Donc pour 3 catégories → 2 coefficients $\beta_1$ et $\beta_2$.
+
+-   Wald : 2 coefficients → 2 p-values
+
+-   LRT : 1 comparaison modèle complet vs réduit → 1 p-value
+:::
+
+**Quel test utiliser ?**
+
+Le test du rapport de vraisemblance est plus utilisé pour tester un ensemble de covariables simultanément (modèle multivariable).
+
+À la limité d'une taille d'échantillon très grande, ces deux tests donnent des résultats similaires.
+
+::: callout-important
+Le top : rapport de vraisemblance pour chaque variable, rapporté dans un tableau
+:::
+
+**Tableau comparatif**
+
+| Caractéristique | Test de Wald | Test du rapport de vraisemblance (LRT) |
+|------------------------|------------------------|------------------------|
+| **Ce qui est testé** | Chaque coefficient séparément | L'ensemble des coefficients d'une même variable |
+| **Nombre de p-values obtenues** | Une p-value par coefficient | Une seule p-value par variable (ou par bloc de variables) |
+| **Ex : variable binaire** | 1 coefficient → 1 p-value | 1 degré de liberté → 1 p-value |
+| **Ex : variable qualitative à 4 niveaux** | 3 coefficients → 3 p-values | Test global sur les 3 coefficients → 1 p-value |
+| **Interprétation** | Effet individuel de chaque niveau / coefficient | Apport global de la variable au modèle |
+| **Type de test** | Normal (approximation asymptotique) | Khi-deux |
+| **Fiabilité** | Peut être instable si les SE sont mal estimés | Plus robuste en théorie |
+| **Usage typique** | Lecture coefficient par coefficient | Comparaison modèles (réduit vs complet) |
+
+## TP
+### Modèle de Cox avec R
+-   Charger la librairie `survival`.
+
+    -   `Surv` : créer un objet de survie
+
+    -   `survfit` : ajuster un modèle de survie (Kaplan Meier)
+
+    -   `survdiff` : test de Log-Rank
+
+    -   `coxph` : ajuster un modèle de Cox
+
+-   Conditions du df : "survival object" faisable
+
+    -   Temps de suivi
+
+    -   État de l'événement
+
+#### Exemple avec le jeu de données `lung`
+##### Charger et afficher les premières lignes du jeu de données `lung`
+```{r}
+#| label: cox_model_example
+# Charger la librairie survival
+library(survival)
+# Afficher les premières lignes du jeu de données
+head(lung)
+```
+
+##### Créer un objet de type `Surv` avec les colonnes `time` et `status`
+```{r}
+# Créer un objet Surv
+surv_obj <- Surv(time = lung$time, event = lung$status)
+surv_obj
+```
+
+##### Tester l'effet du sexe (`sex`) sur la survie avec un log-rank test
+```{r}
+# Test de Log-Rank pour le sexe
+logrank_sex <- survdiff(surv_obj ~ lung$sex)
+print(logrank_sex)
+```
+
+##### Ajuster un modèle de Cox avec `sex` comme covariable
+Fonction `coxph` (pour Cox Proportional Hazards) :
+
+```{r}
+# Ajuster un modèle de Cox avec le sexe comme covariable
+cox_model_sex <- coxph(surv_obj ~ lung$sex)
+summary(cox_model_sex)
+```
+
+------------------------------------------------------------------------
+
+Résultats :
+
+`coef` :
+
+-   estimation du coefficient $\hat{\beta}$ pour la variable `sex` (-0.5310) =
+
+-   = $h(t | \text{sex}) = h_0(t) \exp(\beta \times \text{sex})$
+
+    -   avec `sex` = 1 pour les femmes et 0 pour les hommes.
+
+    -   coefficient $\beta$ correspond à l'impact du sexe (femme vs homme) sur le logarithme du risque instantané.
+
+-   `exp(coef)` : estimation du hazard ratio (HR) pour les femmes par rapport aux hommes (0.5880)
+
+    -   $\exp(\hat{\beta}) = HR$
+
+    -   = $\exp(-0.5310) \approx 0.588$
+
+    -   Interprétation : à tout instant du suivi, les femmes ont environ 41.2 % (1 - 0.588) de risque instantané en moins de mourir par rapport aux hommes.
+
+-   `se(coef)` : écart type de l'estimateur du coefficient (0.1672) =
+
+    -   incertitude sur l'estimation de $\hat{\beta}$.
+
+    -   Utilisé pour le test de Wald (formule : $Z = \hat{\beta} / SE(\hat{\beta})$).
+
+    -   pour obtenir l'IC de l'HR : $IC_{95\%} = \exp(\hat{\beta} \pm 1.96 \times SE(\hat{\beta}))$
+
+-   `z` : statistique de test de Wald (-3.176) =
+
+    -   calculée comme $z = \hat{\beta} / SE(\hat{\beta})$.
+
+    -   Utilisée pour obtenir la p-value associée au test de Wald.
+
+    -   Valeur absolue élevée de `z` indique un effet significatif.
+
+    -   Plus bas, il est écrit 10.09, qui est le carré de -3.176 (car le test du chi carré est le carré du test de Wald).
+
+-   `Pr(>|z|)` : p-value associée au test de Wald (0.00149) =
+
+    -   probabilité d'observer une statistique de test aussi extrême que `z` sous l'hypothèse nulle ($\beta = 0$).
+
+    -   p-value \< 0.05 indique que l'effet du sexe sur le risque instantané est statistiquement significatif.
+
+-   `exp(-coef)` : inverse du hazard ratio (1.701) =
+
+    -   $\exp(-\hat{\beta}) = 1 / HR$
+
+    -   Interprétation : à tout instant du suivi, les hommes ont environ 70.1 % (1.701 - 1) de risque instantané en plus de mourir par rapport aux femmes.
+
+-   `lower .95` et `upper .95` : bornes inférieure et supérieure de l'intervalle de confiance à 95 % pour le hazard ratio (0.4237, 0.816) =
+
+    -   Calculé comme $IC_{95\%} = \exp(\hat{\beta} \pm 1.96 \times SE(\hat{\beta}))$.
+
+    -   Indique la précision de l'estimation du HR.
+
+    -   Si l'IC ne contient pas 1, l'effet est statistiquement significatif.
+
+-   `Concordance` : mesure de la capacité prédictive du modèle (0.579) =
+
+    -   Valeur entre 0.5 (aucune capacité prédictive) et 1 (prédiction parfaite).
+
+    -   Indique dans quelle mesure le modèle classe correctement les individus en fonction de leur risque.
+
+-   `Likelihood ratio test` : statistique du test du rapport de vraisemblance (10.63) avec sa p-value (0.001) =
+
+    -   Compare le modèle complet (avec `sex`) au modèle réduit (sans `sex`).
+
+    -   p-value \< 0.05 indique que l'ajout de `sex` améliore significativement le modèle.
+
+-   `Wald test` : statistique du test de Wald (10.09) avec sa p-value (0.001) =
+
+    -   Teste l'effet individuel de `sex` sur le risque instantané.
+
+    -   p-value \< 0.05 indique que l'effet de `sex` est statistiquement significatif.
+
+    -   Intérêt par rapport à `z` et `Pr(>|z|)` : c'est la même information mais exprimée en chi carré.
+
+        -   Exprimé en $chi^2$ pour faciliter la comparaison avec d'autres tests (comme le LRT).
+
+        -   Mais en vrai, c'est juste le carré de `z`.
+
+::: callout-note
+**Pourquoi le test de Wald global renvoie un chi-2 ?**
+
+Parce que le carré d’une variable normale centrée réduite suit une loi du chi-2 à 1 degré de liberté.
+
+C’est un théorème fondamental :
+
+$\left( \mathcal N(0,1) \right)^2 \sim \chi^2(1)$
+
+Donc :
+
+$W = z^2$
+
+Dans l'output :
+
+$z = −3.176$
+
+\$ \text{Wald } \chi\^2 = (−3.176)\^2 = 10.09\$
+
+Donc :
+
+-   Le test individuel affiche z (test indidividuel = test de Wald pour le coefficient)
+
+-   Le test global affiche z² = chi-2 (= test de Wald global pour la variable)
+
+Même p-value, présentation différente.
+:::
+
+::: callout-note
+**Qu’est-ce que** $N$ dans $N(0,1)$ ?
+
+$N(0,1)$ signifie loi Normale centrée réduite, c’est-à-dire :
+
+-   moyenne = 0
+
+-   variance = 1
+
+-   forme en cloche parfaitement définie
+
+Quand on écrit :
+
+$z \sim \mathcal{N}(0,1)$
+
+cela veut dire : la statistique $z$ suit une loi normale de moyenne 0 et de variance 1.
+
+Dans ce contexte $N$ désigne la loi Normale : $N(\mu, \sigma^2) = \text{loi normale de moyenne }\mu \text{ et variance }\sigma^2.$
+
+Donc $N$ = normal distribution.
+
+**Pourquoi** $z$ suit une loi normale $N(0,1)$ ?
+
+Dans un modèle de Cox, l’estimateur du coefficient $\hat\beta$ est asymptotiquement normal :
+
+$\hat\beta \approx \mathcal N(\beta, SE(\hat\beta)^2)$
+
+Sous l’hypothèse nulle $H_0:\beta=0$, cela devient :
+
+$\hat\beta \approx \mathcal N(0, SE^2)$
+
+Si on divise par l’écart-type (on le fait pour standardiser la variable, c'est à dire pour lui donner une moyenne 0 et une variance 1) :
+
+$z = \frac{\hat\beta}{SE(\hat\beta)}$
+
+Alors $z$ suit :
+
+$z \sim \mathcal N(0,1)$
+
+Donc :
+
+-   $z$ = coefficient standardisé
+
+-   $z$ = suit une loi normale centrée réduite
+
+-   C’est pour ça qu’on calcule $Pr(>|z|)$ avec la loi normale
+
+NB : diviser par l’écart-type est une opération classique en statistique pour standardiser une variable et obtenir une variable sans unité, ce qui permet de comparer des variables entre elles.
+
+Ça permet aussi d’obtenir une statistique de test qui suit une loi connue (ici la loi normale centrée réduite car on divise par l’écart-type).
+:::
+
+##### Obtenir l'intervalle de confiance à 95 % pour le hazard ratio
+**Coefficients** $\beta$ et leur exponentielle (HR)
+
+```{r}
+# Calculer les coefficients ß
+coefficients(cox_model_sex)
+# Exponentielle (hazard ratio)
+exp(coefficients(cox_model_sex))
+```
+
+**Pour l'intervalle de confiance à 95 % :**
+
+```{r}
+# Obtenir l'intervalle de confiance à 95 % pour les coefficients
+confint(cox_model_sex)
+# Obtenir l'intervalle de confiance à 95 % pour le hazard ratio
+exp(confint(cox_model_sex))
+```
+
+**Risque de base** : fonction de risque de base estimée
+
+```{r}
+# Obtenir la fonction de risque de base estimée
+base_hazard <- basehaz(cox_model_sex, centered = FALSE)
+head(base_hazard)
+```
+
+## TP 2
+Base de données `gehan` (disponible dans la librairie `MASS`) : 42 patients leucémiques avec 2 groupes de traitement 6-MP vs controls avec les durées de rémission
+
+1.  Combien y a-t-il d'évènements et de censures dans chacun des groupes ?
+
+2.  Combien y-a-t-il de sujets exposés au risque de rechute à 12 et 18 semaines dans chaque groupe ?
+
+3.  Un test du $Chi^2$ de Pearson serait-il approprié pour comparer les proportions d'évènements entre les deux groupes ? Justifiez votre réponse.
+
+4.  Quelle est la survie sans rechute à 6 et 12 semaines dans les deux groupes de traitement ?
+
+5.  Quelle est la médiane de survie sans rechute dans chaque groupe de traitement ?
+
+6.  Estimez et tracez les courbes de survie de Kaplan-Meier pour les deux groupes de traitement.
+
+7.  Quel test pour comparer les courbes de survie entre les deux groupes de traitement ? Justifiez votre choix.
+
+### Réponse
+Import de la librairie et des données
+
+```{r}
+# Charger la librairie survival
+library(MASS)
+# Afficher les premières lignes des données
+head(gehan,20)
+```
+
+Colonnes :
+
+-   `pair` : numéro de la paire de patients appariés
+
+-   `time` : temps de suivi
+
+-   `cens` : indicateur de censure (0 = censure, 1 = événement)
+
+-   `treat` : groupe de traitement (control ou 6-MP)
+
+Donc c'est bizarre !
+
+-   Moins d'observations censurées (0) que d'observations non censurées (1) !
+
+-   Donc c'est probablement l'inverse ! :
+
+    -   `cens` = 1 → censure
+
+    -   `cens` = 0 → événement
+
+-   `pair` : numéro de la paire de patients appariés mais on va l'ignorer ici
+
+#### Nombre d'évènements et de censures dans chaque groupe
+Fonction `table` pour obtenir un tableau croisé des événements et censures par groupe de traitement.
+
+```{r}
+# Résumé des événements et censures par groupe de traitement
+table(gehan$treat, gehan$cens, dnn = c("Traitement", "Censure"))
+```
+
+#### Nombre de sujets exposés au risque de rechute à 12 et 18 semaines dans chaque groupe
+Stratégie :
+
+1.  Créer un objet `Surv` qui contiendra les temps de suivi et l'état de censure en un seul objet
+
+    -   Utiliser la fonction `Surv` du package `survival`
+
+    -   Syntaxe : `Surv(data$time, data$event)`
+
+```{r}
+surv_object_gehan <- Surv(time = gehan$time, event = gehan$cens)
+surv_object_gehan
+```
+
+2.  Utiliser la fonction `survfit` pour calculer la survie
+
+    -   Syntaxe : `survfit(Surv_object ~ group_variable, data = dataset)`
+
+```{r}
+surv_fit_gehan <- survfit(surv_object_gehan ~ gehan$treat, data = gehan)
+surv_fit_gehan
+```
+
+3.  Extraire le nombre de sujets à risque à 12 et 18 semaines en utilisant la fonction `summary`
+
+    -   Syntaxe : `summary(survfit_object, times = c(times_of_interest))`
+
+```{r}
+summary_gehan_12_18 <- summary(surv_fit_gehan, times = c(12, 18))
+summary_gehan_12_18
+```
+
+#### $Chi^2$ de Pearson approprié ?
+Non, le test du $Chi^2$ de Pearson n'est pas approprié pour comparer les proportions d'évènements entre les deux groupes dans ce contexte de données de survie.
+
+Justification :
+
+-   Le test du $Chi^2$ de Pearson compare les proportions d'événements entre des groupes à un moment fixe, sans tenir compte du temps de suivi ni de la censure.
+
+-   Dans les données de survie, les temps de suivi varient entre les individus, et certains individus peuvent être censurés (c'est-à-dire que l'événement d'intérêt n'a pas été observé avant la fin du suivi).
+
+-   Le test du $Chi^2$ de Pearson ne prend pas en compte ces aspects temporels et de censure, ce qui peut biaiser les résultats.
+
+-   Pour comparer les courbes de survie entre les groupes, il est plus approprié d'utiliser le test de Log-Rank, qui tient compte des temps de suivi et de la censure.
+
+#### Survie sans rechute à 6 et 12 semaines dans les deux groupes de traitement
+Utiliser la fonction `summary` pour extraire les estimations de survie à 6 et 12 semaines.
+
+```{r}
+summary_gehan_6_12 <- summary(surv_fit_gehan, times = c(6, 12))
+summary_gehan_6_12
+```
+
+Résultats :
+
+-   À 6 semaines :
+
+    -   Groupe 6-MP : survie sans rechute = 85.7 % (IC 95 % : 72.0 % - 100 %)
+
+    -   Groupe contrôle : survie sans rechute = 57.1 % (IC 95 % : 39.5 % - 82.8 %)
+
+-   À 12 semaines :
+
+    -   Groupe 6-MP : survie sans rechute = 75.3 % (IC 95 % : 58.6 % - 96.8 %)
+
+    -   Groupe contrôle : survie sans rechute = 19.0 % (IC 95 % : 7.9 % - 46.0 %)
+
+#### Médiane de survie sans rechute dans chaque groupe de traitement
+La médiane est contenue dans l'objet crée avec `Surv` : `surv_fit_gehan`.
+
+```{r}
+# Obtenir la médiane de survie pour chaque groupe
+surv_fit_gehan
+```
+
+#### Estimer et tracer les courbes de survie de Kaplan-Meier pour les deux groupes de traitement
+Tracer les courbes de survie de Kaplan-Meier pour les deux groupes de traitement
+
+```{r}
+# Tracer les courbes de survie
+plot(surv_fit_gehan, col = c("blue", "red"), lty = 1:2,
+        xlab = "Temps (semaines)", ylab = "Probabilité de survie",
+        main = "Courbes de survie de Kaplan-Meier par groupe de traitement")
+legend("topright", legend = levels(gehan$treat), col = c("blue", "red"), lty = 1:2)
+```
+
+Utiliser `ggsurvplot` pour une visualisation améliorée
+
+```{r}
+# Charger la librairie survminer pour une meilleure visualisation
+library(survminer)
+# Tracer les courbes de survie avec ggsurvplot
+ggsurvplot(surv_fit_gehan, data = gehan,
+            pval = TRUE, conf.int = TRUE,
+            risk.table = TRUE,
+            xlab = "Temps (semaines)",
+            ylab = "Probabilité de survie",
+            title = "Courbes de survie de Kaplan-Meier par groupe de traitement",
+            legend.labs = levels(gehan$treat),
+            palette = c("blue", "red"),
+            surv.median.line = "hv")
+```
+
+#### Quel test pour comparer les courbes de survie entre les deux groupes de traitement ? Justifiez votre choix.
+Le test approprié pour comparer les courbes de survie entre les deux groupes de traitement est le **test de Log-Rank**.
+
+Justification :
+
+-   Le test de Log-Rank est spécifiquement conçu pour comparer les courbes de survie entre deux ou plusieurs groupes dans le contexte des données de survie.
+
+-   Il prend en compte les temps de suivi variables et la censure des données, ce qui est essentiel dans les analyses de survie.
+
+-   Le test de Log-Rank évalue si les différences observées dans les courbes de survie sont statistiquement significatives en comparant le nombre d'événements observés à celui attendu dans chaque groupe à chaque instant de temps.
+
+```{r}
+# Effectuer le test de Log-Rank
+logrank_test <- survdiff(surv_object_gehan ~ gehan$treat)
+print(logrank_test)
+```
+
+## TP 3
+Base de données `Melanoma` dans le package `MASS` : étude de survie de patients atteints de mélanome avec différentes variables explicatives.
+
+### Questions
+1.  Description des données
+
+2.  Estimation d'une courbe de survie de Kaplan-Meier globale
+
+3.  Influence du sexe sur la survie
+
+4.  Test de Log-Rank pour tester la différence de survie en foncton du sexe, en stratifiant sur le niveau d'ulcération
+
+### Réponse
+#### Description des données
+Importer les données et la librairie nécessaire
+
+```{r}
+# Charger la librairie MASS
+library(MASS)
+# Afficher les premières lignes des données Melanoma
+head(Melanoma)
+```
+
+Colonnes :
+
+-   `time` : temps de suivi en mois
+
+-   `status` : état de l'événement (1 = décès dû au mélanome, 2 = alive, 3 = décès dû à d'autres causes)
+
+-   `sex` : sexe (0 = femme, 1 = homme)
+
+-   `age` : âge au moment du diagnostic
+
+-   `year` : année du diagnostic
+
+-   `thickness` : épaisseur de la tumeur en mm
+
+-   `ulcer` : présence d'ulcération (0 = non, 1 = oui)
+
+Truc : pour l'analyse de survie, on va recoder `status` en binaire (1 et 3 = décès toute cause, 2 = censuré)
+
+```{r}
+Melanoma$status2 <- ifelse(Melanoma$status == 2, 0, 1)
+```
+
+#### Estimation d'une courbe de survie de Kaplan-Meier globale
+1.  Créer un objet `Surv` avec les temps de suivi et l'état de l'événement
+
+`Surv(time = data$time, event = data$status == 1)`
+
+```{r}
+surv_object_melanoma <- Surv(time = Melanoma$time, event = Melanoma$status2 == 1)
+surv_object_melanoma
+```
+
+2.  Calculer la courbe de survie de Kaplan-Meier globale avec `survfit`
+
+`survfit`permet d'ajuster un modèle de survie de Kaplan-Meier.
+
+```{r}
+surv_fit_melanoma <- survfit(surv_object_melanoma ~ 1, data = Melanoma)
+surv_fit_melanoma
+```
+
+3.  Tracer la courbe de survie avec 'ggsurvplot' pour une meilleure visualisation
+
+```{r}
+# Charger la librairie survminer pour une meilleure visualisation
+library(survminer)
+# Tracer la courbe de survie globale
+ggsurvplot(surv_fit_melanoma, 
+            data = Melanoma,
+            conf.int = TRUE,
+            risk.table = TRUE,
+            xlab = "Temps (mois)",
+            ylab = "Probabilité de survie",
+            title = "Courbe de survie de Kaplan-Meier globale",
+            palette = "darkblue"
+        )
+```
+
+#### Influence du sexe sur la survie
+1.  Calculer les courbes de survie de Kaplan-Meier par sexe
+
+```{r}
+surv_fit_sex <- survfit(surv_object_melanoma ~ Melanoma$sex, data = Melanoma)
+surv_fit_sex
+```
+
+2.  Tracer les courbes de survie par sexe
+
+```{r}
+# Tracer les courbes de survie par sexe
+ggsurvplot(
+        surv_fit_sex, 
+        data = Melanoma,
+        pval = TRUE,
+        conf.int = TRUE,
+        risk.table = TRUE,
+        xlab = "Temps (mois)",
+        ylab = "Probabilité de survie",
+        title = "Courbes de survie de Kaplan-Meier par sexe",
+        legend.labs = c("Femmes", "Hommes"),
+        palette = c("deeppink", "blue"),
+        surv.median.line = "hv",
+        risk.table.height = 0.25,
+        risk.table.y.text.col = TRUE,
+        risk.table.y.text = FALSE,    
+        censor = TRUE
+        )
+```
+
+#### Test de Log-Rank et Modèle de Cox pour comparer les courbes de survie entre les groupes
+1.  Effectuer le test de Log-Rank pour comparer les courbes de survie entre les groupes
+
+```{r}
+# Effectuer le test de Log-Rank
+logrank_test_sex <- survdiff(surv_object_melanoma ~ Melanoma$sex)
+print(logrank_test_sex)
+```
+
+2.  Ajuster un modèle de Cox avec le sexe comme covariable
+
+```{r}
+# Ajuster un modèle de Cox avec le sexe comme covariable
+cox_model_sex <- coxph(surv_object_melanoma ~ Melanoma$sex)
+summary(cox_model_sex)
+```
+
+#### Si on regarde en ajustant sur l'épaisseur de la tumeur
+```{r}
+# Ajuster un modèle de Cox avec le sexe et l'épaisseur de la tumeur comme covariables
+cox_model_sex_thickness <- coxph(surv_object_melanoma ~ Melanoma$sex + Melanoma$thickness)
+summary(cox_model_sex_thickness)
+```
+
+Résultats :
+
+-   Le coefficient pour `Melanoma$sex` est 0.56284, ce qui signifie que les hommes ont un risque instantané de décès dû au mélanome environ 75.6 % plus élevé que les femmes, après ajustement pour l'épaisseur de la tumeur.
+
+    -   HR = exp(0.56284) = 1.75565
+
+-   Le coefficient pour `Melanoma$thickness` est 0.14883, indiquant que pour chaque augmentation de 1 mm de l'épaisseur de la tumeur, le risque instantané de décès dû au mélanome augmente d'environ 16.0 %.
+
+    -   HR = exp(0.14883) = 1.16048 en plus par mm (variable quantitative donc HR par unité)
+
+Mais le truc c'est que l'épaisseur de la tumeur est très variable !!
+
+```{r}
+hist(Melanoma$thickness, breaks = 30, main = "Histogramme de l'épaisseur de la tumeur", xlab = "Épaisseur (mm)")
+```
+
+Mais pour les dermatos : ce qui compte c'est si l'épaisseur est \> ou \< 1 mm (critère pronostique important)
+
+Donc on peut créer une variable binaire `thickness_bin` :
+
+```{r}
+Melanoma$thickness_bin <- ifelse(Melanoma$thickness > 1, 1, 0)
+head(Melanoma, 3)
+table(Melanoma$thickness_bin)
+```
+
+Puis ajuster le modèle de Cox avec cette variable binaire :
+
+```{r}
+# Ajuster un modèle de Cox avec le sexe et l'épaisseur binaire de la tumeur comme covariables
+cox_model_sex_thickness_bin <- coxph(surv_object_melanoma ~ Melanoma$sex + Melanoma$thickness_bin)
+summary(cox_model_sex_thickness_bin)
+```
+
+------------------------------------------------------------------------
+
+Résultats :
+
+-   Le coefficient pour `Melanoma$sex` est 0.6813 et HR = exp(0.6813) = 1.9764 donc risque instantané de décès dû au mélanome environ 97.6 % plus élevé pour les hommes par rapport aux femmes.
+
+-   Le coefficient pour `Melanoma$thickness_bin` est 1.1275 et HR = exp(1.1275) = 3.0879 donc risque instantané de décès dû au mélanome environ 208.8 % plus élevé pour les patients avec une épaisseur de tumeur \> 1 mm par rapport à ceux avec une épaisseur ≤ 1 mm.
+
+------------------------------------------------------------------------
+
+Pour savoir quel est le meilleur modèle entre `thickness` en quantitatif et binaire, on va comparer par rapport au modèle avec `sex` seul
+
+1.  On redéfinit les modèles
+
+```{r}
+surv_object_melanoma <- Surv(time = Melanoma$time, event = Melanoma$status2 == 1)
+cox_model_sex <- coxph(surv_object_melanoma ~ Melanoma$sex)
+cox_model_sex_thickness <- coxph(surv_object_melanoma ~ Melanoma$sex + Melanoma$thickness)
+cox_model_sex_thickness_bin <- coxph(surv_object_melanoma ~ Melanoma$sex + Melanoma$thickness_bin)
+```
+
+2.  Comparaison avec le test du rapport de vraisemblance
+
+```{r}
+# Comparaison des modèles avec le test du rapport de vraisemblance
+anova(cox_model_sex, cox_model_sex_thickness)
+anova(cox_model_sex, cox_model_sex_thickness_bin)
+```
+
+On a l'impression qu'en mettant la variable en QUANTITATIF , c'est mieux !
+
+-   $Chi^2$ plus grand (18.598 \> 12.997)
+
+-   p-value plus petite
+
+Mais en vrai : ce sont des considérations uniquement statistiques !
+
+Si la variable qui compte c'est si l'épaisseur est \> ou \< 1 mm, on prendra le modèle avec la variable binaire
+
+#### Interaction entre sexe et ulcération
+**Modèle de Cox avec interaction entre sexe et ulcération**
+
+```{r}
+# Ajuster un modèle de Cox avec interaction entre sexe et ulcération
+surv_cox_interaction <- Surv(Melanoma$time, Melanoma$status2)
+cox_model_interaction <- coxph(surv_cox_interaction ~ Melanoma$sex + strata(Melanoma$ulcer))
+summary(cox_model_interaction)
+```
+
+**Log rank et courbe de Kaplan-Meier stratifiée sur le niveau d'ulcération**
+
+1.  Effectuer le test de Log-Rank stratifié sur le niveau d'ulcération
+
+Syntaxe : `survdiff(Surv_object ~ group_variable + strata(stratification_variable))`
+
+```{r}
+# Effectuer le test de Log-Rank stratifié sur le niveau d'ulcération
+logrank_test_stratified <- survdiff(surv_object_melanoma ~ Melanoma$sex + strata(Melanoma$ulcer))
+print(logrank_test_stratified)
+```
+
+2.  Tracer les courbes de survie de Kaplan-Meier par sexe, stratifiées sur le niveau d'ulcération
+
+```{r}
+# Tracer les courbes de survie par sexe, stratifiées sur le niveau d'ulcération
+ggsurvplot(
+        survfit(surv_object_melanoma ~ Melanoma$sex + strata(Melanoma$ulcer), data = Melanoma),
+        data = Melanoma,
+        pval = TRUE,
+        conf.int = FALSE,
+        risk.table = TRUE,
+        xlab = "Temps (mois)",
+        ylab = "Probabilité de survie",
+        title = "Courbes de survie de Kaplan-Meier par sexe, stratifiées sur le niveau d'ulcération",
+        legend.labs = c("Femmes sans ulcération", "Hommes sans ulcération", "Femmes avec ulcération", "Hommes avec ulcération"),
+        palette = c("deeppink", "blue", "lightcoral", "darkblue"),
+        risk.table.y.text.col = TRUE,
+        risk.table.y.text = FALSE,    
+        censor = TRUE
+        )
+```

@@ -1,0 +1,854 @@
+---
+title: "Clinimetrie"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+
+library(plotrix)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(qgraph)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+```
+
+## Définition de la clinimétrie
+La clinimétrie est une discipline qui s'intéresse à la mesure des phénomènes cliniques, en particulier à travers la création et l'évaluation d'instruments de mesure tels que les échelles, les questionnaires et les tests.
+
+Elle vise à quantifier des aspects qualitatifs de la santé et de la maladie, tels que la douleur, la qualité de vie, la fonction physique ou mentale, afin de fournir des données objectives pour la prise de décision clinique et la recherche médicale.
+
+En résumé : clinimétrie = science de la mesure clinique.
+
+Exemple : variabilité inter-appareil de mesure de la TA
+
+Mesure à prendre : **centralisation des mesures** (envoyer tous les échantillons à un même laboratoire pour analyse)
+
+## Accord inter-juge
+### Accord inter-juge d'une variable binaire
+#### **Exemple : diagnostic d'une appendicite (OUI/NON)**
+|                        | Juge1_reponse_positive | Juge1_reponse_negative |
+|------------------------|------------------------|------------------------|
+| Juge2_reponse_positive | a                      | b                      |
+| Juge2_reponse_negative | c                      | d                      |
+
+*Comment quantifier / exprimer le fait qu'ils sont d'accord ?*
+
+#### **Concordance**
+Concordance = % de fois où les juges sont d'accord
+
+Formule :
+
+$$\frac{a + d}{a + b + c + d}$$
+
+-   Limite : ne tient pas compte du fait que les juges peuvent être d'accord par hasard (s'ils tirent à pile ou face, ils seront d'accord 50% du temps en moyenne)
+
+-   Donc peut être élevée par hasard
+
+#### **Concordance corrigée**
+Concordance corrigée = Kappa de Cohen
+
+-   Kappa $\kappa$ = $\frac{(Concordance - ConcordanceLiéeAuHasard)}{(1 - ConcordanceLiéeAuHasard)}$
+
+    -   Conc : concordance = $\frac{a + d}{a + b + c + d}$
+    -   ConcH : concordance liée au hasard
+
+Calcul de la concordance liée au hasard :
+
+$$\frac{(a + b)(a + c) + (c + d)(b + d)}{(a + b + c + d)^2}$$
+
+-   Si concordance parfaite : Kappa = 1
+
+-   Si concordance égale à celle du hasard : Kappa = 0 (ce n'est pas l'absence de concordance, c'est la concordance comme le voudrait le hasard)
+
+**Calculer la concordance liée au hasard** :
+
+Exemple :
+
+-   Diagnostic de SpA par deux rhumatologues
+
+    -   sur 100 patients : on prend dossier + examens complémentaires etc
+
+    -   les rhumatologues doivent dire OUI/NON au diagnostic de SpA
+
+    -   le truc c'est que les rhumatologues savent que les patients viennent d'une consult de rhumatologie
+
+    -   donc connaisse à peu près la prévalence de la SpA dans cette population (disons 10%)
+
+|                        | Juge1_reponse_positive | Juge1_reponse_negative |     |
+|------------------|-------------------|------------------|------------------|
+| Juge2_reponse_positive | a                      | b                      | 0,1 |
+| Juge2_reponse_negative | c                      | d                      | 0,9 |
+|                        | 0,1                    | 0,9                    |     |
+
+*Marges =-   *totaux sur les bords du tableau*
+
+::: callout-important
+$\rightarrow$ probabilité d'être en a = 0,1 \-   0,1 = 0,01
+
+$\rightarrow$ probabilité d'être en b = 0,1 \-   0,9 = 0,09
+
+$\rightarrow$ probabilité d'être en c = 0,9 \-   0,1 = 0,09
+
+$\rightarrow$ probabilité d'être en d = 0,9 \-   0,9 = 0,81
+:::
+
+Mais la démonstration :
+
+-   Probabilité que les deux juges répondent positivement : P(J1+) \-   P(J2+)
+
+    -   = $\frac{(a + b)}{(a + b + c + d)} -   \frac{(a + c)}{(a + b + c + d)}$
+
+        -   Proportion de OUI du Juge 1 : $\frac{(a + b)}{N}$
+
+        -   Proportion de OUI du Juge 2 : $\frac{(a + c)}{N}$
+
+        -   N = (a + b + c + d) = total des patients
+
+    -   Probabilité de P(J1+) **UNION** P(J2+) = $\frac{(a + b)(a + c)}{N^2}$
+
+    -   = probabilité qu’un patient pris au hasard soit classé OUI par le Juge 1 ET OUI par le Juge 2, par hasard, si leurs réponses sont indépendantes.
+
+-   Calculer aussi la probabilité que les deux juges répondent négativement :
+
+    -   = Accord sur OUI + Accord sur NON
+
+    -   $\frac{(a + b)*(a + c)}{N^2} + \frac{(c + d)*(b + d)}{N^2}$
+
+    -   = $\frac{0,1*0,1}{N^2} + \frac{0,9*0,9}{N^2}$
+
+    -   = $\frac{0,01}{N^2} + \frac{0.81}{N^2}$
+
+    -   = $\frac{0,82}{N^2}$
+
+En gros :
+
+-   \$$a = 0,1^2 = 0,01$
+
+-   \$$d = 0,9^2 = 0,81$
+
+-   $Concordance\ due\ au\ hasard\ conditionnelle\ aux\ marges = 0,82$
+
+Limites :
+
+-   Kappa dépend des marges (prévalence de la condition)
+
+-   Kappa peut être faible même si la concordance est élevée (si marges très déséquilibrées)
+
+≈ Resseble au coefficient de corrélation intraclasse (ICC) pour variables quantitatves
+
+#### Exemple diagnostic à plusieurs classes
+-   Diagnostic de douleurs abdominales sur causes de douleurs abdominales (7 causes)
+
+-   2 juges
+
+|          | Juge1_X1 | Juge1_X2 | Juge1_X3 | Juge1_X4 | Juge1_X5 | Juge1_X6 | Juge1_X7 |
+|---------|---------|---------|---------|---------|---------|---------|---------|
+| Juge2_X1 | a        | b        | c        | d        | e        | f        | g        |
+| Juge2_X2 | h        | i        | j        | k        | l        | m        | n        |
+| Juge2_X3 | o        | p        | q        | r        | s        | t        | u        |
+| Juge2_X4 | v        | w        | x        | y        | z        |          |          |
+| Juge2_X5 |          |          |          |          |          |          |          |
+| Juge2_X6 |          |          |          |          |          |          |          |
+| Juge2_X7 |          |          |          |          |          |          |          |
+
+-   Kappa $\kappa$ = $\frac{(Concordance - ConcordanceLiéeAuHasard)}{(1 - ConcordanceLiéeAuHasard)}$
+
+-   Concordance = % sur la diagonale (a i j r..)
+
+-   Concordance liée au hasard
+
+    -   Somme des marges multipliées entre elles
+
+    -   Marge J1_X1 \-   Marge J2_X1 + Marge J1_X2 \-   Marge J2_X2 + ...
+
+    -   Divisé par N\^2
+
+-   Limite : Kappa dépend des marges (prévalence de chaque classe)
+
+Dans R : fonction `Kappa.test()` du package `psy`
+
+### Acord inter-juge d'une variable ordonnée
+Exemple : frottis négatif - douteux - positif
+
+Tableau :
+
+|               | Juge1_negatif | Juge1_douteux | Juge1_positif |
+|---------------|---------------|---------------|---------------|
+| Juge2_negatif | a             | b             | c             |
+| Juge2_douteux | d             | e             | f             |
+| Juge2_positif | g             | h             | i             |
+
+-   Si on considère que c'est catégoriel : Kappa simple
+
+    -   Kappa $\kappa$ = $\frac{(Concordance - ConcordanceLiéeAuHasard)}{(1 - ConcordanceLiéeAuHasard)}$
+
+    -   Problème :
+
+        -   en $b$, le Juge 1 a dit "douteux" et le Juge 2 "négatif"
+
+        -   et c'est pas pareil que si le Juge 1 avait dit "positif" et le Juge 2 "négatif" (c'est pire !)
+
+        -   valeurs en c : plus graves que valeurs en b
+
+-   Solution : Kappa pondéré (pondération des désaccords selon leur gravité)
+
+Kappa pondéré : (Kappa weighted)
+
+$$\kappa_w = \frac{(a + e + i) + (\frac{b + f + d + h}{2}) + 0}{Nombre\ de\ coefficients}$$
+
+\$\$
+
+### Avec 3 juges
+-   Utilisation de la méthode de Light
+
+-   Extension du Kappa de Cohen pour plus de 2 juges
+
+-   3 calculs :
+
+    -   Kappa entre juge 1 et 2
+
+    -   Kappa entre juge 1 et 3
+
+    -   Kappa entre juge 2 et 3
+
+    -   Et calculer la moyenne des 3 kappas
+
+Minimum 30 sujets si possible
+
+### Interprétation du Kappa de Cohen
+Plus le Kappa est proche de 1, meilleur est l'accord entre les juges et moins il est probable que cet accord soit dû au hasard.
+
+Plus le Kappa est proche de 0, plus l'accord entre les juges est faible et plus il est probable que cet accord soit dû au hasard.
+
+| Kappa $\kappa$ | Interprétation de l'accord entre juges |
+|----------------|----------------------------------------|
+| \< 0           | Accord moins que par hasard            |
+| 0 - 0,20       | Accord faible                          |
+| 0,21 - 0,40    | Accord modéré                          |
+| 0,41 - 0,60    | Accord substantiel                     |
+| 0,61 - 0,80    | Accord fort                            |
+| 0,81 - 1,00    | Accord presque parfait                 |
+| \> 1           | Accord parfait                         |
+
+### Intervalle de confiance du Kappa
+$\kappa$ ne suit pas une loi normale et a une distribution asymétrique
+
+Le plus simple : **bootstrap**
+
+Bootstrap :
+
+1.  Tirer un échantillon bootstrap (avec remise) de la taille de l'échantillon initial
+
+2.  Calculer le Kappa sur cet échantillon bootstrap
+
+3.  Répéter les étapes 1 et 2 un grand nombre de fois (ex : 1000)
+
+4.  Utiliser les percentiles 2,5% et 97,5% des Kappas bootstrap pour construire l'IC à 95%
+
+### Différence avec PABAK
+-   Kappa a des problèmes de **paradoxe** (dépendance aux marges)
+
+    -   Si prévalence très faible ou très élevée, Kappa peut être faible même si la concordance est élevée
+
+    -   Si biais entre juges (l'un est plus sévère que l'autre), Kappa peut être faible même si la concordance est élevée
+
+    -   par exemple : si un juge dit OUI 90% du temps et l'autre 10% du temps, Kappa sera faible même si ils sont d'accord 50% du temps
+
+-   **PABAK** (Prevalence-Adjusted Bias-Adjusted Kappa) ajuste le Kappa pour tenir compte de la prévalence et du biais
+
+    -   Ça n'a pas d'intérêt selon Bruno Falissard
+
+\newpage
+
+### Exemples sur R
+#### 2 catégories
+```{r}
+#| echo: true
+library(psy)
+data(expsy)
+expsy
+```
+
+Ici :
+
+-   30 patients
+
+-   10 items (it1, it2, ..., it10)
+
+-   3 scores (r1, r2, r3) qui ont chacun été binarisés (rb1, rb2, rb3)
+
+```{r}
+#| echo: true
+# Calcul de Kappa entre les colonnes 12 et 14 (rb1 et rb3)
+ckappa(expsy[, c("rb1", "rb3")])
+
+#autre syntaxe possible
+ckappa(data.frame(expsy$rb1, expsy$rb3))
+```
+
+**Interprétation**
+
+-   Concordance : (6 + 19) / (6 + 4 + 19 + 0) = 25 / 29 = 0,862
+
+-   Concordance liée au hasard :
+
+    -   = ((6 + 0) \-   (6 + 4) + (4 + 19) \-   (0 + 19)) / (29\^2)
+
+    -   = (6 \-   10 + 23 \-   19) / 841
+
+    -   = (60 + 437) / 841
+
+    -   = 497 / 841 = 0,591
+
+-   Kappa = (0,862 - 0,591) / (1 - 0,591) = 0,6627
+
+#### 3 catégories
+```{r}
+#| echo: true
+# Calcul de Kappa entre les colonnes r1 et r2 (3 catégories)
+ckappa(expsy[, c("r1", "r2")])
+```
+
+#### kappa pondéré
+```{r}
+#| echo: true
+# Calcul de Kappa pondéré entre les colonnes r1 et r2 (3 catégories)
+wkappa(expsy[, c("r1", "r2")])
+```
+
+#### kappa de light (3 juges)
+```{r}
+#| echo: true
+# Calcul de Kappa de Light entre les colonnes r1, r2 et r3 (3 juges)
+lkappa(expsy[, c("it10", "rb1", "rb2")])
+```
+
+ou pour le retrouver soi même :
+
+```{r}
+#| echo: true
+# Calcul de Kappa de Light entre les colonnes r1, r2 et r3 (3 juges)
+kappa_1 <- ckappa(expsy[, c("it10", "rb1")])$kappa #$kappa sert à extraire juste la valeur du kappa
+kappa_2 <- ckappa(expsy[, c("it10", "rb2")])$kappa
+kappa_3 <- ckappa(expsy[, c("rb1",  "rb2")])$kappa
+
+kappa_light_manu <- (kappa_1 + kappa_2 + kappa_3) / 3
+kappa_light_manu
+```
+
+::: callout-tip
+`c.kappa()` gère les données manquantes en les ignorant (pairwise deletion)
+:::
+
+\newpage
+
+## Accord inter-juge pour variable quantitative
+-   2 juges
+
+-   Score Y contenu sur 40 patients
+
+$Y = a + b\ Juges + c\ Patients + \epsilon$
+
+Puis analyse de variance à effets aléatoires : permet de savoir quelle part de la variance totale est due aux juges, aux patients, et à l'erreur résiduelle.
+
+### Coefficient de corrélation intraclasse (ICC)
+$$ICC = \frac{Variance\ entre\ Patients}{Variance\ totale}$$
+
+-   Variance totale = Variance entre patients + Variance entre juges + Variance résiduelle
+
+    -   Variance liée au juges : erreur systématique entre juges (si un juge est plus sévère que l'autre)
+
+    -   Variance résiduelle : erreur aléatoire (variabilité inexpliquée)
+
+    -   Variance entre patients : variabilité réelle entre les patients : **tout ce qui n'est pas une erreur**
+
+En gros, le coefficient de corrélation intraclasse (ICC) est le rapport entre la **bonne variance** (variance entre patients) et la **variance totale** (toutes les sources de variance, y compris les erreurs).
+
+-   Si ICC proche de 1 : grande partie de la variance est due aux différences réelles entre les patients (bonne fiabilité entre juges)
+
+-   Si ICC proche de 0 : grande partie de la variance est due aux erreurs (mauvaise fiabilité entre juges)
+
+::: callout-tip
+Comme il ne s'agit pas d'un test, Y n'a pas besoin de suivre une loi normale.\
+Donc Y pourrait être binaire !\
+Et les juges se prononceraient OUI/NON donc on pourrait calculer un $\kappa$ de Cohen !\
+En pratique : c'est la même chose **asymptotiquement**, c'est à dire si le nombre de sujets est grand.
+:::
+
+
+
+#### Si Y est une variable ordonnée
+-   $\kappa\ ponderee$ en $1/N^2 = ICC$
+
+### Exemple sur R
+```{r}
+#| echo: true
+ckappa(expsy[, c("rb1", "rb2")])
+icc(expsy[, c("rb1", "rb2")])
+```
+
+Kappa = 0,66 et ICC = 0,67
+
+::: {.callout-tip}
+**Différence ICC agreement et ICC consistency**
+
+-   **ICC agreement** : 
+
+    -   prend en compte les différences systématiques entre juges (si un juge est plus sévère que l'autre)
+
+    -   formule : $$ICC_{agreement} = \frac{Variance\ entre\ Patients}{Variance\ entre\ Patients + Variance\ entre\ Juges + Variance\ résiduelle}$$
+
+-   **ICC consistency** :
+
+    -   ne prend pas en compte les différences systématiques entre juges (on s'en fiche si un juge est plus sévère que l'autre)
+
+    -   formule : $$ICC_{consistency} = \frac{Variance\ entre\ Patients}{Variance\ entre\ Patients + Variance\ résiduelle}$$
+
+ICC consistency : utile par exemple dans un essai randomisé dans lequel on compare la fin *versus-   le début de l'étude.\
+
+:::
+
+/newpage
+
+## Blant et Altman
+-   Variable QUANTITATIVE
+
+-   2 juges (ou appareils de mesure)
+
+![](images/paste-32.png)
+
+### Principe
+-   Pour chaque sujet, on calcule la moyenne des deux mesures
+
+-   Pour chaque sujet, on calcule la différence entre les deux mesures
+
+-   On trace la différence en fonction de la moyenne
+
+## Exemple
+-   2 psychiatres
+
+-   Évaluent les patients avec des entretiens structurés
+
+-   donc calcul de coefficients kappa !
+
+En tableau :
+
+| Patient | Depression_J1 | Depression_J2 | TAG_J1 | TAG_J2 | PTSD_J1 | PTSD_J2 | Schizo_J1 | Schizo_J2 |
+|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+| 1 | 12 | 14 | 8 | 7 | 5 | 6 | 3 | 4 |
+| 2 | 20 | 18 | 10 | 11 | 7 | 8 | 5 | 6 |
+| ... | ... | ... | ... | ... | ... | ... | ... | ... |
+
+Panorama GLOBAL :
+
+**Analyse en composante principales (ACP)** : faisable même si qualitatif ! et même si sur des variables binaires (faisable dans tous les cas)
+
+![](images/paste-33.png){width="518"}
+
+-   D1 et D2 un peu idem que A1 et A2
+
+-   PTSD1 et PTSD2 : très proches !
+
+-   Schizo1 et Schizo2 : bcp plus éloignés
+
+------------------------------------------------------------------------
+
+**Analyse des correspondances multiples (ACM)** : pas vraiment applicable dans ce cas
+
+-   Même idée que ACP mais pour des variables qualitatives
+
+-   Si diagnostic avec 7 catégories
+
+![](images/paste-34.png){width="617"}
+
+-   Appendicite et péritonites : bcp plus proches, tendance à permuter les diagnostics !
+
+------------------------------------------------------------------------
+
+## Alpha de Cronbach
+-   = Accord "intra-juge" du patient avec lui-même (test + retest)
+
+-   Pas vraiment de la reproductibilité
+
+-   Mesure de la cohérence interne d'une échelle
+
+### Exemple
+Échelle unidimensionnelle (c'est à dire que tous les items mesurent la même chose)
+
+H I1 I2 I3 I4 I5 I6
+
+-   Si on prend 2 groupes de 3 items H' = (I1, I2, I3) et H'' = (I4, I5, I6)
+
+    -   *mais on pourrait faire H' = (I1, I4, I5) et H'' = (I2, I3, I6) aussi*
+
+-   C'est comme 2 sous-échelles de H (qui mesurent chacune la même chose que H)
+
+-   et corréler une sous-échelle avec H ou l'autre : c'est mesurer la cohérence entre H et H
+
+-   Coefficients H' et H'' = *split-half correlation*
+
+### Calcul
+Pour calculer l'alpha de Cronbach, on fait la moyenne des corrélations entre **toutes les paires possibles** de sous-échelles.
+
+($\alpha$ de Cronbach = moyenne des split-half correlations) = corrélation de l'échelle avec elle-même.
+
+
+### Exemple sur R
+```{r}
+#| echo: true
+#| message: false
+library(psy)
+data(expsy)
+expsy
+
+# Calcul de l'alpha de Cronbach sur les 10 items
+cronbach(expsy[, 1:10])
+```
+
+Ici : 
+
+-   On calcule l'alpha de Cronbach sur les 10 items (it1 à it10)
+
+-   α = 0,17 : faible cohérence interne entre les items
+
+### Interprétation
+-   α \< 0,6 : cohérence interne faible → items peu liés
+
+-   0,6 ≤ α \< 0,9 : c'est bien !
+
+-   α ≥ 0,9 : cohérence interne très élevée → items redondants (c'est presque trop)
+
+**PLUS LE NOMBRE D'ITEMS EST ÉLEVÉ, PLUS L'ALPHA A TENDANCE À ÊTRE ÉLEVÉ**
+
+---------------------------------------------------------------
+
+::: {.callout-tip}
+## 1. Le coefficient alpha de Cronbach : rôle et interprétation
+Le coefficient alpha de Cronbach sert à évaluer **la cohérence interne** d’un ensemble d’items censés mesurer **une seule et même dimension latente** (ex. anxiété, motivation, douleur).
+
+*Mesure latente = on ne peut pas la mesurer directement, on utilise des items comme indicateurs.*
+
+#### Ce que mesure l’alpha
+-   Le degré auquel les items sont **corrélés entre eux**.
+-   Plus les items vont “dans le même sens”, plus l’alpha est élevé.
+
+#### Comment interpréter l’alpha
+-   α \< 0,6 : cohérence interne faible → items peu liés
+-   0,6 ≤ α \< 0,9 : c'est bien !
+-   α ≥ 0,9 : cohérence interne très élevée → items redondants (c'est presque trop)
+
+#### Limite fondamentale
+L’alpha n’a de sens **que si le questionnaire est unidimensionnel**, c'est à dire que tous les items mesurent la même dimension latente. S’il existe plusieurs dimensions cachées, l’alpha peut être trompeusement élevé.
+
+------------------------------------------------------------------------
+
+## 2. Pourquoi l’alpha nécessite un questionnaire unidimensionnel ?
+Parce que l’alpha repose sur l’hypothèse que :
+
+-   toutes les corrélations entre items proviennent **d’un seul facteur latent**.
+
+Si les items mesurent plusieurs dimensions différentes :
+
+-   certaines corrélations sont fortes au sein d’une dimension (dimension = groupe d’items liés),
+-   d’autres sont faibles entre dimensions,
+-   l’ensemble devient hétérogène,
+-   l’alpha ne reflète plus une seule cohérence interne.
+
+D’où la nécessité de vérifier l’**unidimensionnalité** avant de rapporter l’alpha.
+
+------------------------------------------------------------------------
+
+## 3. Comment vérifier l’unidimensionnalité ?
+### Par l’analyse des valeurs propres (scree plot)
+On réalise une **ACP** ou une **analyse factorielle exploratoire**, puis on examine les **valeurs propres**.
+
+#### Rappel : qu’est-ce qu’une valeur propre ?
+Une valeur propre représente :
+
+-   la **quantité de variance expliquée** par une composante (ou un facteur).
+
+Repères :
+
+-   Valeur propre = 1 : autant de variance qu’un item
+-   Valeur propre \> 1 : facteur important
+-   Une seule valeur propre nettement plus élevée que les autres = un seul facteur dominant
+
+#### Principe
+-   **Unidimensionnel** = 1 seul facteur explique l’essentiel de la variance → 1 valeur propre haute
+-   **Multidimensionnel** = plusieurs facteurs importants → plusieurs valeurs propres hautes
+
+------------------------------------------------------------------------
+
+## 4. Exemple complet
+### Questionnaire de 6 items censés mesurer l’anxiété
+(ex : tension, inquiétude, nervosité, irritabilité, ruminations, difficultés à se détendre)
+
+Après avoir collecté les réponses de 200 personnes, on réalise une ACP.
+
+#### Étape A : valeurs propres obtenues
+```         
+Facteur 1 : 3,8
+Facteur 2 : 0,7
+Facteur 3 : 0,6
+Facteur 4 : 0,4
+Facteur 5 : 0,3
+Facteur 6 : 0,2
+```
+
+#### Interprétation
+-   Le **facteur 1** explique **3,8 fois plus de variance qu’un item**.
+-   Les autres valeurs propres sont petites et décroissantes.
+-   Le **diagramme des valeurs propres** montre un **coude net après le facteur 1**.
+
+→ Le questionnaire est **unidimensionnel**. → Calculer l’alpha de Cronbach est pertinent.
+
+#### Étape B : alpha de Cronbach
+On obtient par exemple : **α = 0,87**
+
+Interprétation :
+
+-   Les 6 items sont homogènes.
+-   Ils mesurent bien **une seule dimension d’anxiété**.
+-   Le score total (la somme des 6 items) est cohérent.
+
+------------------------------------------------------------------------
+
+## 5. Exemple inverse (multidimensionnel)
+Si les valeurs propres étaient :
+
+```         
+Facteur 1 : 2,6
+Facteur 2 : 2,0
+Facteur 3 : 0,7
+Facteur 4 : 0,4
+Facteur 5 : 0,2
+Facteur 6 : 0,1
+```
+
+Interprétation :
+
+-   Deux facteurs importants (ex. anxiété + dépression).
+-   Le questionnaire est **bifactoriel**.
+-   Un alpha global ne serait **pas valide** (il mélangerait plusieurs dimensions).
+
+------------------------------------------------------------------------
+
+## 6. Synthèse finale
+#### Alpha de Cronbach
+-   Mesure la **cohérence interne** entre items
+-   Suppose **un seul facteur latent**
+-   Interprétation correcte seulement en cas d’unidimensionnalité
+
+#### Valeurs propres
+-   Représentent la **variance expliquée** par chaque facteur
+-   Une seule valeur propre dominante → **unidimensionnalité**
+-   Plusieurs valeurs propres élevées → **multidimensionnalité**
+
+#### Exemple
+-   Valeur propre 1 = 3,8 et les autres \< 1 → OK
+-   Alpha = 0,87 → cohérence interne satisfaisante
+:::
+
+----------------------------------------------------------------
+
+
+
+
+## Questions à l'examen sur ce cours
+-   Ca tombe assez souvent !
+
+-   Différence ICC agreement et ICC consistency 
+
+-   Kappa de Cohen et ICC : proches et différents : 
+
+## 1. Ce que mesure Kappa (qualitatif)
+### Tableau 2×2 (2 juges, variable binaire)
+Juge 1 en ligne, Juge 2 en colonne :
+
+|          | J2 + | J2 − |
+| -------- | ---- | ---- |
+| **J1 +** | a    | b    |
+| **J1 −** | c    | d    |
+
+Taille totale :
+$N = a + b + c + d$
+
+#### Concordance brute
+$\text{Conc} = \frac{a + d}{a + b + c + d}$
+
+#### Concordance liée au hasard
+On utilise les marges (prévalences de OUI/NON) :
+$\text{Conc}_H = \frac{(a+b)(a+c) + (c+d)(b+d)}{(a+b+c+d)^2}$
+
+#### Kappa de Cohen
+$\kappa = \frac{\text{Conc} - \text{Conc}_H}{1 - \text{Conc}_H}$
+
+**Interprétation (cours)**
+
+-   0,41–0,60 : accord modéré
+-   0,61–0,80 : accord substantiel
+-   0,81–1 : accord (presque) parfait
+
+#### Extensions
+-   **Plus de 2 classes** :
+
+    -   Conc = % diagonal
+
+    -   Conc_H = somme des produits des marges / N²
+
+-   **Variable ordonnée**   : on utilise un **kappa pondéré**
+
+-   **Plus de 2 juges**   : kappa de **Light** = moyenne des kappas par paires
+
+#### Limites
+-   Très sensible aux marges (prévalence)
+-   Peut être faible même si la concordance brute est élevée
+-   D’où le PABAK (mais « inutile selon Falissard »)
+
+---
+
+## 2. Ce que mesure l’ICC (quantitatif)
+$ICC = \frac{\text{Variance entre patients}}{\text{Variance totale}}$
+
+Avec :
+
+$\text{Var totale} = \text{Var entre patients} + \text{Var entre juges} + \text{Var résiduelle}$
+
+-   Variance entre patients : variabilité réelle
+
+-   Variance entre juges : biais systématique
+
+-   Variance résiduelle : erreur aléatoire
+
+**Interprétation :**
+
+-   ICC → 1 : bonne fiabilité
+
+-   ICC → 0 : mauvaise fiabilité
+
+#### Cours, « Tip »
+-   Y n’a pas besoin d’être normale
+-   Même si Y est binaire → on peut calculer κ ou ICC
+-   « Asymptotiquement, c’est la même chose »
+
+#### Cours, 3.A.1.
+Pour Y ordonnée :
+$\text{kappa pondéré (poids }1/N^2) = ICC$
+
+---
+
+## 3. En quoi κ et ICC sont proches
+-   Mesurent l’accord inter-juge
+
+-   κ pour qualitatif ; ICC surtout pour quantitatif
+
+-   Tous deux : accord réel vs hasard/erreurs
+
+-   Valeurs entre 0 et 1
+
+-   Sur binaire : κ ≈ ICC
+
+-   Sur ordinal : κ pondéré = ICC
+
+-   Le cours dit explicitement qu’ils mesurent la même idée de **fiabilité**
+
+---
+
+## 4. En quoi ils sont différents
+### Type de données
+-   κ : qualitatif (binaire, nominal, ordinal)
+
+-   ICC : quantitatif (extensible au binaire/ordinal)
+
+### Méthode de calcul
+-   κ : basé sur tableau de contingence et accord par hasard
+
+-   ICC : basé sur décomposition de variance (modèle ANOVA)
+
+### Sensibilité aux marges
+-   κ très sensible
+
+-   ICC non formulé en termes de prévalence
+
+### Structure d’erreur
+-   κ ne distingue pas sources d’erreur
+
+-   ICC sépare :
+
+    -   erreur entre juges
+    
+    -   erreur résiduelle
+
+---
+
+## 5. Exemple concret du cours (rb1 / rb2)
+Tableau :
+
+|          | J2=0 | J2=1 |
+| -------- | ---- | ---- |
+| **J1=0** | 6    | 0    |
+| **J1=1** | 4    | 19   |
+
+Donc :
+a = 6, b = 0, c = 4, d = 19, N = 29.
+
+### Kappa de Cohen
+#### Concordance brute
+$\text{Conc} = \frac{25}{29} \approx 0{,}862$
+
+#### Marges
+-   J1 : 0 = 6/29 ; 1 = 23/29
+
+-   J2 : 0 = 10/29 ; 1 = 19/29
+
+#### Concordance au hasard
+$\text{Conc}_H = \frac{6\cdot 10 + 23 \cdot 19}{29^2}$
+$= \frac{497}{841}$
+$\approx 0{,}591$
+
+#### Kappa
+$\kappa \approx 0{,}66$
+
+### ICC (cours)
+-   Var patients = 0,1404
+
+-   Var juges = 0,0074
+
+-   Var Résiduel = 0,0616
+
+Variance totale :
+$0{,}2094$
+
+$ICC = \frac{0{,}1404}{0{,}2094} \approx 0{,}67$
+
+**Conclusion de l’exemple :**
+
+-   κ = 0,66
+
+-   ICC = 0,67
+
+---
+
+## 6. Synthèse courte
+### Proches car :
+-   mesurent un accord au-delà du hasard/erreur
+-   valeurs entre 0 et 1
+-   sur binaire/ordinal → très proches
+-   κ pondéré = ICC
+
+### Différents car :
+-   κ basé contingence ; ICC basé variance
+-   κ sensible aux marges ; ICC non
+-   κ ne distingue pas types d’erreurs ; ICC si
+

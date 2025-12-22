@@ -55,9 +55,9 @@ load(url("http://alecri.github.io/downloads/data/dental.RData"))
 smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","gravite","recherche.nouv", "evit.danger","dep.recompense")]
 ```
 
-# Position et dispersion
+## Position et dispersion
 
-## Position
+### Position
 
 Paramètres de position = valeurs qui résument la tendance centrale d'une distribution.
 
@@ -67,7 +67,7 @@ Paramètres de position = valeurs qui résument la tendance centrale d'une distr
 
 -   Mode
 
-### Moyenne
+#### Moyenne
 
 Moyenne = somme des valeurs divisée par le nombre de valeurs.\
 
@@ -85,31 +85,31 @@ Hypothèses :
 
 -   Les valeurs sont continues
 
-### Médiane
+#### Médiane
 
 Signification plus directe : valeur qui partage la distribution en deux parties égales.
 
 Si la distribution est symétrique, la moyenne et la médiane sont égales.
 
-### Mode
+#### Mode
 
 Mode = valeur la plus fréquente.
 
-## Dispersion
+### Dispersion
 
 Mesures de dispersion = valeurs qui résument la variabilité d'une distribution.
 
 -   Étendue = empan
 
-### Étendue = empan
+#### Étendue = empan
 
 Correspond à la différence entre la valeur maximale et la valeur minimale.
 
-### Écart interquartile (IQR)
+#### Écart interquartile (IQR)
 
 = Q3 - Q1
 
-### Écart-type
+#### Écart-type
 
 écart type = écart "le plus typique" par rapport à la moyenne.
 
@@ -163,13 +163,13 @@ Avantages et inconvénients :
 
     -   Pas adapté aux variables ordinales ou catégorielles
 
-### Variance
+#### Variance
 
 Variance = écart type au carré
 
 ou moyenne des carrés des valeurs moins le carré de la moyenne.
 
-## Exemple sur R
+### Exemple sur R
 
 Utilisation du jeu de données `smp.d` (version réduite de `smp`) et de la fonction `summary()`
 
@@ -189,15 +189,15 @@ On peut utiliser la fonction `describe()` du package `prettyR` pour un résumé 
 describe(smp.d)
 ```
 
-# Analyses en sous groupe
+## Analyses en sous groupe
 
-## Principe
+### Principe
 
 Dans un essai thérapeutique, il faut décrire es caractéristiques des patients inclus dans chaque groupe de traitement.
 
 Il faut donc les décrire en fonction de différentes modalités (groupes de traitement, sexe, âge, etc.)
 
-## Dans R
+### Dans R
 
 On peut aussi utiliser la fonction `table()` pour faire des tableaux de contingence.
 
@@ -205,7 +205,7 @@ On peut aussi utiliser la fonction `table()` pour faire des tableaux de continge
 table(
     smp.d$profession, 
     smp.d$depression,
-    deparse.level=2, # deparse.level fait apparaître les noms des variables dans le tableau
+    deparse.level=2, ## deparse.level fait apparaître les noms des variables dans le tableau
     useNA="ifany")
 ```
 
@@ -292,13 +292,13 @@ tableau %>%
     kableExtra::kable_styling(latex_options = c("repeat_header"), font_size = 9)
 ```
 
-# Dépendance, liaison et association
+## Dépendance, liaison et association
 
 Deux variables sont dépendantes si une valeur donne une information sur l'autre.
 
 Par exemple, le poids et la taille sont dépendantes : connaître la taille d'une personne permet d'avoir une idée de son poids.
 
-## Variables quantitatives
+### Variables quantitatives
 
 3 types de liaisons entre variables quantitatives :
 
@@ -316,13 +316,13 @@ Par exemple, le poids et la taille sont dépendantes : connaître la taille d'un
 
     -   pour une variable quantitative : coefficient de corrélation intraclasse (ICC)
 
-### Dépendance
+#### Dépendance
 
 Il n'existe pas de paramètre estimant parfaitement la dépendance ou l'indépendance entre deux variables quantitatives.
 
 L'idéal serait d'avoir un paramètre $\delta(X,Y)$ valant 0 quand X et Y sont indépendantes et 1 quand elles sont parfaitement dépendantes.
 
-### Dépendance monotone ou linéaire
+#### Dépendance monotone ou linéaire
 
 Le coefficient de corrélation de Pearson $r$ mesure la dépendance linéaire entre deux variables quantitatives X et Y.
 
@@ -370,9 +370,9 @@ Ce n'est pas la même chose que "$r^2$% des notes s'expliquent par le nombre d'h
 -   représente la proportion de la variance de $Y$ expliquée par la variance de $X$ (et non pas le pourcentage de valeurs de $Y$ expliquées par $X$).
 :::
 
-#### Exemple sur R
+##### Exemple sur R
 
-##### SMP
+###### SMP
 
 Représentation graphique de la relation entre l'âge et le nombre d'enfants dans le jeu de données `smp`.
 
@@ -479,7 +479,7 @@ Covariance = mesure comment deux variables varient ensemble, positive si les deu
 
 :::
 
-##### Matrice de corrélation
+###### Matrice de corrélation
 
 Pour calculer la matrice de corrélation entre plusieurs variables quantitatives, on peut utiliser la fonction `cor()` en lui passant un data frame ou une matrice.
 
@@ -517,9 +517,9 @@ Dans une étude qui compare 2 techniques chirurgicales (A vs B), la matrice de c
     -   Notamment selon le type de chirurgie (groupe A vs groupe B) : est ce que les plus vieux ont plus de perte sanguine avec la technique A que B ?
 :::
 
-### Concordance
+#### Concordance
 
-#### Principle
+##### Principle
 
 Par exemple, "concordance" entre deux échographies identiques fait par deux médecins différents.
 
@@ -539,7 +539,7 @@ Vaut 1 quand il n'y a aucun bruit (variance inter-radiologues et résiduelle = 0
 
 Vaut 0 quand il n'y a que de bruit, donc les mesures sont totalement indépendantes entre elles.
 
-#### Exemple sur R
+##### Exemple sur R
 
 Dans l'étude `smp`, 2 cliniciens sont présentés lors des entretiens : un junior et un senior. 
 
@@ -585,7 +585,7 @@ irr::icc(
 
 \newpage
 
-### Résumé des paramètres de dépendance entre deux variables quantitatives
+#### Résumé des paramètres de dépendance entre deux variables quantitatives
 
 Résumé des principaux paramètres de dépendance entre deux variables quantitatives :
 
@@ -610,11 +610,11 @@ Résumé des principaux paramètres de dépendance entre deux variables quantita
 
 \newpage
 
-## Variables catégorielles
+### Variables catégorielles
 
-### Dépendance
+#### Dépendance
 
-#### Chi2 et associés
+##### Chi2 et associés
 
 -   Existe-t-il une relation entre les deux variables catégorielles ?
 
@@ -643,7 +643,7 @@ Et des transformations normalisées du Chi2 pour évaluer la force de cette rela
     -   Varie entre -1 et +1
 
 
-:::callout-note
+::: callout-note
 **ANOVA ou V de Cramer pour variables catégorielles non ordonnées ?**
 
 -   **ANOVA** : 
@@ -668,7 +668,7 @@ Et des transformations normalisées du Chi2 pour évaluer la force de cette rela
 :::
 
 
-#### Odds-ratio et risque relatif
+##### Odds-ratio et risque relatif
 
 Pour des X et Y binaires (0/1) :
 
@@ -707,7 +707,7 @@ S'ils valent 0 ou sont très grands : forte association entre X et Y.
 
 -   Si l'événement est fréquent (>10%) : **OR surestime le RR** (OR > RR si RR > 1 ; OR < RR si RR < 1)
 
-#### Exemple sur R
+##### Exemple sur R
 
 Sur fichier `smp.d` : force de l'association entre la variable "dépression" (`smp.d$depression`) et le FDR "le prisonnier a un niveau élevé d'évitement du danger" (`smp.d$evit.danger`).
 
@@ -738,7 +738,7 @@ epi.2by2(
     )
 ```
 
-### Dépendance monotone 
+#### Dépendance monotone 
 
 Une dépendance monotone ne peut s'envisager qu'entre des variables ordinales (rangées) ou entre une variable ordinale et une variable quantitative.
 
@@ -750,7 +750,7 @@ Une dépendance monotone ne peut s'envisager qu'entre des variables ordinales (r
 
 Problème : donner du sens à une corrélation basée sur des rangs !! dépend ++ du codage
 
-#### Exemple sur R
+##### Exemple sur R
 
 En pratique : dans l’étude santé mentale en prison, les deux variables de
 tempérament : « recherche de nouveauté » et « évitement du danger » sont codées
@@ -794,9 +794,9 @@ cor(
 
 Le coefficient de corrélation de Pearson est de 0.081 : les deux coefficients sont très proches (c'est assez fréquent quand les variables sont ordinales avec peu de modalités).
 
-### Concordance
+#### Concordance
 
-#### Coefficient kappa de Cohen
+##### Coefficient kappa de Cohen
 
 Pour les variables catégorielles, on pourrait se dire que mesurer à quel point 2 variables s'accordent reviendraient à compter la proportion de fois ou elles ont la même valeur.
 
@@ -812,7 +812,7 @@ $$
 
 -   $\text{kappa} = 1$ : concordance parfaite
 
-#### Sensibilité, spécificité, VPP, VPN
+##### Sensibilité, spécificité, VPP, VPN
 
 Le kappa de Cohen mesure une **concordance globale et symétrique** entre deux variables catégorielles.
 
@@ -850,7 +850,7 @@ Dans un tableau de contingence :
 
 On peut ainsi représenter une courbe ROC (Receiver Operating Characteristic) qui trace la sensibilité en fonction de 1 - spécificité pour différents seuils de décision.
 
-##### Exemple 1 sur R
+###### Exemple 1 sur R
 
 -   Les deux cliniciens (junior et senior) posent un diagnostic de schizophrénie (1 = oui, 0 = non) pour chaque patient.
 
@@ -875,7 +875,7 @@ Le clinicien junior a posé le diagnostic de schizophrénie chez 30 + 43 = 73 d�
 
 Au total, le coefficient kappa vaut 0,65.
 
-##### Exemple 2 sur R
+###### Exemple 2 sur R
 
 -   Étude sur 244 patients déprimés hospitalisés : tâche de lecture de texte puis comptage de 1 à 10, enregistrement voix.
 

@@ -1,0 +1,265 @@
+---
+title: "Mesures Subjectives"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+
+library(plotrix)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(qgraph)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+data(expsy)
+```
+
+## Définitions
+Objectif : attrait a un objet pensé (poids, TA, taille...)
+
+Subjectif : attrait a un objet pensant (douleur, fatigue, qualité de vie...)
+
+Par exemple :
+
+-   Thermomètre à mercure mesure objectivement la dilatation d'un liquide en fonction de la température
+
+-   Mais au final on sait pas vraiment ce qu'est la dilatation d'un liquide en fonction de la température
+
+## Importance de la subjectivité en médecine
+-   Mesures de qualité de vie : base de la médecine !
+
+-   Si nouveau traitement améliore la survie mais dégrade la qualité de vie : c'est bof !
+
+## Comment mesurer la subjectivité ?
+1.  Demander au patient = Patient Reported Outcomes (PRO)
+
+2.  Faire la mesure soi même (par hétéro-évaluation) pour éviter la **désirabilité sociale** (tendance à répondre ce que l'on pense que l'autre veut entendre)
+
+::: callout-important
+**Reproductivilité d'une mesure subjective**
+
+1.  Item bien écrit : mots simples
+
+2.  Concepts clairs et facilement accessibles par introspection
+
+3.  Pas de biais de désirabilité sociale (tendance à répondre ce que l'on pense que l'autre veut entendre)
+:::
+
+Exemple pas reproductible : quel est votre niveau de qualité de vie ?
+
+Pour mesure non reproductible : "*éclater*" en plein de petits items et en faire la somme
+
+## Valider un instrument
+*Valider* = dit vrai (mais en vrai c'est impossible à prouver)
+
+-   Que vaut la mesure ? = reproductibilité (fiabilité)
+
+-   Que mesure l'instrument ? = validité (contenu, construit, critère)
+
+### Que vaut la mesure ? = reproductibilité (fiabilité)
+1.  Reproductibilité = accord inter-juge
+
+    -   **Hétéro-évaluation** : accord inter-juge
+
+        -   Quantitatif : Coefficient de corrélation intraclasse (CCI)
+
+        -   Sinon : Kappa de Cohen 
+
+        -   Si >= 3 juges : Kappa Light 
+
+    -   **Auto-évaluation** : test-retest
+
+        -   Problème : les patients peuvent changer entre les deux tests
+
+        -   Coefficient alpha de Cronbach (consistance interne)
+
+2.  Que vaut la mesure = **structure dimensionnelle**
+
+    -   Une dimension = un construit = un concept
+
+    -   Si 20 items mais 2 dimensions → 2 scores
+
+    -   Par ex QI : verbal + performance
+
+    -   **Pour explorer les dimensions :**
+
+        -   Analyse en composantes principales (ACP)
+        
+        -   Puis analyse des valeurs propres (scree plot)
+
+            -   On tolère s'il y en a une qui est vraiment au dessus des autres
+
+        -   Pour explorer les autres dimensions : **analyse factorielle** 
+
+3.  Que mesure l'instrument ? = validité
+
+    1.  Validité de contenu
+
+        -   Validité externe = comparaison au "gold standard" et corrélation entre les deux
+
+        -   Si pas de gold standard : validité concourante (= corrélation avec d'autres mesures) et divergente (absence de corrélation avec des mesures non liées)
+
+
+
+
+
+
+
+::: callout-tip
+**Livre : Mesurer la Subjectivité en Santé**
+
+**1. Subjectivité en médecine**
+
+-   La médecine s’adresse à la fois au **corps malade** (sujet vivant) et au **vécu** de la maladie (sujet pensant).
+
+-   Le fait de se voir / se sentir / se savoir malade influence la **détresse**, la **prise en charge** et parfois l’**évolution** de la maladie.
+
+-   Est **subjectif** : ce qui concerne le sujet en tant qu’**être conscient** (qualité de vie, dépression, satisfaction).
+
+-   Est **objectif** : ce qui concerne le corps comme **objet mesuré** (TA, NFS, diamètres, etc.).
+
+-   « Subjectif » ne veut pas dire « arbitraire » : c’est simplement la dimension **consciente** de l’expérience.
+
+------------------------------------------------------------------------
+
+**2. Qu’est-ce qu’une mesure ?**
+
+-   Définition courante : **attribuer un nombre** à un attribut d’un objet ou d’un sujet (ex. 10 kg pour la masse d’un sac).
+
+-   Cette définition interroge : quelle est la **réalité** de l’attribut (masse, tristesse) au-delà du mot et du chiffre ?
+
+-   Différentes conceptions de la mesure ont des **implications philosophiques** et méthodologiques importantes, surtout pour la subjectivité.
+
+------------------------------------------------------------------------
+
+**3. Trois approches du concept de mesure**
+
+-   **Approche classique (physiciens)**
+
+    -   La mesure est un **nombre manipulable** dans des équations pour expliquer et prédire (gravitation, éclipses, marées…).
+
+    -   Elle fonctionne bien pour des grandeurs physiques, mais se heurte à des notions comme la **tristesse** ou la **souffrance**.
+
+-   **Approche opérationnelle**
+
+    -   La mesure est un **processus** donnant un nombre, sans chercher à comprendre la nature de ce qui est mesuré.
+
+    -   Utile en physique (temps, espace) mais problématique pour la subjectivité, car on perd de vue le **sens vécu** derrière les scores.
+
+-   **Approche représentationnelle**
+
+    -   La mesure est la **représentation numérique de faits empiriques**.
+
+    -   Le chiffre est un **outil de représentation** pour rendre intelligibles des phénomènes complexes.
+
+    -   C’est l’approche la plus adaptée aux **mesures subjectives** : le but n’est pas le score en soi, mais ce qu’il permet de **mieux comprendre**.
+
+------------------------------------------------------------------------
+
+**4. Mesures subjectives vs objectives : critiques et réponses**
+
+-   **Critique 1 : “La subjectivité, ce ne sont que des mots flous”**
+
+    -   Exemple de la **tristesse** : difficile à définir, mais immédiatement comprise par tout le monde.
+
+    -   Comme pour le **temps**, on sait le mesurer sans savoir vraiment ce que c’est.
+
+-   **Critique 2 : “On ne peut pas vérifier ce que quelqu’un ressent vraiment”**
+
+    -   En pratique, dans un **climat de confiance**, le sujet rapporte globalement ce qu’il ressent.
+
+    -   L’**hétéro-évaluation** (évaluation par un clinicien empathique) permet parfois une description plus fiable, surtout en psychiatrie.
+
+    -   Elle permet aussi d’estimer la **variabilité inter-évaluateurs** et donc l’**erreur de mesure**, chose difficile avec l’auto-évaluation.
+
+-   **Critique 3 : “Les mesures subjectives ne seront jamais assez précises”**
+
+    -   De nombreuses mesures objectivées (ex. TA au brassard) sont aussi **peu précises**.
+
+    -   La précision des mesures subjectives peut **progresser**, et leurs paradigmes de mesure évoluent en parallèle de ceux des sciences « dures ».
+
+------------------------------------------------------------------------
+
+**5. Trois paradigmes de mesure : impression, étalon, théorie**
+
+-   **Mesure "impression"**
+
+    -   On se prononce à partir d’une **impression globale** : « très lourd », « peu lourd ».
+
+    -   Parallèle : échelles globales comme la **CGI** (Clinical Global Impression).
+
+-   **Mesure "étalon"**
+
+    -   On compare à des **références** : « aussi lourd que deux dictionnaires ».
+
+    -   Parallèle subjectif : échelles type **Stanford Sleepiness Scale**, où chaque phrase décrit un niveau-repère de somnolence.
+
+    -   Limite : trop de niveaux → difficulté à se situer clairement.
+
+-   **Mesure "théorie"**
+
+    -   La mesure est inséparable d’une **théorie générale** (ex. nouvelle définition du mètre via la vitesse de la lumière).
+
+    -   En subjectivité, les **instruments multi-items** relèvent de ce paradigme : ils reposent sur une théorie implicite de ce qu’ils mesurent.
+
+**6. Instruments multi-items et cadre théorique**
+
+-   **Théorie définitoire**
+
+    -   Exemple : échelle de dépression de Hamilton (21 items : humeur, suicide, insomnie, anxiété, obsessions, etc.).
+
+    -   Les choix d’items (inclusions, omissions) traduisent une certaine **vision de la dépression** : c’est une théorie implicite de la dépression.
+
+-   **Théorie nomologique**
+
+    -   Chaque concept (dépression, anxiété, obsessions…) s’inscrit dans un **réseau de relations** avec d’autres concepts.
+
+    -   L’ensemble de ces relations constitue une **théorie nomologique** de la discipline (psychopathologie, qualité de vie, etc.).
+
+------------------------------------------------------------------------
+
+**7. Pourquoi les mesures subjectives paraissent plus fragiles**
+
+-   On peut obtenir des **mesures subjectives très précises** (ex. dépression sur entretien filmé) et des **mesures objectives très grossières** (TA au brassard).
+
+-   Pourtant, la TA « paraît » plus solide, car elle s’appuie sur un **modèle physiologique clair** (cœur, artères, pression, bruits d’auscultation).
+
+-   Pour la dépression, le cadre théorique (définitions, liens avec autres symptômes) est **moins stabilisé**, d’où un sentiment de fragilité.
+
+-   Ce n’est donc pas seulement un problème de fiabilité, mais un problème de **théorie incomplète** de la subjectivité.
+
+------------------------------------------------------------------------
+
+**8. Interprétation des scores et nécessité de validation**
+
+-   **Échelles globales** (type CGI)
+
+    -   Question simple : « niveau de gravité de l’état dépressif ».
+    -   Un score (ex. 3 = « légèrement déprimé ») garde une **signification intuitive** pour le clinicien.
+
+-   **Échelles multi-items** (Hamilton, HUI2 pour la qualité de vie)
+
+    -   Agrègent des contenus très variés (humeur, sommeil, douleur, mobilité, mémoire, fertilité…).
+    -   Un même score global peut correspondre à **de nombreux profils différents** → perte d’intuition.
+    -   L’expression « dépression » ou « qualité de vie » reste parlante, mais le score composite l’est beaucoup moins.
+
+-   **Conséquence**
+
+    -   Pour ces instruments, il faut **étayer le sens** des scores par des études :
+
+    -   montrer ce que le score reflète réellement,
+
+        -   préciser comment il se relie à d’autres variables cliniques.
+
+        -   Cette étape constitue la **validation** de l’instrument, indispensable avant d’interpréter les résultats ou de les utiliser en pratique.
+:::

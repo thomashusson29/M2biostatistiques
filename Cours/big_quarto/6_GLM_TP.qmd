@@ -1,0 +1,238 @@
+---
+title: "GLM 1 TP : Modèles linéaires généralisés"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+
+library(plotrix)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(qgraph)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+data(expsy)
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+```
+
+## Consigne
+1.  Construire une table descriptive de cet échantillon
+
+2.  Proposer un ou plusieurs modèles de régression logistique pour étudier les facteurs associés à la démence et rapportez les résultats sous forme de table ou figure pouvant apparaître dans un article scientifique.
+
+Base de données de 373 patients atteints ou non d'une démence de type Alzheimer.
+
+La colonne "Group" contient cette information sous forme d'une chaîne de caractères.
+
+Les autres variables importantes sont : 
+
+-   Age : contient l'âge en année
+
+-   M.F. : contient le sexe (M/F)
+
+-   EDUC : contient le niveau d'éducation en année
+
+-   SES : contient le statut socio-économique (1 à 5)
+
+-   MMSE : contient le score au Mini-Mental State Examination (0 à 30)
+
+-   CDR : contient le Clinical Dementia Rating (0 à 5)
+
+-   eTIV : contient le volume intracrânien estimé en mL
+
+-   nWBV : contient la proportion du volume intracrânien occupée par le cerveau 
+
+## Question 1 = Table descriptive
+```{r}
+head(alzh)
+levels(alzh$Group)
+str(alzh)
+```
+
+```{r}
+unique(alzh$Group)
+table(alzh$Group)
+```
+
+### Recode de la variable "Group"
+On recode la variable "Group" pour qu'elle devienne binaire et prenne la valeur 1 si le patient est atteint de démence et 0 sinon.
+
+```{r}
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+alzh$Group = 1*(alzh$Group %in% c("Demented","Converted"))
+table(alzh$Group)
+```
+
+Syntaxe :
+
+-   `1*(condition)` : crée une variable binaire qui prend la valeur 1 si la condition est vraie et 0 sinon. (conversion logique en numérique)
+
+-   `condition` : `df$var %in% c("val1","val2")` vérifie si les valeurs de la variable `var` dans le dataframe `df` appartiennent au vecteur `c("val1","val2")`. Contient TRUE ou FALSE.
+
+-   l'opérateur `%in%` est utilisé pour vérifier l'appartenance d'une valeur à un ensemble de valeurs.
+
+On aurait pu faire : 
+
+```{r}
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+condition_validation <- c("Demented","Converted")
+alzh$Group = 1*(alzh$Group %in% condition_validation)
+table(alzh$Group)
+```
+
+ou utiliser la fonction `ifelse()` avec : 
+
+-   `ifelse(test, yes, no)` : retourne `yes` si `test` est vrai et `no` sinon.
+
+```{r}
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+alzh$Group = ifelse(alzh$Group %in% c("Demented","Converted"), 1, 0)
+table(alzh$Group)
+```
+
+### Construction du tableau
+#### Version nullach !!!
+
+```{r}
+median(alzh$Age)
+quantile(alzh$Age, probs = c(0.25, 0.75))
+median(alzh$Age[alzh$Group==1])
+mm = median(alzh$Age[alzh$Group==0])
+```
+
+Si on veut afficher entre tirets
+
+```{r}
+iqr = paste(quantile(alzh$Age, probs = c(0.25, 0.75)), collapse = " - ")
+```
+
+Si on veut faire stylé : 
+
+```{r}
+paste(mm," (", iqr, ")", sep = "")
+```
+
+Et mettre ça dans une fonction : 
+
+-   function(gr,v) : gr = groupe (0 ou 1), v = variable (Age, EDUC, etc..)
+
+-   median(alzh$Age[alzh$Group==gr]) : calcule la médiane de la variable Age pour le groupe gr
+
+-   quantile(alzh$Age, probs = c(0.25, 0.75)) : calcule le 1er et 3ème quartile de la variable Age
+
+-   paste(..., collapse = " - ") : concatène les deux quartiles avec un tiret entre eux
+
+-   paste(mm," (", iqr, ")", sep = "") : crée une chaîne de caractères avec la médiane et l'IQR formatée
+
+```{r}
+#ajouter la fonction à l'environnement
+report_quanti = function(v, gr) {
+    x = alzh[[v]][alzh$Group == gr] #groupe = gr car on veut séparer les deux groupes
+    mm  = median(x, na.rm = TRUE)
+    iqr = paste(quantile(x, probs = c(0.25, 0.75), na.rm = TRUE),
+                collapse = " - ")
+    paste(mm, " (", iqr, ")", sep = "")
+}
+# il faut mettre v entre double crochet car on veut accéder à la variable dont le nom est stocké dans v
+# si on met qu'un seul crochet, R cherche une variable nommée "v" dans le dataframe alzh
+```
+
+::: callout-tip
+Pourquoi il faut mettre un double crochets ?
+
+Les dataframe se comportent à la fois comme des listes, à la fois comme des matrices
+```{r}
+class(alzh)
+```
+
+comportement de matrice : 
+```{r}
+#avec un seul crochet, accès par nom de colonne ou par indice
+alzh[1,3]
+```
+
+comportement de liste :
+```{r}
+#avec double crochet, accès du contenu 
+alzh[[1]] #contenu de la première variable
+```
+:::
+
+
+Pour appliquer à toutes les variables quantitatives de la base : Age, EDUC, SES, MMSE, CDR, eTIV, nWBV
+
+```{r}
+vars = c("Age","EDUC","SES","MMSE","CDR","eTIV","nWBV")
+```
+
+Utilisation de la fonction `sapply()` pour appliquer `report_quanti` à chaque variable dans `vars` pour les deux groupes (0 et 1)
+
+-   Syntaxe : 2 arguments : `sapply(X, FUN)`
+    
+    -   `X` : vecteur d'éléments à itérer (ici `vars`)
+
+    -   `FUN` : fonction à appliquer (ici une fonction anonyme qui prend `v` et appelle `report_quanti` pour les deux groupes)
+
+```{r}
+sapply(vars, report_quanti, gr=0) #groupe 0 (il faut le donner parce que la fonction report_quanti en a besoin)
+sapply(vars, report_quanti, gr=1) #groupe 1
+```
+
+### Autres façons de faire
+#### tableone
+```{r}
+library(tableone)
+vars = c("Age","M.F","EDUC","SES","MMSE","CDR","eTIV","nWBV")
+table1 = CreateTableOne(vars = vars, strata = "Group", data = alzh, factorVars = c("M.F.","SES","CDR"))
+print(table1, showAllLevels = TRUE, formatOptions = list(big.mark = ","))
+```
+
+#### gtsummary : je vois pas pourquoi on utilise pas ce banger ! 
+```{r}
+library(gtsummary)
+colnames(alzh)
+cols_to_include = c("Group", "Age","M.F","EDUC","SES","MMSE","CDR","eTIV","nWBV")
+alzh$Group = factor(alzh$Group, labels = c("Non-Demented","Demented"))
+
+table2 = alzh %>%
+    select(all_of(cols_to_include)) %>%
+    tbl_summary(
+        by = Group,
+        # Change 'labels' to 'label' below
+        label = list(
+        Age ~ "Age (years)",
+        M.F ~ "Sex",
+        EDUC ~ "Education (years)",
+        SES ~ "Socioeconomic Status",
+        MMSE ~ "Mini-Mental State Examination",
+        CDR ~ "Clinical Dementia Rating",
+        eTIV ~ "Estimated Total Intracranial Volume",
+        nWBV ~ "Normalized Whole Brain Volume"
+        ),
+        statistic = list(all_continuous() ~ "{median} ({p25} - {p75})",
+                        all_categorical() ~ "{n} / {N} ({p}%)"),
+        digits = all_continuous() ~ 2
+    ) %>%
+    modify_header(label = "**Variable**") %>%
+    bold_labels() %>%
+    add_n() %>%
+    add_p() %>%
+    modify_caption("**Table 1. Descriptive Statistics by Dementia Status**") %>%
+    as_kable()
+
+# View the table
+table2
+```
+
+
+

@@ -1,0 +1,183 @@
+---
+title: "Methodes multidimensionnelles 3"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+
+library(plotrix)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(qgraph)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+```
+
+
+Les points sont sur l'hypersphère :\
+![](images/paste-13.png){width="573"}\
+\
+\
+On les projette sur le premier plan principal :
+
+![](images/paste-14.png){width="475"}
+
+-   Si diamétralement opposé : corrélés négativement
+
+-   Si proches : corrélés positivement
+
+-   Si perpendiculaires : pas corrélés (indépendants)
+
+## Exemple 1
+
+7 variables ; 1 millions de données
+
+### Représentation des variables
+
+![](images/paste-15.png){width="650"}
+
+Points proches du cercle = bonne qualité de représentation en ACP
+
+-   Consommation de pain et de lait corrélés
+
+-   Viande : corrélé positivement à volailles et fruits
+
+-   Vin : indépendant de volailles / viandes / fruits
+
+### Interprétation sociologique
+
+Population riche : Consomme plus de viande, fruits, vin
+
+Population ayant des enfants : Consomme plus de pain et lait
+
+Vin : classes populaires dans les années 50-60 !
+
+### Représentations des individus par groupes
+
+-   On ne représente pas chaque individu (sinon 1 million de points)
+
+-   On fait des groupes (clustering) et on représente les centres des groupes (centre = moyenne des individus du groupe = barycentre)
+
+$\rightarrow$ On représente le point moyen de tous les cadres ayant 3 enfants par exemple\
+
+![](images/paste-16.png)
+
+-   MA5 : employé manuel avec 3 enfants (ménage = 5 personnes)
+
+-   EM5 : employé non manuel avec 3 enfants
+
+-   MA4 : travailleur manuel avec 2 enfants
+
+-   CA4 : cadre avec 2 enfants
+
+Et en fait ça s'interprète pareil !!
+
+-   La où il y a le pain et le lait : c'est les ménages de 5 personnes !
+
+-   Et à l'opposé : les familles qui ont peu d'enfant
+
+-   Là ou il y a les légumes / fruits / viande : ce sont les cadres
+
+-   Vin : surtout employés manuels
+
+::: callout-note
+**Les composantes principales des variables sont proches mathématiquement des composantes principales des sujets !**
+:::
+
+\newpage
+
+## Exemple 2 : Échelle de dépression "Depressive mood scale"
+
+Beaucoup de critères qui se ressemblent :
+
+![](images/paste-17.png){width="761"}
+
+En ACP :
+
+![](images/paste-18.png){width="694"}
+
+### Variances de l'ACP
+
+-   Variance de l'ACP1 = 24% et variance de l'ACP2 = 21%
+
+-   Donc les 2 premières composantes capturent 45% de la variance totale = c'est à dire qu'on explique pas mal de données
+
+### Inteprétation :
+
+-   Distorsion + marquée que précédemment : les points sont plus éloignés du cercle (+ proches du centre)
+
+![](images/paste-19.png){width="688"}
+
+-   3 paquets de réponses :
+
+    1.  À gauche : déprimés émoussés
+    2.  À droite : déprimés irritables
+    3.  En bas : tristesse, anhédonie : "à part" = axe principal de la dépression
+
+Et en fait on peut même interpréter la construction du truc !
+
+-   ACP1 : axe qui explique le plus la variance = sur lequel les points sont les plus éloignés
+
+    -   Correspond à l'axe des x ici (abscisse)
+
+    -   Sur cet axe : opposition émoussé vs irritable
+
+    -   Et donc on peut dire que cette opposition explique le plus de variabilité du phénotype dépressif
+
+-   ACP2 : axe qui explique le 2ème plus la variance = axe des y ici (ordonnée)
+
+    -   Ici : explique **l'intensité des symptômes dépressifs**
+
+::: callout-note
+Méthodes approximatives, mais c'est pas si mal !
+
+-   alpha et beta et p : on pense avoir trouvé quelque chose de scientifique et d'incontournable
+
+-   toujours un risque ! on sait pas exactement ce que dit le petit p
+
+-   quand c'est pas vraiment tiré au sort : le petit p est la probabilité que le hasard puisse exprimer a lui seul un effet aussi grand que celui qu'on observe
+
+-   mais le hasard, c'est qu'on imagine que l'échantillon est tiré d'une population initiale hypothétique infinie !
+:::
+
+###  Représentation sphérique : gagne une dimension
+
+![](images/paste-20.png)
+
+On a l'impression qu'il y a plus de paquets : parce que gagne une dimension !
+
+Questions : ACP
+
+## Analyse en composante principale focalisée
+
+Projeté sur un plan tangentiel à une des variables
+
+![](images/paste-21.png)
+
+![](images/paste-22.png){width="705"}
+
+Permet de voir les corrélations mais pas d'infos sur la qualité des variables
+
+## Références
+
+Vidéo Falissard:
+
+<iframe src="https://drive.google.com/file/d/1U_W6GC3uFV048368TnTbLqFYjBbq4Neg/preview" width="640" height="480" allow="autoplay">
+
+</iframe>
+
+-   [Blog larmarange](https://larmarange.github.io/analyse-R/analyse-des-correspondances-multiples.html)
+
+-   [Webin-R](https://www.youtube.com/watch?v=fIZblrfenz0A)
+
+-   [Site ministère](https://mtes-mct.github.io/parcours_r_module_analyse_multi_dimensionnelles/)

@@ -1,0 +1,57 @@
+---
+title: "Résumé Modèle de Poisson et MLL"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(tidyr)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(lmerTest)
+library(lme4)
+library(lattice)
+library(qgraph)
+library(nlme)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+load(url("http://alecri.github.io/downloads/data/dental.RData"))
+```
+
+# Modèle de Poisson
+
+-   Modélisation de données de comptage (ex: nombre de visites aux urgences, nombre de crises d'asthme, nombre de suicides, etc.)
+
+    -   Application fréquente aux taux d'incidence et risque relatif dans les études épidémiologiques
+
+    -   Attention aux tests staistiques et intervalles de confiance en cas de surdispersion
+
+    -   Modéliser à part les zéros (hurdel ou zero-inflated models) si la situation le nécessite
+
+# Modèle linéaire mixte
+
+-   Utile en cas de donées répétées longitudinales ou de données groupées (hiérarchiques)
+
+-   Permet de modéliser la corrélation entre mesures répétées chez un même individu ou entre individus d'un même groupe
+
+    -   La plupart du temps, on rapporte les effets fixes uniquement (et le MLL permet de prendre en compte la structure des données)
+
+    -   Il arrive que l'on s'intéresse aux composantes de la variance (reproductibilité)
+
+-   Attention dans l'utilisation des tests statistiques ou de toutes généralisation (GLMM, NLMEM) car les méthodes d'estimation sont plus complexes

@@ -1,0 +1,792 @@
+---
+title: "Autour_de_la_modélisation"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+```
+
+```{r}
+#| echo: false
+#| include: false
+smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","gravite","recherche.nouv", "evit.danger","dep.recompense")]
+```
+
+\newpage
+
+## Introduction
+Modèle : "simplifie" la réalité.
+
+1.  comment coder les variables explicatives (quantitatives et catégorielles) ?
+
+2.  interactions entre variables explicatives.
+
+3.  sélection automatique de variables explicatives.
+
+4.  données manquantes.
+
+5.  techniques de ré-échantillonnage.
+
+## Codages des variables explicatives quantitatives
+### Problématique
+On considère le modèle linéaire suivant :\
+
+$$
+Y = \alpha_0 + \alpha_1 X_1 + \dots + \alpha_p X_p + \epsilon
+$$
+
+-   Y = mesure des capacités cognitives d'un sujet
+
+-   X1 = âge du sujet (en années)
+
+Comme ce modèle fait l'hypothèse d'une relation linéaire, il fait l'hypothèse que la variation entre 60 et 80 ans est la même qu'entre 20 et 40 ans.
+
+On peut apprécier la forme de la relation entre la variable a expliquer $Y$ (NB : dans le cas d'une régression logistique, il s'agit de $\text{logit}(P(Y=1))$) et la variable explicative $X_1$ en utilisant des méthodes non paramétriques (loess, splines, etc.).
+
+**Si la relation n'est pas linéaire, on peut envisager plusieurs solutions :**
+
+1.  Convert $X_i$ en variable catégorielle (ex. quartiles, quintiles, etc.) : perte d'information, perte de puissance mais interprétation simple des résultats.
+
+2.  Ajouter des modèles polynomiaux en $X_i$ (ex. $X_i$ et $X_i^2$) : permet de modéliser des relations non linéaires simples (ex. relations quadratiques) mais interprétation complexe
+
+3.  Recourir à un "modèle additif généralisé" (GAM) : permet de modéliser des relations non linéaires complexes (ex. splines, loess, etc.) mais interprétation complexe
+
+### Exemple R sur les modèles additifs généralisés (GAM)
+Les modèles additifs généralisés (ou GAM, pour generalized additive models) offrent une méthode flexible pour décrire une relation non-linéaire entre des prédicteurs et une variable réponse.
+
+La moyene de $Y$ dépend de la somme de fonctions des variables explicatives, mais il n'y a pas d'hypothèse de linéarité.
+
+Dans ce cadre, on laisse des "degrés de liberté" aux courbes de régression (et à la relation entre $Y$ et $X_i$) pour qu'elles puissent s'adapter aux données.
+
+Par exemple : si un seul degré de liberté, la relation est linéaire.
+
+Avec deux degrés de liberté, la relation est quadratique, etc.
+
+En gros :
+
+-   modèle linéaire généralisé = somme des lignes = sommes des courbes à degrés de liberté $1$
+
+-   modèle additif généralisé = somme des courbes = sommes des courbes à degrés de liberté $\text{k}$
+
+#### Modèle additif généralisé (GAM) avec splines pour une variable explicative quantitative
+On considère la durée de l'entretien `smp$duree.interv` comme variable à expliquer et une liste de variables explicatives parmi lesquelles l'âge `smp$age`.
+
+On trace un *spline* représentant la forme de la relation entre ces deux variables.
+
+```{r}
+#| fig-cap: "Spline représentant la forme de la relation entre la durée de l’entretien et l’âge des détenus."
+#| fig-height: 3
+mod <- gam(duree.interv~s(age, k=20, fx=TRUE),data=smp)
+plot(mod)
+```
+
+On peut augmenter le nombre de paramètre du *spline* en augmentant le paramètre `k` (nombre de noeuds).
+
+Si on laisse par défaut, `mgcv` choisit automatiquement une valeur de `k`
+
+Pour savoir ce qu'il a choisi :
+
+```{r}
+mod <- gam(duree.interv~s(age),data=smp)
+summary(mod)
+```
+
+interprétation :
+
+-   edf = 1 : le *spline* est linéaire (1 degré de liberté)
+
+-   p-value = 0.0153 : la relation entre âge et durée de l'entretien est significative
+
+-   ça signifie que `mgcv` a choisi `k=2` (car pour un *spline* cubique, le degré de liberté est égal à `k-1`)
+
+-   Donc le *spline* est linéaire (car 2-1=1)
+
+-   donc la relation entre âge et durée de l'entretien est modélisée comme linéaire
+
+-   On peut vérifier en forçant `k=2` :
+
+```{r}
+#| fig-cap: "Spline représentant la forme de la relation entre la durée de l’entretien et l’âge des détenus, avec k=2."
+#| fig-height: 3
+mod1 <- gam(duree.interv~s(age,k=2,fx=TRUE),data=smp)
+plot(mod1)
+```
+
+Mais on peut forcer une valeur de `k` différente : par exemple ici on force `k=4`
+
+```{r}
+#| fig-cap: "Spline représentant la forme de la relation entre la durée de l’entretien et l’âge des détenus, avec k=4."
+#| fig-height: 3
+mod2 <- gam(duree.interv~s(age,k=4,fx=TRUE),data=smp)
+plot(mod2)
+```
+
+En gros : plus `k` est grand, plus le *spline* est flexible.
+
+#### Modèle additif généralisé (GAM) avec splines pour une régression logistique
+On essaie d'expliquer l'abus de substance `smp$abus.subst` (0/1) en fonction de l'âge `smp$age`.
+
+```{r}
+#| fig-cap: "Spline représentant la forme de la relation entre le logit de la probabilité de présenter un abus de substance et l’âge des détenus."
+#| fig-height: 4
+mod_logit <- gam(abus.subst~s(age), data=smp, family=binomial)
+plot(mod_logit)
+```
+
+La spline pointe un écart statistiquement significatif à la linéarité l’évolution est stable jusqu’à 40 ans puis semble s’infléchir.
+
+Le nombre de degrés de liberté effectif est de 3.114 donc supérieur à 1. Il est codé "edf" dans le tableau et est écrit sur l'axe des y du graphique.
+
+Et donc là : que faire ?
+
+-   Si l'âge est un facteur de confusion accessoire d'intérêt marginal : on le laisse comme ça
+
+-   Si l'âge est un facteur de confusion important : il faut adopter une autre stratégie
+
+    -   On peut le recouper en classes : plus l'échantillon est grand, plus on peut faire de classes
+
+##### Découpage en classes
+La fonction `cut()` permet de découper une variable quantitative en classes.
+
+```{r}
+smp$age.4f <- cut(
+    smp$age, 
+    breaks=c(-Inf, 25, 35, 45, Inf),
+    labels=c("<25","25-35","35-45",">45"))
+table(smp$age.4f, useNA="ifany")
+```
+
+Les effectifs par classe sont suffisants pour inclure cette variable dans un modèle de régression logistique.
+
+On peut ensuite l'inclure dans un modèle de régression logistique classique :
+
+```{r}
+mod_logit2 <- glm(
+    abus.subst ~ 
+    age.4f + 
+    factor(type.centre), 
+    data=smp,
+    family="binomial")
+summary(mod_logit2)
+```
+
+Représentation en table des résultats :
+
+```{r}
+library(gtsummary)
+tbl <-
+    mod_logit2 %>%
+    tbl_regression(exponentiate = TRUE) %>%
+    as_gt()
+tbl
+```
+
+##### Polynômes orthogonaux
+Le problème avec les polynômes "classiques" (ex. $X_i$ et $X_i^2$) est que les termes sont corrélés entre eux.
+
+On peut utiliser des polynômes orthogonaux pour éviter ce problème.
+
+La fonction `poly()` permet de créer des polynômes orthogonaux en choisissant des degrés de polynome pour lesquels les termes sont orthogonaux donc non corrélés.
+
+```{r}
+dt <- na.omit(smp[,c("abus.subst","age","type.centre")])
+mod3 <- glm(
+    abus.subst ~ 
+    poly(age, degree = 3) + factor(type.centre), 
+    data=dt, 
+    family="binomial")
+```
+
+Warning : le processus de convergence est fragile, car les polynômes de degré élevé peuvent causer des problèmes numériques.
+
+Avec un degré 2, ça passe mieux :
+
+```{r}
+dt <- na.omit(smp[,c("abus.subst","age","type.centre")])
+mod3 <- glm(
+    abus.subst ~ 
+    poly(age, degree = 2) + factor(type.centre), 
+    data=dt, family="binomial")
+summary(mod3)
+```
+
+Le seul truc interprétable sont les p-values associées aux termes polynomiaux (pas les coefficients).
+
+On visualise la relation proposée par le modèle en utilisant la fonction `predict()`.
+
+```{r}
+#| fig-cap: "Prédiction moyenne du risque d’abus de substance en fonction de l’âge des détenus, standardisée sur le type de centre."
+ages=seq(20,50,1)
+avgpred <- sapply(
+    ages, 
+    function(age) {
+        dt$age <- age
+        mean(predict(mod3, newdata=dt, type="response"))}
+        )
+plot(ages, avgpred, 
+    type="l", 
+    xlim=c(20,50), ylim=c(0,1),
+    las=1, 
+    xlab="Âge", ylab="Prédiction moyenne")
+```
+
+Cette approche de prédiction moyenne consiste à évaluer le pourcentage de risque d’abus de substance selon le modèle mod3, pour chaque âge et après « standardisation » sur le type de centre (car le type de centre est inclus dans `mod3`).
+
+## Codage des variables explicatives catégorielles
+Dans le modèle linéaire, les variables explicatives catégorielles sont classiquement
+
+-   Transformées en variables binaires
+
+-   Ou en variables quantitatives discrètes (le problème est que l'écart entre les modalités n'est pas forcément le même)
+
+Dans le cas de variables catégorielles comptant \2 classes : il faut recoder par une série de variables binaires.
+
+### Exemple : ABO
+4 groupes sanguins : A, B, AB, O
+
+-   Approche classique : codage 0/1 pour chaque groupe sanguin (3 variables binaires, une de référence)
+
+    -   Groupe A : $X_1 = 1$ et $X_2 = 0$ et $X_3 = 0$
+
+    -   Groupe B : $X_1 = 0$ et $X_2 = 1$ et $X_3 = 0$
+
+    -   Groupe AB : $X_1 = 0$ et $X_2 = 0$ et $X_3 = 1$
+
+    -   Groupe O (référence) : $X_1 = 0$ et $X_2 = 0$ et $X_3 = 0$
+
+En tableau :
+
+| Groupe sanguin | $X_1$ | $X_2$ | $X_3$ |
+|----------------|-------|-------|-------|
+| A              | 1     | 0     | 0     |
+| B              | 0     | 1     | 0     |
+| AB             | 0     | 0     | 1     |
+| O (référence)  | 0     | 0     | 0     |
+
+Équation du modèle linéaire :
+
+$$
+Y = a_0 + a_1 Z_1 + a_2 Z_2 + ... + a_p Z_p + b_1 X_1 + b_2 X_2 + b_3 X_3 + \epsilon
+$$
+
+Dans ce modèle : le coefficient $b_1$ sera interprété comme la différence moyenne de $Y$ entre le groupe A et le groupe O (référence) à $Z_1, Z_2, ..., Z_p$ fixés.
+
+-   D'autres codages sont possibles : notamment "-1 / 1"
+
+    -   Groupe A : $X_1 = 1$ et $X_2 = X_3 = 0$
+
+    -   Groupe B : $X_2 = 1$ et $X_1 = X_3 = 0$
+
+    -   Groupe AB : $X_3 = 1$ et $X_1 = X_2 = 0$
+
+    -   Groupe O (référence) : $X_1 = X_2 = X_3 = -1$
+
+Équation du modèle linéaire :
+
+$$
+Y = a_0 + a_1 Z_1 + a_2 Z_2 + ... + a_p Z_p + b_1 X_1 + b_2 X_2 + b_3 X_3 + \epsilon
+$$
+
+Dans ce modèle : le coefficient $b_1$ sera interprété comme la différence entre l'effet observé dans le groupe "A" et la moyenne non pondérée des effets observés dans les autres groupes (B, AB et O) à $Z_1, Z_2, ..., Z_p$ fixés.
+
+*Moyenne non pondérée* : *il s'agit de la moyenne des moyennes de chaque groupe, calculée sans tenir compte des effectifs respectifs de ces groupes (chaque groupe a le même poids dans le calcul de la moyenne globale).*
+
+### Exemple R
+#### Avec une variable codée 0/1
+variable catégorielle : `smp$profession` (8 modalités)
+
+```{r}
+str(smp$profession)
+```
+
+Pour savoir comment R code cette variable dans un modèle de régression linéaire : on utilise la fonction `contrasts()` :
+
+```{r}
+contrasts(smp$profession)
+```
+
+Par défaut, R utilise un codage "0/1" avec la première modalité comme référence (ici "Agriculteurs").
+
+Pour changer la modalité de référence, on peut utiliser la fonction `relevel()` :
+
+```{r}
+smp$profession <- relevel(smp$profession, ref="ouvrier")
+contrasts(smp$profession)
+```
+
+Ici, la modalité de référence est "ouvrier".
+
+On cherche à expliquer la variable "haut risque suicidaire" `smp$hr.suicide` (0/1) en fonction de la profession `smp$profession` + autres variables de confusion.
+
+```{r}
+mod <- glm(
+    hr.suicide~
+    abus.enfant+discipline+duree.peine+profession+factor(type.centre),
+    data=smp, 
+    family="binomial")
+summary(mod)
+```
+
+Il y a bien une estimation pour 7 modalité de la variable `profession`, sauf pour la modalité de référence "ouvrier".
+
+Interprétation : chaque coefficient de la variable `profession` est interprété par rapport à la modalité de référence "ouvrier".
+
+Si on veut tester l'effet global de la variable `profession` dans le modèle, on utilise `drop1`:
+
+```{r}
+drop1(mod,.~.,test="Chisq")
+```
+
+#### Avec une variable codée -1/1
+On peut utiliser la fonction `contrasts<-` pour changer le codage par défaut de R.
+
+```{r}
+contrasts(smp$profession) <- contr.sum
+contrasts(smp$profession)
+```
+
+Problème : le codage en matrice \[,1\] \[,2\].. n'est pas très lisible.
+
+Renommer :
+
+```{r}
+colnames(contrasts(smp$profession)) <- c("ouvrier","agriculteur","commerçant","cadre","intermédiaire","employé","autre")
+contrasts(smp$profession)
+```
+
+Modèle de régression logistique avec ce nouveau codage :
+
+```{r}
+mod <- glm(hr.suicide ~ 
+        abus.enfant + discipline + duree.peine + profession + factor(type.centre), 
+        data=smp, 
+        family="binomial")
+summary(mod)
+```
+
+Les log odds-ratios correspondants aux modalités de la variable « profession » sont maintenant relatifs à la moyenne des effets des 8 modalités
+
+Si on veut voir "sans emploi" aussi :
+
+```{r}
+estimable(mod,c(0,0,0,0,-1,-1,-1,-1,-1,-1,-1,0,0),conf.int=0.95)
+```
+
+\newpage
+
+## Choix des variables explicatives
+### Principe
+Quelles variables explicatives doit-on inclure dans le modèle ?
+
+2 types de modèles :
+
+-   Prédictifs : estimer la probabilité de survenue d'une pathologie
+
+-   Explicatif : comprendre les principaux déterminants de la survenue d'une maladie
+
+Pour les modèles prédictifs : c'est du machine learning.
+
+Choix des variables pour les modèles explicatifs :
+
+-   Approche hypothético-déductive : réfléchir en amont aux variables à inclure
+
+-   Graphes acycliques orientés : [article](https://pmc.ncbi.nlm.nih.gov/articles/PMC8821727/)
+
+-   Analyse bivariée initiale : 
+
+    -   inclure les variables significatives en analyse bivariée
+
+    -   problème : risque de confusion entre variables explicatives
+
+    -   et il faut inclure dans tous les cas quelque chose de cliniquement pertinent
+
+NB : L'analyse pas à pas ("stepwise") est fortement déconseillée pour la sélection de variables, en particulier pour les modèles explicatifs. Voici pourquoi :
+
+1.  **Biais de sélection et sur-ajustement (Overfitting)** : Le stepwise teste de nombreuses combinaisons et ne garde que celles qui "marchent" le mieux sur l'échantillon donné. Cela a tendance à capturer le bruit aléatoire (le hasard) spécifique à cet échantillon plutôt que la vraie relation biologique ou clinique. Le modèle final performe souvent très bien sur les données d'apprentissage mais mal sur de nouvelles données.
+
+2.  **P-values et intervalles de confiance invalides** : Les calculs classiques des p-values et des intervalles de confiance supposent que le modèle a été spécifié *a priori*. Quand on utilise les données pour choisir le modèle, on effectue des tests multiples implicites sans correction. En conséquence, les p-values affichées sont artificiellement trop petites (on trouve trop de résultats "significatifs") et les intervalles de confiance sont trop étroits (donnant une fausse impression de précision).
+
+3.  **Instabilité du modèle** : Le retrait ou l'ajout de quelques observations peut changer radicalement la liste des variables sélectionnées par l'algorithme.
+
+4.  **Biais des coefficients** : Les coefficients des variables retenues sont souvent surestimés (biais loin de zéro), car seules les variables ayant par hasard un effet fort dans cet échantillon passent le filtre de sélection.
+
+**Recommandation** : Privilégier une sélection basée sur la connaissance du domaine (littérature, plausibilité biologique, DAGs) plutôt que sur des algorithmes automatiques basés uniquement sur la significativité statistique.
+
+\newpage
+## À propos des termes d'interaction
+Dans un modèle linéaire / linéaire généralisé / modèle de Cox, les variables explicatives ont des effets qui **s’additionnent** avant transformation par la réciproque de la fonction de lien.
+
+-   Dans le cas du modèle linéaire : les effets s’additionnent directement
+
+-   Dans le cas du modèle logistique : les log-odds s’additionnent, donc les odds-ratios se multiplient
+
+-   Dans le cas du modèle de Cox : les log-hazards s’additionnent, donc les hazard-ratios se multiplient
+
+Dans le cas d'une intercation entre deux variables explicatives, l'effet d'une variable dépend de la valeur de l'autre variable. 
+
+Par exemple, l'effet de l'alcool sur le cancer du larynx est potentialisé par le tabac.
+
+Dans un modèle : on peut inclure un terme d'interaction entre deux variables explicatives.
+
+La formule serait : 
+
+$$
+Y = a_0 + a_1 X_1 + a_2 X_2 + a_3 (X_1 * X_2) + \epsilon
+$$
+
+où $X_1 * X_2$ est le terme d'interaction entre les variables explicatives $X_1$ et $X_2$.
+
+L'interprétation des coefficients devient plus complexe en présence d'interactions.
+
+Par exemple, dans un modèle de régression linéaire avec interaction entre deux variables explicatives $X_1$ et $X_2$, le coefficient $a_1$ représente l'effet de $X_1$ sur $Y$ lorsque $X_2$ est égal à zéro, et vice versa pour $a_2$.
+
+L'effet combiné des deux variables sur $Y$ est donné par la somme des coefficients $a_1$, $a_2$ et $a_3$ multiplié par les valeurs respectives de $X_1$ et $X_2$.
+
+Pour analyser l'effet de $X_1$ sur $Y$, il peut être suggéré de ne pas inclure le terme d'interaction si l'objectif principal est d'estimer l'effet moyen de $X_1$ sur $Y$.
+
+\newpage
+## Données manquantes
+### Types de données manquantes
+-   Manquantes complètement aléatoires (MCAR) : la probabilité qu'une donnée soit manquante est indépendante de la valeur de la donnée elle-même et des autres variables observées.
+
+    -   Exemple : un questionnaire perdu par la poste, ou une erreur de saisie aléatoire.
+
+-   Manquantes aléatoires (MAR) : la probabilité qu'une donnée soit manquante dépend des autres variables observées, mais pas de la valeur de la donnée elle-même.
+
+    -   Exemple : les patients plus âgés sont moins susceptibles de répondre à certaines questions, mais parmi les patients du même âge, la probabilité de réponse ne dépend pas de la valeur de la donnée manquante.
+
+-   Manquantes non aléatoires (MNAR) : la probabilité qu'une donnée soit manquante dépend de la valeur de la donnée elle-même, même après avoir pris en compte les autres variables observées.
+
+    -   Exemple : les patients avec des symptômes plus graves sont moins susceptibles de répondre à une question sur leur état de santé.
+
+### Gestion des données manquantes
+1.  Les décrire ! 
+
+2.  Les imputer : par la médiane, la moyenne, le mode... Ou faire de l'imputation multiple avec le package `mice`.
+
+### Exemple R avec le package `mice`
+```{r}
+# sélection du jeu de données avec les variables d'intérêt
+smp.imp <- smp[,c(2,7:93)]
+# imputation multiple avec le package mice. par défaut : 5 imputations
+smp.mice <- mice(smp.imp, seed=1)
+# extraction de la première imputation
+smp.imp.1 <- complete(smp.mice,1)
+table(smp$determination,smp.imp.1$determination, useNA="ifany")
+```
+
+Si on veut estimer le modèle avec les données imputées, il faut utiliser la fonction `pool()` :
+
+```{r}
+mod.imp <- with(
+        smp.mice, 
+                glm(
+                    hr.suicide ~ 
+                    gravite + atcd.suicide + depression+ atcd.prison 
+                    + contre.pers + abus.subst + determination + factor(smp$type.centre),
+                    family="binomial"
+                    )
+                )
+summary(pool(mod.imp),type="all")[,c(1,3,4,7,10)]
+```
+
+La fonction `with(glm(...))` estime le même modèle logistique sur chacun des 5 jeux de données imputées contenus dans smp.mice. 
+
+La fonction `pool()` fait une synthèse des 5 séries de résultats. 
+
+Parmi les résutats disponibles il y a : les log odds-ratios moyens, leurs erreurs types obtenues à partir de la somme des variances intra-modèles et des variances inter-modèles. 
+
+La FMI (Fraction of Missing Information) quantifie, pour chaque variable, la part de la variance dûe aux données
+manquantes.
+
+\newpage
+## Bootstrap
+### Principe
+Dans un modèle logistique, les p value et les IC des OR sont calculées à partir des « dérivées partielles
+secondes de la log vraisemblance », calculs dont la fiabilité est en principe garantie pour des tailles d’échantillons tendant vers l’infini. 
+
+Pour des échantillons de taille modérée, on peut utiliser le bootstrap pour estimer empiriquement la distribution des paramètres du modèle.
+
+En gros, le bootstrap consiste à :
+
+-   Tirer au hasard avec remise des échantillons de taille n (taille de l’échantillon initial) parmi les n observations disponibles.
+
+-   Estimer le modèle sur chacun de ces échantillons bootstrap.
+
+-   Répéter l'opération un grand nombre de fois (ex: $k=1000$ ou $10000$).
+
+-   Appliquer la méthode des percentiles pour construire des intervalles de confiance empiriques à partir des $k$ estimations obtenues.
+
+    -   On classe les $k$ estimations obtenues (ex: les 1000 Odds-Ratios) du plus petit au plus grand.
+
+    -   On retire les 2,5% des valeurs les plus basses et les 2,5% des valeurs les plus élevées (les extrêmes).
+    
+    -   L'intervalle entre la plus petite et la plus grande valeur restante constitue l'intervalle de confiance à 95%.
+
+Cela revient à dire : *"Si je répétais mon étude un grand nombre de fois, dans 95% des cas, mon paramètre tomberait dans cet intervalle"*.
+
+```{r}
+#| label: fig-bootstrap-schema
+#| fig-cap: "Illustration du principe du Bootstrap (Méthode des percentiles)"
+#| echo: false
+#| warning: false
+#| fig-height: 3
+
+# Génération de données fictives simulant k=10000 réplications
+set.seed(42)
+simulations <- data.frame(valeur = rnorm(10000, mean = 1.5, sd = 0.5))
+
+# Calcul des bornes (Percentiles 2.5% et 97.5%)
+bornes <- quantile(simulations$valeur, probs = c(0.025, 0.975))
+
+# Graphique explicatif
+ggplot(simulations, aes(x = valeur)) +
+    geom_histogram(aes(y = after_stat(density)), bins = 50, fill = "grey90", color = "white") +
+    geom_density(color = "black", linewidth = 1) +
+    # Lignes verticales pour les bornes
+    geom_vline(xintercept = bornes, color = "#E41A1C", linetype = "dashed", linewidth = 1) +
+    # Annotations
+    annotate("text", x = mean(bornes), y = 0.1, label = "Intervalle de Confiance à 95%\n(Zone conservée)", color = "#377EB8", fontface = "bold") +
+    annotate("text", x = bornes[1], y = 0.6, label = "2.5% inférieurs\n(Exclus)", color = "#E41A1C", hjust = 1.1, size = 3.5) +
+    annotate("text", x = bornes[2], y = 0.6, label = "2.5% supérieurs\n(Exclus)", color = "#E41A1C", hjust = -0.1, size = 3.5) +
+    labs(title = "Distribution simulée des estimations bootstrap",
+        x = "Valeur du paramètre estimé",
+        y = "Fréquence") +
+    theme_minimal() +
+    theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+
+Le bootstrap présente l'avantage de ne pas reposer sur des trucs mathématiques impénétrables ! 
+
+Il repose toutefois sur l'hypothèse que l'échantillon initial est représentatif de la population cible et que les observations sont indépendantes.
+
+Les observations ré-échantillonnées peuvent correspondre à un grappe (*cluster*) de données corrélées entre elles, telles que l’ensemble des mesures répétées chez un même patient ou dans un
+même centre.
+
+### Conditions à respecter pour utiliser le bootstrap :
+1.  Indépendance des observations ré-échantillonnées 
+
+2.  Nombre suffisant d’observations dans l’échantillon initial pour que les fluctuations de ré-échantillonnages soient proches des fluctuations d’échantillonnages de la population
+
+3.  Fluctuations d’échantillonnages continues (non discrète) : La statistique calculée ne doit pas faire de "sauts" (être discrète) mais varier de façon fluide.
+
+**Exemple de fluctuation non continue (discrète) : La Médiane.**
+
+Si on calcule la médiane sur des données discrètes (ex: des notes entières de 0 à 10) avec un petit échantillon, la médiane ne pourra prendre que quelques valeurs spécifiques (ex: 2, 2.5, 3). 
+
+La distribution bootstrap sera "en peigne" (avec des trous) et non une courbe lisse. Cela rend les intervalles de confiance peu fiables.
+
+```{r}
+#| fig-cap: "Comparaison : La médiane d'une variable discrète (gauche) produit une distribution bootstrap discontinue (en peigne), contrairement à la moyenne (droite) qui est plus continue."
+#| echo: false
+#| fig-height: 3
+
+set.seed(123)
+# Petit échantillon de notes entières
+data_discrete <- c(1, 2, 2, 3, 3, 3, 4, 4, 5, 5)
+
+# Bootstrap de la médiane
+boot_median <- replicate(2000, median(sample(data_discrete, replace = TRUE)))
+
+# Bootstrap de la moyenne
+boot_mean <- replicate(2000, mean(sample(data_discrete, replace = TRUE)))
+
+par(mfrow=c(1,2))
+hist(boot_median, main="Médiane (Discret)", xlab="Valeur estimée", col="salmon", border="white")
+hist(boot_mean, main="Moyenne (Continu)", xlab="Valeur estimée", col="lightblue", border="white")
+par(mfrow=c(1,1))
+```
+
+4.  Stabilisation asymptotique des fluctuations d’échantillonnages (c'est à dire que la distribution des fluctuations d’échantillonnages converge vers une distribution limite lorsque la taille de l’échantillon tend vers l’infini, souvent une distribution normale)
+
+**Exemple : Convergence vers la normalité.**
+
+Si la variable d'origine suit une distribution très asymétrique (ex: loi exponentielle), la distribution bootstrap de la moyenne sera elle-même asymétrique pour de petits échantillons. Elle ne deviendra "Normale" (en cloche) que si la taille de l'échantillon est suffisante.
+
+```{r}
+#| fig-cap: "Illustration de la stabilisation asymptotique : Pour une variable asymétrique, la distribution bootstrap de la moyenne ne devient normale que si n est assez grand."
+#| echo: false
+#| fig-height: 3
+
+set.seed(123)
+# Cas 1 : Petit échantillon (n=15) tiré d'une loi exponentielle (asymétrique)
+sample_small <- rexp(15)
+boot_small <- replicate(2000, mean(sample(sample_small, replace = TRUE)))
+
+# Cas 2 : Grand échantillon (n=200) tiré de la même loi
+sample_large <- rexp(200)
+boot_large <- replicate(2000, mean(sample(sample_large, replace = TRUE)))
+
+par(mfrow=c(1,2))
+hist(boot_small, main="n=15 (Reste asymétrique)", xlab="Moyenne bootstrap", col="#FFCC00", border="white", breaks=30)
+hist(boot_large, main="n=200 (Devient Normal)", xlab="Moyenne bootstrap", col="#4DAF4A", border="white", breaks=30)
+par(mfrow=c(1,1))
+```
+
+
+
+
+### Diagnostics et avantages
+L'analyse graphique de la distribution des estimations bootstrap (histogramme, Q-Q plot) est essentielle.
+
+**1. Intérêt des diagnostics graphiques :**
+
+-   **Vérifier la normalité** : Si la distribution est proche d'une courbe en cloche (Normale), les intervalles de confiance classiques sont fiables.
+-   **Sanity Check** : Permet de repérer des anomalies (bimodalité, valeurs aberrantes) invisibles avec un simple calcul.
+
+**2. Avantages généraux de la méthode :**
+
+-   **Pédagogique** : Permet de visualiser concrètement l'incertitude et les fluctuations d'échantillonnage.
+-   **Priorité à la clinique** : On choisit la statistique la plus pertinente cliniquement (ex: médiane, ratio) sans être limité par la complexité mathématique de son intervalle de confiance.
+-   **Intelligibilité** : Offre souvent une alternative plus compréhensible aux modèles complexes (comme les modèles mixtes) pour gérer des données difficiles.
+-   **Interprétation facilitée de l'Intervalle de Confiance** : L'intervalle de confiance classique est souvent mal compris car sa définition est théorique et abstraite (*"si on répétait l'étude une infinité de fois..."*). Avec le bootstrap, cette répétition devient concrète et visible grâce à l'histogramme des simulations. On comprend intuitivement que l'IC correspond simplement à la zone où se concentrent la majorité (95%) des résultats simulés.
+
+**Exemple de diagnostics graphiques :**
+
+```{r}
+#| fig-cap: "Diagnostics : L'histogramme et le Q-Q plot permettent de juger de la normalité de la distribution bootstrap."
+#| fig-height: 4
+#| echo: false
+
+set.seed(42)
+# Simulation d'une distribution bootstrap
+boot_vals <- rgamma(1000, shape=5, scale=1)
+
+par(mfrow=c(1,2))
+# Histogramme
+hist(boot_vals, main="Histogramme", xlab="Estimations", col="lightblue", border="white", probability=TRUE)
+lines(density(boot_vals), col="darkblue", lwd=2)
+
+# Q-Q Plot
+qqnorm(boot_vals, main="Q-Q Plot (Normalité)", pch=20, col="grey40")
+qqline(boot_vals, col="red", lwd=2)
+par(mfrow=c(1,1))
+```
+
+### Exemple R
+Modèle linéaire expliquant la variable « durée de l’entretien » réalisée lors de l’étude santé mentale en prison. 
+
+En vérifiant les conditions de validité du modèle, il y a un doute sur l'absence de normalité des résidus.
+
+```{r}
+mod <- lm(
+    duree.interv~
+    schizophrenie+depression+abus.subst+gravite+charactere+trauma.enfant+age+factor(type.centre),
+    data=smp
+    )
+summary(mod)
+```
+
+```{r}
+#| fig-cap: "Histogramme et QQ-plot des résidus du modèle linéaire expliquant la durée de l’entretien. La distribution des résidus semble s’écarter de la normalité."
+#| fig-height: 4
+par(mfrow=c(1,2))
+hist(residuals(mod), main="Histogramme des résidus", xlab="Résidus")
+qqnorm(residuals(mod), main="QQ-plot des résidus")
+qqline(residuals(mod), col="red")
+par(mfrow=c(1,1))
+```
+
+On fait une estimation par *bootstrap* en négligeant la dépendance intra-centre.
+
+```{r}
+lm.boot <- function(data, index) {
+        smp.boot <- data[index,]
+        mod <- lm(
+            duree.interv ~ 
+            schizophrenie + depression + abus.subst + gravite + charactere + trauma.enfant +age + factor(type.centre), 
+            data = smp.boot)
+
+    coefficients(mod)
+}
+```
+
+Concernant la fonction R : 
+
+Il faut définir une fonction `lm.boot` :
+
+-   entrée : jeu de données `data`
+
+-   vecteur d'indices : ìndex`
+
+-   Estime les paramètres du modèle linéaire pour chaque échantillon bootstrap.
+
+-   Les coeficients sont stockés dans `coefficients(mod)`.
+
+Puis utilisation de la fonction `boot()` du package `boot` pour réaliser le bootstrap.
+
+-   `smp` : jeu de données original
+
+-   `lm.boot` : fonction définie précédemment à "bootstrapper", c'est à dire à appliquer sur chaque échantillon bootstrap
+
+Si l’on est plus spécialement intéressé par la variable « schizophrénie » il faut choisir le deuxième paramètre du tableau de résultats `[,2]` car la première colonne correspond à l'ordonnée à l’origine = intercept. 
+
+```{r}
+#| fig-cap: "Histogramme des 10000 coefficients de régression de la variable « schizophrénie » estimés via bootstrap, c’est-à-dire issus de 10000 jeux de données obtenus par tirage au sort avec remise à partir du jeu de données original."
+#| fig-height: 4
+#| echo: false
+set.seed(10)
+resboot <- boot(smp, lm.boot, 10000)
+hist(resboot$t[,2], breaks=40, main="",xlab="Regression coefficient of variable scz.cons")
+box()
+```
+
+Pour obtenir l'IC à 95% de la variable « schizophrénie » et le p-value associée :
+
+```{r}
+# index = 2 car on s'intéresse au 2ème coefficient (schizophrénie)
+# type = "bca" pour méthode des percentiles corrigée (plus robuste sur petits échantillons)
+boot.ci(resboot, index=2, type= "bca") 
+# p-value bilatérale
+2*sum(resboot$t[,2]<=0)/10000
+```

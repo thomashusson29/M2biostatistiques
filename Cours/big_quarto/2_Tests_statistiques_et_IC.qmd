@@ -1,5 +1,5 @@
 ---
-title: "TESTS_STATISTIQUES_ET_IC"
+title: "Tests statistiques"
 ---
 
 ```{r}
@@ -60,9 +60,9 @@ smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","g
 ```
 
 \newpage
-# Introduction : en pratique, comment utiliser les tests statistiques ?
+## Introduction : en pratique, comment utiliser les tests statistiques ?
 
-## À quoi servent vraiment les tests statistiques ?
+### À quoi servent vraiment les tests statistiques ?
 
 Les tests statistiques ont deux fonctions simultanées :
 
@@ -82,7 +82,7 @@ Mais ce sont des outils inductifs, pas des démonstrations logiques :
 
 -   La crédibilité scientifique d’un résultat dépend aussi de la théorie, de la littérature, du plan d’étude, et du bon sens clinique.
 
-## Quand l’usage est légitime
+### Quand l’usage est légitime
 
 Un test statistique est pertinent quand il répond à une question scientifique centrale, formulée à l’avance :
 
@@ -98,7 +98,7 @@ Dans ces situations :
 
 -   Le test vient au service d’une question, et non l’inverse.
 
-## Mésusages fréquents (et pourquoi ils posent problème)
+### Mésusages fréquents (et pourquoi ils posent problème)
 
 C’est surtout l’usage disproportionné des tests qui crée les dérives : on teste tout, partout, pour justifier des phrases qui n’ont pas besoin de test.
 
@@ -158,7 +158,7 @@ Dire “Shapiro est non significatif, donc la variable est normale” est un mé
 
         -   Risque élevé de p-hacking : on sélectionne après coup ce qui donne un beau p.
 
-## Fil conducteur à retenir
+### Fil conducteur à retenir
 
 -   Un test statistique doit être utilisé :
 
@@ -176,11 +176,11 @@ Dire “Shapiro est non significatif, donc la variable est normale” est un mé
 
 Les tests sont un outil chiffré parmi d’autres au service du raisonnement scientifique, pas un substitut au raisonnement.
 
-# Quels tests pour quelles hypohèses ?
+## Quels tests pour quelles hypohèses ?
 
-## Comparaison de 2 pourcentages
+### Comparaison de 2 pourcentages
 
-### Test du chi2 de Pearson
+#### Test du chi2 de Pearson
 
 Le test du chi2 de Pearson compare la **répartition** de deux variables qualitatives (ex : présence/absence d’un événement dans deux groupes).
 
@@ -200,7 +200,7 @@ Conditions de validité :
 
 -   Approximation de la loi binomiale par la loi normale
 
-#### Chi2 R
+##### Chi2 R
 
 dans l'étude smp : on teste l'hypothèse que le niveau de dépression est fonction de l'âge, avec âge binarisé pour \> ou \< 50 ans
 
@@ -277,7 +277,7 @@ Ca revient exactement au même de tester l'hypothèse que l'OR = 1 dans un table
 Donc la p-value du chi2 et celle du test "OR = 1" sont identiques.
 :::
 
-### Test exact de Fisher
+#### Test exact de Fisher
 
 Le test exact de Fisher compare la **répartition** de deux variables qualitatives dans des petits échantillons (ex : présence/absence d’un événement dans deux groupes).
 
@@ -287,7 +287,7 @@ Conditions de validité :
 
 -   Indépendance des observations = pas de mesures répétées, pas de données appariées.
 
-#### Fisher R
+##### Fisher R
 
 ```{r}
 fisher.test(smp$age>75, smp$depression)
@@ -327,7 +327,7 @@ tableau_fisher %>%
 ```
 
 \newpage
-## Comparaison d'un pourcentage a un pourcentage théorique
+### Comparaison d'un pourcentage a un pourcentage théorique
 
 Situation peu fréquente !
 
@@ -339,7 +339,7 @@ binom.test(538, 1000, p = 0.5)
 
 p-value = 0.01766 : on rejette l'hypothèse d'équiprobabilité.
 
-## Comparaison de 3 pourcentages
+### Comparaison de 3 pourcentages
 
 Peu fréquente non plus !
 
@@ -435,7 +435,7 @@ tableau_trend %>%
 ```
 
 \newpage
-## Comparaison de 2 moyennes
+### Comparaison de 2 moyennes
 
 Repose sur :
 
@@ -494,7 +494,7 @@ Conditions de validité :
 -   sur R : `wilcox.test(var1 ~ var2, data=..., paired=FALSE)`
 :::
 
-#### Comparaison de 2 moyennes avec R
+##### Comparaison de 2 moyennes avec R
 
 On teste l'
 
@@ -545,7 +545,7 @@ Si effectifs très inégaux ou variances très différentes : test de Welch
 :::
 
 \newpage
-## Comparaison de 3 moyennes ou plus
+### Comparaison de 3 moyennes ou plus
 
 Comparaison pas si fréquente (idem que la comparaison de 3 pourcentages).
 
@@ -583,7 +583,7 @@ Conditions de validité :
 
 -   Normalité des résidus du modèle (avec la même résistance que pour le test t : si n\>30 par groupe et faible différences des deux groupes, on peut s'en fiche un peu).
 
-### Exemple R
+#### Exemple R
 
 Exemple : niveau d’évitement du danger mesuré avec un questionnaire codée en 1, 2 et 3 pour des niveaux respectivement « faible », « modéré » ou « élevé ».
 
@@ -638,7 +638,7 @@ Elles utilisent toutes les deux le même moteur : analyser la variance pour sép
 :::
 
 \newpage
-## Test de nullité d'un coefficient de corrélation
+### Test de nullité d'un coefficient de corrélation
 
 Les coefficients de corrélation mesurent la force et la direction d'une association linéaire entre deux variables quantitatives.
 
@@ -668,7 +668,7 @@ Tester la nullité de corrélation revient à tester l'absence d'association lin
 
 -   Et même si les deux sont binaires !
 
-### Test de nullité du coefficient de corrélation avec R
+#### Test de nullité du coefficient de corrélation avec R
 
 Utilisation de la fonction `cor.test(...)` :
 
@@ -682,7 +682,7 @@ cor.test(smp$age, smp$recherche.nouv, method="pearson")
 
 [Tableau corrélation](https://thomashusson29.github.io/M2biostatistiques/S1_3bonus_correlation.html)
 
-## Tests appariés / non appariés
+### Tests appariés / non appariés
 
 Exemple de données appariées : 
 
@@ -692,7 +692,7 @@ Exemple de données appariées :
 
 -   Score de propension
 
-:::callout-important
+::: callout-important
 
 **Tests possibles sur données appariées :**
 
@@ -709,9 +709,9 @@ Exemple de données appariées :
     -   Test exact du Chi2 de McNemar : version exacte du test de McNemar, utilisé lorsque les effectifs sont petits.
 :::
 
-### Exemple R données appariées
+#### Exemple R données appariées
 
-#### Exemple 1
+##### Exemple 1
 
 jeu de données `scl` : évolution au cours du temps du score SCL90 de patients déprimés hospitalisés
 
@@ -741,7 +741,7 @@ t.test(scl.w$J0, scl.w$J4, paired=TRUE)
 
 p-value = 1.223e-08 : on rejette l'hypothèse d'égalité des moyennes de score SCL90 entre le jour 0 et le jour 4.
 
-#### Exemple 2
+##### Exemple 2
 
 Comparaison de pourcentages = test du Chi2 de McNemar
 
@@ -775,7 +775,7 @@ McNemar's chi-squared = 16, df = 1, p-value = 6.334e-05
 
 p-value = 6.334e-05 : on rejette l'hypothèse d'égalité des proportions de patients déprimés entre le jour 0 et le jour 4.
 
-#### tbl_summary apparié
+##### tbl_summary apparié
 
 On met les deux : comparaison de moyennes et comparaison de pourcentages
 
@@ -883,7 +883,7 @@ table3adjusted <- m.final %>%
 ```
 
 \newpage
-# Calcul de $\beta$ et du nombre de sujets à inclure
+## Calcul de $\beta$ et du nombre de sujets à inclure
 
 Dans la théorie de Neyman et Pearson, le calcul du nombre de sujets à inclure dans une étude est directement lié au contrôle des risques $\alpha$ et $\beta$.
 
@@ -929,7 +929,7 @@ pwr.p.test(h=ES.h(0.5,0.52),power=0.9,sig.level=0.05,alternative="less")
 
 Pour $p_1 = 0,52$, il faut environ 5000 naissances pour obtenir une puissance de 90% avec un risque $\alpha$ de 5%.
 
-## Exemple R
+### Exemple R
 
 enons l’exemple d’un essai évaluant l’efficacité d’une nouvelle molécule
 dans le sepsis sévère (étude comparative versus placebo). Compte tenu des critères
@@ -962,9 +962,9 @@ pwr.2p.test(
 Il faut donc inclure environ 447 patients par groupe (soit un total de 894 patients) pour détecter une différence de mortalité de 10 points entre les deux groupes avec une puissance de 90% et un risque $\alpha$ de 5%.
 
 \newpage
-# Tests uni- ou bilatéraux ?
+## Tests uni- ou bilatéraux ?
 
-## Définitions
+### Définitions
 
 -   Selon Fisher : 
 
@@ -978,7 +978,7 @@ Il faut donc inclure environ 447 patients par groupe (soit un total de 894 patie
 
     -   inférence statistique unilatérale inférieure ou supérieure selon le choix des hypothèses $H_0$ et $H_1$.
 
-## Exemple
+### Exemple
 
 1.  Essai randomisé : on teste 
 
@@ -997,9 +997,9 @@ Donc en soit, c'est un test unilatéral supérieur, et le risque de première es
 -   Avec le risque de première espèce $\alpha$ égal à 5%.
 
 \newpage
-# Intervalles de confiance
+## Intervalles de confiance
 
-## Définitions
+### Définitions
 
 "Vraie valeur" de la moyenne = espérance de la moyenne = 
 
@@ -1023,7 +1023,7 @@ Pour observer les fluctuations de l'estimation d’un paramètre dans un échant
 
 En gardant à l’esprit que les observations sont considérées implicitement comme un échantillon aléatoire issu d’une population sous-jacente alors que ça n’est que rarement le cas dans les faits !
 
-## Exemple R
+### Exemple R
 
 Prévalence de la schizophrénie dans l’étude `smp`. 
 

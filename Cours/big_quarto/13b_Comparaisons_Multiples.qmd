@@ -1,0 +1,146 @@
+---
+title: "Comparaisons Multiples"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+
+library(plotrix)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(qgraph)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+data(expsy)
+```
+
+## Introduction
+-   **Fisher** : calcule les petits *p* pour chaque comparaison.
+
+    -   Il fait ainsi de l'**inférence inductive**, c'est à dire qu'il utilise chacune des *p-values* pour en déduire des nouvelles connaissances.
+
+    -   Les observations de départ sont vraies, mais les conclusions sont probables
+
+    -   Génomique : 1 million de petits *p* : ça ne rentrera jamais dans la tête !
+
+-   **Neyman-Pearson** : calcule une **seule** *p-value* pour l'ensemble des comparaisons.
+
+    -   Hypothèse nulle H0 et hypothèse alternative H1
+
+    -   Risque de première espèce (alpha) et risque de deuxième espèce (beta)
+
+        -   $\alpha$ : probabilité de rejeter l'hypothèse nulle alors qu'elle est vraie
+
+        -   $\beta$ : probabilité de ne pas rejeter l'hypothèse nulle alors qu'elle est fausse
+
+    -   Si on augmente le nombre d'hypothèses, on augmente le risque alpha (parce que 5% à chaque fois !)
+
+::: callout-important
+Donc risque avec les comparaisons multiples dans la théorie de Neyman et Pearson, mais pas vraiment dans la théorie de Fisher.
+:::
+
+[Adjusting for multiple testing—when and how?](Article%20de%20référence%20:%20https://www.jclinepi.com/action/showPdf?pii=S0895-4356%2800%2900314-0)
+
+## Quand ajuster ?
+-   Dans Neyman et Pearson = dans les essais randomisés contrôlés
+
+## Comment ajuster ?
+### Exemple
+Dans l'asthme, on évalue le VEMS et la QoL.
+
+-   1ère situation : Médicament bon si VEMS significatif **ET** QoL significatif
+
+-   2e situation : Médicament bon si VEMS significatif **OU** QoL significatif
+
+    -   Problème : 2 tests indépendants, chacun avec un alpha de 5%
+
+### Méthode de Bonferroni = répartition du risque alpha
+**Méthode de Bonferonni** = la plus classique.
+
+Principe : diviser le risque alpha par le nombre de tests effectués.
+
+Dans le cas de l'exemple : 2 tests, donc alpha = 0.05/2 = 0.025
+
+Problème :
+
+-   perte de puissance !
+
+-   Critères d'efficacité souvent corrélés
+
+### Méthode de Holm = répartition du risque alpha
+**Méthode de Holm** = plus puissante que Bonferroni.
+
+Principe : ajuster le seuil alpha en fonction du rang des p-values.
+
+1.  Ordonner les p-values de la plus petite à la plus grande
+
+2.  Comparer chaque p-value au seuil alpha divisé par le nombre de tests restants
+
+Exemple : 4 tests, alpha = 0.05
+
+| Rang | p-value | Seuil alpha ajusté | Décision          |
+|------|---------|--------------------|-------------------|
+| 1    | 0.01    | 0.05/4 = 0.0125    | Rejeter H0        |
+| 2    | 0.03    | 0.05/3 = 0.0167    |                   |
+| 3    | 0.04    | 0.05/2 = 0.025     | Ne pas rejeter H0 |
+| 4    | 0.06    | 0.05/1 = 0.05      | Ne pas rejeter H0 |
+
+### Méthode par hiérarchie
+Si critère principal (Survie sans progression) et critères secondaires (Taux CCR, Survie Brute, Qualité de vie)
+
+**Hiérarchisation** :
+
+1.  Tester le critère principal au seuil alpha
+
+2.  Si significatif, tester le premier secondaire au seuil alpha ; sinon stop !
+
+3.  Si significatif, tester le second secondaire au seuil alpha ; sinon stop !
+
+## En dehors des essais thérapeutiques
+### Génomique
+-   Très grand nombre de tests
+
+-   Correction nécessaire !
+
+    -   Bonferroni : possible mais trop conservateur
+
+    -   FDR : False Discovery Rate (Benjamini-Hochberg)
+
+        -   Contrôle le taux de fausses découvertes parmi les résultats significatifs
+
+        -   Par exemple 20 marqueurs significatifs avec FDR à 15%
+
+        -   Signifie que 3 marqueurs (15% de 20) sont susceptibles d'être des faux positifs
+
+        -   On maîtrise pas le risque de première espèce sur chaque test individuel, mais le pourcentage de faux positifs parmi les tests déclarés significatifs
+
+-   Ou référence inductive ! \$ *"ce sont des pistes intéressantes"*
+
+## Questions
+1.  Quand on recherche des interactions
+
+    -   Par exemple 70 interactions
+
+    -   Si on veut **affirmer** qu'il y en a une significative, garder 0,05 n'a pas de sens
+
+    -   Solution :
+
+        -   Classer les p-values
+
+        -   Et les mettre sur une courbe
+
+        -   certaines p values sont /plus petites que ne le voudrait le hasard
+
+        -   Cox et Wermuth
+
+        -   ![](images/paste-36.png)

@@ -1,15 +1,47 @@
 project:
   type: book
 
+
+
 book:
-  title: "Mes notes de cours"
+  title: "Notes S1 M2 MSR"
   author: "Thomas Husson"
   chapters:
     - index.qmd
     - 1_resume_statistique.qmd
     - 2_Tests_statistiques_et_IC.qmd
     - 3_Modeles.qmd
-    - 6_effet_centre.qmd
+    - 4_Autour_modelisation.qmd
+    - 5_Modeles_lineaires_generalises.qmd
+    - 6_GLM_TP.qmd
+    - 7_survie.qmd
+    - 8_Poisson.qmd
+    - 9_Modeles_lineaires_mixtes.qmd
+    - 9bis_resume_poisson_MLL.qmd
+    - 9terMLM_TP.qmd
+    - 9u_Wrap_up_modeles_NLM.qmd
+    - 9v_Variabilités interindividuelles.qmd
+    - 9w_Effets_fixes_aleatoires.qmd
+    - 9w_Intercept_variances_effets_aleatoires.qmd
+    - 9y_Wrap_Up_Regressions.qmd
+    - 10_effet_centre.qmd
+    - 11_Mesures_repetees.qmd
+    - 12_Series chronologiques.qmd
+    - 13_series_chronologiques_video.qmd
+    - 13b_Comparaisons_Multiples.qmd
+    - 14_Donnees_manquantes.qmd
+    - 15_Boostrap.qmd
+    - 16_aMethodes_non_supervises.qmd
+    - 16_bMethodes non supervisées 2.qmd
+    - 16_cMethodes multidimensionnelles 3.qmd
+    - 17_Analyse_Factorielle.qmd
+    - 18_Clinimetrie.qmd
+    - 19_Wrap_up_clinimetrie.qmd
+    - 20_Mesures subjectives.qmd
+    - 21Bonus Mesure subjectivité livre.qmd
+    - 22_Méthodes_Qualitatives.qmd
+    - 23_Methodes_mixtes.qmd
+    - 24_bonus_residus.qmd
 
 format:
   html:
@@ -20,6 +52,7 @@ format:
     toc-sticky: true
     number-sections: true
     theme: default
+    css: ubuntu.css
 
   docx:
     toc: true
@@ -32,8 +65,9 @@ format:
     pdf-engine: xelatex
     number-sections: true
     geometry: margin=2.5cm
+    mainfont: Ubuntu
     header-includes: |
-      % Force la police Computer Modern pour le titre principal
+      % Force la police Ubuntu pour le titre principal
       \makeatletter
       \renewcommand{\maketitle}{
       \begin{center}

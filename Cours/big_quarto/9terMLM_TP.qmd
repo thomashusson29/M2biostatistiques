@@ -1,0 +1,166 @@
+---
+title: "Modèles linéaires mixtes TP"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(tidyr)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(lmerTest)
+library(lme4)
+library(lattice)
+library(qgraph)
+library(nlme)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+load(url("http://alecri.github.io/downloads/data/dental.RData"))
+```
+
+Transformer le jeu de données dental en format long.
+
+```{r}
+#| label: dental_long
+dental_long <- melt(dental, id.vars = c("id", "sex"), variable.name = "time", value.name = "distance")
+head(dental_long)
+```
+
+1.  Est-ce que la distance moyenne dépend du sexe, après ajustement sur le temps et d'un effet aléatoire "patient" ?
+
+2.  Codage catégoriel de la variable temps (time) ou quantitatif ? Arguments pour l'un ou l'autre ?
+
+## Impact du sexe sur la distance, ajusté sur le temps et un effet aléatoire patient.
+### Modèle avec temps en tant que variable catégorielle
+Stratégie : utilisation de la fonction lmer() du package lmerTest.
+
+Syntaxe : `lmer(response ~ fixed_effects + (random_intercept | grouping_factor_1) + (random_intercept | grouping_factor_2), data = data_frame, REML = TRUE )`
+
+On propose donc : 
+`lmer(distance ~ sex + time + (1 | id), data = dental_long, REML = TRUE )`
+
+Avec :
+
+-   `response` = `distance` = Variable dépendante numérique (ce que le modèle cherche à prédire).
+
+-   `fixed_effects` = Effets fixes, c’est-à-dire les variables explicatives dont on estime un coefficient unique pour l’ensemble de la population.
+
+    -   ici : `sex` (variable catégorielle) et `time` (variable catégorielle).
+
+-   `(random_intercept | grouping_factor_1)` = (1 | id) = Premier effet aléatoire, avec un intercept variant selon grouping_factor_1.
+
+    -   `random_intercept` = 1 (intercept variable) selon les niveaux de `grouping_factor_1` = `id` (identifiant unique de chaque enfant).
+    
+    -   `grouping_factor_1` = `id` (identifiant unique de chaque enfant).
+
+-   `data_frame` = Jeu de données contenant toutes les variables utilisées dans le modèle.
+
+-   `REML` = Argument logique indiquant si l’estimation doit utiliser REML (TRUE) ou ML (FALSE).
+
+    -   Par défaut, REML = TRUE donc pas besoin de le spécifier
+
+
+```{r}
+#| label: model_dental
+model_dental_cat <- lmer(distance ~ sex + time + (1 | id), data = dental_long, REML = TRUE)
+summary(model_dental_cat)
+```
+
+Interprétation : 
+
+-   Intercept (20.81) : Distance moyenne initiale pour les filles (référence de la variable sexe) à l'année 8 (référence de la variable temps).
+
+-   sexBoy (2.32) : Les garçons ont en moyenne une distance dentaire supérieure de 2.32mm par rapport aux filles, toutes choses égales par ailleurs (donc quelque soit le temps). Significatif (p = 0.00538).
+
+-   timey10 (0.98) : À l'année 10, la distance moyenne augmente de 0.98 mm par rapport à l'année 8, toutes choses égales par ailleurs. Significatif (p = 0.01447).
+
+-   timey12 (2.46) : À l'année 12, la distance moyenne augmente de 2.46 mm par rapport à l'année 8, toutes choses égales par ailleurs. Significatif (p = 1.80e-08).
+
+-   timey14 (3.91) : À l'année 14, la distance moyenne augmente de 3.91 mm par rapport à l'année 8, toutes choses égales par ailleurs. Significatif (p = 1.52e-15).
+
+#### Si on veut regarder s'il y a un effet-temps différent selon le sexe
+Stratégie : ajout d'un terme d'interaction entre sexe et temps.
+
+```{r}
+#| label: model_dental_interaction
+model_dental_cat_interaction <- lmer(distance ~ sex * time + (1 | id), data = dental_long, REML = TRUE)
+summary(model_dental_cat_interaction)
+```
+
+Interprétation :
+
+-   Les interactions entre sexe et temps permettent d'estimer si l'effet du temps sur la distance dentaire diffère entre les garçons et les filles.
+
+-   Par exemple, l'effet du temps à l'année 14 pour les garçons est estimé en combinant l'effet principal de timey14 (2.9091) et l'effet d'interaction sexBoy:timey14 (1.6847), ce qui donne un effet total de 4.5938 mm pour les garçons par rapport aux filles à l'année 8. (le calcul se fait en additionnant les coefficients : 2.9091 + 1.6847 = 4.5938).
+
+-   L'effet d'interaction sexBoy:timey14 est significatif (p = 0.0336), ce qui suggère que l'augmentation de la distance dentaire à l'année 14 est plus prononcée chez les garçons par rapport aux filles.
+
+### Modèle avec temps en tant que variable quantitative
+Ici, `time` est une variable catégorielle.
+
+```{r}
+dental_long$time
+```
+
+On peut créer une nouvelle variable `time_numeric` qui code le temps en tant que variable quantitative.
+
+1ère possibilité : codage numérique direct avec `as.numeric()`
+```{r}
+dental_long$time_numeric1 <- as.numeric(dental_long$time)
+dental_long$time_numeric1
+```
+
+2e possibilité avec `substr()` pour extraire la partie numérique
+
+1.  Extraire la partie numérique de la variable `time` en utilisant la fonction `substr()` pour enlever le "y" initial.
+
+    -   `substr(dental_long$time, 2, nchar(as.character(dental_long$time)))` extrait les caractères de la position 2 à la fin de la chaîne, supprimant ainsi le "y".
+
+2.  Convertir le résultat en numérique avec `as.numeric()`.
+
+    -   `as.numeric(...)` convertit la chaîne de caractères extraite en une variable numérique.
+
+```{r}
+dental_long$time_numeric2 <- as.numeric(substr(dental_long$time, 2, nchar(as.character(dental_long$time))))
+dental_long$time_numeric2
+```
+
+Stratégie : utilisation de la fonction lmer() du package lmerTest.
+
+Syntaxe : `lmer(response ~ fixed_effects + (random_intercept | grouping_factor_1) + (random_intercept | grouping_factor_2), data = data_frame, REML = TRUE )`
+
+On propose donc :
+`lmer(distance ~ sex + time_numeric + (1 | id), data = dental_long, REML = TRUE )`
+
+```{r}
+#| label: model_dental_numeric
+model_dental_num <- lmer(distance ~ sex + time_numeric2 + (1 | id), data = dental_long, REML = TRUE)
+summary(model_dental_num)
+```
+
+
+Interprétation :
+
+-   Intercept (15.39) : Distance moyenne initiale pour les filles (référence de la variable sexe) à l'année 0 (intercept extrapolé).
+
+-   sexBoy (2.32) : Les garçons ont en moyenne une distance dentaire supérieure de 2.32mm par rapport aux filles, toutes choses égales par ailleurs (donc quelque soit le temps). Significatif (p = 0.00538).
+
+-   
+
+

@@ -62,9 +62,9 @@ smp.d <- smp[,c("age","profession","nb.enfants", "depression","schizophrenie","g
 
 \newpage
 
-# Modèle linéaire
+## Modèle linéaire
 
-## Principe et mise en œuvre
+### Principe et mise en œuvre
 
 Modèle linéaire = modèle de régression linéaire = régression linéaire.
 
@@ -106,7 +106,7 @@ En gros : l'objectif est de trouver le modèle pour lequel le bruit est minimal.
 L'ANOVA (analyse de la variance) est en fait un cas particulier de la régression linéaire où toutes les variables explicatives sont catégorielles. Ainsi, une ANOVA à un facteur est équivalente à une régression linéaire avec une variable explicative binaire.
 :::
 
-## Exemple avec le jeu de données `smp`
+### Exemple avec le jeu de données `smp`
 
 Objectif : modéliser la durée de l’entretien en fonction de différentes variables explicatives.
 
@@ -423,9 +423,9 @@ L'objectif est de trouver les coefficients $\alpha_0$ et $\alpha_1$ qui minimise
 
 \newpage
 
-# Introduction aux GLM
+## Introduction aux GLM
 
-## Comment ça marche les GLM ?
+### Comment ça marche les GLM ?
 
 **Les modèles linéaires généralisés reposent sur 3 éléments:**
 
@@ -435,7 +435,7 @@ L'objectif est de trouver les coefficients $\alpha_0$ et $\alpha_1$ qui minimise
 
 3.  Une structure des erreurs
 
-## Le prédicteur linéaire
+### Le prédicteur linéaire
 
 « prédicteur linéaire« , c’est un terme un peu complexe pour dire, que comme dans les modèles linéaires classiques, les réponses prédites par les modèles vont l’être à partir d’une **combinaison linéaire des variables prédictives**
 
@@ -480,7 +480,7 @@ Le prédicteur linéaire $\eta_i$ est la “combinaison linéaire” de toutes l
 
 C’est lui que le modèle va ensuite transformer (via la fonction de lien) en **probabilité**, **moyenne**, ou **taux**, selon le type de GLM.
 
-## La fonction de lien
+### La fonction de lien
 
 = étape délicate des GLM !
 
@@ -495,7 +495,7 @@ Le prédicteur linéaire et la fonction de lien sont ainsi liés par une équati
 Les formules sont complexes et incompréhnsibles mais globalement :
 
 ::: {.landscape}
-### Tableau synthétique des modèles linéaires généralisés (GLM)
+#### Tableau synthétique des modèles linéaires généralisés (GLM)
 
 +-----------------------+-----------------------------------------------------+-----------------------------+-----------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
 | Type de réponse       | Domaine des valeurs possibles                       | Distribution des erreurs    | Fonction de lien                                                                                                            | Comment la moyenne est obtenue                                                                                   | Fonction de la variance                                                                  |
@@ -518,7 +518,7 @@ Les formules sont complexes et incompréhnsibles mais globalement :
 En gros : dans les GLM, les données sont d’abord transformées et que cette transformation permet ensuite aux prédictions d’avoir des contraintes identiques aux réponses observées (par exemple, d’être toujours positives ou nulles), autrement dit de fournir des prédictions cohérentes !
 :::
 
-## La structure d'erreur 
+### La structure d'erreur 
 
 A une fonction de lien donnée, correspond généralement une structure d’erreur particulière.
 
@@ -530,7 +530,7 @@ Cette structure d’erreur, permet notamment de spécifier correctement la relat
 
 Cette relation est utilisée par l’approche de maximum de vraisemblance pour estimer les coefficients des paramètres (les beta) du GLM.
 
-## Maximum de vraisemblance et déviance 
+### Maximum de vraisemblance et déviance 
 
 Les coefficients des paramètres d’un GLM sont estimés par la méthode du maximum de vraisemblance, qui fait appelle à la notion de déviance.
 
@@ -541,9 +541,9 @@ Elle mesure l’écart entre le modèle ajusté et le modèle saturé (modèle q
 L’objectif est de minimiser la déviance, c’est-à-dire de trouver les coefficients des paramètres qui rendent le modèle aussi proche que possible des données observées.
 
 \newpage
-# Modèle logistique
+## Modèle logistique
 
-## Modèle linéaire inadapté pour cas témoins
+### Modèle linéaire inadapté pour cas témoins
 
 En étude cas-témoins :
 
@@ -561,7 +561,7 @@ Or le modèle linéaire sur Y (0/1) raisonne justement en termes de moyennes et 
 
 En revanche, en cas-témoins, l’odds-ratio reste interprétable → d’où l’intérêt de la logistique.
 
-## Principe et mise en œuvre
+### Principe et mise en œuvre
 
 Objectif du modèle logistique : modéliser une variable binaire (0 ou 1) en fonction de variables explicatives quantitatives ou qualitatives.
 
@@ -595,9 +595,9 @@ L'objectif est donc de modéliser la "probabilité" que Y = 1 en fonction des va
 
 C'est à dire $P(Y=1|X_1, X_2, ..., X_p)$. (pour probabilité de Y sachant X1, X2, ..., Xp)
 
-## Transformation de Y
+### Transformation de Y
 
-### Odds
+#### Odds
 
 L'objectif est de modéliser la probabilité que Y = 1 en fonction des variables explicatives $X_1, X_2, ..., X_p$.
 
@@ -613,7 +613,7 @@ Les odds varient entre 0 et +∞. Exemple :
 
 -   si p = 0.8 → odds = 0.8 / 0.2 = 4
 
-### Log-odds
+#### Log-odds
 
 On applique la transformation logarithmique aux odds afin d'obtenir une variable qui varie entre -∞ et +∞ et de la rendre compatible avec une régression linéaire.
 
@@ -627,7 +627,7 @@ $$
 \log\left(\frac{p(Y=1)}{1-p(Y=1)}\right) = \alpha_0 + \alpha_1 X_1 + ... + \alpha_p X_p
 $$
 
-## Maximum de vraisemblance
+### Maximum de vraisemblance
 
 L'estimation des coefficients du modèle logistique se fait par la méthode du maximum de vraisemblance.
 
@@ -645,13 +645,13 @@ L'utilisation des logarithmes facilite les calculs car :
 
 -   Elle est souvent utilisée en statistique pour simplifier les calculs d'optimisation.
 
-## Conditions de validité
+### Conditions de validité
 
 La condition de validité la plus importante : au moins 10 évènements par variable explicative dans le modèle (10 événements = 10 cas où Y=1).
 
 Cela permet d'assurer que les estimations des coefficients du modèle sont stables et fiables.
 
-## Exemple R
+### Exemple R
 
 La fonction `glm()` permet de faire une régression logistique en R.
 
@@ -667,7 +667,7 @@ Objectif : modéliser l’existence d’un risque suicidaire élevé à l’aide
 
 -   type de prison (« 1 » pour maison centrale, « 2 » pour centre de détention et « 3 » pour maison d’arrêt).
 
-### Description des variables
+#### Description des variables
 
 ```{r}
 describe(
@@ -675,7 +675,7 @@ describe(
     num.desc=c("mean","sd","median", "min","max","valid.n"))
 ```
 
-### Fonction glm
+#### Fonction glm
 
 ```{r}
 mod <- glm(
@@ -711,7 +711,7 @@ gt_tbl <- as_gt(res_table)
 gt::as_latex(gt_tbl)
 ```
 
-### Tester l'absence d'effet d'une variable
+#### Tester l'absence d'effet d'une variable
 
 Fonction `drop1` permet de tester si "globalement", l'effet d'une variable catégorielle a un effet sur `hr.suicide`
 
@@ -735,7 +735,7 @@ Pour un modèle linéaire, on utilisait un test F car on utilisait la méthode d
 
 \newpage
 
-# Modèle log-binomial
+## Modèle log-binomial
 
 Problème du modèle logistique : les odds-ratios sont ajustés et donc difficiles à interpréter.
 
@@ -743,7 +743,7 @@ Comment traduire un OR en truc du quotidien (si la maladie est fréquente) ?
 
 Solution : modèle log-binomial.
 
-## Principe et mise en œuvre
+### Principe et mise en œuvre
 
 Objectif du modèle log-binomial : modéliser une variable binaire (0 ou 1) en fonction de variables explicatives quantitatives ou qualitatives, **en estimant directement les risques relatifs (RR) au lieu des odds-ratios (OR).**
 
@@ -775,7 +775,7 @@ Le modèle log-binomial fonctionne donc avec des contraintes :
 
 -   donc les coefficients sont fortement contraints à se rapprocher de 0.
 
-## Exemple R
+### Exemple R
 
 On utilise la fonction `logbin()` du package `logbin`.
 
@@ -803,9 +803,9 @@ res_table2 <- tbl_regression(mod2, exponentiate = TRUE) |>
 res_table2
 ```
 
-## Problème du modèle log-binomial
+### Problème du modèle log-binomial
 
-## Limitations du modèle log-binomial et alternative pratique
+### Limitations du modèle log-binomial et alternative pratique
 
 Le modèle **log-binomial**, utilisé pour estimer directement un **risque relatif (RR)** ajusté lorsque la maladie est fréquente, présente plusieurs limites majeures :
 
@@ -819,7 +819,7 @@ Le modèle **log-binomial**, utilisé pour estimer directement un **risque relat
 
 -   pour des maladies fréquentes, l’hypothèse d’absence d’interaction est souvent intenable, menant soit à des probabilités \> 100 %, soit à un aplatissement général des RR.
 
-## Alternative : calculer un RR marginal à partir d’un modèle logistique
+### Alternative : calculer un RR marginal à partir d’un modèle logistique
 
 Une approche robuste consiste à :
 
@@ -845,7 +845,7 @@ Une approche robuste consiste à :
 
     -   la différence absolue de risque : $DAR = p_1 - p_0$.
 
-:::callout-note
+::: callout-note
 **Régression logistique selon Firth**
 
 Firth modifie la régression logistique classique en ajoutant au critère à optimiser un terme supplémentaire qui devient très pénalisant quand un coefficient essaie de partir vers des valeurs extrêmes. 
@@ -859,13 +859,13 @@ Cette correction est construite pour compenser l’erreur systématique des esti
 
 \newpage
 
-# Modèle logistique pour *odds* proportionnels
+## Modèle logistique pour *odds* proportionnels
 
 Ces modèles sont adaptés quand la variable à expliquer est qualitative ordonnée. p151 du pdf
 
 \newpage
 
-# Modèle de Poisson et binomial négatif pour taux d'incidence
+## Modèle de Poisson et binomial négatif pour taux d'incidence
 
 Variable de type "compte" (= entier positif)
 
@@ -881,7 +881,7 @@ Définition :
 
 -   Structure d'erreur de type Poisson.
 
-## Pourquoi les modèles linéaires classiques ne sont pas adaptés
+### Pourquoi les modèles linéaires classiques ne sont pas adaptés
 
 Données de compte : ne remplissent pas les conditions de validité des modèles linéaires classiques.
 
@@ -889,7 +889,7 @@ Données de compte : ne remplissent pas les conditions de validité des modèles
 
 -   Leur variance n'est pas constante (mais proportionnelle à la moyenne)
 
-## La distribution de Poisson
+### La distribution de Poisson
 
 La distribution de Poisson est une distribution de probabilité discrète qui décrit le nombre d'événements se produisant dans un intervalle de temps ou d'espace fixe, lorsque ces événements se produisent avec une moyenne constante et indépendamment les uns des autres.
 
@@ -958,7 +958,7 @@ ggplot(df, aes(x = x, y = prob)) +
 
 -   La variance d’une variable aléatoire distribuée selon une loi de poisson est aussi égale à Lambda : $Var(y) = \lambda$
 
-## Caractéristique du GLM de Poisson
+### Caractéristique du GLM de Poisson
 
 1.  Prédicteur linéaire : combinaison linéaire des variables explicatives
 
@@ -982,7 +982,7 @@ Pour obtenir la prédiction moyenne, on applique l’exponentielle au prédicteu
 
 -   C'est à dire que son espérance (sa moyenne) et sa variance sont égales à $\lambda$.
 
-## Conditions de validité
+### Conditions de validité
 
 1.  les réponses sont indépendantes.
 
@@ -990,7 +990,7 @@ Pour obtenir la prédiction moyenne, on applique l’exponentielle au prédicteu
 
 3.  il n’existe pas de surdispersion
 
-### Indépendance des réponses
+#### Indépendance des réponses
 
 -   Pas de structures de corrélation entre les données
 
@@ -999,13 +999,13 @@ Pour obtenir la prédiction moyenne, on applique l’exponentielle au prédicteu
 -   Si données répétées : utiliser un modèle linéaire généralisé à effet mixte (Generalized Linear
 Mixed Models, ou GLMM).
 
-### Distribution des réponses
+#### Distribution des réponses
 
 -   Généralement supposée
 
 -   On peut comparer la distribution des données *vs* une distribution théorique de Poisson
 
-### Absence de surdispersion
+#### Absence de surdispersion
 
 -   Selon la loi de Poisson, la variance des réponses est égale à la moyenne des réponses.
 
@@ -1015,7 +1015,7 @@ Mixed Models, ou GLMM).
 
     -   et donc de p-value excessivement faible.
 
-#### Comment mesurer la surdispersion
+##### Comment mesurer la surdispersion
 
 On calcule un paramètre appelé $\phi$ :
 
@@ -1043,7 +1043,7 @@ Avec la déviance résiduelle = mesure de l’écart entre le modèle ajusté et
 Certains packages (comme `AER`) proposent un test dédié pour aider à prendre la décision.
 
 
-#### Causes fréquentes de surdispersion
+##### Causes fréquentes de surdispersion
 
 La surdispersion n’est pas un “bug”, mais un symptôme d’un problème réel dans les données :
 
@@ -1053,7 +1053,7 @@ La surdispersion n’est pas un “bug”, mais un symptôme d’un problème r�
 
 - excès de zéros par rapport à ce que prévoit une loi de Poisson.
 
-#### Que faire en cas de surdispersion ?
+##### Que faire en cas de surdispersion ?
 
 Si $\hat{\phi}$ est clairement supérieur à 1, il faut changer le modèle, car la régression de Poisson n'est plus adaptée.
 
@@ -1079,7 +1079,7 @@ $$
 
 Ce qui remet les p-values à des niveaux plus réalistes.
 
-## Exemple R
+### Exemple R
 
 Modèle expliquant le nombre d’antécédents d’incarcération des détenus du df `smp`.
 
@@ -1097,7 +1097,7 @@ var(smp$n.prison, na.rm=TRUE)
 var(smp$n.prison, na.rm=TRUE) / mean(smp$n.prison, na.rm=TRUE)
 ```
 
-### Modèle de Poisson
+#### Modèle de Poisson
 
 Essayons de calculer un modèle de Poisson malgré tout incluant : 
 
@@ -1150,7 +1150,7 @@ mod_pois |>
     performance::check_overdispersion()
 ```
 
-### Modèle quasi-Poisson
+#### Modèle quasi-Poisson
 
 ```{r}
 mod_quasi <- glm(
@@ -1186,7 +1186,7 @@ mod_quasi |>
     performance::check_overdispersion()
 ```
 
-### Modèle binomial négatif
+#### Modèle binomial négatif
 
 Library `MASS` propose la fonction `glm.nb()` pour ajuster un modèle binomial négatif.
 
@@ -1230,7 +1230,7 @@ mod_nb |>
 ```
 
 
-### Comment choisir directement le meilleur modèle
+#### Comment choisir directement le meilleur modèle
 
 Pour comparer objectivement les trois modèles ajustés ci‑dessus (Poisson, quasi‑Poisson, binomial négatif), on utilise :
 
@@ -1239,11 +1239,11 @@ Pour comparer objectivement les trois modèles ajustés ci‑dessus (Poisson, qu
 - et l’adéquation modèle/données.
 
 \newpage
-# Modèles de survie 
+## Modèles de survie 
 
-## Modèles de survie paramétrique : Weibull etc
+### Modèles de survie paramétrique : Weibull etc
 
-## Modèles de survie semi-paramétrique = Modèle de Cox
+### Modèles de survie semi-paramétrique = Modèle de Cox
 
 Modèle de Cox = régression de Cox = modèle des risques proportionnels de Cox.
 
@@ -1267,7 +1267,7 @@ $$
 
 **2 hypothèses principales** : **proportionnalité des risques** et **log-linéarité**.
 
-### Hypothèse de proportionnalité des risques
+#### Hypothèse de proportionnalité des risques
 
 **Hypothèse de proportionnalité des risques** : les rapports des risques entre les individus restent constants dans le temps, c'est à dire que l'effet des covariables sur le risque instantané est multiplicatif et ne dépend pas du temps.
 
@@ -1295,7 +1295,7 @@ Cela veut dire :
 
 Si cette hypothèse n’est pas vraie (ex : au début les fumeurs sont à très haut risque, mais plus tard le risque redevient identique), alors le modèle de Cox classique n’est plus adapté. (*Dans ce cas, on peut utiliser des modèles de Cox avec effets temporels*).
 
-### Hypothèse de log-linéarité
+#### Hypothèse de log-linéarité
 
 **Hypothèse de log-linéarité** : **concerne les variables quantitatives**.
 
@@ -1325,7 +1325,7 @@ Cela veut dire :
 
 -   L’effet est proportionnel, constant.
 
-### Exemple R
+#### Exemple R
 
 295 patientes du jeu de données `ks` :
 

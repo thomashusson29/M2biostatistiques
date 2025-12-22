@@ -1,0 +1,343 @@
+---
+title: "Effets fixes et aléatoires"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(viridisLite)
+library(ggplot2)
+library(survminer)
+library(treemap)
+library(psy)
+library(qgraph)
+library(ape)
+library(survival)
+library(httpgd)
+library(psy)
+knitr::opts_chunk$set(echo = TRUE)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+alzh = read.csv("~/Documents/Projets/M2biostatistiques/Cours/alzheimer.csv")
+set.seed(123)
+library(lme4)
+```
+
+---
+
+## Contexte : pourquoi parler d’effets fixes et aléatoires ?
+On travaille avec des données corrélées :
+
+-   patients vus plusieurs fois (données longitudinales),
+
+-   patients inclus dans différents centres,
+
+-   élèves dans des classes, classes dans des écoles, etc.
+
+Schéma classique :
+
+-   $i$ indexe les individus (patients) à l’intérieur d’un groupe,
+
+-   $j$ indexe les groupes (centres, services, écoles).
+
+On observe une réponse $Y_{ij}$ (par exemple un score, une mesure biologique) et des covariables $X_{ij}$ (âge, sexe, traitement, temps, etc.).
+
+Dans un modèle linéaire simple (sans structure de corrélation explicite) :\
+
+$$
+Y_{ij} = \beta_0 + \beta_1 X_{ij} + \varepsilon_{ij}.
+$$
+
+Problème : les observations ne sont pas indépendantes (mêmes patients, mêmes centres, etc.).
+
+**Idée des modèles linéaires mixtes (MLM) :**
+
+Combiner des effets fixes (covariables dont on veut estimer l’effet)
+et des effets aléatoires (variables qui modélisent la structure de corrélation entre les observations).
+
+⸻
+
+## Effets fixes : covariables dont on veut estimer l’effet
+### Définition intuitive
+Un effet fixe, c’est :
+
+-   une covariable pour laquelle on veut estimer un effet moyen dans la population,
+
+-   avec un coefficient unique valable pour tous les individus (et pour tous les centres) dans le modèle.
+
+Exemples typiques :
+
+-   traitement (A vs B),
+
+-   âge, sexe,
+
+-   dose d’un médicament,
+
+-   temps (en jours depuis l’inclusion).
+
+Dans un modèle mixte, on écrit par exemple :\
+
+$$
+Y_{ij} = \beta_0 + \beta_1 ,\text{traitement}{ij} + \beta_2 ,\text{âge}{ij} + \dots + \text{(effets aléatoires)} + \varepsilon_{ij}.
+$$
+
+Les $\beta_k$ sont des effets fixes :
+
+-   $\beta_1$ = effet moyen du traitement dans l’ensemble de la population,
+
+-   $\beta_2$ = effet moyen de l’âge, etc.
+
+On interprète $\beta_1$ comme dans une régression classique :
+
+-   si $Y_{ij}$ est continu : différence moyenne de $Y$ associée au traitement, après ajustement,
+
+-   si on est dans un modèle logistique ou Poisson : log-odds ratio, log-rate ratio, etc.
+
+### Ce que signifie « covariables dont on veut estimer l’effet »
+Quand on dit :
+
+**Effets fixes : covariables dont on veut estimer l’effet,**
+
+on veut dire :
+
+-   ce sont les variables pour lesquelles l’effet lui-même est l’objet du résultat scientifique,
+
+-   on va rapporter ces effets dans un tableau de résultats (estimateur, intervalle de confiance, $p$-value),
+
+-   on suppose que cet effet est le même dans tous les centres / tous les patients, à l’intérieur du modèle.
+
+Exemple :
+
+-   on veut savoir si le nouveau traitement réduit la mortalité, en moyenne,
+
+-   on met le traitement en effet fixe,
+
+-   on interprète $\hat{\beta}_\text{traitement}$ comme l’effet moyen du traitement.
+
+⸻
+
+## Effets aléatoires : modéliser la structure de corrélation
+### Idée de base
+Les effets aléatoires servent à modéliser :
+
+-   le fait que des observations appartenant au même groupe se ressemblent plus que des observations de groupes différents,
+
+-   la variabilité entre groupes (centres, patients, écoles, etc.),
+
+-   la corrélation entre observations d’un même groupe.
+
+On écrit par exemple, pour des patients $i$ dans des centres $j$ :\
+
+$$
+Y_{ij} = \beta_0 + \beta_1 X_{ij} + u_j + \varepsilon_{ij},
+$$
+
+avec :
+
+-   $u_j$ = effet aléatoire de centre (spécifique au centre $j$),
+
+-   souvent on suppose $u_j \sim \mathcal{N}(0, \tau^2)$,
+
+-   $\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)$ = erreur résiduelle individuelle.
+
+Ici :
+
+-   $\beta_0$ et $\beta_1$ sont des effets fixes,
+
+-   $u_j$ est un effet aléatoire,
+
+-   $u_j$ introduit de la corrélation entre les $Y_{ij}$ du même centre.
+
+### « Variables qui modélisent la structure de corrélation »
+La phrase :
+
+Effets aléatoires : variables qui modélisent la structure de corrélation entre les observations
+
+se traduit par :
+-   on ajoute des termes aléatoires (comme $u_j$) qui sont partagés par plusieurs observations,
+-   deux observations qui partagent le même $u_j$ sont corrélées,
+-   la manière dont on spécifie ces effets aléatoires (intercepts, pentes aléatoires, structure) détermine la forme de la corrélation.
+
+#### Exemple: intercept aléatoire de centre $(1 \mid \text{centre})$
+Modèle :\
+
+$$
+Y_{ij} = \beta_0 + u_j + \beta_1 X_{ij} + \varepsilon_{ij}.
+$$
+
+-   toutes les observations d’un même centre partagent le même $u_j$,
+
+-   cela crée une corrélation intra-centre,
+
+-   $\tau^2 = \text{Var}(u_j)$ mesure la variabilité inter-centre.
+
+
+#### Exemple: Intercept aléatoire de patient $(1 \mid \text{patient})$ dans des données longitudinales
+Modèle :\
+
+$$
+Y_{ij} = \beta_0 + b_i + \beta_1 t_{ij} + \varepsilon_{ij},
+$$
+
+où $t_{ij}$ est le temps et $b_i$ un effet aléatoire patient.
+
+-   toutes les mesures du même patient partagent le même $b_i$,
+
+-   cela modélise le fait que chaque patient a un niveau moyen propre,
+
+-   $\text{Var}(b_i)$ donne la variabilité inter-patient.
+
+#### Exemple: Pente aléatoire $(\text{temps} \mid \text{patient})$
+Modèle :\
+
+$$
+Y_{ij} = \beta_0 + b_{0i} + (\beta_1 + b_{1i}) t_{ij} + \varepsilon_{ij}.
+$$
+
+-   chaque patient a son intercept propre $b_{0i}$ et sa pente propre $b_{1i}$,
+
+-   cela permet de modéliser des trajectoires individuelles différentes dans le temps.
+
+⸻
+
+## Résumé conceptuel : ce qui distingue effets fixes et aléatoires
+On peut résumer ainsi :
+
+-   Effets fixes
+
+    -   On estime des coefficients uniques (par exemple $\beta_1$ pour le traitement).
+    -   On s’intéresse directement à la valeur de ces coefficients.
+    -   On les interprète comme des effets moyens (différence moyenne, log-odds ratio moyen, etc.).
+
+-   Effets aléatoires
+    -   On modélise des variables latentes comme $u_j$, $b_i$, propres aux centres ou aux patients.
+    -   On ne s’intéresse pas à la valeur spécifique de chaque $u_j$ en tant que résultat principal, mais à :
+    -   la variance de ces effets (par exemple $\tau^2$),
+    -   la structure de corrélation qu’ils induisent.
+
+-   Ils permettent de dire :
+“Les centres/patients diffèrent entre eux selon une distribution (par exemple normale) avec telle variance”.
+
+Les modèles linéaires mixtes :
+
+-   combinent des effets fixes (pour les covariables dont on veut l’effet estimé)
+
+-   et des effets aléatoires (pour représenter la structure de corrélation et la variabilité entre groupes).
+
+⸻
+
+## Exemple simple en R
+On simule des données avec :
+
+-   $J = 8$ centres,
+
+-   $n_j = 40$ patients par centre,
+
+-   un effet fixe $x$ (par exemple une covariable continue),
+
+-   un effet aléatoire de centre $u_j$,
+
+-   une erreur individuelle $\varepsilon_{ij}$.
+
+```{r}
+#| label: sim-mixed
+#| echo: true
+J <- 8
+n_per_center <- 40
+center <- factor(rep(1:J, each = n_per_center))
+
+# Covariable individuelle
+x <- rnorm(J * n_per_center, mean = 0, sd = 1)
+
+# Paramètres "vrais"
+beta0 <- 2      # effet fixe intercept
+beta1 <- 1.5    # effet fixe pour x
+tau   <- 1      # écart-type inter-centre
+sigma <- 2      # écart-type inter-individuel
+
+# Effet aléatoire de centre
+u <- rnorm(J, mean = 0, sd = tau)
+u_center <- u[center]
+
+# Bruit individuel
+eps <- rnorm(J * n_per_center, mean = 0, sd = sigma)
+
+# Réponse
+y <- beta0 + u_center + beta1 * x + eps
+
+dat <- data.frame(
+    y = y,
+    x = x,
+    center = center
+)
+
+head(dat)
+```
+
+On ajuste alors un modèle mixte :
+
+-   effet fixe : $x$,
+
+-   effet aléatoire : intercept aléatoire pour le centre.
+
+```{r}
+#| label: fit-mixed
+#| echo: true
+mod <- lmer(y ~ x + (1 | center), data = dat)
+summary(mod)
+```
+
+Dans la sortie :
+
+-   partie Fixed effects :
+
+    -   (Intercept) : estimation de $\beta_0$,
+
+    -   x : estimation de $\beta_1$, effet fixe de la covariable.
+
+-   partie Random effects :
+
+    -   center : variance estimée de $u_j$ (approximation de $\tau^2$),
+
+    -   Residual : variance résiduelle (approximation de $\sigma^2$).
+
+On peut extraire les deux types d’effets :
+
+```{r}
+#| label: extract-effects
+#| echo: true
+# Effets fixes
+fixef(mod)
+
+# Effets aléatoires de centre (BLUPs)
+ranef(mod)$center
+```
+
+Interprétation :
+
+-   fixef(mod) donne les estimations des effets fixes (ce qu’on met dans le tableau de résultats).
+
+-   ranef(mod)$center donne, pour chaque centre, l’estimation de $u_j$ (effet aléatoire centre) :
+
+    -   ces valeurs traduisent le fait que certains centres sont au-dessus ou en dessous de la moyenne,
+    -   mais ce n’est pas leur valeur exacte isolée qui est le résultat principal,
+
+-   ce qui nous intéresse surtout, c’est la variance de ces effets (la variabilité inter-centre) et la corrélation qu’ils induisent.
+
+⸻
+
+## En une phrase
+-   **Effets fixes** : covariables dont on veut estimer et interpréter l’effet moyen ($\beta$), commun à toute la population.
+
+-   **Effets aléatoires** : composantes aléatoires (comme $u_j$, $b_i$) ajoutées pour représenter la variabilité entre groupes et la corrélation entre observations, via leurs variances ($\tau^2$, etc.).
+
+Les modèles linéaires mixtes sont précisément construits pour combiner les deux, afin de :
+-   obtenir des effets fixes cohérents,
+-   et modéliser correctement la structure de dépendance des données.
+
