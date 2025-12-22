@@ -2003,7 +2003,7 @@ knitr::kable(
 
 ##### Test de l'effet d'interaction par rapport au modèle sans interaction
 
-Pour tester l'effet d'interaction, on peut faire un test de rapport de vraisemblance entre le modèle avec interaction et le modèle sans interaction.
+Pour tester l'effet d'interaction, on peut faire un test F pour comparer l'effet de l'ajout d'un terme d'interaction entre VISIT et GROUPE par rapport au modèle sans interaction 
 
 Utilisation de la fonction `drop1` pour ça :
 
@@ -2015,17 +2015,107 @@ Utilisation de la fonction `drop1` pour ça :
 #| results : asis
 #| warning: false
 test_interaction <- drop1(
-    modele_mixte_avec_interaction,
-    scope = "VISIT:GROUPE",
-    test = "Chisq"
+    modele_mixte_avec_interaction_continu,
+    test = "F"
 )
 test_interaction
 ```
 
+La p-value associée au test de l'effet d'interaction est < 0.001, ce qui indique que l'ajout du terme d'interaction entre VISIT et GROUPE améliore significativement le modèle par rapport au modèle sans interaction.
 
+En pratique, cela signifie que l'évolution des scores HDRS au cours du temps diffère significativement entre les deux groupes de traitement.
+
+```{r}
+#| label: histogramme résidus modèle mixte avec interaction
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| fig-width: 6
+#| fig-height: 3
+#| fig-cap : "Normalité des résidus du modèle mixte avec interaction entre VISIT (continue) et GROUPE"
+par(mfrow = c(1, 2))
+residus <- resid(modele_mixte_avec_interaction_continu)
+hist(residus,
+    main = " ",
+    xlab = "Résidus",
+    col = "#81a1c1",
+    border = "white",
+    breaks = 10,
+    freq = FALSE
+)
+qqnorm(residus,
+    main = " ",
+    col = "#81a1c1"
+)
+qqline(residus, col = "red")
+par(mfrow = c(1, 1))
+```
+
+Les résidus semblent suivre une distribution normale. 
+
+## Conclusion sur la comparaison de la réponse au traitement entre les deux groupes de patients
+
+-   La méthode LOCF suivie d'un test t de Student montre une différence moyenne de score entre J0 et J56 significativement plus élevée dans le groupe 0 que dans le groupe 1 (p < 0.001).
+
+-   Le modèle mixte avec interaction entre VISIT et GROUPE confirme que l'évolution des scores HDRS au cours du temps diffère significativement entre les deux groupes de traitement (p < 0.001 pour l'effet d'interaction).
+
+# Question 3 : Analyse de survie
+
+:::callout-note
+**Consigne**
+
+"On répond aussi parfois à cette question en considérant le critère binaire censuré « réponse au traitement » défini par une chute de 50% à l’échelle de Hamilton par
+rapport à J0. En utilisant ce nouveau critère, répondez donc de nouveau à la question 2."
+:::
+
+## Critère binaire de réponse (50% à la dernière visite observée)
+
+```{r}
+#| label: reponse-derniere-visite
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+# on repart de hdrs_wide (scores HDRS par visite)
+hdrs_wide_reponse <- hdrs_wide
+hdrs_wide_reponse$score_J0 <- hdrs_wide_reponse$J0
+
+# score et visite de la dernière observation disponible
+visits_matrix <- as.matrix(hdrs_wide_reponse[, visits])
+last_idx <- apply(visits_matrix, 1, function(x) {
+    idx <- which(!is.na(x))
+    if (length(idx) == 0) {
+        return(NA_integer_)
+    }
+    max(idx)
+})
+
+hdrs_wide_reponse$derniere_visite <- NA_character_
+hdrs_wide_reponse$score_dernier <- NA_real_
+valid <- !is.na(last_idx)
+hdrs_wide_reponse$derniere_visite[valid] <- visits[last_idx[valid]]
+hdrs_wide_reponse$score_dernier[valid] <- visits_matrix[cbind(which(valid), last_idx[valid])]
+
+# réponse binaire: chute de 50% ou plus à la dernière visite observée
+hdrs_wide_reponse$reponse <- ifelse(
+    !is.na(hdrs_wide_reponse$score_dernier) &
+        hdrs_wide_reponse$score_dernier <= 0.5 * hdrs_wide_reponse$score_J0,
+    1,
+    0
+)
+
+# données au format long avec la réponse par patient
+hdrs_groupe_reponse <- merge(
+    hdrs_groupe,
+    hdrs_wide_reponse[, c("NUMERO", "GROUPE", "score_J0", "derniere_visite", "score_dernier", "reponse")],
+    by = c("NUMERO", "GROUPE")
+)
+```
 
 # Annexe – Code R
 
+```{r}
 ```{r}
 #| echo: false
 #| results: asis
