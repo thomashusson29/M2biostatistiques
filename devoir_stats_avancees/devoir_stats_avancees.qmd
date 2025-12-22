@@ -270,9 +270,13 @@ Les données sont importées à partir de fichiers Excel.
 #| message: false
 #| warning: false
 library(readxl)
-scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
-groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
-hdrs <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
+#scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
+#groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
+#hdrs <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
+
+scl90 <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
+groupe <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
+hdrs <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
 ```
 
 ### SCL90
@@ -1953,7 +1957,6 @@ knitr::kable(
 ```
 
 
-
 ##### Modèle mixte avec interaction avec `VISIT` comme variable continue
 
 ```{r}
@@ -1999,6 +2002,26 @@ knitr::kable(
 ```
 
 ##### Test de l'effet d'interaction par rapport au modèle sans interaction
+
+Pour tester l'effet d'interaction, on peut faire un test de rapport de vraisemblance entre le modèle avec interaction et le modèle sans interaction.
+
+Utilisation de la fonction `drop1` pour ça :
+
+```{r}
+#| label: test interaction modèle mixte
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+test_interaction <- drop1(
+    modele_mixte_avec_interaction,
+    scope = "VISIT:GROUPE",
+    test = "Chisq"
+)
+test_interaction
+```
+
 
 
 # Annexe – Code R
