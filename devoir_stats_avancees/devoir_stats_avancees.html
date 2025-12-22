@@ -35,7 +35,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="devoir_stats_avancees_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="devoir_stats_avancees_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="devoir_stats_avancees_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="devoir_stats_avancees_files/libs/bootstrap/bootstrap-55aa396ea3e988129bcec43acf404917.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="devoir_stats_avancees_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -174,10 +174,17 @@ window.Quarto = {
   </ul></li>
   </ul></li>
   </ul></li>
+  <li><a href="#conclusion-sur-la-comparaison-de-la-réponse-au-traitement-entre-les-deux-groupes-de-patients" id="toc-conclusion-sur-la-comparaison-de-la-réponse-au-traitement-entre-les-deux-groupes-de-patients" class="nav-link" data-scroll-target="#conclusion-sur-la-comparaison-de-la-réponse-au-traitement-entre-les-deux-groupes-de-patients"><span class="header-section-number">4.5</span> Conclusion sur la comparaison de la réponse au traitement entre les deux groupes de patients</a></li>
   </ul></li>
-  <li><a href="#annexe-code-r" id="toc-annexe-code-r" class="nav-link" data-scroll-target="#annexe-code-r"><span class="header-section-number">5</span> Annexe – Code R</a></li>
+  <li><a href="#question-3-analyse-de-survie" id="toc-question-3-analyse-de-survie" class="nav-link" data-scroll-target="#question-3-analyse-de-survie"><span class="header-section-number">5</span> Question 3 : Analyse de survie</a>
+  <ul>
+  <li><a href="#critère-binaire-de-réponse-50-à-la-dernière-visite-observée" id="toc-critère-binaire-de-réponse-50-à-la-dernière-visite-observée" class="nav-link" data-scroll-target="#critère-binaire-de-réponse-50-à-la-dernière-visite-observée"><span class="header-section-number">5.1</span> Critère binaire de réponse (50% à la dernière visite observée)</a></li>
+  <li><a href="#intégration-du-critère-binaire-de-réponse-dans-une-analyse-de-survie" id="toc-intégration-du-critère-binaire-de-réponse-dans-une-analyse-de-survie" class="nav-link" data-scroll-target="#intégration-du-critère-binaire-de-réponse-dans-une-analyse-de-survie"><span class="header-section-number">5.2</span> Intégration du critère binaire de réponse dans une analyse de survie</a></li>
+  <li><a href="#analyse-de-survie-avec-le-critère-binaire-de-réponse" id="toc-analyse-de-survie-avec-le-critère-binaire-de-réponse" class="nav-link" data-scroll-target="#analyse-de-survie-avec-le-critère-binaire-de-réponse"><span class="header-section-number">5.3</span> Analyse de survie avec le critère binaire de réponse</a></li>
+  </ul></li>
+  <li><a href="#annexe-code-r" id="toc-annexe-code-r" class="nav-link" data-scroll-target="#annexe-code-r"><span class="header-section-number">6</span> Annexe – Code R</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="devoir_stats_avancees.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="devoir_stats_avancees.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="devoir_stats_avancees.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../devoir_stats_avancees.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -2642,18 +2649,208 @@ N = 71<span class="gt_footnote_marks" style="white-space:nowrap;font-style:itali
 </section>
 <section id="test-de-leffet-dinteraction-par-rapport-au-modèle-sans-interaction" class="level5" data-number="4.4.2.2.3">
 <h5 data-number="4.4.2.2.3" class="anchored" data-anchor-id="test-de-leffet-dinteraction-par-rapport-au-modèle-sans-interaction"><span class="header-section-number">4.4.2.2.3</span> Test de l’effet d’interaction par rapport au modèle sans interaction</h5>
-<p>Pour tester l’effet d’interaction, on peut faire un test de rapport de vraisemblance entre le modèle avec interaction et le modèle sans interaction.</p>
+<p>Pour tester l’effet d’interaction, on peut faire un test F pour comparer l’effet de l’ajout d’un terme d’interaction entre VISIT et GROUPE par rapport au modèle sans interaction</p>
 <p>Utilisation de la fonction <code>drop1</code> pour ça :</p>
 <p>Single term deletions using Satterthwaite’s method:</p>
-<p>Model: score ~ VISIT * GROUPE + (1 | NUMERO) Sum Sq Mean Sq NumDF DenDF F value Pr(&gt;F)<br>
-VISIT:GROUPE 1009.5 144.21 7 897.83 8.7357 2.062e-10 *** — Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ’ ’ 1</p>
+<p>Model: score ~ VISIT_num * GROUPE + (1 | NUMERO) Sum Sq Mean Sq NumDF DenDF F value Pr(&gt;F)<br>
+VISIT_num:GROUPE 672.72 672.72 1 924.77 27.908 1.587e-07 *** — Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ’ ’ 1</p>
+<p>La p-value associée au test de l’effet d’interaction est &lt; 0.001, ce qui indique que l’ajout du terme d’interaction entre VISIT et GROUPE améliore significativement le modèle par rapport au modèle sans interaction.</p>
+<p>En pratique, cela signifie que l’évolution des scores HDRS au cours du temps diffère significativement entre les deux groupes de traitement.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/histogramme%20résidus%20modèle%20mixte%20avec%20interaction-1.png" class="img-fluid figure-img" width="576"></p>
+<figcaption>Normalité des résidus du modèle mixte avec interaction entre VISIT (continue) et GROUPE</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Les résidus semblent suivre une distribution normale.</p>
 </section>
 </section>
 </section>
 </section>
+<section id="conclusion-sur-la-comparaison-de-la-réponse-au-traitement-entre-les-deux-groupes-de-patients" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="conclusion-sur-la-comparaison-de-la-réponse-au-traitement-entre-les-deux-groupes-de-patients"><span class="header-section-number">4.5</span> Conclusion sur la comparaison de la réponse au traitement entre les deux groupes de patients</h2>
+<ul>
+<li><p>La méthode LOCF suivie d’un test t de Student montre une différence moyenne de score entre J0 et J56 significativement plus élevée dans le groupe 0 que dans le groupe 1 (p &lt; 0.001).</p></li>
+<li><p>Le modèle mixte avec interaction entre VISIT et GROUPE confirme que l’évolution des scores HDRS au cours du temps diffère significativement entre les deux groupes de traitement (p &lt; 0.001 pour l’effet d’interaction).</p></li>
+</ul>
+<div style="page-break-after: always;"></div>
 </section>
-<section id="annexe-code-r" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Annexe – Code R</h1>
+</section>
+<section id="question-3-analyse-de-survie" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Question 3 : Analyse de survie</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Consigne</strong></p>
+<p>“On répond aussi parfois à cette question en considérant le critère binaire censuré « réponse au traitement » défini par une chute de 50% à l’échelle de Hamilton par rapport à J0. En utilisant ce nouveau critère, répondez donc de nouveau à la question 2.”</p>
+</div>
+</div>
+<section id="critère-binaire-de-réponse-50-à-la-dernière-visite-observée" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="critère-binaire-de-réponse-50-à-la-dernière-visite-observée"><span class="header-section-number">5.1</span> Critère binaire de réponse (50% à la dernière visite observée)</h2>
+<p>L’objectif est de définir un critère binaire de réponse au traitement basé sur une chute d’au moins 50% du score HDRS par rapport à J0, en utilisant la dernière visite observée pour chaque patient.</p>
+<p>Les étapes sont :</p>
+<ul>
+<li><p>Obtention du score HDRS de la dernière visite observée (non manquante) pour chaque patient.</p></li>
+<li><p>Calcul de la chute par rapport à J0.</p></li>
+<li><p>Si la chute est d’au moins 50%, le patient est considéré comme ayant répondu au traitement (réponse = 1), sinon non (réponse = 0).</p></li>
+<li><p>Fusion de cette information avec les données au format long <code>hdrs_groupe</code>, dans une variable <code>reponse</code> (et un nouveau data.frame <code>hdrs_groupe_reponse</code>).</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  NUMERO GROUPE VISIT 1_humeur_depressive 2_sentim_culpabilite 3_suicide
+1      0      1    J0                   3                    2         2
+2     10      1    J0                   3                    2         3
+3     10      1    J4                   3                    2         2
+4     10      1    J7                   3                    2         1
+5     10      1   J14                   2                    2         1
+6     10      1   J21                   2                    1         0
+  4_insomnie_debut 5_insomnie_milieu 6_insomnie_matin 7_travail_activite
+1                1                 1                0                  3
+2                1                 2                2                  2
+3                0                 2                2                  2
+4                1                 1                2                  2
+5                1                 1                1                  1
+6                1                 1                1                  1
+  8_ralentissement 9_agitation 10_anxiete_psychique 11_anxiete_somatique
+1                1           2                    3                    4
+2                1           3                    3                    2
+3                0           1                    3                    1
+4                0           1                    3                    1
+5                0           1                    2                    1
+6                0           0                    2                    1
+  12_symptomes_gastro 13_symptomes_generaux 14_symptomes_genitaux
+1                   0                     2                     2
+2                   0                     1                     2
+3                   0                     1                     2
+4                   0                     0                     2
+5                   0                     0                     2
+6                   0                     0                     2
+  15_hypochondrie 17_prise_conscience 16_perte_poids score VISIT_num score_J0
+1               2                   1              0    29         0       29
+2               2                   0              0    29         0       29
+3               2                   0              0    23         4       29
+4               2                   0              0    21         7       29
+5               2                   0              0    17        14       29
+6               1                   0              0    13        21       29
+  derniere_visite score_dernier reponse
+1              J0            29       0
+2             J56             9       1
+3             J56             9       1
+4             J56             9       1
+5             J56             9       1
+6             J56             9       1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    FALSE      TRUE 
+0.8184411 0.1815589 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        0         1 
+0.1815589 0.8184411 </code></pre>
+</div>
+</div>
+</section>
+<section id="intégration-du-critère-binaire-de-réponse-dans-une-analyse-de-survie" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="intégration-du-critère-binaire-de-réponse-dans-une-analyse-de-survie"><span class="header-section-number">5.2</span> Intégration du critère binaire de réponse dans une analyse de survie</h2>
+<p>L’objectif est d’utiliser le critère binaire de réponse (chute d’au moins 50% du score HDRS par rapport à J0) dans une analyse de survie.</p>
+<p>Il faut donc définir :</p>
+<ul>
+<li><p>Un temps de suivi pour chaque patient, qui correspond au délai jusqu’à la <strong>première</strong> réponse observée (chute ≥ 50% par rapport à J0). Si une visite est manquante, on considère une censure à la visite précédente (logique du PDF DEGACHI).</p></li>
+<li><p>Un indicateur d’événement, qui vaut 1 si la réponse est observée et 0 si le patient est censuré.</p></li>
+</ul>
+<p>Il faut censurer les patients à 56 jours.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  NUMERO temps_suivi evenement reponse
+1      0           0         0       0
+2      3           7         0       0
+3      4          28         1       1
+4      7          14         1       1
+5      8          21         1       1
+6      9          42         1       1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+     0  4  7 14 21 28 42 56
+  0  7  4  3  4  2  2  1  9
+  1  0  2 22 25 21 19 18  7</code></pre>
+</div>
+</div>
+<table class="caption-top table">
+<caption>Temps de suivi (en jours) par groupe de traitement</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">0</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">14</th>
+<th style="text-align: center;">21</th>
+<th style="text-align: center;">28</th>
+<th style="text-align: center;">42</th>
+<th style="text-align: center;">56</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">14</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="analyse-de-survie-avec-le-critère-binaire-de-réponse" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="analyse-de-survie-avec-le-critère-binaire-de-réponse"><span class="header-section-number">5.3</span> Analyse de survie avec le critère binaire de réponse</h2>
+<p>Censure à 56 jours.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="devoir_stats_avancees_files/figure-html/analyse%20de%20survie%20reponse%20binaire-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Courbes de survie de la réponse au traitement par groupe de traitement</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="annexe-code-r" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Annexe – Code R</h1>
 </section>
 
 </main>

@@ -139,32 +139,31 @@ knitr::opts_chunk$set(echo = TRUE)
 #| results: hide
 #| message: false
 #| warning: false
-file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
-
-lines <- readLines(file_qmd)
+#file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
+#lines <- readLines(file_qmd)
 
 # trouver les débuts de chunks R
-starts <- grep("^```\\{r", lines)
+#starts <- grep("^```\\{r", lines)
 # trouver les fins de chunks
-ends   <- grep("^```\\s*$", lines)
+#ends   <- grep("^```\\s*$", lines)
 
-if (length(starts) != length(ends)) {
-    stop("Extraction des chunks R impossible : démarcations incohérentes")
-}
+#if (length(starts) != length(ends)) {
+#    stop("Extraction des chunks R impossible : démarcations incohérentes")
+#}
 
-code_r <- character(0)
+#code_r <- character(0)
 
-for (i in seq_along(starts)) {
+#for (i in seq_along(starts)) {
     # lignes à l’intérieur du chunk (excluant les balises de début et fin)
-    chunk_lines <- lines[(starts[i] + 1):(ends[i] - 1)]
+#    chunk_lines <- lines[(starts[i] + 1):(ends[i] - 1)]
     # filtrer : garder seulement les lignes qui **ne sont pas des options Quarto**
-    real_code <- chunk_lines[!grepl("^\\s*#\\|", chunk_lines)]
+#    real_code <- chunk_lines[!grepl("^\\s*#\\|", chunk_lines)]
     # ajouter au vecteur final
-    code_r <- c(code_r, real_code, "")
-}
+#    code_r <- c(code_r, real_code, "")
+#}
 
-outfile <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R"
-cat(code_r, file = outfile, sep = "\n")
+#outfile <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R"
+#cat(code_r, file = outfile, sep = "\n")
 ```
 
 \newpage
@@ -270,13 +269,13 @@ Les données sont importées à partir de fichiers Excel.
 #| message: false
 #| warning: false
 library(readxl)
-#scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
-#groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
-#hdrs <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
+scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
+groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
+hdrs <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
 
-scl90 <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
-groupe <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
-hdrs <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
+#scl90 <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
+#groupe <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
+#hdrs <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
 ```
 
 ### SCL90
@@ -2060,16 +2059,28 @@ Les résidus semblent suivre une distribution normale.
 
 -   Le modèle mixte avec interaction entre VISIT et GROUPE confirme que l'évolution des scores HDRS au cours du temps diffère significativement entre les deux groupes de traitement (p < 0.001 pour l'effet d'interaction).
 
+\newpage
 # Question 3 : Analyse de survie
 
 :::callout-note
 **Consigne**
 
-"On répond aussi parfois à cette question en considérant le critère binaire censuré « réponse au traitement » défini par une chute de 50% à l’échelle de Hamilton par
-rapport à J0. En utilisant ce nouveau critère, répondez donc de nouveau à la question 2."
+"On répond aussi parfois à cette question en considérant le critère binaire censuré « réponse au traitement » défini par une chute de 50% à l’échelle de Hamilton par rapport à J0. En utilisant ce nouveau critère, répondez donc de nouveau à la question 2."
 :::
 
 ## Critère binaire de réponse (50% à la dernière visite observée)
+
+L'objectif est de définir un critère binaire de réponse au traitement basé sur une chute d'au moins 50% du score HDRS par rapport à J0, en utilisant la dernière visite observée pour chaque patient.
+
+Les étapes sont : 
+
+-   Obtention du score HDRS de la dernière visite observée (non manquante) pour chaque patient.
+
+-   Calcul de la chute par rapport à J0.
+
+-   Si la chute est d'au moins 50%, le patient est considéré comme ayant répondu au traitement (réponse = 1), sinon non (réponse = 0).
+
+-   Fusion de cette information avec les données au format long `hdrs_groupe`, dans une variable `reponse` (et un nouveau data.frame `hdrs_groupe_reponse`).
 
 ```{r}
 #| label: reponse-derniere-visite
@@ -2081,23 +2092,21 @@ rapport à J0. En utilisant ce nouveau critère, répondez donc de nouveau à la
 hdrs_wide_reponse <- hdrs_wide
 hdrs_wide_reponse$score_J0 <- hdrs_wide_reponse$J0
 
-# score et visite de la dernière observation disponible
+# extraire la dernière visite observée (non manquante) par patient
 visits_matrix <- as.matrix(hdrs_wide_reponse[, visits])
-last_idx <- apply(visits_matrix, 1, function(x) {
-    idx <- which(!is.na(x))
-    if (length(idx) == 0) {
-        return(NA_integer_)
-    }
-    max(idx)
-})
+valid <- rowSums(!is.na(visits_matrix)) > 0
 
-hdrs_wide_reponse$derniere_visite <- NA_character_
-hdrs_wide_reponse$score_dernier <- NA_real_
-valid <- !is.na(last_idx)
+# index de la dernière valeur non manquante sur la ligne
+last_idx <- max.col(!is.na(visits_matrix), ties.method = "last")
+last_idx[!valid] <- NA
+
+# stocker la dernière visite et le dernier score observé
+hdrs_wide_reponse$derniere_visite <- NA
+hdrs_wide_reponse$score_dernier <- NA
 hdrs_wide_reponse$derniere_visite[valid] <- visits[last_idx[valid]]
 hdrs_wide_reponse$score_dernier[valid] <- visits_matrix[cbind(which(valid), last_idx[valid])]
 
-# réponse binaire: chute de 50% ou plus à la dernière visite observée
+# critère binaire de réponse: chute >= 50% par rapport à J0
 hdrs_wide_reponse$reponse <- ifelse(
     !is.na(hdrs_wide_reponse$score_dernier) &
         hdrs_wide_reponse$score_dernier <= 0.5 * hdrs_wide_reponse$score_J0,
@@ -2105,25 +2114,169 @@ hdrs_wide_reponse$reponse <- ifelse(
     0
 )
 
-# données au format long avec la réponse par patient
+# fusionner la réponse avec les données au format long
 hdrs_groupe_reponse <- merge(
     hdrs_groupe,
     hdrs_wide_reponse[, c("NUMERO", "GROUPE", "score_J0", "derniere_visite", "score_dernier", "reponse")],
     by = c("NUMERO", "GROUPE")
 )
+
+# verification rapide du resultat (aperçu)
+head(hdrs_groupe_reponse)
+
+# verifier que hdrs_groupe et hdrs_groupe_reponse ne diffèrent pas hors colonnes ajoutées
+cols_added <- c("score_J0", "derniere_visite", "score_dernier", "reponse")
+common_cols <- setdiff(names(hdrs_groupe_reponse), cols_added)
+hdrs_groupe_sorted <- hdrs_groupe[order(hdrs_groupe$NUMERO, hdrs_groupe$GROUPE), common_cols]
+hdrs_groupe_reponse_base <- hdrs_groupe_reponse[order(hdrs_groupe_reponse$NUMERO, hdrs_groupe_reponse$GROUPE), common_cols]
+coerce_like <- function(x, template) {
+    if (is.factor(template)) return(factor(x, levels = levels(template)))
+    if (is.integer(template)) return(as.integer(x))
+    if (is.numeric(template)) return(as.numeric(x))
+    if (is.character(template)) return(as.character(x))
+    if (is.logical(template)) return(as.logical(x))
+    x
+}
+for (col in common_cols) {
+    hdrs_groupe_reponse_base[[col]] <- coerce_like(hdrs_groupe_reponse_base[[col]], hdrs_groupe_sorted[[col]])
+}
+all.equal(hdrs_groupe_sorted, hdrs_groupe_reponse_base, check.attributes = FALSE)
+
+# prop.table: chute < 50% a la derniere visite (dans hdrs_groupe via jointure)
+tmp_resp <- hdrs_wide_reponse[, c("NUMERO", "GROUPE", "score_J0", "score_dernier")]
+tmp_resp$chute_lt_50 <- with(tmp_resp, !is.na(score_dernier) & score_dernier > 0.5 * score_J0)
+hdrs_groupe_check <- merge(hdrs_groupe, tmp_resp[, c("NUMERO", "GROUPE", "chute_lt_50")], by = c("NUMERO", "GROUPE"), all.x = TRUE)
+prop.table(table(hdrs_groupe_check$chute_lt_50, useNA = "ifany"))
+
+# prop.table: reponse binaire dans hdrs_groupe_reponse
+prop.table(table(hdrs_groupe_reponse$reponse, useNA = "ifany"))
 ```
 
-# Annexe – Code R
+## Intégration du critère binaire de réponse dans une analyse de survie
+
+L'objectif est d'utiliser le critère binaire de réponse (chute d'au moins 50% du score HDRS par rapport à J0) dans une analyse de survie.
+
+Il faut donc définir : 
+
+-   Un temps de suivi pour chaque patient, qui correspond au délai jusqu'à la **première** réponse observée (chute ≥ 50% par rapport à J0). Si une visite est manquante, on considère une censure à la visite précédente (logique du PDF DEGACHI), sinon censure administrative à J56.
+
+-   Un indicateur d'événement, qui vaut 1 si la réponse est observée et 0 si le patient est censuré.
+
+Il y a une censure administrative à 56 jours, et une censure au premier manquant quand une visite est absente.
 
 ```{r}
+#| label: obtention des temps de suivi
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+# convertir les visites en jours
+visit_days <- c(J0 = 0, J4 = 4, J7 = 7, J14 = 14, J21 = 21, J28 = 28, J42 = 42, J56 = 56)
+# calculer temps_suivi et evenement (réponse) selon la logique DEGACHI, sans fonction
+scores_mat <- as.matrix(hdrs_wide_reponse[, visits])
+follow_mat <- scores_mat[, -1, drop = FALSE]
+score_j0 <- hdrs_wide_reponse$score_J0
+
+# position de la première visite manquante (censure à la visite précédente)
+na_mat <- is.na(follow_mat)
+na_any <- rowSums(na_mat) > 0
+na_pos <- max.col(na_mat, ties.method = "first")
+na_pos[!na_any] <- NA
+
+# position de la première réponse (chute >= 50% par rapport à J0)
+resp_mat <- sweep(follow_mat, 1, 0.5 * score_j0, "<=")
+resp_mat[is.na(resp_mat)] <- FALSE
+resp_any <- rowSums(resp_mat) > 0
+resp_pos <- max.col(resp_mat, ties.method = "first")
+resp_pos[!resp_any] <- NA
+
+# par défaut : censuré à J56
+temps_suivi <- rep(visit_days["J56"], nrow(follow_mat))
+evenement <- rep(0, nrow(follow_mat))
+
+# réponse avant la première NA
+event_before_censor <- !is.na(resp_pos) & (is.na(na_pos) | resp_pos < na_pos)
+temps_suivi[event_before_censor] <- visit_days[visits[-1][resp_pos[event_before_censor]]]
+evenement[event_before_censor] <- 1
+
+# censure avant réponse
+censor_before_event <- !is.na(na_pos) & (is.na(resp_pos) | na_pos < resp_pos)
+temps_suivi[censor_before_event] <- visit_days[visits[na_pos[censor_before_event]]]
+
+hdrs_wide_reponse$temps_suivi <- temps_suivi
+hdrs_wide_reponse$evenement <- evenement
+# vérifier les temps de suivi
+head(hdrs_wide_reponse[, c("NUMERO", "temps_suivi", "evenement", "reponse")])
+# distribution des événements par temps (doit montrer des réponses avant J56)
+table(hdrs_wide_reponse$evenement, hdrs_wide_reponse$temps_suivi, useNA = "ifany")
+```
+
+```{r}
+#| label: tableau temps de suivi par groupe
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+tableau_temps_suivi <- table(
+    hdrs_wide_reponse$GROUPE,
+    hdrs_wide_reponse$temps_suivi
+)
+knitr::kable(
+    tableau_temps_suivi,
+    caption = "Temps de suivi (en jours) par groupe de traitement",
+    booktabs = TRUE,
+    align = c("lcccccccc")
+)
+```
+
+## Analyse de survie avec le critère binaire de réponse
+
+Censure administrative à 56 jours et censure au premier manquant.
+```{r}
+#| label: analyse de survie reponse binaire
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| fig-height: 5.5
+#| fig-cap : "Courbes de survie de la réponse au traitement par groupe de traitement"
+library(survival)
+library(survminer)
+
+# créer l'objet Survival
+surv_obj_reponse <- Surv(time = hdrs_wide_reponse$temps_suivi, event = hdrs_wide_reponse$evenement)
+# ajuster le modèle de survie de Kaplan-Meier par groupe
+km_fit_reponse <- survfit(surv_obj_reponse ~ GROUPE, data = hdrs_wide_reponse)
+# theme nord pour ggplot
+# tracer les courbes de survie
+ggsurvplot(km_fit_reponse,
+            data = hdrs_wide_reponse,
+            pval = TRUE,
+            conf.int = TRUE,
+            risk.table = TRUE,
+            risk.table.col = "strata",
+            xlim = c(0, 56),
+            break.time.by = 7,
+            surv.scale = "percent",
+            legend.labs = c("Groupe 0", "Groupe 1"),
+            palette = c("#bf616a", "#88c0d0"),
+            xlab = "Temps (jours)",
+            ylab = "Probabilité de survie",
+)
+```
+
+\newpage
+# Annexe – Code R
+
 ```{r}
 #| echo: false
 #| results: asis
 
 # lire le fichier code généré
-code <- readLines("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R", warn = FALSE)
+#code <- readLines("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R", warn = FALSE)
 
-cat("```r\n")
-cat(code, sep = "\n")
-cat("\n```")
+#cat("```r\n")
+#cat(code, sep = "\n")
+#cat("\n```")
 ```
