@@ -52,7 +52,13 @@ $$
 
     -   Variance de deux variables indépendantes est égales à la somme de leurs variances
 
-    -   Dans le cas d'une distrib
+    -   Dans le cas d'une distribution normale : 
+
+        -   2/3 des observations se situent dans un intervalle de ±1 écart type autour de la moyenne
+
+        -   95% des observations se situent dans un intervalle de ±2 écart type autour de la moyenne
+
+        
 
 
 
