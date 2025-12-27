@@ -41,11 +41,19 @@ library(psy)
 library(reshape2)
 knitr::opts_chunk$set(echo = TRUE)
 
-file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
+#file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
 
-lines <- readLines(file_qmd)
+#extraction du code R pour le mettre à la fin du quarto md
+file_qmd <- knitr::current_input()
+if (is.null(file_qmd) || file_qmd == "") {
+    file_qmd <- "devoir_stats_avancees.qmd"
+}
+if (!file.exists(file_qmd)) {
+    stop(paste("Fichier Quarto introuvable:", file_qmd))
+}
+lines <- readLines(file_qmd, warn = FALSE)
 
-# trouver les débuts de chunks R
+# trouver les debuts de chunks R
 starts <- grep("^```\\{r", lines)
 # trouver les fins de chunks
 ends   <- grep("^```\\s*$", lines)
@@ -65,13 +73,17 @@ for (i in seq_along(starts)) {
     code_r <- c(code_r, real_code, "")
 }
 
-outfile <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R"
+outfile <- file.path(dirname(file_qmd), "all_chunks_code.R")
 cat(code_r, file = outfile, sep = "\n")
 
 library(readxl)
-scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
-groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
-hdrs <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
+#scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
+#groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
+#hdrs <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
+
+scl90 <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
+groupe <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
+hdrs <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
 
 describe(scl90)
 summary(scl90)
@@ -844,6 +856,15 @@ summary(modele_mixte_sans_interaction)
 coef_summary <- summary(modele_mixte_sans_interaction)$coefficients
 conf_int <- confint(modele_mixte_sans_interaction, level = 0.95, parm = "beta_")
 p_values <- coef_summary[, "Pr(>|t|)"]
+p_values_fmt <- ifelse(
+    p_values < 0.001,
+    "< 0.001",
+    ifelse(
+        p_values < 0.01,
+        "< 0.01",
+        ifelse(p_values < 0.05, "< 0.05", sprintf("%.4f", p_values))
+    )
+)
 # Création du tableau récapitulatif
 modele_mixte_sans_interaction_df <- data.frame(
     Coefficient = rownames(coef_summary),
@@ -852,50 +873,375 @@ modele_mixte_sans_interaction_df <- data.frame(
     t_value = round(coef_summary[, "t value"], 3),
     CI_lower = round(conf_int[, 1], 3),
     CI_upper = round(conf_int[, 2], 3),
-    p_value = round(p_values, 4)
+    p_value = p_values_fmt
 )
 # Affichage LaTeX
 knitr::kable(
     modele_mixte_sans_interaction_df,
     caption = "Estimation des coefficients du modèle mixte sans interaction entre VISIT (facteur) et GROUPE",
     booktabs = TRUE,
-    align = "lcccccc"
+    align = "lcccccc",
+    row.names = FALSE
 )
 
-# ordonner les niveaux de VISIT pour avoir J0 en référence et J56 en dernier
-hdrs_groupe$VISIT <- factor(as.character(hdrs_groupe$VISIT),
-                            levels = c("J0","J4","J7","J14","J21","J28","J42","J56"))
+# convertir VISIT en variable numérique (jours)
+hdrs_groupe$VISIT_num <- as.numeric(sub("J", "", as.character(hdrs_groupe$VISIT))) 
+modele_mixte_sans_interaction_continu <- lmer(
+            score ~ VISIT_num + GROUPE + (1 | NUMERO), 
+            data = hdrs_groupe
+            )
+summary(modele_mixte_sans_interaction_continu)
+
+# Extraction des coefficients, IC et p-values
+coef_summary_continu <- summary(modele_mixte_sans_interaction_continu)$coefficients
+conf_int_continu <- confint(modele_mixte_sans_interaction_continu, level = 0.95, parm = "beta_")
+p_values_continu <- coef_summary_continu[, "Pr(>|t|)"]
+p_values_continu_fmt <- ifelse(
+    p_values_continu < 0.001,
+    "< 0.001",
+    ifelse(
+        p_values_continu < 0.01,
+        "< 0.01",
+        ifelse(p_values_continu < 0.05, "< 0.05", sprintf("%.4f", p_values_continu))
+    )
+)
+# Création du tableau récapitulatif
+modele_mixte_sans_interaction_continu_df <- data.frame(
+    Coefficient = rownames(coef_summary_continu),
+    Estimate = round(coef_summary_continu[, "Estimate"], 3),
+    Std_Error = round(coef_summary_continu[, "Std. Error"], 3),
+    t_value = round(coef_summary_continu[, "t value"], 3),
+    CI_lower = round(conf_int_continu[, 1], 3),
+    CI_upper = round(conf_int_continu[, 2], 3),
+    p_value = p_values_continu_fmt
+)
+# Affichage LaTeX
+knitr::kable(
+    modele_mixte_sans_interaction_continu_df,
+    caption = "Estimation des coefficients du modèle mixte sans interaction entre VISIT (continue) et GROUPE",
+    booktabs = TRUE,
+    align = "lcccccc",
+    row.names = FALSE
+)
+
 modele_mixte_avec_interaction <- lmer(
             score ~ VISIT * GROUPE + (1 | NUMERO), 
             data = hdrs_groupe
             )
 summary(modele_mixte_avec_interaction)
 
-# Extraction des coefficients et des intervalles de confiance
-conf_int <- confint(modele_mixte_avec_interaction, level = 0.95, parm = "beta_")
+# Extraction des coefficients, IC et p-values
+coef_summary <- summary(modele_mixte_avec_interaction)$coefficients
+p_values <- coef_summary[, "Pr(>|t|)"]
+p_values_fmt <- ifelse(
+    p_values < 0.001,
+    "< 0.001",
+    ifelse(
+        p_values < 0.01,
+        "< 0.01",
+        ifelse(p_values < 0.05, "< 0.05", sprintf("%.4f", p_values))
+    )
+)
 # Création du tableau récapitulatif
 modele_mixte_interaction_df <- data.frame(
     Coefficient = rownames(coef_summary),
     Estimate = round(coef_summary[, "Estimate"], 3),
     Std_Error = round(coef_summary[, "Std. Error"], 3),
     t_value = round(coef_summary[, "t value"], 3),
-    CI_lower = round(conf_int[, 1], 3),
-    CI_upper = round(conf_int[, 2], 3)
+    p_value = p_values_fmt
 )
 # Affichage LaTeX
 knitr::kable(
     modele_mixte_interaction_df,
     caption = "Estimation des coefficients du modèle mixte avec interaction entre VISIT (facteur) et GROUPE",
     booktabs = TRUE,
+    align = "lcccc",
+    row.names = FALSE
+)
+
+modele_mixte_avec_interaction_continu <- lmer(
+            score ~ VISIT_num * GROUPE + (1 | NUMERO), 
+            data = hdrs_groupe
+            )
+summary(modele_mixte_avec_interaction_continu)
+
+# Extraction des coefficients, IC et p-values
+coef_summary_continu <- summary(modele_mixte_avec_interaction_continu)$coefficients
+p_values_continu <- coef_summary_continu[, "Pr(>|t|)"]
+p_values_continu_fmt <- ifelse(
+    p_values_continu < 0.001,
+    "< 0.001",
+    ifelse(
+        p_values_continu < 0.01,
+        "< 0.01",
+        ifelse(p_values_continu < 0.05, "< 0.05", sprintf("%.4f", p_values_continu))
+    )
+)
+# Création du tableau récapitulatif
+modele_mixte_interaction_continu_df <- data.frame(
+    Coefficient = rownames(coef_summary_continu),
+    Estimate = round(coef_summary_continu[, "Estimate"], 3),
+    Std_Error = round(coef_summary_continu[, "Std. Error"], 3),
+    t_value = round(coef_summary_continu[, "t value"], 3),
+    p_value = p_values_continu_fmt
+)
+# Affichage LaTeX
+knitr::kable(
+    modele_mixte_interaction_continu_df,
+    caption = "Estimation des coefficients du modèle mixte avec interaction entre VISIT (continue) et GROUPE",
+    booktabs = TRUE,
+    align = "lcccc",
+    row.names = FALSE
+)
+
+test_interaction <- drop1(
+    modele_mixte_avec_interaction_continu,
+    test = "F"
+)
+
+num_df <- if ("NumDF" %in% colnames(test_interaction)) {
+    test_interaction$NumDF
+} else if ("Df" %in% colnames(test_interaction)) {
+    test_interaction$Df
+} else {
+    rep(NA_integer_, nrow(test_interaction))
+}
+den_df <- if ("DenDF" %in% colnames(test_interaction)) {
+    test_interaction$DenDF
+} else {
+    rep(NA_integer_, nrow(test_interaction))
+}
+f_value <- if ("F value" %in% colnames(test_interaction)) {
+    test_interaction$`F value`
+} else if ("F" %in% colnames(test_interaction)) {
+    test_interaction$F
+} else {
+    rep(NA_real_, nrow(test_interaction))
+}
+test_interaction_df <- data.frame(
+    Term = rownames(test_interaction),
+    NumDF = num_df,
+    DenDF = den_df,
+    F_value = round(f_value, 3),
+    p_value = ifelse(
+        test_interaction$`Pr(>F)` < 0.001,
+        "< 0.001",
+        ifelse(
+            test_interaction$`Pr(>F)` < 0.01,
+            "< 0.01",
+            ifelse(test_interaction$`Pr(>F)` < 0.05, "< 0.05", sprintf("%.4f", test_interaction$`Pr(>F)`))
+        )
+    )
+)
+knitr::kable(
+    test_interaction_df,
+    caption = "Test F de l'effet d'interaction entre VISIT (continue) et GROUPE",
+    booktabs = TRUE,
+    align = "lcccc",
+    row.names = FALSE
+)
+
+par(mfrow = c(1, 2))
+residus <- resid(modele_mixte_avec_interaction_continu)
+hist(residus,
+    main = " ",
+    xlab = "Résidus",
+    col = "#81a1c1",
+    border = "white",
+    breaks = 100,
+    freq = FALSE
+)
+qqnorm(residus,
+    main = " ",
+    col = "#81a1c1"
+)
+qqline(residus, col = "red")
+par(mfrow = c(1, 1))
+
+# on repart de hdrs_wide (scores HDRS par visite)
+hdrs_wide_reponse <- hdrs_wide
+hdrs_wide_reponse$score_J0 <- hdrs_wide_reponse$J0
+
+# extraire la dernière visite observée (non manquante) par patient
+visits_matrix <- as.matrix(hdrs_wide_reponse[, visits])
+valid <- rowSums(!is.na(visits_matrix)) > 0
+
+# index de la dernière valeur non manquante sur la ligne
+last_idx <- max.col(!is.na(visits_matrix), ties.method = "last")
+last_idx[!valid] <- NA
+
+# stocker la dernière visite et le dernier score observé
+hdrs_wide_reponse$derniere_visite <- NA
+hdrs_wide_reponse$score_dernier <- NA
+hdrs_wide_reponse$derniere_visite[valid] <- visits[last_idx[valid]]
+hdrs_wide_reponse$score_dernier[valid] <- visits_matrix[cbind(which(valid), last_idx[valid])]
+
+# critère binaire de réponse: chute >= 50% par rapport à J0
+hdrs_wide_reponse$reponse <- ifelse(
+    !is.na(hdrs_wide_reponse$score_dernier) &
+        hdrs_wide_reponse$score_dernier <= 0.5 * hdrs_wide_reponse$score_J0,
+    1,
+    0
+)
+
+# fusionner la réponse avec les données au format long
+hdrs_groupe_reponse <- merge(
+    hdrs_groupe,
+    hdrs_wide_reponse[, c("NUMERO", "GROUPE", "score_J0", "derniere_visite", "score_dernier", "reponse")],
+    by = c("NUMERO", "GROUPE")
+)
+
+# verification rapide du resultat (aperçu)
+head(hdrs_groupe_reponse)
+
+# verifier que hdrs_groupe et hdrs_groupe_reponse ne diffèrent pas hors colonnes ajoutées
+cols_added <- c("score_J0", "derniere_visite", "score_dernier", "reponse")
+common_cols <- setdiff(names(hdrs_groupe_reponse), cols_added)
+hdrs_groupe_sorted <- hdrs_groupe[order(hdrs_groupe$NUMERO, hdrs_groupe$GROUPE), common_cols]
+hdrs_groupe_reponse_base <- hdrs_groupe_reponse[order(hdrs_groupe_reponse$NUMERO, hdrs_groupe_reponse$GROUPE), common_cols]
+coerce_like <- function(x, template) {
+    if (is.factor(template)) return(factor(x, levels = levels(template)))
+    if (is.integer(template)) return(as.integer(x))
+    if (is.numeric(template)) return(as.numeric(x))
+    if (is.character(template)) return(as.character(x))
+    if (is.logical(template)) return(as.logical(x))
+    x
+}
+for (col in common_cols) {
+    hdrs_groupe_reponse_base[[col]] <- coerce_like(hdrs_groupe_reponse_base[[col]], hdrs_groupe_sorted[[col]])
+}
+all.equal(hdrs_groupe_sorted, hdrs_groupe_reponse_base, check.attributes = FALSE)
+
+# prop.table: chute < 50% a la derniere visite (dans hdrs_groupe via jointure)
+tmp_resp <- hdrs_wide_reponse[, c("NUMERO", "GROUPE", "score_J0", "score_dernier")]
+tmp_resp$chute_lt_50 <- with(tmp_resp, !is.na(score_dernier) & score_dernier > 0.5 * score_J0)
+hdrs_groupe_check <- merge(hdrs_groupe, tmp_resp[, c("NUMERO", "GROUPE", "chute_lt_50")], by = c("NUMERO", "GROUPE"), all.x = TRUE)
+prop.table(table(hdrs_groupe_check$chute_lt_50, useNA = "ifany"))
+
+# prop.table: reponse binaire dans hdrs_groupe_reponse
+prop.table(table(hdrs_groupe_reponse$reponse, useNA = "ifany"))
+
+# convertir les visites en jours
+visit_days <- c(J0 = 0, J4 = 4, J7 = 7, J14 = 14, J21 = 21, J28 = 28, J42 = 42, J56 = 56)
+# calculer temps_suivi et evenement (réponse)
+scores_mat <- as.matrix(hdrs_wide_reponse[, visits])
+follow_mat <- scores_mat[, -1, drop = FALSE]
+score_j0 <- hdrs_wide_reponse$score_J0
+
+# position de la première visite manquante (censure à la visite précédente)
+na_mat <- is.na(follow_mat)
+na_any <- rowSums(na_mat) > 0
+na_pos <- max.col(na_mat, ties.method = "first")
+na_pos[!na_any] <- NA
+
+# position de la première réponse (chute >= 50% par rapport à J0)
+resp_mat <- sweep(follow_mat, 1, 0.5 * score_j0, "<=")
+resp_mat[is.na(resp_mat)] <- FALSE
+resp_any <- rowSums(resp_mat) > 0
+resp_pos <- max.col(resp_mat, ties.method = "first")
+resp_pos[!resp_any] <- NA
+
+# par défaut : censuré à J56
+temps_suivi <- rep(visit_days["J56"], nrow(follow_mat))
+evenement <- rep(0, nrow(follow_mat))
+
+# réponse avant la première NA
+event_before_censor <- !is.na(resp_pos) & (is.na(na_pos) | resp_pos < na_pos)
+temps_suivi[event_before_censor] <- visit_days[visits[-1][resp_pos[event_before_censor]]]
+evenement[event_before_censor] <- 1
+
+# censure avant réponse
+censor_before_event <- !is.na(na_pos) & (is.na(resp_pos) | na_pos < resp_pos)
+temps_suivi[censor_before_event] <- visit_days[visits[na_pos[censor_before_event]]]
+
+hdrs_wide_reponse$temps_suivi <- temps_suivi
+hdrs_wide_reponse$evenement <- evenement
+# vérifier les temps de suivi
+head(hdrs_wide_reponse[, c("NUMERO", "temps_suivi", "evenement", "reponse")])
+# distribution des événements par temps (doit montrer des réponses avant J56)
+table(hdrs_wide_reponse$evenement, hdrs_wide_reponse$temps_suivi, useNA = "ifany")
+
+tableau_temps_suivi <- table(
+    hdrs_wide_reponse$GROUPE,
+    hdrs_wide_reponse$temps_suivi
+)
+knitr::kable(
+    tableau_temps_suivi,
+    caption = "Temps de suivi (en jours) par groupe de traitement",
+    booktabs = TRUE,
+    align = c("lcccccccc")
+)
+
+# créer l'objet Survival
+surv_obj_reponse <- Surv(time = hdrs_wide_reponse$temps_suivi, event = hdrs_wide_reponse$evenement)
+# ajuster le modèle de survie de Kaplan-Meier par groupe
+km_fit_reponse <- survfit(surv_obj_reponse ~ GROUPE, data = hdrs_wide_reponse)
+# test de log-rank
+logrank_test_reponse <- survdiff(surv_obj_reponse ~ GROUPE, data = hdrs_wide_reponse)
+logrank_test_reponse
+
+# tracer les courbes de survie
+ggsurvplot(km_fit_reponse,
+            data = hdrs_wide_reponse,
+            pval = TRUE,
+            conf.int = TRUE,
+            risk.table = TRUE,
+            risk.table.col = "strata",
+            xlim = c(0, 56),
+            break.time.by = 7,
+            surv.scale = "percent",
+            legend.labs = c("Groupe 0", "Groupe 1"),
+            palette = c("#bf616a", "#88c0d0"),
+            xlab = "Temps (jours)",
+            ylab = "Probabilité de survie",
+)
+
+# ajuster le modèle de Cox
+cox_model_reponse <- coxph(surv_obj_reponse ~ GROUPE, data = hdrs_wide_reponse)
+
+# Extraction des coefficients, HR, IC et p-values
+coef_summary_cox <- summary(cox_model_reponse)$coefficients
+conf_int_cox <- confint(cox_model_reponse, level = 0.95)
+# Création du tableau récapitulatif
+cox_model_reponse_df <- data.frame(
+    Coefficient = rownames(coef_summary_cox),
+    Estimate = round(coef_summary_cox[, "coef"], 3),
+    HR = round(exp(coef_summary_cox[, "coef"]), 3),
+    CI_lower = round(exp(conf_int_cox[, 1]), 3),
+    CI_upper = round(exp(conf_int_cox[, 2]), 3),
+    p_value = round(coef_summary_cox[, "Pr(>|z|)"], 4)
+)
+# Affichage LaTeX
+knitr::kable(
+    cox_model_reponse_df,
+    caption = "Estimation des coefficients du modèle de Cox pour le critère binaire de réponse au traitement",
+    booktabs = TRUE,
     align = "lccccc",
     row.names = FALSE
 )
 
+plot(cox.zph(cox_model_reponse), main = "Risques proportionnels - Modèle de Cox binaire")
 
-# lire le fichier code généré
-code <- readLines("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R", warn = FALSE)
 
-cat("```r\n")
-cat(code, sep = "\n")
-cat("\n```")
+#insérer le code à la fin du fichier
+
+# lire le fichier code genere
+code <- readLines("all_chunks_code.R", warn = FALSE)
+
+code_wrapped <- code
+
+if (knitr::is_latex_output()) {
+    code_safe <- gsub(
+        "\\\\(begin|end)\\{lstlisting\\}",
+        "\\\\textbackslash \\1{lstlisting}",
+        code_wrapped
+    )
+    cat("\\begin{lstlisting}\n")
+    cat(code_safe, sep = "\n")
+    cat("\n\\end{lstlisting}\n")
+} else {
+    cat("```r\n")
+    cat(code_wrapped, sep = "\n")
+    cat("\n```")
+}
 

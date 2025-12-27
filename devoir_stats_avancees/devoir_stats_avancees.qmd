@@ -11,6 +11,7 @@ format:
         toc-sticky: true
         number-sections: true
         theme: default
+        css: styles.css
 
     docx:
         toc: true
@@ -22,6 +23,7 @@ format:
         toc-title: "Table des matières"
         pdf-engine: xelatex
         number-sections: true
+        code-block-bg: false
         header-includes: |
             % Force la police Computer Modern pour le titre principal
             \makeatletter
@@ -37,6 +39,27 @@ format:
             % Tous les titres en police par défaut LaTeX
             \usepackage{sectsty}
             \allsectionsfont{\rmfamily}
+            % Style des commentaires dans les blocs de code
+            \usepackage{xcolor}
+            \definecolor{commentgray}{HTML}{7A7A7A}
+            \providecommand{\CommentTok}[1]{#1}
+            \AtBeginDocument{
+            \renewcommand{\CommentTok}[1]{\textcolor{commentgray}{\textit{#1}}}
+            }
+            % Bloc de code R pour l'annexe (évite Shaded trop grand)
+            \usepackage{listings}
+            \lstset{
+            language=R,
+            basicstyle=\ttfamily\footnotesize\linespread{0.6}\selectfont\color{black},
+            commentstyle=\itshape\color{commentgray},
+            keywordstyle=\color{blue!60!black},
+            stringstyle=\color{brown!60!black},
+            breaklines=true,
+            breakatwhitespace=false,
+            columns=fullflexible,
+            xleftmargin=0.5em,
+            xrightmargin=0.5em
+            }
 
             \usepackage{etoolbox}
             \renewcommand{\contentsname}{}
@@ -140,30 +163,39 @@ knitr::opts_chunk$set(echo = TRUE)
 #| message: false
 #| warning: false
 #file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
-#lines <- readLines(file_qmd)
 
-# trouver les débuts de chunks R
-#starts <- grep("^```\\{r", lines)
+#extraction du code R pour le mettre à la fin du quarto md
+file_qmd <- knitr::current_input()
+if (is.null(file_qmd) || file_qmd == "") {
+    file_qmd <- "devoir_stats_avancees.qmd"
+}
+if (!file.exists(file_qmd)) {
+    stop(paste("Fichier Quarto introuvable:", file_qmd))
+}
+lines <- readLines(file_qmd, warn = FALSE)
+
+# trouver les debuts de chunks R
+starts <- grep("^```\\{r", lines)
 # trouver les fins de chunks
-#ends   <- grep("^```\\s*$", lines)
+ends   <- grep("^```\\s*$", lines)
 
-#if (length(starts) != length(ends)) {
-#    stop("Extraction des chunks R impossible : démarcations incohérentes")
-#}
+if (length(starts) != length(ends)) {
+    stop("Extraction des chunks R impossible : démarcations incohérentes")
+}
 
-#code_r <- character(0)
+code_r <- character(0)
 
-#for (i in seq_along(starts)) {
+for (i in seq_along(starts)) {
     # lignes à l’intérieur du chunk (excluant les balises de début et fin)
-#    chunk_lines <- lines[(starts[i] + 1):(ends[i] - 1)]
+    chunk_lines <- lines[(starts[i] + 1):(ends[i] - 1)]
     # filtrer : garder seulement les lignes qui **ne sont pas des options Quarto**
-#    real_code <- chunk_lines[!grepl("^\\s*#\\|", chunk_lines)]
+    real_code <- chunk_lines[!grepl("^\\s*#\\|", chunk_lines)]
     # ajouter au vecteur final
-#    code_r <- c(code_r, real_code, "")
-#}
+    code_r <- c(code_r, real_code, "")
+}
 
-#outfile <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R"
-#cat(code_r, file = outfile, sep = "\n")
+outfile <- file.path(dirname(file_qmd), "all_chunks_code.R")
+cat(code_r, file = outfile, sep = "\n")
 ```
 
 \newpage
@@ -1016,7 +1048,7 @@ Ces résultats suggèrent que l'échelle de Hamilton pourrait ne pas être un in
 #| echo: false
 #| eval: true
 #| message: false
-#| results : asis
+#| results : hide
 #| warning: false
 n_J56 <- nrow(subset(hdrs_groupe, VISIT == "J56"))
 n_J56
@@ -1485,8 +1517,6 @@ NB : la fonction utilisée ici est `tbl_summary` du package `gtsummary` permet d
 
 -   Nombre de données entre chaque visite entre J0 et J56 dans chaque groupe :
 
-A la visite J56, les visites manquent pour 11 patients sur 75 dans le groupe 0 (14,7%), contre
-15 patients sur 56 dans le groupe 1 (26,8%).
 ```{r}
 #| label: Nombre patients par visite et groupe
 #| echo: false
@@ -1510,8 +1540,7 @@ knitr::kable(
 )
 ```
 
-A la visite J56, les visites manquent pour 11 patients sur 75 dans le groupe 0 (14,7%), contre
-15 patients sur 56 dans le groupe 1 (26,8%).
+A la visite J56, les visites manquent pour 11 patients sur 75 dans le groupe 0 (14,7%), contre 15 patients sur 56 dans le groupe 1 (26,8%).
 
 ### Évolution des scores bruts moyens entre J0 et J56 dans chaque groupe
 
@@ -1692,13 +1721,17 @@ knitr::kable(
 )
 ```
 
+Le tableau permet de vérifier que l'imputation LOCF a bien permis d'avoir des données pour tous les patients à chaque visite.
+
 #### Comparaison de la réponse au traitement entre les deux groupes après imputation LOCF
 
 Il faut comparer l'évolution des scores bruts moyens entre J0 et J56, donc la différence de score entre J56 et J0, entre les deux groupes.
 
 Pour ça, on crée une nouvelle variable "difference" qui correspond à la différence entre le score à J56 et le score à J0 (après imputation LOCF).
 
-On fait maintenant un test t de Student pour comparer la différence moyenne de score entre J0 et J56 entre les deux groupes.
+Un test t de Student est utilisé pour comparer la différence moyenne de score entre J0 et J56 entre les deux groupes.
+
+NB : le test t permet de comparer les moyennes de deux échantillons indépendants.
 
 ```{r}
 #| label: conditions de validité du test t sur la différence LOCF
@@ -1732,7 +1765,7 @@ qqline(hdrs_wide_locf$difference, col = "red")
 par(mfrow = c(1, 1))
 ```
 
-Les conditions de validité semblent respectées pour le test t de Student sur la différence de score entre J0 et J56 (après imputation LOCF) sur l'échantillon complet.
+Les conditions de validité semblent respectées pour le test t de Student sur la différence de score entre J0 et J56 (après imputation LOCF) sur l'échantillon complet, à savoir : indépendance des échantillons, 
 
 ```{r}
 #| label: test t différence LOCF
@@ -1773,13 +1806,19 @@ Un modèle linéaire mixte (LMM) est adapté car il modélise la corrélation in
 
 -   Effet aléatoire : un intercept par patient `(1|NUMERO)` pour tenir compte du niveau moyen différent selon les patients, donc une ordonnée à l'origine différente pour chaque patient.
 
-On peut envisager deux modèles :
+On peut envisager deux types modèles :
 
 -   **Sans interaction** : suppose des trajectoires « parallèles » à chaque visite (différence entre groupes constante au cours du temps).
 
 -   **Avec interaction `VISIT*GROUPE`** : teste si l'évolution au cours du temps diffère entre groupes (c'est le test principal pour « répond mieux »).
 
+-   On pourra ensuite évaluer l'intérêt de l'ajout du terme d'interaction dans le modèle.
+
 La question résiduelle est le codage de la variable `VISIT` : on peut la traiter comme une variable catégorielle (facteur) ou continue (temps).
+
+-   Il paraît plus représentatif de coder la variable `VISIT` comme une variable continue (temps), car cela permet d'obtenir un coefficient en fonction du temps (jours) et donc d'interpréter plus facilement l'effet du temps sur le score.
+
+-   Si on code la variable `VISIT` comme un facteur, on obtient un coefficient pour chaque visite par rapport à la visite de référence (J0), ce qui est moins intuitif.
 
 Dans le code, on fera les deux pour voir si ça change les résultats.
 
@@ -1818,6 +1857,15 @@ summary(modele_mixte_sans_interaction)
 coef_summary <- summary(modele_mixte_sans_interaction)$coefficients
 conf_int <- confint(modele_mixte_sans_interaction, level = 0.95, parm = "beta_")
 p_values <- coef_summary[, "Pr(>|t|)"]
+p_values_fmt <- ifelse(
+    p_values < 0.001,
+    "< 0.001",
+    ifelse(
+        p_values < 0.01,
+        "< 0.01",
+        ifelse(p_values < 0.05, "< 0.05", sprintf("%.4f", p_values))
+    )
+)
 # Création du tableau récapitulatif
 modele_mixte_sans_interaction_df <- data.frame(
     Coefficient = rownames(coef_summary),
@@ -1826,7 +1874,7 @@ modele_mixte_sans_interaction_df <- data.frame(
     t_value = round(coef_summary[, "t value"], 3),
     CI_lower = round(conf_int[, 1], 3),
     CI_upper = round(conf_int[, 2], 3),
-    p_value = round(p_values, 4)
+    p_value = p_values_fmt
 )
 # Affichage LaTeX
 knitr::kable(
@@ -1849,6 +1897,8 @@ knitr::kable(
 -   Effet du groupe (GROUPE = 2.883) : à visite donnée, le groupe 1 a en moyenne +2.883 points de score par rapport au groupe 0 (IC95% [1.324 ; 4.440], p = 0.0004), donc des scores plus élevés en moyenne sur l’ensemble du suivi.
 
 Ce modèle décrit une amélioration globale au cours du temps et un décalage moyen entre groupes, mais il ne permet pas de conclure sur une différence de réponse “en pente” entre groupes (il faut le modèle avec interaction VISIT×GROUPE pour ça)
+
+De plus, le fait d'avoir mis `VISIT` comme un facteur empêche d'interpréter facilement l'effet du temps sur le score. Il faut interpréter comme la différence de score entre chaque visite et J0, ce qui est moins intuitif.
 
 ##### Modèle mixte sans interaction avec `VISIT` comme variable continue
 
@@ -1879,6 +1929,15 @@ summary(modele_mixte_sans_interaction_continu)
 coef_summary_continu <- summary(modele_mixte_sans_interaction_continu)$coefficients
 conf_int_continu <- confint(modele_mixte_sans_interaction_continu, level = 0.95, parm = "beta_")
 p_values_continu <- coef_summary_continu[, "Pr(>|t|)"]
+p_values_continu_fmt <- ifelse(
+    p_values_continu < 0.001,
+    "< 0.001",
+    ifelse(
+        p_values_continu < 0.01,
+        "< 0.01",
+        ifelse(p_values_continu < 0.05, "< 0.05", sprintf("%.4f", p_values_continu))
+    )
+)
 # Création du tableau récapitulatif
 modele_mixte_sans_interaction_continu_df <- data.frame(
     Coefficient = rownames(coef_summary_continu),
@@ -1887,7 +1946,7 @@ modele_mixte_sans_interaction_continu_df <- data.frame(
     t_value = round(coef_summary_continu[, "t value"], 3),
     CI_lower = round(conf_int_continu[, 1], 3),
     CI_upper = round(conf_int_continu[, 2], 3),
-    p_value = round(p_values_continu, 4)
+    p_value = p_values_continu_fmt
 )
 # Affichage LaTeX
 knitr::kable(
@@ -1937,13 +1996,22 @@ summary(modele_mixte_avec_interaction)
 # Extraction des coefficients, IC et p-values
 coef_summary <- summary(modele_mixte_avec_interaction)$coefficients
 p_values <- coef_summary[, "Pr(>|t|)"]
+p_values_fmt <- ifelse(
+    p_values < 0.001,
+    "< 0.001",
+    ifelse(
+        p_values < 0.01,
+        "< 0.01",
+        ifelse(p_values < 0.05, "< 0.05", sprintf("%.4f", p_values))
+    )
+)
 # Création du tableau récapitulatif
 modele_mixte_interaction_df <- data.frame(
     Coefficient = rownames(coef_summary),
     Estimate = round(coef_summary[, "Estimate"], 3),
     Std_Error = round(coef_summary[, "Std. Error"], 3),
     t_value = round(coef_summary[, "t value"], 3),
-    p_value = round(p_values, 4)
+    p_value = p_values_fmt
 )
 # Affichage LaTeX
 knitr::kable(
@@ -1955,6 +2023,11 @@ knitr::kable(
 )
 ```
 
+-   L'interprétation est identique à celle du modèle sans interaction pour les effets principaux (Intercept, VISIT, GROUPE).
+
+-   Pour interpréter le terme d'interaction, il faut regarder les coefficients des interactions VISITJx:GROUPE1.
+
+-   Ici, tous les coefficients d'interaction VISITJx:GROUPE1 sont positifs et significatifs à partir de J7, ce qui indique que la diminution du score HDRS est significativement moins marquée dans le groupe 1 que dans le groupe 0 à partir de la visite J7 par rapport à la visite J0.
 
 ##### Modèle mixte avec interaction avec `VISIT` comme variable continue
 
@@ -1982,13 +2055,22 @@ summary(modele_mixte_avec_interaction_continu)
 # Extraction des coefficients, IC et p-values
 coef_summary_continu <- summary(modele_mixte_avec_interaction_continu)$coefficients
 p_values_continu <- coef_summary_continu[, "Pr(>|t|)"]
+p_values_continu_fmt <- ifelse(
+    p_values_continu < 0.001,
+    "< 0.001",
+    ifelse(
+        p_values_continu < 0.01,
+        "< 0.01",
+        ifelse(p_values_continu < 0.05, "< 0.05", sprintf("%.4f", p_values_continu))
+    )
+)
 # Création du tableau récapitulatif
 modele_mixte_interaction_continu_df <- data.frame(
     Coefficient = rownames(coef_summary_continu),
     Estimate = round(coef_summary_continu[, "Estimate"], 3),
     Std_Error = round(coef_summary_continu[, "Std. Error"], 3),
     t_value = round(coef_summary_continu[, "t value"], 3),
-    p_value = round(p_values_continu, 4)
+    p_value = p_values_continu_fmt
 )
 # Affichage LaTeX
 knitr::kable(
@@ -2000,11 +2082,16 @@ knitr::kable(
 )
 ```
 
+-   L'interprétation est identique à celle du modèle sans interaction pour les effets principaux (Intercept, VISIT_num, GROUPE).
+
+-   Coefficient : 0.09, c’est‑à‑dire que la pente temporelle du groupe 1 diffère de 0,09 point par jour par rapport au groupe 0.
+
+-   Le terme d’interaction VISIT_num:GROUPE s’interprète comme une baisse de 0.09 point supplémentaire par jour dans le groupe 1 (vs groupe 0), indiquant une amélioration plus rapide dans le groupe 1
+
 ##### Test de l'effet d'interaction par rapport au modèle sans interaction
 
-Pour tester l'effet d'interaction, on peut faire un test F pour comparer l'effet de l'ajout d'un terme d'interaction entre VISIT et GROUPE par rapport au modèle sans interaction 
 
-Utilisation de la fonction `drop1` pour ça :
+Pour tester l'effet d'interaction, on réalise un test F pour comparer l'effet de l'ajout d'un terme d'interaction entre VISIT et GROUPE par rapport au modèle sans interaction à l'aide de la fonction `drop1`.
 
 ```{r}
 #| label: test interaction modèle mixte
@@ -2017,7 +2104,56 @@ test_interaction <- drop1(
     modele_mixte_avec_interaction_continu,
     test = "F"
 )
-test_interaction
+```
+
+```{r}
+#| label: affichage test interaction modèle mixte
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+num_df <- if ("NumDF" %in% colnames(test_interaction)) {
+    test_interaction$NumDF
+} else if ("Df" %in% colnames(test_interaction)) {
+    test_interaction$Df
+} else {
+    rep(NA_integer_, nrow(test_interaction))
+}
+den_df <- if ("DenDF" %in% colnames(test_interaction)) {
+    test_interaction$DenDF
+} else {
+    rep(NA_integer_, nrow(test_interaction))
+}
+f_value <- if ("F value" %in% colnames(test_interaction)) {
+    test_interaction$`F value`
+} else if ("F" %in% colnames(test_interaction)) {
+    test_interaction$F
+} else {
+    rep(NA_real_, nrow(test_interaction))
+}
+test_interaction_df <- data.frame(
+    Term = rownames(test_interaction),
+    NumDF = num_df,
+    DenDF = den_df,
+    F_value = round(f_value, 3),
+    p_value = ifelse(
+        test_interaction$`Pr(>F)` < 0.001,
+        "< 0.001",
+        ifelse(
+            test_interaction$`Pr(>F)` < 0.01,
+            "< 0.01",
+            ifelse(test_interaction$`Pr(>F)` < 0.05, "< 0.05", sprintf("%.4f", test_interaction$`Pr(>F)`))
+        )
+    )
+)
+knitr::kable(
+    test_interaction_df,
+    caption = "Test F de l'effet d'interaction entre VISIT (continue) et GROUPE",
+    booktabs = TRUE,
+    align = "lcccc",
+    row.names = FALSE
+)
 ```
 
 La p-value associée au test de l'effet d'interaction est < 0.001, ce qui indique que l'ajout du terme d'interaction entre VISIT et GROUPE améliore significativement le modèle par rapport au modèle sans interaction.
@@ -2040,7 +2176,7 @@ hist(residus,
     xlab = "Résidus",
     col = "#81a1c1",
     border = "white",
-    breaks = 10,
+    breaks = 100,
     freq = FALSE
 )
 qqnorm(residus,
@@ -2051,7 +2187,7 @@ qqline(residus, col = "red")
 par(mfrow = c(1, 1))
 ```
 
-Les résidus semblent suivre une distribution normale. 
+Les résidus semblent suivre une distribution normale, ce qui indique que les conditions de validité du modèle mixte sont respectées (avec `VISIT` codé comme une variable continue et un terme d'interaction entre `VISIT` et `GROUPE`).
 
 ## Conclusion sur la comparaison de la réponse au traitement entre les deux groupes de patients
 
@@ -2088,6 +2224,7 @@ Les étapes sont :
 #| eval: true
 #| message: false
 #| warning: false
+#| results: hide # CACHE le résultat texte
 # on repart de hdrs_wide (scores HDRS par visite)
 hdrs_wide_reponse <- hdrs_wide
 hdrs_wide_reponse$score_J0 <- hdrs_wide_reponse$J0
@@ -2170,9 +2307,10 @@ Il y a une censure administrative à 56 jours, et une censure au premier manquan
 #| eval: true
 #| message: false
 #| warning: false
+#| results: hide # CACHE le résultat texte
 # convertir les visites en jours
 visit_days <- c(J0 = 0, J4 = 4, J7 = 7, J14 = 14, J21 = 21, J28 = 28, J42 = 42, J56 = 56)
-# calculer temps_suivi et evenement (réponse) selon la logique DEGACHI, sans fonction
+# calculer temps_suivi et evenement (réponse)
 scores_mat <- as.matrix(hdrs_wide_reponse[, visits])
 follow_mat <- scores_mat[, -1, drop = FALSE]
 score_j0 <- hdrs_wide_reponse$score_J0
@@ -2242,9 +2380,9 @@ Trois issues sont possibles pour chaque patients :
 
 -   Pas de réponse observée, censure au premier manquant (événement = 0, temps_suivi = jour de la première visite manquante).
 
-Censure administrative à 56 jours et censure au premier manquant.
+On représente les courbes de survie en utilisant la méthode de Kaplan-Meier. 
 
-Test de log-rank pour comparer les courbes de survie de la réponse entre les deux groupes : 
+Les courbes sont ensuite comparées entre les deux groupes à l'aide d'un test de log-rank, permettant la comparaison des réponses entre les deux groupes.
 
 ```{r}
 #| label: analyse de survie binaire
@@ -2252,6 +2390,7 @@ Test de log-rank pour comparer les courbes de survie de la réponse entre les de
 #| eval: true
 #| message: false
 #| warning: false
+#| results: hide # CACHE le résultat texte
 # créer l'objet Survival
 surv_obj_reponse <- Surv(time = hdrs_wide_reponse$temps_suivi, event = hdrs_wide_reponse$evenement)
 # ajuster le modèle de survie de Kaplan-Meier par groupe
@@ -2260,7 +2399,6 @@ km_fit_reponse <- survfit(surv_obj_reponse ~ GROUPE, data = hdrs_wide_reponse)
 logrank_test_reponse <- survdiff(surv_obj_reponse ~ GROUPE, data = hdrs_wide_reponse)
 logrank_test_reponse
 ```
-
 
 ```{r}
 #| label: analyse de survie reponse binaire
@@ -2287,11 +2425,14 @@ ggsurvplot(km_fit_reponse,
 )
 ```
 
-Le test de log-rank montre une différence significative entre les deux groupes de traitement (p < 0.01), indiquant que la probabilité de réponse au traitement diffère entre les groupes.
+-   Résultat du test de log-rank : **différence significative entre les deux groupes de traitement (p < 0.01**), indiquant que la probabilité de réponse au traitement diffère entre les groupes.
 
-Mais le test de log-rank permet seulement une comparaison globale des courbes de survie entre les groupes.
+-   Mais le test de log-rank permet seulement une comparaison globale des courbes de survie entre les groupes.
 
-Pour évaluer l'effet du groupe de traitement sur le temps jusqu'à la réponse, on peut ajuster un modèle de Cox.
+-   Pour évaluer quantitativement l'effet du groupe de traitement sur le temps jusqu'à la réponse, on peut ajuster un modèle de Cox.
+
+-   Il est nécessaire de vérifier l'hypothèse des risques proportionnels avant d'interpréter les résultats du modèle de Cox, à l'aide d'un diagramme des risques instantanés. Ici, le diagramme est linéaire, ce qui suggère que l'hypothèse des risques proportionnels est raisonnablement respectée.
+
 
 ```{r}
 #| label: modèle de Cox binaire
@@ -2303,7 +2444,7 @@ Pour évaluer l'effet du groupe de traitement sur le temps jusqu'à la réponse,
 cox_model_reponse <- coxph(surv_obj_reponse ~ GROUPE, data = hdrs_wide_reponse)
 ```
 
-affichage dans un tableau des résultats du modèle de Cox
+
 
 ```{r}
 #| label: tableau modèle de Cox binaire
@@ -2334,24 +2475,68 @@ knitr::kable(
 )
 ```
 
-Pour vérifier l'hypothèse des risques proportionnels, on peut utiliser la fonction `cox.zph` :
-
 ```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+#| warning: false
+#| fig-width: 6
+#| fig-height: 4
+#| fig-cap: "Test des risques proportionnels du modèle de Cox binaire"
 plot(cox.zph(cox_model_reponse), main = "Risques proportionnels - Modèle de Cox binaire")
 ```
 
+Le modèle de Cox retrouve un HR = 0.49 avec une *p-value* significative < 1e-03, indiquant que le risque instantané de réponse au traitement est réduit de 51% dans le groupe 1 par rapport au groupe 0.
+
+On peut donc conclure que les patients du groupe 0 répondent mieux au traitement que ceux du groupe 1, en utilisant le critère binaire de réponse basé sur une chute de 50% du score HDRS par rapport à J0.
+
+# Conclusion générale
+
+-   L'échelle Hamilton est une échelle d'hétéro-évaluation utilisée pour évaluer la sévérité de la dépression.
+
+-   L'échelle a une mauvaise cohérence interne initialement, puis devient fiable avec une structure stable au cours du suivi.
+
+Elle est comparable à d'autres instruments admis, par exemple l'échelle SCL90.
+
+La comparaison entre les deux groupes de sujets étudiés par l'échelle Hamilton à l'aide : 
+
+-   d'une comparaison avec une approche LOCF, utilisant une régression linéaire
+
+-   de modèles mixtes sans et avec interaction entre le groupe et la durée de suivi
+
+-   d'une analyse de survie
+
+retrouve dans tous les cas une **différence significative** entre les deux groupes, avec une amélioration plus marquée et plus rapide chez les patients du groupe 0.
 
 \newpage
 # Annexe – Code R
 
 ```{r}
 #| echo: false
-#| results: asis
+#| eval: true
+#| message: false
+#| results : asis
 
-# lire le fichier code généré
-#code <- readLines("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/all_chunks_code.R", warn = FALSE)
+#insérer le code à la fin du fichier
 
-#cat("```r\n")
-#cat(code, sep = "\n")
-#cat("\n```")
+# lire le fichier code genere
+code <- readLines("all_chunks_code.R", warn = FALSE)
+
+code_wrapped <- code
+
+if (knitr::is_latex_output()) {
+    code_safe <- gsub(
+        "\\\\(begin|end)\\{lstlisting\\}",
+        "\\\\textbackslash \\1{lstlisting}",
+        code_wrapped
+    )
+    cat("\\begin{lstlisting}\n")
+    cat(code_safe, sep = "\n")
+    cat("\n\\end{lstlisting}\n")
+} else {
+    cat("```r\n")
+    cat(code_wrapped, sep = "\n")
+    cat("\n```")
+}
 ```
