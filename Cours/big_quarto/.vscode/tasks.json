@@ -1,27 +1,38 @@
-mkdir -p .vscode
-
-cat << 'EOF' > .vscode/tasks.json
 {
     "version": "2.0.0",
     "tasks": [
         {
-        "label": "Render Quarto book (PDF)",
-        "type": "shell",
-        "command": "quarto render . --to pdf",
-        "options": {
-            "cwd": "${workspaceFolder}"
+            "label": "Render QUARTO BIG NOTES (HTML + markmap)",
+            "type": "shell",
+            "command": "quarto render 'QUARTO BIG NOTES.md' --to html && python3 post-render.py",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": false
+            },
+            "problemMatcher": []
         },
-        "group": {
-            "kind": "build",
-            "isDefault": true
-        },
-        "presentation": {
-            "reveal": "always",
-            "panel": "shared",
-            "clear": false
-        },
-        "problemMatcher": []
+        {
+            "label": "Render Quarto book (PDF)",
+            "type": "shell",
+            "command": "quarto render . --to pdf",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": false
+            },
+            "problemMatcher": []
         }
     ]
 }
-EOF

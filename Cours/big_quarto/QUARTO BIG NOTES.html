@@ -34,15 +34,98 @@ ul.task-list li input[type="checkbox"] {
 <link href="QUARTO BIG NOTES_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="QUARTO BIG NOTES_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="QUARTO BIG NOTES_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="QUARTO BIG NOTES_files/libs/bootstrap/bootstrap-55aa396ea3e988129bcec43acf404917.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="QUARTO BIG NOTES_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="heading-colors.css">
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#résumé-statistique" id="toc-résumé-statistique" class="nav-link active" data-scroll-target="#résumé-statistique">Résumé statistique</a>
+  <ul class="collapse">
+  <li><a href="#position" id="toc-position" class="nav-link" data-scroll-target="#position">Position</a>
+  <ul class="collapse">
+  <li><a href="#moyenne" id="toc-moyenne" class="nav-link" data-scroll-target="#moyenne">Moyenne</a></li>
+  <li><a href="#médiane" id="toc-médiane" class="nav-link" data-scroll-target="#médiane">Médiane</a></li>
+  <li><a href="#mode" id="toc-mode" class="nav-link" data-scroll-target="#mode">Mode</a></li>
+  </ul></li>
+  <li><a href="#dispersion" id="toc-dispersion" class="nav-link" data-scroll-target="#dispersion">Dispersion</a>
+  <ul class="collapse">
+  <li><a href="#empan" id="toc-empan" class="nav-link" data-scroll-target="#empan">Empan</a></li>
+  <li><a href="#écart-interquartile" id="toc-écart-interquartile" class="nav-link" data-scroll-target="#écart-interquartile">Écart interquartile</a></li>
+  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance">Variance</a></li>
+  <li><a href="#écart-type" id="toc-écart-type" class="nav-link" data-scroll-target="#écart-type">Écart type</a></li>
+  <li><a href="#fonction-r-pour-tout-ça" id="toc-fonction-r-pour-tout-ça" class="nav-link" data-scroll-target="#fonction-r-pour-tout-ça">Fonction R pour tout ça :</a></li>
+  </ul></li>
+  <li><a href="#dépendance-liaison-et-association" id="toc-dépendance-liaison-et-association" class="nav-link" data-scroll-target="#dépendance-liaison-et-association">Dépendance, liaison et association</a>
+  <ul class="collapse">
+  <li><a href="#variables-quantitatives" id="toc-variables-quantitatives" class="nav-link" data-scroll-target="#variables-quantitatives">Variables quantitatives</a></li>
+  <li><a href="#variables-catégorielles" id="toc-variables-catégorielles" class="nav-link" data-scroll-target="#variables-catégorielles">Variables catégorielles</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#tests-statistiques" id="toc-tests-statistiques" class="nav-link" data-scroll-target="#tests-statistiques">Tests statistiques</a>
+  <ul class="collapse">
+  <li><a href="#comment-les-utiliser" id="toc-comment-les-utiliser" class="nav-link" data-scroll-target="#comment-les-utiliser">Comment les utiliser ?</a>
+  <ul class="collapse">
+  <li><a href="#intérêt" id="toc-intérêt" class="nav-link" data-scroll-target="#intérêt">Intérêt</a></li>
+  <li><a href="#légitimité" id="toc-légitimité" class="nav-link" data-scroll-target="#légitimité">Légitimité</a></li>
+  </ul></li>
+  <li><a href="#types-de-tests" id="toc-types-de-tests" class="nav-link" data-scroll-target="#types-de-tests">Types de tests</a>
+  <ul class="collapse">
+  <li><a href="#comparaison-de-pourcentages" id="toc-comparaison-de-pourcentages" class="nav-link" data-scroll-target="#comparaison-de-pourcentages">Comparaison de pourcentages</a></li>
+  <li><a href="#comparaison-de-moyennes" id="toc-comparaison-de-moyennes" class="nav-link" data-scroll-target="#comparaison-de-moyennes">Comparaison de moyennes</a></li>
+  <li><a href="#test-de-nullité-dun-coefficient-de-corrélation" id="toc-test-de-nullité-dun-coefficient-de-corrélation" class="nav-link" data-scroll-target="#test-de-nullité-dun-coefficient-de-corrélation">Test de nullité d’un coefficient de corrélation</a></li>
+  <li><a href="#tests-appariés" id="toc-tests-appariés" class="nav-link" data-scroll-target="#tests-appariés">Tests appariés</a></li>
+  </ul></li>
+  <li><a href="#calcul-de-beta-et-du-nombre-de-sujets-à-inclure" id="toc-calcul-de-beta-et-du-nombre-de-sujets-à-inclure" class="nav-link" data-scroll-target="#calcul-de-beta-et-du-nombre-de-sujets-à-inclure">Calcul de <span class="math inline">\(\beta\)</span> et du nombre de sujets à inclure</a></li>
+  <li><a href="#tests-uni--ou-bilatéraux" id="toc-tests-uni--ou-bilatéraux" class="nav-link" data-scroll-target="#tests-uni--ou-bilatéraux">Tests uni- ou bilatéraux</a></li>
+  <li><a href="#intervalles-de-confiance" id="toc-intervalles-de-confiance" class="nav-link" data-scroll-target="#intervalles-de-confiance">Intervalles de confiance</a></li>
+  </ul></li>
+  <li><a href="#modèles" id="toc-modèles" class="nav-link" data-scroll-target="#modèles">Modèles</a>
+  <ul class="collapse">
+  <li><a href="#je-teste" id="toc-je-teste" class="nav-link" data-scroll-target="#je-teste">Je teste</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="QUARTO-BIG-NOTES.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -72,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="moyenne">Moyenne</h3>
 <ul>
 <li><p>= centre de gravité des valeurs</p></li>
-<li><p>suppose **équivalence de la quantité : 1 euro voit 1 euro quelque soit sa position sur la droite des réels.</p></li>
+<li><p>suppose <strong>équivalence de la quantité</strong> : 1 euro voit 1 euro quelque soit sa position sur la droite des réels.</p></li>
 </ul>
 </section>
 <section id="médiane" class="level3">
@@ -97,11 +180,694 @@ ul.task-list li input[type="checkbox"] {
 <li>= différence entre valeur minimale et valeur maximale</li>
 </ul>
 </section>
+<section id="écart-interquartile" class="level3">
+<h3 class="anchored" data-anchor-id="écart-interquartile">Écart interquartile</h3>
+<ul>
+<li>= Q3 - Q1</li>
+</ul>
+</section>
+<section id="variance" class="level3">
+<h3 class="anchored" data-anchor-id="variance">Variance</h3>
+<ul>
+<li>= Variance = moyenne des carrés des écarts à la moyenne</li>
+</ul>
+<p><span class="math display">\[
+\text{v} = \frac{(\text{ecart}_1 - \mu)² + (\text{ecart}_2 - \mu)² + \dots + (\text{ecart}_n - \mu)²}{\text{nombre d'observation}}
+\]</span></p>
+</section>
+<section id="écart-type" class="level3">
+<h3 class="anchored" data-anchor-id="écart-type">Écart type</h3>
+<ul>
+<li><p>= racine carrée de la variance</p></li>
+<li><p>= racine carrée des carrés des écarts à la moyenne</p></li>
+<li><p>Avantages variances et écarts types :</p>
+<ul>
+<li><p>Carrés : positive écarts négatifs et accentue écarts importants</p></li>
+<li><p>Variance de deux variables indépendantes est égales à la somme de leurs variances</p></li>
+<li><p>Dans le cas d’une distribution normale :</p>
+<ul>
+<li><p>2/3 des observations se situent dans un intervalle de ±1 écart type autour de la moyenne</p></li>
+<li><p>95% des observations se situent dans un intervalle de ±2 écart type autour de la moyenne</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="fonction-r-pour-tout-ça" class="level3">
+<h3 class="anchored" data-anchor-id="fonction-r-pour-tout-ça">Fonction R pour tout ça :</h3>
+<ul>
+<li><p><code>summary()</code> donne la moyenne, médiane, min, max, 1er et 3e quartile</p></li>
+<li><p><code>describe()</code> pas mal de trucs aussi</p></li>
+</ul>
+</section>
+</section>
+<section id="dépendance-liaison-et-association" class="level2">
+<h2 class="anchored" data-anchor-id="dépendance-liaison-et-association">Dépendance, liaison et association</h2>
+<ul>
+<li><p>Définition de la dépendance : deux variables sont dépendantes si la connaissance de la valeur de l’une permet de mieux prédire la valeur de l’autre</p></li>
+<li><p>Par exemple : taille et poids sont dépendantes (plus on est grand, plus on pèse lourd)</p></li>
+</ul>
+<section id="variables-quantitatives" class="level3">
+<h3 class="anchored" data-anchor-id="variables-quantitatives">Variables quantitatives</h3>
+<ul>
+<li><p>3 types de liaisons entre variables quantitatives :</p>
+<ul>
+<li><p>Dépendance : connaître X permet de mieux prédire Y</p></li>
+<li><p>Dépendance monotone : X et Y varient dans le même sens (croissant ou décroissant)</p>
+<ul>
+<li><p>Dépendance linéaire : relation de proportionnalité entre X et Y</p></li>
+<li><p>Corrélation linéaire (coefficient de corrélation linéaire de Pearson) = <span class="math inline">\(\text{r}\)</span> : mesure de la force de la dépendance linéaire entre X et Y</p></li>
+<li><p>Coefficient de détermination = variance partagée <span class="math inline">\(\text{r}^2\)</span> : proportion de la variance de Y expliquée par la variance de X dans une relation linéaire</p></li>
+</ul></li>
+<li><p>Concordance : X et Y varient dans le même sens mais pas forcément de façon linéaire</p>
+<ul>
+<li>Coefficient intraclasse : mesure de la concordance entre plusieurs mesures de la même variable</li>
+</ul></li>
+</ul></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 21%">
+<col style="width: 11%">
+<col style="width: 57%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Mesure</strong></td>
+<td><strong>Paramètre</strong></td>
+<td><strong>Symbole</strong></td>
+<td><strong>Interprétation</strong></td>
+</tr>
+<tr class="even">
+<td>Dépendance</td>
+<td>Coefficient de corrélation linéaire</td>
+<td>r</td>
+<td><p>Mesure la direction et la force de la dépendance linéaire entre deux variables quantitatives.</p>
+<p>Varie entre -1 et 1.</p></td>
+</tr>
+<tr class="odd">
+<td>Dépendance</td>
+<td><p>Coefficient de détermination</p>
+<p>= variance partagée</p></td>
+<td>r²</td>
+<td><p>Mesure la proportion de la variance de Y expliquée par la variance de X dans une relation linéaire.</p>
+<p>Varie entre 0 et 1.</p></td>
+</tr>
+<tr class="even">
+<td>Concordance</td>
+<td>Coefficient intraclasse</td>
+<td>ICC</td>
+<td><p>Mesure la concordance entre plusieurs mesures de la même variable.</p>
+<p>Varie entre 0 et 1.</p></td>
+</tr>
+<tr class="odd">
+<td><em>Autre</em></td>
+<td><em>Covariance</em></td>
+<td>Cov(<span class="math inline">\(\text{X, Y}\)</span>)</td>
+<td><em>Mesure comment deux variables varient ensemble (positive: ensemble ; négative : sens inverse)</em></td>
+</tr>
+</tbody>
+</table>
+<section id="dépendance-entre-variables-quantitatives" class="level4">
+<h4 class="anchored" data-anchor-id="dépendance-entre-variables-quantitatives">Dépendance entre variables quantitatives</h4>
+<ul>
+<li>Pas de paramètre estimant parfaitement la dépendance ou l’indépendance entre deux variables quantitatives</li>
+</ul>
+</section>
+<section id="dépendance-monotone-ou-linéaire-entre-variables-quantitatives" class="level4">
+<h4 class="anchored" data-anchor-id="dépendance-monotone-ou-linéaire-entre-variables-quantitatives">Dépendance monotone ou linéaire entre variables quantitatives</h4>
+<ul>
+<li><p>Mesure de la direction dépendance linéaire : coefficient de corrélation linéaire de Pearson (<span class="math inline">\(\rho\)</span> ou <span class="math inline">\(\text{r}\)</span>)</p>
+<ul>
+<li><p>Varie entre -1 (<span class="math inline">\(\text{X} et \text{Y}\)</span> parfaitement négativement corrélées) et 1 (<span class="math inline">\(\text{X} et \text{Y}\)</span> parfaitement positivement corrélées)</p></li>
+<li><p>0 : pas de corrélation linéaire entre X et Y = indépendance linéaire</p></li>
+<li><p><strong>NB : le coefficient de corrélation ne mesure pas vraiment la force de la dépendance entre X et Y mais son type de dépendance !!</strong> <em>en pratique, mesure un peu la force quand même mais il n’y a pas d’unité pour l’exprimer</em></p></li>
+</ul></li>
+<li><p>Mesure de la force de la dépendance linéaire : <strong>coefficient de détermination</strong> (<span class="math inline">\(\text{r}^2\)</span>)</p>
+<ul>
+<li><p>Varie entre 0 (pas de dépendance) et 1 (dépendance parfaite)</p></li>
+<li><p>Indique la proportion de la variance de Y expliquée par la variance de X dans une relation linéaire</p></li>
+<li><p>Par exemple : <span class="math inline">\(\text{r} = 0.8\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\text{r}^2 = 0.64\)</span> : 64% de la variance de Y est expliquée par la variance de X dans une relation linéaire (et ce n’est pas <span class="math inline">\(\text{r}^2\)</span> des valeurs de Y sont expliquées par X !!)</p></li>
+</ul></li>
+<li><p>Petit tableau recapitulatif coéfficient de corrélation / variance partagée / covariane</p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 8%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Paramètre</th>
+<th>Symbole</th>
+<th>Interprétation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coefficient de corrélation linéaire</td>
+<td>r</td>
+<td><p>Mesure la direction et la force de la dépendance linéaire entre deux variables quantitatives.</p>
+<p>Varie entre -1 et 1.</p></td>
+</tr>
+<tr class="even">
+<td>Coefficient de détermination</td>
+<td>r²</td>
+<td><p>Mesure la proportion de la variance de Y expliquée par la variance de X dans une relation linéaire.</p>
+<p>Varie entre 0 et 1.</p></td>
+</tr>
+<tr class="odd">
+<td>Covariance</td>
+<td>Cov(X, Y)</td>
+<td><p>Mesure la tendance conjointe de deux variables à varier ensemble.</p>
+<p>Peut être positive, négative ou nulle.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="concordance-entre-variables-quantitatives" class="level4">
+<h4 class="anchored" data-anchor-id="concordance-entre-variables-quantitatives">Concordance entre variables quantitatives</h4>
+<ul>
+<li><p>Mesure de la concordance entre variables quantitatives : <strong>coefficient intraclasse</strong> (ICC)</p></li>
+<li><p>Varie entre 0 (pas de concordance) et 1 (concordance parfaite)</p></li>
+<li><p>Indique la proportion de la variance totale attribuable à la variance entre les sujets</p></li>
+<li><p>Calcul : <span class="math inline">\(\text{ICC} = \frac{\text{variance entre sujets}}{\text{variance entre sujets + variance entre examinateurs + variance résiduelle}}\)</span></p>
+<ul>
+<li><p>En gros : <span class="math inline">\(\text{ICC} = \frac{\text{vrai signal}}{\text{vrai signal} + \text{bruit}}\)</span></p></li>
+<li><p>Vaut 1 quand aucun bruit (variance examinateurs et résiduelle = 0); vaut 0 quand tout est bruit (variance entre sujets = 0)</p></li>
+<li><p>Par exemple : ICC = 0.75 : 75% de la variance totale est attribuable à la variance entre les sujets</p></li>
+</ul></li>
+<li><p>ICC le plus classiquement utilisé : 2-way random effects, absolute agreement, single rater/measurement</p></li>
+</ul>
+</section>
+</section>
+<section id="variables-catégorielles" class="level3">
+<h3 class="anchored" data-anchor-id="variables-catégorielles">Variables catégorielles</h3>
+<section id="dépendance-entre-variables-catégorielles" class="level4">
+<h4 class="anchored" data-anchor-id="dépendance-entre-variables-catégorielles">Dépendance entre variables catégorielles</h4>
+<ul>
+<li><p>Mesure de la dépendance entre variables catégorielles : <strong>chi-carré de Pearson</strong> (<span class="math inline">\(\chi^2\)</span>)</p>
+<ul>
+<li><p>Existe-t-il une association entre deux variables catégorielles ?</p></li>
+<li><p>Le <em>test du Chi-carré d’indépendance</em> permet de tester l’hypothèse nulle d’indépendance entre deux variables catégorielles, c’est à dire l’absence de relation entre elles.</p></li>
+<li><p>Méthode :</p></li>
+</ul></li>
+<li><p>Pour évaluer la force de la relation : <strong>transformation normalisée du chi-carré</strong></p>
+<ul>
+<li><p><strong>Coefficient phi</strong> (<span class="math inline">\(\phi\)</span>) :</p>
+<ul>
+<li><p>Utile surtout pour un tableau <span class="math inline">\(2 \times 2\)</span> (deux variables binaires)</p></li>
+<li><p><span class="math inline">\(|\phi| = \sqrt{\chi^2 / n}\)</span> où <span class="math inline">\(n\)</span> = taille de l’échantillon</p></li>
+<li><p>Correspond à la corrélation de Pearson entre deux variables binaires codées 0/1 (version signée entre -1 et 1)</p></li>
+</ul></li>
+<li><p><strong>V de Cramér</strong> (<span class="math inline">\(V\)</span>) :</p>
+<ul>
+<li><p>Utile pour un tableau <span class="math inline">\(r \times c\)</span> (variables nominales, possiblement <span class="math inline">\(&gt; 2\)</span> modalités)</p></li>
+<li><p><span class="math inline">\(V = \sqrt{\chi^2 / (n (k - 1))}\)</span> avec <span class="math inline">\(k = \min(r, c)\)</span></p></li>
+<li><p>Varie entre 0 (pas d’association) et 1 (association parfaite)</p></li>
+</ul></li>
+<li><p><strong>Coefficient de contingence de Pearson</strong> (<span class="math inline">\(C\)</span>) :</p>
+<ul>
+<li><p><span class="math inline">\(C = \sqrt{\chi^2 / (\chi^2 + n)}\)</span></p></li>
+<li><p>Utilisable pour des tableaux <span class="math inline">\(r \times c\)</span>, mais l’échelle dépend de la taille du tableau : <span class="math inline">\(C\)</span> ne peut pas atteindre 1 et n’est pas directement comparable entre tableaux de dimensions différentes</p></li>
+<li><p>Varie entre 0 et <span class="math inline">\(C_{max}\)</span> avec <span class="math inline">\(C_{max} = \sqrt{(k-1)/k}\)</span> (donc <span class="math inline">\(C&lt;1\)</span>), où <span class="math inline">\(k = \min(r, c)\)</span></p></li>
+<li><p>Lien avec <span class="math inline">\(\phi\)</span> (cas <span class="math inline">\(2 \times 2\)</span>) : <span class="math inline">\(C\)</span> est juste un re-calage de <span class="math inline">\(|\phi|\)</span> : <span class="math inline">\(C = \frac{|\phi|}{\sqrt{1+\phi^2}}\)</span> (donc même ordre/monotonie, mais valeurs plus “compressées”)</p></li>
+</ul></li>
+<li><p><strong>Coefficient de corrélation de Spearman</strong> <span class="math inline">\(\rho_s\)</span> :</p>
+<ul>
+<li><p>Pour des variables <strong>ordinales</strong> (ou une relation <strong>monotone</strong> non linéaire entre deux quantitatives)</p></li>
+<li><p>= corrélation de Pearson calculée sur les rangs, varie entre -1 et 1</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Mesure</strong></th>
+<th><strong>Paramètre</strong></th>
+<th><strong>Interprétation</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dépendance</td>
+<td>Chi-carré de Pearson</td>
+<td><p>Mesure l’association entre deux variables catégorielles.</p>
+<p>Valeur plus élevée indique une association plus forte.</p></td>
+</tr>
+<tr class="even">
+<td>Dépendance (2 variables binaires)</td>
+<td>Coefficient phi (φ)</td>
+<td>Varie entre -1 et 1.</td>
+</tr>
+<tr class="odd">
+<td>Dépendance (variables nominales)</td>
+<td>V de Cramér (V)</td>
+<td><p>Mesure la force de l’association entre deux variables nominales.</p>
+<p>Varie entre 0 et 1.</p></td>
+</tr>
+<tr class="even">
+<td>Dépendance (variables nominales)</td>
+<td>Coefficient de contingence (C)</td>
+<td>Varie entre 0 et C_max (dépendant de la taille du tableau).</td>
+</tr>
+<tr class="odd">
+<td>Dépendance (variables ordinales)</td>
+<td>Coefficient de corrélation de Spearman (ρs)</td>
+<td><p>Mesure la force et la direction de l’association monotone entre deux variables ordinales.</p>
+<p>Varie entre -1 et 1.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dépendance-monotone" class="level4">
+<h4 class="anchored" data-anchor-id="dépendance-monotone">Dépendance monotone</h4>
+<ul>
+<li><p>Uniquement pour des variables ordinales (ou une relation monotone non linéaire entre deux quantitatives)</p></li>
+<li><p>Mesure de la dépendance monotone entre variables ordinales : <strong>coefficient de corrélation de Spearman</strong> (<span class="math inline">\(\rho_s\)</span>)</p>
+<ul>
+<li><p>= corrélation de Pearson calculée sur les rangs</p></li>
+<li><p>Varie entre -1 (dépendance monotone négative parfaite) et 1 (dépendance monotone positive parfaite)</p></li>
+<li><p>0 : pas de dépendance monotone entre X et Y = indépendance monotone</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="concordance-entre-variables-catégorielles" class="level4">
+<h4 class="anchored" data-anchor-id="concordance-entre-variables-catégorielles">Concordance entre variables catégorielles</h4>
+<ul>
+<li><p>Mesure de la concordance entre variables catégorielles : <strong>kappa de Cohen</strong> (<span class="math inline">\(\kappa\)</span>)</p>
+<ul>
+<li><p>Pour deux évaluateurs classant des sujets dans des catégories (variables nominales ou ordinales)</p></li>
+<li><p>Varie entre -1 (désaccord parfait) et 1 (accord parfait)</p></li>
+<li><p>0 : accord équivalent au hasard</p></li>
+<li><p><span class="math inline">\(\kappa = \frac{\text{concordance observee } - \text{ concordance due au hasard}}{1\ - \text{ concordance due au hasard}}\)</span></p></li>
+</ul></li>
+</ul>
+</section>
+<section id="or-et-rr-pour-variables-binaires" class="level4">
+<h4 class="anchored" data-anchor-id="or-et-rr-pour-variables-binaires">OR et RR pour variables binaires</h4>
+<p>Pour un tableau de contingence <span class="math inline">\(2 \times 2\)</span> :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Événement présent</th>
+<th>Événement absent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Groupe exposé</td>
+<td>a</td>
+<td>b</td>
+</tr>
+<tr class="even">
+<td>Groupe non exposé</td>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Odds Ratio (OR)</strong> :</p>
+<ul>
+<li><p>Mesure la force de l’association entre deux variables binaires</p></li>
+<li><p>= (odds d’un événement dans le groupe exposé) / (odds d’un événement dans le groupe non exposé)</p></li>
+<li><p>= <span class="math inline">\(\frac{a/b}{c/d} = \frac{a \times d}{b \times c}\)</span></p></li>
+<li><p>Interprétation :</p>
+<ul>
+<li><p>OR = 1 : pas d’association entre exposition et événement</p></li>
+<li><p>OR &gt; 1 : exposition associée à une augmentation des odds de l’événement</p></li>
+<li><p>OR &lt; 1 : exposition associée à une diminution des odds de l’événement</p></li>
+</ul></li>
+<li><p>Attention 1 : les odds ne sont pas des probabilités !</p></li>
+<li><p>Attention 2 : pour des événements fréquents, l’OR peut surestimer la force de l’association par rapport au RR</p></li>
+</ul></li>
+<li><p><strong>Risque relatif (RR)</strong> :</p>
+<ul>
+<li><p>Mesure la force de l’association entre deux variables binaires</p></li>
+<li><p>= (risque d’un événement dans le groupe exposé) / (risque d’un événement dans le groupe non exposé)</p></li>
+<li><p>= <span class="math inline">\(\frac{a/(a+b)}{c/(c+d)}\)</span></p></li>
+<li><p>Interprétation :</p>
+<ul>
+<li><p>RR = 1 : pas d’association entre exposition et événement</p></li>
+<li><p>RR &gt; 1 : exposition associée à une augmentation du risque de l’événement</p></li>
+<li><p>RR &lt; 1 : exposition associée à une diminution du risque de l’événement</p></li>
+</ul></li>
+<li><p>Le RR est souvent plus intuitif que l’OR, surtout pour des événements fréquents</p></li>
+<li><p>Cependant, le RR ne peut être estimé directement que dans des études de cohorte ou essais cliniques, pas dans des études cas-témoins</p></li>
+</ul></li>
+<li><p>Rapport entre OR et RR :</p>
+<ul>
+<li><p>Pour des événements rares (incidence &lt;= 10%), OR ≈ RR</p></li>
+<li><p>Pour des événements fréquents, OR peut diverger significativement de RR</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="sensibilité-et-spécificité-vpp-et-vpn" class="level4">
+<h4 class="anchored" data-anchor-id="sensibilité-et-spécificité-vpp-et-vpn">Sensibilité et spécificité, VPP et VPN</h4>
+<ul>
+<li><p>Le kappa de Cohen mesure une <strong>concordance globale et symétrique</strong> entre deux évaluateurs, mais ne distingue pas les types d’erreurs (faux positifs vs faux négatifs)</p></li>
+<li><p>Pour évaluer la performance d’un test diagnostique binaire, on utilise des mesures spécifiques :</p>
+<ul>
+<li><p>Sensibilité = proportion de vrais positifs parmi les cas positifs réels = <span class="math inline">\(\text{P}(\text{Y} = 1 | \text{X} = 1)\)</span></p></li>
+<li><p>Spécificité = proportion de vrais négatifs parmi les cas négatifs réels = <span class="math inline">\(\text{P}(\text{Y} = 0 | \text{X} = 0)\)</span></p></li>
+</ul></li>
+<li><p>Le problème de la sensibilité et spécificité est qu’elles ne tiennent pas compte de la prévalence de la condition dans la population (par exemple, dans le dépistage d’une maladie rare, un test peut avoir une haute sensibilité et spécificité mais produire beaucoup de faux positifs)</p>
+<ul>
+<li><p>VPP = proportion de vrais positifs parmi les résultats positifs du test = <span class="math inline">\(\text{P}(\text{X} = 1 | \text{Y} = 1)\)</span></p></li>
+<li><p>VPN = proportion de vrais négatifs parmi les résultats négatifs du test = <span class="math inline">\(\text{P}(\text{X} = 0 | \text{Y} = 0)\)</span></p></li>
+</ul></li>
+</ul>
+<p>Dans un tableau de contingence <span class="math inline">\(2 \times 2\)</span> :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 30%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Condition présente</th>
+<th>Condition absente</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Test positif</td>
+<td>a</td>
+<td>b</td>
+</tr>
+<tr class="even">
+<td>Test négatif</td>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Sensibilité = a / (a + c)</p></li>
+<li><p>Spécificité = d / (b + d)</p></li>
+<li><p>VPP = a / (a + b)</p></li>
+<li><p>VPN = d / (c + d)</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+<section id="tests-statistiques" class="level1">
+<h1>Tests statistiques</h1>
+<section id="comment-les-utiliser" class="level2">
+<h2 class="anchored" data-anchor-id="comment-les-utiliser">Comment les utiliser ?</h2>
+<section id="intérêt" class="level3">
+<h3 class="anchored" data-anchor-id="intérêt">Intérêt</h3>
+<ul>
+<li><p>Outils d’inférence : passer de ce qui est observé sur un échantillon à une affirmation sur une population plus large</p></li>
+<li><p>Langage commun de la communauté scientifique</p></li>
+</ul>
+</section>
+<section id="légitimité" class="level3">
+<h3 class="anchored" data-anchor-id="légitimité">Légitimité</h3>
+<ul>
+<li><p>Usage légitime si répond à une question scientifique précise, formulée a priori</p></li>
+<li><p>Usage illégitime si utilisé pour “fouiller” les données à la recherche d’effets significatifs :</p>
+<ul>
+<li><p>Test de normalité (Shapiro-Wilk, Kolmogorov-Smirnov, etc.) sur chaque variable</p></li>
+<li><p>Tester les caractristiques des perdus de vue…</p></li>
+</ul></li>
+<li><p>Donc n’est pas un substitut au raisonnement scientifique</p></li>
+</ul>
+</section>
+</section>
+<section id="types-de-tests" class="level2">
+<h2 class="anchored" data-anchor-id="types-de-tests">Types de tests</h2>
+<section id="comparaison-de-pourcentages" class="level3">
+<h3 class="anchored" data-anchor-id="comparaison-de-pourcentages">Comparaison de pourcentages</h3>
+<section id="test-du-chi-carré-dindépendance" class="level4">
+<h4 class="anchored" data-anchor-id="test-du-chi-carré-dindépendance">Test du Chi-carré d’indépendance</h4>
+<ul>
+<li><p>Compare la <strong>répartition des fréquences</strong> observées dans un tableau de contingence à celles attendues sous l’hypothèse d’indépendance entre les variables</p></li>
+<li><p>En fait, il teste l’hypothèse nulle d’indépendance entre deux variables catégorielles</p></li>
+<li><p>Conditions de validité :</p>
+<ul>
+<li><p>Effectifs théoriques &gt;= 5 dans chque case des tableaux</p></li>
+<li><p>Observations indépendantes</p></li>
+<li><p>Distribution des effectifs suit une loi du Chi-carré (c’est à dire que les effectifs sont suffisamment grands pour que la distribution asymptotique du Chi-carré soit une bonne approximation de la distribution réelle des effectifs sous l’hypothèse nulle)</p></li>
+</ul></li>
+<li><p>Si conditions non remplies : test exact de Fisher (pour tableaux <span class="math inline">\(2 \times 2\)</span>)</p></li>
+<li><p>Rapport Chi-2 et OR :</p>
+<ul>
+<li><p>Le test du Chi-carré teste l’hypothèse nulle d’indépendance entre deux variables catégorielles, ce qui est équivalent à tester si l’odds ratio (OR) est égal à 1 dans un tableau de contingence <span class="math inline">\(2 \times 2\)</span>.</p></li>
+<li><p>Donc la p-value du test du chi-carré et celle du test “OR=1” sont identiques.</p></li>
+<li><p>Si chi-carré est significatif, ça vaut le coup de calculer l’OR pour quantifier la force de l’association entre les variables.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="test-exact-de-fisher" class="level4">
+<h4 class="anchored" data-anchor-id="test-exact-de-fisher">Test exact de Fisher</h4>
+<ul>
+<li><p>Compare la <strong>répartition des fréquences</strong> dans des petits échantillons</p></li>
+<li><p>Utilisé quand les effectifs théoriques sont trop petits pour le test du Chi-carré</p></li>
+</ul>
+</section>
+<section id="comparaison-dun-pourcentage-à-une-valeur-théorique" class="level4">
+<h4 class="anchored" data-anchor-id="comparaison-dun-pourcentage-à-une-valeur-théorique">Comparaison d’un pourcentage à une valeur théorique</h4>
+<ul>
+<li><p>Test exact de binomial</p></li>
+<li><p>Situation peu fréquente en pratique ! Par exemple équiprobabilité des naissances garçons/filles</p></li>
+</ul>
+</section>
+<section id="comparaison-de-3-pourcentages-ou-plus" class="level4">
+<h4 class="anchored" data-anchor-id="comparaison-de-3-pourcentages-ou-plus">Comparaison de 3 pourcentages ou plus</h4>
+<ul>
+<li><p>Situation peu fréquente non plus !</p></li>
+<li><p>Idem avec un test du Chi-carré d’indépendance</p></li>
+<li><p>Le problème pour l’interprétation de la p-value : si significatif, on ne sait pas où est la différence</p></li>
+<li><p>Il faut dans ce cas faire un <em>Chi-carré de tendance</em></p></li>
+</ul>
+</section>
+</section>
+<section id="comparaison-de-moyennes" class="level3">
+<h3 class="anchored" data-anchor-id="comparaison-de-moyennes">Comparaison de moyennes</h3>
+<ul>
+<li><p>Test t de Student</p></li>
+<li><p>test de Welch</p></li>
+<li><p>test t de Student apparié</p></li>
+<li><p>test non paramétrique de Wilcoxon</p>
+<ul>
+<li><p>test de Mann-Whitney pour échantillons indépendants</p></li>
+<li><p>test de Wilcoxon pour échantillons appariés</p></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Résumé des tests de comparaison de moyennes</strong></p>
+<ul>
+<li><p>Comparaison de moyennes avec test t de Student :</p>
+<ul>
+<li><p>Effectif : &gt; 30 par groupe ou à peu près égaux (11 et 12 par exemple)</p></li>
+<li><p>Distribution : symétrique (approximativement normale) et variances à peu près égales</p></li>
+</ul></li>
+<li><p>Si échantillons appariés : test t apparié, ou Wilcoxon apparié (= signed rank)</p></li>
+<li><p>Si distribution très asymétrique : test non paramétrique de Mann-Whitney (= Wilcoxon non apparié = rank sum)</p></li>
+<li><p>Si effectifs très inégaux ou variances très différentes : test de Welch</p></li>
+</ul>
+</div>
+</div>
+<section id="test-t-de-student" class="level4">
+<h4 class="anchored" data-anchor-id="test-t-de-student">Test t de Student</h4>
+<ul>
+<li><p>Compare les moyennes de deux échantillons indépendants</p></li>
+<li><p>Conditions de validité :</p>
+<ul>
+<li><p>Variable continue</p></li>
+<li><p>Distribution normale dans chaque groupe (en pratique : n &gt;= 30 par groupe)</p></li>
+<li><p>Homogénéité des variances entre les groupes = homoscédasticité, <strong>appréciée par QQplot !!</strong></p></li>
+</ul></li>
+<li><p>Si conditions non remplies : test de Welch (si variances inégales) ou test non paramétrique de Mann-Whitney (si distribution non normale)</p></li>
+</ul>
+</section>
+<section id="test-de-welch" class="level4">
+<h4 class="anchored" data-anchor-id="test-de-welch">Test de Welch</h4>
+<ul>
+<li><p>Compare les moyennes de deux échantillons indépendants</p></li>
+<li><p>Variante du test t de Student qui ne suppose pas l’homogénéité des variances entre les groupes</p></li>
+</ul>
+</section>
+<section id="test-t-de-student-apparié" class="level4">
+<h4 class="anchored" data-anchor-id="test-t-de-student-apparié">Test t de Student apparié</h4>
+<ul>
+<li>Compare les moyennes de deux échantillons appariés (mêmes sujets mesurés deux fois, ou sujets appariés par paires)</li>
+</ul>
+</section>
+<section id="test-non-paramétrique-de-wilcoxon" class="level4">
+<h4 class="anchored" data-anchor-id="test-non-paramétrique-de-wilcoxon">Test non paramétrique de Wilcoxon</h4>
+<ul>
+<li><p>Compare les distributions de deux échantillons indépendants ou appariés</p></li>
+<li><p>Ne suppose pas la normalité des distributions : utilise les rangs des données plutôt que les valeurs brutes</p></li>
+<li><p>Échantillons indépendants : test de Mann-Whitney</p></li>
+<li><p>Échantillons appariés : test de Wilcoxon</p></li>
+</ul>
+</section>
+<section id="comparaison-de-3-moyennes-ou-plus" class="level4">
+<h4 class="anchored" data-anchor-id="comparaison-de-3-moyennes-ou-plus">Comparaison de 3 moyennes ou plus</h4>
+<ul>
+<li><p>Comparaison pas si fréquente !</p></li>
+<li><p>Comparasion de moyennes avec ANOVA :</p>
+<ul>
+<li><p>Si une variable à une distribution égale dans plusieurs groupes, alors la variance intra-groupe est proche de la variance inter-groupe</p></li>
+<li><p>On passe par la comparaison des variances car pas de test t pour plus de 2 groupes</p></li>
+<li><p>ANOVA : calcule le ratio de la variance inter-groupe sur la variance intra-groupe</p></li>
+</ul></li>
+<li><p>Conditions de validité :</p>
+<ul>
+<li><p>Indépendance des observations</p></li>
+<li><p>Normalité des distributions dans chaque groupe et homogénéité des variances entre les groupes (homoscédasticité appréciée par QQplot)</p></li>
+</ul></li>
+<li><p>Si conditions non remplies : test non paramétrique de Kruskal-Wallis</p></li>
+<li><p>Sur R : il faut passer par une régression linéaire (<code>lm</code>ou <code>lmer</code>) pour faire une ANOVA car :</p>
+<ul>
+<li><p>ANOVA est un cas particulier de régression linéaire quand les variables explicatives sont catégorielles</p></li>
+<li><p>La régression linéaire et l’ANOVA utilisent toutes les deux le même principe : analyser la variance totale en variance expliquée par le modèle et variance résiduelle.</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="test-de-nullité-dun-coefficient-de-corrélation" class="level3">
+<h3 class="anchored" data-anchor-id="test-de-nullité-dun-coefficient-de-corrélation">Test de nullité d’un coefficient de corrélation</h3>
+<ul>
+<li><p>Les coefficients de corrélation (Pearson, Spearman, etc.) mesurent la force et la direction de la relation entre deux variables</p></li>
+<li><p>Coefficients de corrélation :</p>
+<ul>
+<li><p>Variables quantitatives :</p>
+<ul>
+<li><p>Coefficient de corrélation linéaire de Pearson (variables continues). Varie entre -1 et 1.</p></li>
+<li><p>Coefficient de corrélation de Spearman (variables ordinales). Varie entre -1 et 1. Basé sur les rangs.</p></li>
+</ul></li>
+<li><p>Variables catégorielles :</p>
+<ul>
+<li><p>Coefficient phi (φ) pour tableaux <span class="math inline">\(2 \times 2\)</span>. Varie entre -1 et 1.</p></li>
+<li><p>V de Cramér (V) pour tableaux <span class="math inline">\(r \times c\)</span>. Varie entre 0 et 1.</p></li>
+</ul></li>
+<li><p>Accord entre évaluateurs :</p>
+<ul>
+<li><p>Coefficient de corrélation intraclasse (ICC(2,1)). Varie entre -∞ et 1 (en pratique 0 à 1).</p></li>
+<li><p>Kappa de Cohen (κ). Varie entre -1 et 1.</p></li>
+</ul></li>
+</ul></li>
+<li><p>Test de nullité d’un coefficient de corrélation :</p>
+<ul>
+<li><p>Permet de tester l’hypothèse nulle selon laquelle il n’y a pas de relation entre les variables</p></li>
+<li><p>Coefficient : pas forcément égal à 0 dans la population !!</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="tests-appariés" class="level3">
+<h3 class="anchored" data-anchor-id="tests-appariés">Tests appariés</h3>
+<ul>
+<li><p>Utilisés lorsque les observations sont liées ou dépendantes</p></li>
+<li><p>Exemple : mesures répétées sur les mêmes sujets, ou sujets appariés par paires</p></li>
+<li><p>Tests appariés courants :</p>
+<ul>
+<li><p>Sur des moyennes :</p>
+<ul>
+<li><p>Test t de Student apparié : compare les moyennes de deux échantillons appariés</p></li>
+<li><p>Test de Wilcoxon apparié : compare les distributions de deux échantillons appariés (non paramétrique)</p></li>
+</ul></li>
+<li><p>Sur des pourcentages :</p>
+<ul>
+<li><p>Test du Chi2 de McNemar : compare les proportions dans des échantillons appariés (variables binaires)</p></li>
+<li><p>Test exact du Chi2 de McNemar : version exacte du test de McNemar pour petits échantillons</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="calcul-de-beta-et-du-nombre-de-sujets-à-inclure" class="level2">
+<h2 class="anchored" data-anchor-id="calcul-de-beta-et-du-nombre-de-sujets-à-inclure">Calcul de <span class="math inline">\(\beta\)</span> et du nombre de sujets à inclure</h2>
+<ul>
+<li><p>Dans la théorie de Neyman et Pearson, on fixe un seuil de risque de première espèce (<span class="math inline">\(\alpha\)</span>) et un seuil de risque de deuxième espèce (<span class="math inline">\(\beta\)</span>)</p></li>
+<li><p><span class="math inline">\(\alpha\)</span> : probabilité de rejeter l’hypothèse nulle alors qu’elle est vraie (faux positif)</p></li>
+<li><p><span class="math inline">\(\beta\)</span> : probabilité de ne pas rejeter l’hypothèse nulle alors qu’elle est fausse (faux négatif)</p></li>
+<li><p>La puissance d’un test est égale à <span class="math inline">\(1 - \beta\)</span> : probabilité de rejeter l’hypothèse nulle quand elle est fausse (vrai positif)</p></li>
+<li><p><span class="math inline">\(\beta\)</span> varie selon :</p>
+<ul>
+<li><p>La différence vraie : plus la différence vraie est grande, plus la puissance est élevée (et <span class="math inline">\(\beta\)</span> faible)</p></li>
+<li><p>Le nombre de sujets inclus : plus le nombre de sujets est grand, plus la puissance est élevée (et <span class="math inline">\(\beta\)</span> faible)</p></li>
+<li><p>La variabilité des données : plus la variabilité est faible, plus la puissance est élevée (et <span class="math inline">\(\beta\)</span> faible)</p></li>
+<li><p><span class="math inline">\(\text{H}_1\)</span> choisi : plus <span class="math inline">\(\text{H}_1\)</span> est éloigné de <span class="math inline">\(\text{H}_0\)</span>, plus la puissance est élevée (et <span class="math inline">\(\beta\)</span> faible).</p>
+<ul>
+<li>S’ils sont proches, il est plus difficile de les distinguer donc <span class="math inline">\(\beta\)</span> est plus élevé</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="tests-uni--ou-bilatéraux" class="level2">
+<h2 class="anchored" data-anchor-id="tests-uni--ou-bilatéraux">Tests uni- ou bilatéraux</h2>
+<ul>
+<li><p>Selon Fisher :</p>
+<ul>
+<li><p>L’inférence statistique est <strong>bilatérale</strong> par nature :</p>
+<ul>
+<li><p>on cherche à apprécier l’adéquation entre un échantillon observé et une population hypothétique infinie sous-jacente</p></li>
+<li><p>donc test si l’estimateur issu de l’échantillon est supérieur ou inférieur à la valeur hypothétique</p></li>
+</ul></li>
+</ul></li>
+<li><p>Selon Neyman et Pearson :</p>
+<ul>
+<li>inférence statistique <strong>unilatérale</strong> ou <strong>bilatérale</strong> selon le choix des hypothèses <span class="math inline">\(\H_0\)</span> et <span class="math inline">\(\H_1\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="intervalles-de-confiance" class="level2">
+<h2 class="anchored" data-anchor-id="intervalles-de-confiance">Intervalles de confiance</h2>
+<ul>
+<li><p>Définitions :</p>
+<ul>
+<li><p>IC = intervalle estimé à partir des données d’un échantillon, qui a une probabilité donnée (le niveau de confiance) de contenir la vraie valeur du paramètre dans la population.</p></li>
+<li><p>IC à 95% = si on répétait l’expérience de prélèvement d’échantillons et de calcul d’IC plusieurs fois, environ 95% des IC ainsi obtenus contiendraient la vraie moyenne de la population.</p></li>
+</ul></li>
+<li><p><strong>Ça ne veut pas dire “95% des valeurs sont dans l’IC” !!</strong></p></li>
+</ul>
+</section>
+</section>
+<section id="modèles" class="level1">
+<h1>Modèles</h1>
+<section id="je-teste" class="level2">
+<h2 class="anchored" data-anchor-id="je-teste">Je teste</h2>
+<ul>
+<li>Hypothèse nulle <span class="math inline">\(\H_0\)</span> : pas d’effet, pas de différence, pas d’association</li>
+</ul>
 </section>
 </section>
 
 </main>
 <!-- /main column -->
+<div id="markmap-link-container" style="position: fixed; top: 10px; right: 10px; z-index: 1000; background: white; padding: 10px; border: 2px solid #4a90e2; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+  <a href="QUARTO-BIG-NOTES-markmap.html" target="_blank" style="text-decoration: none; color: #4a90e2; font-weight: bold; font-size: 14px;">
+    🗺️ Voir la Markmap
+  </a>
+</div>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
