@@ -614,6 +614,10 @@ corrplot(
     col = viridis::magma(100)
 )
 
+corr_scores_J56 <- corr_validite_J56["score", dimensions]
+corr_max_J56 <- max(corr_scores_J56, na.rm = TRUE)
+corr_max_dim_J56 <- names(which.max(corr_scores_J56))
+
 df_fpca_J56 <- data.frame(
     score_total = hdrs_scl90_J56$score,
     hdrs_scl90_J56[, dimensions]

@@ -39,6 +39,8 @@ format:
             % Tous les titres en police par défaut LaTeX
             \usepackage{sectsty}
             \allsectionsfont{\rmfamily}
+            % Hyphenation française
+            \usepackage[french]{babel}
             % Style des commentaires dans les blocs de code
             \usepackage{xcolor}
             \definecolor{commentgray}{HTML}{7A7A7A}
@@ -205,7 +207,7 @@ cat(code_r, file = outfile, sep = "\n")
 
 Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâches principales :
 
--   En cas de problème d'éxécution du code R (pour suggérer correction et amélioration)
+-   En cas de problème d'exécution du code R (pour suggérer correction et amélioration)
 
 -   Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF. Notamment certaines fonctions dont l'output R n'est pas compatible avec le rendu pdf (par exemple, `factanal()` pour l'analyse factorielle ou le rendu des tableaux automatisé des coefficients alpha de Cronbach et leur IC)
 
@@ -254,7 +256,7 @@ Table 1: Présentation des échelles utilisées dans le devoir
 |-----------------|------------------------------------|-------------------|
 | Objectif | Mesure l'intensité de la symptomatologie dépressive | "Inconfort psychopathologique" selon plusieurs dimensions. |
 | Type | Hétéro-évaluation | Autoévaluation |
-| Méthode | 17 items codés de 2 à 4<br><br>- Score ≤ 7 : pas de dépression clinique<br>- Score 8–15 : dépression mineure<br>- Score \> 15 : dépression majeure | 10 dimensions : somatisation, symptômes obsessionnels, sensibilité interpersonnelle, dépression, anxiété, hostilité, phobies, traits paranoïaques, traits psychotiques et symptômes divers. |
+| Méthode | 17 items codés de 2 à 4<br><br>- Score $\leq$ 7 : pas de dépression clinique<br>- Score 8–15 : dépression mineure<br>- Score \> 15 : dépression majeure | 10 dimensions : somatisation, symptômes obsessionnels, sensibilité interpersonnelle, dépression, anxiété, hostilité, phobies, traits paranoïaques, traits psychotiques et symptômes divers. |
 
 : {tbl-colwidths="\[10,45,45\]"}
 
@@ -568,7 +570,7 @@ df_total_long <- melt(
 
     -   Validité externe : corrélation avec d'autres instruments de mesure (ici les dimensions de l'échelle SCL90)
 
-## Valdidation.à J0
+## Validation à J0
 
 ### Description
 
@@ -671,7 +673,9 @@ corrplot(corr_matrix_J0,
 
 -   Il n'y a pas de données manquantes.
 
--   Les histogrammes montrent que certains items ont une distribution asymétrique (ex : insomnie quelque soit le moment de la nuit, symptômes généraux, perte de poids...)
+-   Les histogrammes montrent que certains items ont une distribution asymétrique (ex : insomnie quel que soit le moment de la nuit, symptômes généraux, perte de poids...)
+
+-   On observe un effet plancher marqué pour certains items (notamment perte de poids et prise de conscience), avec une majorité de scores à 0.
 
 -   La matrice de corrélation des items 2 à 2 ne retrouve pas de coefficient de corrélation supérieure à 0,50 en valeur absolu, il n’existe pas de redondance entre les items de l’échelle Hamilton.
 
@@ -934,7 +938,9 @@ knitr::kable(
 )
 ```
 
-Au total, quelque soit le niveau d'analyse (global ou par facteur), les alpha de Cronbach sont \< 0.5, indiquant une faible consistance interne des items de l'échelle de Hamilton à J0.
+Au total, quel que soit le niveau d'analyse (global ou par facteur), les alpha de Cronbach sont \< 0.5, indiquant une faible consistance interne des items de l'échelle de Hamilton à J0.
+
+Ce résultat est cohérent avec une structure multidimensionnelle, l'alpha étant pénalisé lorsqu'une échelle ne mesure pas un seul trait latent.
 
 ### Validité externe = l'instrument mesure-t-il ce qu'il est censé mesurer ?
 
@@ -1152,6 +1158,8 @@ corrplot(corr_matrix_J56,
 
 -   Sur les histogrammes, on observe un effet plancher, c'est à dire que de nombreux patients ont des scores faibles sur plusieurs items. Il est probable que ce soit lié à l'amélioration de la symptomatologie dépressive entre J0 et J56.
 
+-   Cet effet plancher peut augmenter mécaniquement certaines corrélations entre items, ce qui doit être gardé en tête pour l'interprétation.
+
 -   La matrice de corrélation des items met en évidence des coefficients de corrélation plus élevés que ceux observés à J0, avec plusieurs coefficients supérieurs à 0.5 en valeur absolue, indiquant une certaine redondance entre les items de l’échelle Hamilton à J56.
 
     -   Il est possible que cette redondance soit liée à l'effet plancher observé sur les histogrammes, où de nombreux patients ont des scores faibles sur plusieurs items, ce qui peut augmenter artificiellement les corrélations entre ces items.
@@ -1344,6 +1352,18 @@ corrplot(
 ```
 
 ```{r}
+#| label: corrélation max J56
+#| echo: false
+#| eval: true
+#| message: false
+#| results : hide
+#| warning: false
+corr_scores_J56 <- corr_validite_J56["score", dimensions]
+corr_max_J56 <- max(corr_scores_J56, na.rm = TRUE)
+corr_max_dim_J56 <- names(which.max(corr_scores_J56))
+```
+
+```{r}
 #| label: corrélation sous-scores J56
 #| echo: false
 #| eval: true
@@ -1366,7 +1386,8 @@ fpca(
 
 -   Les corrélations sont plus importantes entre les sous-scores de SCL90 et le score d’Hamilton à J56, : ces deux échelles mesurent probablement la même chose.
 
--   La sous échelle dépression du SCL90 est particulièrement corrélée avec le score d’Hamilton.
+-   La corrélation la plus élevée à J56 est observée avec la dimension « Dépression » du SCL‑90 (r ≈ 0,67), ce qui renforce l’idée d’une validité convergente accrue à ce temps.
+
 
 #### Conclusion validité externe à J56
 
@@ -1411,7 +1432,7 @@ En l'occurence, on ne dispose pas d'instruments mesurant des concepts clairement
 
 ## Gestion des données
 
-Il faut utiliser
+Il faut utiliser le jeu de données `hdrs_groupe`, qui contient les scores bruts de l'échelle de Hamilton à chaque visite (J0, J4, J7, J14, J21, J28, J42, J56) ainsi que le groupe de traitement (`GROUPE`, 0 ou 1) pour chaque patient.
 
 ## Scores bruts à J0 dans chaque groupe
 
@@ -1640,21 +1661,23 @@ boxplot(score ~ GROUPE,
 )
 ```
 
-Quelque soit la méthode de visualiation, on observe une tendance diminution des scores bruts moyens de l'échelle de Hamilton entre J0 et J56 dans les deux groupes de traitement.
+Quelle que soit la méthode de visualisation, on observe une tendance diminution des scores bruts moyens de l'échelle de Hamilton entre J0 et J56 dans les deux groupes de traitement.
 
 La diminution semble plus marquée dans le groupe 0 que dans le groupe 1.
 
 ## Comparaison de la réponse au traitement entre deux groupes de patients
 
-L'objectif est donc de déterminer si un des groupes répond mieux au traitement que l'autre, en comparant l'évolution des scores bruts entre J0 et J56 dans chaque group, en utilisant d'abord une approche LOCF (last observation carried forward), puis un modèle mixte.
+L'objectif est donc de déterminer si un des groupes répond mieux au traitement que l'autre, en comparant l'évolution des scores bruts entre J0 et J56 dans chaque groupe, en utilisant d'abord une approche LOCF (last observation carried forward), puis un modèle mixte.
 
-### Compraison de la réponse en utilisant la méthode LOCF
+### Comparaison de la réponse en utilisant la méthode LOCF
 
 #### Imputation des données manquantes par la méthode LOCF (last observation carried forward)
 
 Méthode LOCF = on remplace les valeurs manquantes par la dernière valeur observée pour chaque patient.
 
 On applique la fonction `na.locf` du package `zoo` pour réaliser cette imputation.
+
+Cette méthode suppose implicitement une stabilité du score après la dernière observation, ce qui peut introduire un biais si l'évolution se poursuit.
 
 ```{r}
 #| label: imputation LOCF
@@ -1788,17 +1811,21 @@ t_test_diff_locf <- hdrs_wide_locf %>%
 t_test_diff_locf
 ```
 
-Le test t montre une différence moyenne de score entre J0 et J56 significativement plus élevée das le groupe 0 (-19,92) que dans le groupe 1 (-14,79), avec une p-value < 0.001.
+Le test t montre une différence moyenne de score entre J0 et J56 significativement plus élevée dans le groupe 0 (-19,92) que dans le groupe 1 (-14,79), avec une p-value < 0.001.
 
 Le problème majeur de cette méthode est qu'elle ne tient pas en compte que les mesures sont répétées chez les mêmes patients !
 
 En utilisant un modèle mixte, on va pouvoir prendre en compte cette dépendance entre les mesures répétées en modélisant un effet aléatoire pour chaque patient.
+
+Le modèle mixte est justifié ici par la structure en mesures répétées, qui induit une corrélation intra-patient non prise en compte par des tests simples.
 
 ### Comparaison de la réponse en utilisant un modèle mixte
 
 Ici on veut comparer l'évolution du score HDRS entre les groupes **en tenant compte des mesures répétées** (plusieurs visites par patient). 
 
 Un modèle linéaire mixte (LMM) est adapté car il modélise la corrélation intra-patient.
+
+De plus, les modèles mixtes permettent d'utiliser toutes les observations disponibles sans imputation explicite des valeurs manquantes, sous l'hypothèse de données manquantes aléatoires.
 
 -   Variable à expliquer : `score` (après imputation LOCF), quantitative, discrète. 
 
@@ -1892,7 +1919,7 @@ knitr::kable(
 
 -   Effet du temps (VISIT) : tous les coefficients VISITJx sont négatifs et significatifs → le score diminue significativement par rapport à J0. À J56, la baisse moyenne est de 20.010 points (IC95% [-21.030 ; -18.990]).
 
-    -   NB : ici l'effet du temps est fait quelque soit le groupe !
+    -   NB : ici l'effet du temps est fait quel que soit le groupe !
 
 -   Effet du groupe (GROUPE = 2.883) : à visite donnée, le groupe 1 a en moyenne +2.883 points de score par rapport au groupe 0 (IC95% [1.324 ; 4.440], p = 0.0004), donc des scores plus élevés en moyenne sur l’ensemble du suivi.
 
@@ -2084,9 +2111,13 @@ knitr::kable(
 
 -   L'interprétation est identique à celle du modèle sans interaction pour les effets principaux (Intercept, VISIT_num, GROUPE).
 
--   Coefficient : 0.09, c’est‑à‑dire que la pente temporelle du groupe 1 diffère de 0,09 point par jour par rapport au groupe 0.
+-   Le coefficient d'interaction `VISIT_num:GROUPE` est de 0.090 (p < 0.001). Ce coefficient représente la différence de pente de l'évolution du score HDRS entre le groupe 1 et le groupe 0 (qui est le groupe de référence).
 
--   Le terme d’interaction VISIT_num:GROUPE s’interprète comme une baisse de 0.09 point supplémentaire par jour dans le groupe 1 (vs groupe 0), indiquant une amélioration plus rapide dans le groupe 1
+-   Étant donné que le coefficient est positif, la pente pour le groupe 1 est moins négative, ce qui indique une amélioration plus lente.
+    -   La pente pour le groupe 0 est de -0.394 (le score diminue en moyenne de 0.394 points par jour).
+    -   La pente pour le groupe 1 est de -0.394 + 0.090 = -0.304 (le score diminue en moyenne de seulement 0.304 points par jour).
+
+-   En conclusion, l'amélioration du score HDRS est significativement **plus lente** dans le groupe 1 que dans le groupe 0.
 
 ##### Test de l'effet d'interaction par rapport au modèle sans interaction
 
@@ -2194,6 +2225,8 @@ Les résidus semblent suivre une distribution normale, ce qui indique que les co
 -   La méthode LOCF suivie d'un test t de Student montre une différence moyenne de score entre J0 et J56 significativement plus élevée dans le groupe 0 que dans le groupe 1 (p < 0.001).
 
 -   Le modèle mixte avec interaction entre VISIT et GROUPE confirme que l'évolution des scores HDRS au cours du temps diffère significativement entre les deux groupes de traitement (p < 0.001 pour l'effet d'interaction).
+
+    -   Une interaction significative groupe × temps indique des trajectoires d'évolution différentes entre groupes, et pas seulement un décalage moyen constant.
 
 \newpage
 # Question 3 : Analyse de survie
