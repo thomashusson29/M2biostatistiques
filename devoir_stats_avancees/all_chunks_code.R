@@ -77,13 +77,9 @@ outfile <- file.path(dirname(file_qmd), "all_chunks_code.R")
 cat(code_r, file = outfile, sep = "\n")
 
 library(readxl)
-#scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
-#groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
-#hdrs <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
-
-scl90 <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
-groupe <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
-hdrs <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
+scl90 <- read_excel("outils autoeval.xls")
+groupe <- read_excel("outils groupe.xls")
+hdrs <- read_excel("outils hdrs.xls")
 
 describe(scl90)
 summary(scl90)
@@ -253,14 +249,13 @@ for (item in items1) {
     val <- na.omit(hdrs_J0[[item]])
     if (length(val) > 0) {
         m <- max(val)
-        hist(val,
-            main = item,
-            xlab = "Score",
-            col = cols_nord[1:(m + 1)],
-            border = "white",
-            breaks = seq(-0.5, m + 0.5, 1),
-            xaxt = "n")
-        axis(1, at = 0:m)
+        counts <- table(factor(val, levels = 0:m))
+        barplot(counts,
+                main = item,
+                xlab = "Score",
+                ylab = "Fréquence",
+                col = cols_nord[1:(m + 1)],
+                border = "white")
     } else {
         plot.new()
         title(main = paste(item, "(pas de données)"))
@@ -276,14 +271,13 @@ if (length(hdrs_items) > 9) {
         val <- na.omit(hdrs_J0[[item]])
         if (length(val) > 0) {
         m <- max(val)
-        hist(val,
-            main = item,
-            xlab = "Score",
-            col = cols_nord[1:(m + 1)],
-            border = "white",
-            breaks = seq(-0.5, m + 0.5, 1),
-            xaxt = "n")
-        axis(1, at = 0:m)
+        counts <- table(factor(val, levels = 0:m))
+        barplot(counts,
+                main = item,
+                xlab = "Score",
+                ylab = "Fréquence",
+                col = cols_nord[1:(m + 1)],
+                border = "white")
         } else {
         plot.new()
         title(main = paste(item, "(pas de données)"))
@@ -477,14 +471,13 @@ for (item in items1) {
     val <- na.omit(hdrs_J56[[item]])
     if (length(val) > 0) {
         m <- max(val)
-        hist(val,
-            main = item,
-            xlab = "Score",
-            col = cols_nord[1:(m + 1)],
-            border = "white",
-            breaks = seq(-0.5, m + 0.5, 1),
-            xaxt = "n")
-        axis(1, at = 0:m)
+        counts <- table(factor(val, levels = 0:m))
+        barplot(counts,
+                main = item,
+                xlab = "Score",
+                ylab = "Fréquence",
+                col = cols_nord[1:(m + 1)],
+                border = "white")
     } else {
         plot.new()
         title(main = paste(item, "(pas de données)"))
@@ -499,14 +492,13 @@ if (length(hdrs_items) > 9) {
         val <- na.omit(hdrs_J56[[item]])
         if (length(val) > 0) {
         m <- max(val)
-        hist(val,
-            main = item,
-            xlab = "Score",
-            col = cols_nord[1:(m + 1)],
-            border = "white",
-            breaks = seq(-0.5, m + 0.5, 1),
-            xaxt = "n")
-        axis(1, at = 0:m)
+        counts <- table(factor(val, levels = 0:m))
+        barplot(counts,
+                main = item,
+                xlab = "Score",
+                ylab = "Fréquence",
+                col = cols_nord[1:(m + 1)],
+                border = "white")
         } else {
         plot.new()
         title(main = paste(item, "(pas de données)"))
@@ -647,21 +639,16 @@ knitr::kable(
 )
 
 par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
-# Histogramme des scores bruts par groupe (côté à côte)
-hist(hdrs_J0$score[hdrs_J0$GROUPE == 0], 
-        col = "#bf616a", 
+# Diagramme en bâtons des scores bruts par groupe (côté à côte)
+counts <- table(hdrs_J0$score, hdrs_J0$GROUPE)
+barplot(t(counts), 
         main = " ", 
         xlab = "Score brut Hamilton", 
         ylab = "Fréquence", 
-        xlim = range(hdrs_J0$score), 
-        ylim = c(0, max(table(cut(hdrs_J0$score, breaks = 4)))))
-hist(hdrs_J0$score[hdrs_J0$GROUPE == 1], 
-        col = paste0("#88c0d0", "80"),
-        add = TRUE, #permet de superposer les histogrammes
-        breaks = 4)
-legend("topright", legend = c("Groupe 0", "Groupe 1"), 
-        fill = c("#bf616a", "#88c0d0"))
-# Boxplot
+        col = c("#bf616a", "#88c0d0"),
+        legend.text = c("Groupe 0", "Groupe 1"), 
+        args.legend = list(x = "topright"),
+        beside = TRUE)# Boxplot
 boxplot(score ~ GROUPE,
     data = hdrs_J0,
     main = " ",
@@ -811,18 +798,13 @@ knitr::kable(
 )
 
 par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
-hist(hdrs_wide_locf$difference,
+counts <- table(hdrs_wide_locf$difference)
+barplot(counts,
     main = " ",
     xlab = "Différence de score (J56 - J0)",
+    ylab = "Fréquence",
     col = "#81a1c1",
-    border = "white",
-    breaks = 10,
-    freq = FALSE
-)
-curve(dnorm(x, mean = mean(hdrs_wide_locf$difference), sd = sd(hdrs_wide_locf$difference)),
-    col = "red",
-    lwd = 2,
-    add = TRUE
+    border = "white"
 )
 qqnorm(hdrs_wide_locf$difference,
     main = " ",

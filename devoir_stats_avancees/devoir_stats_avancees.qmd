@@ -303,13 +303,9 @@ Les données sont importées à partir de fichiers Excel.
 #| message: false
 #| warning: false
 library(readxl)
-#scl90 <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
-#groupe <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
-#hdrs <- read_excel("/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
-
-scl90 <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils autoeval.xls")
-groupe <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils groupe.xls")
-hdrs <- read_excel("/home/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/outils hdrs.xls")
+scl90 <- read_excel("outils autoeval.xls")
+groupe <- read_excel("outils groupe.xls")
+hdrs <- read_excel("outils hdrs.xls")
 ```
 
 ### SCL90
@@ -576,13 +572,13 @@ df_total_long <- melt(
 
 Les réponses sont représentées :
 
--   par des histogrammes pour chaque item de l'échelle de Hamilton à J0
+-   par des diagrammes en bâtons pour chaque item de l'échelle de Hamilton à J0
 
 -   par une matrice de corrélation 2 à 2 entre les items
 
-NB : le code R utilise une fonction pour faciliter la création des histogrammes pour chaque item.
+NB : le code R utilise une fonction pour faciliter la création des diagrammes en bâtons pour chaque item.
 
-La fonction crée un histogramme pour chaque item listés dans un vecteur crée précédemment (`hdrs_items`).
+La fonction crée un diagramme en bâtons pour chaque item listés dans un vecteur crée précédemment (`hdrs_items`).
 
 ```{r}
 #| label: histo items J0
@@ -591,7 +587,7 @@ La fonction crée un histogramme pour chaque item listés dans un vecteur crée 
 #| message: false
 #| warning: false
 #| fig-height: 3.5
-#| fig-cap : "Histogrammes des scores des items de l'échelle de Hamilton à J0"
+#| fig-cap : "Diagrammes en bâtons des scores des items de l'échelle de Hamilton à J0"
 
 hdrs_J0 <- subset(hdrs_groupe, VISIT == "J0")
 
@@ -606,14 +602,13 @@ for (item in items1) {
     val <- na.omit(hdrs_J0[[item]])
     if (length(val) > 0) {
         m <- max(val)
-        hist(val,
-            main = item,
-            xlab = "Score",
-            col = cols_nord[1:(m + 1)],
-            border = "white",
-            breaks = seq(-0.5, m + 0.5, 1),
-            xaxt = "n")
-        axis(1, at = 0:m)
+        counts <- table(factor(val, levels = 0:m))
+        barplot(counts,
+                main = item,
+                xlab = "Score",
+                ylab = "Fréquence",
+                col = cols_nord[1:(m + 1)],
+                border = "white")
     } else {
         plot.new()
         title(main = paste(item, "(pas de données)"))
@@ -629,14 +624,13 @@ if (length(hdrs_items) > 9) {
         val <- na.omit(hdrs_J0[[item]])
         if (length(val) > 0) {
         m <- max(val)
-        hist(val,
-            main = item,
-            xlab = "Score",
-            col = cols_nord[1:(m + 1)],
-            border = "white",
-            breaks = seq(-0.5, m + 0.5, 1),
-            xaxt = "n")
-        axis(1, at = 0:m)
+        counts <- table(factor(val, levels = 0:m))
+        barplot(counts,
+                main = item,
+                xlab = "Score",
+                ylab = "Fréquence",
+                col = cols_nord[1:(m + 1)],
+                border = "white")
         } else {
         plot.new()
         title(main = paste(item, "(pas de données)"))
@@ -673,7 +667,7 @@ corrplot(corr_matrix_J0,
 
 -   Il n'y a pas de données manquantes.
 
--   Les histogrammes montrent que certains items ont une distribution asymétrique (ex : insomnie quel que soit le moment de la nuit, symptômes généraux, perte de poids...)
+-   Les diagrammes en bâtons montrent que certains items ont une distribution asymétrique (ex : insomnie quel que soit le moment de la nuit, symptômes généraux, perte de poids...)
 
 -   On observe un effet plancher marqué pour certains items (notamment perte de poids et prise de conscience), avec une majorité de scores à 0.
 
@@ -1068,7 +1062,7 @@ pct_present_J56
 
 Comme à J0, les réponses sont représentées :
 
--   par des histogrammes pour chaque item de l'échelle de Hamilton à J56
+-   par des diagrammes en bâtons pour chaque item de l'échelle de Hamilton à J56
 
 -   par une matrice de corrélation 2 à 2 entre les items
 
@@ -1079,7 +1073,7 @@ Comme à J0, les réponses sont représentées :
 #| message: false
 #| warning: false
 #| fig-height: 3
-#| fig-cap : "Histogrammes des scores des items de l'échelle de Hamilton à J56"
+#| fig-cap : "Diagrammes en bâtons des scores des items de l'échelle de Hamilton à J56"
 
 hdrs_J56 <- subset(hdrs_groupe, VISIT == "J56")
 # Vraie palette Nord (package nord)
@@ -1092,14 +1086,13 @@ for (item in items1) {
     val <- na.omit(hdrs_J56[[item]])
     if (length(val) > 0) {
         m <- max(val)
-        hist(val,
-            main = item,
-            xlab = "Score",
-            col = cols_nord[1:(m + 1)],
-            border = "white",
-            breaks = seq(-0.5, m + 0.5, 1),
-            xaxt = "n")
-        axis(1, at = 0:m)
+        counts <- table(factor(val, levels = 0:m))
+        barplot(counts,
+                main = item,
+                xlab = "Score",
+                ylab = "Fréquence",
+                col = cols_nord[1:(m + 1)],
+                border = "white")
     } else {
         plot.new()
         title(main = paste(item, "(pas de données)"))
@@ -1114,14 +1107,13 @@ if (length(hdrs_items) > 9) {
         val <- na.omit(hdrs_J56[[item]])
         if (length(val) > 0) {
         m <- max(val)
-        hist(val,
-            main = item,
-            xlab = "Score",
-            col = cols_nord[1:(m + 1)],
-            border = "white",
-            breaks = seq(-0.5, m + 0.5, 1),
-            xaxt = "n")
-        axis(1, at = 0:m)
+        counts <- table(factor(val, levels = 0:m))
+        barplot(counts,
+                main = item,
+                xlab = "Score",
+                ylab = "Fréquence",
+                col = cols_nord[1:(m + 1)],
+                border = "white")
         } else {
         plot.new()
         title(main = paste(item, "(pas de données)"))
@@ -1156,13 +1148,13 @@ corrplot(corr_matrix_J56,
             )
 ```
 
--   Sur les histogrammes, on observe un effet plancher, c'est à dire que de nombreux patients ont des scores faibles sur plusieurs items. Il est probable que ce soit lié à l'amélioration de la symptomatologie dépressive entre J0 et J56.
+-   Sur les diagrammes en bâtons, on observe un effet plancher, c'est à dire que de nombreux patients ont des scores faibles sur plusieurs items. Il est probable que ce soit lié à l'amélioration de la symptomatologie dépressive entre J0 et J56.
 
 -   Cet effet plancher peut augmenter mécaniquement certaines corrélations entre items, ce qui doit être gardé en tête pour l'interprétation.
 
 -   La matrice de corrélation des items met en évidence des coefficients de corrélation plus élevés que ceux observés à J0, avec plusieurs coefficients supérieurs à 0.5 en valeur absolue, indiquant une certaine redondance entre les items de l’échelle Hamilton à J56.
 
-    -   Il est possible que cette redondance soit liée à l'effet plancher observé sur les histogrammes, où de nombreux patients ont des scores faibles sur plusieurs items, ce qui peut augmenter artificiellement les corrélations entre ces items.
+    -   Il est possible que cette redondance soit liée à l'effet plancher observé sur les diagrammes en bâtons, où de nombreux patients ont des scores faibles sur plusieurs items, ce qui peut augmenter artificiellement les corrélations entre ces items.
 
 ### Validité interne : structure dimensionnelle, analyse factorielle
 
@@ -1472,23 +1464,18 @@ knitr::kable(
 #| warning: false
 #| fig-width: 6
 #| fig-height: 3
-#| fig-cap : "Histogramme et boxplot présentant les scores bruts de l'échelle de Hamilton à J0"
+#| fig-cap : "Diagramme en bâtons et boxplot présentant les scores bruts de l'échelle de Hamilton à J0"
 par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
-# Histogramme des scores bruts par groupe (côté à côte)
-hist(hdrs_J0$score[hdrs_J0$GROUPE == 0], 
-        col = "#bf616a", 
+# Diagramme en bâtons des scores bruts par groupe (côté à côte)
+counts <- table(hdrs_J0$score, hdrs_J0$GROUPE)
+barplot(t(counts), 
         main = " ", 
         xlab = "Score brut Hamilton", 
         ylab = "Fréquence", 
-        xlim = range(hdrs_J0$score), 
-        ylim = c(0, max(table(cut(hdrs_J0$score, breaks = 4)))))
-hist(hdrs_J0$score[hdrs_J0$GROUPE == 1], 
-        col = paste0("#88c0d0", "80"),
-        add = TRUE, #permet de superposer les histogrammes
-        breaks = 4)
-legend("topright", legend = c("Groupe 0", "Groupe 1"), 
-        fill = c("#bf616a", "#88c0d0"))
-# Boxplot
+        col = c("#bf616a", "#88c0d0"),
+        legend.text = c("Groupe 0", "Groupe 1"), 
+        args.legend = list(x = "topright"),
+        beside = TRUE)# Boxplot
 boxplot(score ~ GROUPE,
     data = hdrs_J0,
     main = " ",
@@ -1503,7 +1490,7 @@ par(mfrow = c(1, 1))
 
 ### Comparaison des scores bruts à J0 entre les deux groupes
 
--   Un histogramme des scores bruts à J0 à déjà été présenté ci-dessus.
+-   Un diagramme en bâtons des scores bruts à J0 à déjà été présenté ci-dessus.
 
 -   La distribution semble approximativement normale dans chaque groupe.
 
@@ -1765,20 +1752,15 @@ NB : le test t permet de comparer les moyennes de deux échantillons indépendan
 #| warning: false
 #| fig-width: 6
 #| fig-height: 3
-#| fig-cap : "Histogramme et QQ-plot de la différence de score entre J0 et J56 (après imputation LOCF) sur l'échantillon complet"
+#| fig-cap : "Diagramme en bâtons et QQ-plot de la différence de score entre J0 et J56 (après imputation LOCF) sur l'échantillon complet"
 par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
-hist(hdrs_wide_locf$difference,
+counts <- table(hdrs_wide_locf$difference)
+barplot(counts,
     main = " ",
     xlab = "Différence de score (J56 - J0)",
+    ylab = "Fréquence",
     col = "#81a1c1",
-    border = "white",
-    breaks = 10,
-    freq = FALSE
-)
-curve(dnorm(x, mean = mean(hdrs_wide_locf$difference), sd = sd(hdrs_wide_locf$difference)),
-    col = "red",
-    lwd = 2,
-    add = TRUE
+    border = "white"
 )
 qqnorm(hdrs_wide_locf$difference,
     main = " ",

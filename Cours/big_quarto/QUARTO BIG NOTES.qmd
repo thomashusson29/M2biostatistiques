@@ -470,13 +470,13 @@ Pour un tableau de contingence $2 \times 2$ :
 
 Dans un tableau de contingence $2 \times 2$ :
 
-+--------------------+--------------------+--------------------+
-|                    | Condition présente | Condition absente  |
-+====================+====================+====================+
-| Test positif       | a                  | b                  |
-+--------------------+--------------------+--------------------+
-| Test négatif       | c                  | d                  |
-+--------------------+--------------------+--------------------+
++----------------+--------------------+-------------------+
+|                | Condition présente | Condition absente |
++================+====================+===================+
+| Test positif   | a                  | b                 |
++----------------+--------------------+-------------------+
+| Test négatif   | c                  | d                 |
++----------------+--------------------+-------------------+
 
 -   Sensibilité = a / (a + c)
 
@@ -2616,7 +2616,7 @@ legend("topright",
 
 ### Échantillonnage
 
--   Échantillonnage RAISONNÉ : petit nombre de sujets pour maximiser les points de vue 
+-   Échantillonnage RAISONNÉ : petit nombre de sujets pour maximiser les points de vue
 
 -   Échantillonnage homogène : participants avec caractéristiques similaires
 
@@ -2635,6 +2635,7 @@ legend("topright",
 -   Crédibilité, originalité, résonance, utilité...
 
 \newpage
+
 # Méthodes mixtes
 
 ## Recherche qualitative
@@ -2643,11 +2644,11 @@ legend("topright",
 
 ### Méthodes clés
 
-#### Diversité des approches 
+#### Diversité des approches
 
 -   Théorie ancrée (Grounded Theory) : émergence de théories à partir des données sans hypothèses préalables
 
--   IPA (Interpretative Phenomenological Analysis) : compréhension de l'expérience subjective profonde des individus 
+-   IPA (Interpretative Phenomenological Analysis) : compréhension de l'expérience subjective profonde des individus
 
 -   Phénoménologie : description des expériences vécues telles qu'elles sont, sans interprétation immédiate
 
@@ -2661,9 +2662,9 @@ legend("topright",
 
 -   Photo-élicitation : utilisation d'images pour aider à décrire le vécu subjectif
 
-### Rigueur et protocole 
+### Rigueur et protocole
 
-#### Protocole écrit 
+#### Protocole écrit
 
 -   Nécessité d'un protocole rigoureux pour garantir la scientificité
 
@@ -2691,7 +2692,7 @@ legend("topright",
 
 ### Cadre épistémologique élargi
 
--   Matrice 3*3 pour classer la recherche selon l'objet (littéraire, mathématisation locale ou globale) et la méthode de relation (herméneutique (= interprétation des phénomènes humains), statistique, équations)
+-   Matrice 3\*3 pour classer la recherche selon l'objet (littéraire, mathématisation locale ou globale) et la méthode de relation (herméneutique (= interprétation des phénomènes humains), statistique, équations)
 
 -   Recherche qualitative pure = objet littéraire + relation herméneutique
 
@@ -2717,7 +2718,7 @@ legend("topright",
 
 -   Réaction méthodologique : Grounded Theory pour durcir les sciences sociales, imposer rigueur scientifique
 
-#### Évolution du domaine médical 
+#### Évolution du domaine médical
 
 -   Passage d'une médecine littéraire à une médecine mathématisée et digitalisée
 
@@ -2753,7 +2754,7 @@ legend("topright",
 
 -   Comparaison technologique : comparer analyse humaine (qualitative) avec Traitement Automatique du Langage (TAL) (quantitatif) sur un même corpus pour valider les thèmes ou comprendre les limites des outils automatiques
 
-## Applications et enjeux 
+## Applications et enjeux
 
 ### Domaines d'application
 
@@ -2767,11 +2768,11 @@ legend("topright",
 
 ### Enjeux épistémologiques et scientifiques
 
--   Matrice 3*3 : permet de situer les méthodes mixtes dans un cadre élargi (par exemple, le TAL applique des statistiques à un objet littéraire)
+-   Matrice 3\*3 : permet de situer les méthodes mixtes dans un cadre élargi (par exemple, le TAL applique des statistiques à un objet littéraire)
 
--   Théorie de l'esprit : capacité d'interprétation humaine pour ajouter de l'information implicite au corpus 
+-   Théorie de l'esprit : capacité d'interprétation humaine pour ajouter de l'information implicite au corpus
 
--   Évolution technologique : l'IA et le *deep learning* posent la question de savoir si les machines pourront un jour acquérir une "théorie de l'esprit" comparable à l'analyse qualitative humaine 
+-   Évolution technologique : l'IA et le *deep learning* posent la question de savoir si les machines pourront un jour acquérir une "théorie de l'esprit" comparable à l'analyse qualitative humaine
 
 ### Enjeux politiques et cliniques
 
@@ -2780,3 +2781,1037 @@ legend("topright",
 -   Politiques publiques : importance de la recherche qualitative pour contrer une vision trop réductrice de la médecine fondée uniquement sur les preuves quantitatives
 
 -   Lien entre recherche et clinique : nécessité de reconnecter la recherche scientifique avec la pratique clinique
+
+# Représentations graphiques
+
+![](images/NotebookLM%20Mind%20Map.png)
+
+## Distribution d'une variable quantitative
+
+-   Histogramme
+
+-   Courbes de densité
+
+-   Boîtes à moustaches
+
+    -   Boxplot (grands échantillons)
+
+    -   Violin plot (grands échantillons)
+
+    -   Dotplot (petits échantillons)
+
+-   Stripchart (petits échantillons)
+
+-   Bee swarm plot (petits échantillons)
+
+-   Barplot (variables discrètes)
+
+-   QQ plot (test de normalité)
+
+![](images/NotebookLM%20Mind%20Map%20(1)-2.png)
+
+\newpage
+
+### Histogramme
+
+-   Distributon d'une variable quantitative, surtout si continue.
+
+-   Analyser la forme de la distribution : symétrie, uni-modalité, normalité.
+
+#### Construction et limites
+
+-   Découpage en classes (intervalles de valeurs).
+
+-   Hauteur des rectangles = effectif ou fréquence dans chaque classe.
+
+-   Sensible aux effets de bord : forme change selon le nombre de classes, effet de "marches d’escalier".
+
+#### Variantes pour comparaison de groupes
+
+-   Histogrammes multiples : `multhist()` pour distributions côte à côte.
+
+-   Superposition : transparence des couleurs (`alpha`), mêmes `breaks` et limites d'axes.
+
+-   **Pyramid plot** pour comparer deux groupes.
+
+#### Illustration avec jeu de données R
+
+```{r}
+#| fig-cap: "Histogramme, changement breaks, multihist et pyramid"
+#| fig-width: 12
+#| fig-height: 3.5
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+par(mfrow=c(1,4))
+# Histogramme simple
+hist(smp$age, xlab="Age", ylab="Fréquence", col="white",cex.axis=1.8, cex.lab=1.8, main="")
+box()
+# Histogramme avec différents breaks
+hist(smp$age, breaks=30, xlab="Age", ylab="Fréquence", col="lightblue", cex.axis=1.8, cex.lab=1.8, main="breaks=5")
+box()
+# Histogramme multiple
+library(plotrix)
+library(viridisLite)
+vir_3 <- viridis(n = 3)
+vir.3alpha <- viridis(n = 3, alpha=0.5)
+x <- list(smp$age[smp$recherche.nouv==1],
+smp$age[smp$recherche.nouv==2],smp$age[smp$recherche.nouv==3])
+multhist(x, ylab="Fréquence", xlab="Age", ylim=c(0,70),col=vir_3, legend.text=paste("R.N. = ",1:3), main="")
+box()
+# Pyramid plot
+library(plotrix)
+smp$age.c <- cut(smp$age, breaks=seq(15,85,5),labels=paste0(seq(15,80,5), "-", seq(20,85,5)))
+mat<-table(smp$recherche.nouv==3, smp$age.c)
+vir_3 <- viridis(n = 3)
+pyramid.plot(mat["FALSE",], mat["TRUE",],labels=colnames(mat), gap=8, unit="Effectif",top.labels=c("Recherche de nouveauté ≤ 2", "Âge",
+"Recherche de nouveauté = 3"),space=0, lxcol=vir_3[3],rxcol=vir_3[2], labelcex=1.5,laxlab=seq(0,60,10),raxlab=seq(0,60,10))
+```
+
+\newpage
+
+### Courbes de densité
+
+#### Principe
+
+-   Utilise la densité de probabilité = les fréquences relatives d'individus pour une valeur données
+
+-   Avantages :
+
+    -   l'AUC de chaque courbe = 1 quelque soi l'effectif du groupe
+
+    -   Lissage permet de supprimer l'effet de bord
+
+-   Paramétrage nécessaire
+
+    -   Noyau = kernel : distribution de référence, normale le plus souvent
+
+    -   Bande passante = bandwith = degré de lissage
+
+        -   Petite bande passante = peu de lissage, courbe "ondulée"
+
+        -   Grande bande passante = plus de lissage, courbe "lisse"
+
+#### Illustration avec jeu de données R
+
+```{r}
+#| fig-cap: "Courbes de densité selon recherche de nouveauté"
+#| fig-height: 3.5
+#| fig-align: "center"
+#| echo: false
+#| results: 'asis'
+dens1 <- density(smp$age[smp$recherche.nouv==1], na.rm=TRUE)
+dens2 <- density(smp$age[smp$recherche.nouv==2], na.rm=TRUE)
+dens3 <- density(smp$age[smp$recherche.nouv==3], na.rm=TRUE)
+plot(dens1, main="", ylim=c(0,0.04), xlab="Age", ylab="Densité",type="n")
+polygon(dens1, col=vir.3alpha[1])
+polygon(dens2, col=vir.3alpha[2])
+polygon(dens3, col=vir.3alpha[3])
+legend("topright", legend=c("Rech Nouv = 1","Rech Nouv = 2","Rech Nouv = 3"), col=vir.3alpha, pt.cex=2, pch=15 )
+```
+
+\newpage
+
+### Boîtes à moustaches
+
+-   Apprécie la distribution d'une variable quantitative.
+
+-   Différents types :
+
+    -   Box plot de Tukey
+
+    -   Violin plot
+
+    -   Dot plot avec jitter
+
+#### Box plot de Tukey
+
+-   5 statistiques clés : min, Q1, médiane, Q3, max
+
+-   Exclusion des valeurs extrêmes (outliers) au-delà de 1,5 fois l'IQR
+
+-   Avantages :
+
+    -   Synthétique et intuitif
+
+    -   Utile pour comparer plusieurs groupes
+
+-   Problèmes :
+
+    -   Absence de standardisation entre logiciels
+
+    -   Perte de détail sur la forme de la distribution
+
+#### Violin plot
+
+-   Évolution de la boîte à moustaches pour apprécier aussi la distribution
+
+-   Intègre une courbe de densité symétrique au sein d'un box plot réduit en taille
+
+-   Avantages :
+
+    -   Visualisation de la forme de la distribution (modes, asymétries)
+
+    -   Conservation des indicateurs clés (médiane, quartiles)
+
+#### Dot plot avec jitter
+
+-   Diagrammes en bandes
+
+-   Permet de visualiser chaque mesure individuelle avec dispersion horizontale (jitter) pour éviter la superposition
+
+-   Avantages :
+
+    -   Visualisation fine des données
+
+    -   Identification des valeurs extrêmes et de la densité locale
+
+    -   Complémentaire à la boîte à moustaches
+
+-   Limites :
+
+    -   Peut devenir illisible avec de grands échantillons
+
+    -   Nécessite un paramétrage du jitter et de la transparence
+
+#### Exemple des 3 types avec jeu de données R
+
+```{r}
+#| fig-cap: "Boxplot, Violin plot et Dot plot depuis mtcars"
+#| fig-width: 12
+#| fig-height: 3.5
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+par(mfrow=c(1,3))
+# Boxplot
+boxplot(age~recherche.nouv, data=smp, ylab="Age",xlab="Recherche de nouveauté", cex.axis=1.2, cex.lab=1.2,col="white", main="", boxwex=0.5)
+# Violin plot
+library(vioplot)
+vioplot(age~recherche.nouv, data=smp, names=c("1","2","3"),ylab="Age", xlab="Recherche de nouveauté", main="")
+# Dot plot avec jitter
+boxplot(age~recherche.nouv, data=smp, ylab="Age",
+xlab="Recherche de nouveauté", cex.axis=1.2, cex.lab=1.2,col="white", main="", boxwex=0.5)
+points(jitter(smp$recherche.nouv, amount=0.1), smp$age,col=rgb(0,0,0,0.3),pch=20)
+par(mfrow=c(1,1))
+```
+
+\newpage
+
+### Stripchart
+
+#### Description
+
+-   = Diagramme en bande
+
+-   Représente tous les points individuels sur une ligne verticale, donc nécessite de **très petits échantillons**.
+
+-   Utile pour visualiser la distribution brute des données sans agrégation.
+
+-   Attention à la superposition des points identiques = utilisation de l'option **« stack »** pour empiler les points ou ajouter du **jitter** (dispersion horizontale aléatoire).
+
+-   Si le nombre de sujets augmente, préférer le **beeswarm plot** qui est une évolution du stripchart avec une disposition plus esthétique des points.
+
+#### Exemple avec jeu de données R
+
+```{r}
+#| fig-cap: "Stripchart sans et avec jitter"
+#| fig-width: 10
+#| fig-height: 4
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+par(mfrow=c(1,2))
+stripchart(age~recherche.nouv, data=smp[1:50,], ylab="Age",xlab="Sans jitter", cex.axis=1.2, cex.lab=1.2,main="", vertical=TRUE, method="stack", xlim=c(0.5,3.5), pch=1)
+stripchart(age~recherche.nouv, data=smp[1:50,], ylab="Age",xlab="Avec jitter", cex.axis=1.2, cex.lab=1.2,main="", vertical=TRUE, method="jitter", xlim=c(0.5,3.5), pch=1)
+par(mfrow=c(1,1))
+```
+
+\newpage
+
+### Bee swarm plot
+
+#### Description
+
+-   Permet de visualiser la distribution d'une variable quantitative en représentant chaque mesure individuelle par un point.
+
+-   Appartient à la famille des dot plots car chaque point correspond à une observation, mais évolution car décale latéralement les points pour éviter la superposition.
+
+-   Permet de percevoir la densité de la distribution tout en conservant la visualisation de chaque individu.
+
+-   Permet d'intégrer des informations supplémentaires en colorant les points selon une autre caractéristique.
+
+#### Exemple avec jeu de données R
+
+```{r}
+#| fig-cap: "Bee swarm plot selon recherche de nouveauté"
+#| fig-height: 4
+#| fig-width: 10
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+library(beeswarm)
+vir_2 <- viridis(n=3)[2:3]
+beeswarm(age~recherche.nouv, data=smp,
+pwcol=vir_2[1+hr.suicide], pch=16, xlab="Recherche de nouveauté",ylab="Age", cex.axis=1.2, cex.lab=1.2)
+legend("topright", legend = c("Non", "Oui"), title = "HR suicide",pch = 16, col = vir_2)
+```
+
+\newpage
+
+### Bar plot (variable discrète )
+
+#### Description
+
+-   Surtout pour variable discrète (alternative privilégiée à l'histogramme)
+
+-   Les batons sont disjoints et visuellement séparés par des espaces
+
+-   Meilleure clarté visuelle.
+
+-   Permet aussi de voir les variables catégorielles ordonnées ou non ainsi que les données manquantes.
+
+#### Exemple R
+
+```{r}
+#| fig-cap: "Diagrammes en bâtons représentant la distribution de 3 variables catégorielles ordonnées"
+#| fig-height: 4
+#| fig-width: 10
+#| message: false
+#| echo: false
+#| warning: false
+#| results: asis
+par(mfrow=c(1,3))
+barplot(table(smp$recherche.nouv,useNA="always"),
+main="Recherche de la nouveauté", ylab="n", ylim=c(0,350),space=1.5, names.arg=c("1","2","3","NA"), cex.axis=1.2,cex.names=1.2, col=c("white","white","white","grey"),xlim=c(0.5,10))
+barplot(table(smp$evit.danger,useNA="always"),
+main="Evitement du danger", ylab="n", ylim=c(0,350), space=1.5,names.arg=c("1","2","3","NA"), cex.axis=1.2, cex.names=1.2,col=c("white","white","white","grey"), xlim=c(0.5,10))
+barplot(table(smp$dep.recompense,useNA="always"),
+main="Dépendance à la récompense", ylim=c(0,350), ylab="n",names.arg=c("1","2","3","NA"), space=1.5, cex.axis=1.2,cex.names=1.2, col=c("white","white","white","grey"),xlim=c(0.5,10))
+```
+
+### Diagramme quantile-quantile = Q-Q plot (test de normalité)
+
+#### Description
+
+-   Outil pour évaluer la distribution d'une variable quantitative et vérifier si elle suit une loi normale.
+
+-   Représente chaque sujet sur un plan cartésien : ordonnées = valeurs observées (classées par rang), abscisses = quantiles théoriques d'une loi normale.
+
+-   Interprétation : si la variable suit une loi normale, les points doivent être alignés sur une droite. Un décalage indique une anomalie.
+
+#### Exemple avec jeu de données R
+
+```{r}
+#| fig-cap: "Q-Q plot pour évaluer la normalité de la variable âge"
+#| fig-height: 4
+#| fig-width: 4
+#| echo: false
+#| results: 'asis'
+qqnorm(smp$age, pch=16, cex.axis=1.2, cex.lab=1.2, main="Q-Q plot de l'âge")
+qqline(smp$age, col="red", lwd=2)
+```
+
+\newpage
+
+## Distribution d'une variable catégorielle
+
+### Méthodes possibles
+
+-   Diagramme en bâtons (bar plot)
+
+-   Diagramme circulaire / camembert (pie chart)
+
+-   Diagramme en gauffre (waffle chart)
+
+-   Carte à cases (tree map)
+
+-   Nuage de mots (word cloud)
+
+![](images/NotebookLM%20Mind%20Map%20(1).png)
+
+### Diagramme en bâtons (bar plot)
+
+-   Idem que pour variable discrète
+
+-   Les batons sont disjoints et visuellement séparés par des espaces
+
+-   Meilleure clarté visuelle
+
+\newpage
+
+### Diagramme circulaire / camembert (pie chart)
+
+#### Description
+
+-   Pas mal pour apprécier la part relative de chaque modalité par rapport à l'ensemble de l'échantillon.
+
+-   Mais très critiqué car difficile de comparer les surfaces de secteurs circulaires.
+
+-   Surtout si représentation en perspective (3D) qui accentue les erreurs de perception.
+
+-   Alternatives : bar plot, diagramme en gaufre, carte à cases, nuage de mots.
+
+#### Exemple
+
+```{r}
+#| fig-cap: "Diagramme circulaire de la variable recherche de smp$profession"
+#| fig-height: 4
+#| fig-width: 4
+#| echo: false
+#| results: 'asis'
+library(viridisLite)
+pie_colors <- viridis(n=length(unique(smp$profession)))
+pie(table(smp$profession), col=pie_colors, main="Profession des participants")
+```
+
+\newpage
+
+### Diagramme en gaufre (waffle chart)
+
+#### Description
+
+-   Plutôt de l'infographie que de la statistique scientifique pure.
+
+-   Même fonction que le camembert : représenter la part de chaque modalité par rapport à l'ensemble.
+
+-   Évite les biais cognitifs du camembert : le cerveau humain a du mal à comparer des surfaces circulaires ou des angles, mais évalue très bien des surfaces découpées en carrés.
+
+-   Structure en grille : la distribution est représentée sous forme d'un rectangle composé de petits carrés. Chaque carré représente une unité ou un groupe d'individus (par exemple, chaque carré peut représenter 5 sujets).
+
+-   Usage :
+
+    -   Dans l'idéal, le nombre de modalités doit être réduit (idéalement inférieur à 5) pour une bonne lisibilité.
+
+    -   Aussi utile pour données dynamiques (évolutions dans le temps).
+
+#### Exemple R
+
+```{r}
+#| fig-cap: "Diagramme en gaufre de la profession des participants"
+#| fig-height: 4
+#| fig-width: 6
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+library(ggplot2)
+library(viridisLite)
+if (!"profession" %in% names(smp) && "prof" %in% names(smp)) {
+    
+}
+freq_prof <- sort(table(smp$profession, useNA = "ifany"), decreasing = TRUE)
+freq_prof <- freq_prof[!is.na(names(freq_prof))]
+freq_scaled <- floor(as.numeric(freq_prof) / 5)
+freq_scaled <- as.integer(freq_scaled)
+names(freq_scaled) <- names(freq_prof)
+freq_scaled[freq_scaled < 1] <- 1
+tile_df <- data.frame(
+    square = seq_len(sum(freq_scaled)),
+    profession = rep(names(freq_scaled), freq_scaled)
+    )
+rows <- 12
+tiles_per_col <- ceiling(nrow(tile_df) / rows)
+tile_df$col <- (tile_df$square - 1) %/% rows + 1
+tile_df$row <- ((tile_df$square - 1) %% rows) + 1
+tile_df$row <- rows - tile_df$row + 1
+palette <- viridis(length(freq_scaled))
+ggplot(tile_df, aes(col, row, fill = profession)) +
+    geom_tile(color = "white") +
+    scale_fill_manual(values = palette, name = "Profession") +
+    scale_y_continuous(expand = c(0, 0), breaks = NULL) +
+    scale_x_continuous(expand = c(0, 0), breaks = NULL) +
+    coord_equal() +
+    theme_minimal() +
+    theme(panel.grid = element_blank(), legend.position = "bottom") +
+    labs(x = NULL, y = NULL, title = "Répartition des professions")
+```
+
+\newpage
+
+### Cartes à cases (tree map)
+
+#### Description
+
+-   Entre infographie et statistique.
+
+-   Représente la distribution des modalités d'une variable catégorielle via des rectangles imbriqués.
+
+-   Plus utiles quand le nombre de modalités est élevé, rendant les diagrammes en bâtons ou camemberts illisibles.
+
+-   Limites :
+
+    -   Difficulté à comparer précisément les tailles des rectangles.
+
+#### Exemple R
+
+```{r}
+#| fig-cap: "Nuage de mots représentant la variable profession des participants"
+#| fig-height: 4
+#| fig-width: 6
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+library(treemap)
+freq <- sort(table(smp$profession, useNA = "ifany"), decreasing = TRUE)
+freq <- freq[!is.na(names(freq))]
+dt <- data.frame(prof = names(freq), freq = as.numeric(freq))
+treemap(dt, index = "prof", vSize = "freq", vColor = "freq", type = "value", title = "")
+```
+
+### Nuage de mots (word cloud)
+
+#### Description
+
+-   Entre infographie et statistique descriptive.
+
+-   A la base : un outil de traitement automatisé du langage pour visualiser la fréquence des mots dans un texte.
+
+-   Utilité pour variables catégorielles à forte cardinalité :
+
+    -   Très efficace pour représenter une variable avec un grand nombre de modalités, là où les diagrammes classiques deviennent illisibles.
+
+    -   Utile pour des présentations orales, offrant une vue d'ensemble immédiate.
+
+-   Limites :
+
+    -   Représentation approximative, jugée très approximative pour une analyse statistique rigoureuse.
+
+    -   Faible intérêt pour des variables avec peu de modalités, où un diagramme en bâtons est plus informatif.
+
+#### Exemple R
+
+```{r}
+#| fig-cap: "Nuage de mots représentant la variable profession des participants"
+#| fig-height: 3
+#| fig-width: 6
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warning: false
+library(wordcloud)
+library(tm)
+set.seed(5)
+if (!"profession" %in% names(smp) && "prof" %in% names(smp)) {
+    smp$profession <- smp$prof
+}
+freq <- sort(table(smp$profession, useNA = "ifany"), decreasing = TRUE)
+freq <- freq[!is.na(names(freq))]
+dt <- data.frame(prof = names(freq), freq = as.numeric(freq))
+wordcloud(dt$prof, dt$freq, scale=c(5,1), rot.per=0.35, colors=brewer.pal(8, "Dark2"))
+```
+
+\newpage
+
+## Relation entre deux variables
+
+-   2 variables quantitatives
+
+    -   Diagramme cartésien (nuage de points = scatter plot) ± vibration des points (jitter)
+
+    -   Régression locale (loess)
+
+    -   Splines
+
+-   Plusieurs variables catégorielles
+
+    -   Tableau de pourcentage
+
+    -   Cartes à cases (hiérarchie emboîtée)
+
+![](images/NotebookLM%20Mind%20Map%20(2).png)
+
+\newpage
+
+### Relation entre deux variables quantitatives
+
+#### Diagramme cartésien (nuage de points = scatter plot)
+
+##### Description
+
+-   Représente deux variables quantitative : une en abscisse et une en ordonnée
+
+-   Montre comment une variable évolue en fonction de l'autre
+
+-   Problèmes : superposition des points
+
+-   Solution :
+
+    -   Vibration (= jitter)
+
+    -   Variation de surface : surface proportionnelle à au nombre de sujets
+
+    -   Transparence
+
+-   Analyse de la forme de la relation :
+
+    -   Droite de régression linéaire
+
+    -   Régression locale (LOESS)
+
+    -   Splines si relation complexe
+
+##### Exemple R
+
+```{r}
+#| fig-cap: "Différentes représentations d'un nuage de points entre âge et nombre d'enfants"
+#| fig-width: 12
+#| fig-height: 3
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+par(mfrow=c(1,4))
+#plot simple
+plot(smp$age, smp$nb.enfants, pch=16, col=rgb(0.15,0.15,0.15,0.3), ylim=c(-2,14), cex.axis=1.2,cex.lab=1.2, xlab= "Age", ylab="Nombre d'enfants")
+#plot avec jitter
+set.seed(5)
+plot(jitter(smp$age, amount=0.5), jitter(smp$nb.enfants, amount=0.5), pch=16, col=rgb(0.15,0.15,0.15,0.3), ylim=c(-2,14), cex.axis=1.2,cex.lab=1.2, xlab= "Age", ylab="Nombre d'enfants")
+#plot avec loess
+plot(smp$age, smp$nb.enfants, pch=16, col=rgb(0.15,0.15,0.15,0.3), ylim=c(-2,14), cex.axis=1.2,cex.lab=1.2, xlab= "Age", ylab="Nombre d'enfants")
+loess_fit <- loess(nb.enfants ~ age, data=smp, span=0.7)
+age_grid <- seq(min(smp$age, na.rm=TRUE), max(smp$age, na.rm=TRUE), length.out=200)
+loess_pred <- predict(loess_fit, newdata=data.frame(age = age_grid))
+lines(age_grid, loess_pred, col="red", lwd=2)
+#plot avec surface proportionnelle au nombre de sujets
+xy <- xyTable(smp$age,smp$nb.enfants)
+coeff.reduc <- 0.5
+plot(xy$x, xy$y, cex=xy$number*coeff.reduc, pch=16,col=rgb(0.15,0.15,0.15,0.3), ylim=c(-2,14), cex.axis=1.2,cex.lab=1.2, xlab= "Age", ylab="Nombre d'enfants")
+```
+
+#### Régression locale (loess) et splines
+
+#### Description
+
+-   Régression linéaire : une moyenne globale, droite rigide
+
+-   Régression locale (LOESS) : moyenne locale, courbe souple donc courbe moins rigide (moyenne mobile généralisée)
+
+    -   Utilisation : diagrammes en spaghetti (données longitudinales)
+
+-   Splines : encore moins rigides, courbes polynomiales par morceaux (degré 3)
+
+    -   Utilisation : identification d'une relation complexe entre deux variables quantitatives (relation polynomiale, périodique, etc.)
+
+#### Exemple R
+
+```{r}
+#| fig-cap: "Régression locale (loess) et splines entre âge et nombre d'enfants"
+#| fig-width: 10
+#| fig-height: 3
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+library(splines)
+par(mfrow=c(1,2))
+# Loess
+plot(smp$age, smp$nb.enfants, pch=16, col=rgb(0.15,0.15,0.15,0.3), ylim=c(-2,14), cex.axis=1.2,cex.lab=1.2, xlab= "Age", ylab="Nombre d'enfants")
+loess_fit <- loess(nb.enfants ~ age, data=smp, span=0.7)
+age_grid <- seq(min(smp$age, na.rm=TRUE), max(smp$age, na.rm=TRUE), length.out=200)
+loess_pred <- predict(loess_fit, newdata=data.frame(age = age_grid))
+lines(age_grid, loess_pred, col="red", lwd=2)
+# Splines
+plot(smp$age, smp$nb.enfants, pch=16, col=rgb(0.15,0.15,0.15,0.3), ylim=c(-2,14), cex.axis=1.2,cex.lab=1.2, xlab= "Age", ylab="Nombre d'enfants")
+spline_fit <- lm(nb.enfants ~ ns(age, df=5), data=smp)
+spline_pred <- predict(spline_fit, newdata=data.frame(age = age_grid))
+lines(age_grid, spline_pred, col="blue", lwd=2)
+par(mfrow=c(1,1))
+```
+
+\newpage
+
+### Relation entre plusieurs variables catégorielles
+
+#### Tableau de pourcentage = tableau de contingence
+
+##### Description
+
+-   Tableau de pourcentage = référence incontournable pour analyser la relation entre plusieurs variables catégorielles.
+
+-   Qualifié de « parent pauvre » des représentations graphiques, car souvent remplacé par des schémas plus complexes sans grand succès.
+
+-   Plus compliqué si
+
+    -   Multiplicité des variables (plus de deux variables croisées)
+
+    -   Variables emboîtées (hiérarchiquement dépendantes)
+
+    -   Nombre élevé de modalités
+
+-   Alternatives graphiques : cartes à cases (tree map) avec hiérarchie emboîtée permet de visualiser plusieurs variables catégorielles imbriquées.
+
+##### Exemple R
+
+```{r}
+#| fig-cap: ""
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+library(gtsummary)
+library(flextable)
+tab <- tbl_cross(
+    data = smp,
+    row = recherche.nouv,
+    col = evit.danger,
+    percent = "row"
+) %>%
+    as_flex_table() %>%
+    flextable::theme_vanilla() %>%
+    flextable::fontsize(size = 9, part = "all") %>%
+    flextable::line_spacing(part = "all", space = 0.8) %>%
+    flextable::set_table_properties(layout = "autofit", width = 0.7) %>%
+    flextable::bold(part = "header") %>%
+    flextable::set_caption("Tableau de pourcentage croisant recherche de nouveauté et évitement du danger")
+tab
+```
+
+\newpage
+
+#### Cartes à cases (hiérarchie emboîtée)
+
+-   Relation entre plusieurs variables catégorielles, surtout avec hiérarchie emboîtée.
+
+-   Hiérarchie emboitée : variables imbriquées selon un ordre hiérarchique (A \> B \> C).
+
+-   D'autant plus si grand nombre de modalités de réponse.
+
+-   Avantages :
+
+    -   Visualisation claire de la répartition des modalités.
+
+    -   Permet d'identifier rapidement les combinaisons les plus fréquentes.
+
+-   Limites :
+
+    -   Difficulté à comparer précisément les tailles des rectangles.
+
+    -   Peut devenir illisible si trop de niveaux hiérarchiques ou de modalités.
+
+#### Exemple R
+
+```{r}
+#| fig-cap: "Carte à cases représentant la prévalence de la dépression selon le type de centre et l'établissement"
+#| fig-height: 5
+#| fig-width: 7
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+library("treemap")
+
+# Préparation des données
+smp$nsujets <- 1
+
+tmsmp <- aggregate(
+    data = smp,
+    nsujets ~ type.centre + centre + depression,
+    sum
+    )
+
+    # Factorisation du type de centre
+    tmsmp$type.centre <- factor(
+    tmsmp$type.centre,
+    levels = 1:3,
+    labels = c("Centrale", "Centre de détention", "Maison d'arrêt")
+    )
+
+    # Attribution des couleurs selon la dépression
+    tmsmp$couleur <- ifelse(
+    tmsmp$depression,
+    "#FDE725AA",  # Jaune avec transparence si dépression = TRUE
+    "#21908CAA"   # Bleu-vert avec transparence si dépression = FALSE
+    )
+
+    # Création de la treemap
+    treemap(
+    tmsmp,
+    index = c("type.centre", "centre", "depression"),
+    vSize = "nsujets",
+    vColor = "couleur",
+    type = "color",
+    fontsize.labels = c(14, 8, 0)
+)
+```
+
+\newpage
+
+## Données longitudinales
+
+-   Données recueillies à plusieurs moments dans le temps
+
+-   Représentations graphiques spécifiques
+
+    -   Courbes moyennes (mean plots)
+
+    -   Diagrammes en spaghetti (spaghetti plots)
+
+    -   Diagrammes en lasagnes = heatmaps temporelles
+
+![](images/NotebookLM%20Mind%20Map%20(3).png)
+
+\newpage
+
+### Courbes moyennes (mean plots)
+
+#### Description
+
+-   Permet d'évaluer la tendance générale
+
+-   Globalement : box plot ou violin plot à chaque point de mesure dans le temps
+
+-   Même problèmes que pour les box plot :
+
+    -   Pas de standardisation entre logiciels
+
+    -   Perte de détail sur la forme de la distribution sauf si violin plot
+
+    -   Pas d'info sur la gestion des outliers et des bornes. Écart-type ? IQR ?
+
+#### Exemple R
+
+```{r}
+#| fig-cap: ""
+#| fig-width: 10
+#| fig-height: 4
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+# Agrégation des données
+d1 <- aggregate(scl$depression, by = list(scl$VISIT, scl$age > 30), FUN = mean)
+names(d1) <- c("date", "age", "mean")
+d1$date.num <- as.numeric(gsub("J", "", d1$date))
+
+d2 <- aggregate(scl$depression, by = list(scl$VISIT, scl$age > 30), FUN = sd)
+d3 <- aggregate(scl$depression, by = list(scl$VISIT, scl$age > 30), FUN = length)
+d1$sem <- d2$x / sqrt(d3$x)
+
+# Préparation des données par groupe d'âge
+offset <- 0.3
+x1 <- d1$date.num[d1$age == FALSE] - offset
+x2 <- d1$date.num[d1$age == TRUE] + offset
+y1 <- d1$mean[d1$age == FALSE]
+y2 <- d1$mean[d1$age == TRUE]
+se1 <- d1$sem[d1$age == FALSE]
+se2 <- d1$sem[d1$age == TRUE]
+
+# Graphique
+plot(x1, y1, type = "b", ylim = c(0, max(d1$mean + d1$sem)),
+        ylab = "Score de dépression (m ± sem)", xlab = "Date de visite",
+        col = viridis(n = 3)[3], lwd = 2, xaxt = "n")
+lines(x2, y2, type = "b", col = viridis(n = 3)[2], lwd = 2)
+axis(1, at = x1, labels = c("J0", "J4", "J7", "J14", "J21", "J28", "J42", "J56"))
+
+# Barres d'erreur
+eps <- 0.4
+size <- 0.05
+arrows(x1, y1 + eps, x1, y1 + se1, length = size, angle = 90, code = 2)
+arrows(x1, y1 - eps, x1, y1 - se1, length = size, angle = 90, code = 2)
+arrows(x2, y2 + eps, x2, y2 + se2, length = size, angle = 90, code = 2)
+arrows(x2, y2 - eps, x2, y2 - se2, length = size, angle = 90, code = 2)
+
+# Légende
+legend("topright", legend = c(">30 ans", "≤30 ans"), title = "Age",
+        col = viridis(n = 3)[2:3], lwd = 2)
+```
+
+\newpage
+
+### Diagrammes en spaghetti (spaghetti plots)
+
+#### Description
+
+-   = Diagramme en fagot
+
+-   Représente l'intégralité des trajectoires individuelles
+
+-   Nécessite un échantillon limité (quelques centaines de sujets au plus)
+
+-   Problème de lisibilité : accumulation de lignes
+
+    -   Solution 1 : transparence
+
+    -   Solution 2 : superposition de courbes de régression locale (LOESS)
+
+#### Exemple R
+
+```{r}
+#| fig-cap: "Diagramme en spaghetti"
+#| fig-width: 10
+#| fig-height: 4
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+# Préparation des données
+nona <- na.omit(scl[, c("JOUR.VISIT", "depression", "age", "NUMERO")])
+nona$JOUR.VISIT <- pmax(nona$JOUR.VISIT - 1, 0)
+
+# Initialisation du graphique
+plot(1, type = "n", xlab = "Date de visite", ylab = "Score de dépression",
+        xlim = c(0, 60), ylim = c(0, 50), las = 1, xaxt = "n")
+
+# Trajectoires individuelles
+vir.3alpha <- viridis(n = 3, alpha = 0.25)
+for(patient in split(nona, nona$NUMERO)) {
+    colour <- ifelse(patient$age[1] > 30, vir.3alpha[2], vir.3alpha[3])
+    lines(patient$JOUR.VISIT, patient$depression, col = colour)
+}
+
+# Courbes de tendance (lowess)
+lines(lowess(nona$JOUR.VISIT[nona$age > 30], nona$depression[nona$age > 30]),
+        lwd = 2, col = viridis(n = 3)[2])
+lines(lowess(nona$JOUR.VISIT[nona$age <= 30], nona$depression[nona$age <= 30]),
+        lwd = 2, col = viridis(n = 3)[3])
+
+# Axes et légende
+axis(1, at = 0:6 * 10, labels = 0:6 * 10)
+legend("topright", legend = c(">30 ans", "≤30 ans"), title = "Age",
+        pch = 16, col = viridis(n = 3)[2:3])
+```
+
+\newpage
+
+### Diagrammes en lasagnes = heatmaps temporelles
+
+#### Description
+
+-   Heatmap temporelle :
+
+    -   Axe horizontal = temps (visites)
+
+    -   Axe vertical = sujets individuels
+
+-   Codage par couleur :
+
+    -   Variable quantitative = dégradé de couleurs
+
+    -   Variable qualitative = couleur distincte par modalité
+
+-   Avantages :
+
+    -   Lisibilité améliorée par rapport au diagramme en spaghetti
+
+    -   Permet d'identifier des trajectoires homogènes
+
+    -   Visualisation de l'attrition (données manquantes)
+
+-   Nécessite une préparation rigoureuse des données (format large, gestion des valeurs manquantes)
+
+#### Exemple R
+
+```{r}
+#| fig-cap: "Diagramme en lasagne représentant l'évolution de la dépression"
+#| fig-height: 6
+#| fig-width: 8
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+library(reshape2)
+
+# Mise en forme wide
+scl.w <- dcast(scl[, c("NUMERO", "VISIT", "depression")],
+                NUMERO ~ VISIT, value.var = "depression")
+
+# Sélection des visites et imputation des valeurs manquantes
+int <- scl.w[, c("J0", "J4", "J7", "J14", "J21", "J28", "J42", "J56")]
+int[is.na(int)] <- -1
+
+# Heatmap
+couleurs <- rev(viridis(255))
+couleurs[1] <- "#FFFFFFFF"
+heatmap(as.matrix(int), col = couleurs, scale = "none",
+        Rowv = NULL, Colv = NA)
+```
+
+\newpage
+
+## Données multidimensionnelles
+
+-   Données avec plusieurs variables étudiées simultanément
+
+-   Essentielles pour générer des "intuitions" et regarder attentivement la structure ds données
+
+![](images/NotebookLM Mind Map ⓸-2.png)
+
+### Analyse en composantes principales (ACP) et représentation sphérique 
+
+#### Description
+
+-   Il faut au moins une dizaine de variables numériques. (intérêt limité < 5 variables mais au delà de 20 variables, c'est illisible et peu informatif).
+
+-   Pour une matrice de corrélation de grand dimension, il vaut mieux une heatmap ou un `corrplot()`.
+
+-   Interprétation : 
+
+    -   Forte corrélation : variables proches les unes des autres
+    
+    -   Indépendance : variables formant un angle d'environ 90° sur la sphère
+
+    -   Corrélation négative : angle supérieur à 90°
+
+-   Pas mal en psychométrie pour vérifier la validité des questionnaires (items d'une même dimension doivent se regrouper visuellement).
+
+#### Exemple R
+
+```{r}
+#| fig-cap: "Représentation sphérique des variables issues d'une ACP"
+#| fig-height: 6
+#| fig-width: 6
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+library(psy)
+TCI_cols <- c(paste0("rn", 1:5),paste0("ed", 1:5),paste0("dr", 1:5))
+sphpca(smp[,TCI_cols], h=-40, cx=1.2)
+```
+
+\newpage
+### Représentation en réseau (network graph)
+
+#### Description
+
+-   Permet de visualiser les relations entre de nombreuses variables simultanément.
+
+-   Utile pour explorer la structure des données multidimensionnelles complexes.
+
+-   3 conditions pour son utilisation optimale :
+
+    -   Nombre élevé de variables (>20).
+
+    -   Présence de regroupements (clusters) dans les données.
+
+    -   Besoin d'une représentation schématique plutôt que mathématiquement précise.
+
+-   Interprétation : 
+
+    -   Les variables sont reliées par des traits (arêtes) dont l'épaisseur est proportionnelle à la force de leur corrélation.
+
+    -   Noyau central de variables fortement liées, entouré de strates périphériques plus indépendantes.
+
+    -   Complémentaire à l'analyse factorielle pour comprendre la structure dimensionnelle.
+
+
+```{r}
+#| fig-cap: "Représentation en réseau"
+# | fig-height: 6
+#| fig-width: 6
+#| echo: false
+#| results: 'asis'
+#| message: false
+#| warnings: false
+library(qgraph)
+noms <- names(rush[,3:28])
+qgraph(cor(rush[,3:28], use="complete.obs"), minimum = 0.25, borders = FALSE, vsize = 4, layout="spring",labels=noms, label.cex=4, label.scale.equal=TRUE,edge.color=rgb(0,0.5,0.5),edge.width=0.5)
+```
+
+
