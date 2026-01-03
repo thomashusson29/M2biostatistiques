@@ -1,0 +1,218 @@
+---
+title: "Annales"
+format:
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        number-sections: false
+        mainfont: Ubuntu
+        header-includes: |
+            \usepackage{fontspec}
+            \setmainfont{Ubuntu}
+            \usepackage[dvipsnames]{xcolor}
+            \usepackage{array}
+            \usepackage{etoolbox}
+            \usepackage{needspace}
+            \definecolor{myblue}{rgb}{0.0078,0.0078,0.549}
+            \definecolor{mygreen}{rgb}{0,0.2745,0}
+            \definecolor{mybrown}{rgb}{0.392,0.094,0.094}
+            \definecolor{mypurple}{rgb}{0.286,0,0.286}
+            \definecolor{myorange}{rgb}{0.8,0.4,0}
+            \usepackage{sectsty}
+            \sectionfont{\color{black}\Large}
+            \subsectionfont{\color{myblue}\large}
+            \subsubsectionfont{\color{mygreen}\normalsize}
+            % Espace vertical de 0.3 cm haut/bas dans les cellules de tableau
+            \setlength{\extrarowheight}{0.3cm}
+            % Fixe la taille du corps de texte à 10pt avec un interligne cohérent
+            \AtBeginDocument{\fontsize{10pt}{12pt}\selectfont}
+            % Assure une vraie hiérarchie (### vs ####) dans le PDF
+            \setcounter{secnumdepth}{5}
+            \setcounter{tocdepth}{5}
+            % Avec KOMA-Script (scrartcl), éviter titlesec (incompatible) et
+            % redéclarer paragraph/subparagraph pour qu'ils soient en "block".
+            \RedeclareSectionCommand[
+                beforeskip=1.5ex plus .5ex minus .2ex,
+                afterskip=.6ex,
+                font=\normalfont\small\bfseries\color{mybrown}
+            ]{paragraph}
+            \RedeclareSectionCommand[
+                beforeskip=1.2ex plus .4ex minus .2ex,
+                afterskip=.5ex,
+                font=\normalfont\footnotesize\bfseries\color{mypurple}
+            ]{subparagraph}
+            % Niveau 6 (######) - titre personnalisé
+            \newcommand{\subsubparagraph}[1]{%
+                \vspace{1ex}%
+                {\normalfont\scriptsize\bfseries\color{myorange}#1}%
+                \vspace{0.4ex}%
+            }
+            % Veille à laisser suffisamment d'espace avant un tableau pour éviter son découpage
+            \AtBeginEnvironment{longtable}{\needspace{15\baselineskip}}
+    html:
+        toc: true
+        toc-location: left
+        toc-expand: true
+        css: heading-colors.css
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+```
+
+\newpage
+
+# 2024 
+
+## Statistiques élémentaires
+
+### Comment représenter graphiquement la distribution de la variable « niveau socio-économique » codée de la façon suivante : agriculteur, cadre, profession intermédiaire, commerçant, employé, ouvrier, sans emploi, autre.
+
+-   Le plus efficace = diagramme en bâtons, en prenant bien soin de présenter au mieux les différentes modalité pour que la lisibilité soit optimale et si besoin d’inclure une modalité « données manquantes »
+
+-   Camembert : possible mais peu recommandé, car moins lisible et moins précis qu’un diagramme en bâtons
+
+### Dans une étude épidémiologique vous mettez en évidence une corrélation entre l’IMC (indice de masse corporelle) et la tension artérielle moyenne égale à r = 0,22 avec un « p » égal à 0,0012. Un reviewer vous fait remarquer que le pourcentage de variance partagé par ces deux variables, égal à 0,222 = 0,0484, est très faible et donc que cette relation est négligeable. Que lui répondez-vous ? 
+
+-   La corrélation de Pearson (r) mesure la force et la direction d’une relation linéaire entre deux variables continues. Un r de 0,22 indique une corrélation positive faible entre l’IMC et la tension artérielle moyenne.
+
+-   Dans le cas d'une régression linéaire simple (donc à une seule variable explicative), le carré du coefficient de corrélation (r²) représente le pourcentage de variance dans la variable dépendante (tension artérielle moyenne) qui peut être expliqué par la variable indépendante (IMC). Dans ce cas, un r² de 0,0484 signifie que seulement 4,84 % de la variance dans la tension artérielle moyenne peut être expliquée par l’IMC.
+
+-   Le p-value de 0,0012 indique que cette corrélation est statistiquement significative, ce qui signifie qu’il y a une faible probabilité que cette relation soit due au hasard.
+
+-   Le pourcentage de variance partagé (r²) de 4,84 % indique que seulement une petite partie de la variance dans la tension artérielle moyenne peut être expliquée par l’IMC. Cependant, cela ne signifie pas nécessairement que la relation est négligeable. Même une faible corrélation peut être cliniquement significative, surtout si elle est cohérente avec d’autres recherches ou si elle a des implications pratiques importantes.
+
+-   Il est important de considérer le contexte clinique et les implications pratiques de cette relation, plutôt que de se concentrer uniquement sur la force de la corrélation ou le pourcentage de variance partagé.
+
+Vraie correction : 
+
+L’interprétation de la force d’une association quand celle-ci est représentée par un coefficient de corrélation (de Pearson). 
+
+Il n’y a pas de consensus sur ce point dans la littérature. Dans certaines disciplines, comme en économétrie, voire en génétique dans le domaine biomédical, il est effectivement habituel de discuter en termes de pourcentage de variance expliquée ou partagée. 
+
+C'est cependant critiqué, notamment du fait qu’un pourcentage de variance expliqué dépend fortement : 
+
+-   1/ de l’échantillonnage de l’étude (un échantillon homogène conduira à une faible variance phénotypique et donc à des pourcentages de variance expliquée qui seront également faibles), 
+
+-   2/ de l’importance des erreurs de mesure et du bruit (quand ce dernier est important, puisque par définition il ne peut pas être expliqué les pourcentages de variance partagées seront faibles). 
+
+Le coefficient r lui-même n’est pas simple à interpréter, dans la littérature il est souvent considéré qu’un r < 0,2 est plutôt faible, mais il s’agit d’un point de vue purement subjectif. 
+
+Notamment parce que l’importance clinique et de santé publique de la relation va influer sur le caractère négligeable ou pas de cette dernière. 
+
+### A quoi servent les tests statistiques ?
+
+-   En médecine (et en recherche biomédicale en général), les tests statistiques sont utilisés pour analyser des données et tirer des conclusions sur des populations à partir d’échantillons. Ils permettent de déterminer si les observations faites dans un échantillon sont suffisamment fortes pour être généralisées à une population plus large.
+
+-   Il s'agit d'un processus inférentiel, c'est à dire qu'on utilise les données d'un échantillon pour faire des inférences sur une population.
+
+-   Tout résultat tiré d'un échantillon présente une incertitude quant à sa généralisation à la population. Les tests statistiques aident à quantifier cette incertitude en fournissant des mesures telles que les p-values et les intervalles de confiance.
+
+### Comment vérifier les conditions de validité d'une régression linéaire ?
+
+-   Linéarité : La relation entre les variables indépendantes et dépendantes doit être linéaire. Cela peut être vérifié en examinant les graphiques de dispersion des résidus.
+
+-   Homoscédasticité : La variance des résidus doit être constante à travers toutes les valeurs des variables indépendantes. Cela peut être vérifié en traçant les résidus.
+
+-   Normalité des résidus : Les résidus doivent suivre une distribution normale. Cela peut être vérifié en utilisant des tests de normalité (comme le test de Shapiro-Wilk) ou en examinant les graphiques Q-Q des résidus.
+
+-   Indépendance des résidus : Les résidus doivent être indépendants les uns des autres, mais c'est beaucoup plus difficile à vérifier. 
+```{r}
+#| fig-cap: "Vérification des conditions de validité d'une régression linéaire"
+#| fig-align: "center"
+#| fig-height: 4
+#| fig-width: 12
+#| echo: false
+#| results: "asis"
+#| warning: false
+#| message: false
+set.seed(123)
+n <- 100
+x <- rnorm(n)
+y <- 2 + 3 * x + rnorm(n)
+model <- lm(y ~ x)
+par(mfrow = c(1, 3))
+# Graphique des résidus vs valeurs ajustées
+plot(model, which = 1, main = "Résidus vs Valeurs ajustées")
+# Graphique Q-Q des résidus
+plot(model, which = 2, main = "Graphique Q-Q des résidus")
+qqline(residuals(model), col = "red")
+# Histogramme des résidus
+hist(residuals(model), main = "Histogramme des résidus", xlab = "Résidus", breaks = 10)
+```
+
+## Statistiques avancées
+
+### Vous souhaitez modéliser le nombre de passages aux urgences dans l’année pour des sujets issus d’une population gériatrique. Lors de la phase initiale de l’analyse vous constatez que cette variable présente une sur-dispersion. A quoi cela correspond-il et quelles sont les solutions que vous avez pour réaliser une telle modélisation ?
+
+-   Le nombre de passage aux urgences est une variable de comptage, souvent modélisée par une régression de Poisson. 
+
+-   La distribution de Poisson est caractérisée par une moyenne égale à la variance (paramètre $\lambda$)
+
+-   La surdispersion survient lorsque la variance est supérieure à la moyenne. 
+
+-   Prévisible ici, car pour un sujet donné, la survenue d’un évènement n’est pas indépendante de la survenue d’un autre évènement (ex : pathologie sous-jacente expliquant plusieurs passages aux urgences).
+
+-   2 types de solutions : 
+
+    -   Changement de modèle : 
+    
+        -   Quasi-Poisson : permet de modéliser la surdispersion en introduisant un paramètre de dispersion.
+
+        -   Modèle binomial négatif : une alternative à la régression de Poisson qui gère naturellement la surdispersion.
+
+    -   Approches robustes :
+
+        -   Estimateur sandwich : ajuste les erreurs standards pour tenir compte de la surdispersion.
+
+        -   Bootstrap : méthode de rééchantillonnage pour estimer les erreurs standards robustes.
+
+Vraie correction : 
+Il s’agit d’une variable qui peut être assimilée à un processus de comptage. Il y a surdispersion quand la variance est supérieure à la moyenne, une loi de Poisson ne peut donc pas être utilisée. Cette surdispersion était prévisible ici, elle survient quand, pour un sujet donné, la survenue d’un évènement n’est pas indépendante de la survenue d’un autre évènement. Si un sujet est atteint d’une pathologie sous-jacente (dénutrition, cancer, BPCO, etc.) ce sera le cas. 
+Solution : classiquement on utilise un modèle de quasipoisson ou un modèle binomial négatif. De façon plus « technique » on peut utiliser un estimateur sandwich ou un bootstrap. De façon transgressive on pourrait utiliser un modèle linéaire avec un estimateur robuste devariance.  

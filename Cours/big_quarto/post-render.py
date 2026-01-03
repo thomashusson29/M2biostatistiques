@@ -6,22 +6,27 @@ import subprocess
 import sys
 import os
 import re
+import shutil
+from pathlib import Path
+
 
 def main():
+    # Chemin du script
+    base_dir = Path(__file__).resolve().parent
     # Le fichier markdown source
-    md_file = "QUARTO BIG NOTES.md"
-    markmap_output = "QUARTO-BIG-NOTES-markmap.html"
+    md_file = base_dir / "QUARTO BIG NOTES.qmd"
+    markmap_output = base_dir / "QUARTO-BIG-NOTES-markmap.html"
     
     print("🗺️  Generating markmap...")
     
     try:
         # Générer la markmap avec markmap-cli
-        result = subprocess.run(
-            ["npx", "markmap-cli", md_file, "-o", markmap_output],
-            capture_output=True,
-            text=True,
-            check=True
-        )
+        markmap_binary = shutil.which("markmap") or shutil.which("markmap-cli")
+        if markmap_binary:
+            cmd = [markmap_binary, str(md_file), "-o", str(markmap_output), "--offline"]
+        else:
+            cmd = ["npx", "markmap-cli", str(md_file), "-o", str(markmap_output), "--offline"]
+        result = subprocess.run(cmd, cwd=base_dir, capture_output=True, text=True, check=True)
         print("✅ Markmap generated successfully!")
         
         # Modifier le HTML pour ajouter la configuration interactive

@@ -4,7 +4,8 @@ format:
     pdf:
         toc: true
         toc-depth: 2
-        number-sections: true
+        toc-title: "Table des matières"
+        number-sections: false
         mainfont: Ubuntu
         filters:
             - level6-heading.lua
@@ -62,6 +63,62 @@ format:
 post-render:
     - "python3 post-render.py"
 ---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+```
+
+\newpage
 
 # Résumé statistique
 
@@ -189,11 +246,11 @@ $$
 
         -   Par exemple : $\text{r} = 0.8$ $\Rightarrow$ $\text{r}^2 = 0.64$ : 64% de la variance de Y est expliquée par sa projection linéaire sur X (régression linéaire simple) (et ce n'est pas $\text{r}^2$ des valeurs de Y sont expliquées par X !!)
 
-Remarque importante : 
+Remarque importante :
 
--   Le coefficient r² correspond au coefficient de détermination d’une régression linéaire simple de Y sur X. 
+-   Le coefficient r² correspond au coefficient de détermination d’une régression linéaire simple de Y sur X.
 
--   Il ne s’agit pas d’une symétrie entre X et Y : seule la variabilité de Y est décomposée. 
+-   Il ne s’agit pas d’une symétrie entre X et Y : seule la variabilité de Y est décomposée.
 
 -   La variance de X n’explique jamais directement la variance de Y.
 
@@ -413,13 +470,13 @@ Pour un tableau de contingence $2 \times 2$ :
 
 Dans un tableau de contingence $2 \times 2$ :
 
-+---------------------+--------------------+---------------------+
-|                     | Condition présente | Condition absente   |
-+=====================+====================+=====================+
-| Test positif        | a                  | b                   |
-+---------------------+--------------------+---------------------+
-| Test négatif        | c                  | d                   |
-+---------------------+--------------------+---------------------+
++--------------------+--------------------+--------------------+
+|                    | Condition présente | Condition absente  |
++====================+====================+====================+
+| Test positif       | a                  | b                  |
++--------------------+--------------------+--------------------+
+| Test négatif       | c                  | d                  |
++--------------------+--------------------+--------------------+
 
 -   Sensibilité = a / (a + c)
 
@@ -800,6 +857,7 @@ Dans un tableau de contingence $2 \times 2$ :
 -   En résumé : le test t de Student est un cas particulier du modèle linéaire où la variable indépendante est catégorielle binaire.
 
 \newpage
+
 ## Modèle linéaire mixte
 
 ### Définition
@@ -814,13 +872,13 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Effets aléatoires = variables de regroupement, modélisant la structure de corrélation des données (variables catégorielles représentant des groupes, sujets, sites, etc.)
 
-#### Effets fixes 
+#### Effets fixes
 
 -   Covariables explicatives classiques, dont ont veut estimer l'effet sur la moyenne de la variable dépendante
 
 -   Peuvent être quantitatives (âge, poids, etc.) ou catégorielles (groupe de traitement, sexe, etc.)
 
--   L'effet est FIXE, car le même pour tous les patients 
+-   L'effet est FIXE, car le même pour tous les patients
 
 #### Effets aléatoires
 
@@ -828,7 +886,7 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   = variables LATENTES qui modélisent la structure de corrélation des données (mesures répétées sur les mêmes sujets, données groupées par site, etc.)
 
--   On ne s'intéresse pas à l'effet spécifique de chaque niveau de la variable aléatoire, mais à : 
+-   On ne s'intéresse pas à l'effet spécifique de chaque niveau de la variable aléatoire, mais à :
 
     -   la variance entre les niveaux (variabilité inter-groupe) et au sein des niveaux (variabilité intra-groupe)
 
@@ -838,7 +896,7 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Effets fixes estimés ainsi que leur incertitude (IC, p-value) : effets sur la moyenne de la variable dépendante
 
--   Composantes de la variance, décomposée en 
+-   Composantes de la variance, décomposée en
 
     -   Variance de l'effet aléatoire
 
@@ -881,6 +939,7 @@ Dans un tableau de contingence $2 \times 2$ :
     -   permettent de modéliser des données hiérarchiques avec des distributions non normales (binomiale, de Poisson, etc.)
 
 \newpage
+
 ## Modèles linéaires généralisés (GLM)
 
 ### Introduction aux GLM
@@ -1040,7 +1099,8 @@ Dans un tableau de contingence $2 \times 2$ :
     -   $\text{OR}_{X_2=1\ vs\ 0} = e^{\beta_2}$
 
     -   $\text{OR}_{X_1=1, X_2=1} = e^{\beta_1 + \beta_2} = e^{\beta_1} \times e^{\beta_2} = \text{OR}_1 \times \text{OR}_2$
-    -   Exemple (pas d'interaction) : OR tabac = 3, OR alcool = 2 \=> OR tabac+alcool = $3 \times 2 = 6$.
+
+    -   Exemple (pas d'interaction) : OR tabac = 3, OR alcool = 2 =\> OR tabac+alcool = $3 \times 2 = 6$.
 
 -   Attention : dans le cas d'une interaction entre $X_1$ et $X_2$ :
 
@@ -1097,6 +1157,7 @@ Dans un tableau de contingence $2 \times 2$ :
 -   NB : dans une régression linéaire, on utilise un test F (ANOVA) pour comparer les modèles emboîtés en comparant la variance expliquée par chaque modèle
 
 \newpage
+
 ### Modèle de Poisson
 
 #### Principe
@@ -1107,11 +1168,11 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Loi de Poisson : probabilité d'observer un certain nombre d'événements dans un intervalle de temps ou d'espace donné, en supposant que les événements se produisent à taux constant (moyenne constante) et indépendamment les uns des autres
 
--   Dans la distribution de Poisson, la moyenne et la variance sont égales : $\text{E}(\text{Y}) = \text{Var}(\text{Y}) = \lambda$. 
+-   Dans la distribution de Poisson, la moyenne et la variance sont égales : $\text{E}(\text{Y}) = \text{Var}(\text{Y}) = \lambda$.
 
-    -   Si variance >> moyenne : surdispersion (modèle de Poisson inadapté)
+    -   Si variance \>\> moyenne : surdispersion (modèle de Poisson inadapté)
 
-    -  Plus la moyenne est grande, plus la distribution de Poisson ressemble à une distribution normale
+    -   Plus la moyenne est grande, plus la distribution de Poisson ressemble à une distribution normale
 
 ##### Données de comptage
 
@@ -1137,7 +1198,7 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Les coefficients ($\beta$) du modèle de Poisson sont **additifs sur le log-moyenne**, donc leurs exponentielles = les taux relatifs se **multiplient**.
 
-:::callout-tip
+::: callout-tip
 -   Régression linéaire : moyenne est égale au prédicteur linéaire (donc effet additif sur la moyenne)
 
 -   Régression logistique : moyenne est une fonction expit (en S) du prédicteur linéaire (donc effet multiplicatif sur les odds)
@@ -1167,7 +1228,7 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   La moyenne et la variance de la variable dépendante doivent être égales (sinon surdispersion)
 
-#### Tests statistiques 
+#### Tests statistiques
 
 -   Test de Wald pour évaluer la significativité individuelle de chaque coefficient de régression
 
@@ -1195,10 +1256,10 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Solutions pour gérer la surdispersion :
 
-    -   Utiliser un modèle alternatif : 
-    
+    -   Utiliser un modèle alternatif :
+
         -   Modèle quasi-Poisson : ajuste les erreurs standards en fonction de la surdispersion observée
-        
+
         -   Modèle binomial négatif : introduit un paramètre de dispersion supplémentaire pour modéliser la variance excédentaire
 
     -   Ajuster les erreurs standards avec des estimateurs robustes (sandwich estimators)
@@ -1207,13 +1268,13 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Principe : ajuster les erreurs standards des coefficients de régression pour tenir compte de la surdispersion ou de la corrélation entre les observations
 
--   Calcul : utilise la matrice de variance-covariance des résidus pour ajuster les erreurs standards. 
+-   Calcul : utilise la matrice de variance-covariance des résidus pour ajuster les erreurs standards.
 
     -   La matrice variance-covariance est multipliée par une matrice de correction basée sur les résidus du modèle.
 
     -   Cela permet d'obtenir des erreurs standards plus robustes, qui reflètent mieux la variabilité réelle des données.
 
--   Avantages : 
+-   Avantages :
 
     -   Permet d'obtenir des intervalles de confiance et des tests de significativité plus fiables en présence de surdispersion ou de corrélation
 
@@ -1223,7 +1284,7 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Principe : méthode de rééchantillonnage qui permet d'estimer la distribution des estimateurs (comme les coefficients de régression) en générant de nombreux échantillons bootstrap à partir des données originales
 
--   Calcul : 
+-   Calcul :
 
     -   Générer un grand nombre d'échantillons bootstrap en tirant au hasard avec remise des observations des données originales
 
@@ -1243,7 +1304,7 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Principe : extension du modèle de Poisson qui permet de modéliser la surdispersion en introduisant un paramètre de dispersion supplémentaire
 
--   Calcul : 
+-   Calcul :
 
     -   La moyenne de la variable dépendante est toujours modélisée comme dans le modèle de Poisson
 
@@ -1251,7 +1312,7 @@ Dans un tableau de contingence $2 \times 2$ :
 
     -   Le paramètre de dispersion est estimé à partir des données, et les erreurs standards des coefficients de régression sont ajustées en conséquence
 
-##### Éxcès de 0 
+##### Éxcès de 0
 
 -   L'excès de zéros se produit lorsque le nombre de zéros observés dans les données de comptage est supérieur à ce qui serait attendu selon la distribution de Poisson
 
@@ -1259,18 +1320,19 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Solutions pour gérer l'excès de zéros :
 
-    -   Modèles à zéros-inflation (zero-inflated models) : 
-    
+    -   Modèles à zéros-inflation (zero-inflated models) :
+
         -   Pour les zéros : modèle logistique
-        
-        -   Pour les comptes > 0 : modèle de Poisson ou binomial négatif
+
+        -   Pour les comptes \> 0 : modèle de Poisson ou binomial négatif
 
     -   Modèles hurdle : modélisent séparément le processus de génération des zéros et le processus de génération des comptages positifs
 
 \newpage
+
 ### Modèle de survie
 
--   Modèles de survie paramétrique : Weibull, exponentiel, log-logistique = Pas au programme*
+-   Modèles de survie paramétrique : Weibull, exponentiel, log-logistique = Pas au programme\*
 
 -   Modèles de survie semi-paramétriques : Modèle de Cox
 
@@ -1298,7 +1360,7 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Indicateur d'événement (1 si l'événement est survenu, 0 si censuré)
 
-#### Loi de probabilité de T = délai jusqu'à l'événement 
+#### Loi de probabilité de T = délai jusqu'à l'événement
 
 -   Densité de probabilité $f(t)$ : probabilité que l'événement survienne exactement au temps t
 
@@ -1326,8 +1388,8 @@ Dans un tableau de contingence $2 \times 2$ :
 
     -   Fonction de risque instantané (hazard function) : taux instantané de survenue de l'événement à un temps donné, conditionnellement à la survie jusqu'à ce temps
 
-    -   2 hypothèses : 
-    
+    -   2 hypothèses :
+
         -   Proportionnalité des risques : rapport des risques reste constant dans le temps : à tout moment du suivi, le risque relatif entre deux individus est le même
 
         -   Log-linéarité des covariables continues : l'effet des covariables continues sur le log-risque est linéaire : chaque année supplémentaire d'âge a le même effet proportionnel sur le risque
@@ -1362,8 +1424,8 @@ Dans un tableau de contingence $2 \times 2$ :
 
     -   Un ensemble de covariables explicatives $\text{X}_1, \text{X}_2, ..., \text{X}_p$
 
--   2 hypothèses : 
-    
+-   2 hypothèses :
+
     -   Proportionnalité des risques : le rapport des risques entre deux individus reste constant dans le temps
 
     -   Log-linéarité des covariables continues : l'effet des covariables continues sur le log-risque est linéaire
@@ -1380,7 +1442,7 @@ Dans un tableau de contingence $2 \times 2$ :
 
     -   Si $\text{HR} = 1$ : pas d'effet de $\text{X}_i$ sur le risque
 
--   Selon le type de variable explicative : 
+-   Selon le type de variable explicative :
 
     -   Variable binaire (0/1) : $\text{HR}$ compare le risque entre les deux groupes (ex : traitement vs contrôle)
 
@@ -1395,6 +1457,7 @@ Dans un tableau de contingence $2 \times 2$ :
 -   Utilisé lorsque les données présentent une structure hiérarchique ou de regroupement (ex : mesures répétées sur les mêmes individus, données groupées par centres cliniques)
 
 \newpage
+
 # Bootstrap
 
 ## Principe
@@ -1413,13 +1476,1307 @@ Dans un tableau de contingence $2 \times 2$ :
 
 -   Revient à dire "*si je refaisais l'étude plusieurs fois, dans 95% des cas, le résultat serait compris dans cet intervalle*"
 
+```{r}
+#| label: fig-bootstrap-schema
+#| fig-cap: "Illustration du principe du Bootstrap (Méthode des percentiles)"
+#| echo: false
+#| warning: false
+#| fig-height: 3
+
+# Génération de données fictives simulant k=10000 réplications
+set.seed(42)
+simulations <- data.frame(valeur = rnorm(10000, mean = 1.5, sd = 0.5))
+
+# Calcul des bornes (Percentiles 2.5% et 97.5%)
+bornes <- quantile(simulations$valeur, probs = c(0.025, 0.975))
+
+# Graphique explicatif
+ggplot(simulations, aes(x = valeur)) +
+    geom_histogram(aes(y = after_stat(density)), bins = 50, fill = "grey90", color = "white") +
+    geom_density(color = "black", linewidth = 1) +
+    # Lignes verticales pour les bornes
+    geom_vline(xintercept = bornes, color = "#E41A1C", linetype = "dashed", linewidth = 1) +
+    # Annotations
+    annotate("text", x = mean(bornes), y = 0.1, label = "Intervalle de Confiance à 95%\n(Zone conservée)", color = "#377EB8", fontface = "bold") +
+    annotate("text", x = bornes[1], y = 0.6, label = "2.5% inférieurs\n(Exclus)", color = "#E41A1C", hjust = 1.1, size = 3.5) +
+    annotate("text", x = bornes[2], y = 0.6, label = "2.5% supérieurs\n(Exclus)", color = "#E41A1C", hjust = -0.1, size = 3.5) +
+    labs(title = "Distribution simulée des estimations bootstrap",
+        x = "Valeur du paramètre estimé",
+        y = "Fréquence") +
+    theme_minimal() +
+    theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+
 ## Conditions d'application
 
 -   Données indépendantes (mais c'est possible sur des données en cluster en adaptant la méthode)
 
--   Nombre suffisant d'observations dans l'échantillon initial (idéalement > 30)
+-   Nombre suffisant d'observations dans l'échantillon initial (idéalement \> 30)
 
--   Fluctuations CONTINUES et non discrète de la statistique d'intérêt (éviter les statistiques basées sur des comptages très faibles)
+-   Fluctuations CONTINUES et non discrète de la statistique d'intérêt (éviter les statistiques basées sur des comptages très faibles ou sur une médiane) $\rightarrow$ éviter les distributions "en peigne".
 
+```{r}
+#| fig-cap: "Bootstrap sur médiane (données discrètes) vs Bootstrap sur moyenne (continues)"
+#| echo: false
+#| fig-height: 3
 
+set.seed(123)
+# Petit échantillon de notes entières
+data_discrete <- c(1, 2, 2, 3, 3, 3, 4, 4, 5, 5)
 
+# Bootstrap de la médiane
+boot_median <- replicate(2000, median(sample(data_discrete, replace = TRUE)))
+
+# Bootstrap de la moyenne
+boot_mean <- replicate(2000, mean(sample(data_discrete, replace = TRUE)))
+
+par(mfrow=c(1,2))
+hist(boot_median, main="Médiane (Discret)", xlab="Valeur estimée", col="salmon", border="white")
+hist(boot_mean, main="Moyenne (Continu)", xlab="Valeur estimée", col="lightblue", border="white")
+par(mfrow=c(1,1))
+```
+
+## Avantages
+
+-   Ne nécessite pas d'hypothèses strictes sur la distribution des données (non paramétrique)
+
+-   Peut être appliqué à une large gamme de statistiques d'intérêt
+
+-   Stabilisation asymptotique des estimateurs avec un grand nombre de rééchantillonnages, c'est à dire que les résultats deviennent plus précis à mesure que le nombre d'itérations augmente
+
+## Inconvénients
+
+-   Peut être computationnellement intensif, surtout pour de grands ensembles de données ou des modèles complexes
+
+-   Résultats peuvent être sensibles aux observations extrêmes ou influentes dans l'échantillon initial
+
+## Applications courantes
+
+-   Estimation des erreurs standards et des intervalles de confiance pour des statistiques complexes (médiane, quantiles, coefficients de régression non linéaires)
+
+-   Validation de modèles statistiques (évaluation de la stabilité des coefficients de régression)
+
+-   Comparaison de groupes ou de traitements lorsque les hypothèses des tests paramétriques ne sont pas satisfaites
+
+\newpage
+
+# Effet centre
+
+-   Données regroupées par centres (hôpitaux, cliniques, régions, etc.)
+
+-   Donc par définition non-indépendantes (patients d'un même centre plus similaires entre eux qu'avec ceux d'autres centres)
+
+-   Ignorer la corrélation : risque accru de faux positifs (erreurs standards sous-estimées, p-values trop optimistes)
+
+-   Solutions :
+
+    -   Modèles de régressions avec erreurs robustes : bootstrap en grappe, estimateurs sandwich
+
+    -   Modèles linéaires mixtes (LMM) ou modèles linéaires généralisés mixtes (GLMM) : inclure un effet aléatoire pour le centre
+
+    -   Modèles marginaux (GEE) : modéliser la corrélation entre les observations au sein des centres
+
+## Modèles avec erreurs robustes
+
+-   Sans prise en compte de la structure en grappes (centres) dans le modèle :
+
+    -   Biais de confusion par effet de groupe
+
+        -   Exemple : si un centre a de meilleurs résultats en raison de meilleures pratiques cliniques, et que ce centre a aussi une proportion plus élevée de patients recevant un certain traitement, on pourrait à tort attribuer les meilleurs résultats au traitement plutôt qu'aux pratiques du centre.
+
+        -   Donc mélange de l'effet du traitement et de l'effet centre.
+
+    -   Non-indépendance des observations et des résidus
+
+        -   Donc sous-estimation des erreurs standards des coefficients de régression
+
+-   Solutions : bootstrap en grappe, estimateurs sandwich
+
+### Bootstrap en grappe = cluster bootstrap
+
+-   Tirer des échantillons bootstrap au niveau des grappes (centres) plutôt qu'au niveau des individus
+
+-   Pour chaque échantillon bootstrap, ajuster le modèle de régression et calculer les coefficients
+
+-   Utiliser la distribution des coefficients obtenus à partir des échantillons bootstrap pour estimer les erreurs standards, les intervalles de confiance et les p-values
+
+-   L'intervalle sera presque toujours plus large qu'avec un bootstrap classique (car on prend en compte la variabilité entre les centres)
+
+### Estimateur robuste de la variance (Sandwich estimator)
+
+-   L'estimateur robuste utilise les résidus "réels" du modèle en plus des résidus "théoriques" pour ajuster les erreurs standards
+
+-   Si tous les résidus vont dans le même sens, la corrélation est détectée et est prise en compte dans le calcul des erreurs standards.
+
+-   La matrice de variance-covariance est ajustée pour refléter la corrélation entre les observations au sein des grappes (centres)
+
+-   Mécanisme : $V_{robuste} = V_{classique} \times Correction \times V_{classique}$, où $Correction$ est une matrice de correction basée sur les résidus du modèle
+
+-   Donc les estimations des coefficients restent les mêmes, mais les erreurs standards sont ajustées pour tenir compte de la corrélation intra-groupe !!
+
+## Modèles linéaires mixtes (LMM) et modèles linéaires généralisés mixtes (GLMM)
+
+-   Inclure un effet aléatoire pour le centre dans le modèle de régression
+
+-   Permet de modéliser la variabilité entre les centres et de capturer la corrélation entre les observations au sein d'un même centre
+
+-   Structure du modèle :
+
+    -   Effets fixes : coefficients de régression pour les variables explicatives
+
+    -   Effets aléatoires : variabilité spécifique à chaque centre
+
+-   Estimation des paramètres par maximum de vraisemblance ou maximum de vraisemblance restreint (REML)
+
+    -   ML : convient pour comparer des modèles avec des effets fixes différents, surtout pour avoir des estimations cohérentes des effets fixes
+
+    -   REML : convient pour comparer des modèles avec des structures d'effets aléatoires différentes, surtout pour avoir des estimations non biaisées de la variance des effets aléatoires
+
+-   GLMM : extension des LMM pour les variables dépendantes non normales (binaire, comptage, etc.)
+
+## Modèle marginal = GEE (Generalized Estimating Equations)
+
+-   Principe : modéliser la moyenne marginale de la variable dépendante en tenant compte de la corrélation entre les observations au sein des centres
+
+    -   D'abord estimation d'à quel point les observations au sein des centres sont corrélées (matrice de corrélation)
+
+    -   Ensuite, modélisation de la moyenne marginale via un modèle de régression en utilisant cette matrice de corrélation
+
+-   Si peu de structure dans les données (faible corrélation intra-centre), GEE se rapproche d'un modèle classique sans prise en compte de la corrélation.
+
+\newpage
+
+# Données manquantes
+
+## Types de données manquantes
+
+-   MCAR : Missing Completely At Random (Manquant complètement au hasard)
+
+    -   La probabilité qu'une donnée soit manquante est indépendante des valeurs observées et non observées
+
+    -   Exemple : un questionnaire perdu par la poste = **completement aléatoire**
+
+-   MAR : Missing At Random (Manquant au hasard)
+
+    -   La probabilité qu'une donnée soit manquante dépend des valeurs observées, mais pas des valeurs non observées
+
+    -   Une fois qu'on contrôle pour les variables observées, les données manquantes sont aléatoires
+
+    -   Exemple :
+
+        -   les patients plus âgés sont moins susceptibles de répondre à une question sur leur activité physique, mais parmi les patients du même âge, la probabilité de réponse ne dépend pas de leur niveau d'activité physique = **conditionnellement aléatoire**
+
+        -   Donc une fois qu'on contrôle pour l'âge, les données manquantes sont aléatoires !
+
+-   MNAR : Missing Not At Random (Manquant non au hasard)
+
+    -   La probabilité qu'une donnée soit manquante dépend des valeurs non observées elles-mêmes
+
+    -   Même après avoir contrôlé pour les variables observées, les données manquantes ne sont pas aléatoires
+
+    -   Exemple :
+
+        -   les patients avec une dépression sévère sont moins susceptibles de répondre à un questionnaire sur leur humeur = **non aléatoire**
+
+        -   Donc même après avoir contrôlé pour d'autres variables, la probabilité de réponse dépend du niveau de dépression non observé
+
+## Faire la différence entre MCAR, MAR et MNAR
+
+-   Pas de tests statistiques formels pour distinguer MCAR, MAR et MNAR
+
+-   Donc se baser sur les connaissances du domaine et la nature des données
+
+## Imputation des données manquantes
+
+### Imputation simple
+
+-   Remplir les valeurs manquantes avec une seule valeur estimée
+
+-   Par exemple : moyenne, médiane, mode, ou valeur prédite par un modèle de régression
+
+### Imputation multiple
+
+#### Principe
+
+1.  Imputation des $\text{n}$ valeurs manquantes en prenant une autre valeur de la même colonne.
+
+2.  Obtention d'un jeu de données **intermédiaire** permettant de réaliser une régression complète
+
+3.  **régressions** sur chaque jeu de données intermédiaire permettant d'obtenir des valeurs estimées pour chacune des $\text{n}$ valeurs manquantes (il faut donc faire $\text{n}$ régressions). Obtention d'un premier jeu de données **imputé** mais pas encore **convergent**
+
+4.  Répéter les étapes 1 à 3 jusqu'à obtenir une **convergence** des valeurs imputées (plus on impute, plus les jeu de données se ressemblent) et obtention **d'un premier jeu de données imputé convergent**
+
+5.  Répéter les étapes 1 à 4 $\text{m}$ fois pour obtenir $\text{m}$ jeux de données imputés convergents. En général, $\text{m}$ = 5 ou 10.
+
+#### Analyse des données imputées
+
+-   Analyser chaque jeu de données imputé séparément (par exemple, ajuster un modèle de régression sur chaque jeu de données)
+
+-   On obtient ainsi $\text{m}$ ensembles de résultats (coefficients, erreurs standards, etc.)
+
+-   Combiner les résultats des $\text{m}$ analyses en utilisant les règles de Rubin pour obtenir des estimations globales et des intervalles de confiance qui tiennent compte de l'incertitude liée à l'imputation
+
+#### Règles de Rubin
+
+-   Moyenne des estimations : calculer la moyenne des coefficients estimés à partir des $\text{m}$ analyses
+
+-   Variance totale : combiner la variance intra-imputation (moyenne des variances des $\text{m}$ analyses) et la variance inter-imputation (variance des coefficients estimés entre les $\text{m}$ analyses) pour obtenir une estimation globale de la variance
+
+-   Intervalles de confiance et tests de significativité : utiliser la moyenne des estimations et la variance totale pour construire des intervalles de confiance et effectuer des tests de significativité.
+
+\newpage
+
+# Mesures répétées / séries chronologiques
+
+## Problème posé
+
+-   Données collectées à plusieurs moments dans le temps pour les mêmes individus ou unités d'analyse
+
+-   Problème : observations non indépendantes (corrélées dans le temps)
+
+-   Donc si modèle classique : risque de faux positifs (erreurs standards sous-estimées, p-values trop optimistes) car non-indépendance des résidus.
+
+-   Objectif : modéliser une variable à expliquer qui est
+
+    -   un processus stationnaire
+
+    -   évoluant dans le temps
+
+    -   donc pour lequel la corrélation de la mesure entre un temps $\text{t}$ et un temps $\text{t+k}$ dépend de la distance $\text{k}$ entre les deux temps et pas du temps absolu $\text{t}$.
+
+## Effet sujet
+
+-   Observations répétées donc non-indépendantes au sein d'un même individu
+
+-   "*Effet sujet*" = variabilité entre les individus, différent de l'effet centre !
+
+    -   Pour un effet centre, les sujets sont interchangeables au sein d'un centre
+
+    -   Pour un effet sujet, on ne peut pas changer les variables entre un temps et un autre (ex : poids d'un individu à différents moments)
+
+-   La corrélation entre les observations dépend de l'écat temporel
+
+-   Plusieurs approches sont possibles pour modéliser cette corrélation
+
+    -   Modèles linéaires mixtes (LMM) ou modèles linéaires généralisés mixtes (GLMM) : inclure un effet aléatoire pour chaque individu
+
+    -   Modèles marginaux (GEE) : modéliser la corrélation entre les observations au sein des individus
+
+    -   **Modèles de séries chronologiques : ARIMA, modèles à espace d'état, etc.**
+
+## Modèles non spécifiques au séries chronologiques
+
+### Modèles linéaires mixtes (LMM) et modèles linéaires généralisés mixtes (GLMM)
+
+-   Inclure un effet aléatoire pour chaque individu dans le modèle de régression
+
+-   Permet de modéliser la variabilité entre les individus et de capturer la corrélation entre les observations répétées pour un même individu
+
+-   Structure du modèle :
+
+    -   Effets fixes : coefficients de régression pour les variables explicatives
+
+    -   Effets aléatoires : variabilité spécifique à chaque individu
+
+### Modèles marginaux (GEE)
+
+-   Principe : modéliser la moyenne marginale de la variable dépendante en tenant compte de la corrélation entre les observations répétées pour chaque individu
+
+    -   D'abord estimation de la corrélation entre les observations répétées (matrice de corrélation)
+
+    -   Ensuite, modélisation de la moyenne marginale via un modèle de régression en utilisant cette matrice de corrélation
+
+## Modèles de séries chronologiques = ARIMA (AutoRegressive Integrated Moving Average)
+
+-   Utilisés lorsque les données sont collectées à intervalles réguliers dans le temps
+
+-   Capturent les dépendances temporelles entre les observations
+
+-   Types de modèles :
+
+    -   Modèle AR : variable expliquée par ses propres valeurs passées
+
+    -   Modèle MA : variable expliquée par une moyenne mobile des erreurs passées
+
+### Modèle auto-régressif (AR)
+
+#### Définition et concept
+
+-   Valeur actuelle $Y_i$ est prédite linéairement par la valeur précédente $Y_{i-1}$ plus un terme de bruit aléatoire
+
+-   Le modèle possède une "mémoire" : les erreurs passées influencent les valeurs futures
+
+    -   Comme la valeur $Y_i$ dépend de la valeur $Y_{i-1}$ + du bruit $\epsilon_i$
+
+    -   Et que la valeur $Y_{i-1}$ dépend de la valeur $Y_{i-2}$ + du bruit $\epsilon_{i-1}$
+
+    -   Donc une erreur $\epsilon_{i-1}$ influence $Y_{i-1}$, qui influence $Y_i$, et ainsi de suite
+
+-   La variance totale du processus est un équilibre entre la variabilité du bruit injecté à chaque instant et la capacité du système à "se souvenir" de ses erreurs passées
+
+-   Un "choc" ou une erreur $\epsilon_i$ survenant à un instant donné se propage dans tout le futur de la série
+
+-   La valeur totale du modèle dépend donc de la variabilité du bruit et de la mémoire du système (coefficient $b$)
+
+-   La valeur de départ importe peu, la série est centrée avant modélisation.
+
+#### Variance totale du processus
+
+-   La variance totale de la série dépend globalement de deux facteurs :
+
+    -   La variance du bruit aléatoire $\sigma^2$ : plus le bruit est important, plus la variance totale augmente
+
+    -   Le coefficient de mémoire $b$ : plus $|b|$ est proche de 1, plus les erreurs passées influencent les valeurs futures, augmentant ainsi la variance totale
+
+#### Processus stationnaire
+
+-   Pour que le modèle soit stable, il doit être stationnaire, c'est à dire que sa variabilité doit rester stable dans le temps
+
+-   Le coefficient de mémoire $b$ doit être tel que $|b| < 1$, la variance est donc stationnaire.
+
+-   Si $|b| \text{≥} 1$, ça signifie que les erreurs se cumulent sans limite (marche aléatoire).
+
+#### Structure de la corrélation
+
+-   Dans un modèle AR :
+
+    -   La corrélation entre deux mesures décroît de façon exponentielle avec l'écart de temps (le lag)
+
+    -   Mathématiquement, la corrélation entre $Y_i$ et $Y_{i-k}$ est égale à $b^k$
+
+-   Plus les mesures sont éloignées dans le temps, plus le lien linéaire s'affaiblit, ce qui correspond à la réalité clinique des mesures répétées sur un sujet (plus deux mesures sont éloignées dans le temps, moins elles sont corrélées)
+
+### Modèle de moyenne mobile (MA)
+
+#### Définition et concept
+
+-   Valeur actuelle $Y_i$ est exprimée comme une combinaison linéaire des erreurs passées
+
+-   Dans ce cas, erreur = bruit = part imprévisible de la mesure, celle qui n'est pas expliquée par la structure même de la série
+
+-   Donc valeur actuelle = somme du bruit actuel $\epsilon_i$ + du bruit immédiatement précédent $\epsilon_{i-1}$ (pour un modèle MA(1))
+
+#### Mémoire "courte"
+
+-   La corrélation entre deux mesures successives ($Y_j$ et $Y_{j-1}$) existe uniquement parce qu'elles partagent le même terme d'erreur $\epsilon_{i-1}$
+
+-   À l'inverse du modèle AR où la corrélation s'estompe lentement, elle devient strictement nulle dès que l'écart (lag) dépasse l'ordre du modèle
+
+    -   Pour un MA(1), il n'y a plus aucun terme d'erreur commun entre $Y_j$ et $Y_{j-2}$, rendant leur corrélation égale à zéro
+
+    -   Donc la mémoire est très courte : un choc aléatoire influence la mesure du jour et potentiellement celle du lendemain, mais sans effet durable à long terme
+
+-   Permet de modéliser des phénomènes où les erreurs sont temporaires et n'ont pas d'impact prolongé
+
+-   La corrélation est nulle au delà du lag défini par l'ordre du modèle MA
+
+### Modèles complexes : ARMA et ARIMA
+
+-   Combinaison des modèles AR et MA pour capturer à la fois les dépendances à long terme (AR) et les fluctuations à court terme (MA)
+
+-   ARIMA (AutoRegressive Integrated Moving Average) : extension des modèles ARMA qui inclut une étape de différenciation pour rendre la série temporelle stationnaire si nécessaire. I = "Integrated" = dérive au cours du temps.
+
+-   SARIMA : extension des modèles ARIMA pour capturer les effets saisonniers dans les données temporelles
+
+### Identification des paramètres du modèle
+
+-   Utilisation d'un **autocorrélogramme** et d'une **autocorrélogramme partiel** pour identifier les ordres AR et MA
+
+-   Autocorrélogramme (ACF) : montre la corrélation entre les observations à différents lags
+
+    -   Permet d'identifier la partie MA du modèle
+
+    -   MA : si décroissance rapide à un lag spécifique
+
+-   Autocorrélogramme partiel (PACF) : montre la corrélation entre les observations à différents lags, **en contrôlant pour les lags intermédiaires**
+
+    -   Permet d'identifier la partie AR du modèle
+
+    -   AR : si décroissance progressive sur plusieurs lags
+
+\newpage
+
+# Comparaisons multiples
+
+## Pourquoi ajuster ?
+
+-   Problème : lorsque plusieurs tests statistiques sont effectués simultanément, le risque global d'erreur de type I (faux positifs) augmente
+
+-   Fisher : calcul des *p-values* pour chaque comparaison
+
+    -   Fait ainsi de **l'inférence inductive** : utilise chacune des p-values pour en déduire de nouvelles hypothèses sur la population
+
+    -   Observations de départ sont vraies, mais les conclusions sont probables
+
+-   Neyman-Pearson ; calcule une seule *p-value* pour l'ensemble des comparaisons
+
+    -   Hypothèses nulle $\text{H}_0$ et alternative $\text{H}_1$ sont fixées avant les tests
+
+    -   Risque d'erreur de type I ($\alpha$) et de type II ($\beta$) sont fixés à l'avance
+
+    -   Si on augmente le nombre d'hypothèses, on augmente aussi le risque d'erreur de type I !
+
+## Quand ajuster ?
+
+-   Dans les situations Neyman-Pearson, càd les essais cliniques.
+
+## Méthodes d'ajustement
+
+### Répartition du risque alpha
+
+#### Méthode de Bonferroni = la plus classique
+
+-   Principe : diviser le risque alpha par le nombre de comparaisons effectuées
+
+-   Si 2 tests, alpha = 0.05/2 = 0.025 pour chaque test
+
+#### Méthode de Holm
+
+-   Principe : ajustement séquentiel
+
+    -   Trier les p-values par ordre croissant
+
+    -   Comparer chaque p-value à un seuil ajusté qui diminue avec le rang de la p-value
+
+        -   Pour la p-value la plus petite : alpha/n
+
+        -   Pour la deuxième p-value : alpha/(n-1)
+
+        -   Etc.
+
+### Méthode par hierarchie
+
+-   Principe : définir une hiérarchie des tests avant l'analyse
+
+    -   Tester d'abord les hypothèses principales
+
+    -   Si elles sont significatives, tester les hypothèses secondaires
+
+    -   Si une hypothèse principale n'est pas significative, ne pas tester les hypothèses secondaires associées
+
+\newpage
+
+# Méthodes non supervisées
+
+-   Objectif des méthodes non supervisées : mettre en évidence des groupes homogènes de **sujets** ou de **variables** dans un ensemble de données, sans utiliser d'étiquettes ou de classes prédéfinies
+
+-   2 options :
+
+    -   Réduction du nombre de dimensions pour les rendre compatibles avec nos yeux
+
+    -   Demander à l'ordinateur de se substituer à nous : nuées dynamiques, classification hierarchiques...
+
+## Groupes homogènes de sujets : clustering
+
+### Analyse en composantes principales (ACP)
+
+#### Principe
+
+-   But : réduire le nombre de dimensions tout en conservant le maximum d'information
+
+-   1ère composante principale :
+
+    -   droite qui **explique le maximum de variance** dans les données = **qui explique au mieux la variabilité des données**.
+
+    -   = combinaison linéaire des variables initiales qui maximise la variance projetée
+
+-   2nde composante principale :
+
+    -   droite orthogonale à la 1ère qui explique le maximum de variance restante
+
+    -   Méthode :
+
+        -   d'abord projeter les points sur le plan de la 1ère composante principale
+
+        -   Puis répéter l'opération pour trouver la 2nde composante principale
+
+-   Composantes suivantes :
+
+    -   Droites orthogonales aux précédentes qui expliquent le maximum de variance restante
+
+    -   Répéter jusqu'à obtenir autant de composantes que de variables initiales
+
+#### Interprétation
+
+-   Des composantes principales :
+
+    -   Chaque composante principale est une combinaison linéaire des variables initiales
+
+    -   Les coefficients de chaque variable dans la combinaison linéaire indiquent l'**importance de cette variable dans la composante principale**
+
+    -   On dit qu'une composante principale explique un pourcentage de la variance totale des données
+
+    -   Donc si une variable a un coefficient élevé dans une composante principale qui explique une grande partie de la variance, cette variable est importante pour comprendre la structure des données
+
+-   Du "plan principal"
+
+    -   Plan principal = projection des données sur les 2 premières composantes principales
+
+    -   Permet de visualiser la structure des données en 2D
+
+#### Pythagore et la géométrie de l'ACP :
+
+-   **La méthode des moindres carrés** :
+
+    -   Comme l'ACP cherche les meilleures combinaisons linéaires pour estimer les coefficients, elle cherche à minimiser les variances résiduelles.
+
+    -   Ainsi, les distances entre les points originaux et leurs projections sur chaque composante principal sont minimisées. Cette minimisation garantit que la composante principale capture le maximum de variance possible.
+
+-   Donc pour un point de données, on peut former un triangle rectangle avec :
+
+    -   Le centre de gravité des données (moyenne générale)
+
+    -   Le point original dans l'espace à plusieurs dimensions
+
+    -   La projection du point sur la composante principale
+
+-   Ces 3 points forment un triangle rectangle où :
+
+    -   Hypoténuse = distance du centre au point original (= distance la plus longue = variance totale du point)
+
+    -   Premier côté = distance du centre à la projection sur PC1 (= distance intermédiaire = variance expliquée par PC1)
+
+    -   Deuxième côté = distance perpendiculaire entre le point et PC1 (= distance la plus courte = variance non expliquée par PC1).
+
+        -   L'ACP2 permet de capturer cette variance non expliquée par PC1.
+
+        -   Elle utilise le même principe pour minimiser les distances perpendiculaires entre les points originaux et leurs projections sur PC2.
+
+-   Donc si l'ACP1 maximise le premier côté et l'ACP2 maximimise le deuxième côté, l'hypoténuse est minimale → minimisation des variances résiduelles.
+
+-   Donc dans le plan principal, chaque point peut être vu comme la somme de :
+
+    -   La projection sur PC1 (variance expliquée par PC1)
+
+    -   La projection sur PC2 (variance expliquée par PC2)
+
+    -   La distance perpendiculaire au plan, minimale (variance non expliquée par PC1 et PC2)
+
+#### Relation composantes principales / valeurs propres
+
+-   Chacune des composantes principales = un vecteur propre de la matrice de covariance des données.
+
+-   La longueur de la composante principale est proportionnelle à la variance expliquée par cette composante et correspond à **la valeur propre associée à ce vecteur propre**.
+
+-   En résumé :
+
+    -   Vecteur propre = direction de la composante principale
+
+    -   Valeur propre = longueur de la composante principale = variance expliquée par la composante principale
+
+-   Donc plus la valeur propre est grande, plus la composante principale explique une grande partie de la variance des données.
+
+#### Corrélation entre variables originales et composantes principales (Loadings)
+
+-   **Définition** : la "corrélation" en ACP désigne le coefficient de corrélation (au sens statistique) entre chaque variable originale et chaque composante principale
+
+-   Ces coefficients s'appellent **loadings** ou **contributions** en anglais
+
+-   **Calcul** : pour chaque variable originale et chaque composante principale, on calcule leur coefficient de corrélation linéaire de Pearson
+
+-   **Interprétation** :
+
+    -   Une corrélation proche de **+1** : la variable et la composante principale varient ensemble dans la même direction
+
+    -   Une corrélation proche de **-1** : la variable et la composante principale varient en sens inverse
+
+    -   Une corrélation proche de **0** : la variable est indépendante de la composante principale (peu importante dans cette composante)
+
+-   **Importance pratique** : permet d'identifier **quelles variables contribuent le plus** à chaque composante principale
+
+    -   Exemple : si la variable "âge" a une corrélation de 0.85 avec PC1, et la variable "poids" a une corrélation de 0.15 avec PC1, alors l'âge est beaucoup plus important que le poids pour comprendre ce que PC1 représente
+
+-   **Représentation graphique** : ces corrélations sont souvent représentées dans un **cercle de corrélation** (ou "cercle des variables")
+
+    -   Chaque variable est placée comme un vecteur partant du centre
+
+    -   La position du vecteur indique sa corrélation avec les composantes principales
+
+    -   Les variables proches les unes des autres sont corrélées positivement
+
+    -   Les variables opposées (antipolaires) sont corrélées négativement
+
+#### Représentation sphérique
+
+-   Pour visualiser l'importance des variables dans les composantes principales, on peut utiliser une représentation sphérique
+
+-   Chaque variable est représentée par un vecteur partant du centre de la sphère
+
+-   Nécessaire donc de **standardiser les variables** avant l'ACP (moyenne = 0, écart-type = 1) par centration-réduction.
+
+    -   Permet de donner la même importance à chaque variable, indépendamment de leur échelle initiale
+
+    -   La variance totale à répartir = 1 par variable.
+
+-   Interprétation :
+
+    -   Variables à l'extérieur = vecteurs longs donc valeurs propres élevées = "Loadings" élevés = variables importantes pour la composante principale
+
+    -   Variables proches du centre = vecteurs courts donc valeurs propres faibles
+
+-   Valeur d'eingen = valeur propre = variance expliquée par la composante principale
+
+\newpage
+
+# Analyse factorielle
+
+-   Objectif : identifier des **facteurs latents** (non observés) qui expliquent les corrélations entre les variables observées
+
+-   Utilise aussi des modèles de régression pour estimer les relations entre les variables observées et les facteurs latents
+
+-   Super utile pour données subjectives (questionnaires, échelles psychométriques, etc.)
+
+-   Différences avec ACP :
+
+    -   ACP : méthode descriptive, cherche à réduire la dimensionnalité en maximisant la variance expliquée
+
+    -   Analyse factorielle : méthode inférentielle, cherche à modéliser les relations entre variables observées et facteurs latents
+
+-   Ne permet pas de conclure
+
+-   2 types principaux :
+
+    -   Analyse factorielle exploratoire (AFE) : découvrir la structure factorielle sous-jacente sans hypothèses préalables
+
+    -   Analyse factorielle confirmatoire (AFC) : tester des hypothèses spécifiques sur la structure factorielle basée sur des connaissances théoriques préalables
+
+## Modèle de l'analyse factorielle
+
+-   Chaque variable observée est exprimée comme une combinaison linéaire des facteurs latents plus une erreur spécifique
+
+-   On considère des **variables latentes** qu'on **ne peut pas mesurer directement**.
+
+-   Et l'analyse factorielle repose sur l'hypothèse qu'il existe une ou plusieurs **caractéristiques communes** à plusieurs variables observées, et que cette caractéristique est la **cause de la corrélation** entre ces variables.
+
+### Modélisation par régression linéaire
+
+-   L'analyse factorielle inclue un coefficient $\theta$ pour chaque individu, représentant son niveau sur le facteur latent
+
+-   Chaque variable observée est modélisée comme une régression linéaire sur ce facteur latent, avec un coefficient de charge factorielle indiquant l'importance du facteur latent pour cette variable
+
+-   Plus le coefficient de charge factorielle est élevé, plus la variable mesure bien le facteur latent
+
+### Rotation varimax
+
+-   La "rotation varimax" est nécessaire pour rendre les résultats de l'analyse factorielle plus interprétables
+
+-   Elle maximise la variance des charges factorielles pour chaque facteur, rendant les variables plus clairement associées à un seul facteur
+
+-   Rotation : réorganisation des axes factoriels sans changer la structure des données
+
+## Principe dans l'analyse subjective
+
+-   Objectif de l'analyse factorielle : identifier des **facteurs latents** (non observés) qui expliquent les corrélations entre les variables observées
+
+-   Dans le contexte de validation d'instruments subjectifs, l'analyse factorielle vérifie l'**unidimensionnalité** des items, donc répond à la question : **que mesure l'instrument**
+
+### Validation de la structure
+
+#### Interprétation des *loadings* (charges factorielles)
+
+-   Chaque variable observée a une charge factorielle pour chaque facteur latent
+
+-   La charge factorielle indique l'importance du facteur latent pour expliquer la variance de la variable observée
+
+-   Plus la charge factorielle est élevée, plus la variable mesure bien le facteur latent
+
+-   Globalement, une charge factorielle supérieure à 0.4-0.5 est considérée comme significative
+
+#### Diagramme des valeurs propres = scree plot
+
+-   Permet de visualiser la variance expliquée par chaque facteur latent
+
+-   Globalement, on cherche à identifier un "coude" dans le diagramme, indiquant le nombre optimal de facteurs à retenir
+
+#### Analyse factorielle exploratoire vs confirmatoire
+
+-   AF exploratoire : découvrir la structure factorielle sous-jacente sans hypothèses préalables
+
+-   AF confirmatoire : tester des hypothèses spécifiques sur la structure factorielle basée sur des connaissances théoriques préalables
+
+\newpage
+
+# Clinimétrie
+
+## Définition
+
+-   Branche de la psychométrie appliquée aux sciences de la santé
+
+-   Objectif : développer et valider des instruments de mesure (questionnaires, échelles, tests) pour évaluer des concepts cliniques (douleur, qualité de vie, fonction physique, etc.)
+
+## Accord inter-juge
+
+-   Différent selon le type de variable (binaire, catégorielle ordinale, continue) et le nombre de juges (2 ou plus)
+
+-   Variable binaire :
+
+    -   2 juges : $\text{Kappa}$ de Cohen
+
+    -   ≥ 3 juges : $\text{Kappa}$ de Cohen avec méthode de Light
+
+-   Variable catégorielle ordinale : $\text{Kappa}$ pondéré avec ± méthode de Light si ≥ 3 juges
+
+-   Variable continue :
+
+    -   2 juges : coefficient de corrélation intraclasse (CCI)
+
+    -   ≥ 3 juges : CCI avec méthode de Shrout et Fleiss
+
+### Accord inter-juge pour variable binaire
+
+#### Concordance
+
+-   Mesure la proportion d'accords entre deux juges
+
+-   Calcul : (nombre d'accords) / (nombre total d'observations)
+
+-   Problème : ne tient pas compte des accords dus au hasard
+
+#### $\text{Kappa}$ de Cohen
+
+-   Mesure l'accord entre deux juges en tenant compte des accords dus au hasard
+
+-   $\kappa = \frac{\text{Concordance observée } - \text{ Concordance liée au hasard}}{1 - \text{Concordance liée au hasard}}$
+
+-   Pour calculer la concordance liée au hasard, on utilise les proportions marginales des juges
+
+    -   Exemple : si le juge 1 classe 90% des cas comme négatifs et 10% comme positifs, et le juge 2 fait de même
+
+    -   Les marges se visualisent bien dans un tableau :
+
+        |                | Juge 2 Positif | Juge 2 Négatif | Total |
+        |----------------|----------------|----------------|-------|
+        | Juge 1 Positif | a              | b              | 0.1   |
+        | Juge 1 Négatif | c              | d              | 0.9   |
+        | Total          | 0.1            | 0.9            | 1     |
+
+    -   À partir des marges on calcule la probabilité d'être dans chaque cellule lorsque les juges répondent indépendamment :
+
+        -   Probabilité d'être dans `a` (positif-positif) = 0.1 \* 0.1 = 0.01
+
+        -   Probabilité d'être dans `b` (positif-négatif) = 0.1 \* 0.9 = 0.09
+
+        -   Probabilité d'être dans `c` (négatif-positif) = 0.9 \* 0.1 = 0.09
+
+        -   Probabilité d'être dans `d` (négatif-négatif) = 0.9 \* 0.9 = 0.81
+
+    -   La concordance liée au hasard reprend ces deux probabilités : $P(\text{accord par hasard}) = 0.01 + 0.81 = 0.82$, d'où le dénominateur de la formule de $\kappa$.
+
+    -   Donc formule plus simple : $\text{Concordance liée au hasard} = \text{probabilité positif - positif} + \text{probabilité négatif - négatif}$
+
+-   Donc $\kappa$ dépend de la prévalence des catégories !
+
+### Pour une variable catégorielle ordinale
+
+-   Idem !!
+
+-   Mais on utilise le $\kappa$ pondéré = weighted kappa
+
+-   Principe :
+
+-   Calcul :
+
+    -   accorder plus d'importance aux désaccords majeurs (ex : catégorie 1 vs catégorie 4) qu'aux désaccords mineurs (ex : catégorie 2 vs catégorie 3)
+
+    -   Attribuer des poids aux désaccords en fonction de leur gravité
+
+    -   Utiliser ces poids pour ajuster le calcul de la concordance observée et de la concordance liée au hasard
+
+### Avec ≥ 3 juges
+
+-   Utilisation de la méthode de Light
+
+-   Extension du $\kappa$ de Cohen pour plus de deux juges
+
+-   2 étapes :
+
+    -   $\kappa$ entre chaque paire de juges (donc pour 3 juges, 3 paires : (1,2), (1,3), (2,3))
+
+    -   Moyenne des $\kappa$ obtenus pour chaque paire
+
+-   Minimum 30 sujets.
+
+### Intervalle de confiance pour le $\kappa$
+
+-   Comme $\text{kappa}$ est une estimation, mais ne suit pas une une distribution normale, le plus simple est d'utiliser le bootstrap
+
+    -   On obtient ainsi une distribution empirique du $\kappa$ à partir des échantillons bootstrap
+
+-   Et comme $\text{kappa}$ dépend de la prévalence (c'est à dire à des problèmes de **paradoxe**), on peut utiliser des méthodes de PABAK = Prevalence-Adjusted Bias-Adjusted Kappa
+
+    -   Ajuste le $\kappa$ pour tenir compte de la prévalence des catégories et du biais des juges
+
+    -   Permet d'obtenir une mesure plus robuste de l'accord inter-juge, surtout lorsque les catégories sont déséquilibrées
+
+### Variable continue
+
+#### Coefficient de corrélation intraclasse (CCI)
+
+-   Mesure la fiabilité entre plusieurs juges pour des variables continues
+
+-   Calcul : proportion de la variance totale attribuable à la variance entre les sujets
+
+-   $\text{ICC} = \frac{\text{Variance inter-patients}}{\text{Variance inter patients} + \text{Variance intra-patients} + \text{Bruit}}$
+
+-   Rapport entre la "bonne variance" (inter-patients) et la variance totale (inter + intra + bruit)
+
+-   2 types : $\text{ICC}_\text{consistency}$ et $\text{ICC}_\text{agreement}$
+
+    -   $\text{ICC}_\text{consistency}$ : évalue la cohérence des mesures entre les juges, en ignorant les différences systématiques entre eux : donc ne prend pas en compte la variance inter-juges.
+
+    -   $\text{ICC}_\text{agreement}$ : évalue l'accord absolu entre les juges, avec variance inter-juges.
+
+#### Visualisation : méthode de Bland et Altman
+
+-   permet de visualiser l'accord entre deux juges pour des variables continues.
+
+    -   Pour chaque sujet, calculer la moyenne des deux mesures (axe des x)
+
+    -   Calculer la différence entre les deux mesures (axe des y)
+
+    -   Tracer un graphique avec la moyenne sur l'axe des x et la différence sur l'axe des y
+
+    -   Ajouter la ligne de la moyenne des différences (biais) et les limites d'accord (moyenne ± 1.96 \* écart-type des différences)
+
+```{r}
+#| fig-cap: "Exemple de graphique de Bland et Altman pour deux juges"
+#| fig-height: 3.5
+#| echo: false
+#| results: 'asis'
+#| include: true
+set.seed(123)
+n <- 100
+judge1 <- rnorm(n, mean = 50, sd = 10)
+judge2 <- judge1 + rnorm(n, mean = 0, sd = 5)
+mean_values <- (judge1 + judge2) / 2
+diff_values <- judge1 - judge2
+mean_diff <- mean(diff_values)
+sd_diff <- sd(diff_values)
+upper_limit <- mean_diff + 1.96 * sd_diff
+lower_limit <- mean_diff - 1.96 * sd_diff
+plot(mean_values, diff_values, 
+        ylab = "Différence entre les juges")
+abline(h = mean_diff, col = "blue", lwd = 2)
+abline(h = upper_limit, col = "red", lty = 2)
+abline(h = lower_limit, col = "red", lty = 2)
+
+#ajout d'une meilleure légende
+legend("topright", 
+        legend = c("Moyenne", "1,96 SD"), 
+        col = c("blue", "red"), 
+        lty = c(1, 2), 
+        lwd = c(2, 1))
+```
+
+## Fiabilité des instruments subjectifs
+
+-   **Cohérence interne** : l'idée est de vérifier que les items d'un questionnaire mesurent bien le même construit latent.
+
+-   Accord "intra-juge" du patient avec lui-même = test-retest.
+
+-   Pas vraiment de la reproductibilité : mesure de la COHÉRENCE INTERNE des items.
+
+### $\text{Alpha}$ de Cronbach
+
+#### Principe
+
+-   Évalue la cohérence d'un ensemble d'items censé mesurér le même construit latent (une dimension)
+
+-   Mesure le degré de corrélation entre les items
+
+-   Plus les items "vont dans le même sens", plus l'alpha est élevé
+
+-   Interprétation :
+
+    -   $\alpha$ \> 0.6, on considère que la cohérence interne est acceptable
+
+    -   $\alpha$ \> 0.9, c'est presque trop : peut indiquer que certains items sont redondants
+
+#### Limite fondamentale : nécessite l'unidimensionnalité
+
+-   L'alpha de Cronbach suppose que tous les items mesurent une seule dimension sous-jacente
+
+-   Si le questionnaire est multidimensionnel (plusieurs facteurs latents), l'alpha peut être trompeur
+
+-   On ne peut pas calculer des corrélations entre les items
+
+-   Donc avant de calculer l'alpha, il faut vérifier l'unidimensionnalité via une analyse factorielle exploratoire (AFE)
+
+### Lien entre alpha de Cronbach et CCI
+
+-   L'alpha de Cronbach peut être vu comme une forme spécifique de CCI
+
+-   Calcul de l'alpha :
+
+    -   $\alpha = \frac{N}{N-1} \left(1 - \frac{\sum \text{Var}(X_i)}{\text{Var}(T)}\right)$
+
+        -   N = nombre d'items
+
+        -   Var($X_i$) = variance de chaque item
+
+        -   Var(T) = variance du score total (somme des items)
+
+-   Calcul du CCI pour les items :
+
+    -   $\text{CCI} = \frac{\text{Var}(\text{entre sujets})}{\text{Var}(\text{entre sujets}) + \text{Var}(\text{intra sujets})}$
+
+-   En comparant les deux formules, on voit que l'alpha de Cronbach évalue la proportion de variance totale attribuable à la variance entre sujets, similaire au CCI
+
+### Accord intra-juge (test-retest)
+
+-   Objectif : évaluer la stabilité des réponses d'un même individu à deux moments différents
+
+-   Méthode : administrer le même questionnaire à un échantillon de participants à deux moments séparés par un intervalle de temps approprié
+
+-   Analyse : calculer le coefficient de corrélation intraclasse (CCI) entre les scores obtenus aux deux moments
+
+-   Limite : l'intervalle de temps entre les deux administrations doit être suffisamment long pour éviter les effets de mémoire, mais pas trop long pour éviter les changements réels dans le construit mesuré
+
+\newpage
+
+# Mesures subjectives
+
+### Introduction
+
+-   **Représentation numérique de faits empiriques** pour rendre intelligibles des phénomènes complexes
+
+-   Analyse en 2 parties :
+
+    -   **Que mesure l'instrument ?** = validité et structure
+
+    -   **Que vaut la mesure ?** = fidélité et reproductibilité
+
+### Que mesure l'instrument ? (Validité et Structure)
+
+#### Construction et Consensus
+
+-   Questions provenant de la littérature, d’experts ou de focus groups
+
+-   Méthodes de consensus pour ne garder que les meilleurs items = **Delphi ou panel d’experts**
+
+#### Structure Dimensionnelle et Unidimensionnalité
+
+-   Vérifier l'architecture de l'instrument = **unidimensionnel ou pas**
+
+-   Méthodes : **ACP, valeurs propres (scree plot), analyse factorielle**
+
+    -   ACP : projette les variables sur un plan pour visualiser les corrélations. La distance entre les points et le centre de gravité indique l'importance de la valeur propre de la variable au sein du plan
+
+    -   Valeurs propres (*scree plot*): coude si une seule valeur propre nettement supérieure = unidimensionnel
+
+    -   Analyse factorielle : modélise les réponses comme dépendant d'une variable latente $\theta$ et d'un terme d’erreur $e$. En approche exploratoire, elle détermine quels items se regroupent dans quelles dimensions via les *loadings* = charges factorielles ou saturations
+
+#### Validité de construit
+
+-   Vérifie si l'instrument se comporte de façon logique selon une **théorie nomologique** = mesure ce qu'il est censé mesure
+
+-   Validité de contenu : tous les items couvrent toutes les facettes du concept sans hors-sujet
+
+-   Validité convergente : l'instrument doit être fortement corrélé à d'autres outils mesurant le même concept
+
+-   Validité divergente : l'instrument doit être peu corrélé à des outils mesurant des concepts différents
+
+-   Validité concourante : corrélation avec un instrument de référence (**Gold Standard**) mesuré simultanément
+
+### Que vaut la mesure ? (Fiabilité et Reproductibilité)
+
+#### Cohérence interne : l'Alpha de Cronbach
+
+-   Mesure le degré de corrélations entre les items d'un instrument
+
+-   N'a de sens que si l'instrument est unidimensionnel
+
+-   Interprétation : entre 0.7 et 0.9 = bonne cohérence. Au-delà de 0.9, items souvent redondants (car représente la corrélation des items avec eux-mêmes)
+
+#### Accord inter-juges
+
+-   Dépend de la nature des données !!
+
+-   Données qualitatives :
+
+    -   2 juges : Kappa de Cohen = corrige le pourcentage d'accord en retirant l'accord dû au seul hasard
+
+    -   ≥ 3 juges : Kappa de Cohen avec méthode de Light
+
+    -   Catégories ordonnées : Kappa pondéré (pénalise les désaccords majeurs)
+
+-   Données quantitatives :
+
+    -   2 juges : Coefficient de Corrélation Intraclasse (CCI)
+
+        -   = variance inter-patients / variance totale
+
+            -   ICC agreement : prend en compte le biais systématique entre juges dans la variance totale
+
+            -   ICC consistency : ne prend pas en compte le biais entre juges
+
+    -   ≥ 3 juges : CCI avec méthode de Shrout et Fleiss
+
+    -   Représentation graphique : méthode de Bland et Altman
+
+#### Stabilité temporelle : Test-retest
+
+-   Vérifie que le score reste stable dans le temps si l'état du patient ne change pas
+
+-   Évaluation de la reproductibilité par auto-évaluation
+
+\newpage
+
+# Méthodes qualitatives
+
+## Introduction
+
+-   2 méthodes principales :
+
+    -   Théorie ancrée (Grounded Theory)
+
+    -   Phénoménologie interprétative (Interpretative Phenomenological Analysis - IPA)
+
+-   Objectif : comprendre les expériences, perceptions et significations des individus
+
+## Théorie ancrée (Grounded Theory)
+
+-   Interactionnisme symbolique : les individus construisent la réalité sociale à travers leurs interactions
+
+    -   Comment les individus donnent du sens à leurs expériences ?
+
+-   Comparaison constante
+
+    -   Stratégies explicites d'analyse et de codage des données
+
+    -   Courants constructivistes et objectivistes :
+
+        -   Constructiviste : réalité multiple, co-construite par le chercheur et les participants
+
+        -   Objectiviste : réalité unique, découverte par le chercheur
+
+-   Modélisation :
+
+    -   Théorie substantive : théorie spécifique à un contexte particulier
+
+    -   Théorie formelle : théorie plus générale applicable à divers contextes
+
+## Phénoménologie interprétative (IPA)
+
+-   Philosophie phénoménologique : étude des expériences vécues
+
+    -   Comment les individus perçoivent et interprètent leurs expériences ?
+
+-   Approche idiographique : étude approfondie de cas individuels avant de généraliser
+
+    -   Analyse détaillée des expériences individuelles
+
+    -   Identification de thèmes communs à travers les cas
+
+-   Double herméneutique : le chercheur interprète les expériences des participants
+
+    -   Le chercheur cherche à comprendre comment les participants comprennent leurs propres expériences
+
+    -   Interaction entre les perspectives du chercheur et des participants
+
+-   Analyse thématique : identification de thèmes récurrents dans les données
+
+    -   Codage des données pour identifier des thèmes significatifs
+
+    -   Organisation des thèmes en catégories plus larges pour comprendre les expériences des participants
+
+## Comparaison des méthodes
+
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Critère                         | Théorie ancrée (Grounded Theory)                                                                                                              | Phénoménologie interprétative (IPA)                                                                                                 |
++=================================+===============================================================================================================================================+=====================================================================================================================================+
+| Objectif principal              | Construire une théorie ou une explication d’un phénomène à partir des données : la théorie émerge pendant l’analyse, sans hypothèse a priori. | Comprendre comment une personne donne du sens à une expérience vécue : l’accent est mis sur le sens subjectif.                      |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Exemple d’objectif de recherche | Pourquoi les équipes soignantes adoptent-elles certaines stratégies de gestion du stress ? → expliquer les processus sociaux en jeu.          | Comment une mère décrit-elle vivre avec un enfant asthmatique sévère ? → rendre compte de son vécu et de ce que cela signifie.      |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Produit final                   | Théorie explicative (par exemple un modèle des étapes de prise de décision des soignants).                                                    | Descriptions riches de l’expérience et thèmes interprétés (ex. le rôle, les émotions et l’identité de la mère).                     |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Approche phil                   | Inductive : on part des données pour remonter à des concepts sans imposer de cadre.                                                           | Phénoménologique et herméneutique : on s’intéresse à l’expérience vécue et à son interprétation par le participant et le chercheur. |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Analyse des données             | Codage et comparaison constante : segmentation, regroupement en catégories puis en concepts abstraits jusqu’à la théorie.                     | Analyse cas par cas : description détaillée de chaque expérience, extraction de thèmes puis comparaison inter-cas.                  |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Échantillon typique             | Plus large (20 à 60+ participants) pour atteindre la saturation des concepts.                                                                 | Petit (6–15 personnes) car chaque cas reçoit une analyse approfondie.                                                               |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Relation théorie -données       | La théorie naît des données : pas d’hypothèses ou de cadre définis au départ.                                                                 | On décrit et interprète le sens que le participant attribue à son expérience plutôt que de généraliser.                             |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Objectif de généralisation      | Généralisation analytique vers des cas similaires.                                                                                            | Pas de généralisation étendue, focalisation sur la signification individuelle.                                                      |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Observation ou question clé     | « Qu’est-ce qui se passe ici et pourquoi ? » → comprendre un processus.                                                                       | « Comment cette personne vit-elle cela et qu’est-ce que cela signifie pour elle ? » → sens subjectif.                               |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Rôle du chercheur               | Analyse systématique : codage, comparaison et conceptualisation.                                                                              | Double herméneutique : interprétation de ce que ressent le participant et de sa signification.                                      |
++---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+
+## Collecte des données
+
+### Entretiens semi-structurés
+
+-   Guide d’entretien avec questions ouvertes
+
+-   Flexibilité pour explorer des thèmes émergents
+
+### Échantillonnage
+
+-   Échantillonnage RAISONNÉ : petit nombre de sujets pour maximiser les points de vue 
+
+-   Échantillonnage homogène : participants avec caractéristiques similaires
+
+-   Échantillonnage théorique (Grounded Theory) : sélectionner des participants en fonction des concepts émergents
+
+## Critères de qualité
+
+-   Qualité des entretiens : écoute active, reformulation, exploration des thèmes
+
+-   Suffisance : nombre d'entretiens suffisants pour atteindre la saturation des thèmes
+
+-   Saturation : plus d'entretiens n'apporteraient pas de nouvelles informations
+
+-   Triangulation : plusieurs sources de données ou analystes pour renforcer la crédibilité
+
+-   Crédibilité, originalité, résonance, utilité...
+
+\newpage
+# Méthodes mixtes
+
+## Recherche qualitative
+
+-   Ensemble diversifié d'approches visant à comprendre l'expérience humaine et le sens des phénomènes
+
+### Méthodes clés
+
+#### Diversité des approches 
+
+-   Théorie ancrée (Grounded Theory) : émergence de théories à partir des données sans hypothèses préalables
+
+-   IPA (Interpretative Phenomenological Analysis) : compréhension de l'expérience subjective profonde des individus 
+
+-   Phénoménologie : description des expériences vécues telles qu'elles sont, sans interprétation immédiate
+
+-   Autres analyses : analyse thématique, analyse lexicale, analyse de cas
+
+#### Outils de recueil et sélection des données
+
+-   Échantillonnage ciblé (Purposive Sampling) : sélection délibérée de profils pour maximiser l'hétérogénéité
+
+-   Entretien semi-structuré : outil principal, ouvert et long pour permettre l'expression libre
+
+-   Photo-élicitation : utilisation d'images pour aider à décrire le vécu subjectif
+
+### Rigueur et protocole 
+
+#### Protocole écrit 
+
+-   Nécessité d'un protocole rigoureux pour garantir la scientificité
+
+-   Définition claire des critères d'inclusion/exclusion et du plan d'analyse
+
+#### Piliers méthodologiques
+
+-   Échantillonnage raisonné pour maximiser l'hétérogénéité (càd faible nombre de sujets mais diversité maximale)
+
+-   Constitution du corpus avec données recueillies in extenso (enregistrements et retranscriptions intégrales)
+
+-   Codage systématique : transformation du texte brut en micro-codes puis en thèmes/méga-catégories
+
+#### Critères de validation
+
+-   Triangulation : utilisation d'au moins deux codeurs indépendants pour renforcer la fiabilité
+
+-   Saturation : arrêt de l'étude lorsque les nouveaux entretiens n'apportent plus de nouveaux codes
+
+#### Positionnement du chercheur
+
+-   Neutralité axiologique : effort maximal pour se mettre à distance de son objet d'étude
+
+-   Réflexivité : analyse de sa propre position par rapport à l'objet d'étude pour identifier les biais
+
+### Cadre épistémologique élargi
+
+-   Matrice 3*3 pour classer la recherche selon l'objet (littéraire, mathématisation locale ou globale) et la méthode de relation (herméneutique (= interprétation des phénomènes humains), statistique, équations)
+
+-   Recherche qualitative pure = objet littéraire + relation herméneutique
+
+-   Médecine et psychiatrie mobilisent presque toutes les cases de la matrice
+
+## Clivage quantitatif / qualitatif
+
+### Opposition historique
+
+#### Racines philosophiques et intellectuelles
+
+-   *Mythos* vs *Logos* : mythe (récit) vs raison (logique)
+
+-   Esprit de finesse vs esprit de géométrie (Pascal)
+
+-   Systèmes de pensée (Kahneman) : intuitif vs rationnel
+
+#### Conflit académique
+
+-   Sciences dures vs sciences molles
+
+-   Stéréotypes réciproques : "charlots" vs "robots"
+
+-   Réaction méthodologique : Grounded Theory pour durcir les sciences sociales, imposer rigueur scientifique
+
+#### Évolution du domaine médical 
+
+-   Passage d'une médecine littéraire à une médecine mathématisée et digitalisée
+
+-   Pression sociale et scientifique pour adopter des méthodes quantitatives
+
+## Stratégie des méthodes mixtes
+
+### Stratégie exploratoire (Quali $\to$ Quanti)
+
+-   D'abord recherche qualitative pour explorer un phénomène, puis quantification
+
+-   Applications : développement de questionnaires, construction de critères de jugement
+
+-   Exemple : étude qualitative pour comprendre le vécu de patients avant de créer un critère d'efficacité pour un essai clinique
+
+### Stratégie explicative (Quanti $\to$ Quali)
+
+-   Qualitatif après quantitatif pour donner du sens aux chiffres
+
+-   Objectif : expliquer des résultats inattendus ou surprenants
+
+-   Avantage méthodologique : données quantitatives massives permettent un échantillonnage ciblé optimal pour la phase qualitative
+
+-   Exemple : étude montrant que les femmes héroïnomanes prennent moins de mesures de réduction des risques que les hommes, des entretiens qualitatifs révèlent que cela est lié à une relation asymétrique avec leur partenaire-dealer
+
+### Stratégie de triangulation (Quali + Quanti en parallèle)
+
+-   2 méthodes menées simultanément pour validation croisée
+
+-   Objectif : utiliser 2 corpus indépendants pour une vision plus robuste
+
+-   Applications : essai randomisé sur l'efficacité d'un médicament + entretiens pour comprendre le vécu des patients
+
+-   Comparaison technologique : comparer analyse humaine (qualitative) avec Traitement Automatique du Langage (TAL) (quantitatif) sur un même corpus pour valider les thèmes ou comprendre les limites des outils automatiques
+
+## Applications et enjeux 
+
+### Domaines d'application
+
+-   Psychiatrie et psychologie : psychanalyse, IPA
+
+-   Médecine générale : Théorie Ancrée (Grounded Theory = depuis les entretiens avec les patients)
+
+-   Neurosciences et pharmacologie : modélisation de mécanismes neurobiologiques, pharmacocinétique
+
+-   Recherche sur les maladies orphelines : compréhension du vécu des patients pour construire des critères d'efficacité pertinents
+
+### Enjeux épistémologiques et scientifiques
+
+-   Matrice 3*3 : permet de situer les méthodes mixtes dans un cadre élargi (par exemple, le TAL applique des statistiques à un objet littéraire)
+
+-   Théorie de l'esprit : capacité d'interprétation humaine pour ajouter de l'information implicite au corpus 
+
+-   Évolution technologique : l'IA et le *deep learning* posent la question de savoir si les machines pourront un jour acquérir une "théorie de l'esprit" comparable à l'analyse qualitative humaine 
+
+### Enjeux politiques et cliniques
+
+-   Valorisation de la recherche qualitative dans un contexte de pression pour des méthodes quantitatives "dures"
+
+-   Politiques publiques : importance de la recherche qualitative pour contrer une vision trop réductrice de la médecine fondée uniquement sur les preuves quantitatives
+
+-   Lien entre recherche et clinique : nécessité de reconnecter la recherche scientifique avec la pratique clinique

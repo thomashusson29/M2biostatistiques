@@ -690,7 +690,7 @@ summary(modgee)$coefficients["x", ]
 exp(summary(modgee)$coefficients["x", "Estimate"])
 ```
 
------
+
 Au final, on a 7 OR différents avec des IC et des pvalue différentes :
 
 ```{r}
