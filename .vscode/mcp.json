@@ -8,6 +8,5 @@
 				"@perplexity-ai/mcp-server"
 			]
 		}
-	},
-	"inputs": []
+	}
 }
