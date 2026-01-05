@@ -1570,15 +1570,15 @@ par(mfrow=c(1,1))
 
 -   Solutions :
 
-    -   Modèles de régressions avec erreurs robustes : bootstrap en grappe, estimateurs sandwich
+    -   Approche simple : Modèles de régressions avec erreurs robustes : bootstrap en grappe, estimateurs sandwich
 
-    -   Modèles linéaires mixtes (LMM) ou modèles linéaires généralisés mixtes (GLMM) : inclure un effet aléatoire pour le centre
+    -   Approche conditionnelle : Modèles linéaires mixtes (LMM) ou modèles linéaires généralisés mixtes (GLMM) : inclure un effet aléatoire pour le centre
 
-    -   Modèles marginaux (GEE) : modéliser la corrélation entre les observations au sein des centres
+    -   Approche marginale : Modèles marginaux (GEE) : corrige la moyenne marginale en appliquant une matrice variance-covariance basée sur la corrélation entre les observations au sein des centres 
 
-## Modèles avec erreurs robustes
+## Approches classiques : modèles avec erreurs robustes
 
--   Sans prise en compte de la structure en grappes (centres) dans le modèle :
+-   Sans prise en compte de la structure en grappes (centres) dans le modèle  :
 
     -   Biais de confusion par effet de groupe
 
@@ -1614,11 +1614,11 @@ par(mfrow=c(1,1))
 
 -   Donc les estimations des coefficients restent les mêmes, mais les erreurs standards sont ajustées pour tenir compte de la corrélation intra-groupe !!
 
-## Modèles linéaires mixtes (LMM) et modèles linéaires généralisés mixtes (GLMM)
+## Approches conditionnelles : modèles linéaires mixtes (LMM) et modèles linéaires généralisés mixtes (GLMM)
 
--   Inclure un effet aléatoire pour le centre dans le modèle de régression
+-   Inclure un effet aléatoire pour le centre dans le modèle de régression pour tenir compte de la corrélation entre les observations au sein d'un même centre
 
--   Permet de modéliser la variabilité entre les centres et de capturer la corrélation entre les observations au sein d'un même centre
+-   Permet de modéliser la variabilité entre les centres et de capturer la corrélation entre les observations au sein d'un même centre = corrélation intra-centre
 
 -   Structure du modèle :
 
@@ -1626,7 +1626,7 @@ par(mfrow=c(1,1))
 
     -   Effets aléatoires : variabilité spécifique à chaque centre
 
--   Estimation des paramètres par maximum de vraisemblance ou maximum de vraisemblance restreint (REML)
+-   Estimation des paramètres par maximum de vraisemblance (ML)ou maximum de vraisemblance restreint (REML)
 
     -   ML : convient pour comparer des modèles avec des effets fixes différents, surtout pour avoir des estimations cohérentes des effets fixes
 
@@ -1634,15 +1634,21 @@ par(mfrow=c(1,1))
 
 -   GLMM : extension des LMM pour les variables dépendantes non normales (binaire, comptage, etc.)
 
-## Modèle marginal = GEE (Generalized Estimating Equations)
+## Approches marginales : modèle marginal = GEE (Generalized Estimating Equations)
 
 -   Principe : modéliser la moyenne marginale de la variable dépendante en tenant compte de la corrélation entre les observations au sein des centres
 
-    -   D'abord estimation d'à quel point les observations au sein des centres sont corrélées (matrice de corrélation)
+-   Méthode : 
 
-    -   Ensuite, modélisation de la moyenne marginale via un modèle de régression en utilisant cette matrice de corrélation
+    -   La corrélation intra-centre est estimée à partir d'une matrice de corrélation des données.
+
+    -   La moyenne marginale est modélisée via un modèle de régression en utilisant cette matrice de corrélation (donc "corrigée" pour la corrélation intra-centre
+    
+-   Par rapport à la méthode conditionnelle, on explore moins l'effet centre (pas d'effet aléatoire pour le centre donc pas d'estimation de la variance des effets aléatoires)
 
 -   Si peu de structure dans les données (faible corrélation intra-centre), GEE se rapproche d'un modèle classique sans prise en compte de la corrélation.
+
+-   La méthode GEE est robuste aux non-normalités des données et aux valeurs aberrantes.
 
 \newpage
 
@@ -1766,27 +1772,37 @@ par(mfrow=c(1,1))
 
 ## Modèles non spécifiques au séries chronologiques
 
-### Modèles linéaires mixtes (LMM) et modèles linéaires généralisés mixtes (GLMM)
+-   Même principe que pour les effets centres, mais ici c'est un effet sujet
 
--   Inclure un effet aléatoire pour chaque individu dans le modèle de régression
+-   Donc soit on applique une méthode classique de régression, soit une méthode conditionnelle ou marginale, soit un modèle de séries chronologiques.
 
--   Permet de modéliser la variabilité entre les individus et de capturer la corrélation entre les observations répétées pour un même individu
+### Approches classiques : modèles avec erreurs robustes
 
--   Structure du modèle :
+-   Idem que pour les effets centres, mais ici on applique une méthode classique de régression avec erreurs robustes.
 
-    -   Effets fixes : coefficients de régression pour les variables explicatives
+-   Donc estimateur robuste de la variance (Sandwich estimator)
 
-    -   Effets aléatoires : variabilité spécifique à chaque individu
+### Approches conditionnelles ou marginales : modèles linéaires mixtes et modèles marginaux (GEE)
 
-### Modèles marginaux (GEE)
+-   Approche conditionnelle : modèles linéaires mixtes (LMM) ou modèles linéaires généralisés mixtes (GLMM)
 
--   Principe : modéliser la moyenne marginale de la variable dépendante en tenant compte de la corrélation entre les observations répétées pour chaque individu
+    -   Inclure un effet aléatoire pour chaque individu dans le modèle de régression pour tenir compte de la corrélation entre les observations répétées pour un même individu
 
-    -   D'abord estimation de la corrélation entre les observations répétées (matrice de corrélation)
+    -   Modéliser la variabilité entre les individus et de capturer la corrélation entre les observations répétées pour un même individu
 
-    -   Ensuite, modélisation de la moyenne marginale via un modèle de régression en utilisant cette matrice de corrélation
+    -   Estimation des paramètres par ML (bien pour le calcul des effets fixes) ou REML (bien pour le calcul des variances des effets aléatoires)
 
-## Modèles de séries chronologiques = ARIMA (AutoRegressive Integrated Moving Average)
+-   Approche marginale : modèles marginaux (GEE) 
+
+    -   La prise en compte de la corrélation entre les observations répétées pour chaque individu est faite via une matrice de corrélation des données.
+
+    -   La moyenne marginale est modélisée via un modèle de régression en utilisant cette matrice de corrélation.
+
+    -   Par rapport à la méthode conditionnelle, on explore moins l'effet sujet (pas d'effet aléatoire pour le sujet donc pas d'estimation de la variance des effets aléatoires)
+
+    -   Si peu de structure dans les données (faible corrélation intra-sujet), GEE se rapproche d'un modèle classique sans prise en compte de la corrélation.
+
+## Modèles de spécifiques aux séries chronologiques = ARIMA (AutoRegressive Integrated Moving Average)
 
 -   Utilisés lorsque les données sont collectées à intervalles réguliers dans le temps
 
@@ -1835,6 +1851,8 @@ par(mfrow=c(1,1))
 -   Le coefficient de mémoire $b$ doit être tel que $|b| < 1$, la variance est donc stationnaire.
 
 -   Si $|b| \text{≥} 1$, ça signifie que les erreurs se cumulent sans limite (marche aléatoire).
+
+-   L'ordre du modèle AR est le nombre de périodes de temps qui sont corrélées entre elles.
 
 #### Structure de la corrélation
 
@@ -1893,6 +1911,28 @@ par(mfrow=c(1,1))
     -   Permet d'identifier la partie AR du modèle
 
     -   AR : si décroissance progressive sur plusieurs lags
+
+Autocorrélogramme partiel fictif qui montre un processus AR1 et un processus MA1.
+
+```{r}
+#| fig-cap: "Autocorrélogramme partiel d'un processus AR(1) et Autocorrélogramme d'un processus MA(1)"
+#| fig-width: 10
+#| fig-height: 5
+#| echo: false
+#| message: false
+#| results: asis
+#| warning: false
+set.seed(123) # Pour la reproductibilité
+par(mfrow=c(2,1))
+
+# Simulation d'un processus AR(1)
+ar1_data <- arima.sim(model = list(ar = 0.7), n = 100)
+pacf(ar1_data, main = "Autocorrélogramme partiel d'un processus AR(1) simulé (φ=0.7)")
+
+# Simulation d'un processus MA(1)
+ma1_data <- arima.sim(model = list(ma = 0.5), n = 100)
+acf(ma1_data, main = "Autocorrélogramme d'un processus MA(1) simulé (θ=0.5)")
+```
 
 \newpage
 
