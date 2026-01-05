@@ -54,6 +54,8 @@ format:
     post-render: python3 post-render.py
 ```
 
+Le niveau de repli initial se règle dans `post-render.py` via `initialExpandLevel` (par défaut `2` = titre + H1 visibles).
+
 ## 🐛 Dépannage
 
 Si la markmap ne se génère pas :

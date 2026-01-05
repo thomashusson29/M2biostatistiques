@@ -1,0 +1,82 @@
+---
+title: "Analyse d'une variable catégorielle"
+format: pdf
+---
+
+## Représentations graphiques sur une ligne
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 16
+#| fig-height: 4
+#| fig-cap: "Représentations multiples de la variable 'profession'"
+
+# --- Chargement des données ---
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+if (!"profession" %in% names(smp) && "prof" %in% names(smp)) {
+  smp$profession <- smp$prof
+}
+
+# --- Installation et chargement des packages ---
+# On vérifie si les packages sont installés, sinon on les installe
+# Ajout d'un miroir CRAN pour que l'installation fonctionne en non-interactif
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+if (!requireNamespace("ggplot2", quietly = TRUE)) install.packages("ggplot2")
+if (!requireNamespace("treemapify", quietly = TRUE)) install.packages("treemapify")
+if (!requireNamespace("ggwordcloud", quietly = TRUE)) install.packages("ggwordcloud")
+if (!requireNamespace("patchwork", quietly = TRUE)) install.packages("patchwork")
+if (!requireNamespace("dplyr", quietly = TRUE)) install.packages("dplyr")
+
+# On charge les packages
+library(ggplot2)
+library(treemapify)
+library(ggwordcloud)
+library(patchwork)
+library(dplyr)
+
+# --- Préparation des données ---
+profession_counts <- as.data.frame(table(smp$profession))
+names(profession_counts) <- c("profession", "freq")
+# On filtre les professions avec 0 membres et on ordonne
+profession_counts <- profession_counts %>%
+  filter(freq > 0) %>%
+  arrange(desc(freq)) %>%
+  mutate(profession_factor = factor(profession, levels = profession))
+
+# --- Création des 4 graphiques ---
+
+# 1. Diagramme en barres
+p1 <- ggplot(profession_counts, aes(x = profession_factor, y = freq, fill = profession_factor)) +
+  geom_col() +
+  theme_minimal() +
+  labs(title = "Diagramme en barres", x = NULL, y = "Fréquence") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
+
+# 2. Diagramme circulaire
+p2 <- ggplot(profession_counts, aes(x = "", y = freq, fill = profession_factor)) +
+  geom_col(width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Diagramme circulaire") +
+  theme(legend.position = "none")
+
+# 3. Treemap
+p3 <- ggplot(profession_counts, aes(area = freq, fill = profession_factor, label = profession)) +
+  geom_treemap() +
+  geom_treemap_text(colour = "white", place = "centre", grow = TRUE) +
+  theme(legend.position = "none") +
+  labs(title = "Treemap")
+
+# 4. Nuage de mots
+p4 <- ggplot(profession_counts, aes(label = profession, size = freq, color = profession_factor)) +
+  geom_text_wordcloud_area() +
+  scale_size_area(max_size = 12) +
+  theme_minimal() +
+  labs(title = "Nuage de mots") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+# --- Combinaison des graphiques avec patchwork ---
+p1 | p2 | p3 | p4
+```

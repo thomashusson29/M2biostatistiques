@@ -14,8 +14,8 @@ def main():
     # Chemin du script
     base_dir = Path(__file__).resolve().parent
     # Le fichier markdown source
-    md_file = base_dir / "QUARTO BIG NOTES.qmd"
-    markmap_output = base_dir / "QUARTO-BIG-NOTES-markmap.html"
+    md_file = base_dir / "NOTES_S1_MSR.qmd"
+    markmap_output = base_dir / "NOTES_S1_MSR.qmd-markmap.html"
     
     print("🗺️  Generating markmap...")
     
@@ -42,50 +42,33 @@ def main():
       (function() {
         let attempts = 0;
         const maxAttempts = 50; // 5 secondes max
+        // Profondeur initiale visible (Markmap utilise une profondeur qui commence à 1).
+        // 2 => titre + sections principales (H1) visibles, le reste replié.
+        const initialExpandLevel = 2;
         
-        const initCollapse = () => {
+        const initCollapse = async () => {
           attempts++;
           
           const svg = document.querySelector('svg.markmap');
-          if (!svg || !svg.__markmap__) {
+          const mm = window.mm || (svg && svg.__markmap__);
+          if (!mm || !mm.state || !mm.state.data) {
             if (attempts < maxAttempts) {
               setTimeout(initCollapse, 100);
+            } else {
+              console.warn('⚠️  Markmap instance not found; cannot apply initial collapse.');
             }
             return;
           }
           
-          const mm = svg.__markmap__;
-          
-          // Fonction récursive pour replier tous les nœuds au-delà du niveau spécifié
-          const collapseFromLevel = (node, currentLevel, targetLevel) => {
-            // Replier ce nœud si on est au-delà du niveau cible ET qu'il a des enfants
-            if (currentLevel >= targetLevel && node.children && node.children.length > 0) {
-              node.payload = node.payload || {};
-              node.payload.fold = 1; // 1 = replié
-            }
-            
-            // Continuer récursivement pour tous les enfants
-            if (node.children) {
-              node.children.forEach(child => {
-                collapseFromLevel(child, currentLevel + 1, targetLevel);
-              });
-            }
-          };
-          
           try {
-            // Replier à partir du niveau 2 (titre visible, H1 visibles, tout le reste replié)
-            if (mm.state && mm.state.data) {
-              collapseFromLevel(mm.state.data, 0, 2);
-              
-              // Forcer la mise à jour complète
-              mm.setData(mm.state.data);
-              
-              // Recentrer la vue
-              setTimeout(() => {
-                mm.fit();
-                console.log('✅ Markmap repliée au niveau 2 - cliquez sur les nœuds pour explorer!');
-              }, 100);
-            }
+            // Replier via l'option native (plus fiable que manipuler directement les nœuds)
+            await mm.setData(mm.state.data, { initialExpandLevel });
+
+            // Recentrer la vue
+            setTimeout(() => {
+              mm.fit();
+              console.log(`✅ Markmap repliée (initialExpandLevel=${initialExpandLevel}) - cliquez sur les nœuds pour explorer!`);
+            }, 100);
           } catch (error) {
             console.error('❌ Erreur lors du repliement:', error);
           }

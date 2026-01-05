@@ -72,7 +72,16 @@
 
     files
         .filter(f => f.name.endsWith(".html") && f.name !== "index.html")
-        .sort((a, b) => a.name.localeCompare(b.name))
+        .sort((a, b) => {
+        // Épingler certains contenus en haut de la liste
+        const pinned = ["S0_Mindmap_globale.html"];
+        const pa = pinned.indexOf(a.name);
+        const pb = pinned.indexOf(b.name);
+        const rankA = pa === -1 ? Number.POSITIVE_INFINITY : pa;
+        const rankB = pb === -1 ? Number.POSITIVE_INFINITY : pb;
+        if (rankA !== rankB) return rankA - rankB;
+        return a.name.localeCompare(b.name);
+        })
         .forEach(f => {
         const li = document.createElement("li");
         li.innerHTML = `<a href="${f.name}">${f.name.replace(".html", "")}</a>`;
