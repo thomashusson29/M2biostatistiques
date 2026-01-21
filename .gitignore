@@ -126,3 +126,7 @@ S1/MOOC/Lab/video.mp4
 S1/Cours/big_quarto/_book/Notes-S1-M2-MSR.pdf
 S1/MOOC/Lab/video.mp4
 .venv/lib/python3.13/site-packages/pymupdf/libmupdf.dylib
+# Ignorés automatiquement (>20 Mo)
+S1/Cours/big_quarto/_book/Notes-S1-M2-MSR.pdf
+S1/MOOC/Lab/video.mp4
+.venv/lib/python3.13/site-packages/pymupdf/libmupdf.dylib
