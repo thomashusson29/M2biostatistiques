@@ -1,0 +1,283 @@
+---
+title: "Notes S1"
+format:
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        number-sections: false
+        mainfont: Ubuntu
+        filters:
+            - level6-heading.lua
+        header-includes: |
+            \usepackage{fontspec}
+            \setmainfont{Ubuntu}
+            \usepackage[dvipsnames]{xcolor}
+            \usepackage{array}
+            \usepackage{etoolbox}
+            \usepackage{needspace}
+            \definecolor{myblue}{rgb}{0.0078,0.0078,0.549}
+            \definecolor{mygreen}{rgb}{0,0.2745,0}
+            \definecolor{mybrown}{rgb}{0.392,0.094,0.094}
+            \definecolor{mypurple}{rgb}{0.286,0,0.286}
+            \definecolor{myorange}{rgb}{0.8,0.4,0}
+            \usepackage{sectsty}
+            \sectionfont{\color{black}\Large}
+            \subsectionfont{\color{myblue}\large}
+            \subsubsectionfont{\color{mygreen}\normalsize}
+            % Espace vertical de 0.3 cm haut/bas dans les cellules de tableau
+            \setlength{\extrarowheight}{0.3cm}
+            % Fixe la taille du corps de texte à 10pt avec un interligne cohérent
+            \AtBeginDocument{\fontsize{10pt}{12pt}\selectfont}
+            % Assure une vraie hiérarchie (### vs ####) dans le PDF
+            \setcounter{secnumdepth}{5}
+            \setcounter{tocdepth}{5}
+            % Avec KOMA-Script (scrartcl), éviter titlesec (incompatible) et
+            % redéclarer paragraph/subparagraph pour qu'ils soient en "block".
+            \RedeclareSectionCommand[
+                beforeskip=1.5ex plus .5ex minus .2ex,
+                afterskip=.6ex,
+                font=\normalfont\small\bfseries\color{mybrown}
+            ]{paragraph}
+            \RedeclareSectionCommand[
+                beforeskip=1.2ex plus .4ex minus .2ex,
+                afterskip=.5ex,
+                font=\normalfont\footnotesize\bfseries\color{mypurple}
+            ]{subparagraph}
+            % Niveau 6 (######) - titre personnalisé
+            \newcommand{\subsubparagraph}[1]{%
+                \vspace{1ex}%
+                {\normalfont\scriptsize\bfseries\color{myorange}#1}%
+                \vspace{0.4ex}%
+            }
+            % Veille à laisser suffisamment d'espace avant un tableau pour éviter son découpage
+            \AtBeginEnvironment{longtable}{\needspace{15\baselineskip}}
+    html:
+        toc: true
+        toc-location: left
+        toc-expand: true
+        css: heading-colors.css
+        include-after-body: markmap-link.html
+        post-render:
+            - "python3 post-render.py"
+post-render:
+    - "python3 post-render.py"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
+gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
+load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
+data(expsy)
+```
+
+## Introduction
+
+### Démarche "hypothético-déductive" et "Evidence Based Medicine" (EBM)
+
+-   Induction : observation → hypothèse
+
+-   Déduction : hypothèse → expérience → confirmation ou infirmation
+
+### Minimiser les biais
+
+-   Biais de sélection :
+
+    -   Critères d'inclusion/exclusion
+
+    -   Distinguer les violations majeures et mineures
+
+-   Bias d'évaluation :
+
+    -   Mesure objective vs subjective
+
+    -   Aveuglement simple ou double
+
+    -   Lectures en aveugle, centralisés
+
+-   Biais de confusion :
+
+    -   Recueil des facteurs pronostiques
+
+    -   Prise en compte des facteurs pronostiques dans l'analyse
+
+-   Biais de suivi :
+
+    -   Minimiser les pertes au suivi
+
+    -   Analyse en intention de traiter (ITT)
+
+    -   Éviter co-médication
+
+## Développement d'un médicament
+
+### Phases fondamentales et précliniques
+
+-   Recherche fondamentale : identification molécules cibles
+
+-   Phase préclinique : études in vitro et in vivo (animaux)
+
+### Phases cliniques
+
+#### 4 phases cliniques principales d'évaluation d'un médicament
+
+-   Phase I : **sur volontaires sains** :
+
+    -   sécurité, tolérance, pharmacocinétique
+
+    -   20-100 volontaires sains
+
+-   Phase II : **sur faible effectif de malades** :
+
+    -   efficacité, dose optimale, effets secondaires
+
+    -   100-300 patients malades
+
+-   Phase III : **sur large effectif de malades** :
+
+    -   confirmation efficacité, surveillance effets secondaires
+
+    -   300-3000 patients malades
+
+-   Phase IV : **après commercialisation** :
+
+    -   surveillance effets secondaires à long terme
+
+##### Objectifs se chevauchent 
+
+-   Phase 1 : tolérance
+
+-   Phase 2 : tolérance et efficacité
+
+-   Phase 3 : efficacité
+
+![](images/paste-1.png)
+
+## Essais cliniques de phase 1
+
+#### Définition et objectifs des essais cliniques de phase 1
+
+-   Définition :
+
+    -   Première administration d'un nouveau médicament chez l'homme
+
+-   Objectifs : 
+
+    -   Profils de toxicité et de sécurtié d'emploi d'un nouvel agent ou d'une nouvelle combinaison
+
+    -   Profil pharmacocinétique
+
+    -   Dose optimale pour les essais de phase II
+
+### Types d'essais cliniques de phase 1
+
+-   *First-in human* : administration initiale chez l'homme
+
+-   Études d'escalade de dose : déterminer la dose maximale tolérée (DMT)
+
+-   Parfois "seuil de toxicité" 
+
+### Considération opérationelles 
+
+#### Modèles d'escalades des doses dans les essais cliniques de phase 1
+
+-   Pas d'escalade intra-patient
+
+-   Ne pas surtraiter les patients ni sous-traiter
+
+-   Le moins de sujet possible (efficacité)
+
+### Population
+
+#### Population des essais cliniques de phase 1
+
+-   Phase 1 hors oncologie : 
+
+    -   Groupe homogène de volontaires sains dans unités spécialisées
+
+    -   Contrôle total des conditions expérimentales
+
+    -   Aucun bénéfice individuel attendu pour le bénévole, souvent compensé financièrement
+
+-   Phase 1 en oncologie :
+
+    -   Groupe hétérogène de patients atteints de cancer avancé avec comorbidités
+
+    -   Conditions expérimentales moins contrôlées
+
+    -   Bénéfice individuel possible mais peu probable, aucune compensation financière
+
+### Méthodes statistiques
+
+#### Méthodes statistiques dans les essais cliniques de phase 1
+
+-   2 familles de méthodes :
+
+    -   "*algorithm-based*" 
+
+        -   (3+3 : modified Fibonacci design)
+
+        -   Modified toxicity probability interval (mTPI)
+
+    -   "*model-based*" : 
+
+        -   Continual reassessment method (CRM)
+
+        -   Bayesian optimal interval (BOIN)
+
+-   Définition du "*maximum tolerated dose*" (MTD)
+
+    -   Dose associée à un taux de toxicité acceptable (DLT =*Dose Limiting Toxicity*)
+
+    -   En oncologie, DLT souvent définie comme toxicité de grade ≥ 3
+
+    -   On cherche la dose maximale avec ≤ 1 DLT sur 6 patients (≈ 17% DLT)
+
+Arrêté 28'39
