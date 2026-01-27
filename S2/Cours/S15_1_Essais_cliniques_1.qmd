@@ -278,6 +278,41 @@ data(expsy)
 
     -   En oncologie, DLT souvent définie comme toxicité de grade ≥ 3
 
-    -   On cherche la dose maximale avec ≤ 1 DLT sur 6 patients (≈ 17% DLT)
+    -   En 3+3 : dose maximale avec ≤ 1 DLT sur 6 patients 
+    
+    -   Méthode CLM : préspécifier le DLT (par ex ≈ 17% DLT)
 
-Arrêté 28'39
+#### Méthode 3+3 / Fibonacci modifiée pour les essais cliniques de phase 1
+
+-   6 paliers de dose
+
+-   3 patients par palier 
+
+-   Si 0/3 DLT → escalade de dose
+
+    -   Palier 1 : N
+
+    -   Palier 2 : 2N (augmentation de 100%)
+
+    -   Palier 3 : 3N (augmentation de 67%)
+
+    -   Palier 4 : 4.5N (augmentation de 40%)
+
+    -   Palier 5 : 6N (augmentation de 33%)
+
+    -   Palier 6 : 8N (augmentation de 33%)
+
+#### Méthode Model-Based pour les essais cliniques de phase 1
+
+-   Modèle statistique pour estimer la probabilité de DLT en fonction de la dose
+
+-   Mise à jour de l'estimation après chaque patient ou cohorte
+
+-   Sélection de la dose suivante basée sur l'estimation actuelle
+
+-   Avantages :
+
+    -   Utilisation plus efficace des données
+
+    -   Potentiellement moins de patients exposés à des doses toxiques ou inefficaces
+
