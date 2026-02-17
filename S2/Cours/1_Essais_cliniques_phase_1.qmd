@@ -1,5 +1,5 @@
 ---
-title: "Notes S1"
+title: "Essais cliniques de phase 1"
 format:
     pdf:
         toc: true
@@ -111,11 +111,6 @@ library(psy)
 library(reshape2)
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.height = 6)
-
-load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/CUSM")
-gs <- read.csv2("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/GoogleSuicide20172022.csv")
-load("~/Documents/Projets/M2biostatistiques/Cours/CUSM_data/dataAQRlivre")
-data(expsy)
 ```
 
 ## Introduction
@@ -282,6 +277,14 @@ data(expsy)
     
     -   Méthode CLM : préspécifier le DLT (par ex ≈ 17% DLT)
 
+#### Définition de la DLT (Dose Limiting Toxicity)
+
+-   Toxicité grave ou intolérable qui limite l'escalade de dose
+
+-   En oncologie, souvent définie comme toxicité de grade ≥ 3 selon les critères CTCAE
+
+-   Mais définition variable selon le contexte et le médicament étudié.
+
 #### Méthode 3+3 / Fibonacci modifiée pour les essais cliniques de phase 1
 
 -   6 paliers de dose
@@ -315,4 +318,32 @@ data(expsy)
     -   Utilisation plus efficace des données
 
     -   Potentiellement moins de patients exposés à des doses toxiques ou inefficaces
+
+#### Différence entre DLT (Dose Limiting Toxicity) et MTD (Maximum Tolerated Dose)
+
+-   DLT : toxicité grave ou intolérable qui limite l'escalade de dose
+
+-   MTD : dose maximale associée à un taux de DLT acceptable (par ex ≈ 17% DLT)
+
+-   En 3+3 : MTD = dose maximale avec ≤ 1 DLT sur 6 patients
+
+-   En model-based : MTD = dose avec probabilité de DLT proche du seuil préspécifié (par ex 17%)
+
+-   DLT est un événement individuel, MTD est une caractéristique de la dose basée sur la probabilité de DLT dans la population étudiée.
+
+#### Analyse typique de phase 1
+
+-   Analyse descritive :
+
+    -   Caractéristiques démographiques et cliniques des patients
+
+    -   Profil de toxicité : nombre et pourcentage de patients avec DLT à chaque dose
+
+    -   Estimation de la MTD : dose maximale avec taux de DLT acceptable
+
+-   Pas d'analyse comparative entre doses (pas de groupe contrôle)
+
+-   Globalement : objectif est de décrire les DLT et d'estimer la MTD pour différente doses et différentes caractéristiques démographiques et cliniques des patients.
+
+-   Générer des hypothèses pour les essais de phase 2 basés sur les données de toxicité et de pharmacocinétique recueillies en phase 1.
 

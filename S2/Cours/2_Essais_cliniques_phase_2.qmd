@@ -1,0 +1,346 @@
+---
+title: "Essais cliniques de phase 2"
+format:
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        number-sections: false
+        mainfont: Ubuntu
+        filters:
+            - level6-heading.lua
+        header-includes: |
+            \usepackage{fontspec}
+            \setmainfont{Ubuntu}
+            \usepackage[dvipsnames]{xcolor}
+            \usepackage{array}
+            \usepackage{etoolbox}
+            \usepackage{needspace}
+            \definecolor{myblue}{rgb}{0.0078,0.0078,0.549}
+            \definecolor{mygreen}{rgb}{0,0.2745,0}
+            \definecolor{mybrown}{rgb}{0.392,0.094,0.094}
+            \definecolor{mypurple}{rgb}{0.286,0,0.286}
+            \definecolor{myorange}{rgb}{0.8,0.4,0}
+            \usepackage{sectsty}
+            \sectionfont{\color{black}\Large}
+            \subsectionfont{\color{myblue}\large}
+            \subsubsectionfont{\color{mygreen}\normalsize}
+            % Espace vertical de 0.3 cm haut/bas dans les cellules de tableau
+            \setlength{\extrarowheight}{0.3cm}
+            % Fixe la taille du corps de texte à 10pt avec un interligne cohérent
+            \AtBeginDocument{\fontsize{10pt}{12pt}\selectfont}
+            % Assure une vraie hiérarchie (### vs ####) dans le PDF
+            \setcounter{secnumdepth}{5}
+            \setcounter{tocdepth}{5}
+            % Avec KOMA-Script (scrartcl), éviter titlesec (incompatible) et
+            % redéclarer paragraph/subparagraph pour qu'ils soient en "block".
+            \RedeclareSectionCommand[
+                beforeskip=1.5ex plus .5ex minus .2ex,
+                afterskip=.6ex,
+                font=\normalfont\small\bfseries\color{mybrown}
+            ]{paragraph}
+            \RedeclareSectionCommand[
+                beforeskip=1.2ex plus .4ex minus .2ex,
+                afterskip=.5ex,
+                font=\normalfont\footnotesize\bfseries\color{mypurple}
+            ]{subparagraph}
+            % Niveau 6 (######) - titre personnalisé
+            \newcommand{\subsubparagraph}[1]{%
+                \vspace{1ex}%
+                {\normalfont\scriptsize\bfseries\color{myorange}#1}%
+                \vspace{0.4ex}%
+            }
+            % Veille à laisser suffisamment d'espace avant un tableau pour éviter son découpage
+            \AtBeginEnvironment{longtable}{\needspace{15\baselineskip}}
+    html:
+        toc: true
+        toc-location: left
+        toc-expand: true
+        css: heading-colors.css
+        include-after-body: markmap-link.html
+        post-render:
+            - "python3 post-render.py"
+post-render:
+    - "python3 post-render.py"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+```
+
+:::callout-note
+**Plan** :
+
+-   Principes et objectifs des essais de phase II 
+
+-   Critère(s) de jugement 
+
+-   Dépenses des risques 
+
+-   Schémas d'étude 
+
+    -   Essais non-randomisés 
+
+        -   Plan à 1 étape ou à plusieurs étapes 
+        
+        -   Essai « bayésien » 
+        
+    -   Essais randomisés
+:::
+
+## Principes et objectifs des essais de phase II
+
+#### Nombre de participants des essais de phase II
+
+-   Jusqu'à 120 patients en phase 2.
+
+-   *en phase 1 : 20 à 80 patients*
+
+-   *en phase 3 : plusieurs centaines à plusieurs milliers de patients*
+
+#### Objectifs des essais de phase II
+
+-   Étudier l'effet thérapeutique, déterminer la dose posologique optimale, la sécurité d'emploi (toxicité)
+
+-   Étape charnière entre :
+
+    -   La phase I : évaluation de la tolérance et de la pharmacocinétique chez des volontaires sains ou des patients
+
+    -   La phase III : évaluation de l'efficacité thérapeutique dans une population plus large, souvent en comparaison avec un traitement standard ou un placebo, et sur des critères à plus long terme.
+
+-   Exemples d'objectifs spécifiques :
+
+    -   Screening d'efficacité : identifier les molécules prometteuses pour une évaluation plus approfondie en phase III.
+
+    -   Détermination de la dose optimale : évaluer différentes doses pour trouver celle qui offre le meilleur équilibre entre efficacité et tolérance.
+
+    -   Poursuite de l'évaluation pharmacocinétique : affiner les connaissances sur la distribution, le métabolisme et l'élimination du médicament.
+
+-   Parfois distinction phase IIa (études de preuve de concept) et phase IIb (études de dose-réponse).
+
+    -   Phase IIa : évaluation préliminaire de l'efficacité et de la sécurité chez un petit nombre de patients.
+
+    -   Phase IIb : évaluation plus approfondie de l'efficacité et de la dose optimale chez un plus grand nombre de patients ("**mini-phase III**").
+
+#### Principe des essais de phase II
+
+-   = premières études sur l'effcacité thérapeutique chez le malade : conséquence Go / No Go
+
+-   Objectif : détecter les molécules efficaces le plus rapidement possible
+
+-   Les plans doivent être suffisant performent pour détecter les molécules efficaces et éliminer les molécules inefficaces.
+
+#### Essai de phase 2 en oncologie : objectifs spécifiques
+
+-   Objectif principal : 1ère estimation de l'activité d'un nouveau traitement anticancéreux
+
+-   Objectifs secondaires : évaluation de la tolérance, de la pharmacocinétique, et mise au point de formes galéniques à évaluer en phase III
+
+## Critère(s) de jugement
+
+#### Particularités des critères de jugement en phase II
+
+-   Rarement le critère de jugement principal de la phase III
+
+-   Souvent des critères intermédiaires = *Surrogate Endpoint* (biomarqueurs, critères de jugement composites, etc.)
+
+-   Doit être disponible rapidement pour avoir l'information
+
+    -   Pour chaque patient inclus
+
+    -   Au niveau de l'échantillon (analyse intermédiaire, conclusion finale de l'essai)
+
+#### Choix des critères de substitution en phase II
+
+-   Doit être validé pour être utilisé comme critère de substitution
+
+-   Toute la relation entre cancer et décès identifié passe par le *surrogate endpoint*
+
+-   Tout l'effet du traitement sur le décès doit être expliqué par son effet sur le *surrogate endpoint*
+
+-   Exemples de critères de substitution en oncologie : 
+
+    -   Survie sans progression (PFS) validée comme critère de substitution pour la survie globale (OS) dans certains types de cancers``
+
+#### Overall Response Rate (ORR) en essais de phase II en oncologie
+
+-   ORR = taux de réponse objective (proportion de patients ayant une réponse complète ou partielle)
+
+-   Critère de jugement intermédiaire souvent utilisé en phase II pour évaluer l'activité d'un traitement anticancéreux
+
+-   Permet une évaluation rapide de l'efficacité du traitement, avant d'obtenir des données sur la survie globale
+
+-   **Avantages**
+
+    -   Effet ant-tumoral réel
+    
+    -   Facile à mesurer et à interpréter (RECIST, imagerie)
+
+    -   Permet une prise de décision rapide pour la poursuite du développement du médicament
+
+    -   Facile à comparer entre les études
+
+-   **Inconvénients**
+
+    -   Réduction de l'information : résumé du changement tumoral en une variable binaire (réponse vs non-réponse)
+
+    -   Intra et inter-variabilité dans l'évaluation de la réponse (interprétation des images, critères de réponse)
+
+    -   Pas toujours corrélé à la survie globale (OS) : un traitement peut réduire la taille de la tumeur sans prolonger la survie, ou inversement.
+
+    -   Tous les traitements n'ont pas forcément un effet sur la taille de la tumeur (ex : immunothérapie)
+
+-   Exemple : Sorafenib 2008 : ORR 2% mais amélioration de la survie globale (OS) avec HR = 0.69
+
+#### Survie globale (OS) en essais de phase II en oncologie
+
+-   OS = temps écoulé entre l'inclusion dans l'étude et le décès de toute cause
+
+-   Critère de jugement ultime pour évaluer l'efficacité d'un traitement anticancéreux
+
+-   **Avantages**
+
+    -   Critère de jugement le plus pertinent pour les patients : mesure l'impact réel du traitement sur la survie
+
+    -   Facile à mesurer et à interpréter (décès vs survie)
+
+    -   Permet une comparaison directe entre les études
+
+-   **Inconvénients de l'OS en phase II**
+
+    -   Nécessite un suivi plus long pour observer les événements de décès
+
+    -   Plus coûteux et plus complexe à mettre en œuvre que les critères intermédiaires
+
+    -   Moins adapté pour les traitements ciblés ou les immunothérapies qui peuvent avoir des effets différés sur la survie
+
+## Schémas d'étude des essais cliniques de phase 2
+
+#### Nombre de sujets des essais de phase 2
+
+-   Limitation du nombre de sujets pour limiter les risques et les coûts
+
+-   Point de vue éthique : ne pas diminuer les chances de succès en phase III en incluant trop de patients dans une étude de phase II
+
+-   Point de vue scientifique : besoin d'une conclusion rapide
+
+-   Si plusieurs indications : plusieurs études de phase II, chacune avec un nombre limité de patients 
+
+#### Différents types de schémas d'étude en phase II
+
+-   Single arm = Comparaison à une valeur fixe 
+
+-   Randomized 
+
+    -   Non comparative = Comparaison à une valeur fixe 
+    
+    -   Comparative 
+
+        -   Selection = Select the « winner »
+
+        -   Screening = Comparaison expérimental vs control = « mini-phase III »
+
+#### Essai de phase 2 à une étape
+
+-   On souhaite établire une règle de décision pour conclure à l'efficacité du traitement à la fin de l'étude
+
+    -   $N$ patients
+
+    -   On observe $x$ succès
+
+    -   Si $x$ est supérieur ou égal à un seuil $r$, on conclut à l'efficacité du traitement
+
+-   À la fin de l'essai, on estime :
+
+    -   La probabilité de succès $p$ (ex : ORR)
+
+    -   L'intervalle de confiance à 95% de $p$
+
+    -   On compare l'intervalle de confiance à une valeur de référence (ex : ORR de 20%)
+
+-   Il est donc nécessaire de définir :
+
+    -   La valeur de référence (ex : ORR de 20%)
+
+    -   Le seuil de succès $r$ (ex : 5 patients sur 30)
+
+    -   Le nombre de patients $N$ (ex : 30 patients)
+
+
+    -   La probabilité d'erreur de type I $\alpha$ (ex : 5%)
+
+    -   La probabilité d'erreur de type II $\beta$ (ex : 20%)
+
+    -   Et donc la puissance de l'étude $1-\beta$ (ex : 80%)
+
+#### Essai de phase 2 à plusieurs étapes
+
+-   Inclusion de $n$ sujets dans la première étape, puis analyse intermédiaire pour décider de poursuivre ou d'arrêter l'étude
+
+    -   Si le nombre de succès $x$ est inférieur à un seuil $r_1$, on arrête l'étude pour inefficacité
+
+    -   Si le nombre de succès $x$ est supérieur ou égal à un seuil $r_2$, on arrête l'étude pour efficacité
+
+-   À chaque étape, une règle de décision est appliquée pour évaluer les résultats et décider de la suite de l'étude
+
+-   But : minimiser le nombre de patients exposés à un traitement inefficace tout en maximisant les chances de détecter un traitement efficace
+
+-   Problème : biais de sélection (ex : patients plus sévères inclus dans la 2ème étape)
+
+
+-   Exemple : plan de Simon (1989) : 2 étapes, avec des seuils de succès différents à chaque étape pour décider de poursuivre ou d'arrêter l'étude
+
+    -   On fait un test $H_0$ : $p \leq p_0$ vs $H_1$ : $p \geq p_1$
+
+    -   $p_0$ : taux de succès considéré comme insuffisant = **taux d'inefficacité maximal acceptable** (ex : ORR de 20%)
+
+    -   $p_1$ : taux de succès considéré comme suffisant = **taux d'efficacité minimal acceptable** (ex : ORR de 40%)
+
+
+Arrêt à 1'44'30
+
