@@ -1,0 +1,416 @@
+---
+title: "Essais cliniques de phase 3"
+format:
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        number-sections: false
+        mainfont: Ubuntu
+        filters:
+            - level6-heading.lua
+        header-includes: |
+            \usepackage{fontspec}
+            \setmainfont{Ubuntu}
+            \usepackage[dvipsnames]{xcolor}
+            \usepackage{array}
+            \usepackage{etoolbox}
+            \usepackage{needspace}
+            \definecolor{myblue}{rgb}{0.0078,0.0078,0.549}
+            \definecolor{mygreen}{rgb}{0,0.2745,0}
+            \definecolor{mybrown}{rgb}{0.392,0.094,0.094}
+            \definecolor{mypurple}{rgb}{0.286,0,0.286}
+            \definecolor{myorange}{rgb}{0.8,0.4,0}
+            \usepackage{sectsty}
+            \sectionfont{\color{black}\Large}
+            \subsectionfont{\color{myblue}\large}
+            \subsubsectionfont{\color{mygreen}\normalsize}
+            % Espace vertical de 0.3 cm haut/bas dans les cellules de tableau
+            \setlength{\extrarowheight}{0.3cm}
+            % Fixe la taille du corps de texte à 10pt avec un interligne cohérent
+            \AtBeginDocument{\fontsize{10pt}{12pt}\selectfont}
+            % Assure une vraie hiérarchie (### vs ####) dans le PDF
+            \setcounter{secnumdepth}{5}
+            \setcounter{tocdepth}{5}
+            % Avec KOMA-Script (scrartcl), éviter titlesec (incompatible) et
+            % redéclarer paragraph/subparagraph pour qu'ils soient en "block".
+            \RedeclareSectionCommand[
+                beforeskip=1.5ex plus .5ex minus .2ex,
+                afterskip=.6ex,
+                font=\normalfont\small\bfseries\color{mybrown}
+            ]{paragraph}
+            \RedeclareSectionCommand[
+                beforeskip=1.2ex plus .4ex minus .2ex,
+                afterskip=.5ex,
+                font=\normalfont\footnotesize\bfseries\color{mypurple}
+            ]{subparagraph}
+            % Niveau 6 (######) - titre personnalisé
+            \newcommand{\subsubparagraph}[1]{%
+                \vspace{1ex}%
+                {\normalfont\scriptsize\bfseries\color{myorange}#1}%
+                \vspace{0.4ex}%
+            }
+            % Veille à laisser suffisamment d'espace avant un tableau pour éviter son découpage
+            \AtBeginEnvironment{longtable}{\needspace{15\baselineskip}}
+    html:
+        toc: true
+        toc-location: left
+        toc-expand: true
+        css: heading-colors.css
+        include-after-body: markmap-link.html
+        post-render:
+            - "python3 post-render.py"
+post-render:
+    - "python3 post-render.py"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+```
+
+## Groupe contrôle
+
+#### Essai de phase 3 : intérêt du groupe contrôle
+
+-   Histoire naturelle de la maladie : combien de patients auraient guéri spontanément sans traitement ?
+
+-   Placebo : effet placebo, biais de l’observateur, etc.
+
+-   Effet Hawthorne : les patients se comportent différemment parce qu’ils savent qu’ils sont observés.
+
+-   Biais de sélection : les patients inclus dans l’étude peuvent ne pas être représentatifs de la population générale.
+
+-   Autres maladies / médicaments : les patients peuvent être atteints d’autres maladies ou prendre d’autres médicaments qui peuvent influencer les résultats de l’étude.
+:::
+
+#### Choix du groupe contrôle dans un essai de phase 3
+
+-   Placebo : substance sans effet thérapeutique, utilisée pour simuler le traitement actif.
+
+-   Traitement de référence : traitement déjà existant, utilisé comme comparateur pour évaluer l’efficacité du nouveau traitement.
+
+-   **Comparabilité** : le groupe contrôle doit être comparable au groupe traité en termes de caractéristiques démographiques, cliniques et de comportement.
+
+## Comparabilité
+
+#### Intérêt de la randomisation dans les essais cliniques de phase 3
+
+-   2 groupes comparables (élimine le biais de sélection)
+
+-   Sur facteurs pronostiques connus et inconnus
+
+-   Assure que le traitement est la seule différence entre les groupes (mais ne garantit pas que les deux groupes sont absolument identiques)
+
+#### La randomisation est-elle suffisante pour garantir la comparabilité des groupes dans un essai de phase 3 ?
+
+-   Uniquement comparabilité initiale : n'assure pas la comparabilité des groupes pendant toute la durée de l’étude (ex. patients perdus de vue, non observance, etc.)
+
+-   **Aveugle** : maintient la comparabilité des groupes pendant toute la durée de l’étude.
+
+#### Avantages de l’aveugle dans les essais cliniques de phase 3
+
+-   Supprime les biais différentiels liés à la connaissance du groupe :
+
+    -   Biais de performance : les patients peuvent se comporter différemment s’ils savent qu’ils reçoivent un traitement actif ou un placebo.
+
+    -   Biais de suivi : les patients peuvent être suivis différemment s’ils savent qu’ils reçoivent un traitement actif ou un placebo.
+
+    -   Biais de recueil : les données peuvent être recueillies différemment si les chercheurs savent que les patients reçoivent un traitement actif ou un placebo.
+
+-   Limites : dans certains cas, il peut être difficile ou impossible de maintenir l’aveugle (ex. effets secondaires évidents, etc.)
+
+#### Essai de phase 3 en ouvert : maintien de la comparabilité
+
+-   Comparabilité du suivi
+
+-   Comparabilité des traitements associés
+
+-   Comparabilité du recueil des données
+
+-   Si possible critère de jugement évalué à l'aveugle par une tierce personne indépendante
+
+## Randomisation
+
+#### Différentes façon de randomiser les patients dans un essai de phase 3
+
+-   Tirages au sort
+
+-   Procédures simples : pièce de monnaie, papier dans urne...
+
+-   Si essai de petite taille : risque de déséquilibre
+
+-   Randomisation par blocs : assure un équilibre dans la répartition des patients entre les groupes à chaque bloc de patients inclus.
+
+-   Randomisation stratifiée : assure un équilibre dans la répartition des patients entre les groupes pour certaines caractéristiques (ex. âge, sexe, etc.)
+
+#### Randomisation par blocs dans un essai de phase 3 : but, principe, 
+
+-   But : équilibre global au cours du temps
+
+-   Principe : les patients sont randomisés par blocs de taille fixe (ex. 4, 6, etc.) ou variable (ex. 4, 6, 8, etc.) : tous les k sujets, k/2 sujets auront A et k/2 sujets auront B
+
+-   Limites : 
+
+    -   Petit déséquilibre en fin de randomisation
+
+    -   ne pas communiquer la taille des blocs aux investigateurs 
+
+    -   Hasard peut faire que les deux groupes ne sont pas comparables pour une caractéristique qui a un rôle pronostique (petit effectif)
+
+#### Randomisation stratifiée dans un essai de phase 3 : but, principe, limites
+
+-   But : équilibre pour les facteurs pronostiques connus
+
+-   Liste de randomisation différente pour chaque strate (ex. âge < 60 ans, âge ≥ 60 ans, etc.)
+
+-   Stratification : facteurs pronostiques, centre... Pas trop sinon complexification.
+
+-   Pas une analyse séparée par strate, mais plutôt analyse globale avec ajustement sur les facteurs de stratification.
+
+#### Randomisation par minimisation dans un essai de phase 3 : but, principe, limites
+
+-   Procédé utilisé pour assurer une distribution équilibrée de plusieurs facteurs pronostiques connus entre les groupes de traitement.
+
+-   Pour chaque nouveau patient éligible, on regarde
+
+    -   Son profil pronostique
+
+    -   La répartition des patients déjà inclus dans les groupes de traitement en fonction de ces facteurs pronostiques.
+
+-   Le patient est ensuite assigné au groupe de traitement qui minimise les déséquilibres dans la répartition des facteurs pronostiques entre les groupes.
+
+## 
+
+#### Définition des sujets éligibles dans un essai de phase 3
+
+-   Définir **la maladie étudiée** et le **profil des patients**
+
+-   Détermine la **population cible** = population à laquelle les résultats de l’étude seront généralisés
+
+-   Popuation cible $\rightarrow$ conditionne la validité externe de l’étude (généralisabilité)
+
+-   Critères d'inclusion et d'exclusion : stricts, simples, si possible objectifs
+
+#### Ambivalence et Incertitude dans un essai de phase 3
+
+-   Ambivalence : pas de contre-indication à l'un ou l'autre des traitements (doivent pouvoir être dans les 2 bras)
+
+-   Incertitude : pas de preuve que l'un des traitements est supérieur à l'autre (doit être un doute raisonnable)
+
+#### Validité externe
+
+-   Population cible : population à qui sera prescrite le médicament
+
+-   Population source : population à partir de laquelle les patients sont recrutés
+
+-   Population étudiée : patients inclus dans l’étude ET AYANT ACCEPTÉ ! 
+
+#### Essai d'efficacité
+
+-   Question posée : 
+
+    -   A mieux que B ?
+
+    -   A différent de B ?
+
+-   Formulation unitatérale : rejet de $H_0$ si A fait mieux que B 
+
+-   Formulation bilatérale : rejet de $H_0$ si A fait mieux ou moins bien que B
+
+#### Critère de jugement dans un essai de phase 3
+
+-   Critère de jugement principal : 
+
+    -   critère qui permet de répondre à la question posée par l’étude (ex. mortalité, guérison, etc.)
+
+    -   **pertinent**, bien défini, quantifiable et idéalement unique
+
+    -   critère permettant le calcul de la taille de l’échantillon
+
+-   Critères de jugement secondaires :
+
+    -   Souvent multiples, parfois hierarchisés
+
+    -   Permettent d'explorer des critères additionnels : toxicité, qualité de vie...
+
+    -   Parfois critère de substitution : critère plus facile à mesurer que le critère de jugement principal, mais qui doit être validé par des modèles de corrélation avec un critère pertinent (ex. pression artérielle pour les événements cardiovasculaires, etc.)
+
+#### Calcul du nombre de sujets nécessairees dans un essai de phase 3
+
+-   **Préalable** : 
+
+    -   Quel sera le critère de jugement principal ?
+
+    -   Avoir une estimation du paramètre dans le groupe témoin
+
+    -   Déterminer la différence minimale que l'on souhaite mettre en évidence entre les groupes (différence cliniquement pertinente)
+
+    -   Formuler des hypothèses statistiques (formulation unilatérale ou bilatérale)
+
+    -   Choisir un niveau de signification (alpha) et une puissance (1 - beta)
+
+-   **Calcul** : variations depuis les formules classiques de comparaison de moyennes
+
+#### Rapport d'un essai de phase 3 : CONSORT 
+
+-   CONSORT : Consolidated Standards of Reporting Trials
+
+-   Checklist de 25 items pour assurer une bonne qualité de rapport des essais cliniques
+
+-   Permet de garantir la transparence, la reproductibilité et la comparabilité des études
+
+#### Différence entre essais cliniques classiques et essais cliniques pragmatiques
+
+-   Essais cliniques classiques : conditions idéales, souvent monocentriques, critères de jugement stricts, etc.
+
+-   Essais cliniques pragmatiques = pratiques : conditions réelles de pratique, souvent multicentriques, critères de jugement plus larges, etc.
+
+#### Analyse statistique des essais cliniques de phase 3
+
+-   Tableau 1 : caractéristiques des patients à l’inclusion $\rightarrow$ comparabilité des groupes et validité **externe** de l’étude
+
+-   Analyse principale : intention de traiter (ITT) : tous les patients inclus dans l’étude sont analysés dans le groupe auquel ils ont été randomisés, indépendamment de leur adhérence au traitement ou de leur suivi.
+
+#### Comment traiter les déviations : inclus à tort, perdus de vue dans un essai de phase 3
+
+-   Dans un essai de supériorité : analyse en intention de traiter (ITT) : tous les patients inclus dans l’étude sont analysés dans le groupe auquel ils ont été randomisés, indépendamment de leur adhérence au traitement ou de leur suivi.
+
+    -   Analyse "plus conservatrice" dans un essai de supériorité
+
+-   Dans un essai de non-infériorité : analyse en per-protocole (PP) : seuls les patients qui ont respecté le protocole de l’étude sont analysés.
+
+    -   Analyse "plus conservatrice" dans un essai de non-infériorité
+
+    -   Risque de biais de sélection : les patients qui ont respecté le protocole peuvent ne pas être représentatifs de la population générales
+
+-   Sujets inclus à tort : l'erreur peut être indépendante du groupe de traitement
+
+    -   Soit on les considère dans l'analyse
+
+    -   Soit on les exclut de l'analyse, donc *modified* ITT
+
+#### Données manquantes et perdus de vue dans un essai de phase 3 : types et implications
+
+-   Types de données manquantes :
+
+    -   MCAR : Completely Missing At Random : les données manquent complètement au hasard, indépendamment de toute variable observée ou non observée.
+
+    -   MAR : Missing At Random : les données manquent de manière aléatoire, mais la probabilité de manquer est liée à des variables observées (mais pas au critère de jugement lui-même).
+
+    -   MNAR : Missing Not At Random : les données manquent de manière non aléatoire, et la probabilité de manquer est liée à des variables non observées (et peut être liée au critère de jugement lui-même).
+
+-   Aucun test statistique ne permet de savoir si les données sont MCAR, MAR ou MNAR : on est jamais sûr.
+
+-   Analyse des données manquantes : **imputation** (multiple) surtout si MNAR.
+
+#### Estimand dans un essai de phase 3
+
+-   Estimand : formulation précise de la quantité d’intérêt clinique que l’étude veut estimer. Il explicite la population cible, le traitement/contrôle, la variable de réponse, l’horizon temporel, la gestion des événements intercurrents (arrêt, changement de traitement, décès, etc.) et la mesure de synthèse (différence, ratio, moyenne, risque, etc.).
+
+-   Distinguer 
+
+    -   Estimand = objet de l'estimation (ce qui doit être estimé)
+
+    -   Estimateur = méthode d'estimation de l'estimand (comment on l'estime)
+
+    -   Analyse = méthode d'analyse des données pour estimer l'estimand (modèles, covariables, plans d'analyse)
+
+    -   Résultat = résultat de l'analyse, qui doit être interprété en lien avec l'estimand
+
+-   Exemple (essai HTA) : différence de PAS à 24 semaines entre traitement A et placebo, chez les patients randomisés, en considérant les arrêts de traitement comme échec (valeur la plus défavorable), mesurée par la différence moyenne.
+
+-   Stratégies d’estimand (événements intercurrents)
+
+    -   **Treatment policy** : l’effet du traitement est estimé indépendamment des événements intercurrents (on les intègre dans l’effet, logique proche ITT).
+
+    -   **Composite strategy** : l’événement intercurrent est intégré dans le critère de jugement (p. ex. « succès » uniquement si pas d’arrêt/changement, sinon échec).
+
+    -   **Hypothetical strategy** : on estime l’effet du traitement dans un scénario hypothétique où l’événement intercurrent n’aurait pas eu lieu (p. ex. pas d’arrêt/changement).
+
+#### Comparaison des traitements dans un essai de phase 3 : efficacité et tolérance
+
+-   Critère analysé = celui prévu dans le protocole
+
+-   Analyse sur tous les critères de jugement prévus dans le protocole
+
+-   NB : *test d'hétérogénéité* sert à tester si les résultats sont différents de 0 dans les sous-groupes, pas à tester si les résultats sont différents entre les sous-groupes (test d'interaction)
+
+#### Taille d'effet
+
+-   Effet cliniquement pertinent ou non
+
+-   Raisonnement en risque absolu ou en risque relatif
+
+-   Si risque d'effet secondaires liés au traitement : plutôt risque relatif et balance bénéfice/risque
+
+-   Par ex Gain absolu de mortalité à 4,1% : jusqu'à 7000 survie en plus !!
+
+#### Essai clinique phase 3 : exemple 
+
+-   Dans un essai randomisé dont le critère est la survie globale
+
+    -   Il ne vient plus au visite
+
+    -   CAT : tout faire pour récupérér les données sur le critère de jugement principal 
+
+-   Essai comparant 2 chimiothérapies :
+
+    -   Dégradation du patient avant début de chimiothérapie
+
+    -   Dans ce cas, la dégradation peut être le fait de la maladie donc pas d'exclusion
+
+-   Erreur de diagnostic initial : patient inclus à tort
+
+    -   Si patient inclus à tort : on peut faire une analyse *modified* ITT en excluant ce patient de l’analyse, mais cela doit être justifié et expliqué dans le rapport de l’étude.
+
+    -   Par exemple si métastase non vue sur scanner initial : pas d'exlcusion car la découverte de l'inégibilité est liée à l'évolution
+
+-   Clause d'ambivalence non respectée : patient inclus à tort
+
+    -   Exclusion nécessaire
+
