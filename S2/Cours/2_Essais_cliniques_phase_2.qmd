@@ -113,23 +113,23 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.height = 6)
 ```
 
-:::callout-note
+::: callout-note
 **Plan** :
 
--   Principes et objectifs des essais de phase II 
+-   Principes et objectifs des essais de phase II
 
--   Critère(s) de jugement 
+-   Critère(s) de jugement
 
--   Dépenses des risques 
+-   Dépenses des risques
 
--   Schémas d'étude 
+-   Schémas d'étude
 
-    -   Essais non-randomisés 
+    -   Essais non-randomisés
 
-        -   Plan à 1 étape ou à plusieurs étapes 
-        
-        -   Essai « bayésien » 
-        
+        -   Plan à 1 étape ou à plusieurs étapes
+
+        -   Essai « bayésien »
+
     -   Essais randomisés
 :::
 
@@ -203,9 +203,9 @@ knitr::opts_chunk$set(fig.height = 6)
 
 -   Tout l'effet du traitement sur le décès doit être expliqué par son effet sur le *surrogate endpoint*
 
--   Exemples de critères de substitution en oncologie : 
+-   Exemples de critères de substitution en oncologie :
 
-    -   Survie sans progression (PFS) validée comme critère de substitution pour la survie globale (OS) dans certains types de cancers``
+    -   Survie sans progression (PFS) validée comme critère de substitution pour la survie globale (OS) dans certains types de cancers\`\`
 
 #### Overall Response Rate (ORR) en essais de phase II en oncologie
 
@@ -218,7 +218,7 @@ knitr::opts_chunk$set(fig.height = 6)
 -   **Avantages**
 
     -   Effet ant-tumoral réel
-    
+
     -   Facile à mesurer et à interpréter (RECIST, imagerie)
 
     -   Permet une prise de décision rapide pour la poursuite du développement du médicament
@@ -269,23 +269,23 @@ knitr::opts_chunk$set(fig.height = 6)
 
 -   Point de vue scientifique : besoin d'une conclusion rapide
 
--   Si plusieurs indications : plusieurs études de phase II, chacune avec un nombre limité de patients 
+-   Si plusieurs indications : plusieurs études de phase II, chacune avec un nombre limité de patients
 
 #### Différents types de schémas d'étude en phase II
 
--   Single arm = Comparaison à une valeur fixe 
+-   Single arm = Comparaison à une valeur fixe
 
--   Randomized 
+-   Randomized
 
-    -   Non comparative = Comparaison à une valeur fixe 
-    
-    -   Comparative 
+    -   Non comparative = Comparaison à une valeur fixe
+
+    -   Comparative
 
         -   Selection = Select the « winner »
 
         -   Screening = Comparaison expérimental vs control = « mini-phase III »
 
-#### Essai de phase 2 à une étape
+#### Essai de phase 2 à une étape (Fleming)
 
 -   On souhaite établire une règle de décision pour conclure à l'efficacité du traitement à la fin de l'étude
 
@@ -305,18 +305,41 @@ knitr::opts_chunk$set(fig.height = 6)
 
 -   Il est donc nécessaire de définir :
 
-    -   La valeur de référence (ex : ORR de 20%)
+    -   $p_0$ : taux de succès considéré comme insuffisant = **taux d'inefficacité maximal acceptable** (ex : ORR de 20%)
 
-    -   Le seuil de succès $r$ (ex : 5 patients sur 30)
+    -   $p_1$ : taux de succès considéré comme suffisant = **taux d'efficacité minimal acceptable** (ex : ORR de 40%)
 
     -   Le nombre de patients $N$ (ex : 30 patients)
-
 
     -   La probabilité d'erreur de type I $\alpha$ (ex : 5%)
 
     -   La probabilité d'erreur de type II $\beta$ (ex : 20%)
 
     -   Et donc la puissance de l'étude $1-\beta$ (ex : 80%)
+
+-   Si $s$ ≥ $b$ : rejet de $H_O$ : le produit est "gardé"
+
+-   Si $s$ ≤ $\alpha$ : non rejet de $H_O$ : le produit est "jeté"
+
+-   Avec $s$ = probabilité d'observer $x$ succès ou plus sous $H_0$ : $s = P(X \geq x | H_0)$ ("sous $H_0$" veut dire que )
+
+-   Il faut que $N$ soit \> 10 pour permettre une approximation effective d'une loi normale.
+
+##### Exemple
+
+-   $p_0$ = 20% (taux d'inefficacité maximal acceptable)
+
+-   $p_1$ = 40% (taux d'efficacité minimal acceptable)
+
+-   $\alpha$ = 5% (risque de rejeter $H_0$ alors qu'il est vrai)
+
+-   $\beta$ = 5% (risque de ne pas rejeter $H_0$ alors qu'il est faux)
+
+-   Avec ça :
+
+    -   il faut 54 patients dans l'étude
+
+    -   Si ≥ 16 succès dans l'étude, on conclut à l'efficacité du traitement
 
 #### Essai de phase 2 à plusieurs étapes
 
@@ -332,7 +355,6 @@ knitr::opts_chunk$set(fig.height = 6)
 
 -   Problème : biais de sélection (ex : patients plus sévères inclus dans la 2ème étape)
 
-
 -   Exemple : plan de Simon (1989) : 2 étapes, avec des seuils de succès différents à chaque étape pour décider de poursuivre ou d'arrêter l'étude
 
     -   On fait un test $H_0$ : $p \leq p_0$ vs $H_1$ : $p \geq p_1$
@@ -341,6 +363,176 @@ knitr::opts_chunk$set(fig.height = 6)
 
     -   $p_1$ : taux de succès considéré comme suffisant = **taux d'efficacité minimal acceptable** (ex : ORR de 40%)
 
+    $\rightarrows$ On peut définir des :
 
-Arrêt à 1'44'30
+    -   risques de rejeter $H_0$ alors qu'il est vrai (erreur de type I) : $\alpha$
 
+    -   risques de ne pas rejeter $H_0$ alors qu'il est faux (erreur de type II) : $\beta$
+
+    -   probabilité d'arrêt précoce de l'étude
+
+#### Essai de phase 2 : méthode de Gehan à 2 étapes
+
+-   1ère étape : posible **arrêt précoce** de l'étude si **probabilité d'observer 0 succès** est supérieure à un seuil prédéfini
+
+-   2ème étape : **estimation** du taux d'efficacité (donc pas de règle de décision à l'étape 2) sur les sujets
+
+-   Règle :
+
+    -   Arrêt : on observe 0 succès sur les $n_1$ patients inclus dans la 1ère étape
+
+    -   Étape 2 : on observe ≥ 1 succès sur les $n_1$ patients inclus dans la 1ère étape
+
+-   Fixés :
+
+    -   $p_1$ : taux d'efficacité minimal acceptable (ex : ORR de 40%)
+
+    -   $\beta$ : risque de ne pas rejeter \$H_0 \$ alors qu'il est faux (ex : 5%)
+
+    -   $\sigma$ : précision souhaitée pour estimation du taux de succès (variance)
+
+-   Avec ça :
+
+    -   $n_1$ = calculé à partir de $p_1$ et $\beta$.
+
+    -   $n_2$ = calculé à partir de $\sigma$ et de $succes_1$ (=$s_1$ = taux de succès observé à l'étape 1)
+
+#### Essai de phase 2 : variation Fleming à plusieurs étapes
+
+-   Arrêt prématuré possible pour inefficacité ou efficacité **à chaque étape**
+
+-   Paramètres fixés :
+
+    -   $p_0$ : taux d'inefficacité maximal acceptable (ex : ORR de 20%)
+
+    -   $p_1$ : taux d'efficacité minimal acceptable (ex : ORR de 40%)
+
+    -   $\alpha$ : risque de rejeter $H_0$ alors qu'il est vrai (ex : 5%)
+
+    -   $\beta$ : risque de ne pas rejeter $H_0$ alors qu'il est faux (ex : 5%)
+
+    -   $N$ : nombre total de patients à inclure (ex : 54 patients)
+
+    -   $K$ : nombre d'étapes (ex : 2 étapes)
+
+    -   Donc $n_k$ = nombre de patients à inclure à chaque étape (ex : 27 patients à chaque étape)
+
+-   On tire alors les bornes d'arrêt $a_j$ et $b_k$ à chaque étape.
+
+-   Règle pour chaque étape $k$ :
+
+    -   $Succes_k$ ≤ $a_k$ : arrêt pour inefficacité
+
+    -   $Succes_k$ ≥ $b_k$ : arrêt pour efficacité
+
+    -   $a_k$ \< $Succes_k$ \< $b_k$ : poursuite de l'étude (passage à l'étape suivante)
+
+-   Dépense du risque $\alpha$ : calculé pour chaque étape pour garantir que la probabilité globale de rejeter $H_0$ alors qu'il est vrai est égale à $\alpha$ (ex : 5% pour cumul de toutes les étapes)
+
+#### Essai de phase 2 : plan à 2 étapes de Simon
+
+-   1ère étape : bornes d'arrêt prédéfinis pour **INNEFFICACITÉ** (pas d'arrêt pour efficacité suffisate)
+
+-   2ème étape : conclusion possible dans les deux sens
+
+-   Paramètres fixés :
+
+    -   $p_0$ : taux d'inefficacité maximal acceptable (ex : ORR de 20%)
+
+    -   $p_1$ : taux d'efficacité minimal acceptable (ex : ORR de 40%)
+
+    -   $\alpha$ : risque de rejeter $H_0$ alors qu'il est vrai (ex : 5%)
+
+    -   $\beta$ : risque de ne pas rejeter $H_0$ alors qu'il est faux (ex : 5%)
+
+    -   $N$ : nombre total de patients à inclure (ex : 54 patients) (pas de nombre de patients à inclure à chaque étape car dépend de la règle d'arrêt à l'étape 1)
+
+-   Règle :
+
+    -   Étape 1 :
+
+        -   Arrêt pour inefficacité : $Succes_1$ ≤ $a_1$
+
+        -   Poursuite de l'étude : $Succes_1$ \> $a_1$
+
+        -   (pas de rôle de $b_1$ à l'étape 1 car pas d'arrêt pour efficacité suffisante à l'étape 1)
+
+    -   Étape 2 :
+
+        -   Inefficacité : $Succes_2$ ≤ $a_2$
+
+        -   Efficacité : $Succes_2$ ≥ $b_2$
+
+-   2 variantes :
+
+    -   Simon Optimum : minimise le nombre de patients exposés à un traitement inefficace
+
+    -   Simon Minimax : minimise le nombre total de patients inclus dans l'étude
+
+#### Essai de phase 2 : plan de Ensign = 3 étapes optimum de Simon
+
+-   Généralise la méthode Optimum de Simon à 3 étapes
+
+-   Arrêt pour **inefficacité** possible à chaque étape
+
+-   Arrêt pour **efficacité** possible à la 3ème étape seulement
+
+#### Essai de phase 2 : test triangulaire
+
+-   Méthode en 2 étapes ou plus
+
+-   Autorise au cours de toutes les étapes un arrêt pour inefficacité ou pour grande efficacité
+
+-   Si efficacité entre les deux bornes $\rightarrow$ : on passe à l'étape suivante.
+
+-   Mais nombre de patients à chaque étape **fixé** au départ.
+
+#### Essai de phase 2 : plan bayésien
+
+-   Principe : loi *a priori*, puis mise à jour de la loi *a posteriori* à chaque étape en fonction des données observées
+
+-   Distribution *a priori* + données $\rightarrow$ distribution *a posteriori*
+
+-   Distribution *a priori* :
+
+    -   Informative : globalement OPTIMISTE / PESSIMISTE / NON-INFORMATIF
+
+        -   Distribution archétypales : opinions enthousiastes ou sceptiques sur l'efficacité du traitement
+
+        -   Opinions d'experts : synthèse des opinions d'experts sur l'efficacité du traitement
+
+        -   Données historiques
+
+    -   Non informative : distribution *a posteriori* ne reflètera que les données de l'essai en cours
+
+-   Méthodologie :
+
+    -   Probabilité que le taux de succès soit supérieur à une valeur de référence (ex : $p_0$ = 20%) à chaque analyse intermédiaire **à partir de la loi a posteriori**, qui est **réactualisée à chaque étape** en fonction des données observées.
+
+![](images/paste-3.png)
+
+-   Simulation possible
+
+    -   Estimer la probabilité d'arrêter prématuré l'étude (=proportion d'arrêt) pour différentes valeurs du vrai taux de réponse (R0) ;
+
+    -   Estimation de taux d'efficacité / d'inefficacité.
+
+#### Phase 2 randomisée avec groupe témoin
+
+-   Traitement attribué par tirage au sort
+
+-   Taux de réponse du groupe témoin renseignera sur biais de sélection
+
+-   Objectif : évaluer taux de réponse du groupe **témoin** par rapport à celui attendu sous $H_0$ = par rapport à celui attendu sous $H_0$ (sous $H_0$ dans ce cas = le taux de réponse théorique que l’on observe si le traitement testé n’est pas plus efficace que le témoin, souvent un placebo ou le standard actuel).
+
+#### Phase 2 "*pick the winner*"
+
+![](images/paste-4.png)
+
+-   Comparaison de plusieurs traitements expérimentaux entre eux + un groupe témoin
+
+-   Randomiser entre plusieurs doses d'agents ou schéma d'administration (parfois sans bras de référence).
+
+-   Chaque bras est testé pour son activité sous l'hypothèse H0 (versus une hypothèse nulle)
+
+-   Possibilité d'établir ensuite des critères de sélection pour choisir le "gagnant" (ex : taux de réponse le plus élevé)
