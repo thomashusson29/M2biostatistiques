@@ -224,7 +224,7 @@ knitr::opts_chunk$set(fig.height = 6)
 
 -   Le patient est ensuite assigné au groupe de traitement qui minimise les déséquilibres dans la répartition des facteurs pronostiques entre les groupes.
 
-## 
+## Sujets éligibles et validité externe
 
 #### Définition des sujets éligibles dans un essai de phase 3
 

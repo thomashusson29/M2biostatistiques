@@ -1,0 +1,231 @@
+---
+title: "Essais de non-infériorité et d'équivalence"
+format:
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        number-sections: false
+        mainfont: Ubuntu
+        filters:
+            - level6-heading.lua
+        header-includes: |
+            \usepackage{fontspec}
+            \setmainfont{Ubuntu}
+            \usepackage[dvipsnames]{xcolor}
+            \usepackage{array}
+            \usepackage{etoolbox}
+            \usepackage{needspace}
+            \definecolor{myblue}{rgb}{0.0078,0.0078,0.549}
+            \definecolor{mygreen}{rgb}{0,0.2745,0}
+            \definecolor{mybrown}{rgb}{0.392,0.094,0.094}
+            \definecolor{mypurple}{rgb}{0.286,0,0.286}
+            \definecolor{myorange}{rgb}{0.8,0.4,0}
+            \usepackage{sectsty}
+            \sectionfont{\color{black}\Large}
+            \subsectionfont{\color{myblue}\large}
+            \subsubsectionfont{\color{mygreen}\normalsize}
+            % Espace vertical de 0.3 cm haut/bas dans les cellules de tableau
+            \setlength{\extrarowheight}{0.3cm}
+            % Fixe la taille du corps de texte à 10pt avec un interligne cohérent
+            \AtBeginDocument{\fontsize{10pt}{12pt}\selectfont}
+            % Assure une vraie hiérarchie (### vs ####) dans le PDF
+            \setcounter{secnumdepth}{5}
+            \setcounter{tocdepth}{5}
+            % Avec KOMA-Script (scrartcl), éviter titlesec (incompatible) et
+            % redéclarer paragraph/subparagraph pour qu'ils soient en "block".
+            \RedeclareSectionCommand[
+                beforeskip=1.5ex plus .5ex minus .2ex,
+                afterskip=.6ex,
+                font=\normalfont\small\bfseries\color{mybrown}
+            ]{paragraph}
+            \RedeclareSectionCommand[
+                beforeskip=1.2ex plus .4ex minus .2ex,
+                afterskip=.5ex,
+                font=\normalfont\footnotesize\bfseries\color{mypurple}
+            ]{subparagraph}
+            % Niveau 6 (######) - titre personnalisé
+            \newcommand{\subsubparagraph}[1]{%
+                \vspace{1ex}%
+                {\normalfont\scriptsize\bfseries\color{myorange}#1}%
+                \vspace{0.4ex}%
+            }
+            % Veille à laisser suffisamment d'espace avant un tableau pour éviter son découpage
+            \AtBeginEnvironment{longtable}{\needspace{15\baselineskip}}
+    html:
+        toc: true
+        toc-location: left
+        toc-expand: true
+        css: heading-colors.css
+        include-after-body: markmap-link.html
+        post-render:
+            - "python3 post-render.py"
+post-render:
+    - "python3 post-render.py"
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+```
+
+## Essais de bioéquivalence
+
+#### Essai de bioéquivalence : définition, objectifs et méthodologie
+
+-   Basé sur l'hypothèse fondamentale que
+
+    -   Les mêmes effets biologiques
+
+    -   correspondent aux mêmes effets thérapeutiques
+
+    -   en terme d'efficacité et de sécurité
+
+-   Critère de jugement = **pharmacologique** le plus souvent : Cmax, Tmax, AUC
+
+    -   Critère quantitatif
+
+    -   Zone d'équivalence bilatérale
+
+    -   Procédures statistiques :
+
+        -   Soit double test unilatéral
+
+        -   Soit IC95 ($\text{IC}2\alpha$ )
+
+-   Essai d'efficacité souvent difficile à mettre en œuvre dans ce contexte :
+
+    -   Éthique : il existe déjà un médicament efficace
+
+    -   Statistique : si le médicament de référence est très efficace, il faut un nombre de patients très important pour démontrer une efficacité similaire
+
+#### Essai de bioéquivalence : équivalence ou non-infériorité ?
+
+-   Tout dépend de la question posée :
+
+    -   Par ex anti-hypertenseurs : il faut diminuer la TA mais pas trop pour éviter les effets indésirables : **équivalence**
+
+    -   Par ex anti-infectieux : il faut diminuer la charge bactérienne mais pas trop pour éviter les résistances : **non-infériorité**
+
+-   En général, le nouveau traitement présente **un avantage par rapport au traitement de référence qui n'est pas l'efficacité**
+
+## Hypothèses
+
+#### Hypothèses des essais d'efficacité, d'équivalence et de non infériorité
+
+-   Dans un essai d'efficacité, on cherche à démontrer que le nouveau traitement est **différent** du traitement de référence
+
+    -   $H_1$ = il existe une différence entre les traitements
+
+    -   Formulation bilatérale : $H_0 = \Delta = 0$ (pas de différence)
+
+    -   Formulation unilatérale : $H_0 = \Delta \leq 0$ ou
+
+-   Dans un essai d'équivalence :
+
+    -   $H_1$ = les traitements sont équivalents
+
+    -   $H_0 = |\Delta| \geq \Delta_L$ (différence supérieure ou égale à la marge d'équivalence)
+
+-   Dans un essai de non infériorité :
+
+    -   $H_1$ = le nouveau traitement n'est pas inférieur au traitement de référence
+
+    -   $H_0 = \Delta \leq -\Delta_L$ (différence inférieure ou égale à la marge de non-infériorité)
+
+![](images/paste-5.png)
+
+#### Interprétation des essais d'équivalence et non-infériorité
+
+-   Pas d'équivalence absolue (impossible à conclure)
+
+-   **Équivalence ne veut pas dire égalité = on parle de [région]{.underline} d'équivalence**
+
+#### Choix de la marge dans les essais d'équivalence / non infériorité
+
+-   Règle : **la différence doit être inférieure à la moitié de la différence mise en évidence lorsque le bras standard a été évalué**
+
+-   NB : ne pas confondre la marge d'équivalence / non-infériorité avec la différence cliniquement pertinente utilisée pour le calcul du nombre de sujets
+
+    -   dans un essai de supériorité, on définit $\Delta_S$ = la différence cliniquement pertinente, utilisée pour le calcul du nombre de sujets.
+
+    -   Dans un essai d'équivalence ou de non-infériorité, on définit $\Delta_L$ = la marge d'équivalence ou de non-infériorité, utilisée pour le test d'hypothèse = elle est donc la plus petite possible !!
+
+#### Comment montrer statistiquement l'équivalence ou la non-infériorité ?
+
+-   Par intervalle de confiance ++
+
+    -   Conclut à l'équivalence si l'intervalle de confiance à 95% est inclus dans la région d'équivalence
+
+    -   Mais ne permet pas de connaître le degré de significativité
+
+-   Pour un essai d'équivalence :
+
+    -   ![](images/paste-7.png)
+
+-   Pour un essai de non infériorité :
+
+    -   ![](images/paste-8.png)
+
+-   Attention aux biais conduisant à minimiser la différence $\rightarrow$ favorisent la conclusion d'équivalence !
+
+-   Attention au choix du groupe de référence $\rightarrow$ on peut conclure à l'équivalence entre deux traitements inefficaces !
+
+#### Quelle population d'analyse pour les essais d'équivalence et de non-infériorité ?
+
+-   Per-protocole ++
+
+    -   Exclut les patients non observants, perdus de vue, etc.
+
+    -   Favorise la conclusion d'équivalence ou de non-infériorité
+
+-   Intention de traiter
+
+    -   a garder en analyse secondaire pour vérifier la robustesse des résultats
+
+    -   Favorise la conclusion de supériorité
+
