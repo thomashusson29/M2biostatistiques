@@ -1,6 +1,6 @@
 ---
 title: "Modèles de prédiction clinique"
-bibliography: Biblio/biblio_zotero.bib
+bibliography: ../../Biblio/biblio-zotero.bib
 format:
     pdf:
         toc: true
@@ -8,6 +8,9 @@ format:
         toc-title: "Table des matières"
         number-sections: false
         mainfont: Ubuntu
+        cite-method: natbib
+        biblio-style: unsrtnat
+        natbiboptions: "super,sort,compress"
         filters:
             - level6-heading.lua
         header-includes: |
@@ -58,11 +61,6 @@ format:
         toc-location: left
         toc-expand: true
         css: heading-colors.css
-        include-after-body: markmap-link.html
-        post-render:
-            - "python3 post-render.py"
-post-render:
-    - "python3 post-render.py"
 ---
 
 ```{r}
@@ -190,7 +188,7 @@ knitr::opts_chunk$set(fig.height = 6)
 
 -   Réponse binaire si temps bref ou simultanéité (ex. présence d’une maladie)
 
--   Réponse quantitative si état fonctionnel, qualit de vie, taille tumeur...
+-   Réponse quantitative si état fonctionnel, qualité de vie, taille tumeur...
 
 -   Etc etc
 
@@ -214,7 +212,7 @@ knitr::opts_chunk$set(fig.height = 6)
 
     -   Corriger le sur-ajustement de manière un peu systématique
 
--   Référence : Riley et al. (2020) "Calculating the sample size required for developing a clinical prediction model" BMJ 368:m441. https://doi.org/10.1136/bmj.m441 @riley2020
+-   Référence : Riley et al. (2020) "Calculating the sample size required for developing a clinical prediction model" BMJ 368:m441. https://doi.org/10.1136/bmj.m441 [@riley2020]
 
 #### Recueil des données et vérification de leur qualité pour un modèle de prédiction clinique
 
@@ -374,21 +372,21 @@ knitr::opts_chunk$set(fig.height = 6)
 
 ![](images/paste-9.png)
 
-#### Modèle de prédicion clinique : éviter le surajustement
+#### Modèle de prédiction clinique : éviter le surajustement
 
 -   Principe général de parcimonie (Occam) : préférer le modèle le plus simple qui explique les données
 
 -   Principes de réduction :
 
-    -   Éliminter les variables non retrouvées dans la littérature
+    -   Éliminer les variables non retrouvées dans la littérature
 
     -   Éliminer variables de distribution trop proches ou avec fortes proportion de données manquantes
 
--   Méthode de réduction (shrinkage) :
+-   Méthodes pour limiter le surajustement :
 
-    -   réduction du nombre de prédicteurs : composantes principales, partial least squares (PLS), LASSO (Least Absolute Shrinkage and Selection Operator), etc.
+    -   réduction de dimension / sélection de variables : composantes principales, *partial least squares* (PLS), LASSO (*Least Absolute Shrinkage and Selection Operator*), etc.
 
-    -   réduction des coefficients : ridge regression, elastic net, lasso, etc.
+    -   shrinkage/pénalisation des coefficients : régression ridge, elastic net, lasso, etc.
 
 #### Modèles de prédiction clinique : décomposition biais-variance de l'erreur de prédiction
 
@@ -402,29 +400,23 @@ knitr::opts_chunk$set(fig.height = 6)
 
     -   Concrètement : on imagine ré-échantillonner les données d'entraînement (ou répéter l'étude), ré-ajuster le modèle à chaque fois, puis calculer la prédiction pour un même patient/profil $x$.
 
-    -   L'espérance $\\mathbb{E}[\\hat{y}(x)]$ est alors la moyenne des prédictions $\\hat{y}(x)$ obtenues sur ces répétitions (source d'aléa = choix de l'échantillon et, selon le contexte, le bruit de mesure).
+    -   L'espérance $\mathbb{E}[\hat{y}(x)]$ est alors la moyenne des prédictions $\hat{y}(x)$ obtenues sur ces répétitions (source d'aléa = choix de l'échantillon et, selon le contexte, le bruit de mesure).
 
-#### Modèles de prédiction clinique : "Shrinkage"
+#### Modèles de prédiction clinique : shrinkage (rétrécissement des coefficients)
 
--   "Shrinkage Factor" = facteur de réduction
+-   **Définition** : le *shrinkage factor* $S$ (souvent $0 < S \\le 1$) sert à **réduire l'amplitude** des coefficients d'un modèle.
 
--   Phénome : les prédictions d'un modèle sont trop optimistes (trop extrêmes)
+-   **Problème visé** : en cas de **surajustement** (trop de degrés de liberté pour une taille d'échantillon limitée), les coefficients sont souvent **surestimés**, ce qui produit des prédictions **trop extrêmes** et trop optimistes sur de nouvelles données (typique : *calibration slope* \< 1).
 
--   Causé par un surajustement = trop de paramètres dans des échantillons trop petits
+-   **Principe** : appliquer une réduction globale des coefficients (en général **hors intercept**) :
 
--   Technique : anticiper ce phénomène en ajustant les estimations
+    -   $\beta^{*} = S\,\hat{\beta}$
 
--   Les estimations corrigées de $\beta$ sont réduites à 0 : c'est à dire que les prédictions sont moins extrêmes, plus proches de la moyenne, et donc plus réalistes
+    -   Effet : les prédictions se rapprochent de la moyenne (moins extrêmes), donc en général une calibration plus réaliste.
 
--   Réduction des estimations *a posteriori*
+-   **Comment obtenir** $S$ ? (réduction *a posteriori*) : estimer l'optimisme par **validation interne** (souvent *bootstrap*), puis utiliser une estimation du *calibration slope* **corrigé de l'optimisme** comme facteur de shrinkage global.
 
-    -   Global shrinkage factor : calculé à partir de la performance du modèle sur les données d'entraînement, puis appliqué à tous les coefficients du modèle pour les réduire proportionnellement
-
-    -   Correction par ré-échantillonage (*bootstrap*) pour estimer le biais d'optimisme
-
-    -   Par exemple Calibration Slope "corrigé" : S = 0,9
-
-    -   S = 0,9 donc on retire 10% à tous les coefficients $\beta$
+-   **Exemple** : si $S = 0{,}9$, alors on multiplie chaque $\hat{\beta}$ (hors intercept) par $0{,}9$ : on « retire » \~10% à tous les effets.
 
 #### Modèles de prédiction clinique : Pénalisation
 
@@ -432,13 +424,13 @@ knitr::opts_chunk$set(fig.height = 6)
 
     -   Objectif : réduire la variance des coefficients de régression en ajoutant une pénalité à la somme des carrés des coefficients
 
-    -   Pénalité : la pénalité est proporteionnelle au carré des coefficients
+    -   Pénalité : la pénalité est proportionnelle au carré des coefficients
 
     -   Effet : réduit la magnitude des coefficients mais ne les annule pas
 
 -   **Régression LASSO**
 
-    -   Objectif : Sélectionner les variables les plus importanes en ajoutant une pénalité à la somme des valeurs absolues des coefficients
+    -   Objectif : Sélectionner les variables les plus importantes en ajoutant une pénalité à la somme des valeurs absolues des coefficients
 
     -   Pénalité : la pénalité est proportionnelle à la valeur absolue des coefficients
 
@@ -468,35 +460,404 @@ knitr::opts_chunk$set(fig.height = 6)
 
 -   Sur revue systématique : pas de performance de bénéfice par rapport aux régressions classiques
 
--   (Si articles classés en fonction de leur risue de biais)
+-   (Si articles classés en fonction de leur risque de biais)
 
 #### Modèle de prédiction clinique : traitement des données manquantes
 
 -   Imputation multiple des prédicteurs
 
-![](images/paste-10.png)
+-   2 articles : Vergouwe 2010 [@vergouweDevelopmentValidationPrediction2010] ; Janssen 2009 [@janssenDealingMissingPredictor2009]
 
-Arrêté à 1:00
+#### Modèle de prédiction clinique : évaluation de la performance
 
-peux tu regarder ça ? je trouve ça pas clair
-rends ça plus clair 
+-   Exemple : régression logistique
 
-#### Modèles de prédiction clinique : "Shrinkage"
+    -   **Discrimination** : capacité du modèle à différencier les patients "malades" et "sains" (ex. AUC, c-statistic)
 
--   "Shrinkage Factor" = facteur de réduction
+    -   **Calibration** :
 
--   Phénome : les prédictions d'un modèle sont trop optimistes (trop extrêmes)
+        -   **concordance** entre les probabilités prédites et les probabilités observées (ex. courbe de calibration, test de Hosmer-Lemeshow)
 
--   Causé par un surajustement = trop de paramètres dans des échantillons trop petits  
+        -   **biais** : différence entre moyenne des probabilités prédites et moyenne des probabilités observées
 
--   Technique : anticiper ce phénomène en ajustant les estimations
+    -   **Mesures globales** :
 
--   Les estimations corrigées de $\beta$ sont réduites à 0 : c'est à dire que les prédictions sont moins extrêmes, plus proches de la moyenne, et donc plus réalistes
+        -   $R^2$ de Nagelkerke : proportion de la variance expliquée par le modèle, entre 0 et 1. Plus le $R^2$ est proche de 1, meilleure est la performance du modèle. Cependant, il peut être influencé par la complexité du modèle et le nombre de prédicteurs inclus.\
+            (*"à maximiser"* : veut dire que plus le R2 est élevé, meilleure est la performance du modèle)
 
--   Réduction des estimations *a posteriori*
+        -   **Brier score** : mesure de la moyenne des carrés des écarts entre les probabilités prédites et les résultats observés (0 ou 1). Un Brier score plus bas indique une meilleure performance du modèle.\
+            (*"à minimiser"* : veut dire que plus le Brier score est bas, meilleure est la performance du modèle)
 
-    -   Global shrinkage factor : calculé à partir de la performance du modèle sur les données d'entraînement, puis appliqué à tous les coefficients du modèle pour les réduire proportionnellement
+    -   **Utilité clinique** : évaluation de l'impact du modèle sur la prise de décision clinique (ex. courbe décisionnelle, analyse de l'impact clinique)
 
-    -   Correction par ré-échantillonage (*bootstrap*) pour estimer le biais d'optimisme
+#### Modèle de prédiction clinique : rapport entre OR et discrimination
 
-    -   Par exemple Calibration Slope "corrigé"
+![](images/paste-11.png)
+
+#### Modèle de prédiction clinique : calibration
+
+-   = Distribution des probabilités prédites vs distribution des probabilités observées
+
+-   Exemple : soit un échantillon avec 30% de décès
+
+    -   Un modèle prédit $P(\text{décès})$
+
+        -   = 0,1 pour tous ceux qui vivent
+
+        -   = 0,2 pour tous ceux qui décèdent
+
+        -   = mal calibré car prédiction moyenne = $0,1 \times 0,7 + 0,2 \times 0,3 = 0,13 < 0,3$
+
+    -   Un autre modèle prédit $P(\text{décès})$
+
+        -   = 0 à 0,5 pour ceux qui vivent
+
+        -   = 0,2 à 1 pour ceux qui décèdent
+
+        -   = bien calibré car prédiction moyenne = $0,25 \times 0,7 + 0,6 \times 0,3 = 0,3$
+
+-   Rapport O/E : rapport $\frac{\text{nb évènements observés}}{\text{nb évènements prédits}}$
+
+    -   O/E = 1 : calibration parfaite
+
+    -   O/E \< 1 : sur-prédiction (trop d'évènements prédits)
+
+    -   O/E \> 1 : sous-prédiction (pas assez d'évènements prédits)
+
+-   Mais analyse par sous-groupe nécessaire pour évaluer la calibration à différents niveaux de risque
+
+    -   Exemple : pour 1000 sujets, 10% de décès
+
+        -   Le modèle prédit 10% pour tout le monde : O/E = 1
+
+        -   Mais 500 graves : 15% de décès : O/E = 1,5 (sous-prédiction)
+
+        -   500 légers : 5% de décès : O/E = 0,5 (sur-prédiction)
+
+-   3 composantes de la calibration :
+
+    -   **Biais** (*calibration-in-the-large*) :
+
+        -   C'est quoi ? Un décalage “global” : le modèle prédit en moyenne trop haut ou trop bas.
+
+        -   Comment le lire ? différence entre la **moyenne des probabilités prédites** et la **proportion observée** d'évènements (prévalence).
+
+        -   Lien avec les termes : *in-the-large* correspond à l'**intercept** de la droite de calibration (si tout est trop haut/bas, c'est l'intercept qui bouge).
+
+    -   **Accélération** (*calibration slope*, la **pente / slope**) :
+
+        -   C'est quoi ? La pente mesure si les prédictions sont **trop extrêmes** ou **pas assez extrêmes**.
+
+        -   *Slope* \< 1 : prédictions trop extrêmes (souvent surajustement) → hauts risques surestimés, bas risques sous-estimés.
+
+        -   *Slope* \> 1 : prédictions pas assez extrêmes (effets trop faibles).
+
+    -   **Erreur** (reste d'écart après biais + pente) :
+
+        -   C'est quoi ? Même après avoir corrigé un **intercept** (biais) et une **pente** (accélération), il peut rester des écarts selon le niveau de risque.
+
+        -   Sur un graphique : la courbe “observé vs prédit” n'est pas parfaitement alignée sur une droite.
+
+-   Courbe de calibration : **biais = intercept** ; **accélération = pente (slope)**.
+
+-   Calibration parfaite : **intercept = 0** et **pente (slope) = 1**.
+
+#### Modèle de prédiction clinique : calibration vs discrimination
+
+-   Pas 100% compatibles
+
+-   Calibration : concordance entre les probabilités prédites et les probabilités observées
+
+-   Discrimination : capacité du modèle à différencier les patients "malades" et "sains"
+
+-   Différence : un modèle peut être bien calibré (prédictions moyennes proches de la réalité) mais avoir une mauvaise discrimination (ne pas différencier les patients à haut risque des patients à bas risque), ou inversement, un modèle peut avoir une bonne discrimination (bien différencier les patients à haut risque des patients à bas risque) mais être mal calibré (prédictions moyennes éloignées de la réalité).
+
+-   **Privilégier la discrimination dans le développement du modèle** : la calibration peut être corrigée a posteriori (recalibrage), mais la discrimination est plus difficile à améliorer après coup.
+
+-   Amélioration de la calibration en modifiant l'intercept (ou le risque de base) et éventuellement par "shrinkage" des paramètres
+
+-   La discrimination peut être améliorée en ajoutant de nouveaux prédicteurs,
+
+    -   "Mise à jour" d'un modèle existant : ajout de nouveaux prédicteurs, recalibrage, etc.
+
+    -   Le modèle mis à jour nécessite une validation externe supplémentaire pour évaluer sa performance dans une nouvelle population.
+
+#### Modèle de prédiction clinique : validation interne / externe
+
+-   Validation INTERNE
+
+    -   Sur le même échantillon que celui utilisé pour développer le modèle
+
+        -   Rééchantillonnage : rééchantillonnage avec remplacement pour estimer l'optimisme du modèle
+
+            -   Bootstrap : créer de nombreux échantillons bootstrap (ex. 1000) en rééchantillonnant avec remplacement, ajuster le modèle sur chaque échantillon bootstrap, puis évaluer la performance du modèle sur les données d'origine pour estimer l'optimisme.
+
+            -   Jackknife : créer des échantillons en retirant un individu à la fois, ajuster le modèle sur chaque échantillon réduit, puis évaluer la performance du modèle sur les données d'origine pour estimer l'optimisme.
+
+        -   Cross-validation : division de l'échantillon en k sous-échantillons, entraînement du modèle sur k-1 sous-échantillons et test sur le sous-échantillon restant, répété k fois
+
+        -   Data splitting : division de l'échantillon en un ensemble d'entraînement et un ensemble de test, entraînement du modèle sur l'ensemble d'entraînement et évaluation de la performance sur l'ensemble de test
+
+    -   Objectif : évaluer la performance du modèle sur les données d'entraînement et estimer l'optimisme (sur-ajustement)
+
+-   Validation EXTERNE
+
+    -   Sur un échantillon différent de celui utilisé pour développer le modèle, idéalement dans une population différente
+
+        -   Validation temporelle : utiliser des données collectées à un moment différent
+
+        -   Validation géographique : utiliser des données collectées dans un lieu différent
+
+        -   Validation par centre : utiliser des données collectées dans un centre différent
+
+![](images/paste-12.png)
+
+#### Modèle de prédiction clinique : validation interne par data splitting
+
+-   Diviser l'échantillon en un ensemble d'entraînement (ex. 70-80%) et un ensemble de test (ex. 20-30%)
+
+-   Entraîner le modèle sur l'ensemble d'entraînement
+
+-   Évaluer la performance du modèle sur l'ensemble de test
+
+-   Avantages : simple à mettre en œuvre, rapide
+
+-   Inconvénients : peut être instable (dépend du choix de la division), moins efficace que le bootstrap ou la cross-validation pour estimer l'optimisme du modèle
+
+-   Nécessite une taille d'échantillon suffisante pour que les ensembles d'entraînement et de test soient représentatifs
+
+![](images/paste-13.png)
+
+#### Modèle de prédiction clinique : validation interne par cross-validation
+
+-   **Principe (k-fold cross-validation)** : on découpe l'échantillon en $k$ **partitions** (ou *folds*) d'effectifs similaires (souvent $k=5$ ou $k=10$).
+
+-   **À chaque itération** :
+
+    -   on garde 1 partition comme **partie mineure** (*validation fold*, servant de test),
+
+    -   et les $k-1$ autres partitions forment la **partie majeure** (*training folds*, servant d'entraînement).
+
+-   On **répète** $k$ fois : chaque partition sert une fois de partie mineure (test), et $k-1$ fois de partie majeure (apprentissage).
+
+-   **Ce qu'on évalue** : on calcule, à chaque itération, la performance sur la partie mineure (ex. AUC/C-index, Brier score, *calibration slope*), puis on **moyenne** (ou médiane) ces performances sur les $k$ itérations.
+
+-   **Pourquoi c'est utile (optimisme)** :
+
+    -   la performance “apparente” (évaluer sur les mêmes données que l'entraînement) est **optimiste** ;
+
+    -   la cross-validation donne une estimation **moins optimiste** car la partie mineure n'a pas servi à ajuster le modèle.
+
+-   **Lien avec le shrinkage factor** :
+
+    -   en pratique, un *calibration slope* estimé en validation interne (dont k-fold) peut servir d'estimation d'un **global shrinkage factor** $S$ ;
+
+    -   si $S<1$, cela suggère un surajustement → on peut envisager de “shrink” les coefficients (réduire leur amplitude) pour corriger l'optimisme.
+
+-   **Avantages** : plus stable qu'un simple *data splitting* et utilise mieux les données (chaque observation sert à l'entraînement et au test).
+
+-   **Inconvénients** : plus long/complexe ; et il faut éviter les fuites d'information (toutes les étapes du pipeline doivent être refaites dans la partie majeure : sélection de variables, imputation, standardisation, etc.).
+
+-   **Pré-requis** : taille d'échantillon suffisante pour que les partitions soient représentatives (sinon la variance des estimations augmente).
+
+![](images/paste-14.png)
+
+#### Modèle de prédiction clinique : validation interne par leave-one-out cross-validation (LOOCV)
+
+-   **Principe (LOOCV)** : c'est une k-fold cross-validation avec $k=n$.
+
+    -   On crée $n$ **partitions** : chaque partition (= **partie mineure**) contient **1 seul individu**.
+
+    -   La **partie majeure** contient les $n-1$ autres individus.
+
+-   **À chaque itération** : on ajuste le modèle sur la partie majeure ($n-1$ sujets) et on prédit/évalue sur la partie mineure (1 sujet). On répète pour chacun des $n$ sujets.
+
+-   **Ce qu'on obtient à la fin** : une prédiction “hors-apprentissage” pour chaque sujet (chacun a servi une fois de partie mineure). On peut alors calculer une performance globale (AUC/C-index, Brier, etc.).
+
+-   **Optimisme** : comme l'évaluation se fait toujours sur des sujets non utilisés pour ajuster le modèle, la performance estimée est en général **moins optimiste** que la performance apparente.
+
+-   **Avantages** : utilisation très efficace des données (partie majeure = $n-1$) et estimation de l'erreur de prédiction souvent **peu biaisée**.
+
+-   **Inconvénients** : très coûteux (on ajuste $n$ fois) et peut avoir une estimation de performance **variable/instable** ; pas idéal si le pipeline est lourd (imputation, sélection de variables, etc.) car tout doit être refait dans chaque partie majeure.
+
+![](images/paste-15.png)
+
+#### Modèle de prédiction clinique : K-fold cross-validation vs LOOCV
+
+-   **Quand** $k$ augmente (de $k=2$ vers $k=n$) :
+
+    -   la **partie majeure** (ensemble d'entraînement) devient **plus grande** et les ensembles d'entraînement se **recouvrent davantage** entre itérations ;
+
+    -   la **partie mineure** (ensemble de test) devient **plus petite**.
+
+-   **K-fold cross-validation** (*ex.* $k=5$ ou $k=10$) :
+
+    -   **Avantage principal** : **variance plus faible** de l'estimation de l'erreur de prédiction que la LOOCV (résultats souvent plus stables).
+
+    -   **Inconvénient principal** : **biais lié à la taille de la partie majeure** (plus petite que $n$) → tendance à **surestimer l'erreur de prédiction** (estimation un peu pessimiste), surtout si $k$ est petit.
+
+-   **LOOCV** (*leave-one-out,* $k=n$) :
+
+    -   **Avantage principal** : utilisation “maximale” des données à chaque ajustement (partie majeure = $n-1$) → estimation de l'erreur de prédiction **peu biaisée** (mais pas nécessairement la meilleure en termes de variance).
+
+    -   **Inconvénients principaux** : **très coûteux** (on ajuste $n$ modèles) et **variance élevée** (estimation plus instable).
+
+-   NB :
+
+    -   Erreur = biais + variance
+
+    -   Biais = écart entre l'espérance de la prédiction et la vraie valeur
+
+    -   Variance = dispersion de la prédiction autour de sa propre espérance
+
+-   En résumé :
+
+    -   **K-fold cross-validation** :
+
+        -   donne en général une estimation **plus stable** (= varie moins si on refait le découpage / l’échantillonnage), car l’évaluation se fait sur des parties mineures plus “grosses”.
+
+        -   En contrepartie, comme la partie majeure est plus petite que $n$, l’erreur peut être **un peu surestimée** (pessimiste), surtout si $k$ est petit.
+
+    -   **LOOCV (**$k=n$) :
+
+        -   donne souvent une estimation **peu biaisée** (= pas systématiquement trop haute/trop basse), car la partie majeure est presque tout l’échantillon ($n-1$).
+
+        -   En contrepartie, l’estimation est souvent **moins stable** (= variance plus élevée) et **coûteuse** (on ajuste $n$ modèles).
+
+#### Modèle de prédiction clinique : validation interne par rééchantillonnage (jackknife, bootstrap)
+
+-   **Jackknife** : on crée $n$ échantillons en retirant un individu à la fois, on ajuste le modèle sur chaque échantillon réduit (SANS REMISE), puis on évalue la performance du modèle sur les données d'origine pour estimer l'optimisme.
+
+-   **Bootstrap** : on crée de nombreux échantillons bootstrap (ex. 1000) en rééchantillonnant avec remplacement, on ajuste le modèle sur chaque échantillon bootstrap, puis on évalue la performance du modèle sur les données d'origine pour estimer l'optimisme.
+
+-   **Objectif** : estimer l'optimisme du modèle (sur-ajustement) en comparant la performance sur les échantillons bootstrap à la performance sur les données d'origine.
+
+-   **Avantages** : permet d'estimer de façon non paramétrique :
+
+    -   l'optimisme du modèle (sur-ajustement) et le biais d'optimisme (= différence entre la performance apparente et la performance corrigée de l'optimisme)
+
+    -   les intervalles de confiance pour les estimateurs de performance (ex. AUC, Brier, etc.)
+
+-   **Déduire un shrinkage factor global (rééchantillonnage bootstrap)** :
+
+    -   On estime un *calibration slope* **corrigé de l'optimisme** via le bootstrap (idée : ce slope mesure à quel point les prédictions sont trop extrêmes à cause du sur-ajustement).
+
+    -   Ce slope corrigé peut être utilisé comme **facteur de shrinkage global** $S$.
+
+    -   On applique ensuite le shrinkage aux coefficients (en général hors intercept) : $\beta^{*} = S\,\hat{\beta}$, ce qui rend les prédictions moins extrêmes et améliore la calibration sur de nouvelles données.
+
+![](images/paste-16.png)
+
+#### Modèle de prédiction clinique : validation interne-externe
+
+![](images/paste-17.png)
+
+-   Faisable si cohorte multicentrique
+
+-   Validation **indispensable** pour utiliser un nouveau modèle
+
+-   Pour validation interne : **bootstrap** souvent recommandé (ou cross-validation)
+
+-   Utiliser le modèle corrigé pour son "optimisme" (shrinkage) par un facteur de réduction (coefficients, mesures de performance, etc.)
+
+-   Validation externe (différent espace-temps de l'échantillon d'entraînement) = la meilleure !
+
+-   Article CRASH-2 @perelPredictingEarlyDeath2012
+
+#### Modèle de prédiction clinique : mise à jour d'un modèle de prédiction clinique
+
+-   **Mise à jour (updating)** = adapter un modèle existant quand il est appliqué à un **nouveau contexte** (autre population, autre période, autres pratiques/mesures), afin de réduire la perte de performance (souvent : mauvaise calibration) et limiter l'optimisme.
+
+-   **4 grands types de mise à jour**
+
+    -   **Model updating** : ajuster le modèle à un nouveau jeu de données.
+
+        -   **Recalibration (recalibrage)** : modifier le **risque de base** (intercept) et/ou la **pente** (slope) sans changer les prédicteurs.
+
+        -   **Revision (révision)** : ré-estimer certains coefficients, avec ou sans **shrinkage factor** (rétrécissement global) pour corriger le sur-ajustement.
+
+    -   **Model extension** : ajouter un **nouveau marqueur/prédicteur** à un modèle existant.
+
+        -   Recalibrage ou révision **avec extension** (on conserve la structure initiale mais on ajoute un prédicteur).
+
+        -   **Imputation** : si un prédicteur du modèle initial manque dans les nouvelles données, on peut parfois l'imputer (avec prudence) plutôt que supprimer le modèle.
+
+    -   **Meta-model updating** : combiner plusieurs modèles en un **méta-modèle** puis l’actualiser sur un nouveau jeu de données.
+
+        -   **Approches méta-analytiques** (combiner les informations issues de plusieurs études/modèles).
+
+        -   **Model averaging** (moyennage de modèles).
+
+        -   **Stacked regressions** (empilement : combinaison pondérée/apprise de plusieurs modèles).
+
+    -   **Dynamic updating** : mettre à jour le(s) modèle(s) au cours du temps.
+
+        -   **Périodique** : recalibrage/révision à des temps plus fréquents (par “lots” de données).
+
+        -   **Continue** : mise à jour en continu, par ex. **dynamic model averaging** (moyennage dynamique des modèles).
+
+-   **À retenir** : toute mise à jour doit être **(re)validée** (au minimum validation interne, idéalement externe) dans la population cible après modification.
+
+![](images/paste-18.png)
+
+#### Modèle de prédiction clinique : décider du modèle final
+
+-   Choisir le modèle final en fonction des mesures de la performance de validation interne et interne-externe (et éventuellement sur les évaluations de stabilité des prédicteurs)
+
+-   Si différentes stratégie fonctionnent de la même façon, privilégier la stratégie la plus simple (parcimonie ou rasoir d'Occam)
+
+#### Modèle de prédiction clinique : effectuer une analyse de la courbe décisionnelle
+
+-   Conséquences cliniques d'utiliser le modèle pour prendre des décisions (ex. traitement vs pas de traitement)
+
+-   Courbe décisionnelle : évaluer le **bénéfice net** d'utiliser le modèle à différents seuils de décision (ex. probabilité de décès à partir de laquelle on décide de traiter)
+
+-   Bénéfice net = (vrais positifs - faux positifs) / nombre total de patients, pondéré par le rapport entre les coûts/risques des faux positifs et des vrais positifs.
+
+-   Permet de comparer le modèle à des stratégies alternatives (ex. traiter tout le monde, ne traiter personne) et d'identifier les seuils de décision où le modèle apporte un bénéfice net positif.
+
+#### Modèle de prédiction clinique : évaluer l'impact clinique d'un modèle de prédiction
+
+-   **Évaluation de l'impact clinique** : au-delà de la discrimination/calibration, on cherche à savoir si l'utilisation du modèle **améliore réellement** la prise de décision, les résultats patients et/ou les coûts.
+
+-   Deux approches (traduction du schéma) :
+
+    -   **Impact potentiel** : évaluer le **potentiel** du modèle à améliorer les décisions, les issues cliniques et les coûts, sans forcément l'implanter “en vrai” dans le soin.
+
+        -   **Utilité clinique** :
+
+            -   Approches **traditionnelles** : sensibilité, spécificité (selon un seuil).
+
+            -   Approches **modernes** : **bénéfice net** et **analyse de courbe décisionnelle**.
+
+        -   **Analyse médico-économique** : modéliser le rapport coût/efficacité (ex. **modèles de Markov**) en intégrant les décisions guidées par le modèle.
+
+    -   **Impact réel** : mesurer l'**effet réel** du modèle une fois utilisé en pratique (décision médicale, outcomes, coûts).
+
+        -   **Plans d’étude** : essais randomisés en grappes ou autres designs d’implémentation.
+
+        -   **Méthodes d’évaluation** :
+
+            -   **Qualitatives** : entretiens/observations auprès des cliniciens et/ou patients (acceptabilité, compréhension, usages).
+
+            -   **Quantitatives** : analyses comparatives (ex. régressions multivariées) pour estimer l’effet du modèle, en tenant compte du risque prédit et des facteurs de confusion.
+
+-   **À retenir** : une bonne performance statistique ≠ impact clinique garanti ; l’impact dépend aussi du seuil de décision, du contexte, et de la façon dont le modèle est intégré au parcours de soins.
+
+![](images/paste-19.png)
+
+#### Modèle de prédiction clinique : évaluer la capacité prédictive de chaque prédicteur (facultatif)
+
+-   Identification de prédicteurs influents pourrait être intéressante, par exemple, pour évaluer l'inclusion éventuelle d'un nouveau biomarqueur comme mesure courante
+
+-   Certains prédicteurs pourraient être modifiables (ex. tension artérielle) et d'autres non (ex. âge), ce qui peut influencer les décisions cliniques
+
+-   "Variable importance" : différentes méthodes pour évaluer l'importance relative de chaque prédicteur dans le modèle (ex. poids des coefficients, permutation importance, etc.)
+
+-   Attention : l'importance d'un prédicteur peut être influencée par la présence d'autres prédicteurs corrélés (multicolinéarité) et par le processus de sélection des variables, ce qui peut rendre l'interprétation plus complexe.
+
+#### Modèle de prédiction clinique : publication
+
+-   Respecter les recommandations de la littérature (ex. TRIPOD) pour assurer une transparence et une reproductibilité optimales du développement et de la validation du modèle de prédiction clinique.
+
+-   TRIPOD+AI : extension de TRIPOD pour les modèles de prédiction basés sur l'intelligence artificielle, avec des recommandations spécifiques pour la transparence et la reproductibilité dans ce contexte.

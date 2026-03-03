@@ -57,11 +57,6 @@ format:
         toc-location: left
         toc-expand: true
         css: heading-colors.css
-        include-after-body: markmap-link.html
-        post-render:
-            - "python3 post-render.py"
-post-render:
-    - "python3 post-render.py"
 ---
 
 ```{r}
@@ -346,4 +341,3 @@ knitr::opts_chunk$set(fig.height = 6)
 -   Globalement : objectif est de décrire les DLT et d'estimer la MTD pour différente doses et différentes caractéristiques démographiques et cliniques des patients.
 
 -   Générer des hypothèses pour les essais de phase 2 basés sur les données de toxicité et de pharmacocinétique recueillies en phase 1.
-

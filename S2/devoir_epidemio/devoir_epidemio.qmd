@@ -1,0 +1,515 @@
+---
+title: "Devoir Épidémiologie"
+author: "Thomas Husson, Groupe 52"
+prefer-pdf: true
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+        css: styles.css
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        pdf-engine: xelatex
+        pdf-engine-opts:
+            - -interaction=nonstopmode
+            - -halt-on-error
+        number-sections: true
+        code-block-bg: false
+        header-includes: |
+            % Force la police Computer Modern pour le titre principal
+            \makeatletter
+            \renewcommand{\maketitle}{
+            \begin{center}
+                {\Large\bfseries\rmfamily \@title \par}
+                \vskip 1.5em
+                {\large\rmfamily \@author \par}
+                \vskip 1em
+            \end{center}
+            }
+            \makeatother
+            % Tous les titres en police par défaut LaTeX
+            \usepackage{sectsty}
+            \allsectionsfont{\rmfamily}
+            % Hyphenation française
+            \usepackage[french]{babel}
+            % Style des commentaires dans les blocs de code
+            \usepackage{xcolor}
+            \definecolor{commentgray}{HTML}{7A7A7A}
+            \providecommand{\CommentTok}[1]{#1}
+            \AtBeginDocument{
+            \renewcommand{\CommentTok}[1]{\textcolor{commentgray}{\textit{#1}}}
+            }
+            % Bloc de code R pour l'annexe (évite Shaded trop grand)
+            \usepackage{listings}
+            \lstset{
+            language=R,
+            basicstyle=\ttfamily\footnotesize\linespread{0.6}\selectfont\color{black},
+            commentstyle=\itshape\color{commentgray},
+            keywordstyle=\color{blue!60!black},
+            stringstyle=\color{brown!60!black},
+            breaklines=true,
+            breakatwhitespace=false,
+            columns=fullflexible,
+            xleftmargin=0.5em,
+            xrightmargin=0.5em
+            }
+
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+
+            % Gestion des chunks de code
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{4pt}
+
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(psy)
+library(MASS)
+library(rpart)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(zoo)
+library(kableExtra)
+library(gtsummary)
+library(lattice)
+library(survey)
+library(corrplot)
+library(mice)
+library(paletteer)
+library(nord)
+library(wesanderson)
+library(lubridate)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#| label: extract code chunks
+#| echo: false
+#| results: hide
+#| message: false
+#| warning: false
+#file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
+
+#extraction du code R pour le mettre à la fin du quarto md
+detect_qmd_path <- function() {
+    candidates <- c(
+        knitr::current_input(),
+        Sys.getenv("QUARTO_DOCUMENT_PATH", ""),
+        Sys.getenv("QUARTO_INPUT_FILE", ""),
+        "devoir_epidemio.qmd",
+        file.path("S2", "devoir_epidemio", "devoir_epidemio.qmd")
+    )
+    candidates <- unique(candidates[nzchar(candidates)])
+    for (p in candidates) {
+        if (file.exists(p)) return(normalizePath(p, winslash = "/", mustWork = TRUE))
+    }
+    NA_character_
+}
+
+file_qmd <- detect_qmd_path()
+if (is.na(file_qmd)) {
+    warning("Extraction des chunks R sautée : impossible de localiser le .qmd (problème de working directory / IDE).")
+} else {
+    lines <- readLines(file_qmd, warn = FALSE)
+
+    # trouver les débuts de chunks R
+    starts <- grep("^```\\{r\\b", lines)
+    code_r <- character(0)
+
+    for (s in starts) {
+        if (s >= length(lines)) next
+        rel_end <- which(grepl("^```\\s*$", lines[(s + 1):length(lines)]))[1]
+        if (is.na(rel_end)) {
+            warning("Extraction des chunks R partielle : fin de chunk manquante après la ligne ", s, ".")
+            next
+        }
+        e <- s + rel_end
+
+        # lignes à l’intérieur du chunk (excluant les balises de début et fin)
+        chunk_lines <- lines[(s + 1):(e - 1)]
+        # filtrer : garder seulement les lignes qui **ne sont pas des options Quarto**
+        real_code <- chunk_lines[!grepl("^\\s*#\\|", chunk_lines)]
+        code_r <- c(code_r, real_code, "")
+    }
+
+    outfile <- file.path(dirname(file_qmd), "all_chunks_code.R")
+    cat(code_r, file = outfile, sep = "\n")
+}
+```
+
+\newpage
+
+::: callout-important
+**Utilisation de l'IA**
+
+Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâches principales :
+
+-   En cas de problème d'exécution du code R (pour suggérer correction et amélioration)
+
+-   Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF. 
+
+Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.
+:::
+
+\newpage
+
+# Introduction
+
+## Énoncé du devoir
+
+-   Étude observationnelle réalisée en unité de soins intensifs
+
+-   Question : efficacité de la pose d’une sonde de Swan Ganz (*Right Heart Catheterization*, RHC) sur la mortalité des patients critiques, en tenant compte des facteurs pronostiques et des risques associés à cette procédure invasive.
+
+-   Objectif : évaluer l’apport de la procédure de cathétérisme cardiaque droit sur la mortalité́, en tenant compte des nombreux facteurs pronostiques.
+
+-   Source : Connors et al. (1996): The effectiveness of RHC in the initial care of critically ill patients. J American Medical Association 276:889-897.
+
+## Contexte
+
+-   Cathéter de Swan Ganz : dispositif médical diagnostique et thérapeutique mesurant en temps réel le débit et les pressions sanguines dans les cavités cardiaques droites et l’artère pulmonaire par cathéterisme cardiaque droit (RHC).
+
+-   Utilisé en réanimation à partir des années 1970, mais remis en question après réévaluation du rapport bénéfice/risque.
+
+-   Études randomisées contrôlées difficiles à réaliser pour des raisons éthiques, car de nombreux praticiens considèrent que ne pas utiliser la sonde de Swan-Ganz pourrait entraîner une perte de chances pour les patients.
+
+-   Étude observationnelle conçue par Connors et al. pour aborder la question d’un point de vue épidémiologique, avec une cohorte prospective multicentrique de 5735 patients adultes hospitalisés en réanimation pour une déficience d’organe parmi 9 prédéfinies, dont 2184 ont eu un RHC.
+
+-   Données rapportées : survie à J30, durée d’hospitalisation en réanimation et hospitalisation traditionnelle, coût du séjour, intensité des soins reçus.
+
+## Plan du devoir
+
+-   Data-management : nettoyage du jeu de données, renommage des variables et de leurs catégories, remise à l’échelle le cas échéant, prise en compte des données aberrantes ou manquantes.
+
+-   Analyse descriptive univariée de la population, des différentes variables et de leur répartition au sein de la cohorte.
+
+-   Analyse bivariée de ces variables au sein de sous-groupes : chez les patients ayant reçu ou non un RHC, ainsi que chez les patients décédés ou non à J30, afin de mettre en évidence une éventuelle différence significative entre les groupes.
+
+-   Analyse multivariée pour répondre à la question posée : la réalisation d’un cathéterisme cardiaque droit est-elle bénéfique au patient, toute covariable d’ajustement étant comparable par ailleurs ?
+
+-   Pour éviter un biais d’indication et améliorer la comparabilité des patients, un score de propension à la réalisation d'un cathéterisme cardiaque droit a été conçu par régression logistique multiple, permettant un ajustement sur un grand nombre de variables de confusion potentielles.
+
+-   Analyse de survie à J30, comparant les populations ayant reçu ou non le RHC, toute chose étant comparable par ailleurs grâce à l’ajustement sur le score de propension.
+
+-   Conclusion : synthèse des résultats, discussion des limites de l’étude, implications cliniques et perspectives de recherche future.
+
+# Data-management
+
+```{r}
+#| label: data-management
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# Charger les données
+df <- read.csv2("/Users/thomashusson/Documents/Projets/M2biostatistiques/S2/devoir_epidemio/rhc devoir épidémio-RC csv.csv", header = TRUE, stringsAsFactors = FALSE)
+summary(df)
+colnames(df)
+str(df)
+```
+
+
+-   Le fichier contient 5735 observations et 63 variables, avec des types de données variés (numériques, caractères, facteurs).
+
+-   La première colonne et la dernière sont inutiles pour l’analyse (identifiant et index), et seront supprimées.
+
+-   Les variables de date sont au format caractère et doivent être converties en format date pour une manipulation plus facile.
+
+-   Les variables de type "Yes"/"No" seront converties en facteurs pour faciliter l’analyse statistique.
+
+-   Les colonnes sont renommées pour faciliter leur manipulation et leur compréhension.
+
+```{r}
+#| label: nettoyage_renommage
+#| echo: false
+#| message: false
+#| warning: false
+# Supprimer les colonnes inutile (ROWNAMES et PTID) en appelant explictement les noms des colonnes à supprimer
+df <- df[, !(colnames(df) %in% c("ROWNAMES", "PTID"))]
+colnames(df)
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# Renommer les colonnes 
+# syntaxe : names(df)[names(df) == "ANCIEN_NOM"] <- "NOUVEAU_NOM"
+names(df)[names(df) == "CAT1"]     <- "primary_disease_category"
+names(df)[names(df) == "CAT2"]     <- "secondary_disease_category"
+names(df)[names(df) == "CA"]       <- "cancer"
+names(df)[names(df) == "SADMDTE"]  <- "date_admission"
+names(df)[names(df) == "DSCHDTE"]  <- "date_discharge"
+names(df)[names(df) == "DTHDTE"]   <- "date_death"
+names(df)[names(df) == "LSTCTDTE"] <- "date_last_news"
+names(df)[names(df) == "DEATH"]    <- "death_180d"
+
+names(df)[names(df) == "CARDIOHX"] <- "comorbidity_cardio"
+names(df)[names(df) == "CHFHX"]    <- "comorbidity_chf"
+names(df)[names(df) == "DEMENTHX"] <- "comorbidity_dementia"
+names(df)[names(df) == "PSYCHHX"]  <- "comorbidity_psych"
+names(df)[names(df) == "CHRPULHX"] <- "comorbidity_chronic_pulmonary"
+names(df)[names(df) == "RENALHX"]  <- "comorbidity_renal"
+names(df)[names(df) == "LIVERHX"]  <- "comorbidity_liver"
+names(df)[names(df) == "GIBLEDHX"] <- "comorbidity_upper_gi_bleeding"
+names(df)[names(df) == "MALIGHX"]  <- "comorbidity_malignancy"
+names(df)[names(df) == "IMMUNHX"]  <- "comorbidity_immunosuppression"
+names(df)[names(df) == "TRANSHX"]  <- "comorbidity_transfer"
+names(df)[names(df) == "AMIHX"]    <- "comorbidity_myocardial_infarction"
+
+names(df)[names(df) == "AGE"]      <- "age"
+names(df)[names(df) == "SEX"]      <- "sex"
+names(df)[names(df) == "EDU"]      <- "education_years"
+names(df)[names(df) == "SURV2MD1"] <- "survival_probability"
+names(df)[names(df) == "DAS2D3PC"] <- "DASI_score"
+names(df)[names(df) == "T3D30"]    <- "time_to_death_or_censoring"
+names(df)[names(df) == "DTH30"]    <- "death_30d"
+
+names(df)[names(df) == "APS1"]     <- "apache_score"
+names(df)[names(df) == "SCOMA1"]   <- "coma_score"
+names(df)[names(df) == "MEANBP1"]  <- "mean_blood_pressure"
+names(df)[names(df) == "WBLC1"]    <- "wbc"
+names(df)[names(df) == "HRT1"]     <- "heart_rate"
+names(df)[names(df) == "RESP1"]    <- "respiratory_rate"
+names(df)[names(df) == "TEMP1"]    <- "temperature"
+names(df)[names(df) == "PAFI1"]    <- "pa_fi_ratio"
+names(df)[names(df) == "ALB1"]     <- "albumin"
+names(df)[names(df) == "HEMA1"]    <- "hematocrit"
+names(df)[names(df) == "BILI1"]    <- "bilirubin"
+names(df)[names(df) == "CREA1"]    <- "creatinine"
+names(df)[names(df) == "SOD1"]     <- "sodium"
+names(df)[names(df) == "POT1"]     <- "potassium"
+names(df)[names(df) == "PACO21"]   <- "paco2"
+names(df)[names(df) == "PH1"]      <- "ph"
+
+names(df)[names(df) == "SWANG1"]   <- "rhc"
+names(df)[names(df) == "WTKILO1"]  <- "weight"
+names(df)[names(df) == "DNR1"]     <- "dnr_status"
+names(df)[names(df) == "NINSCLAS"] <- "insurance_class"
+
+names(df)[names(df) == "RESP"]     <- "diagnosis_respiratory"
+names(df)[names(df) == "CARD"]     <- "diagnosis_cardiovascular"
+names(df)[names(df) == "NEURO"]    <- "diagnosis_neurological"
+names(df)[names(df) == "GASTR"]    <- "diagnosis_gastrointestinal"
+names(df)[names(df) == "RENAL"]    <- "diagnosis_renal"
+names(df)[names(df) == "META"]     <- "diagnosis_metabolic"
+names(df)[names(df) == "HEMA"]     <- "diagnosis_hematologic"
+names(df)[names(df) == "SEPS"]     <- "diagnosis_sepsis"
+names(df)[names(df) == "TRAUMA"]   <- "diagnosis_trauma"
+names(df)[names(df) == "ORTHO"]    <- "diagnosis_orthopedic"
+
+names(df)[names(df) == "ADLD3P"]   <- "adl_score"
+names(df)[names(df) == "URIN1"]    <- "urine_output"
+names(df)[names(df) == "RACE"]     <- "race"
+names(df)[names(df) == "INCOME"]   <- "income"
+```
+
+```{r}
+#| label : "conversion_dates_facteurs"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# Conversion des dates (les chaînes vides -> NA pour éviter les warnings)
+df$date_admission[df$date_admission == ""] <- NA
+df$date_discharge[df$date_discharge == ""] <- NA
+df$date_death[df$date_death == ""] <- NA
+df$date_last_news[df$date_last_news == ""] <- NA
+
+# Conversion en format date
+df$date_admission <- as.Date(df$date_admission, format = "%d/%m/%Y")
+df$date_discharge <- as.Date(df$date_discharge, format = "%d/%m/%Y")
+df$date_death <- as.Date(df$date_death, format = "%d/%m/%Y")
+df$date_last_news <- as.Date(df$date_last_news, format = "%d/%m/%Y")
+
+# Facteurs et numériques
+df$death_180d <- factor(df$death_180d, levels = c("No", "Yes"))
+df$primary_disease_category <- factor(df$primary_disease_category)
+df$secondary_disease_category <- factor(df$secondary_disease_category)
+df$comorbidity_cardio <- factor(df$comorbidity_cardio, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_chf <- factor(df$comorbidity_chf, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_dementia <- factor(df$comorbidity_dementia, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_psych <- factor(df$comorbidity_psych, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_chronic_pulmonary <- factor(df$comorbidity_chronic_pulmonary, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_renal <- factor(df$comorbidity_renal, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_liver <- factor(df$comorbidity_liver, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_upper_gi_bleeding <- factor(df$comorbidity_upper_gi_bleeding, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_malignancy <- factor(df$comorbidity_malignancy, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_immunosuppression <- factor(df$comorbidity_immunosuppression, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_transfer <- factor(df$comorbidity_transfer, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_myocardial_infarction <- factor(df$comorbidity_myocardial_infarction, levels = c(0, 1), labels = c("No", "Yes"))
+df$cancer <- factor(df$cancer, levels = c("No", "Yes", "Metastatic"))
+df$sex <- factor(df$sex, levels = c("Male", "Female"))
+df$time_to_death_or_censoring <- as.numeric(df$time_to_death_or_censoring)
+df$death_30d <- factor(df$death_30d, levels = c("No", "Yes"))
+df$apache_score <- as.numeric(df$apache_score)
+df$coma_score <- as.numeric(df$coma_score)
+df$heart_rate <- as.numeric(df$heart_rate)
+df$sodium <- as.numeric(df$sodium)
+df$dnr_status <- factor(df$dnr_status, levels = c("No", "Yes"))
+df$insurance_class <- factor(df$insurance_class)
+df$diagnosis_respiratory <- factor(df$diagnosis_respiratory, levels = c("No", "Yes"))
+df$diagnosis_cardiovascular <- factor(df$diagnosis_cardiovascular, levels = c("No", "Yes"))
+df$diagnosis_neurological <- factor(df$diagnosis_neurological, levels = c("No", "Yes"))
+df$diagnosis_gastrointestinal <- factor(df$diagnosis_gastrointestinal, levels = c("No", "Yes"))
+df$diagnosis_renal <- factor(df$diagnosis_renal, levels = c("No", "Yes"))
+df$diagnosis_metabolic <- factor(df$diagnosis_metabolic, levels = c("No", "Yes"))
+df$diagnosis_hematologic <- factor(df$diagnosis_hematologic, levels = c("No", "Yes"))
+df$diagnosis_sepsis <- factor(df$diagnosis_sepsis, levels = c("No", "Yes"))
+df$diagnosis_trauma <- factor(df$diagnosis_trauma, levels = c("No", "Yes"))
+df$diagnosis_orthopedic <- factor(df$diagnosis_orthopedic, levels = c("No", "Yes"))
+df$adl_score <- as.numeric(df$adl_score)
+df$race <- factor(df$race)
+df$income <- factor(df$income, levels = c("Under $11k", "$11-$25k", "$25-$50k", "Over $50k"))
+df$rhc <- factor(df$rhc, levels = c("No RHC", "RHC"))
+str(df)
+```
+
+-   Il existe une colonne codant pour la date de décès et une codant pour la date des dernières nouvelles.
+
+-   Pour les patients décédés, on vérifie que la date de décès correspond à la date des dernières nouvelles
+
+```{r}
+#| label: verification_dates
+#| echo: false
+#| message: false
+#| warning: false
+#vérification du format des datese 
+is.Date(df$date_death)
+is.Date(df$date_last_news) 
+# Vérification de la cohérence entre date_death et date_last_news pour les patients décédés
+incoherent_dates <- df$death_180d == "Yes" & df$date_death != df$date_last_news
+sum(incoherent_dates) # Nombre de cas incohérents
+```
+
+-   Il existe `r sum(incoherent_dates)` cas où les dates des dernières nouvelles sont incohérentes (soit postérieure à la date de décès, soit antérieure) : pour ces patients, on propose de corriger la date des dernières nouvelles en la remplaçant par la date de décès.
+
+```{r}
+# Correction des dates incohérentes
+df$date_last_news[incoherent_dates] <- df$date_death[incoherent_dates]
+# Vérification après correction
+incoherent_dates_after <- df$death_180d == "Yes" & df$date_death != df$date_last_news
+sum(incoherent_dates_after) # Nombre de cas incohérents après correction (devrait être 0)
+```
+
+-   Après correction il existe `r sum(incoherent_dates_after)` cas incohérents, ce qui correspond à une correction réussie de tous les cas.
+
+
+
+
+
+
+
+
+
+
+# Annexe – Code R
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| results : asis
+
+#insérer le code à la fin du fichier
+
+# lire le fichier code genere
+code <- readLines("all_chunks_code.R", warn = FALSE)
+
+code_wrapped <- code
+
+if (knitr::is_latex_output()) {
+    code_safe <- gsub(
+        "\\\\(begin|end)\\{lstlisting\\}",
+        "\\\\textbackslash \\1{lstlisting}",
+        code_wrapped
+    )
+    cat("\\begin{lstlisting}\n")
+    cat(code_safe, sep = "\n")
+    cat("\n\\end{lstlisting}\n")
+} else {
+    cat("```r\n")
+    cat(code_wrapped, sep = "\n")
+    cat("\n```")
+}
+```

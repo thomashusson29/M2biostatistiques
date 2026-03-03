@@ -1,0 +1,147 @@
+---
+title: "IA, Big Data et réutilisation des données"
+bibliography: ../../Biblio/biblio-zotero.bib
+format:
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        number-sections: false
+        mainfont: Ubuntu
+        cite-method: natbib
+        biblio-style: unsrtnat
+        natbiboptions: "super,sort,compress"
+        filters:
+            - level6-heading.lua
+        header-includes: |
+            \usepackage{fontspec}
+            \setmainfont{Ubuntu}
+            \usepackage[dvipsnames]{xcolor}
+            \usepackage{array}
+            \usepackage{etoolbox}
+            \usepackage{needspace}
+            \definecolor{myblue}{rgb}{0.0078,0.0078,0.549}
+            \definecolor{mygreen}{rgb}{0,0.2745,0}
+            \definecolor{mybrown}{rgb}{0.392,0.094,0.094}
+            \definecolor{mypurple}{rgb}{0.286,0,0.286}
+            \definecolor{myorange}{rgb}{0.8,0.4,0}
+            \usepackage{sectsty}
+            \sectionfont{\color{black}\Large}
+            \subsectionfont{\color{myblue}\large}
+            \subsubsectionfont{\color{mygreen}\normalsize}
+            % Espace vertical de 0.3 cm haut/bas dans les cellules de tableau
+            \setlength{\extrarowheight}{0.3cm}
+            % Fixe la taille du corps de texte à 10pt avec un interligne cohérent
+            \AtBeginDocument{\fontsize{10pt}{12pt}\selectfont}
+            % Assure une vraie hiérarchie (### vs ####) dans le PDF
+            \setcounter{secnumdepth}{5}
+            \setcounter{tocdepth}{5}
+            % Avec KOMA-Script (scrartcl), éviter titlesec (incompatible) et
+            % redéclarer paragraph/subparagraph pour qu'ils soient en "block".
+            \RedeclareSectionCommand[
+                beforeskip=1.5ex plus .5ex minus .2ex,
+                afterskip=.6ex,
+                font=\normalfont\small\bfseries\color{mybrown}
+            ]{paragraph}
+            \RedeclareSectionCommand[
+                beforeskip=1.2ex plus .4ex minus .2ex,
+                afterskip=.5ex,
+                font=\normalfont\footnotesize\bfseries\color{mypurple}
+            ]{subparagraph}
+            % Niveau 6 (######) - titre personnalisé
+            \newcommand{\subsubparagraph}[1]{%
+                \vspace{1ex}%
+                {\normalfont\scriptsize\bfseries\color{myorange}#1}%
+                \vspace{0.4ex}%
+            }
+            % Veille à laisser suffisamment d'espace avant un tableau pour éviter son découpage
+            \AtBeginEnvironment{longtable}{\needspace{15\baselineskip}}
+    html:
+        toc: true
+        toc-location: left
+        toc-expand: true
+        css: heading-colors.css
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+```
+
+## Définitions
+
+#### Big Data : définition
+
+-   = ensemble de données volumineuses, complexes et en constante évolution, nécessitant des outils et des techniques spécifiques pour leur collecte, leur stockage, leur traitement et leur analyse.
+
+-   Surtout GRAND NOMBRE DE VARIABLES (ex : données génomiques, données d'imagerie médicale, données de réseaux sociaux, etc.)
+
+-   Et GRAND NOMBRE D'OBSERVATIONS, surtout le fait qu'elles soient RÉUTILISABLES (Health Data Hub...)
+
+## Data reuse, data mining
+
+#### Data reuse : définition
+
+-   Data reuse = secondary use of data
+
+-   **Approche traditionnelle (avant data reuse)** : 
+
+    -   collecte de données pour un projet de recherche spécifique, puis analyse et publication des résultats. Les données sont souvent utilisées une seule fois et ne sont pas partagées ou réutilisées par d'autres chercheurs.
+
+    -   Avantages : approche la plus valide et la plus rigoureuse pour répondre à une question de recherche spécifique, car les données sont collectées de manière ciblée et contrôlée.
+
+    -   Inconvénients : coûteuse, longue, et peut être difficile à mettre en œuvre pour certaines populations ou certains types de données.
+
+-   **Data re-use** : 
+
+    -   collecte de données pour un projet de recherche spécifique, puis partage et réutilisation des données par d'autres chercheurs pour répondre à d'autres questions de recherche.
+
+    -   Avantages : permet de maximiser l'utilisation des données collectées, de réduire les coûts et les délais de recherche, et de favoriser la collaboration entre chercheurs. Pas de limitation du nombre de sujets nécessaires ou de variables (on prend tout ce qui est disponible)
+
+    -   Inconvénients : peut être difficile à mettre en œuvre en raison de problèmes de confidentialité, de qualité des données, et de compatibilité entre les différentes sources de données.
+
+    -   Processus ancien : par exemple compagnies d'assurances qui fixent un prix "personnalisé" en fonction de l'âge, du sexe, de la profession, etc. (données réutilisées pour fixer les prix)

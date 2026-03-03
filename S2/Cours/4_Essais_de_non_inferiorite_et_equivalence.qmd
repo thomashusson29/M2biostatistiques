@@ -57,11 +57,6 @@ format:
         toc-location: left
         toc-expand: true
         css: heading-colors.css
-        include-after-body: markmap-link.html
-        post-render:
-            - "python3 post-render.py"
-post-render:
-    - "python3 post-render.py"
 ---
 
 ```{r}
@@ -228,4 +223,3 @@ knitr::opts_chunk$set(fig.height = 6)
     -   a garder en analyse secondaire pour vérifier la robustesse des résultats
 
     -   Favorise la conclusion de supériorité
-

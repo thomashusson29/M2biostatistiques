@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Modèles de prédiction clinique</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="5_Modeles_prediction_clinique_files/libs/clipboard/clipboard.min.js"></script>
+<script src="5_Modeles_prediction_clinique_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="5_Modeles_prediction_clinique_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="5_Modeles_prediction_clinique_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="5_Modeles_prediction_clinique_files/libs/quarto-html/popper.min.js"></script>
+<script src="5_Modeles_prediction_clinique_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="5_Modeles_prediction_clinique_files/libs/quarto-html/anchor.min.js"></script>
+<link href="5_Modeles_prediction_clinique_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="5_Modeles_prediction_clinique_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="5_Modeles_prediction_clinique_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="5_Modeles_prediction_clinique_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="5_Modeles_prediction_clinique_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="heading-colors.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#modèles-de-prédiction-clinique" id="toc-modèles-de-prédiction-clinique" class="nav-link active" data-scroll-target="#modèles-de-prédiction-clinique">Modèles de prédiction clinique</a></li>
+  <li><a href="#dévelopmment-dun-modèle-de-prédiction-clinique-étape-par-étape" id="toc-dévelopmment-dun-modèle-de-prédiction-clinique-étape-par-étape" class="nav-link" data-scroll-target="#dévelopmment-dun-modèle-de-prédiction-clinique-étape-par-étape">Dévelopmment d’un modèle de prédiction clinique : étape par étape</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../../5_Modeles_prediction_clinique.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Modèles de prédiction clinique</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="modèles-de-prédiction-clinique" class="level2">
+<h2 class="anchored" data-anchor-id="modèles-de-prédiction-clinique">Modèles de prédiction clinique</h2>
+<section id="utilité-des-facteurs-pronostiques-dans-les-modèles-de-prédiction-clinique" class="level4">
+<h4 class="anchored" data-anchor-id="utilité-des-facteurs-pronostiques-dans-les-modèles-de-prédiction-clinique">Utilité des facteurs pronostiques dans les modèles de prédiction clinique</h4>
+<ul>
+<li><p>Classification de la maladie au diagnostic</p></li>
+<li><p>Prédiction de l’évolution de la maladie (risque absolu)</p></li>
+<li><p>Informer la gestion clinique</p></li>
+<li><p>Prévision individuelle plus précise du risque</p></li>
+<li><p>Stratifier les patients dans les essais cliniques</p></li>
+</ul>
+</section>
+<section id="différents-types-de-modèles-de-prédiction-clinique" class="level4">
+<h4 class="anchored" data-anchor-id="différents-types-de-modèles-de-prédiction-clinique">Différents types de modèles de prédiction clinique</h4>
+<ul>
+<li><p>Modèles explicatifs : mettent en évidence les facteurs de risque et leur contribution à la maladie</p></li>
+<li><p>Modèles prédictifs : se concentrent sur la précision de la prédiction, indépendamment de l’interprétabilité (pas de préoccupation au sujet de la causalité ou de la confusion)</p></li>
+<li><p>Modèles descriptifs : résument les données sans nécessairement faire de prédictions</p></li>
+</ul>
+</section>
+</section>
+<section id="dévelopmment-dun-modèle-de-prédiction-clinique-étape-par-étape" class="level2">
+<h2 class="anchored" data-anchor-id="dévelopmment-dun-modèle-de-prédiction-clinique-étape-par-étape">Dévelopmment d’un modèle de prédiction clinique : étape par étape</h2>
+<ol type="1">
+<li><p><strong>Définir les objectifs et rédiger un protocole détaillé</strong></p></li>
+<li><p><strong>Choisir entre le développement d’un nouveau modèle ou la mise à jour d’un modèle existant</strong></p></li>
+<li><p><strong>Spécifier le critère de jugement principal (outcome)</strong></p></li>
+<li><p><strong>Lister les prédicteurs candidats et décrire leurs méthodes de mesure</strong></p></li>
+<li><p><strong>Déterminer la taille d’échantillon nécessaire</strong></p></li>
+<li><p><strong>Recueillir les données et vérifier leur qualité</strong></p></li>
+<li><p><strong>Traiter les données manquantes (imputation, exclusions justifiées, etc.)</strong></p></li>
+<li><p><strong>Ajuster les modèles de prédiction (développement ou mise à jour)</strong></p></li>
+<li><p><strong>Évaluer la performance des modèles : discrimination, calibration, utilité clinique</strong></p></li>
+<li><p><strong>Comparer les modèles et sélectionner la version finale</strong></p></li>
+<li><p><strong>Effectuer une analyse de la courbe décisionnelle pour estimer l’impact clinique</strong></p></li>
+<li><p><strong>Rédiger et publier les résultats</strong> (inclure, si pertinent, une analyse facultative de la contribution individuelle de chaque prédicteur)</p></li>
+</ol>
+<section id="objectifs-dun-modèle-de-prédiction-clinique" class="level4">
+<h4 class="anchored" data-anchor-id="objectifs-dun-modèle-de-prédiction-clinique">Objectifs d’un modèle de prédiction clinique</h4>
+<ul>
+<li><p>Population cible : pour qui le modèle doit prévoir ?</p></li>
+<li><p>Quel critère d’évaluation faut-il prévoir ?</p></li>
+<li><p>Utilisateur : qui va utiliser le modèle ? (cliniciens, patients, systèmes de santé)</p></li>
+<li><p>Décisions cliniques que le modèle doit informer (traitement, dépistage, suivi)</p></li>
+</ul>
+</section>
+<section id="choix-entre-développement-dun-nouveau-modèle-ou-mise-à-jour-dun-modèle-existant" class="level4">
+<h4 class="anchored" data-anchor-id="choix-entre-développement-dun-nouveau-modèle-ou-mise-à-jour-dun-modèle-existant">Choix entre développement d’un nouveau modèle ou mise à jour d’un modèle existant</h4>
+<ul>
+<li><p>Revue de la littérature pour identifier les modèles existants.</p></li>
+<li><p>PROBAST : outil de validation critique pour évaluer la qualité méthodologique des modèles de prédiction existants (permet d’identifier les risques de biais et les problèmes de validité).</p>
+<ul>
+<li><p>Risques de biais : par ex overfitting, sélection des prédicteurs, gestion des données manquantes, etc.</p></li>
+<li><p>Applicabilité : évaluer si le modèle est pertinent pour la population cible, les prédicteurs disponibles, les critères d’évaluation, etc.</p></li>
+</ul></li>
+<li><p>Pourquoi pas évaluer la validité d’un modèle existant dans la population cible avant de développer un nouveau modèle ?</p></li>
+<li><p>Selon résultats de la validation, décider de développer un nouveau modèle ou de mettre à jour un modèle existant (ajout de nouveaux prédicteurs, recalibrage, etc.)</p></li>
+</ul>
+</section>
+<section id="définition-dun-critère-de-jugement-pour-un-modèle-de-prédiction-clinique" class="level4">
+<h4 class="anchored" data-anchor-id="définition-dun-critère-de-jugement-pour-un-modèle-de-prédiction-clinique">Définition d’un critère de jugement pour un modèle de prédiction clinique</h4>
+<ul>
+<li><p>Réponse binaire si temps bref ou simultanéité (ex. présence d’une maladie)</p></li>
+<li><p>Réponse quantitative si état fonctionnel, qualité de vie, taille tumeur…</p></li>
+<li><p>Etc etc</p></li>
+</ul>
+</section>
+<section id="détermination-des-prédicteurs-possibles-et-préciser-les-méthodes-de-mesure-pour-un-modèle-de-prédiction-clinique" class="level4">
+<h4 class="anchored" data-anchor-id="détermination-des-prédicteurs-possibles-et-préciser-les-méthodes-de-mesure-pour-un-modèle-de-prédiction-clinique">Détermination des prédicteurs possibles et préciser les méthodes de mesure pour un modèle de prédiction clinique</h4>
+<ul>
+<li><p>Prédicteurs : idéalement définis et mesurés objectivement, de manière fiable et reproductible, et disponibles au moment de la prise de décision clinique.</p></li>
+<li><p>Dichotomosation / catégorisation des prédicteurs continus réduit l’information et la puissance statistique</p></li>
+</ul>
+</section>
+<section id="taille-déchantillon-nécessaire-pour-développer-un-modèle-de-prédiction-clinique" class="level4">
+<h4 class="anchored" data-anchor-id="taille-déchantillon-nécessaire-pour-développer-un-modèle-de-prédiction-clinique">Taille d’échantillon nécessaire pour développer un modèle de prédiction clinique</h4>
+<ul>
+<li><p>Règle empirique : au moins 10 événements par prédicteur (EPV) pour les modèles de régression logistique (ex. 100 événements pour 10 prédicteurs)</p></li>
+<li><p>4 critères :</p>
+<ul>
+<li><p>Estimation de l’incidence</p></li>
+<li><p>Estimation des prédictions individuelles</p></li>
+<li><p>Pas trop de sur-ajustement (overfitting) (a posteriori ou lors de la modélisation (lasso, ridge, etc.))</p></li>
+<li><p>Corriger le sur-ajustement de manière un peu systématique</p></li>
+</ul></li>
+<li><p>Référence : Riley et al.&nbsp;(2020) “Calculating the sample size required for developing a clinical prediction model” BMJ 368:m441. https://doi.org/10.1136/bmj.m441 <span class="citation" data-cites="riley2020">Riley et al. (<a href="#ref-riley2020" role="doc-biblioref">2020</a>)</span></p></li>
+</ul>
+</section>
+<section id="recueil-des-données-et-vérification-de-leur-qualité-pour-un-modèle-de-prédiction-clinique" class="level4">
+<h4 class="anchored" data-anchor-id="recueil-des-données-et-vérification-de-leur-qualité-pour-un-modèle-de-prédiction-clinique">Recueil des données et vérification de leur qualité pour un modèle de prédiction clinique</h4>
+<ul>
+<li><p>Idéal = cohorte prospective avec collecte de données standardisée</p></li>
+<li><p>Mais difficiles à mettre en place, coûteuses, longues</p></li>
+<li><p>Erreurs de données : essayer de standardiser</p></li>
+<li><p>Exploration des données : prédicteur avec faible variabilité dans le jeu de données ? Mutation avec fréquence faible ? Prédicteur avec beaucoup de données manquantes ? Etc.</p></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-adaptation-des-modèles" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-adaptation-des-modèles">Modèles de prédiction : Adaptation des modèles</h4>
+<ul>
+<li><p>Si taille grande : termes non linéaires (eg splines), interactions</p>
+<ul>
+<li>splines : permettent de modéliser des relations non linéaires entre les prédicteurs continus et l’outcome sans imposer une forme fonctionnelle spécifique (ex. linéaire). Ils divisent la plage des prédicteurs en segments et ajustent des fonctions polynomiales dans chaque segment, assurant une transition fluide entre eux.</li>
+</ul></li>
+<li><p>Modèles IA / machine learning : random forest, gradient boosting, réseaux de neurones, etc.</p></li>
+<li><p>Mais première étape : <strong>pénalisation</strong> de modèles (avant de passer à des modèles plus complexes) : lasso, ridge, elastic net, etc.</p></li>
+<li><p>Dans tous les cas : vérifier les hypothèses des modèles :</p>
+<ul>
+<li><p>Modèle linéaire général :</p>
+<ul>
+<li><p>Indépendance des résidus</p></li>
+<li><p>Homoscédasticité (variance constante des résidus)</p></li>
+<li><p>Normalité des résidus</p></li>
+</ul></li>
+<li><p>Linéaritié (pour les prédicteurs continus)</p></li>
+<li><p>Additivité = absence d’interactions (sauf si spécifiées)</p></li>
+<li><p>Survie : proportionalité des risques (Cox), etc.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-clinique-étude-de-ladéquation-du-modèle" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-clinique-étude-de-ladéquation-du-modèle">Modèles de prédiction clinique : Étude de l’adéquation du modèle</h4>
+<ul>
+<li><p>Processus diagnostique ou utilisation des résidus pour évaluer les hypothèses du modèle :</p>
+<ul>
+<li><p>Résidus vs prédictions ajustées</p></li>
+<li><p>Résidus vs prédicteurs (résidus = écarts entre valeurs observées et valeurs prédites en fonction de chaque prédicteur)</p></li>
+<li><p>Q-Q plot des résidus</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-clinique-transformation-des-variables" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-clinique-transformation-des-variables">Modèles de prédiction clinique : transformation des variables</h4>
+<ul>
+<li><p>Le fait d’exprimer au mieux la relation avec la réponse nécessite parfois une transformation</p></li>
+<li><p>Ou pour <strong>respecter les conditions du modèle</strong></p></li>
+<li><p>Recherche du seuil optimal, de segmentation (arbre de régression)</p></li>
+<li><p>Splines / polynomes : modèles de régression locale pour interaction complexe entre deux variables</p></li>
+</ul>
+</section>
+<section id="modèles-de-prédictions-cliniques-aic-et-bic" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédictions-cliniques-aic-et-bic">Modèles de prédictions cliniques : AIC et BIC</h4>
+<ul>
+<li><p>2 façons de “fit” des modèles différentes</p></li>
+<li><p><strong>Aikake Information Criteria (AIC)</strong></p>
+<ul>
+<li><p>calculée à partir de la vraisemblance du modèle et du nombre de paramètres qu’il utilise</p></li>
+<li><p>Pénalise les modèles plus complexes (avec plus de paramètres) pour éviter le sur-ajustement (overfitting)</p></li>
+<li><p>Le modèle avec le plus petit AIC est considéré comme le meilleur compromis entre la qualité de l’ajustement et la simplicité du modèle</p></li>
+</ul></li>
+<li><p><strong>Bayesian Information Criterion (BIC)</strong></p>
+<ul>
+<li><p><strong>Tient compte du nombre d’observations dans le calcul de la pénalisation, ce qui peut conduire à une préférence pour des modèles plus simples lorsque la taille de l’échantillon est grande</strong></p></li>
+<li><p>Très proche de l’AIC, mais pénalise davantage les modèles avec plus de paramètres (plus strict que l’AIC)</p></li>
+<li><p>Le modèle avec le plus petit BIC est considéré comme le meilleur compromis entre la qualité de l’ajustement et la simplicité du modèle, mais avec une pénalisation plus forte pour les modèles complexes que l’AIC</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-clinique-conséquences-derreur-de-sélection-de-prédicteurs" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-clinique-conséquences-derreur-de-sélection-de-prédicteurs">Modèles de prédiction clinique : conséquences d’erreur de sélection de prédicteurs</h4>
+<ul>
+<li><p>Fausse inclusion d’une variable prédictive</p></li>
+<li><p>Fausse exclusion d’une variable prédictive</p></li>
+<li><p>Dans les deux cas : problème d’estimation de la variance des prédictions (RMSE)</p></li>
+<li><p>Et si variable importante : <strong>biais</strong> dans la prédiction, donc biais dans la prédiction</p></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-clinique-différents-procédés-de-sélection-des-variables" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-clinique-différents-procédés-de-sélection-des-variables">Modèles de prédiction clinique : différents procédés de sélection des variables</h4>
+<ul>
+<li><p><strong>Procédures pas à pas (<em>stepwise</em>) :</strong></p>
+<ul>
+<li><p>Ascendante : forward ou bottom-up</p></li>
+<li><p>Descendante : backward ou top-down</p></li>
+<li><p>On peut utiliser des critères comme AIC ou BIC pour choix</p></li>
+<li><p>Mais biais ++ !! car pas de test pour l’incertitude dans le processus de sélection des variables</p>
+<ul>
+<li><p><span class="math inline">\(R^2\)</span> (RMSE) tiré vers le haut car les variables sont sélectionnées pour maximiser la performance du modèle sur les données d’entraînement, ce qui peut conduire à un sur-ajustement (overfitting) et à une performance surestimée du modèle sur ces données</p></li>
+<li><p>Tests statistiques non conformes car les tests sont effectués sur un modèle sélectionné à partir des données d’entraînement, ce qui introduit un biais dans les tests statistiques</p></li>
+<li><p>variance des coefficients biaisées vers le bas (IC bas)</p></li>
+<li><p>degré de significativité trop bas, car comparaisons multiples</p></li>
+<li><p>sélection dépend de la colinéarité des variables incluses</p></li>
+</ul></li>
+<li><p>NB : dans un modèle, RMSE correspond à la somme de la variance des prédictions (imprécision) et du biais (erreur systématique).</p></li>
+<li><p>Si R2 est tiré vers le haut, ça veut dire que le modèle est “suroptimiste” : il prédit mieux les données d’entraînement que les données de test (ou de validation)</p></li>
+</ul></li>
+<li><p><strong>Modèle complet</strong></p>
+<ul>
+<li><p>Chaque variable est incluse dans le modèle, indépendamment de sa significativité statistique</p></li>
+<li><p>Une variable hautement corrélée avec la réponse peut avoir une contribution négligeable car son effet est déjà capturé par d’autres variables incluses dans le modèle</p></li>
+</ul></li>
+<li><p><strong>Modèle “expert”</strong> : sélection basée sur la littérature, l’expertise clinique, etc.</p></li>
+<li><p><strong>Modèle hiérarchique</strong> :</p>
+<ul>
+<li><p>groupement “naturel” de variables par domaine,</p></li>
+<li><p>puis sélection dans chaque domaine,</p></li>
+<li><p>puis sélection finale à partir des variables retenues dans chaque domaine</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-clinique-définition-et-conséquences-de-la-multicolinéarité" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-clinique-définition-et-conséquences-de-la-multicolinéarité">Modèles de prédiction clinique : définition et conséquences de la multicolinéarité</h4>
+<ul>
+<li><p>1 prédicteur peut être prédit à partir des autres</p></li>
+<li><p>Lorsque les prédicteurs sont fortement corrélés entre eux, il peut être difficile de déterminer l’effet individuel de chaque prédicteur sur la variable de réponse, ce qui peut entraîner des coefficients instables et difficiles à interpréter dans les modèles de régression.</p></li>
+<li><p>La multicolinéarité peut également conduire à des erreurs d’estimation des coefficients, à une augmentation de la variance des prédictions (RMSE) et à une diminution de la significativité statistique des prédicteurs, rendant ainsi le modèle moins fiable pour la prise de décision clinique.</p></li>
+<li><p>Variance Inflation Factor :</p>
+<ul>
+<li><p>quantifie la multicolinéarité en passant par une régression du facteur en question sur les autres,</p></li>
+<li><p>indique dans quelle mesure la variance d’un coefficient de régression est augmentée en raison de la corrélation avec les autres prédicteurs.</p></li>
+<li><p>Un VIF élevé (généralement &gt; 5 ou 10) suggère une multicolinéarité problématique, ce qui peut rendre les coefficients de régression instables et difficiles à interpréter.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-clinique-parcimonie-vs-performance" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-clinique-parcimonie-vs-performance">Modèles de prédiction clinique : parcimonie vs performance</h4>
+<ul>
+<li><p>Modèle parcimonieux : modèle qui utilise le moins de prédicteurs possible, au risque d’être “underfitting”</p></li>
+<li><p>Modèle performant : modèle qui maximise la performance (ex. R2, RMSE, etc.) sans nécessairement se soucier du nombre de prédicteurs utilisés</p></li>
+<li><p>Il existe souvent un compromis entre parcimonie et performance : un modèle plus simple peut être plus facile à interpréter et à utiliser en clinique, mais peut avoir une performance légèrement inférieure à un modèle plus complexe. Inversement, un modèle plus complexe peut offrir une meilleure performance, mais peut être plus difficile à interpréter et à appliquer en pratique clinique.</p></li>
+<li><p>Plus on ajuste le modèle sur les données d’entraînement, plus le risque est de s’éloigner des données de test.</p></li>
+<li><p>Ajuster = dépenser des degrés de liberté</p></li>
+</ul>
+<p><img src="images/paste-9.png" class="img-fluid"></p>
+</section>
+<section id="modèle-de-prédiction-clinique-éviter-le-surajustement" class="level4">
+<h4 class="anchored" data-anchor-id="modèle-de-prédiction-clinique-éviter-le-surajustement">Modèle de prédiction clinique : éviter le surajustement</h4>
+<ul>
+<li><p>Principe général de parcimonie (Occam) : préférer le modèle le plus simple qui explique les données</p></li>
+<li><p>Principes de réduction :</p>
+<ul>
+<li><p>Éliminer les variables non retrouvées dans la littérature</p></li>
+<li><p>Éliminer variables de distribution trop proches ou avec fortes proportion de données manquantes</p></li>
+</ul></li>
+<li><p>Méthodes pour limiter le surajustement :</p>
+<ul>
+<li><p>réduction de dimension / sélection de variables : composantes principales, <em>partial least squares</em> (PLS), LASSO (<em>Least Absolute Shrinkage and Selection Operator</em>), etc.</p></li>
+<li><p>shrinkage/pénalisation des coefficients : régression ridge, elastic net, lasso, etc.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-clinique-décomposition-biais-variance-de-lerreur-de-prédiction" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-clinique-décomposition-biais-variance-de-lerreur-de-prédiction">Modèles de prédiction clinique : décomposition biais-variance de l’erreur de prédiction</h4>
+<ul>
+<li><p>L’erreur de prédiction (RMSE) peut être décomposée en deux composantes : le biais et la variance.</p></li>
+<li><p><strong>Biais</strong> = écart au carré entre l’espérance de la prédiction et la vraie valeur. Correspond à l’erreur systématique (au carré) dans les prédictions du modèle, c’est-à-dire la différence entre les prédictions moyennes du modèle et les valeurs réelles de la variable de réponse. Un modèle avec un biais élevé a tendance à faire des prédictions qui sont systématiquement éloignées des valeurs réelles.</p></li>
+<li><p><strong>Variance</strong> = dispersion de la prédiction autour de sa propre espérance. Correspond à la variabilité des prédictions du modèle pour différents échantillons de données d’entraînement. Un modèle avec une variance élevée a tendance à faire des prédictions qui varient considérablement en fonction des données d’entraînement utilisées, ce qui peut conduire à un sur-ajustement (overfitting) et à une performance médiocre sur les données de test.</p></li>
+<li><p>NB : ici, <em>espérance</em> = valeur moyenne théorique de la prédiction quand on répète le même processus d’apprentissage plusieurs fois.</p>
+<ul>
+<li><p>Concrètement : on imagine ré-échantillonner les données d’entraînement (ou répéter l’étude), ré-ajuster le modèle à chaque fois, puis calculer la prédiction pour un même patient/profil <span class="math inline">\(x\)</span>.</p></li>
+<li><p>L’espérance <span class="math inline">\(\\mathbb{E}[\\hat{y}(x)]\)</span> est alors la moyenne des prédictions <span class="math inline">\(\\hat{y}(x)\)</span> obtenues sur ces répétitions (source d’aléa = choix de l’échantillon et, selon le contexte, le bruit de mesure).</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-clinique-shrinkage-rétrécissement-des-coefficients" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-clinique-shrinkage-rétrécissement-des-coefficients">Modèles de prédiction clinique : shrinkage (rétrécissement des coefficients)</h4>
+<ul>
+<li><p><strong>Définition</strong> : le <em>shrinkage factor</em> <span class="math inline">\(S\)</span> (souvent <span class="math inline">\(0 &lt; S \\le 1\)</span>) sert à <strong>réduire l’amplitude</strong> des coefficients d’un modèle.</p></li>
+<li><p><strong>Problème visé</strong> : en cas de <strong>surajustement</strong> (trop de degrés de liberté pour une taille d’échantillon limitée), les coefficients sont souvent <strong>surestimés</strong>, ce qui produit des prédictions <strong>trop extrêmes</strong> et trop optimistes sur de nouvelles données (typique : <em>calibration slope</em> &lt; 1).</p></li>
+<li><p><strong>Principe</strong> : appliquer une réduction globale des coefficients (en général <strong>hors intercept</strong>) :</p>
+<ul>
+<li><p><span class="math inline">\(\\beta^{\\*} = S\\,\\hat{\\beta}\)</span></p></li>
+<li><p>Effet : les prédictions se rapprochent de la moyenne (moins extrêmes), donc en général une calibration plus réaliste.</p></li>
+</ul></li>
+<li><p><strong>Comment obtenir <span class="math inline">\(S\)</span> ?</strong> (réduction <em>a posteriori</em>) : estimer l’optimisme par <strong>validation interne</strong> (souvent <em>bootstrap</em>), puis utiliser une estimation du <em>calibration slope</em> <strong>corrigé de l’optimisme</strong> comme facteur de shrinkage global.</p></li>
+<li><p><strong>Exemple</strong> : si <span class="math inline">\(S = 0{,}9\)</span>, alors on multiplie chaque <span class="math inline">\(\\hat{\\beta}\)</span> (hors intercept) par <span class="math inline">\(0{,}9\)</span> : on « retire » ~10% à tous les effets.</p></li>
+</ul>
+</section>
+<section id="modèles-de-prédiction-clinique-pénalisation" class="level4">
+<h4 class="anchored" data-anchor-id="modèles-de-prédiction-clinique-pénalisation">Modèles de prédiction clinique : Pénalisation</h4>
+<ul>
+<li><p><strong>Régression ridge</strong></p>
+<ul>
+<li><p>Objectif : réduire la variance des coefficients de régression en ajoutant une pénalité à la somme des carrés des coefficients</p></li>
+<li><p>Pénalité : la pénalité est proportionnelle au carré des coefficients</p></li>
+<li><p>Effet : réduit la magnitude des coefficients mais ne les annule pas</p></li>
+</ul></li>
+<li><p><strong>Régression LASSO</strong></p>
+<ul>
+<li><p>Objectif : Sélectionner les variables les plus importantes en ajoutant une pénalité à la somme des valeurs absolues des coefficients</p></li>
+<li><p>Pénalité : la pénalité est proportionnelle à la valeur absolue des coefficients</p></li>
+<li><p>Effet : peut annuler certains coefficients, effectuant une sélection des variables</p></li>
+</ul></li>
+<li><p><strong>Elastic net</strong> :</p>
+<ul>
+<li>Combine Ridge et Lasso</li>
+</ul></li>
+</ul>
+</section>
+<section id="modèle-de-prédiction-clinique-stabilité-des-prédicteurs" class="level4">
+<h4 class="anchored" data-anchor-id="modèle-de-prédiction-clinique-stabilité-des-prédicteurs">Modèle de prédiction clinique : stabilité des prédicteurs</h4>
+<ul>
+<li><p>La sélection des variables introduit généralement une incertitude supplémentaire</p>
+<ul>
+<li><p>Instabilité de la sélection</p></li>
+<li><p>Variance supplémentaire des coefficients de régression</p></li>
+</ul></li>
+<li><p>Quantifier cette incertitude en utilisant des études de stabilité par ré-échantillonnage</p>
+<ul>
+<li><p>Répéter l’algorithme de sélection dans les sous-échantillons</p></li>
+<li><p>Attention : prédicteurs corrélés peuvent “jouer à cache-cache”</p></li>
+</ul></li>
+<li><p>Article : Table 2 de Heinze Biom J 2018 donne description de la sélection des variables et critères d’arrêt</p></li>
+</ul>
+</section>
+<section id="modèle-de-prédiction-clinique-machine-learning" class="level4">
+<h4 class="anchored" data-anchor-id="modèle-de-prédiction-clinique-machine-learning">Modèle de prédiction clinique : “Machine Learning”</h4>
+<ul>
+<li><p>Sur revue systématique : pas de performance de bénéfice par rapport aux régressions classiques</p></li>
+<li><p>(Si articles classés en fonction de leur risque de biais)</p></li>
+</ul>
+</section>
+<section id="modèle-de-prédiction-clinique-traitement-des-données-manquantes" class="level4">
+<h4 class="anchored" data-anchor-id="modèle-de-prédiction-clinique-traitement-des-données-manquantes">Modèle de prédiction clinique : traitement des données manquantes</h4>
+<ul>
+<li>Imputation multiple des prédicteurs</li>
+</ul>
+<p><img src="images/paste-10.png" class="img-fluid"></p>
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-riley2020" class="csl-entry" role="listitem">
+Riley, Richard D., Joie Ensor, Kym I. E. Snell, Frank E. Harrell, Glen P. Martin, Johannes B. Reitsma, Karel G. M. Moons, Gary Collins, and Maarten van Smeden. 2020. <span>“Calculating the Sample Size Required for Developing a Clinical Prediction Model.”</span> <em>BMJ</em> 368 (March): m441. <a href="https://doi.org/10.1136/bmj.m441">https://doi.org/10.1136/bmj.m441</a>.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

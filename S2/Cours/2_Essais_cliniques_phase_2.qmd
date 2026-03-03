@@ -57,11 +57,6 @@ format:
         toc-location: left
         toc-expand: true
         css: heading-colors.css
-        include-after-body: markmap-link.html
-        post-render:
-            - "python3 post-render.py"
-post-render:
-    - "python3 post-render.py"
 ---
 
 ```{r}
@@ -363,7 +358,7 @@ knitr::opts_chunk$set(fig.height = 6)
 
     -   $p_1$ : taux de succès considéré comme suffisant = **taux d'efficacité minimal acceptable** (ex : ORR de 40%)
 
-    $\rightarrows$ On peut définir des :
+    $\Rightarrow$ On peut définir des :
 
     -   risques de rejeter $H_0$ alors qu'il est vrai (erreur de type I) : $\alpha$
 
