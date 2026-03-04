@@ -90,8 +90,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#contexte" id="toc-contexte" class="nav-link" data-scroll-target="#contexte"><span class="header-section-number">1.2</span> Contexte</a></li>
   <li><a href="#plan-du-devoir" id="toc-plan-du-devoir" class="nav-link" data-scroll-target="#plan-du-devoir"><span class="header-section-number">1.3</span> Plan du devoir</a></li>
   </ul></li>
-  <li><a href="#data-management" id="toc-data-management" class="nav-link" data-scroll-target="#data-management"><span class="header-section-number">2</span> Data-management</a></li>
-  <li><a href="#annexe-code-r" id="toc-annexe-code-r" class="nav-link" data-scroll-target="#annexe-code-r"><span class="header-section-number">3</span> Annexe – Code R</a></li>
+  <li><a href="#data-management" id="toc-data-management" class="nav-link" data-scroll-target="#data-management"><span class="header-section-number">2</span> Data-management</a>
+  <ul>
+  <li><a href="#nettoyage-et-renommage-des-variables" id="toc-nettoyage-et-renommage-des-variables" class="nav-link" data-scroll-target="#nettoyage-et-renommage-des-variables"><span class="header-section-number">2.1</span> Nettoyage et renommage des variables</a></li>
+  <li><a href="#conversion-des-types-de-données" id="toc-conversion-des-types-de-données" class="nav-link" data-scroll-target="#conversion-des-types-de-données"><span class="header-section-number">2.2</span> Conversion des types de données</a></li>
+  <li><a href="#vérification-de-la-cohérence-des-dates" id="toc-vérification-de-la-cohérence-des-dates" class="nav-link" data-scroll-target="#vérification-de-la-cohérence-des-dates"><span class="header-section-number">2.3</span> Vérification de la cohérence des dates</a>
+  <ul>
+  <li><a href="#vérification-de-la-cohérence-entre-date-de-décès-et-date-des-dernières-nouvelles" id="toc-vérification-de-la-cohérence-entre-date-de-décès-et-date-des-dernières-nouvelles" class="nav-link" data-scroll-target="#vérification-de-la-cohérence-entre-date-de-décès-et-date-des-dernières-nouvelles"><span class="header-section-number">2.3.1</span> Vérification de la cohérence entre date de décès et date des dernières nouvelles</a></li>
+  <li><a href="#vérification-de-la-cohérence-entre-date-de-sortie-dhospitalisation-et-date-des-dernières-nouvelles" id="toc-vérification-de-la-cohérence-entre-date-de-sortie-dhospitalisation-et-date-des-dernières-nouvelles" class="nav-link" data-scroll-target="#vérification-de-la-cohérence-entre-date-de-sortie-dhospitalisation-et-date-des-dernières-nouvelles"><span class="header-section-number">2.3.2</span> Vérification de la cohérence entre date de sortie d’hospitalisation et date des dernières nouvelles</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#description-du-jeu-de-données" id="toc-description-du-jeu-de-données" class="nav-link" data-scroll-target="#description-du-jeu-de-données"><span class="header-section-number">3</span> Description du jeu de données</a>
+  <ul>
+  <li><a href="#vue-densemble-du-jeu-de-données" id="toc-vue-densemble-du-jeu-de-données" class="nav-link" data-scroll-target="#vue-densemble-du-jeu-de-données"><span class="header-section-number">3.1</span> Vue d’ensemble du jeu de données</a></li>
+  <li><a href="#variables-catégorielles" id="toc-variables-catégorielles" class="nav-link" data-scroll-target="#variables-catégorielles"><span class="header-section-number">3.2</span> Variables catégorielles</a></li>
+  </ul></li>
+  <li><a href="#annexe-code-r" id="toc-annexe-code-r" class="nav-link" data-scroll-target="#annexe-code-r"><span class="header-section-number">4</span> Annexe – Code R</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="devoir_epidemio.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../../devoir_epidemio.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -188,430 +202,642 @@ Important
 <li><p>Les variables de type “Yes”/“No” seront converties en facteurs pour faciliter l’analyse statistique.</p></li>
 <li><p>Les colonnes sont renommées pour faciliter leur manipulation et leur compréhension.</p></li>
 </ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Supprimer les colonnes inutile (ROWNAMES et PTID) en appelant explictement les noms des colonnes à supprimer</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[, <span class="sc">!</span>(<span class="fu">colnames</span>(df) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ROWNAMES"</span>, <span class="st">"PTID"</span>))]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "CAT1"     "CAT2"     "CA"       "SADMDTE"  "DSCHDTE"  "DTHDTE"  
- [7] "LSTCTDTE" "DEATH"    "CARDIOHX" "CHFHX"    "DEMENTHX" "PSYCHHX" 
-[13] "CHRPULHX" "RENALHX"  "LIVERHX"  "GIBLEDHX" "MALIGHX"  "IMMUNHX" 
-[19] "TRANSHX"  "AMIHX"    "AGE"      "SEX"      "EDU"      "SURV2MD1"
-[25] "DAS2D3PC" "T3D30"    "DTH30"    "APS1"     "SCOMA1"   "MEANBP1" 
-[31] "WBLC1"    "HRT1"     "RESP1"    "TEMP1"    "PAFI1"    "ALB1"    
-[37] "HEMA1"    "BILI1"    "CREA1"    "SOD1"     "POT1"     "PACO21"  
-[43] "PH1"      "SWANG1"   "WTKILO1"  "DNR1"     "NINSCLAS" "RESP"    
-[49] "CARD"     "NEURO"    "GASTR"    "RENAL"    "META"     "HEMA"    
-[55] "SEPS"     "TRAUMA"   "ORTHO"    "ADLD3P"   "URIN1"    "RACE"    
-[61] "INCOME"  </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion des dates (les chaînes vides -&gt; NA pour éviter les warnings)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_admission[df<span class="sc">$</span>date_admission <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_discharge[df<span class="sc">$</span>date_discharge <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_death[df<span class="sc">$</span>date_death <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_last_news[df<span class="sc">$</span>date_last_news <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion en format date</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_admission <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_admission, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_discharge <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_discharge, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_death <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_death, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_last_news <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_last_news, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Facteurs et numériques</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death_180d <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>death_180d, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>primary_disease_category <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>primary_disease_category)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>secondary_disease_category <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>secondary_disease_category)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_cardio <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_cardio, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_chf <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_chf, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_dementia <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_dementia, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_psych <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_psych, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_chronic_pulmonary <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_chronic_pulmonary, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_renal <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_renal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_liver <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_liver, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_upper_gi_bleeding <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_upper_gi_bleeding, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_malignancy <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_malignancy, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_immunosuppression <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_immunosuppression, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_transfer <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_transfer, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_myocardial_infarction <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_myocardial_infarction, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>cancer <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>cancer, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>, <span class="st">"Metastatic"</span>))</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>))</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>time_to_death_or_censoring <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>time_to_death_or_censoring)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death_30d <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>death_30d, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>apache_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>apache_score)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>coma_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>coma_score)</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>heart_rate <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>heart_rate)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>sodium <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>sodium)</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>dnr_status <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>dnr_status, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>insurance_class <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>insurance_class)</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_respiratory <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_respiratory, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_cardiovascular <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_cardiovascular, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_neurological <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_neurological, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_gastrointestinal <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_gastrointestinal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_renal <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_renal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_metabolic <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_metabolic, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_hematologic <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_hematologic, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_sepsis <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_sepsis, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_trauma <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_trauma, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_orthopedic <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_orthopedic, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>adl_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>adl_score)</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>race <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>race)</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>income <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>income, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Under $11k"</span>, <span class="st">"$11-$25k"</span>, <span class="st">"$25-$50k"</span>, <span class="st">"Over $50k"</span>))</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>rhc <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>rhc, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No RHC"</span>, <span class="st">"RHC"</span>))</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   5735 obs. of  61 variables:
- $ primary_disease_category         : Factor w/ 9 levels "ARF","CHF","Cirrhosis",..: 6 9 8 1 9 6 8 1 8 1 ...
- $ secondary_disease_category       : Factor w/ 7 levels "","Cirrhosis",..: 1 1 7 1 1 1 1 4 1 1 ...
- $ cancer                           : Factor w/ 3 levels "No","Yes","Metastatic": 2 1 2 1 1 1 3 1 2 2 ...
- $ date_admission                   : Date, format: "1990-07-04" "1992-04-21" ...
- $ date_discharge                   : Date, format: "1990-07-13" "1992-06-05" ...
- $ date_death                       : Date, format: NA "1992-06-05" ...
- $ date_last_news                   : Date, format: "1991-03-01" "1992-06-05" ...
- $ death_180d                       : Factor w/ 2 levels "No","Yes": 1 2 1 2 2 1 1 2 1 1 ...
- $ comorbidity_cardio               : Factor w/ 2 levels "No","Yes": 1 2 1 1 1 1 1 1 1 1 ...
- $ comorbidity_chf                  : Factor w/ 2 levels "No","Yes": 1 2 1 1 1 2 1 1 1 1 ...
- $ comorbidity_dementia             : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ comorbidity_psych                : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ comorbidity_chronic_pulmonary    : Factor w/ 2 levels "No","Yes": 2 1 1 1 1 2 1 1 1 1 ...
- $ comorbidity_renal                : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ comorbidity_liver                : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ comorbidity_upper_gi_bleeding    : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ comorbidity_malignancy           : Factor w/ 2 levels "No","Yes": 2 1 2 1 1 1 2 1 1 2 ...
- $ comorbidity_immunosuppression    : Factor w/ 2 levels "No","Yes": 1 2 2 2 1 1 1 1 1 1 ...
- $ comorbidity_transfer             : Factor w/ 2 levels "No","Yes": 1 2 1 1 1 1 1 2 1 1 ...
- $ comorbidity_myocardial_infarction: Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ age                              : num  70.3 78.2 46.1 75.3 67.9 ...
- $ sex                              : Factor w/ 2 levels "Male","Female": 1 2 2 2 1 2 1 1 2 2 ...
- $ education_years                  : num  12 12 14.07 9 9.95 ...
- $ survival_probability             : num  0.641 0.755 0.317 0.441 0.437 ...
- $ DASI_score                       : num  23.5 14.8 18.1 22.9 21.1 ...
- $ time_to_death_or_censoring       : num  30 30 30 30 2 30 30 30 30 30 ...
- $ death_30d                        : Factor w/ 2 levels "No","Yes": 1 1 1 1 2 1 1 1 1 1 ...
- $ apache_score                     : num  46 50 82 48 72 38 29 25 47 48 ...
- $ coma_score                       : num  0 0 0 0 41 0 26 100 0 0 ...
- $ mean_blood_pressure              : num  41 63 57 55 65 115 67 128 53 73 ...
- $ wbc                              : num  22.1 28.9 0.05 23.3 29.7 ...
- $ heart_rate                       : num  124 137 130 58 125 134 135 102 118 141 ...
- $ respiratory_rate                 : num  10 38 40 26 27 36 10 34 30 40 ...
- $ temperature                      : num  38.7 38.9 36.4 35.8 34.8 ...
- $ pa_fi_ratio                      : num  68 218 276 157 478 ...
- $ albumin                          : num  3.5 2.6 3.5 3.5 3.5 ...
- $ hematocrit                       : num  58 32.5 21.1 26.3 24 ...
- $ bilirubin                        : num  1.01 0.7 1.01 0.4 1.01 ...
- $ creatinine                       : num  1.2 0.6 2.6 1.7 3.6 ...
- $ sodium                           : num  145 137 146 117 126 138 136 136 136 146 ...
- $ potassium                        : num  4 3.3 2.9 5.8 5.8 ...
- $ paco2                            : num  40 34 16 30 17 68 45 26 40 30 ...
- $ ph                               : num  7.36 7.33 7.36 7.46 7.23 ...
- $ rhc                              : Factor w/ 2 levels "No RHC","RHC": 1 2 2 1 2 1 1 1 1 2 ...
- $ weight                           : num  64.7 45.7 0 54.6 78.4 ...
- $ dnr_status                       : Factor w/ 2 levels "No","Yes": 1 1 1 1 2 1 1 1 1 1 ...
- $ insurance_class                  : Factor w/ 6 levels "Medicaid","Medicare",..: 2 6 5 6 2 2 5 5 5 1 ...
- $ diagnosis_respiratory            : Factor w/ 2 levels "No","Yes": 2 1 1 2 1 2 1 2 1 1 ...
- $ diagnosis_cardiovascular         : Factor w/ 2 levels "No","Yes": 2 1 2 1 2 1 1 1 1 1 ...
- $ diagnosis_neurological           : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 2 1 2 ...
- $ diagnosis_gastrointestinal       : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 2 ...
- $ diagnosis_renal                  : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 2 1 1 1 ...
- $ diagnosis_metabolic              : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ diagnosis_hematologic            : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 2 1 ...
- $ diagnosis_sepsis                 : Factor w/ 2 levels "No","Yes": 1 2 1 1 1 1 1 2 1 1 ...
- $ diagnosis_trauma                 : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ diagnosis_orthopedic             : Factor w/ 2 levels "No","Yes": 1 1 1 1 1 1 1 1 1 1 ...
- $ adl_score                        : num  0 NA NA NA NA 0 NA NA NA NA ...
- $ urine_output                     : num  NA 1437 599 NA 64 ...
- $ race                             : Factor w/ 3 levels "black","other",..: 3 3 3 3 3 3 3 3 3 3 ...
- $ income                           : Factor w/ 4 levels "Under $11k","$11-$25k",..: 1 1 3 2 1 1 3 3 1 1 ...</code></pre>
-</div>
-</div>
+<section id="nettoyage-et-renommage-des-variables" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="nettoyage-et-renommage-des-variables"><span class="header-section-number">2.1</span> Nettoyage et renommage des variables</h2>
+</section>
+<section id="conversion-des-types-de-données" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="conversion-des-types-de-données"><span class="header-section-number">2.2</span> Conversion des types de données</h2>
+</section>
+<section id="vérification-de-la-cohérence-des-dates" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="vérification-de-la-cohérence-des-dates"><span class="header-section-number">2.3</span> Vérification de la cohérence des dates</h2>
+<section id="vérification-de-la-cohérence-entre-date-de-décès-et-date-des-dernières-nouvelles" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="vérification-de-la-cohérence-entre-date-de-décès-et-date-des-dernières-nouvelles"><span class="header-section-number">2.3.1</span> Vérification de la cohérence entre date de décès et date des dernières nouvelles</h3>
 <ul>
 <li><p>Il existe une colonne codant pour la date de décès et une codant pour la date des dernières nouvelles.</p></li>
 <li><p>Pour les patients décédés, on vérifie que la date de décès correspond à la date des dernières nouvelles</p></li>
-</ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#vérification du format des datese </span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.Date</span>(df<span class="sc">$</span>date_death)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.Date</span>(df<span class="sc">$</span>date_last_news) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification de la cohérence entre date_death et date_last_news pour les patients décédés</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>incoherent_dates <span class="ot">&lt;-</span> df<span class="sc">$</span>death_180d <span class="sc">==</span> <span class="st">"Yes"</span> <span class="sc">&amp;</span> df<span class="sc">$</span>date_death <span class="sc">&gt;</span> df<span class="sc">$</span>date_last_news</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(incoherent_dates) <span class="co"># Nombre de cas incohérents</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2151</code></pre>
-</div>
-</div>
-<ul>
-<li>Il existe 2151 cas où les dates des dernières nouvelles sont incohérentes : pour ces patients, on propose de corriger la date des dernières nouvelles en la remplaçant par la date de décès.</li>
-</ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correction des dates incohérentes</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_last_news[incoherent_dates] <span class="ot">&lt;-</span> df<span class="sc">$</span>date_death[incoherent_dates]</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification après correction</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>incoherent_dates_after <span class="ot">&lt;-</span> df<span class="sc">$</span>death_180d <span class="sc">==</span> <span class="st">"Yes"</span> <span class="sc">&amp;</span> df<span class="sc">$</span>date_death <span class="sc">&gt;</span> df<span class="sc">$</span>date_last_news</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(incoherent_dates_after) <span class="co"># Nombre de cas incohérents après correction (devrait être 0)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
-<ul>
-<li>Après correction il existe 0 cas incohérents, ce qui correspond à une correction réussie de tous les cas.</li>
+<li><p>Il existe 2154 cas où les dates des dernières nouvelles sont incohérentes (soit postérieure à la date de décès, soit antérieure) : pour ces patients, on propose de corriger la date des dernières nouvelles en la remplaçant par la date de décès.</p></li>
+<li><p>Après correction il existe 0 cas incohérents, ce qui correspond à une correction réussie de tous les cas de dates incohérentes entre date de décès et date des dernières nouvelles.</p></li>
 </ul>
 </section>
-<section id="annexe-code-r" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Annexe – Code R</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotrix)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epiR)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridisLite)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(binom)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treemap)</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psy)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prettyR)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nord)</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wesanderson)</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qgraph)</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pwr)</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httpgd)</span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psy)</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="co">#file_qmd &lt;- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"</span></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a><span class="co">#extraction du code R pour le mettre à la fin du quarto md</span></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>file_qmd <span class="ot">&lt;-</span> knitr<span class="sc">::</span><span class="fu">current_input</span>()</span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(file_qmd) <span class="sc">||</span> file_qmd <span class="sc">==</span> <span class="st">""</span>) {</span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>    file_qmd <span class="ot">&lt;-</span> <span class="st">"devoir_epidemio.qmd"</span></span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(file_qmd)) {</span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="fu">paste</span>(<span class="st">"Fichier Quarto introuvable:"</span>, file_qmd))</span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">readLines</span>(file_qmd, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a><span class="co"># trouver les debuts de chunks R</span></span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>starts <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"^```</span><span class="sc">\\</span><span class="st">{r"</span>, lines)</span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="co"># trouver les fins de chunks</span></span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>ends   <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"^```</span><span class="sc">\\</span><span class="st">s*$"</span>, lines)</span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(starts) <span class="sc">!=</span> <span class="fu">length</span>(ends)) {</span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Extraction des chunks R impossible : démarcations incohérentes"</span>)</span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>code_r <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="dv">0</span>)</span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(starts)) {</span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>    <span class="co"># lignes à l’intérieur du chunk (excluant les balises de début et fin)</span></span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>    chunk_lines <span class="ot">&lt;-</span> lines[(starts[i] <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(ends[i] <span class="sc">-</span> <span class="dv">1</span>)]</span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># filtrer : garder seulement les lignes qui **ne sont pas des options Quarto**</span></span>
-<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>    real_code <span class="ot">&lt;-</span> chunk_lines[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"^</span><span class="sc">\\</span><span class="st">s*#</span><span class="sc">\\</span><span class="st">|"</span>, chunk_lines)]</span>
-<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ajouter au vecteur final</span></span>
-<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>    code_r <span class="ot">&lt;-</span> <span class="fu">c</span>(code_r, real_code, <span class="st">""</span>)</span>
-<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>outfile <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">dirname</span>(file_qmd), <span class="st">"all_chunks_code.R"</span>)</span>
-<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(code_r, <span class="at">file =</span> outfile, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger les données</span></span>
-<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/S2/devoir_epidemio/rhc devoir épidémio-RC csv.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
-<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)</span>
-<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
-<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Supprimer les colonnes inutile (ROWNAMES et PTID) en appelant explictement les noms des colonnes à supprimer</span></span>
-<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[, <span class="sc">!</span>(<span class="fu">colnames</span>(df) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ROWNAMES"</span>, <span class="st">"PTID"</span>))]</span>
-<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)</span>
-<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a><span class="co"># Renommer les colonnes </span></span>
-<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a><span class="co"># syntaxe : names(df)[names(df) == "ANCIEN_NOM"] &lt;- "NOUVEAU_NOM"</span></span>
-<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CAT1"</span>]     <span class="ot">&lt;-</span> <span class="st">"primary_disease_category"</span></span>
-<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CAT2"</span>]     <span class="ot">&lt;-</span> <span class="st">"secondary_disease_category"</span></span>
-<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CA"</span>]       <span class="ot">&lt;-</span> <span class="st">"cancer"</span></span>
-<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SADMDTE"</span>]  <span class="ot">&lt;-</span> <span class="st">"date_admission"</span></span>
-<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DSCHDTE"</span>]  <span class="ot">&lt;-</span> <span class="st">"date_discharge"</span></span>
-<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DTHDTE"</span>]   <span class="ot">&lt;-</span> <span class="st">"date_death"</span></span>
-<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"LSTCTDTE"</span>] <span class="ot">&lt;-</span> <span class="st">"date_last_news"</span></span>
-<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DEATH"</span>]    <span class="ot">&lt;-</span> <span class="st">"death_180d"</span></span>
-<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CARDIOHX"</span>] <span class="ot">&lt;-</span> <span class="st">"comorbidity_cardio"</span></span>
-<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CHFHX"</span>]    <span class="ot">&lt;-</span> <span class="st">"comorbidity_chf"</span></span>
-<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DEMENTHX"</span>] <span class="ot">&lt;-</span> <span class="st">"comorbidity_dementia"</span></span>
-<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"PSYCHHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_psych"</span></span>
-<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CHRPULHX"</span>] <span class="ot">&lt;-</span> <span class="st">"comorbidity_chronic_pulmonary"</span></span>
-<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RENALHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_renal"</span></span>
-<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"LIVERHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_liver"</span></span>
-<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"GIBLEDHX"</span>] <span class="ot">&lt;-</span> <span class="st">"comorbidity_upper_gi_bleeding"</span></span>
-<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"MALIGHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_malignancy"</span></span>
-<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"IMMUNHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_immunosuppression"</span></span>
-<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"TRANSHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_transfer"</span></span>
-<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"AMIHX"</span>]    <span class="ot">&lt;-</span> <span class="st">"comorbidity_myocardial_infarction"</span></span>
-<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"AGE"</span>]      <span class="ot">&lt;-</span> <span class="st">"age"</span></span>
-<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SEX"</span>]      <span class="ot">&lt;-</span> <span class="st">"sex"</span></span>
-<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"EDU"</span>]      <span class="ot">&lt;-</span> <span class="st">"education_years"</span></span>
-<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SURV2MD1"</span>] <span class="ot">&lt;-</span> <span class="st">"survival_probability"</span></span>
-<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DAS2D3PC"</span>] <span class="ot">&lt;-</span> <span class="st">"DASI_score"</span></span>
-<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"T3D30"</span>]    <span class="ot">&lt;-</span> <span class="st">"time_to_death_or_censoring"</span></span>
-<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DTH30"</span>]    <span class="ot">&lt;-</span> <span class="st">"death_30d"</span></span>
-<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"APS1"</span>]     <span class="ot">&lt;-</span> <span class="st">"apache_score"</span></span>
-<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SCOMA1"</span>]   <span class="ot">&lt;-</span> <span class="st">"coma_score"</span></span>
-<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"MEANBP1"</span>]  <span class="ot">&lt;-</span> <span class="st">"mean_blood_pressure"</span></span>
-<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"WBLC1"</span>]    <span class="ot">&lt;-</span> <span class="st">"wbc"</span></span>
-<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"HRT1"</span>]     <span class="ot">&lt;-</span> <span class="st">"heart_rate"</span></span>
-<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RESP1"</span>]    <span class="ot">&lt;-</span> <span class="st">"respiratory_rate"</span></span>
-<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"TEMP1"</span>]    <span class="ot">&lt;-</span> <span class="st">"temperature"</span></span>
-<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"PAFI1"</span>]    <span class="ot">&lt;-</span> <span class="st">"pa_fi_ratio"</span></span>
-<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"ALB1"</span>]     <span class="ot">&lt;-</span> <span class="st">"albumin"</span></span>
-<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"HEMA1"</span>]    <span class="ot">&lt;-</span> <span class="st">"hematocrit"</span></span>
-<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"BILI1"</span>]    <span class="ot">&lt;-</span> <span class="st">"bilirubin"</span></span>
-<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CREA1"</span>]    <span class="ot">&lt;-</span> <span class="st">"creatinine"</span></span>
-<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SOD1"</span>]     <span class="ot">&lt;-</span> <span class="st">"sodium"</span></span>
-<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"POT1"</span>]     <span class="ot">&lt;-</span> <span class="st">"potassium"</span></span>
-<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"PACO21"</span>]   <span class="ot">&lt;-</span> <span class="st">"paco2"</span></span>
-<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"PH1"</span>]      <span class="ot">&lt;-</span> <span class="st">"ph"</span></span>
-<span id="cb13-137"><a href="#cb13-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SWANG1"</span>]   <span class="ot">&lt;-</span> <span class="st">"rhc"</span></span>
-<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"WTKILO1"</span>]  <span class="ot">&lt;-</span> <span class="st">"weight"</span></span>
-<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DNR1"</span>]     <span class="ot">&lt;-</span> <span class="st">"dnr_status"</span></span>
-<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"NINSCLAS"</span>] <span class="ot">&lt;-</span> <span class="st">"insurance_class"</span></span>
-<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RESP"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_respiratory"</span></span>
-<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CARD"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_cardiovascular"</span></span>
-<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"NEURO"</span>]    <span class="ot">&lt;-</span> <span class="st">"diagnosis_neurological"</span></span>
-<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"GASTR"</span>]    <span class="ot">&lt;-</span> <span class="st">"diagnosis_gastrointestinal"</span></span>
-<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RENAL"</span>]    <span class="ot">&lt;-</span> <span class="st">"diagnosis_renal"</span></span>
-<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"META"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_metabolic"</span></span>
-<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"HEMA"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_hematologic"</span></span>
-<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SEPS"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_sepsis"</span></span>
-<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"TRAUMA"</span>]   <span class="ot">&lt;-</span> <span class="st">"diagnosis_trauma"</span></span>
-<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"ORTHO"</span>]    <span class="ot">&lt;-</span> <span class="st">"diagnosis_orthopedic"</span></span>
-<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"ADLD3P"</span>]   <span class="ot">&lt;-</span> <span class="st">"adl_score"</span></span>
-<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"URIN1"</span>]    <span class="ot">&lt;-</span> <span class="st">"urine_output"</span></span>
-<span id="cb13-156"><a href="#cb13-156" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RACE"</span>]     <span class="ot">&lt;-</span> <span class="st">"race"</span></span>
-<span id="cb13-157"><a href="#cb13-157" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"INCOME"</span>]   <span class="ot">&lt;-</span> <span class="st">"income"</span></span>
-<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion des dates (les chaînes vides -&gt; NA pour éviter les warnings)</span></span>
-<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_admission[df<span class="sc">$</span>date_admission <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_discharge[df<span class="sc">$</span>date_discharge <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb13-162"><a href="#cb13-162" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_death[df<span class="sc">$</span>date_death <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb13-163"><a href="#cb13-163" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_last_news[df<span class="sc">$</span>date_last_news <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion en format date</span></span>
-<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_admission <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_admission, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_discharge <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_discharge, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_death <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_death, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb13-169"><a href="#cb13-169" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_last_news <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_last_news, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
-<span id="cb13-170"><a href="#cb13-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a><span class="co"># Facteurs et numériques</span></span>
-<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death_180d <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>death_180d, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>primary_disease_category <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>primary_disease_category)</span>
-<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>secondary_disease_category <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>secondary_disease_category)</span>
-<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_cardio <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_cardio, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_chf <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_chf, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_dementia <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_dementia, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_psych <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_psych, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_chronic_pulmonary <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_chronic_pulmonary, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-180"><a href="#cb13-180" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_renal <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_renal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-181"><a href="#cb13-181" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_liver <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_liver, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-182"><a href="#cb13-182" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_upper_gi_bleeding <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_upper_gi_bleeding, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-183"><a href="#cb13-183" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_malignancy <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_malignancy, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_immunosuppression <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_immunosuppression, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-185"><a href="#cb13-185" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_transfer <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_transfer, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-186"><a href="#cb13-186" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_myocardial_infarction <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_myocardial_infarction, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>cancer <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>cancer, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>, <span class="st">"Metastatic"</span>))</span>
-<span id="cb13-188"><a href="#cb13-188" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>))</span>
-<span id="cb13-189"><a href="#cb13-189" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>time_to_death_or_censoring <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>time_to_death_or_censoring)</span>
-<span id="cb13-190"><a href="#cb13-190" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death_30d <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>death_30d, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-191"><a href="#cb13-191" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>apache_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>apache_score)</span>
-<span id="cb13-192"><a href="#cb13-192" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>coma_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>coma_score)</span>
-<span id="cb13-193"><a href="#cb13-193" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>heart_rate <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>heart_rate)</span>
-<span id="cb13-194"><a href="#cb13-194" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>sodium <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>sodium)</span>
-<span id="cb13-195"><a href="#cb13-195" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>dnr_status <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>dnr_status, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-196"><a href="#cb13-196" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>insurance_class <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>insurance_class)</span>
-<span id="cb13-197"><a href="#cb13-197" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_respiratory <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_respiratory, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-198"><a href="#cb13-198" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_cardiovascular <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_cardiovascular, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-199"><a href="#cb13-199" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_neurological <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_neurological, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-200"><a href="#cb13-200" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_gastrointestinal <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_gastrointestinal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-201"><a href="#cb13-201" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_renal <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_renal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-202"><a href="#cb13-202" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_metabolic <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_metabolic, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-203"><a href="#cb13-203" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_hematologic <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_hematologic, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-204"><a href="#cb13-204" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_sepsis <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_sepsis, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-205"><a href="#cb13-205" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_trauma <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_trauma, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-206"><a href="#cb13-206" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_orthopedic <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_orthopedic, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
-<span id="cb13-207"><a href="#cb13-207" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>adl_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>adl_score)</span>
-<span id="cb13-208"><a href="#cb13-208" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>race <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>race)</span>
-<span id="cb13-209"><a href="#cb13-209" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>income <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>income, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Under $11k"</span>, <span class="st">"$11-$25k"</span>, <span class="st">"$25-$50k"</span>, <span class="st">"Over $50k"</span>))</span>
-<span id="cb13-210"><a href="#cb13-210" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>rhc <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>rhc, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No RHC"</span>, <span class="st">"RHC"</span>))</span>
-<span id="cb13-211"><a href="#cb13-211" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
-<span id="cb13-212"><a href="#cb13-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-213"><a href="#cb13-213" aria-hidden="true" tabindex="-1"></a><span class="co">#vérification du format des datese </span></span>
-<span id="cb13-214"><a href="#cb13-214" aria-hidden="true" tabindex="-1"></a><span class="fu">is.Date</span>(df<span class="sc">$</span>date_death)</span>
-<span id="cb13-215"><a href="#cb13-215" aria-hidden="true" tabindex="-1"></a><span class="fu">is.Date</span>(df<span class="sc">$</span>date_last_news) </span>
-<span id="cb13-216"><a href="#cb13-216" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification de la cohérence entre date_death et date_last_news pour les patients décédés</span></span>
-<span id="cb13-217"><a href="#cb13-217" aria-hidden="true" tabindex="-1"></a>incoherent_dates <span class="ot">&lt;-</span> df<span class="sc">$</span>death_180d <span class="sc">==</span> <span class="st">"Yes"</span> <span class="sc">&amp;</span> df<span class="sc">$</span>date_death <span class="sc">&gt;</span> df<span class="sc">$</span>date_last_news</span>
-<span id="cb13-218"><a href="#cb13-218" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(incoherent_dates) <span class="co"># Nombre de cas incohérents</span></span>
-<span id="cb13-219"><a href="#cb13-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-220"><a href="#cb13-220" aria-hidden="true" tabindex="-1"></a><span class="co"># Correction des dates incohérentes</span></span>
-<span id="cb13-221"><a href="#cb13-221" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_last_news[incoherent_dates] <span class="ot">&lt;-</span> df<span class="sc">$</span>date_death[incoherent_dates]</span>
-<span id="cb13-222"><a href="#cb13-222" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification après correction</span></span>
-<span id="cb13-223"><a href="#cb13-223" aria-hidden="true" tabindex="-1"></a>incoherent_dates_after <span class="ot">&lt;-</span> df<span class="sc">$</span>death_180d <span class="sc">==</span> <span class="st">"Yes"</span> <span class="sc">&amp;</span> df<span class="sc">$</span>date_death <span class="sc">&gt;</span> df<span class="sc">$</span>date_last_news</span>
-<span id="cb13-224"><a href="#cb13-224" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(incoherent_dates_after) <span class="co"># Nombre de cas incohérents après correction (devrait être 0)</span></span>
-<span id="cb13-225"><a href="#cb13-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-226"><a href="#cb13-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-227"><a href="#cb13-227" aria-hidden="true" tabindex="-1"></a><span class="co">#insérer le code à la fin du fichier</span></span>
-<span id="cb13-228"><a href="#cb13-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a><span class="co"># lire le fichier code genere</span></span>
-<span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a>code <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"all_chunks_code.R"</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a>code_wrapped <span class="ot">&lt;-</span> code</span>
-<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (knitr<span class="sc">::</span><span class="fu">is_latex_output</span>()) {</span>
-<span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>    code_safe <span class="ot">&lt;-</span> <span class="fu">gsub</span>(</span>
-<span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="sc">\\\\</span><span class="st">(begin|end)</span><span class="sc">\\</span><span class="st">{lstlisting</span><span class="sc">\\</span><span class="st">}"</span>,</span>
-<span id="cb13-237"><a href="#cb13-237" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="sc">\\\\</span><span class="st">textbackslash </span><span class="sc">\\</span><span class="st">1{lstlisting}"</span>,</span>
-<span id="cb13-238"><a href="#cb13-238" aria-hidden="true" tabindex="-1"></a>        code_wrapped</span>
-<span id="cb13-239"><a href="#cb13-239" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-240"><a href="#cb13-240" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">begin{lstlisting}</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb13-241"><a href="#cb13-241" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(code_safe, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb13-242"><a href="#cb13-242" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\\</span><span class="st">end{lstlisting}</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb13-243"><a href="#cb13-243" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb13-244"><a href="#cb13-244" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"```r</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb13-245"><a href="#cb13-245" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(code_wrapped, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb13-246"><a href="#cb13-246" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">```"</span>)</span>
-<span id="cb13-247"><a href="#cb13-247" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="vérification-de-la-cohérence-entre-date-de-sortie-dhospitalisation-et-date-des-dernières-nouvelles" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="vérification-de-la-cohérence-entre-date-de-sortie-dhospitalisation-et-date-des-dernières-nouvelles"><span class="header-section-number">2.3.2</span> Vérification de la cohérence entre date de sortie d’hospitalisation et date des dernières nouvelles</h3>
+<ul>
+<li><p>On vérifie que la date de sortie d’hospitalisation n’est pas postérieure à la date des dernières nouvelles, ce qui serait incohérent.</p></li>
+<li><p>1 patient a une date de sortie d’hospitalisation inconnue</p></li>
+<li><p>Une vérification rapide montre qu’il est décédé 394 jours après son admission. On ne peut pas affirmer que le patient est sorti entre temps de son hospitalisation.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="description-du-jeu-de-données" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Description du jeu de données</h1>
+<section id="vue-densemble-du-jeu-de-données" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="vue-densemble-du-jeu-de-données"><span class="header-section-number">3.1</span> Vue d’ensemble du jeu de données</h2>
+<ul>
+<li>Nombre d’observations et de variables</li>
+</ul>
+<div id="tbl-data-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Nombre d’observations et de variables
+</figcaption>
+<div aria-describedby="tbl-data-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Nom</th>
+<th style="text-align: right;">Nombre d’observations</th>
+<th style="text-align: right;">Nombre de variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">df</td>
+<td style="text-align: right;">5735</td>
+<td style="text-align: right;">61</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li>Types de variables (catégorielles, numériques, dates)</li>
+</ul>
+<div id="tbl-variable-types" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-variable-types-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Types de variables
+</figcaption>
+<div aria-describedby="tbl-variable-types-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: right;">Nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">factor</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Date</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="variables-catégorielles" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="variables-catégorielles"><span class="header-section-number">3.2</span> Variables catégorielles</h2>
+<ul>
+<li>Nom des variables catégorielles</li>
+</ul>
+<div id="tbl-categorical-variables" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-categorical-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Variables catégorielles
+</figcaption>
+<div aria-describedby="tbl-categorical-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>Variables catégorielles</p>
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">primary_disease_category</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">secondary_disease_category</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cancer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">death_180d</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">comorbidity_cardio</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">comorbidity_chf</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">comorbidity_dementia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">comorbidity_psych</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">comorbidity_chronic_pulmonary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">comorbidity_renal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">comorbidity_liver</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">comorbidity_upper_gi_bleeding</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">comorbidity_malignancy</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">comorbidity_immunosuppression</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">comorbidity_transfer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">comorbidity_myocardial_infarction</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sex</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">death_30d</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rhc</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dnr_status</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">insurance_class</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_respiratory</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_cardiovascular</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_neurological</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_gastrointestinal</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_renal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_metabolic</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_hematologic</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_sepsis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_trauma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_orthopedic</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">race</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">income</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<ul>
+<li>On peut séparer les variables catégorielles en plusieurs “sous-catégories” selon leur thème : comorbidités, diagnostics, variables sociodémographiques, etc.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cat_cols_disease_category <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"disease_category"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cat_cols_cancer <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"cancer"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cat_cols_comorbidity <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"comorbidity"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cat_cols_diagnosis <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"diagnosis"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>cat_cols_death <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"death"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>cat_cols_demographic <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"rhc"</span>, <span class="st">"dnr_status"</span>, <span class="st">"insurance_class"</span>, <span class="st">"race"</span>, <span class="st">"income"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Modalités des var)iables catégorielles en bar plot avec la proportion de chaque modalité</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-categorical-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-categorical-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="devoir_epidemio_files/figure-html/fig-categorical-distribution-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-categorical-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Distribution des modalités de diagnostic principal
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-categorical-distribution-dnr" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-categorical-distribution-dnr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="devoir_epidemio_files/figure-html/fig-categorical-distribution-dnr-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-categorical-distribution-dnr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Distribution des modalités de la comorbidité principale
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="annexe-code-r" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Annexe – Code R</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotrix)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epiR)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridisLite)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(binom)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treemap)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psy)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prettyR)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nord)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wesanderson)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qgraph)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pwr)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httpgd)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psy)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">#file_qmd &lt;- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co">#extraction du code R pour le mettre à la fin du quarto md</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>detect_qmd_path <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    candidates <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        knitr<span class="sc">::</span><span class="fu">current_input</span>(),</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        <span class="fu">Sys.getenv</span>(<span class="st">"QUARTO_DOCUMENT_PATH"</span>, <span class="st">""</span>),</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        <span class="fu">Sys.getenv</span>(<span class="st">"QUARTO_INPUT_FILE"</span>, <span class="st">""</span>),</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">"devoir_epidemio.qmd"</span>,</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        <span class="fu">file.path</span>(<span class="st">"S2"</span>, <span class="st">"devoir_epidemio"</span>, <span class="st">"devoir_epidemio.qmd"</span>)</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    candidates <span class="ot">&lt;-</span> <span class="fu">unique</span>(candidates[<span class="fu">nzchar</span>(candidates)])</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (p <span class="cf">in</span> candidates) {</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">file.exists</span>(p)) <span class="fu">return</span>(<span class="fu">normalizePath</span>(p, <span class="at">winslash =</span> <span class="st">"/"</span>, <span class="at">mustWork =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA_character_</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>file_qmd <span class="ot">&lt;-</span> <span class="fu">detect_qmd_path</span>()</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.na</span>(file_qmd)) {</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"Extraction des chunks R sautée : impossible de localiser le .qmd (problème de working directory / IDE)."</span>)</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    lines <span class="ot">&lt;-</span> <span class="fu">readLines</span>(file_qmd, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    <span class="co"># trouver les débuts de chunks R</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    starts <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"^```</span><span class="sc">\\</span><span class="st">{r</span><span class="sc">\\</span><span class="st">b"</span>, lines)</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    code_r <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="dv">0</span>)</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (s <span class="cf">in</span> starts) {</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (s <span class="sc">&gt;=</span> <span class="fu">length</span>(lines)) <span class="cf">next</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>        rel_end <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">grepl</span>(<span class="st">"^```</span><span class="sc">\\</span><span class="st">s*$"</span>, lines[(s <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(lines)]))[<span class="dv">1</span>]</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">is.na</span>(rel_end)) {</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>            <span class="fu">warning</span>(<span class="st">"Extraction des chunks R partielle : fin de chunk manquante après la ligne "</span>, s, <span class="st">"."</span>)</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>            <span class="cf">next</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>        e <span class="ot">&lt;-</span> s <span class="sc">+</span> rel_end</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>        <span class="co"># lignes à l’intérieur du chunk (excluant les balises de début et fin)</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>        chunk_lines <span class="ot">&lt;-</span> lines[(s <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(e <span class="sc">-</span> <span class="dv">1</span>)]</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>        <span class="co"># filtrer : garder seulement les lignes qui **ne sont pas des options Quarto**</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>        real_code <span class="ot">&lt;-</span> chunk_lines[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"^</span><span class="sc">\\</span><span class="st">s*#</span><span class="sc">\\</span><span class="st">|"</span>, chunk_lines)]</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>        code_r <span class="ot">&lt;-</span> <span class="fu">c</span>(code_r, real_code, <span class="st">""</span>)</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>    outfile <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">dirname</span>(file_qmd), <span class="st">"all_chunks_code.R"</span>)</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(code_r, <span class="at">file =</span> outfile, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Charger les données</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"/Users/thomashusson/Documents/Projets/M2biostatistiques/S2/devoir_epidemio/rhc devoir épidémio-RC csv.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(df)</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Supprimer les colonnes inutile (ROWNAMES et PTID) en appelant explictement les noms des colonnes à supprimer</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[, <span class="sc">!</span>(<span class="fu">colnames</span>(df) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ROWNAMES"</span>, <span class="st">"PTID"</span>))]</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Renommer les colonnes </span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="co"># syntaxe : names(df)[names(df) == "ANCIEN_NOM"] &lt;- "NOUVEAU_NOM"</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CAT1"</span>]     <span class="ot">&lt;-</span> <span class="st">"primary_disease_category"</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CAT2"</span>]     <span class="ot">&lt;-</span> <span class="st">"secondary_disease_category"</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CA"</span>]       <span class="ot">&lt;-</span> <span class="st">"cancer"</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SADMDTE"</span>]  <span class="ot">&lt;-</span> <span class="st">"date_admission"</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DSCHDTE"</span>]  <span class="ot">&lt;-</span> <span class="st">"date_discharge"</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DTHDTE"</span>]   <span class="ot">&lt;-</span> <span class="st">"date_death"</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"LSTCTDTE"</span>] <span class="ot">&lt;-</span> <span class="st">"date_last_news"</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DEATH"</span>]    <span class="ot">&lt;-</span> <span class="st">"death_180d"</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CARDIOHX"</span>] <span class="ot">&lt;-</span> <span class="st">"comorbidity_cardio"</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CHFHX"</span>]    <span class="ot">&lt;-</span> <span class="st">"comorbidity_chf"</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DEMENTHX"</span>] <span class="ot">&lt;-</span> <span class="st">"comorbidity_dementia"</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"PSYCHHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_psych"</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CHRPULHX"</span>] <span class="ot">&lt;-</span> <span class="st">"comorbidity_chronic_pulmonary"</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RENALHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_renal"</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"LIVERHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_liver"</span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"GIBLEDHX"</span>] <span class="ot">&lt;-</span> <span class="st">"comorbidity_upper_gi_bleeding"</span></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"MALIGHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_malignancy"</span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"IMMUNHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_immunosuppression"</span></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"TRANSHX"</span>]  <span class="ot">&lt;-</span> <span class="st">"comorbidity_transfer"</span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"AMIHX"</span>]    <span class="ot">&lt;-</span> <span class="st">"comorbidity_myocardial_infarction"</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"AGE"</span>]      <span class="ot">&lt;-</span> <span class="st">"age"</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SEX"</span>]      <span class="ot">&lt;-</span> <span class="st">"sex"</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"EDU"</span>]      <span class="ot">&lt;-</span> <span class="st">"education_years"</span></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SURV2MD1"</span>] <span class="ot">&lt;-</span> <span class="st">"survival_probability"</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DAS2D3PC"</span>] <span class="ot">&lt;-</span> <span class="st">"DASI_score"</span></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"T3D30"</span>]    <span class="ot">&lt;-</span> <span class="st">"time_to_death_or_censoring"</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DTH30"</span>]    <span class="ot">&lt;-</span> <span class="st">"death_30d"</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"APS1"</span>]     <span class="ot">&lt;-</span> <span class="st">"apache_score"</span></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SCOMA1"</span>]   <span class="ot">&lt;-</span> <span class="st">"coma_score"</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"MEANBP1"</span>]  <span class="ot">&lt;-</span> <span class="st">"mean_blood_pressure"</span></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"WBLC1"</span>]    <span class="ot">&lt;-</span> <span class="st">"wbc"</span></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"HRT1"</span>]     <span class="ot">&lt;-</span> <span class="st">"heart_rate"</span></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RESP1"</span>]    <span class="ot">&lt;-</span> <span class="st">"respiratory_rate"</span></span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"TEMP1"</span>]    <span class="ot">&lt;-</span> <span class="st">"temperature"</span></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"PAFI1"</span>]    <span class="ot">&lt;-</span> <span class="st">"pa_fi_ratio"</span></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"ALB1"</span>]     <span class="ot">&lt;-</span> <span class="st">"albumin"</span></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"HEMA1"</span>]    <span class="ot">&lt;-</span> <span class="st">"hematocrit"</span></span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"BILI1"</span>]    <span class="ot">&lt;-</span> <span class="st">"bilirubin"</span></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CREA1"</span>]    <span class="ot">&lt;-</span> <span class="st">"creatinine"</span></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SOD1"</span>]     <span class="ot">&lt;-</span> <span class="st">"sodium"</span></span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"POT1"</span>]     <span class="ot">&lt;-</span> <span class="st">"potassium"</span></span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"PACO21"</span>]   <span class="ot">&lt;-</span> <span class="st">"paco2"</span></span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"PH1"</span>]      <span class="ot">&lt;-</span> <span class="st">"ph"</span></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SWANG1"</span>]   <span class="ot">&lt;-</span> <span class="st">"rhc"</span></span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"WTKILO1"</span>]  <span class="ot">&lt;-</span> <span class="st">"weight"</span></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"DNR1"</span>]     <span class="ot">&lt;-</span> <span class="st">"dnr_status"</span></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"NINSCLAS"</span>] <span class="ot">&lt;-</span> <span class="st">"insurance_class"</span></span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RESP"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_respiratory"</span></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"CARD"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_cardiovascular"</span></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"NEURO"</span>]    <span class="ot">&lt;-</span> <span class="st">"diagnosis_neurological"</span></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"GASTR"</span>]    <span class="ot">&lt;-</span> <span class="st">"diagnosis_gastrointestinal"</span></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RENAL"</span>]    <span class="ot">&lt;-</span> <span class="st">"diagnosis_renal"</span></span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"META"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_metabolic"</span></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"HEMA"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_hematologic"</span></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"SEPS"</span>]     <span class="ot">&lt;-</span> <span class="st">"diagnosis_sepsis"</span></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"TRAUMA"</span>]   <span class="ot">&lt;-</span> <span class="st">"diagnosis_trauma"</span></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"ORTHO"</span>]    <span class="ot">&lt;-</span> <span class="st">"diagnosis_orthopedic"</span></span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"ADLD3P"</span>]   <span class="ot">&lt;-</span> <span class="st">"adl_score"</span></span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"URIN1"</span>]    <span class="ot">&lt;-</span> <span class="st">"urine_output"</span></span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"RACE"</span>]     <span class="ot">&lt;-</span> <span class="st">"race"</span></span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="fu">names</span>(df) <span class="sc">==</span> <span class="st">"INCOME"</span>]   <span class="ot">&lt;-</span> <span class="st">"income"</span></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion des dates (les chaînes vides -&gt; NA pour éviter les warnings)</span></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_admission[df<span class="sc">$</span>date_admission <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_discharge[df<span class="sc">$</span>date_discharge <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_death[df<span class="sc">$</span>date_death <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_last_news[df<span class="sc">$</span>date_last_news <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion en format date</span></span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_admission <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_admission, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_discharge <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_discharge, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_death <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_death, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_last_news <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_last_news, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df<span class="sc">$</span>date_death)</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_death <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date_death, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df<span class="sc">$</span>date_death)</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a><span class="co"># Facteurs et numériques</span></span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death_180d <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>death_180d, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>primary_disease_category <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>    df<span class="sc">$</span>primary_disease_category, </span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"COPD"</span>,<span class="st">"MOSF w/Sepsis"</span>,<span class="st">"MOSF w/Malignancy"</span>,<span class="st">"ARF"</span>,<span class="st">"CHF"</span>,<span class="st">"Coma"</span>,<span class="st">"Cirrhosis"</span>,<span class="st">"Lung Cancer"</span>,<span class="st">"Colon Cancer"</span>), </span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"BPCO"</span>,<span class="st">"Choc septique"</span>,<span class="st">"Choc sur cancer"</span>,<span class="st">"Insuffisance rénale aiguë"</span>,<span class="st">"Insuffisance cardiaque"</span>,<span class="st">"Coma"</span>,<span class="st">"Cirrhose"</span>,<span class="st">"Cancer du poumon"</span>,<span class="st">"Cancer du côlon"</span>)</span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(df<span class="sc">$</span>primary_disease_category)</span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>primary_disease_category)</span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>secondary_disease_category <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>    df<span class="sc">$</span>secondary_disease_category, </span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"MOSF w/Sepsis"</span>,<span class="st">"MOSF w/Malignancy"</span>, <span class="st">"Coma"</span>,<span class="st">"Cirrhosis"</span>,<span class="st">"Lung Cancer"</span>,<span class="st">"Colon Cancer"</span>), </span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Pas de comorbidité"</span>,<span class="st">"Choc septique"</span>,<span class="st">"Choc sur cancer"</span>, <span class="st">"Coma"</span>,<span class="st">"Cirrhose"</span>,<span class="st">"Cancer du poumon"</span>,<span class="st">"Cancer du côlon"</span>)</span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_cardio <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_cardio, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_chf <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_chf, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_dementia <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_dementia, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_psych <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_psych, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_chronic_pulmonary <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_chronic_pulmonary, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_renal <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_renal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_liver <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_liver, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_upper_gi_bleeding <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_upper_gi_bleeding, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_malignancy <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_malignancy, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_immunosuppression <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_immunosuppression, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_transfer <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_transfer, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>comorbidity_myocardial_infarction <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>comorbidity_myocardial_infarction, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>cancer <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>cancer, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>, <span class="st">"Metastatic"</span>))</span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>))</span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>time_to_death_or_censoring <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>time_to_death_or_censoring)</span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death_30d <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>death_30d, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>apache_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>apache_score)</span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>coma_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>coma_score)</span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>heart_rate <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>heart_rate)</span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>sodium <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>sodium)</span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>dnr_status <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>dnr_status, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>insurance_class <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>insurance_class)</span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_respiratory <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_respiratory, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_cardiovascular <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_cardiovascular, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_neurological <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_neurological, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_gastrointestinal <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_gastrointestinal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_renal <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_renal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_metabolic <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_metabolic, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_hematologic <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_hematologic, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_sepsis <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_sepsis, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_trauma <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_trauma, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diagnosis_orthopedic <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diagnosis_orthopedic, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No"</span>, <span class="st">"Yes"</span>))</span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>adl_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>adl_score)</span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>race <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>race)</span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>income <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>income, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Under $11k"</span>, <span class="st">"$11-$25k"</span>, <span class="st">"$25-$50k"</span>, <span class="st">"Over $50k"</span>))</span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>rhc <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>rhc, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"No RHC"</span>, <span class="st">"RHC"</span>))</span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a><span class="co">#vérification du format des datese </span></span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a><span class="fu">is.Date</span>(df<span class="sc">$</span>date_death)</span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a><span class="fu">is.Date</span>(df<span class="sc">$</span>date_last_news) </span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification de la cohérence entre date_death et date_last_news pour les patients décédés</span></span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a>incoherent_death_dates <span class="ot">&lt;-</span> df<span class="sc">$</span>death_180d <span class="sc">==</span> <span class="st">"Yes"</span> <span class="sc">&amp;</span> df<span class="sc">$</span>date_death <span class="sc">!=</span> df<span class="sc">$</span>date_last_news</span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(incoherent_death_dates) <span class="co"># Nombre de cas incohérents</span></span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a><span class="co"># Correction des dates incohérentes</span></span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date_last_news[incoherent_death_dates] <span class="ot">&lt;-</span> df<span class="sc">$</span>date_death[incoherent_death_dates]</span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification après correction</span></span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a>incoherent_death_dates_after <span class="ot">&lt;-</span> df<span class="sc">$</span>death_180d <span class="sc">==</span> <span class="st">"Yes"</span> <span class="sc">&amp;</span> df<span class="sc">$</span>date_death <span class="sc">!=</span> df<span class="sc">$</span>date_last_news</span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(incoherent_death_dates_after) <span class="co"># Nombre de cas incohérents après correction (devrait être 0)</span></span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a><span class="co"># vérification du format des dates</span></span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a><span class="fu">is.Date</span>(df<span class="sc">$</span>date_discharge)</span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a><span class="fu">is.Date</span>(df<span class="sc">$</span>date_last_news)</span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification de la cohérence entre date_discharge et date_last_news</span></span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a>incoherent_discharge_dates <span class="ot">&lt;-</span> df<span class="sc">$</span>date_discharge <span class="sc">&gt;</span> df<span class="sc">$</span>date_last_news</span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(incoherent_discharge_dates) <span class="co"># Nombre de cas incohérents</span></span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification du patient avec date de sortie d'hospitalisation inconnue</span></span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a>patient_missing_discharge <span class="ot">&lt;-</span> <span class="fu">is.na</span>(df<span class="sc">$</span>date_discharge)</span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(patient_missing_discharge) <span class="co"># Nombre de patients avec date de sortie d'hospitalisation inconnue</span></span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification du statut de décès de ce patient</span></span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (df<span class="sc">$</span>death_180d[patient_missing_discharge] <span class="sc">==</span> <span class="st">"Yes"</span>) {</span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>    df<span class="sc">$</span>date_death[patient_missing_discharge]</span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Le patient n'est pas décédé)"</span>)</span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul de la différence entre la date de décès et la date d'admission pour ce patient</span></span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a>days_missing_discharge <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>date_death[patient_missing_discharge] <span class="sc">-</span> df<span class="sc">$</span>date_admission[patient_missing_discharge])</span>
+<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a>days_missing_discharge</span>
+<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a>n_rows <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df)</span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a>n_cols <span class="ot">&lt;-</span> <span class="fu">ncol</span>(df)</span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nom =</span> <span class="st">"df"</span>,</span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Nombre d'observations</span><span class="st">`</span> <span class="ot">=</span> n_rows,</span>
+<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Nombre de variables</span><span class="st">`</span> <span class="ot">=</span> n_cols,</span>
+<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a>    <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tab, <span class="at">booktabs =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a>col_type <span class="ot">&lt;-</span> <span class="fu">sapply</span>(df, <span class="cf">function</span>(x) <span class="fu">class</span>(x)[<span class="dv">1</span>])</span>
+<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a>col_type[col_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Date"</span>, <span class="st">"POSIXct"</span>, <span class="st">"POSIXlt"</span>)] <span class="ot">&lt;-</span> <span class="st">"Date"</span></span>
+<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a>col_type[col_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"factor"</span>, <span class="st">"ordered"</span>)] <span class="ot">&lt;-</span> <span class="st">"factor"</span></span>
+<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a>col_type[col_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"numeric"</span>, <span class="st">"integer"</span>)] <span class="ot">&lt;-</span> <span class="st">"numeric"</span></span>
+<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a>type_freq <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">table</span>(col_type), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a>type_freq_str <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">names</span>(type_freq), <span class="fu">as.integer</span>(type_freq), <span class="at">sep =</span> <span class="st">" : "</span>, <span class="at">collapse =</span> <span class="st">", "</span>)</span>
+<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>    <span class="at">Type =</span> <span class="fu">names</span>(type_freq),</span>
+<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Nombre</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.integer</span>(type_freq),</span>
+<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a>    <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tab, <span class="at">booktabs =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="ot">&lt;-</span> <span class="fu">names</span>(col_type)[col_type <span class="sc">==</span> <span class="st">"factor"</span>]</span>
+<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="ot">&lt;-</span> <span class="fu">intersect</span>(cat_cols, <span class="fu">names</span>(df))</span>
+<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">Variables catégorielles</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a>cat_vars_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>    <span class="at">Variable =</span> cat_cols,</span>
+<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a>    <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cat_vars_df, <span class="at">booktabs =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a>cat_cols_disease_category <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"disease_category"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a>cat_cols_cancer <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"cancer"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a>cat_cols_comorbidity <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"comorbidity"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a>cat_cols_diagnosis <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"diagnosis"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a>cat_cols_death <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"death"</span>, cat_cols, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>cat_cols_demographic <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"rhc"</span>, <span class="st">"dnr_status"</span>, <span class="st">"insurance_class"</span>, <span class="st">"race"</span>, <span class="st">"income"</span>)</span>
+<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a>df_descriptif <span class="ot">&lt;-</span> df</span>
+<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">table</span>(df_descriptif<span class="sc">$</span>primary_disease_category), <span class="at">decreasing =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a>cols_nord_frost <span class="ot">&lt;-</span> nord<span class="sc">::</span><span class="fu">nord</span>(<span class="st">"frost"</span>, <span class="fu">length</span>(counts))</span>
+<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a>    counts, </span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> </span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Distribution des modalités de diagnostic principal"</span>,</span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Nombre de patients"</span>, </span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a>    <span class="at">horiz =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> cols_nord_frost, </span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>    <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>df_descriptif <span class="ot">&lt;-</span> df</span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">table</span>(df_descriptif<span class="sc">$</span>secondary_disease_category), <span class="at">decreasing =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>cols_nord_aurora <span class="ot">&lt;-</span> nord<span class="sc">::</span><span class="fu">nord</span>(<span class="st">"aurora"</span>, <span class="fu">length</span>(counts))</span>
+<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>    counts, </span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> </span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Distribution des modalités de la comorbidité principale"</span>,</span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Nombre de patients"</span>, </span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>    <span class="at">horiz =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> cols_nord_aurora, </span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>    <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(df_descriptif<span class="sc">$</span>secondary_disease_category)</span>
+<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a><span class="co">#insérer le code à la fin du fichier</span></span>
+<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a><span class="co"># lire le fichier code genere</span></span>
+<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a>code <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"all_chunks_code.R"</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a>code_wrapped <span class="ot">&lt;-</span> code</span>
+<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (knitr<span class="sc">::</span><span class="fu">is_latex_output</span>()) {</span>
+<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a>    code_safe <span class="ot">&lt;-</span> <span class="fu">gsub</span>(</span>
+<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="sc">\\\\</span><span class="st">(begin|end)</span><span class="sc">\\</span><span class="st">{lstlisting</span><span class="sc">\\</span><span class="st">}"</span>,</span>
+<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="sc">\\\\</span><span class="st">textbackslash </span><span class="sc">\\</span><span class="st">1{lstlisting}"</span>,</span>
+<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a>        code_wrapped</span>
+<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">begin{lstlisting}</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(code_safe, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\\</span><span class="st">end{lstlisting}</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"```r</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(code_wrapped, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">```"</span>)</span>
+<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 
 </main>
