@@ -1,0 +1,41 @@
+# Appariement selon score de propension
+
+## Évaluation de l'équilibre des covariables après appariement et de la qualité de l'appariement
+
+-   L'évaluation de l'équilibre des covariables après appariement est essentielle pour vérifier que les groupes appariés sont comparables en termes de caractéristiques basales, ce qui est crucial pour réduire les biais de sélection et améliorer la validité des conclusions de l'étude.
+
+-   Pour ce devoir, elle suit les recommandations citées par Zhang et al. (2019) @zhangBalanceDiagnosticsPropensity2019, Austin (2009) @austinBalanceDiagnosticsComparing2009, Stuart et al. (2013) @stuartPrognosticScoreBased2013 et Imai et al. (2008) @imaiMisunderstandingsExperimentalistsObservationalists2008.
+
+-   Pour assurer la comparabilité initiale des patients, on apparie les patients selon un score de propension calculé à partir de variables "pré-traitement".
+
+-   L'objectif est de créer 2 groupes de patients qui auraient des probabilités similaires de recevoir le traitement, afin de réduire les biais de sélection.
+
+-   L'identification des variables à inclure est cruciale : il s'agit d'inclure les variables qui influencent le choix du traitement ou non.
+
+-   Pour l'identification des variables à inclure, on peut : 
+
+    -   S'appuyer sur la littérature pour identifier les facteurs connus qui influencent le choix du traitement.
+
+    -   Consulter des experts cliniques pour obtenir des insights sur les variables pertinentes.
+
+    -   Utiliser des méthodes statistiques pour sélectionner les variables, comme l'analyse de corrélation ou les modèles de régression.
+
+        -   Dans le cas actuel, le modèle de régres
+
+### Tests comparatifs pour les variables basales après appariement
+
+Although significance testing is commonly used to assessing balance in observational studies, it is inappropriate for the following reasons. The sample size of the study population after PSM is reduced, and thus the power to detect statistical significance is also reduced. Non-significance after PSM may simply due to the reduced sample size rather than improved balance. In other words, the statistical insignificance can occur when we randomly drop more number of controls (11). Also, it should be pointed out that evaluating imbalance using hypothesis testing and the corresponding p-value should be used with caution, as spurious statistically significant difference can be detected due to multiple testing on the covariates even when there is no true difference between the distribution of these covariates.
+
+-   Après appariement, on peut se poser la quesion de réaliser des tests comparatifs pour les variables basales afin de vérifier l'équilibre entre les groupes appariés.
+
+-   Cependant, comme on cherche à mettre en évidence l'absence de différence entre les groupes, les tests de significativité ne sont pas appropriés (les tests utilisés sont plutôt conçus pour détecter des différences).
+
+-   De plus, le fait que les groupes soient appariés signifie que les échantillons sont plus petits, ce qui réduit la puissance des tests statistiques pour détecter des différences significatives.
+
+-   Ces recommandations se basent sur l'article de Zhang et al. (2019) @zhangBalanceDiagnosticsPropensity2019 et Imai et al. (2008) @imaiMisunderstandingsExperimentalistsObservationalists2008.
+
+-   Un tableau avec ces tests est présenté en annexe. 
+
+\newpage
+
+# Bibliographie

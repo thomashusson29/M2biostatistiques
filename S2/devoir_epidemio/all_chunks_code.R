@@ -1,4 +1,5 @@
 library(forecast)
+library(cobalt)
 library(plotrix)
 library(randomForest)
 library(dplyr)
@@ -96,8 +97,8 @@ if (is.na(file_qmd)) {
 df <- read.csv2("/Users/thomashusson/Documents/Projets/M2biostatistiques/S2/devoir_epidemio/rhc devoir épidémio-RC csv.csv", header = TRUE, stringsAsFactors = FALSE)
 summary(df)
 colnames(df)
-str(df)
 skimr::skim(df)
+sum(is.na(df))
 
 # Supprimer les colonnes inutile (ROWNAMES et PTID) en appelant explictement les noms des colonnes à supprimer
 df <- df[, !(colnames(df) %in% c("ROWNAMES", "PTID"))]
@@ -130,13 +131,13 @@ names(df)[names(df) == "AMIHX"] <- "comorbidity_myocardial_infarction"
 names(df)[names(df) == "AGE"] <- "age"
 names(df)[names(df) == "SEX"] <- "sex"
 names(df)[names(df) == "EDU"] <- "education_years"
-names(df)[names(df) == "SURV2MD1"] <- "survival_probability"
+names(df)[names(df) == "SURV2MD1"] <- "survival_probability_2mths"
 names(df)[names(df) == "DAS2D3PC"] <- "DASI_score"
 names(df)[names(df) == "T3D30"] <- "time_to_death_if_death_within_30d"
 names(df)[names(df) == "DTH30"] <- "death_30d"
 
 names(df)[names(df) == "APS1"] <- "apache_score"
-names(df)[names(df) == "SCOMA1"] <- "coma_score"
+names(df)[names(df) == "SCOMA1"] <- "glasgow_score"
 names(df)[names(df) == "MEANBP1"] <- "mean_blood_pressure"
 names(df)[names(df) == "WBLC1"] <- "wbc"
 names(df)[names(df) == "HRT1"] <- "heart_rate"
@@ -200,12 +201,12 @@ desc <- c(
   age = "Âge (années)",
   sex = "Sexe",
   education_years = "Niveau d'études (années)",
-  survival_probability = "Probabilité de survie prédite",
+  survival_probability_2mths = "Probabilité de survie prédite",
   DASI_score = "Score DASI",
   death_30d = "Décès à 30 jours",
 
   apache_score = "Score APACHE",
-  coma_score = "Score de coma",
+  glasgow_score = "Score de Glasgow",
   mean_blood_pressure = "Pression artérielle moyenne",
   wbc = "Leucocytes (x10^9/L)",
   heart_rate = "Fréquence cardiaque (bpm)",
@@ -242,6 +243,23 @@ desc <- c(
   race = "Origine / race (selon codage de la base)",
   income = "Revenu (selon codage de la base)"
 )
+
+missing_data_summary <- data.frame(
+  variable = names(colSums(is.na(df))),
+  missing_nombre = colSums(is.na(df)),
+  missing_pourcentage = round(colSums(is.na(df)) / nrow(df) * 100, 1)
+)
+missing_data_summary <- missing_data_summary[missing_data_summary$missing_nombre > 0, ]
+#affichage du tableau des données manquantes avec kableExtra pour un rendu plus lisible
+missing_data_summary %>%
+  arrange(desc(missing_pourcentage)) %>%
+  kable(
+    caption = "Résumé des données manquantes par variable",
+    col.names = c("Variable", "Nombre de données manquantes", "Pourcentage de données manquantes"),
+    align = c("l", "r", "r"),
+    row.names = FALSE
+  ) %>%
+  kable_styling(full_width = FALSE, position = "center")
 
 
 # Conversion des dates (les chaînes vides -> NA pour éviter les warnings)
@@ -297,7 +315,7 @@ table(df$cancer_YN)
 df$sex <- factor(df$sex, levels = c("Male", "Female"))
 df$death_30d <- factor(df$death_30d, levels = c("No", "Yes"))
 df$apache_score <- as.numeric(df$apache_score)
-df$coma_score <- as.numeric(df$coma_score)
+df$glasgow_score <- as.numeric(df$glasgow_score)
 df$heart_rate <- as.numeric(df$heart_rate)
 df$sodium <- as.numeric(df$sodium)
 df$dnr_status <- factor(df$dnr_status, levels = c("No", "Yes"))
@@ -822,6 +840,7 @@ knitr::kable(rhc_summary_df, booktabs = TRUE)
 numeric_cols <- names(col_type)[col_type == "numeric"]
 numeric_cols <- setdiff(numeric_cols, "time_to_death_if_death_within_30d")
 
+#création du tableau récapitulatif des variables numériques
 numeric_summary_df <- data.frame(
     Variables = desc[numeric_cols],
     Moyenne = sapply(df[numeric_cols], function(x) round(mean(x, na.rm = TRUE), 2)),
@@ -834,8 +853,62 @@ numeric_summary_df <- data.frame(
     check.names = FALSE
 )
 
+#affichage du tableau
 knitr::kable(
     numeric_summary_df,
+    booktabs = FALSE,
+    row.names = FALSE
+) %>%
+  kableExtra::column_spec(1, width = "6cm")
+
+# quel pourcentage les valeurs 0 représentent-elles pour chacune de ces variables ?
+outlier_summary_df <- data.frame(
+    Variable = c("Pression artérielle moyenne", "Leucocytose", "Fréquence cardiaque", "Fréquence respiratoire", "Poids"),
+    `Valeur aberrante` = c(sum(df$mean_blood_pressure == 0, na.rm = TRUE), sum(df$wbc == 0, na.rm = TRUE), sum(df$heart_rate == 0, na.rm = TRUE), sum(df$respiratory_rate == 0, na.rm = TRUE), sum(df$weight == 0, na.rm = TRUE)),
+    `Pourcentage de valeurs 0` = c(round(mean(df$mean_blood_pressure == 0, na.rm = TRUE) * 100, 2), round(mean(df$wbc == 0, na.rm = TRUE) * 100, 2), round(mean(df$heart_rate == 0, na.rm = TRUE) * 100, 2), round(mean(df$respiratory_rate == 0, na.rm = TRUE) * 100, 2), round(mean(df$weight == 0, na.rm = TRUE) * 100, 2))
+)
+
+#affichage du tableau 
+knitr::kable(outlier_summary_df, booktabs = TRUE)
+
+# imputation des valeurs 0 par la médiane de chaque variable
+df$mean_blood_pressure[df$mean_blood_pressure == 0] <- median(df$mean_blood_pressure[df$mean_blood_pressure > 0], na.rm = TRUE)
+df$wbc[df$wbc == 0] <- median(df$wbc[df$wbc > 0], na.rm = TRUE)
+df$heart_rate[df$heart_rate == 0] <- median(df$heart_rate[df$heart_rate > 0], na.rm = TRUE)
+df$respiratory_rate[df$respiratory_rate == 0] <- median(df$respiratory_rate[df$respiratory_rate > 0], na.rm = TRUE)
+df$weight[df$weight == 0] <- median(df$weight[df$weight > 0], na.rm = TRUE)
+
+# tableau avec moyenne, SD, médiane, Q1, Q3, min et max pour chacune des variables numériques après imputation
+numeric_cols_imputed <- c(
+  "mean_blood_pressure",
+  "wbc",
+  "heart_rate",
+  "respiratory_rate",
+  "weight"
+)
+
+numeric_summary_imputed_df <- data.frame(
+  Variables = numeric_cols_imputed,
+  Moyenne = sapply(df[numeric_cols_imputed], function(x) round(mean(x, na.rm = TRUE), 2)),
+  SD = sapply(df[numeric_cols_imputed], function(x) round(sd(x, na.rm = TRUE), 2)),
+  Médiane = sapply(df[numeric_cols_imputed], function(x) round(median(x, na.rm = TRUE), 2)),
+  Q1 = sapply(df[numeric_cols_imputed], function(x) round(quantile(x, 0.25, na.rm = TRUE), 2)),
+  Q3 = sapply(df[numeric_cols_imputed], function(x) round(quantile(x, 0.75, na.rm = TRUE), 2)),
+  Min = sapply(df[numeric_cols_imputed], function(x) round(min(x, na.rm = TRUE), 2)),
+  Max = sapply(df[numeric_cols_imputed], function(x) round(max(x, na.rm = TRUE), 2)),
+  check.names = FALSE
+)
+
+knitr::kable(
+  numeric_summary_imputed_df,
+  booktabs = FALSE,
+  row.names = FALSE
+) %>%
+  kableExtra::column_spec(1, width = "6cm")
+
+
+knitr::kable(
+    numeric_summary_imputed_df,
     booktabs = FALSE,
     row.names = FALSE
 ) %>%
@@ -873,7 +946,7 @@ hist(
 )
 lines(density(df$education_years, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$survival_probability, 
+  df$survival_probability_2mths, 
   breaks = 20, 
   main = "Probabilité de survie", 
   xlab = "Probabilité de survie", 
@@ -882,7 +955,7 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$survival_probability, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df$survival_probability_2mths, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
   df$DASI_score, 
   breaks = 20, 
@@ -906,16 +979,16 @@ hist(
 )
 lines(density(df$apache_score, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$coma_score, 
+  df$glasgow_score, 
   breaks = 20, 
-  main = "Score de coma", 
-  xlab = "Score de coma", 
+  main = "score de Glasgow", 
+  xlab = "score de Glasgow", 
   ylab = "Fréquence",
   col = cols[7], 
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$coma_score, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df$glasgow_score, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
   df$mean_blood_pressure, 
   breaks = 20, 
@@ -1155,8 +1228,8 @@ or_summary_df <- data.frame(
 knitr::kable(or_summary_df, booktabs = TRUE)
 
 # Recalcul des temps à partir des dates (suivi "complet")
-df$time_to_death <- as.numeric(difftime(df$date_death, df$date_admission, units = "days"))
-df$time_to_last_news <- as.numeric(difftime(df$date_last_news, df$date_admission, units = "days"))
+df$time_to_death <- as.numeric(df$date_death - df$date_admission)
+df$time_to_last_news <- as.numeric(df$date_last_news - df$date_admission)
 
 # Événement "décès" selon la présence d'une date de décès
 df$event_death <- as.integer(!is.na(df$date_death))
@@ -1201,12 +1274,10 @@ km_plot <- ggsurvplot(
 print(km_plot)
 
 # utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des caractéristiques basales entre les groupes RHC vs non-RHC
-## 1) Colonnes automatiques
+# regroupement des variables
 primary_columns <- grep("^(primary_binaire_|secondary_binaire_)", names(df), value = TRUE)
-
-## 2) Blocs (déjà propres)
 vars_demo <- c("age", "sex", "race", "education_years", "income", "insurance_class")
-vars_scores <- c("adl_score", "DASI_score", "coma_score", "apache_score", "dnr_status")
+vars_scores <- c("adl_score", "DASI_score", "glasgow_score", "apache_score", "dnr_status")
 vars_comorb <- c(
   "comorbidity_cardiovascular",
   "comorbidity_congestive_heart",
@@ -1244,7 +1315,7 @@ vars_bio <- c(
   "creatinine", "sodium", "potassium", "paco2", "ph"
 )
 
-## 3) Include (plus de recopie manuelle)
+# colonnes à inclure
 cols_to_include_baseline <- c(
   vars_demo,
   vars_scores,
@@ -1258,7 +1329,7 @@ cols_to_include_baseline <- c(
 
 df_baseline_tbl <- df[, unique(c("rhc", cols_to_include_baseline))]
 
-## 4) Mapping variable -> section (sans lister 2 fois primary/secondary)
+# répartition des variables en sous groupes pour la mise en forme du tableau
 primary_binaire_columns   <- grep("^primary_binaire_", primary_columns, value = TRUE)
 secondary_binaire_columns <- grep("^secondary_binaire_", primary_columns, value = TRUE)
 
@@ -1274,7 +1345,7 @@ var_to_section <- c(
   stats::setNames(rep("Biologie", length(vars_bio)), vars_bio)
 )
 
-## 5) Tableau gtsummary (correction: by = "rhc")
+# Tableau avec gtsummary
 baseline_comparison_table <- gtsummary::tbl_summary(
   df_baseline_tbl,
   by = "rhc",
@@ -1292,7 +1363,7 @@ baseline_comparison_table <- gtsummary::tbl_summary(
     insurance_class ~ "Classe d'assurance",
     adl_score ~ "Score ADL",
     DASI_score ~ "Score DASI",
-    coma_score ~ "Score Coma",
+    glasgow_score ~ "Score Coma",
     apache_score ~ "Score APACHE",
     dnr_status ~ "Statut DNR",
     primary_binaire_BPCO ~ "BPCO",
@@ -1354,11 +1425,472 @@ baseline_comparison_table <- gtsummary::tbl_summary(
   type = list(adl_score ~ "continuous")
 )
 
+#mise en forme du tableau pour rendu quarto vers pdf
+baseline_comparison_table <- baseline_comparison_table |>
+  gtsummary::add_p(test = list(gtsummary::all_continuous() ~ "t.test")) |>
+  gtsummary::modify_header(label = "**Variable**")
+tb <- baseline_comparison_table$table_body
+tb$.pos <- seq_len(nrow(tb))
+section <- unname(var_to_section[tb$variable])
+mask <- tb$row_type == "label" & !is.na(section)
+first_pos <- tapply(tb$.pos[mask], section[mask], min)
+first_pos <- first_pos[order(first_pos)]
+sections <- names(first_pos)
+pos_cat <- as.numeric(first_pos) - 0.5
+template <- tb[1, , drop = FALSE]
+template[,] <- NA
+stat_cols <- grep("^stat_", names(tb), value = TRUE)
+cat_rows <- template[rep(1, length(sections)), , drop = FALSE]
+cat_rows$.pos <- pos_cat
+cat_rows$row_type <- "category"
+cat_rows$label <- sections
+cat_rows$variable <- paste0("cat__", make.names(sections))
+cat_rows[, stat_cols] <- ""
+cat_rows$p.value <- NA_real_
+out <- base::rbind(tb, cat_rows)
+out <- out[order(out$.pos), , drop = FALSE]
+out$.pos <- NULL
+baseline_comparison_table$table_body <- out
+baseline_comparison_table <- gtsummary::modify_table_styling(
+  baseline_comparison_table, columns = "label", rows = row_type == "category", text_format = "bold"
+)
+baseline_comparison_table <- gtsummary::modify_table_styling(
+  baseline_comparison_table, columns = "label", rows = row_type == "category", text_format = "italic"
+)
+# affichage du tableau pour quarto vers pdf
+baseline_comparison_table |>
+  gtsummary::as_kable_extra(booktabs = TRUE, longtable = TRUE) |>
+  kableExtra::kable_styling(
+    font_size = 8,
+    latex_options = c("repeat_header", "scale_down")
+  ) |>
+  kableExtra::row_spec(
+    which(baseline_comparison_table$table_body$row_type == "category"),
+    bold = TRUE,
+    italic = TRUE
+  )
+
+# avec bal.tab et love.plot()
+# création d'un objet de balance pour les variables basales
+balance_baseline <- bal.tab(
+  x = as.formula(paste("rhc ~", paste(cols_to_include_baseline, collapse = " + "))),
+  data = df,
+  estimand = "ATE"
+)
+
+# Retirer les lignes de missingness (":<NA>") sans changer les SMD des vraies covariables
+balance_baseline_clean <- balance_baseline
+if (!is.null(balance_baseline_clean$Balance)) {
+  keep <- !grepl(":<NA>$", rownames(balance_baseline_clean$Balance))
+  balance_baseline_clean$Balance <- balance_baseline_clean$Balance[keep, , drop = FALSE]
+}
+
+#labels pour lisibilité (on reprend les labels du tableau comparatif)
+labels_love_plot <- desc
+
+# création du love plot pour les variables basales
+love_plot_baseline <- cobalt::love.plot(
+  balance_baseline_clean,
+  threshold = 0.1,
+  var.order = "unadjusted",
+  abs = TRUE,
+  drop.missing = TRUE,
+  line = TRUE,
+  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4]),
+  var.names = labels_love_plot
+)
+print(love_plot_baseline)
+
+# identification des variables avec SMD > 0.1 en valeur absolue
+smd_threshold <- 0.1
+imbalanced_vars <- rownames(balance_baseline_clean$Balance)[abs(balance_baseline_clean$Balance$Diff.Un) > smd_threshold]
+imbalanced_vars
+
+# imputation par la médiane pour les variables score ADL et diurèse
+df_imputed <- df
+df_imputed$adl_score[is.na(df_imputed$adl_score)] <- median(df_imputed$adl_score, na.rm = TRUE)
+df_imputed$urine_output[is.na(df_imputed$urine_output)] <- median(df_imputed$urine_output, na.rm = TRUE)
+#vérification de l'imputation
+sum(is.na(df_imputed$adl_score))
+sum(is.na(df_imputed$urine_output))
+sum(is.na(df_imputed))
+
+# calcul du score de propension avec les variables sélectionnées
+df_imputed$rhc <- factor(df_imputed$rhc)
+
+vars_propension <- c(
+  "age", "sex", "race", "education_years", "income", "insurance_class",
+  "primary_disease_category", "secondary_disease_category",
+  grep("^diagnosis_", names(df_imputed), value = TRUE),
+  grep("^comorbidity_", names(df_imputed), value = TRUE),
+  "adl_score", "DASI_score", "dnr_status", "cancer",
+  "survival_probability_2mths", "apache_score", "glasgow_score",
+  "weight", "temperature", "mean_blood_pressure", "respiratory_rate", "heart_rate", "pa_fi_ratio", "paco2", "ph", "wbc", "hematocrit", "sodium", "potassium", "creatinine", "bilirubin", "albumin", "urine_output")
+
+formula_propension <- paste("rhc ~", paste(vars_propension, collapse = " + "))
+
+#estimation du score de propension
+set.seed(123) # pour la reproductibilité
+score_propension <- glm(
+  formula = as.formula(formula_propension),
+  data = df_imputed,
+  family = binomial()
+)
+# ajout du score de propension dans le dataframe
+df_imputed$score_propension <- predict(score_propension, type = "response")
+
+# appariement 1:1 sans remplacement avec un caliper de 0.2*SD du score de propension
+library(MatchIt)
+matchit_out <- MatchIt::matchit(
+  formula = as.formula(formula_propension),
+  data = df_imputed,
+  method = "nearest",
+  caliper = 0.2 * sd(df_imputed$score_propension),
+  ratio = 1,
+  replace = FALSE
+)
+# création du dataframe apparié
+df_matched <- match.data(matchit_out)
+# vérification de la taille des groupes appariés
+table(df_matched$rhc)
+
+density_plot <- cobalt::bal.plot(
+  matchit_out,
+  var.name = "distance",
+  which = "both",
+  type = "density",
+  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4]),
+  xlab = "Score de propension",
+  ylab = "Densité",
+  title = "Distribution du score de propension avant et après appariement"
+)
+print(density_plot)
+
+labels_love_plot_matched <- desc
+love_plot_matched <- love.plot(
+  matchit_out,
+  stats = "mean.diffs",
+  s.d.denom = "pooled",
+  binary = "std",
+  threshold = 0.1,
+  var.order = "unadjusted",
+  abs = TRUE,
+  line = TRUE,
+  var.names = labels_love_plot_matched,
+  colors = c(nord("aurora")[1], nord("aurora")[4])
+)
+print(love_plot_matched)
+
+balance <- cobalt::bal.tab(matchit_out, un = TRUE)$Balance
+
+tab <- data.frame(
+  Avant_appariement = sum(abs(balance$Diff.Un) > 0.1, na.rm = TRUE),
+  Apres_appariement = sum(abs(balance$Diff.Adj) > 0.1, na.rm = TRUE)
+)
+
+knitr::kable(
+  tab,
+  format = "latex",
+  booktabs = TRUE,
+  row.names = FALSE
+)
+
+# avec pourcentage de décès à 30 jours et à 180 jours dans les groupes R
+# utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC
+summary_table <- df_matched %>%
+  select(rhc, death_30d, death_180d) %>%
+  tbl_summary(
+    by = rhc,
+    statistic = list(
+      death_30d ~ "{n} ({p}%)",
+      death_180d ~ "{n} ({p}%)"
+    ),
+    label = list(
+      death_30d ~ "Décès à 30 jours",
+      death_180d ~ "Décès à 180 jours"
+    ),
+    missing = "no"
+  ) %>%
+  add_p() %>%
+  modify_header(label = "**Variable**")
+summary_table
+
+# calcul de l'OR pour le décès à 30 jours
+or_30d <- epitools::oddsratio(
+  x = table(df_matched$rhc, df_matched$death_30d),
+  method = "wald",
+  conf.level = 0.95
+)
+# calcul de l'OR pour le décès à 180 jours
+or_180d <- epitools::oddsratio(
+  x = table(df_matched$rhc, df_matched$death_180d),
+  method = "wald",
+  conf.level = 0.95
+)
+# création d'un tableau récapitulatif des OR
+or_summary_df <- data.frame(
+  `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
+  `OR` = c(round(or_30d$measure[2, "estimate"], 2), round(or_180d$measure[2, "estimate"], 2)),
+  `IC 95%` = c(
+    paste0("(", round(or_30d$measure[2, "lower"], 2), ", ", round(or_30d$measure[2, "upper"], 2), ")"),
+    paste0("(", round(or_180d$measure[2, "lower"], 2), ", ", round(or_180d$measure[2, "upper"], 2), ")")
+  ),
+  check.names = FALSE
+)
+knitr::kable(or_summary_df, booktabs = TRUE)
+
+# conversion des dates en format Date
+df_matched$date_admission <- as.Date(df_matched$date_admission)
+df_matched$date_death <- as.Date(df_matched$date_death)
+df_matched$date_last_news <- as.Date(df_matched$date_last_news)
+
+
+# Recalcul des temps à partir des dates (suivi "complet")
+df_matched$time_to_death <- as.numeric(df_matched$date_death - df_matched$date_admission)
+df_matched$time_to_last_news <- as.numeric(df_matched$date_last_news - df_matched$date_admission)
+
+df_matched$time_to_death
+
+# Événement "décès" selon la présence d'une date de décès
+df_matched$event_death <- as.integer(!is.na(df_matched$date_death))
+# Temps de suivi complet (décès -> date_death, sinon -> date_last_news)
+df_matched$followup_time <- df_matched$time_to_last_news
+
+# Si décès, temps de suivi = temps jusqu'au décès
+df_matched$followup_time[df_matched$event_death == 1] <- df_matched$time_to_death[df_matched$event_death == 1]
+
+# Temps d'inclusion : prend le minimum entre le temps de suivi et 180 jours (donc censure après 180 jours)
+df_matched$survival_time_180d <- pmin(df_matched$followup_time, 180)
+
+# Événement "décès" à 180 jours : vaut 1 si décès ET temps jusqu'au décès <= 180 jours
+df_matched$event_180d <- as.integer(df_matched$event_death == 1 & df_matched$time_to_death <= 180)
+
+# Temps négatifs -> NA
+df_matched$survival_time_180d[df_matched$survival_time_180d < 0] <- NA
+
+# création de l'objet de survie
+surv_object <- Surv(time = df_matched$survival_time_180d, event = df_matched$event_180d)
+# ajustement du modèle de survie de Kaplan-Meier
+km_fit <- survfit(surv_object ~ rhc, data = df_matched)
+# affichage du graphique de survie
+km_plot <- ggsurvplot(
+  km_fit,
+  data = df_matched,
+  pval = TRUE,
+  conf.int = TRUE,
+  risk.table = TRUE,
+  risk.table.height = 0.2,
+  risk.table.fontsize = 3.2,
+  break.time.by = 30,
+  xlim = c(0, 180),
+  legend.labs = c("Non-RHC", "RHC"),
+  legend.title = "Groupe",
+  xlab = "Temps (jours)",
+  ylab = "Probabilité de survie",
+  title = "Courbe de survie de Kaplan-Meier selon le RHC",
+  palette = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
+)
+print(km_plot)
+
+# test du log-rank conventionnel
+logrank_conventional <- survdiff(surv_object ~ rhc, data = df_matched)
+p_logrank_conventional <- 1 - pchisq(logrank_conventional$chisq, df = 1)
+# test du log-rank stratifié sur les paires
+logrank_stratified <- survdiff(
+  surv_object ~ rhc + strata(subclass),
+  data = df_matched
+)
+
+p_logrank_stratified <- 1 - pchisq(logrank_stratified$chisq, df = 1)
+
+logrank_results <- data.frame(
+  Test = c("Log-rank conventionnel", "Log-rank stratifié"),
+  p_value = c(p_logrank_conventional, p_logrank_stratified)
+)
+
+knitr::kable(logrank_results, booktabs = TRUE)
+
+# ajustement du modèle de Cox avec variance robuste et cluster sur les paires appariées
+cox_model <- coxph(
+  surv_object ~ rhc,
+  data = df_matched,
+  cluster = subclass
+)
+#affichage des résultats du modèle de Cox
+cox_summary <- summary(cox_model)
+cox_results <- data.frame(
+  Variable = rownames(cox_summary$coefficients),
+  HR = round(cox_summary$coefficients[, "exp(coef)"], 2),
+  `IC 95%` = paste0("(", round(cox_summary$conf.int[, "lower .95"], 2), ", ", round(cox_summary$conf.int[, "upper .95"], 2), ")"),
+  p_value = format.pval(cox_summary$coefficients[, "Pr(>|z|)"], digits = 3, eps = 0.001),
+  row.names = NULL
+)
+cox_results$Variable <- "RHC vs No RHC"
+knitr::kable(cox_results, booktabs = TRUE)
+
+# vérification de l'hypothèse de proportionalité des risques avec les résidus de Schoenfeld
+cox_zph <- cox.zph(cox_model)
+plot(cox_zph)
+
+# ajustement du modèle de Cox multivarié
+cox_multivariate_model <- coxph(
+  Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
+    primary_disease_category + secondary_disease_category +
+    diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
+    diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
+    diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
+    diagnosis_orthopedic + adl_score + DASI_score + dnr_status + cancer +
+    survival_probability_2mths + apache_score + glasgow_score +
+    weight + temperature + mean_blood_pressure + respiratory_rate +
+    heart_rate + pa_fi_ratio + paco2 + ph + wbc + hematocrit +
+    sodium + potassium + creatinine + bilirubin + albumin + comorbidity_cardiovascular + comorbidity_congestive_heart +
+    comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary + comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
+    comorbidity_malignancy + comorbidity_immunosuppression + comorbidity_transfer + comorbidity_myocardial_infarction +
+    urine_output,
+  data = df_imputed
+)
+#extraction de l'OR pour le RHC et de son intervalle de confiance
+cox_multivariate_summary <- summary(cox_multivariate_model)
+cox_multivariate_results <- data.frame(
+  Variable = rownames(cox_multivariate_summary$coefficients),
+  HR = round(cox_multivariate_summary$coefficients[, "exp(coef)"], 2),
+  IC95 = paste0("(", round(cox_multivariate_summary$conf.int[, "lower .95"], 2), ", ", round(cox_multivariate_summary$conf.int[, "upper .95"], 2), ")"),
+  p_value = format.pval(cox_multivariate_summary$coefficients[, "Pr(>|z|)"], digits = 3, eps = 0.001),
+  row.names = NULL
+)
+cox_multivariate_results <- cox_multivariate_results[cox_multivariate_results$Variable == "rhcRHC", ]
+
+
+cox_multivariate_results$Variable <- "RHC vs No RHC"
+
+knitr::kable(cox_multivariate_results, booktabs = TRUE)
+
+# calcul des p-values pour les variables basales après appariement
+df_baseline_post_matching <- df_matched[, unique(c("rhc", cols_to_include_baseline))]
+
+# Forcer l'affichage des variables binaires sur une seule ligne (compte du "Yes"),
+binary_var_names <- setdiff(
+  names(df_baseline_post_matching)[
+    grepl("^(primary_binaire_|secondary_binaire_|comorbidity_|diagnosis_)|^cancer_YN$", names(df_baseline_post_matching))
+  ],
+  "rhc"
+)
+
+df_baseline_post_matching[binary_var_names] <- lapply(df_baseline_post_matching[binary_var_names], function(x) {
+  x_chr <- as.character(x)
+  x_chr <- trimws(x_chr)
+  x_chr <- dplyr::case_when(
+    is.na(x_chr) ~ NA_character_,
+    x_chr %in% c("1", "TRUE", "True", "true", "Yes", "YES", "Oui", "OUI") ~ "Yes",
+    x_chr %in% c("0", "FALSE", "False", "false", "No", "NO", "Non", "NON") ~ "No",
+    TRUE ~ x_chr
+  )
+  factor(x_chr, levels = c("Yes", "No"))
+})
+
+# répartition des variables en sous groupes pour la mise en forme du tableau
+primary_binaire_columns   <- grep("^primary_binaire_", primary_columns, value = TRUE)
+secondary_binaire_columns <- grep("^secondary_binaire_", primary_columns, value = TRUE)
+
+var_to_section <- c(
+  stats::setNames(rep("Démographie / socio-économique", length(vars_demo)), vars_demo),
+  stats::setNames(rep("Statut fonctionnel / scores", length(vars_scores)), vars_scores),
+  stats::setNames(rep("Comorbidités", length(vars_comorb)), vars_comorb),
+  stats::setNames(rep("Diagnostic principal (CAT1)", length(primary_binaire_columns)), primary_binaire_columns),
+  stats::setNames(rep("Comorbidité principale (CAT2)", length(secondary_binaire_columns)), secondary_binaire_columns),
+  stats::setNames(rep("Diagnostics", length(vars_diag_other)), vars_diag_other),
+  stats::setNames(rep("Cancer", length(vars_cancer)), vars_cancer),
+  stats::setNames(rep("Paramètres cliniques", length(vars_clinical)), vars_clinical),
+  stats::setNames(rep("Biologie", length(vars_bio)), vars_bio)
+)
+
+# Tableau avec gtsummary
+baseline_comparison_table <- gtsummary::tbl_summary(
+  df_baseline_post_matching,
+  by = "rhc",
+  missing = "no",
+  statistic = list(
+    gtsummary::all_continuous() ~ "{mean} ({sd})",
+    gtsummary::all_dichotomous() ~ "{n} ({p}%)",
+    gtsummary::all_categorical() ~ "{n} ({p}%)"
+  ),
+  label = list(
+    age ~ "Âge",
+    sex ~ "Sexe",
+    race ~ "Ethnie",
+    education_years ~ "Années d'éducation",
+    income ~ "Revenu",
+    insurance_class ~ "Classe d'assurance",
+    adl_score ~ "Score ADL",
+    DASI_score ~ "Score DASI",
+    glasgow_score ~ "Score Coma",
+    apache_score ~ "Score APACHE",
+    dnr_status ~ "Statut DNR",
+    primary_binaire_BPCO ~ "BPCO",
+    primary_binaire_choc_septique ~ "Choc septique",
+    primary_binaire_choc_sur_cancer ~ "Choc sur cancer",
+    primary_binaire_insuffisance_renale_aigue ~ "Insuffisance rénale aiguë",
+    primary_binaire_insuffisance_cardiaque ~ "Insuffisance cardiaque",
+    primary_binaire_coma ~ "Coma",
+    primary_binaire_cirrhose ~ "Cirrhose",
+    primary_binaire_cancer_du_poumon ~ "Cancer du poumon",
+    primary_binaire_cancer_du_colon ~ "Cancer du colon",
+    secondary_binaire_choc_septique ~ "Choc septique",
+    secondary_binaire_choc_sur_cancer ~ "Choc sur cancer",
+    secondary_binaire_coma ~ "Coma",
+    secondary_binaire_cirrhose ~ "Cirrhose",
+    secondary_binaire_cancer_du_poumon ~ "Cancer du poumon",
+    secondary_binaire_cancer_du_colon ~ "Cancer du colon",
+    comorbidity_cardiovascular ~ "Cardiopathie",
+    comorbidity_congestive_heart ~ "Insuffisance cardiaque congestive",
+    comorbidity_myocardial_infarction ~ "Infarctus du myocarde",
+    comorbidity_chronic_pulmonary ~ "Maladie pulmonaire chronique",
+    comorbidity_renal ~ "Insuffisance rénale",
+    comorbidity_liver ~ "Insuffisance hépatique",
+    comorbidity_upper_gi_bleeding ~ "Saignement GI supérieur",
+    comorbidity_dementia ~ "Démence",
+    comorbidity_psych ~ "Psychologique",
+    comorbidity_malignancy ~ "Malignité",
+    comorbidity_immunosuppression ~ "Immunosuppression",
+    comorbidity_transfer ~ "Transfert",
+    diagnosis_respiratory ~ "Diagnostic respiratoire",
+    diagnosis_cardiovascular ~ "Diagnostic cardiovasculaire",
+    diagnosis_neurological ~ "Diagnostic neurologique",
+    diagnosis_gastrointestinal ~ "Diagnostic gastro-intestinal",
+    diagnosis_renal ~ "Diagnostic rénal",
+    diagnosis_metabolic ~ "Diagnostic métabolique",
+    diagnosis_hematologic ~ "Diagnostic hématologique",
+    diagnosis_sepsis ~ "Diagnostic sepsis",
+    diagnosis_trauma ~ "Diagnostic traumatique",
+    diagnosis_orthopedic ~ "Diagnostic orthopédique",
+    cancer_YN ~ "Cancer (Oui/Non)",
+    cancer ~ "Type de cancer",
+    weight ~ "Poids",
+    mean_blood_pressure ~ "Pression artérielle moyenne",
+    heart_rate ~ "Fréquence cardiaque",
+    respiratory_rate ~ "Fréquence respiratoire",
+    temperature ~ "Température",
+    pa_fi_ratio ~ "Ratio Pa/FI",
+    urine_output ~ "Diurèse",
+    wbc ~ "Globules blancs",
+    albumin ~ "Albumine",
+    hematocrit ~ "Hématocrite",
+    bilirubin ~ "Bilirubine",
+    creatinine ~ "Créatinine",
+    sodium ~ "Sodium",
+    potassium ~ "Potassium",
+    paco2 ~ "PaCO2",
+    ph ~ "pH"
+  ),
+  type = list(adl_score ~ "continuous", all_of(binary_var_names) ~ "dichotomous"),
+  value = list(all_of(binary_var_names) ~ "Yes")
+)
+
+#mise en forme du tableau pour rendu quarto vers pdf
 baseline_comparison_table <- baseline_comparison_table |>
   gtsummary::add_p(test = list(gtsummary::all_continuous() ~ "t.test")) |>
   gtsummary::modify_header(label = "**Variable**")
 
-## 6) Insertion des lignes de section (sans for/if)
 tb <- baseline_comparison_table$table_body
 tb$.pos <- seq_len(nrow(tb))
 
@@ -1396,6 +1928,7 @@ baseline_comparison_table <- gtsummary::modify_table_styling(
   baseline_comparison_table, columns = "label", rows = row_type == "category", text_format = "italic"
 )
 
+# affichage du tableau pour quarto vers pdf
 baseline_comparison_table |>
   gtsummary::as_kable_extra(booktabs = TRUE, longtable = TRUE) |>
   kableExtra::kable_styling(
@@ -1408,23 +1941,6 @@ baseline_comparison_table |>
     italic = TRUE
   )
 
-# avec bal.tab et love.plot()
-# création d'un objet de balance pour les variables basales
-balance_baseline <- cobalt::bal.tab(
-  x = as.formula(paste("rhc ~", paste(cols_to_include_baseline, collapse = " + "))),
-  data = df,
-  estimand = "ATE"
-)
-# création du love plot pour les variables basales
-love_plot_baseline <- cobalt::love.plot(
-  balance_baseline,
-  threshold = 0.1,
-  var.order = "unadjusted",
-  abs = TRUE,
-  line = TRUE,
-  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
-) + ggplot2::labs(title = "Love plot pour les variables basales")
-print(love_plot_baseline)
 
 
 #insérer le code à la fin du fichier
@@ -1436,9 +1952,6 @@ code <- readLines("all_chunks_code.R", warn = FALSE)
 	
 	if (knitr::is_latex_output()) {
   code_safe <- code_wrapped
-  # listings (LaTeX) interprète parfois l'apostrophe dans des noms entre backticks
-  # (ex: `Nombre d'observations`) comme une chaîne non terminée => tout passe en "stringstyle".
-  # Pour l'affichage de l'annexe, on remplace ces backticks par des guillemets.
   code_safe <- gsub("`([^`]*[’'][^`]*)`", "\"\\1\"", code_safe, perl = TRUE)
   code_safe <- gsub("`([^`]*\\s+[^`]*)`", "\"\\1\"", code_safe, perl = TRUE)
   code_safe <- gsub(

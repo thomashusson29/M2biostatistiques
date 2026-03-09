@@ -253,7 +253,7 @@ Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâ
 
 -   En cas de problème d'exécution du code R (pour suggérer correction et amélioration)
 
--   Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF. 
+-   Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF.
 
 Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.
 :::
@@ -274,7 +274,7 @@ Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.
 
 ## Contexte
 
--   Cathéter de Swan Ganz : dispositif médical diagnostique et thérapeutique mesurant en temps réel le débit et les pressions sanguines dans les cavités cardiaques droites et l’artère pulmonaire par cathéterisme cardiaque droit (RHC).
+-   Cathéter de Swan Ganz : dispositif médical diagnostique et thérapeutique mesurant en temps réel le débit et les pressions sanguines dans les cavités cardiaques droites et l’artère pulmonaire par cathétérisme cardiaque droit (RHC).
 
 -   Utilisé en réanimation à partir des années 1970, mais remis en question après réévaluation du rapport bénéfice/risque.
 
@@ -292,9 +292,9 @@ Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.
 
 -   Analyse bivariée de ces variables au sein de sous-groupes : chez les patients ayant reçu ou non un RHC, ainsi que chez les patients décédés ou non à J30, afin de mettre en évidence une éventuelle différence significative entre les groupes.
 
--   Analyse multivariée pour répondre à la question posée : la réalisation d’un cathéterisme cardiaque droit est-elle bénéfique au patient, toute covariable d’ajustement étant comparable par ailleurs ?
+-   Analyse multivariée pour répondre à la question posée : la réalisation d’un cathétérisme cardiaque droit est-elle bénéfique au patient, toute covariable d’ajustement étant comparable par ailleurs ?
 
--   Pour éviter un biais d’indication et améliorer la comparabilité des patients, un score de propension à la réalisation d'un cathéterisme cardiaque droit a été conçu par régression logistique multiple, permettant un ajustement sur un grand nombre de variables de confusion potentielles.
+-   Pour éviter un biais d’indication et améliorer la comparabilité des patients, un score de propension à la réalisation d'un cathétérisme cardiaque droit a été conçu par régression logistique multiple, permettant un ajustement sur un grand nombre de variables de confusion potentielles.
 
 -   Analyse de survie à J30, comparant les populations ayant reçu ou non le RHC, toute chose étant comparable par ailleurs grâce à l’ajustement sur le score de propension.
 
@@ -315,7 +315,6 @@ colnames(df)
 str(df)
 skimr::skim(df)
 ```
-
 
 -   Le fichier contient 5735 observations et 63 variables, avec des types de données variés (numériques, caractères, facteurs).
 
@@ -748,7 +747,6 @@ tab <- data.frame(
 knitr::kable(tab, booktabs = TRUE)
 ```
 
-
 ## Variables catégorielles
 
 -   Nom des variables catégorielles
@@ -928,7 +926,7 @@ barplot(
 
 #### Comorbidités
 
--   Il existe 12 variables de comorbidités codées "Yes"/"No" : cardiovasculaire, insuffisance cardiaque, démence, psychiatrique, respiratoire chronique, rénal, hépatique, hémorragie digestive haute, cancer, immunodépression, transfert (> 24h) et infarctus du myocarde.
+-   Il existe 12 variables de comorbidités codées "Yes"/"No" : cardiovasculaire, insuffisance cardiaque, démence, psychiatrique, respiratoire chronique, rénal, hépatique, hémorragie digestive haute, cancer, immunodépression, transfert (\> 24h) et infarctus du myocarde.
 
 ```{r}
 #| label: fig-categorical-comorbidity
@@ -1015,7 +1013,6 @@ barplot(
     border = NA
     )
 ```
-
 
 #### En un seul graphique
 
@@ -1176,7 +1173,7 @@ barplot(
 
 ### Cancer
 
--   La variable "cancer" était initialement codée en 3 modalités : "No", "Yes" et "Metastatic". 
+-   La variable "cancer" était initialement codée en 3 modalités : "No", "Yes" et "Metastatic".
 
 -   Du fait que les patients ayant la variable codée soit "Yes", soit "Metastatic", on en déduit que "Yes" correspond à un cancer localisé, tandis que "Metastatic" correspond à un cancer métastatique.
 
@@ -1206,8 +1203,6 @@ cancer_summary_df <- data.frame(
 knitr::kable(cancer_summary_df, booktabs = TRUE)
 ```
 
-
-
 ```{r}
 #| label: fig-categorical-cancer
 #| fig-cap: "Distribution des modalités (cancer)"
@@ -1229,7 +1224,7 @@ barplot(
 
 ### Variables liées au décès
 
--   À 30 jours : `r sum(df$death_30d == "Yes", na.rm = TRUE)` patients sont décédés, soit `r round(mean(df$death_30d == "Yes", na.rm = TRUE) * 100, 1)`% de la cohorte. 
+-   À 30 jours : `r sum(df$death_30d == "Yes", na.rm = TRUE)` patients sont décédés, soit `r round(mean(df$death_30d == "Yes", na.rm = TRUE) * 100, 1)`% de la cohorte.
 
 -   À 180 jours : `r sum(df$death_180d == "Yes", na.rm = TRUE)` patients sont décédés, soit `r round(mean(df$death_180d == "Yes", na.rm = TRUE) * 100, 1)`% de la cohorte.
 
@@ -1285,15 +1280,13 @@ death_summary_df <- data.frame(
 knitr::kable(death_summary_df, booktabs = TRUE)
 ```
 
-
-
 ### Cathéterisme cardiaque droit (RHC)
 
--   `r sum(df$rhc == "RHC", na.rm = TRUE)` patients ont eu un cathéterisme cardiaque droit (RHC), soit `r round(mean(df$rhc == "RHC", na.rm = TRUE) * 100, 1)`% de la cohorte.
+-   `r sum(df$rhc == "RHC", na.rm = TRUE)` patients ont eu un cathétérisme cardiaque droit (RHC), soit `r round(mean(df$rhc == "RHC", na.rm = TRUE) * 100, 1)`% de la cohorte.
 
 ```{r}
 #| label: fig-categorical-rhc
-#| fig-cap: "Distribution des modalités (cathéterisme cardiaque droit)"
+#| fig-cap: "Distribution des modalités (cathétérisme cardiaque droit)"
 #| fig-width: 3
 #| fig-height: 3
 #| fig-align: "center"
@@ -1312,7 +1305,7 @@ barplot(
 
 ```{r}
 #| label: tbl-rhc-percentage
-#| tbl-cap: "Pourcentage de patients ayant eu un cathéterisme cardiaque droit (RHC)"
+#| tbl-cap: "Pourcentage de patients ayant eu un cathétérisme cardiaque droit (RHC)"
 #| echo: false
 #| message: false
 #| warning: false
@@ -1647,7 +1640,7 @@ lines(density(df$urine_output, na.rm = TRUE), col = "blue", lwd = 2)
 
 -   Certaines variables numériques semblent suivre une distribution approximativement normale : c'est le cas de l'âge (même prédominance des âges jeunes donc asymétrie vers les âges plus élevés).
 
--   A titre complémentaire, on peut réaliser un QQ-plot pour l'âge par exemple, qui visualise la distribution des données par rapport à une distribution normale théorique. 
+-   A titre complémentaire, on peut réaliser un QQ-plot pour l'âge par exemple, qui visualise la distribution des données par rapport à une distribution normale théorique.
 
 ```{r}
 #| label: fig-qqplot-age
@@ -1670,7 +1663,7 @@ qqline(df$age, col = "red", lwd = 2)
 
 ## Résultats
 
--   L'objectif de l'étude est d'évaluer le cathéterisme cardiaque droit (RHC) sur plusieurs critères : temps de survie, durée de séjour à l'hôpital et en réanimation, coûts hospitaliers et intensité des soins.
+-   L'objectif de l'étude est d'évaluer le cathétérisme cardiaque droit (RHC) sur plusieurs critères : temps de survie, durée de séjour à l'hôpital et en réanimation, coûts hospitaliers et intensité des soins.
 
 -   On ne dispose pas dans le jeu de données d'informations sur les coûts hospitaliers et l'intensité des soins, donc on se concentre sur les deux premiers critères : temps de survie et durée de séjour à l'hôpital et en réanimation.
 
@@ -1738,7 +1731,7 @@ or_summary_df <- data.frame(
 knitr::kable(or_summary_df, booktabs = TRUE)
 ```
 
--   Il y a significativement plus de décès à 30 jours et à 180 jours dans le groupe RHC que dans le groupe non-RHC (p < 0.001 pour les deux critères).
+-   Il y a significativement plus de décès à 30 jours et à 180 jours dans le groupe RHC que dans le groupe non-RHC (p \< 0.001 pour les deux critères).
 
 -   Les OR sont de `r round(or_30d$measure[2, "estimate"], 2)` pour le décès à 30 jours et de `r round(or_180d$measure[2, "estimate"], 2)` pour le décès à 180 jours, indiquant une association positive entre le RHC et le risque de décès à ces deux critères.
 
@@ -1806,58 +1799,59 @@ km_plot <- ggsurvplot(
 print(km_plot)
 ```
 
--   Le test du log rank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC (p < 0.001), suggérant une différence entre les deux courbes de survie.
+-   Le test du log rank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC (p \< 0.001), suggérant une différence entre les deux courbes de survie.
 
 -   L'hypothèse de proportionnalité des risques semble être vérifiée, car les courbes de survie ne se croisent pas et restent parallèles au fil du temps
 
 ::: {.callout-important title="Interprétation dans ce contexte"}
+-   Ces tests supposent la comparabilité des groupes !
 
--   Ces tests supposent la comparabilité des groupes ! 
-
--   On ne sait pas si le décès est survenu à cause du cathétérisme cardiaque ou si les patients ayant eu un cathéterisme étaient plus graves au départ 
+-   On ne sait pas si le décès est survenu à cause du cathétérisme cardiaque ou si les patients ayant eu un cathétérisme étaient plus graves au départ
 
 -   En l'absence de randomisation, il est très probable que les patients ayant eu un RHC étaient plus sévères au départ, ce qui pourrait expliquer la plus grande mortalité observée dans ce groupe.
 
--  Il est donc essentiel de réaliser une analyse ajustée pour contrôler les facteurs de confusion potentiels avant de tirer des conclusions sur l'effet du RHC sur la mortalité.
+-   Il est donc essentiel de réaliser une analyse ajustée pour contrôler les facteurs de confusion potentiels avant de tirer des conclusions sur l'effet du RHC sur la mortalité.
 :::
+
 \newpage
 
 ## Exploration des facteurs de confusion potentiels
 
--   On a donc observé que : 
+-   On a donc observé que :
 
-  -   Les patients ayant eu un cathéterisme cardiaque droit (RHC) ont une mortalité plus élevée à 30 jours et à 180 jours que les patients n'ayant pas eu de RHC.
+    -   Les patients ayant eu un cathétérisme cardiaque droit (RHC) ont une mortalité plus élevée à 30 jours et à 180 jours que les patients n'ayant pas eu de RHC.
 
-  -   Les courbes de survie de Kaplan-Meier sont différentes, selon que les patients ont eu ou non un RHC.
+    -   Les courbes de survie de Kaplan-Meier sont différentes, selon que les patients ont eu ou non un RHC.
 
-  -   Et il s'agit probablement d'une association confondue par la sévérité initiale des patients, car les patients ayant eu un RHC étaient probablement plus sévères au départs.
-  
+    -   Il s'agit probablement d'une association confondue par la sévérité initiale des patients, car les patients ayant eu un RHC étaient probablement plus sévères au départ.
+
 -   Il faut donc réaliser une analyse ajustée pour contrôler les facteurs de confusion potentiels et améliorer la comparabilité des groupes RHC vs non-RHC.
 
 -   Mais pour ça, il convient d'abord d'évaluer l'impact de ces facteurs de confusion potentiels sur la relation entre le RHC et les critères d'intérêt (décès à 30 jours, décès à 180 jours, temps de survie).
 
 -   L'évaluation de l'impact est primordiale ! Si l'on décide ensuite d'apparier les patients sur les facteurs de confusion potentiels, il est important de savoir quels sont les facteurs qui ont le plus d'impact sur la relation entre le RHC et les critères d'intérêt, afin de les inclure dans le modèle d'appariement.
 
--   Il faut aussi évaluer l'impact de ces facteurs de confusion sur la réalisation d'un cathéterisme : par exemple, les patients ayant un cancer métastatique sont-ils plus susceptibles d'avoir un RHC ?
+-   Il faut aussi évaluer l'impact de ces facteurs de confusion sur la réalisation d'un cathétérisme : par exemple, les patients ayant un cancer métastatique sont-ils plus susceptibles d'avoir un RHC ?
 
 -   Il y a donc un biais de confusion (confusion par indication) : les patients recevant un RHC sont plus sévères au départ, ce qui peut expliquer la mortalité plus élevée observée dans ce groupe.
 
-## Les patients ayant eu un cathéterisme cardiaque droit sont-ils comparables aux patients n'en ayant pas eu ?
+## Les patients ayant eu un cathétérisme cardiaque droit sont-ils comparables aux patients n'en ayant pas eu ?
 
 -   Il est important d'évaluer si les patients ayant eu un RHC sont différents des patients n'ayant pas eu de RHC en termes de caractéristiques basales, car cela peut indiquer la présence d'un biais de confusion.
 
 -   Cela peut inclure des facteurs tels que l'âge, le sexe, la comorbidité, et la sévérité de la maladie au moment de l'admission.
 
--   Pour évaluer : 
+-   Pour évaluer :
 
-  -   Une analyse univariée avec test pour chaque variable (test de chi2 pour les variables catégorielles, test de t pour les variables numériques) peut être réalisée pour comparer les caractéristiques basales entre les groupes RHC et non-RHC, mais ça va donner beaucoup de p-values à interpréter et il y a un risque de surinterprétation des résultats.
+    -   Une analyse univariée avec test pour chaque variable (test de chi2 pour les variables catégorielles, test de t pour les variables numériques) peut être réalisée pour comparer les caractéristiques basales entre les groupes RHC et non-RHC, mais ça va donner beaucoup de p-values à interpréter et il y a un risque de surinterprétation des résultats.
 
-  -   On peut réaliser un "love plot" pour visualiser les différences moyennes standardisées (qui correspondent à la différence de moyenne entre les groupes RHC et non-RHC, divisée par l'écart-type) pour chaque variable, avant et après ajustement (par exemple, après appariement). Cela permet de visualiser l'équilibre des covariables entre les groupes.
+    -   On peut réaliser un "love plot" pour visualiser les différences moyennes standardisées (qui correspondent à la différence de moyenne entre les groupes RHC et non-RHC, divisée par l'écart-type) pour chaque variable, avant et après ajustement (par exemple, après appariement). Cela permet de visualiser l'équilibre des covariables entre les groupes.
 
-  -   On peut également réaliser une analyse multivariée pour évaluer l'impact des facteurs de confusion sur la relation entre le RHC et les critères d'intérêt.
+    -   On peut également réaliser une analyse multivariée pour évaluer l'impact des facteurs de confusion sur la relation entre le RHC et les critères d'intérêt.
 
-  -   Cela peut inclure des modèles de régression ajustés pour les facteurs de confusion identifiés, afin d'estimer l'effet du RHC sur les résultats tout en contrôlant ces facteurs.
+    -   Cela peut inclure des modèles de régression ajustés pour les facteurs de confusion identifiés, afin d'estimer l'effet du RHC sur les résultats tout en contrôlant ces facteurs.
 
+### Tests comparatifs des caractéristiques basales entre les groupes RHC vs non-RHC
 
 ```{r}
 #| label: tableau-comparatif-rhc
@@ -1867,10 +1861,8 @@ print(km_plot)
 #| results: asis
 #| tbl-cap: "Comparaison des caractéristiques basales entre les groupes RHC vs non-RHC"
 # utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des caractéristiques basales entre les groupes RHC vs non-RHC
-## 1) Colonnes automatiques
+# regroupement des variables
 primary_columns <- grep("^(primary_binaire_|secondary_binaire_)", names(df), value = TRUE)
-
-## 2) Blocs (déjà propres)
 vars_demo <- c("age", "sex", "race", "education_years", "income", "insurance_class")
 vars_scores <- c("adl_score", "DASI_score", "coma_score", "apache_score", "dnr_status")
 vars_comorb <- c(
@@ -1910,7 +1902,7 @@ vars_bio <- c(
   "creatinine", "sodium", "potassium", "paco2", "ph"
 )
 
-## 3) Include (plus de recopie manuelle)
+# colonnes à inclure
 cols_to_include_baseline <- c(
   vars_demo,
   vars_scores,
@@ -1924,7 +1916,7 @@ cols_to_include_baseline <- c(
 
 df_baseline_tbl <- df[, unique(c("rhc", cols_to_include_baseline))]
 
-## 4) Mapping variable -> section (sans lister 2 fois primary/secondary)
+# répartition des variables en sous groupes pour la mise en forme du tableau
 primary_binaire_columns   <- grep("^primary_binaire_", primary_columns, value = TRUE)
 secondary_binaire_columns <- grep("^secondary_binaire_", primary_columns, value = TRUE)
 
@@ -1940,7 +1932,7 @@ var_to_section <- c(
   stats::setNames(rep("Biologie", length(vars_bio)), vars_bio)
 )
 
-## 5) Tableau gtsummary (correction: by = "rhc")
+# Tableau avec gtsummary
 baseline_comparison_table <- gtsummary::tbl_summary(
   df_baseline_tbl,
   by = "rhc",
@@ -2020,11 +2012,11 @@ baseline_comparison_table <- gtsummary::tbl_summary(
   type = list(adl_score ~ "continuous")
 )
 
+#mise en forme du tableau pour rendu quarto vers pdf
 baseline_comparison_table <- baseline_comparison_table |>
   gtsummary::add_p(test = list(gtsummary::all_continuous() ~ "t.test")) |>
   gtsummary::modify_header(label = "**Variable**")
 
-## 6) Insertion des lignes de section (sans for/if)
 tb <- baseline_comparison_table$table_body
 tb$.pos <- seq_len(nrow(tb))
 
@@ -2062,6 +2054,7 @@ baseline_comparison_table <- gtsummary::modify_table_styling(
   baseline_comparison_table, columns = "label", rows = row_type == "category", text_format = "italic"
 )
 
+# affichage du tableau pour quarto vers pdf
 baseline_comparison_table |>
   gtsummary::as_kable_extra(booktabs = TRUE, longtable = TRUE) |>
   kableExtra::kable_styling(
@@ -2079,43 +2072,42 @@ baseline_comparison_table |>
 
 -   Une autre façon de mettre en évidence ces différences serait de calculer des OR pour chaque variable (par exemple, l'OR d'avoir un cancer du poumon chez les patients ayant eu un RHC vs les patients n'ayant pas eu de RHC), mais ça revient globalement au même.
 
--   On peut aussi visualiser les différences moyennes standardisées pour chaque variable entre les groupes RHC et non-RHC, par exemple à l'aide d'un "love plot", pour mieux visualiser l'équilibre des covariables entre les groupes.
-
--   Les différences moyennes standardisées correspondent à la différence de moyenne entre les groupes RHC et non-RHC, divisée par l'écart-type. Une valeur proche de 0 indique une bonne balance entre les groupes pour cette variable, tandis qu'une valeur éloignée de 0 indique une différence importante entre les groupes pour cette variable.
+### Régressions logistiques univariés variable par variable pour évaluer l'impact de chaque variable sur la réalisation d'un RHC
 
 ```{r}
-#| label: love-plot-baseline
+#| label: code-reg-logistic-rhc
 #| echo: false
 #| message: false
 #| warning: false
 #| results: asis
-#| fig-cap: "Love plot visualisant les différences moyennes standardisées pour les variables basales"
-#| fig-width: 10
-#| fig-height: 12
-# avec bal.tab et love.plot()
-# création d'un objet de balance pour les variables basales
-balance_baseline <- cobalt::bal.tab(
-  x = as.formula(paste("rhc ~", paste(cols_to_include_baseline, collapse = " + "))),
-  data = df,
-  estimand = "ATE"
-)
-# création du love plot pour les variables basales
-love_plot_baseline <- cobalt::love.plot(
-  balance_baseline,
-  threshold = 0.1,
-  var.order = "unadjusted",
-  abs = TRUE,
-  line = TRUE,
-  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
-) + ggplot2::labs(title = "Love plot pour les variables basales")
-print(love_plot_baseline)
+# Régression logistique univariée pour chaque variable par rapport à la réalisation d'un RHC
+univariate_logistic_results <- lapply(cols_to_include_baseline, function(var) {
+  formula <- as.formula(paste("rhc ~", var))
+  model <- glm(formula, data = df, family = binomial)
+  tidy_model <- broom::tidy(model)
+  tidy_model$variable <- var
+  return(tidy_model)
+})
+# Combinaison des résultats dans un seul data frame
+univariate_logistic_df <- do.call(rbind, univariate_logistic_results)
+# Sélection des variables d'intérêt (exclure l'intercept)
+univariate_logistic_df <- univariate_logistic_df[univariate_logistic_df$term != "(Intercept)", ]
+# Calcul de l'OR et de l'IC 95%
+univariate_logistic_df <- univariate_logistic_df %>%
+  mutate(
+    OR = exp(estimate),
+    OR_lower = exp(estimate - 1.96 * std.error),
+    OR_upper = exp(estimate + 1.96 * std.error)
+  ) %>%
+  select(variable, OR, OR_lower, OR_upper, p.value)
+# Affichage des résultats
+knitr::kable(univariate_logistic_df, booktabs = TRUE, digits = 2, col.names = c("Variable", "OR", "IC 95% inférieur", "IC 95% supérieur", "p-value"))
 ```
 
 
-
-
 \newpage
-# Annexe : code R 
+
+# Annexe : code R
 
 ```{r}
 #| echo: false
@@ -2132,9 +2124,6 @@ code <- readLines("all_chunks_code.R", warn = FALSE)
 	
 	if (knitr::is_latex_output()) {
   code_safe <- code_wrapped
-  # listings (LaTeX) interprète parfois l'apostrophe dans des noms entre backticks
-  # (ex: `Nombre d'observations`) comme une chaîne non terminée => tout passe en "stringstyle".
-  # Pour l'affichage de l'annexe, on remplace ces backticks par des guillemets.
   code_safe <- gsub("`([^`]*[’'][^`]*)`", "\"\\1\"", code_safe, perl = TRUE)
   code_safe <- gsub("`([^`]*\\s+[^`]*)`", "\"\\1\"", code_safe, perl = TRUE)
   code_safe <- gsub(
@@ -2151,4 +2140,3 @@ code <- readLines("all_chunks_code.R", warn = FALSE)
     cat("\n```")
 }
 ```
-

@@ -1,3 +1,20 @@
+@article{austinBalanceDiagnosticsComparing2009,
+  title = {Balance Diagnostics for Comparing the Distribution of Baseline Covariates between Treatment Groups in Propensity-Score Matched Samples},
+  author = {Austin, Peter C.},
+  year = 2009,
+  journal = {Statistics in Medicine},
+  volume = {28},
+  number = {25},
+  pages = {3083--3107},
+  issn = {1097-0258},
+  doi = {10.1002/sim.3697},
+  urldate = {2026-03-09},
+  abstract = {The propensity score is a subject's probability of treatment, conditional on observed baseline covariates. Conditional on the true propensity score, treated and untreated subjects have similar distributions of observed baseline covariates. Propensity-score matching is a popular method of using the propensity score in the medical literature. Using this approach, matched sets of treated and untreated subjects with similar values of the propensity score are formed. Inferences about treatment effect made using propensity-score matching are valid only if, in the matched sample, treated and untreated subjects have similar distributions of measured baseline covariates. In this paper we discuss the following methods for assessing whether the propensity score model has been correctly specified: comparing means and prevalences of baseline characteristics using standardized differences; ratios comparing the variance of continuous covariates between treated and untreated subjects; comparison of higher order moments and interactions; five-number summaries; and graphical methods such as quantile--quantile plots, side-by-side boxplots, and non-parametric density plots for comparing the distribution of baseline covariates between treatment groups. We describe methods to determine the sampling distribution of the standardized difference when the true standardized difference is equal to zero, thereby allowing one to determine the range of standardized differences that are plausible with the propensity score model having been correctly specified. We highlight the limitations of some previously used methods for assessing the adequacy of the specification of the propensity-score model. In particular, methods based on comparing the distribution of the estimated propensity score between treated and untreated subjects are uninformative. Copyright \copyright{} 2009 John Wiley \& Sons, Ltd.},
+  langid = {english},
+  keywords = {balance,bias,goodness-of-fit,matching,observational study,propensity score,propensity-score matching,standardized difference},
+  file = {/Users/thomashusson/Zotero/storage/QA94TZAC/Austin - 2009 - Balance diagnostics for comparing the distribution of baseline covariates between treatment groups i.pdf;/Users/thomashusson/Zotero/storage/K7W8D2N6/sim.html}
+}
+
 @article{austinComparison12Algorithms2014,
   title = {A Comparison of 12 Algorithms for Matching on the Propensity Score},
   author = {Austin, Peter C},
@@ -31,6 +48,109 @@
   abstract = {The propensity score is the probability of treatment assignment conditional on observed baseline characteristics. The propensity score allows one to design and analyze an observational (nonrandomized) study so that it mimics some of the particular characteristics of a randomized controlled trial. In particular, the propensity score is a balancing score: conditional on the propensity score, the distribution of observed baseline covariates will be similar between treated and untreated subjects. I describe 4 different propensity score methods: matching on the propensity score, stratification on the propensity score, inverse probability of treatment weighting using the propensity score, and covariate adjustment using the propensity score. I describe balance diagnostics for examining whether the propensity score model has been adequately specified. Furthermore, I discuss differences between regression-based methods and propensity score-based methods for the analysis of observational data. I describe different causal average treatment effects and their relationship with propensity score analyses.},
   pmcid = {PMC3144483},
   pmid = {21818162}
+}
+
+@article{austinOptimalCaliperWidths2011,
+  title = {Optimal Caliper Widths for Propensity-Score Matching When Estimating Differences in Means and Differences in Proportions in Observational Studies},
+  author = {Austin, Peter C},
+  year = 2011,
+  month = mar,
+  journal = {Pharmaceutical Statistics},
+  volume = {10},
+  number = {2},
+  pages = {150--161},
+  issn = {1539-1604},
+  doi = {10.1002/pst.433},
+  urldate = {2026-03-09},
+  abstract = {In a study comparing the effects of two treatments, the propensity score is the probability of assignment to one treatment conditional on a subject's measured baseline covariates. Propensity-score matching is increasingly being used to estimate the effects of exposures using observational data. In the most common implementation of propensity-score matching, pairs of treated and untreated subjects are formed whose propensity scores differ by at most a pre-specified amount (the caliper width). There has been a little research into the optimal caliper width. We conducted an extensive series of Monte Carlo simulations to determine the optimal caliper width for estimating differences in means (for continuous outcomes) and risk differences (for binary outcomes). When estimating differences in means or risk differences, we recommend that researchers match on the logit of the propensity score using calipers of width equal to 0.2 of the standard deviation of the logit of the propensity score. When at least some of the covariates were continuous, then either this value, or one close to it, minimized the mean square error of the resultant estimated treatment effect. It also eliminated at least 98\% of the bias in the crude estimator, and it resulted in confidence intervals with approximately the correct coverage rates. Furthermore, the empirical type I error rate was approximately correct. When all of the covariates were binary, then the choice of caliper width had a much smaller impact on the performance of estimation of risk differences and differences in means. Copyright \copyright{} 2010 John Wiley \& Sons, Ltd.},
+  pmcid = {PMC3120982},
+  pmid = {20925139},
+  file = {/Users/thomashusson/Zotero/storage/66ZDJBXI/Austin - 2011 - Optimal caliper widths for propensity-score matching when estimating differences in means and differ.pdf}
+}
+
+@article{austinUsePropensityScore2014,
+  title = {The Use of Propensity Score Methods with Survival or Time-to-Event Outcomes: Reporting Measures of Effect Similar to Those Used in Randomized Experiments},
+  shorttitle = {The Use of Propensity Score Methods with Survival or Time-to-Event Outcomes},
+  author = {Austin, Peter C},
+  year = 2014,
+  month = mar,
+  journal = {Statistics in Medicine},
+  volume = {33},
+  number = {7},
+  pages = {1242--1258},
+  issn = {0277-6715},
+  doi = {10.1002/sim.5984},
+  urldate = {2026-03-09},
+  abstract = {Propensity score methods are increasingly being used to estimate causal treatment effects in observational studies. In medical and epidemiological studies, outcomes are frequently time-to-event in nature. Propensity-score methods are often applied incorrectly when estimating the effect of treatment on time-to-event outcomes. This article describes how two different propensity score methods (matching and inverse probability of treatment weighting) can be used to estimate the measures of effect that are frequently reported in randomized controlled trials: (i) marginal survival curves, which describe survival in the population if all subjects were treated or if all subjects were untreated; and (ii) marginal hazard ratios. The use of these propensity score methods allows one to replicate the measures of effect that are commonly reported in randomized controlled trials with time-to-event outcomes: both absolute and relative reductions in the probability of an event occurring can be determined. We also provide guidance on variable selection for the propensity score model, highlight methods for assessing the balance of baseline covariates between treated and untreated subjects, and describe the implementation of a sensitivity analysis to assess the effect of unmeasured confounding variables on the estimated treatment effect when outcomes are time-to-event in nature. The methods in the paper are illustrated by estimating the effect of discharge statin prescribing on the risk of death in a sample of patients hospitalized with acute myocardial infarction. In this tutorial article, we describe and illustrate all the steps necessary to conduct a comprehensive analysis of the effect of treatment on time-to-event outcomes. \copyright{} 2013 The authors. Statistics in Medicine published by John Wiley \& Sons, Ltd.},
+  pmcid = {PMC4285179},
+  pmid = {24122911},
+  file = {/Users/thomashusson/Zotero/storage/HJFJMZ68/Austin - 2014 - The use of propensity score methods with survival or time-to-event outcomes reporting measures of e.pdf}
+}
+
+@article{connorsEffectivenessRightHeart1996,
+  title = {The {{Effectiveness}} of {{Right Heart Catheterization}} in the {{Initial Care}} of {{Critically III Patients}}},
+  author = {Connors, Jr, Alfred F. and Speroff, Theodore and Dawson, Neal V. and Thomas, Charles and Harrell, Jr, Frank E. and Wagner, Douglas and Desbiens, Norman and Goldman, Lee and Wu, Albert W. and Califf, Robert M. and Fulkerson, Jr, William J. and Vidaillet, Humberto and Broste, Steven and Bellamy, Paul and Lynn, Joanne and Knaus, William A.},
+  year = 1996,
+  month = sep,
+  journal = {JAMA},
+  volume = {276},
+  number = {11},
+  pages = {889--897},
+  issn = {0098-7484},
+  doi = {10.1001/jama.1996.03540110043030},
+  urldate = {2026-03-09},
+  abstract = {---To examine the association between the use of right heart catheterization (RHC) during the first 24 hours of care in the intensive care unit (ICU) and subsequent survival, length of stay, intensity of care, and cost of care.---Prospective cohort study.---Five US teaching hospitals between 1989 and 1994.---A total of 5735 critically ill adult patients receiving care in an ICU for 1 of 9 prespecified disease categories.---Survival time, cost of care, intensity of care, and length of stay in the ICU and hospital, determined from the clinical record and from the National Death Index. A propensity score for RHC was constructed using multivariable logistic regression. Case-matching and multivariable regression modeling techniques were used to estimate the association of RHC with specific outcomes after adjusting for treatment selection using the propensity score. Sensitivity analysis was used to estimate the potential effect of an unidentified or missing covariate on the results.---By case-matching analysis, patients with RHC had an increased 30-day mortality (odds ratio, 1.24; 95\% confidence interval, 1.03-1.49). The mean cost (25th, 50th, 75th percentiles) per hospital stay was \$49300 (\$17000, \$30500, \$56600) with RHC and \$35700 (\$11 300, \$20600, \$39200) without RHC. Mean length of stay in the ICU was 14.8 (5,9, 17) days with RHC and 13.0 (4,7, 14) days without RHC. These findings were all confirmed by multivariable modeling techniques. Subgroup analysis did not reveal any patient group or site for which RHC was associated with improved outcomes. Patients with higher baseline probability of surviving 2 months had the highest relative risk of death following RHC. Sensitivity analysis suggested that a missing covariate would have to increase the risk of death 6-fold and the risk of RHC 6-fold for a true beneficial effect of RHC to be misrepresented as harmful.---In this observational study of critically ill patients, after adjustment for treatment selection bias, RHC was associated with increased mortality and increased utilization of resources. The cause of this apparent lack of benefit is unclear. The results of this analysis should be confirmed in other observational studies. These findings justify reconsideration of a randomized controlled trial of RHC and may guide patient selection for such a study.},
+  file = {/Users/thomashusson/Zotero/storage/S2RWYN5T/jama.1996.html}
+}
+
+@article{eisetConsiderationsUsingMultiple2022,
+  title = {Considerations for {{Using Multiple Imputation}} in {{Propensity Score-Weighted Analysis}} -- {{A Tutorial}} with {{Applied Example}}},
+  author = {Eiset, Andreas Halgreen and Frydenberg, Morten},
+  year = 2022,
+  month = jul,
+  journal = {Clinical Epidemiology},
+  volume = {14},
+  pages = {835--847},
+  issn = {1179-1349},
+  doi = {10.2147/CLEP.S354733},
+  urldate = {2026-03-09},
+  abstract = {Purpose Propensity score-weighting for confounder control and multiple imputation to counter missing data are both widely used methods in epidemiological research. Combination of the two is not trivial and requires a number of decisions to produce valid inference. In this tutorial, we outline the assumptions underlying each of the methods, present our considerations in combining the two, discuss the methodological and practical implications of our choices and briefly point to alternatives. Throughout we apply the theory to a research project about post-traumatic stress disorder in Syrian refugees. Patients and Methods We detail how we used logistic regression-based propensity scores to produce ``standardized mortality ratio''-weights and Substantive Model Compatible-Full Conditional Specification for multiple imputation of missing data to get the estimate of association. Finally, a percentile confidence interval was produced by bootstrapping. Results A simple propensity score model with weight truncation at 1st and 99th percentile obtained acceptable balance on all covariates and was chosen as our model. Due to computational issues in the multiple imputation, two levels of one of the substantive model covariates and two levels of one of the auxiliary covariates were collapsed. This slightly modified propensity score model was the substantive model in the SMC-FCS multiple imputation, and regression models were set up for all partially observed covariates. We set the number of imputations to 10 and number of iterations to 40. We produced 999 bootstrap estimates to compute the 95-percentile confidence interval. Conclusion Combining propensity score-weighting and multiple imputation is not a trivial task. We present considerations necessary to do so, realizing it is demanding in terms of both workload and computational time; however, we do not consider the former a drawback: it makes some of the underlying assumptions explicit and the latter may be a nuisance that will diminish with faster computers and better implementations.},
+  pmcid = {PMC9272848},
+  pmid = {35832574},
+  file = {/Users/thomashusson/Zotero/storage/YAU4XISL/Eiset and Frydenberg - 2022 - Considerations for Using Multiple Imputation in Propensity Score-Weighted Analysis – A Tutorial with.pdf}
+}
+
+@article{eisetConsiderationsUsingMultiple2022a,
+  title = {Considerations for {{Using Multiple Imputation}} in {{Propensity Score-Weighted Analysis}} -- {{A Tutorial}} with {{Applied Example}}},
+  author = {Eiset, Andreas Halgreen and Frydenberg, Morten},
+  year = 2022,
+  month = jul,
+  journal = {Clinical Epidemiology},
+  volume = {14},
+  pages = {835--847},
+  issn = {1179-1349},
+  doi = {10.2147/CLEP.S354733},
+  urldate = {2026-03-09},
+  abstract = {Purpose Propensity score-weighting for confounder control and multiple imputation to counter missing data are both widely used methods in epidemiological research. Combination of the two is not trivial and requires a number of decisions to produce valid inference. In this tutorial, we outline the assumptions underlying each of the methods, present our considerations in combining the two, discuss the methodological and practical implications of our choices and briefly point to alternatives. Throughout we apply the theory to a research project about post-traumatic stress disorder in Syrian refugees. Patients and Methods We detail how we used logistic regression-based propensity scores to produce ``standardized mortality ratio''-weights and Substantive Model Compatible-Full Conditional Specification for multiple imputation of missing data to get the estimate of association. Finally, a percentile confidence interval was produced by bootstrapping. Results A simple propensity score model with weight truncation at 1st and 99th percentile obtained acceptable balance on all covariates and was chosen as our model. Due to computational issues in the multiple imputation, two levels of one of the substantive model covariates and two levels of one of the auxiliary covariates were collapsed. This slightly modified propensity score model was the substantive model in the SMC-FCS multiple imputation, and regression models were set up for all partially observed covariates. We set the number of imputations to 10 and number of iterations to 40. We produced 999 bootstrap estimates to compute the 95-percentile confidence interval. Conclusion Combining propensity score-weighting and multiple imputation is not a trivial task. We present considerations necessary to do so, realizing it is demanding in terms of both workload and computational time; however, we do not consider the former a drawback: it makes some of the underlying assumptions explicit and the latter may be a nuisance that will diminish with faster computers and better implementations.},
+  pmcid = {PMC9272848},
+  pmid = {35832574},
+  file = {/Users/thomashusson/Zotero/storage/KGXKFWKE/Eiset and Frydenberg - 2022 - Considerations for Using Multiple Imputation in Propensity Score-Weighted Analysis – A Tutorial with.pdf}
+}
+
+@article{imaiMisunderstandingsExperimentalistsObservationalists2008,
+  title = {Misunderstandings {{Between Experimentalists}} and {{Observationalists}} about {{Causal Inference}}},
+  author = {Imai, Kosuke and King, Gary and Stuart, Elizabeth A.},
+  year = 2008,
+  month = apr,
+  journal = {Journal of the Royal Statistical Society Series A: Statistics in Society},
+  volume = {171},
+  number = {2},
+  pages = {481--502},
+  issn = {0964-1998},
+  doi = {10.1111/j.1467-985X.2007.00527.x},
+  urldate = {2026-03-09},
+  abstract = {We attempt to clarify, and suggest how to avoid, several serious misunderstandings about and fallacies of causal inference. These issues concern some of the most fundamental advantages and disadvantages of each basic research design. Problems include improper use of hypothesis tests for covariate balance between the treated and control groups, and the consequences of using randomization, blocking before randomization and matching after assignment of treatment to achieve covariate balance. Applied researchers in a wide range of scientific disciplines seem to fall prey to one or more of these fallacies and as a result make suboptimal design or analysis choices. To clarify these points, we derive a new four-part decomposition of the key estimation errors in making causal inferences. We then show how this decomposition can help scholars from different experimental and observational research traditions to understand better each other's inferential problems and attempted solutions.},
+  file = {/Users/thomashusson/Zotero/storage/AMMIW6QK/Imai et al. - 2008 - Misunderstandings Between Experimentalists and Observationalists about Causal Inference.pdf;/Users/thomashusson/Zotero/storage/GXP45LNF/j.1467-985X.2007.00527.html}
 }
 
 @article{janssenDealingMissingPredictor2009,
@@ -90,6 +210,24 @@
   file = {/Users/thomashusson/Zotero/storage/76UQ9DQV/Riley et al. - 2020 - Calculating the sample size required for developing a clinical prediction model.pdf}
 }
 
+@article{stuartPrognosticScoreBased2013,
+  title = {Prognostic Score--Based Balance Measures Can Be a Useful Diagnostic for Propensity Score Methods in Comparative Effectiveness Research},
+  author = {Stuart, Elizabeth A. and Lee, Brian K. and Leacy, Finbarr P.},
+  year = 2013,
+  month = aug,
+  journal = {Journal of Clinical Epidemiology},
+  series = {Methods for {{Comparative Effectiveness Research}}/{{Patient-Centered Outcomes Research}}: {{From Efficacy}} to {{Effectiveness}}},
+  volume = {66},
+  number = {8, Supplement},
+  pages = {S84-S90.e1},
+  issn = {0895-4356},
+  doi = {10.1016/j.jclinepi.2013.01.013},
+  urldate = {2026-03-09},
+  abstract = {Objective Examining covariate balance is the prescribed method for determining the degree to which propensity score methods should be successful at reducing bias. This study assessed the performance of various balance measures, including a proposed balance measure based on the prognostic score (similar to a disease risk score), to determine which balance measures best correlate with bias in the treatment effect estimate. Study Design and Setting The correlations of multiple common balance measures with bias in the treatment effect estimate produced by weighting by the odds, subclassification on the propensity score, and full matching on the propensity score were calculated. Simulated data were used, based on realistic data settings. Settings included both continuous and binary covariates and continuous covariates only. Results The absolute standardized mean difference (ASMD) in prognostic scores, the mean ASMD (in covariates), and the mean t-statistic all had high correlations with bias in the effect estimate. Overall, prognostic scores displayed the highest correlations with bias of all the balance measures considered. Prognostic score measure performance was generally not affected by model misspecification, and the prognostic score measure performed well under a variety of scenarios. Conclusion Researchers should consider using prognostic score--based balance measures for assessing the performance of propensity score methods for reducing bias in nonexperimental studies.},
+  keywords = {Causal inference,Confounding,Disease risk score,Matching methods,Nonexperimental study,Propensity score diagnostics},
+  file = {/Users/thomashusson/Zotero/storage/JUPQ769H/Stuart et al. - 2013 - Prognostic score–based balance measures can be a useful diagnostic for propensity score methods in c.pdf;/Users/thomashusson/Zotero/storage/MCDRTXZT/S0895435613001625.html}
+}
+
 @article{vergouweDevelopmentValidationPrediction2010,
   title = {Development and Validation of a Prediction Model with Missing Predictor Data: A Practical Approach},
   shorttitle = {Development and Validation of a Prediction Model with Missing Predictor Data},
@@ -108,4 +246,22 @@
   pmid = {19596181},
   keywords = {Clinical prediction models,Deep venous thrombosis,Missing values,Model development,Model validation,Multiple imputation},
   file = {/Users/thomashusson/Zotero/storage/SGH8LZ74/Vergouwe et al. - 2010 - Development and validation of a prediction model with missing predictor data a practical approach.pdf}
+}
+
+@article{zhangBalanceDiagnosticsPropensity2019,
+  title = {Balance Diagnostics after Propensity Score Matching},
+  author = {Zhang, Zhongheng and Kim, Hwa Jung and Lonjon, Guillaume and Zhu, Yibing},
+  year = 2019,
+  month = jan,
+  journal = {Annals of Translational Medicine},
+  volume = {7},
+  number = {1},
+  pages = {16},
+  issn = {2305-5839},
+  doi = {10.21037/atm.2018.12.10},
+  urldate = {2026-03-09},
+  abstract = {Propensity score matching (PSM) is a popular method in clinical researches to create a balanced covariate distribution between treated and untreated groups. However, the balance diagnostics are often not appropriately conducted and reported in the literature and therefore the validity of the findings from the PSM analysis is not warranted. The special article aims to outline the methods used for assessing balance in covariates after PSM. Standardized mean difference (SMD) is the most commonly used statistic to examine the balance of covariate distribution between treatment groups. Because SMD is independent of the unit of measurement, it allows comparison between variables with different unit of measurement. SMD can be reported with plot. Variance is the second central moment and should also be compared in the matched sample. Finally, a correct specification of the propensity score model (e.g., linearity and additivity) should be re-assessed if there is evidence of imbalance between treated and untreated. R code for the implementation of balance diagnostics is provided and explained.},
+  pmcid = {PMC6351359},
+  pmid = {30788363},
+  file = {/Users/thomashusson/Zotero/storage/6NES535X/Zhang et al. - 2019 - Balance diagnostics after propensity score matching.pdf}
 }
