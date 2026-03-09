@@ -1502,9 +1502,12 @@ love_plot_baseline <- cobalt::love.plot(
 print(love_plot_baseline)
 
 # identification des variables avec SMD > 0.1 en valeur absolue
-smd_threshold <- 0.1
-imbalanced_vars <- rownames(balance_baseline_clean$Balance)[abs(balance_baseline_clean$Balance$Diff.Un) > smd_threshold]
-imbalanced_vars
+imbalanced_vars <- rownames(balance_baseline_clean$Balance)[abs(balance_baseline_clean$Balance$Diff.Un) > 0.1]
+smd_summary_df <- data.frame(
+  `Variable` = imbalanced_vars,
+  `SMD` = abs(round(balance_baseline_clean$Balance[imbalanced_vars, "Diff.Un"], 3))
+)
+knitr::kable(smd_summary_df, booktabs = TRUE)
 
 # imputation par la médiane pour les variables score ADL et diurèse
 df_imputed <- df

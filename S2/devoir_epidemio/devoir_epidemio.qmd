@@ -34,7 +34,6 @@ format:
         header-includes: |
             % Force la police Computer Modern pour le titre principal
             \usepackage{fontspec}
-            \setmainfont{Ubuntu}
             \makeatletter
             \renewcommand{\maketitle}{
             \begin{center}
@@ -127,7 +126,11 @@ format:
 
             \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
             \setlength{\parindent}{0pt}
-            \setlength{\parskip}{4pt}
+            \setlength{\parskip}{3pt}
+            \usepackage{enumitem}
+            \setlist[itemize]{itemsep=3pt, parsep=3pt, topsep=3pt}
+            \setlist[enumerate]{itemsep=3pt, parsep=3pt, topsep=3pt}
+            \setlist[description]{itemsep=3pt, parsep=3pt, topsep=3pt}
 
             \usepackage[most]{tcolorbox}
             \usepackage{color}
@@ -1439,6 +1442,10 @@ knitr::kable(outlier_summary_df, booktabs = TRUE)
 -   On propose d'imputer toutes ces valeurs manquantes par la médiane de chaque variable, ce qui est une méthode simple et robuste pour gérer les valeurs aberrantes et les données manquantes.
 
 ```{r}
+#| label: code-imputation-outliers
+#| echo: false
+#| message: false
+#| warning: false
 # imputation des valeurs 0 par la médiane de chaque variable
 df$mean_blood_pressure[df$mean_blood_pressure == 0] <- median(df$mean_blood_pressure[df$mean_blood_pressure > 0], na.rm = TRUE)
 df$wbc[df$wbc == 0] <- median(df$wbc[df$wbc > 0], na.rm = TRUE)
@@ -1792,6 +1799,7 @@ qqnorm(
 qqline(df$age, col = "red", lwd = 2)
 ```
 
+\newpage
 # Analyse non ajustée
 
 ## Résultats
@@ -1959,13 +1967,9 @@ print(km_plot)
 
 -   Il faut donc réaliser une analyse ajustée pour contrôler les facteurs de confusion potentiels et améliorer la comparabilité des groupes RHC vs non-RHC.
 
--   Mais pour ça, il convient d'abord d'évaluer l'impact de ces facteurs de confusion potentiels sur la relation entre le RHC et les critères d'intérêt (décès à 30 jours, décès à 180 jours, temps de survie).
+-   Il est probable que les patients ayant eu un RHC étaient plus sévères au départ, ce qui pourrait expliquer la plus grande mortalité observée dans ce groupe
 
--   L'évaluation de l'impact est primordiale ! Si l'on décide ensuite d'apparier les patients sur les facteurs de confusion potentiels, il est important de savoir quels sont les facteurs qui ont le plus d'impact sur la relation entre le RHC et les critères d'intérêt, afin de les inclure dans le modèle d'appariement.
-
--   Il faut aussi évaluer l'impact de ces facteurs de confusion sur la réalisation d'un cathétérisme : par exemple, les patients ayant un cancer métastatique sont-ils plus susceptibles d'avoir un RHC ?
-
--   Il y a donc un biais de confusion (confusion par indication) : les patients recevant un RHC sont plus sévères au départ, ce qui peut expliquer la mortalité plus élevée observée dans ce groupe.
+-   Il est donc essentiel d'explorer les caractéristiques basales des patients dans les groupes RHC vs non-RHC pour identifier les facteurs de confusion potentiels et évaluer la comparabilité des groupes avant de réaliser une analyse ajustée.
 
 ## Les patients ayant eu un cathétérisme cardiaque droit sont-ils comparables aux patients n'en ayant pas eu ?
 
@@ -1978,10 +1982,6 @@ print(km_plot)
     -   Une analyse univariée avec test pour chaque variable (test de chi2 pour les variables catégorielles, test de t pour les variables numériques) peut être réalisée pour comparer les caractéristiques basales entre les groupes RHC et non-RHC, mais ça va donner beaucoup de p-values à interpréter et il y a un risque de surinterprétation des résultats.
 
     -   On peut réaliser un "love plot" pour visualiser les différences moyennes standardisées (qui correspondent à la différence de moyenne entre les groupes RHC et non-RHC, divisée par l'écart-type) pour chaque variable, avant et après ajustement (par exemple, après appariement). Cela permet de visualiser l'équilibre des covariables entre les groupes.
-
-    -   On peut également réaliser une analyse multivariée pour évaluer l'impact des facteurs de confusion sur la relation entre le RHC et les critères d'intérêt.
-
-    -   Cela peut inclure des modèles de régression ajustés pour les facteurs de confusion identifiés, afin d'estimer l'effet du RHC sur les résultats tout en contrôlant ces facteurs.
 
 ### Tests comparatifs des caractéristiques basales entre les groupes RHC vs non-RHC
 
@@ -2246,50 +2246,17 @@ print(love_plot_baseline)
 #| echo: false
 #| message: false
 #| warning: false
-#| results: false
+#| results: asis
 # identification des variables avec SMD > 0.1 en valeur absolue
-smd_threshold <- 0.1
-imbalanced_vars <- rownames(balance_baseline_clean$Balance)[abs(balance_baseline_clean$Balance$Diff.Un) > smd_threshold]
-imbalanced_vars
+imbalanced_vars <- rownames(balance_baseline_clean$Balance)[abs(balance_baseline_clean$Balance$Diff.Un) > 0.1]
+smd_summary_df <- data.frame(
+  `Variable` = imbalanced_vars,
+  `SMD` = abs(round(balance_baseline_clean$Balance[imbalanced_vars, "Diff.Un"], 3))
+)
+knitr::kable(smd_summary_df, booktabs = TRUE)
 ```
 
--   Les variables ayant une différence moyenne standardisée supérieure à 0.1 en valeur absolue sont : 
-
-    -  Score ADL (SMD = `r abs(round(balance_baseline_clean$Balance["adl_score", "Diff.Un"], 3))`)
-
-    -  Score de Glasgow (SMD = `r abs(round(balance_baseline_clean$Balance["glasgow_score", "Diff.Un"], 3))`)
-
-    -  Score APACHE (SMD = `r abs(round(balance_baseline_clean$Balance["apache_score", "Diff.Un"], 3))`)
-
-    -  Diagnostic primaire choc septique (SMD = `r abs(round(balance_baseline_clean$Balance["primary_binaire_choc_septique_Yes", "Diff.Un"], 3))`)
-
-    -  Diagnostic associé respiratoire (SMD = `r abs(round(balance_baseline_clean$Balance["diagnosis_respiratory_Yes", "Diff.Un"], 3))`)
-
-    -  Diagnostic associé cardiovasculaire (SMD = `r abs(round(balance_baseline_clean$Balance["diagnosis_cardiovascular_Yes", "Diff.Un"], 3))`)
-
-    -  Diagnostic associé neurologique (SMD = `r abs(round(balance_baseline_clean$Balance["diagnosis_neurological_Yes", "Diff.Un"], 3))`)
-
-    -  Poids (SMD = `r abs(round(balance_baseline_clean$Balance["weight", "Diff.Un"], 3))`)
-
-    -  Pression artérielle moyenne (SMD = `r abs(round(balance_baseline_clean$Balance["mean_blood_pressure", "Diff.Un"], 3))`)
-
-    -  Fréquence cardiaque (SMD = `r abs(round(balance_baseline_clean$Balance["heart_rate", "Diff.Un"], 3))`)
-
-    -  Fréquence respiratoire (SMD = `r abs(round(balance_baseline_clean$Balance["respiratory_rate", "Diff.Un"], 3))`)
-
-    -  Ratio Pa/FI (SMD = `r abs(round(balance_baseline_clean$Balance["pa_fi_ratio", "Diff.Un"], 3))`)
-
-    -  Albumine (SMD = `r abs(round(balance_baseline_clean$Balance["albumin", "Diff.Un"], 3))`)
-
-    -  Hématocrite (SMD = `r abs(round(balance_baseline_clean$Balance["hematocrit", "Diff.Un"], 3))`)
-
-    -  Bilirubine (SMD = `r abs(round(balance_baseline_clean$Balance["bilirubin", "Diff.Un"], 3))`)
-
-    -  Créatinine (SMD = `r abs(round(balance_baseline_clean$Balance["creatinine", "Diff.Un"], 3))`)
-
-    -  PaCO2 (SMD = `r abs(round(balance_baseline_clean$Balance["paco2", "Diff.Un"], 3))`)
-
-    -  pH (SMD = `r abs(round(balance_baseline_clean$Balance["ph", "Diff.Un"], 3))`)
+-   Les variables ayant une différence moyenne standardisée supérieure à 0.1 en valeur absolue sont le score ADL, le score de Glasgow, le score APACHE, les diagnostics principaux et associés, le poids, la pression artérielle moyenne, la fréquence cardiaque, la fréquence respiratoire, le ratio Pa/FI, l'albumine, l'hématocrite, la bilirubine, la créatinine, la PaCO2 et le pH.
 
 \newpage
 # Appariement selon score de propension
@@ -2739,7 +2706,7 @@ knitr::kable(cox_results, booktabs = TRUE)
 
 -   Le modèle de Cox stratifié sur les paires avec estimation robuste de la variance indique que le RHC est associé à un risque de décès à 180 jours significativement plus élevé que le non-RHC.
 
--   Le risque instantané de décès à 180 jours est multiplié par 1.23 chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de 1.11 à 1.36, et une p-value < 0.001.
+-   Le risque instantané de décès à 180 jours est multiplié par `r cox_results$HR` chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de `r cox_results$IC_95` et une p-value < 0.001.
 
 -   En détails : 
 
@@ -2835,7 +2802,7 @@ cox_multivariate_results$Variable <- "RHC vs No RHC"
 knitr::kable(cox_multivariate_results, booktabs = TRUE)
 ```
 
--   On trouve un risque instantané de décès à 180 jours multiplié par 1.23 chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de 1.11 à 1.36, et une p-value < 0.001. 
+-   On trouve un risque instantané de décès à 180 jours multiplié par `r cox_multivariate_results$HR` chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de `r cox_multivariate_results$IC95` et une p-value < 0.001. 
 
 -   C'est très similaire aux résultats obtenus dans la population appariée !
 
