@@ -1888,6 +1888,49 @@ cox_multivariate_results$Variable <- "RHC vs No RHC"
 
 knitr::kable(cox_multivariate_results, booktabs = TRUE)
 
+
+# 1. Modèle brut (non ajusté) sur population totale
+cox_brut <- coxph(Surv(survival_time_180d, event_180d) ~ rhc, data = df_imputed)
+sum_brut <- summary(cox_brut)
+
+# 2. Modèle sur population appariée (récupération du modèle précédent)
+sum_match <- summary(cox_model)
+
+# 3. Modèle multivarié sur population totale (récupération du modèle précédent)
+sum_multi <- summary(cox_multivariate_model)
+
+# Construction du tableau récapitulatif
+comp_df <- data.frame(
+  Approche = c(
+    "Analyse brute (Population totale)",
+    "Analyse appariée (Score de propension)",
+    "Analyse multivariée (Population totale)"
+  ),
+  HR = c(
+    round(sum_brut$coefficients[1, "exp(coef)"], 2),
+    round(sum_match$coefficients[1, "exp(coef)"], 2),
+    round(sum_multi$coefficients[1, "exp(coef)"], 2)
+  ),
+  `IC 95%` = c(
+    paste0("(", round(sum_brut$conf.int[1, "lower .95"], 2), ", ", round(sum_brut$conf.int[1, "upper .95"], 2), ")"),
+    paste0("(", round(sum_match$conf.int[1, "lower .95"], 2), ", ", round(sum_match$conf.int[1, "upper .95"], 2), ")"),
+    paste0("(", round(sum_multi$conf.int[1, "lower .95"], 2), ", ", round(sum_multi$conf.int[1, "upper .95"], 2), ")")
+  ),
+  `p-value` = c(
+    format.pval(sum_brut$coefficients[1, "Pr(>|z|)"], eps = 0.001),
+    format.pval(sum_match$coefficients[1, "Pr(>|z|)"], eps = 0.001),
+    format.pval(sum_multi$coefficients[1, "Pr(>|z|)"], eps = 0.001)
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(
+  comp_df, 
+  booktabs = TRUE, 
+  caption = "Comparaison des rapports de risques (HR) selon la méthode d'ajustement"
+) %>%
+  kableExtra::kable_styling(latex_options = "hold_position")
+
 # calcul des p-values pour les variables basales après appariement
 df_baseline_post_matching <- df_matched[, unique(c("rhc", cols_to_include_baseline))]
 
