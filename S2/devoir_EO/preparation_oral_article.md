@@ -2,510 +2,522 @@
 
 ## DIAPO 1
 
-- Article présenté : essai sur le pramipexole en ajout d'un antidépresseur chez des patients avec dépression unipolaire résistante.
-- Titre de l'article : augmentation par pramipexole dans la phase aiguë de la dépression unipolaire résistante, essai randomisé contrôlé placebo, en double aveugle, au Royaume-Uni.
-- La question de recherche est très clinique : chez des adultes déjà traités par antidépresseur mais insuffisamment améliorés, est-ce que l'ajout de pramipexole réduit davantage les symptômes qu'un placebo ?
-- Le critère principal porte sur l'efficacité à 12 semaines.
-- L'étude suit aussi les patients jusqu'à 48 semaines pour la maintenance, la tolérance et le fonctionnement.
+- L'article présente un essai clinique sur le pramipexole, utilisé en ajout à un antidépresseur, chez des patients ayant une dépression unipolaire résistante.
+- Le titre de l'étude annonce clairement le cadre : phase aiguë, dépression unipolaire résistante, essai randomisé, contrôlé par placebo, en double aveugle, mené au Royaume-Uni.
+- La question de recherche est simple : chez des adultes déjà traités par antidépresseur mais insuffisamment améliorés, l'ajout de pramipexole permet-il de réduire davantage les symptômes qu'un placebo ?
+- Le critère principal d'efficacité est évalué à 12 semaines.
+- Les patients sont ensuite suivis jusqu'à 48 semaines pour décrire l'évolution clinique, la tolérance et le fonctionnement.
 
 ## DIAPO 2
 
-- Le thème est la treatment-resistant depression, donc une dépression qui persiste malgré des traitements bien conduits.
-- Dans cette étude, la résistance est définie de manière pragmatique : absence de réponse à au moins deux traitements antidépresseurs pendant l'épisode actuel.
-- Le rationnel pharmacologique est dopaminergique.
-- Le pramipexole est un agoniste D2/D3.
-- L'idée est qu'il pourrait agir sur l'anhédonie, la baisse de motivation et la réduction de la sensibilité à la récompense.
-- Intérêt méthodologique : on est dans une logique de repositionnement thérapeutique, c'est-à-dire tester en psychiatrie un médicament déjà connu dans une autre indication.
+- Le sujet de fond est la treatment-resistant depression, c'est-à-dire une dépression qui persiste malgré des traitements antidépresseurs correctement conduits.
+- Dans cette étude, la résistance est définie de façon pragmatique : le patient n'a pas répondu à au moins deux traitements antidépresseurs au cours de l'épisode actuel.
+- Le rationnel du traitement est dopaminergique.
+- Le pramipexole est un agoniste des récepteurs dopaminergiques D2 et D3.
+- Les auteurs font l'hypothèse qu'il pourrait agir sur l'anhédonie, la perte de motivation et la baisse de sensibilité à la récompense.
+- Sur le plan méthodologique, on est donc dans une logique de repositionnement thérapeutique : on évalue en psychiatrie un médicament déjà utilisé dans une autre indication.
 
 ## DIAPO 3
 
-- Objectif principal : comparer pramipexole versus placebo sur la variation du QIDS-SR16 entre le début et la semaine 12.
-- Objectifs secondaires :
-- décrire la réponse et la rémission ;
-- évaluer l'effet sur l'anhédonie, l'anxiété, le fonctionnement et la satisfaction ;
-- documenter la tolérance ;
-- dans le protocole initial, étudier aussi un mécanisme cognitif autour de la sensibilité à la récompense ;
-- ajouter une évaluation médico-économique à 48 semaines.
-- Point important à l'oral :
-- l'article principal publié dans *The Lancet Psychiatry* rapporte surtout la partie clinique ;
-- le protocole initial était plus large, avec un versant mécanistique et économique.
+- L'objectif principal est de comparer pramipexole et placebo sur la variation du score QIDS-SR16 entre l'inclusion et la semaine 12.
+- Les objectifs secondaires sont plus larges.
+- Il s'agit de décrire la réponse et la rémission.
+- Il s'agit aussi d'évaluer l'effet sur l'anhédonie, l'anxiété, le fonctionnement et la satisfaction vis-à-vis du traitement.
+- La tolérance est également un objectif important.
+- Dans le protocole initial, les auteurs prévoyaient en plus d'étudier un mécanisme cognitif lié à la sensibilité à la récompense.
+- Le protocole initial prévoyait aussi une évaluation médico-économique sur 48 semaines.
+- À l'oral, il faut préciser que l'article final publié dans *The Lancet Psychiatry* rapporte surtout les résultats cliniques, alors que le protocole initial était plus large.
 
 ## DIAPO 4
 
-- Type d'étude :
-- essai prospectif ;
-- multicentrique ;
-- randomisé ;
-- contrôlé par placebo ;
-- en double aveugle ;
-- à groupes parallèles ;
-- non adaptatif ;
-- de supériorité.
-- Il existe une phase pré-randomisation de run-in, puis une phase de traitement post-randomisation de 48 semaines.
-- Le protocole est enregistré, le plan d'analyse est préspécifié, et l'étude est sponsorisée par l'Université d'Oxford.
-- Pour le jury, il faut dire que le niveau de preuve méthodologique visé est élevé.
+- Le design est celui d'un essai thérapeutique comparatif classique, avec un niveau de rigueur élevé.
+- L'étude est prospective. Cela signifie que le protocole, les critères de jugement et l'analyse sont définis avant de connaître les résultats.
+- L'étude est multicentrique. Ce point améliore la généralisabilité par rapport à un essai monocentrique, même si la population reste spécialisée.
+- L'essai est randomisé. La randomisation sert à répartir aléatoirement les facteurs pronostiques connus et inconnus entre les groupes.
+- L'essai est contrôlé par placebo. Ici, le placebo ne remplace pas le traitement standard : il est ajouté à l'antidépresseur déjà en cours, exactement comme le pramipexole dans l'autre bras.
+- L'étude est menée en double aveugle. En théorie, ni le participant ni l'investigateur évaluateur ne savent quel traitement est administré.
+- Les groupes sont parallèles. Chaque participant reste dans un seul bras pendant tout le suivi.
+- Le design n'est pas adaptatif. Autrement dit, la structure des bras et la stratégie d'analyse ne changent pas en cours d'essai selon les résultats observés.
+- Il s'agit d'un essai de supériorité. La question n'est pas de montrer que le pramipexole est "au moins aussi bon", mais qu'il est meilleur que le placebo.
+- Le schéma global comporte deux temps distincts : une phase de run-in avant la randomisation, puis une phase de traitement et de suivi de 48 semaines après la randomisation.
+- Le protocole est enregistré, le plan d'analyse statistique est préspécifié, et l'étude est sponsorisée par l'Université d'Oxford.
+- En pratique, tout cela place l'étude à un niveau méthodologique élevé pour répondre à une question d'efficacité clinique.
 
 ## DIAPO 5
 
-- Cadre pratique de l'étude :
-- d'abord un pilote interne monocentrique à Oxford ;
-- puis extension à plusieurs centres NHS ;
-- au total neuf sites en Angleterre dans l'article final.
-- Recrutement par plusieurs canaux :
-- adressage par soins primaires et secondaires ;
-- recherche dans les dossiers de soins primaires ;
-- annonces en ligne et affichage.
-- Cette diversité de recrutement a un intérêt :
-- elle réduit le biais d'un recrutement purement hospitalier ;
-- mais elle garde quand même une population très spécialisée car tous les patients sont ensuite suivis en soins psychiatriques secondaires.
-- Les auteurs justifient l'usage de la publicité par le fait que les patients avec dépression résistante consultent souvent de façon intermittente.
+- L'essai a commencé par un pilote interne monocentrique à Oxford. Ce pilote sert surtout à vérifier que le dispositif d'étude est faisable dans de bonnes conditions.
+- Le recrutement a ensuite été étendu à plusieurs centres NHS.
+- Dans la publication finale, neuf sites anglais ont effectivement contribué au recrutement.
+- Les sites sont mixtes : certains sont académiques, d'autres non académiques. C'est utile, car cela évite un échantillon recruté uniquement dans des centres universitaires hyper spécialisés.
+- Le recrutement s'est fait par plusieurs canaux.
+- Les patients pouvaient être adressés par les soins primaires.
+- Ils pouvaient aussi être adressés par les soins secondaires.
+- Les auteurs ont recherché des patients à partir de dossiers de santé en soins primaires.
+- Ils ont aussi utilisé des annonces en ligne et des affiches.
+- Pourquoi est-ce important ?
+- Parce qu'une dépression résistante ne suit pas toujours un parcours de soins linéaire. Certains patients consultent par intermittence et peuvent être manqués par un recrutement purement hospitalier.
+- Malgré cela, tous les participants recrutés ont ensuite été évalués et suivis dans les services psychiatriques secondaires pendant toute la durée de l'essai.
+- Donc, la population n'est pas "population générale", mais bien une population suivie dans un cadre spécialisé.
 
 ## DIAPO 6
 
-- Population cible :
-- adultes de 18 ans ou plus ;
-- hommes et femmes ;
-- diagnostic DSM-5 de trouble dépressif majeur unipolaire confirmé par MINI version 7.0.2 ;
-- score QIDS-SR16 supérieur à 10, donc dépression au moins modérée ;
-- traitement antidépresseur en cours ;
-- échec d'au moins deux traitements antidépresseurs pharmacologiques pendant l'épisode actuel.
-- Définition opérationnelle de l'échec :
-- au moins 4 semaines de traitement ;
-- dose minimale recommandée selon les référentiels utilisés par les auteurs.
-- Cette définition n'est pas la plus sophistiquée possible, mais elle est défendable et pragmatique.
+- Les critères d'inclusion définissent une population clairement résistante sur le plan pharmacologique.
+- Les participants devaient être âgés de 18 ans ou plus.
+- Les hommes et les femmes pouvaient être inclus.
+- Le diagnostic devait être celui d'un trouble dépressif majeur unipolaire selon le DSM-5.
+- Ce diagnostic n'était pas laissé à l'impression clinique seule : il était confirmé par un entretien structuré, le MINI version 7.0.2.
+- Les participants devaient avoir un score QIDS-SR16 strictement supérieur à 10.
+- En pratique, cela veut dire que les auteurs ne visaient pas des formes légères, mais au minimum une dépression modérée.
+- Tous les participants devaient déjà prendre un antidépresseur au moment de l'inclusion.
+- Le pramipexole est donc étudié comme stratégie d'augmentation, pas comme monothérapie.
+- Enfin, les participants devaient avoir échoué à au moins deux traitements antidépresseurs pharmacologiques pendant l'épisode dépressif en cours.
+- Cette définition de l'échec est pragmatique.
+- Chaque traitement devait avoir été pris pendant au moins 4 semaines, sauf si la tolérance avait empêché d'aller jusque-là.
+- Chaque traitement devait aussi avoir été donné à la dose minimale recommandée selon les référentiels utilisés par les auteurs, notamment le Maudsley Prescribing Guidelines et le British National Formulary.
+- On peut dire à l'oral que la définition retenue est clinique et opérationnelle : elle n'est pas la plus complexe possible, mais elle est cohérente avec la pratique.
 
 ## DIAPO 7
 
-- Principaux critères d'exclusion :
-- psychose actuelle ou passée ;
-- trouble bipolaire ;
-- difficultés significatives actuelles ou antérieures du contrôle des impulsions ;
-- traitement antipsychotique concomitant ;
-- contre-indication au pramipexole ;
-- pathologie médicale non traitée ou instable ;
-- risque suicidaire ou homicidaire sévère ;
-- maladie de Parkinson.
-- Le diagramme de flux précise aussi plusieurs motifs d'inéligibilité.
-- À dire à l'oral :
-- cette sélection protège la sécurité et la validité interne ;
-- mais elle retire précisément les patients chez qui certains effets indésirables dopaminergiques seraient les plus préoccupants.
-- Donc la tolérance observée ici pourrait être un peu meilleure que celle qu'on verrait en pratique courante.
+- Les critères d'exclusion sont importants, car ils disent aussi à qui les résultats ne s'appliquent pas bien.
+- Les patients avec psychose actuelle ou passée étaient exclus.
+- Les patients avec trouble bipolaire étaient exclus.
+- Les patients ayant des difficultés significatives, actuelles ou passées, du contrôle des impulsions étaient exclus.
+- Un traitement antipsychotique concomitant n'était pas autorisé.
+- Les contre-indications au pramipexole entraînaient l'exclusion.
+- Les pathologies médicales non traitées ou instables entraînaient aussi l'exclusion.
+- Les patients avec risque suicidaire ou homicidaire sévère n'étaient pas inclus.
+- La maladie de Parkinson faisait partie des exclusions citées dans le diagramme de flux.
+- Le diagramme de flux ajoute des exemples très concrets : absence de diagnostic de dépression majeure, score QIDS trop bas, absence d'antidépresseur en cours, absence d'échec à au moins deux antidépresseurs, prise d'antipsychotique, difficultés d'impulsivité, contre-indication au traitement, ou état médical instable.
+- Cette sélection a deux conséquences.
+- Première conséquence : elle améliore la sécurité de l'essai et elle rend la comparaison plus propre.
+- Deuxième conséquence : elle retire des profils chez qui les effets dopaminergiques indésirables pourraient être les plus fréquents ou les plus graves.
+- Il faut donc garder en tête que la tolérance observée ici pourrait être légèrement plus favorable que celle observée en pratique courante.
 
 ## DIAPO 8
 
-- La phase de run-in dure 2 semaines.
-- Elle a plusieurs rôles :
-- vérifier la stabilité symptomatique ;
-- vérifier la capacité à remplir les autoquestionnaires ;
-- réduire l'inflation artificielle du score de base, ce qu'on appelle la baseline inflation.
-- La baseline inflation correspond à des scores initiaux artificiellement élevés, qui peuvent donner l'illusion d'une amélioration ensuite.
-- Méthodologiquement, c'est une bonne idée quand le critère principal est répété et autoévalué.
-- Mais cette phase sélectionne aussi des patients plus observants et plus stables.
-- Donc elle améliore la propreté des données, au prix d'une moindre représentativité.
+- Avant la randomisation, les participants éligibles entraient dans une phase de run-in de 2 semaines.
+- Cette phase est très importante pour comprendre la logique méthodologique de l'essai.
+- Premier objectif : vérifier que les symptômes restent stables pendant une courte période avant de comparer les traitements.
+- Deuxième objectif : vérifier que les participants savent utiliser et compléter régulièrement les autoquestionnaires.
+- Troisième objectif : limiter ce que les auteurs appellent la baseline inflation.
+- La baseline inflation correspond à un score initial artificiellement élevé.
+- Si on ne contrôle pas ce phénomène, on risque d'attribuer au traitement une amélioration qui est en réalité liée à un point de départ surestimé.
+- Comme le critère principal est un score autoévalué, répété à plusieurs reprises, cette précaution est méthodologiquement pertinente.
+- En revanche, elle a un coût.
+- Elle sélectionne des participants plus observants, plus stables, et capables de suivre correctement les procédures.
+- Donc, elle améliore la qualité des données, mais elle éloigne un peu l'échantillon de la vraie vie la plus désorganisée.
 
 ## DIAPO 9
 
-- Déroulement pratique avant randomisation :
-- visite de screening ;
-- confirmation diagnostique ;
-- vérification des critères d'éligibilité ;
-- entrée dans le run-in ;
-- nouvelle évaluation 1 à 5 semaines après le screening pour confirmer l'éligibilité à la randomisation.
-- Des patients ont été exclus pendant ce run-in.
-- Les motifs retrouvés sont très instructifs :
-- QIDS devenu trop bas ;
-- impossibilité de suivre les procédures ;
-- retrait du consentement ;
-- changement d'antidépresseur ;
-- démarrage d'une psychothérapie ;
-- augmentation de l'impulsivité ;
-- raisons personnelles.
-- Cela montre que la population randomisée est encore plus sélectionnée que la population simplement screenée.
+- Le parcours pré-randomisation est organisé en plusieurs étapes.
+- D'abord, il y a la visite de screening.
+- À ce moment-là, le diagnostic est confirmé et les grands critères d'éligibilité sont vérifiés.
+- Ensuite, le participant entre dans la phase de run-in.
+- Enfin, une nouvelle évaluation est réalisée entre 1 et 5 semaines après le screening pour confirmer l'éligibilité définitive à la randomisation.
+- Ce point est utile à expliquer au jury.
+- Le screening ne suffit pas à lui seul : les auteurs veulent vérifier que le patient reste éligible après cette courte période d'observation.
+- Les exclusions pendant le run-in montrent d'ailleurs l'utilité de cette étape.
+- Certains participants ont eu un QIDS devenu trop bas.
+- D'autres n'étaient pas capables de suivre correctement les procédures.
+- Certains ont retiré leur consentement.
+- D'autres ont changé d'antidépresseur pendant le run-in.
+- Un participant a commencé une psychothérapie.
+- Un autre a présenté une augmentation de l'impulsivité.
+- D'autres ont été exclus pour des raisons personnelles.
+- En clair, la phase pré-randomisation ne sert pas seulement à observer : elle sert aussi à épurer la population pour ne randomiser que des participants réellement comparables et capables d'aller jusqu'au critère principal.
 
 ## DIAPO 10
 
-- Randomisation :
-- centralisée ;
-- en ligne ;
-- ratio 1:1 ;
-- assurée par le système Sortition d'Oxford.
-- Les dix premiers participants sont randomisés sans minimisation.
-- Ensuite, les groupes sont équilibrés par minimisation sur quatre variables :
-- centre ;
-- âge, 18 à 50 ans versus plus de 50 ans ;
-- sexe déclaré ;
-- sévérité initiale du QIDS-SR16, 11 à 15, 16 à 20, ou plus de 20.
-- Le procédé n'est pas complètement déterministe.
-- Il existe une probabilité de 80% d'aller vers l'allocation qui minimise le déséquilibre.
-- Cela améliore l'équilibre entre groupes sans rendre la séquence trop prédictible.
+- La randomisation était centralisée et réalisée en ligne.
+- Ce point est essentiel, car une randomisation centralisée améliore la dissimulation de l'allocation.
+- En d'autres termes, elle réduit le risque qu'un investigateur puisse anticiper le prochain traitement attribué.
+- Le ratio d'allocation était de 1 pour 1.
+- Le système utilisé était Sortition, développé par la Primary Care Clinical Trials Unit d'Oxford.
+- Les dix premiers participants ont été randomisés sans minimisation.
+- L'idée est simple : au tout début d'un essai, si l'on applique immédiatement une minimisation stricte, la séquence peut devenir trop facile à deviner.
+- Après ces dix premiers cas, les groupes étaient équilibrés par minimisation sur quatre variables pronostiques.
+- La première variable était le centre.
+- La deuxième était l'âge, classé en 18 à 50 ans versus plus de 50 ans.
+- La troisième était le sexe déclaré.
+- La quatrième était la sévérité initiale du QIDS-SR16, classée en 11 à 15, 16 à 20, ou plus de 20.
+- Le procédé n'était pas totalement déterministe.
+- Il existait une probabilité de 80% d'attribuer le traitement qui minimisait le déséquilibre.
+- C'est une bonne stratégie lorsque l'effectif est modéré.
+- Elle améliore l'équilibre entre groupes sans rendre la séquence complètement prévisible.
 
 ## DIAPO 11
 
-- Masquage :
-- participants masqués ;
-- investigateurs masqués ;
-- évaluateurs masqués ;
-- statisticien final masqué ;
-- équipe de pharmacie centrale non masquée pour la dispensation.
-- Le placebo est apparié au traitement actif.
-- Donc, sur le papier, le dispositif d'aveugle est robuste.
-- Mais les auteurs ont eu raison d'évaluer un démasquage fonctionnel.
-- Pourquoi ?
-- parce que des effets indésirables reconnaissables, comme nausées ou somnolence, peuvent faire deviner le traitement même si l'aveugle est techniquement correct.
-- En fin d'étude, ils demandent aux participants de deviner leur groupe et leur niveau de certitude.
-- C'est une bonne pratique, car cela permet de discuter un biais d'attente.
+- Le masquage est un autre pilier du protocole.
+- Les participants étaient masqués.
+- Les investigateurs étaient masqués.
+- Les chercheurs impliqués dans les visites de recrutement et d'évaluation étaient masqués.
+- Le statisticien chargé de l'analyse finale est resté masqué jusqu'à cette analyse.
+- La seule équipe non masquée était la pharmacie centrale, pour des raisons pratiques de dispensation.
+- Le placebo était présenté sous forme de capsules identiques à celles du traitement actif.
+- Sur le plan méthodologique, cela correspond à un aveugle de bonne qualité.
+- Mais les auteurs ne se sont pas arrêtés à l'aveugle "théorique".
+- Ils ont aussi évalué le démasquage fonctionnel.
+- Cette distinction est importante à expliquer à l'oral.
+- Un essai peut être techniquement en double aveugle, tout en devenant partiellement transparent si les effets indésirables font deviner le traitement.
+- Ici, c'était particulièrement plausible, car le pramipexole a des effets reconnaissables comme les nausées, les céphalées, les vertiges ou la somnolence.
+- En fin d'étude, les participants ont donc été invités à deviner leur groupe et à indiquer leur niveau de certitude.
+- C'est une très bonne pratique, car elle permet de documenter un biais potentiel plutôt que de l'ignorer.
 
 ## DIAPO 12
 
-- Intervention expérimentale :
-- pramipexole à libération immédiate ;
-- prise unique le soir ;
-- dose initiale 0,25 mg ;
-- augmentation de 0,25 mg tous les 3 jours ;
-- cible 2,5 mg en 4 semaines si la tolérance le permet.
+- L'intervention expérimentale est décrite de façon très standardisée.
+- Il s'agissait de pramipexole à libération immédiate.
+- Le médicament était pris en une seule prise le soir.
+- La dose initiale était de 0,25 mg.
+- L'augmentation se faisait par paliers de 0,25 mg tous les 3 jours.
+- La dose cible était de 2,5 mg, atteinte en 4 semaines si la tolérance le permettait.
 - Le protocole précise que les doses sont exprimées en sel de pramipexole.
-- La cible a été choisie en s'appuyant sur les essais antérieurs et une série de cas ayant suggéré une réponse possible à des doses relativement élevées.
-- Elle reste sous la limite supérieure réglementaire de 4,5 mg.
-- Le comparateur est un placebo apparié, administré selon la même procédure.
+- Le choix de cette cible n'est pas arbitraire.
+- Les auteurs se sont appuyés sur les essais antérieurs et sur la série de cas de Fawcett, qui suggérait qu'une partie des patients répondait à des doses relativement élevées.
+- En même temps, ils sont restés sous la limite réglementaire supérieure de 4,5 mg.
+- Le comparateur était un placebo apparié, administré selon exactement la même procédure.
+- En méthode, c'est important : quand les deux bras suivent la même séquence de prise et d'adaptation, on limite le biais lié au simple fait d'être "plus traité" dans un groupe que dans l'autre.
 
 ## DIAPO 13
 
-- Gestion de la tolérance et des adaptations :
-- en cas d'effets indésirables, baisse à la dose maximale tolérée ;
-- maintien ensuite à cette dose tolérée ;
-- pas de nouvelle retitration prévue ;
-- si baisse de dose, décroissance par paliers tous les 3 jours.
-- Le protocole justifie cette décroissance progressive pour limiter le risque de dopamine agonist withdrawal syndrome.
-- Ce niveau de détail est intéressant à dire à l'oral :
-- le protocole ne se contente pas de tester un médicament ;
-- il prévoit aussi comment gérer l'exposition, l'adhérence et l'arrêt.
+- Le protocole détaille aussi la conduite à tenir en cas d'intolérance, ce qui est une vraie force.
+- Si des effets indésirables apparaissaient, la dose devait être abaissée jusqu'à la dose maximale tolérée.
+- Une fois cette dose tolérée identifiée, le patient restait à cette dose pour la suite de l'étude.
+- Le protocole ne prévoyait pas de nouvelle retitration ensuite.
+- En cas de réduction, la décroissance se faisait par paliers tous les 3 jours.
+- Les auteurs expliquent que cette réduction progressive visait à limiter le risque de dopamine agonist withdrawal syndrome.
+- C'est un point intéressant à l'oral, parce qu'il montre que l'étude ne teste pas seulement "un médicament oui ou non".
+- Elle encadre précisément la manière de l'introduire, de l'adapter, et de l'arrêter.
+- En pratique, cela améliore la sécurité et rend l'exposition au traitement plus homogène.
 
 ## DIAPO 14
 
-- Traitements concomitants :
-- le pramipexole est toujours ajouté à l'antidépresseur de fond ;
-- avant 12 semaines, pas de changement d'antidépresseur sauf nécessité clinique ;
-- après 12 semaines, changements autorisés.
-- C'est un point méthodologique majeur.
-- Avant 12 semaines, l'effet estimé est plus propre, car on limite les co-interventions.
-- Après 12 semaines, on entre dans une phase plus pragmatique, plus proche de la vraie vie, mais moins pure causalement.
-- Le protocole initial précise aussi que l'équipe suit l'adhérence et les problèmes de traitement lors des contacts réguliers par téléphone.
+- Le traitement étudié était toujours ajouté à l'antidépresseur de fond.
+- En d'autres termes, le pramipexole n'était jamais utilisé en remplacement de l'antidépresseur en cours.
+- C'est important, car la question méthodologique exacte n'est pas "le pramipexole est-il un bon antidépresseur ?", mais "est-ce qu'ajouter du pramipexole à un antidépresseur déjà en place apporte un bénéfice supplémentaire ?"
+- Avant la semaine 12, les modifications de l'antidépresseur de fond n'étaient pas autorisées, sauf nécessité clinique.
+- Après la semaine 12, elles devenaient possibles.
+- Ce point change beaucoup l'interprétation.
+- Pendant les 12 premières semaines, les co-interventions sont fortement contrôlées.
+- L'effet estimé est donc plus propre sur le plan causal.
+- Après 12 semaines, l'étude devient plus pragmatique.
+- Elle se rapproche davantage de ce qui se passe en vraie vie, où les cliniciens ajustent les traitements.
+- En revanche, l'interprétation causale devient moins pure, car le contraste entre groupes dépend aussi d'autres modifications thérapeutiques.
+- Le protocole initial précise en plus que l'équipe suivait l'adhérence et les difficultés de traitement lors des appels téléphoniques réguliers.
 
 ## DIAPO 15
 
-- Architecture des critères de jugement :
-- un critère principal d'efficacité à 12 semaines ;
-- plusieurs critères secondaires cliniques ;
-- plusieurs critères de sécurité ;
-- dans le protocole, un ensemble mécanistique et médico-économique.
-- Ce point est important pour le jury :
-- l'essai n'est pas seulement un essai d'efficacité ;
-- c'est un essai qui cherche aussi à comprendre comment le médicament pourrait agir, et ce qu'il coûte ou apporte en qualité de vie.
+- L'architecture des critères de jugement est large et cohérente avec l'ambition de l'essai.
+- Il existe un critère principal centré sur l'efficacité à 12 semaines.
+- Il existe plusieurs critères secondaires cliniques, qui explorent d'autres dimensions du bénéfice potentiel.
+- Il existe aussi plusieurs critères de sécurité, ce qui est indispensable avec un agoniste dopaminergique.
+- Dans le protocole initial, un volet mécanistique et un volet médico-économique étaient également prévus.
+- Cela veut dire que l'essai cherche à répondre à plusieurs questions en parallèle.
+- Première question : est-ce que le médicament améliore les symptômes ?
+- Deuxième question : est-ce qu'il agit sur des dimensions spécifiques comme l'anhédonie ou le fonctionnement ?
+- Troisième question : est-ce qu'il est tolérable ?
+- Quatrième question : peut-on comprendre un mécanisme d'action plausible et un impact plus large sur la qualité de vie et les coûts ?
+- C'est donc un essai clinique, mais avec une ambition un peu plus large qu'un simple essai symptomatique.
 
 ## DIAPO 16
 
-- Critère principal :
-- variation du score total QIDS-SR16 entre le niveau de base et la semaine 12.
-- Pourquoi ce critère ?
-- outil validé ;
-- facile à répéter ;
-- auto-administré ;
-- centré sur les symptômes dépressifs ;
-- déjà largement utilisé dans des essais en psychiatrie.
-- Détail utile :
-- le QIDS-SR16 est un questionnaire de 16 items couvrant 9 domaines symptomatiques ;
-- score total de 0 à 27 ;
-- l'item 12 capte aussi les idées suicidaires.
-- Limite :
-- comme c'est un autoquestionnaire, il est plus exposé qu'un critère évaluateur à un biais d'attente si le patient devine son groupe.
+- Le critère principal est la variation du score total QIDS-SR16 entre le niveau de base et la semaine 12.
+- Ce choix est explicitement justifié par les auteurs.
+- Le QIDS-SR16 est un outil validé, avec de bonnes propriétés psychométriques.
+- Il est facile à répéter dans le temps.
+- Il est auto-administré, ce qui facilite un suivi fréquent.
+- Il est centré sur les symptômes dépressifs.
+- Il est déjà largement utilisé dans les essais en psychiatrie.
+- Concrètement, le QIDS-SR16 comporte 16 items couvrant 9 domaines symptomatiques.
+- Le score total varie de 0 à 27.
+- L'item 12 permet aussi de repérer les idées suicidaires.
+- Pourquoi ce choix est-il méthodologiquement intéressant ?
+- Parce qu'il permet des mesures répétées, peu coûteuses, standardisées et directement centrées sur l'expérience du patient.
+- Pourquoi ce choix peut-il aussi être discuté ?
+- Parce qu'un critère autoévalué est plus vulnérable à un biais d'attente si le patient devine son traitement.
+- C'est exactement la raison pour laquelle la question du démasquage fonctionnel devient si importante dans cet essai.
 
 ## DIAPO 17
 
-- Critères secondaires cliniques rapportés dans l'article final :
-- QIDS-SR16 à 48 semaines ;
-- réponse à 12 semaines, définie par baisse de plus de 50% du score initial ;
-- rémission à 12 semaines, définie par un score QIDS-SR16 inférieur ou égal à 5 ;
-- QIDS-C, donc version clinicien ;
-- SHAPS pour l'anhédonie ;
-- GAD-7 pour l'anxiété ;
-- WSAS pour le fonctionnement ;
-- TSQM-9 pour la satisfaction.
-- Critères de sécurité :
-- événements indésirables et graves ;
-- arrêt du traitement pour intolérance ;
-- QUIP-RS pour les troubles du contrôle des impulsions ;
-- ALTMAN pour les symptômes maniaques ;
-- suicidabilité extraite de l'item 12 du QIDS-SR16.
+- L'article final rapporte plusieurs critères secondaires cliniques, et il faut bien les classer pour rester clair à l'oral.
+- D'abord, il y a les autres mesures d'efficacité dépressive.
+- On retrouve le QIDS-SR16 à 48 semaines.
+- On retrouve aussi la réponse à 12 semaines, définie par une baisse de plus de 50% du score initial.
+- On retrouve la rémission à 12 semaines, définie par un score QIDS-SR16 inférieur ou égal à 5.
+- Ensuite, il y a les mesures cliniques complémentaires.
+- Le QIDS-C apporte une version clinicien de la sévérité dépressive.
+- Le SHAPS mesure l'anhédonie.
+- Le GAD-7 mesure l'anxiété.
+- Le WSAS mesure le fonctionnement.
+- Le TSQM-9 mesure la satisfaction du patient vis-à-vis du traitement.
+- Enfin, il y a les critères de sécurité.
+- Ils comprennent les événements indésirables, les événements indésirables graves, l'arrêt du traitement pour intolérance, le QUIP-RS pour les troubles du contrôle des impulsions, l'ALTMAN pour les symptômes maniaques, et la suicidabilité extraite de l'item 12 du QIDS-SR16.
+- Cette structure est utile à expliquer, car elle montre que l'évaluation ne porte pas seulement sur "plus ou moins de dépression", mais aussi sur le vécu fonctionnel, l'acceptabilité, et les risques spécifiques de la molécule.
 
 ## DIAPO 18
 
-- Calendrier de mesure, et c'est là que la méthodologie devient vraiment riche :
-- QIDS-SR16 chaque semaine du screening à la semaine 12, puis toutes les 4 semaines jusqu'à 48 semaines ;
-- QIDS-C à toutes les visites d'étude ;
-- ALTMAN chaque semaine jusqu'à 12 semaines, puis toutes les 4 semaines ;
-- GAD-7 chaque semaine jusqu'à 12 semaines, puis toutes les 4 semaines ;
-- SHAPS toutes les 2 semaines jusqu'à 12 semaines, puis toutes les 4 semaines ;
-- QUIP-RS chaque semaine jusqu'à 12 semaines, puis toutes les 4 semaines ;
-- WSAS toutes les 4 semaines jusqu'à 12 semaines, puis semaines 24, 36 et 48 ;
-- TSQM-9 aux semaines 0, 6, 12, 24 et 48.
-- Les questionnaires sont majoritairement saisis via la plateforme True Colours.
-- En parallèle, un research assistant appelle les participants à la sélection, puis chaque semaine jusqu'à 12 semaines, puis toutes les 4 semaines.
-- Pendant ces appels, on documente effets indésirables, suicidabilité, impulsivité, modifications de traitement et adhérence.
-- C'est une vraie force de suivi.
+- Le calendrier des évaluations est dense, et c'est une vraie force de l'essai.
+- Le QIDS-SR16 est recueilli chaque semaine depuis le screening jusqu'à la semaine 12.
+- Ensuite, il est recueilli toutes les 4 semaines jusqu'à 48 semaines.
+- Le QIDS-C est réalisé à toutes les visites d'étude.
+- L'ALTMAN est recueilli chaque semaine jusqu'à 12 semaines, puis toutes les 4 semaines.
+- Le GAD-7 suit la même fréquence.
+- Le SHAPS est recueilli toutes les 2 semaines jusqu'à 12 semaines, puis toutes les 4 semaines.
+- Le QUIP-RS est recueilli chaque semaine jusqu'à 12 semaines, puis toutes les 4 semaines.
+- Le WSAS est recueilli toutes les 4 semaines jusqu'à 12 semaines, puis aux semaines 24, 36 et 48.
+- Le TSQM-9 est recueilli aux semaines 0, 6, 12, 24 et 48.
+- La plupart de ces mesures sont saisies via la plateforme True Colours.
+- En parallèle, un research assistant appelle les participants au screening, puis chaque semaine jusqu'à 12 semaines, puis toutes les 4 semaines.
+- Ces appels servent à documenter les effets indésirables, la suicidabilité, l'impulsivité, les modifications de traitement et l'adhérence.
+- Pourquoi est-ce méthodologiquement utile ?
+- Parce qu'un suivi fréquent améliore la qualité des données longitudinales.
+- Parce qu'il réduit le risque de passer à côté d'un événement indésirable important.
+- Et parce qu'il permet de mieux distinguer un vrai effet thérapeutique d'une variation trop ponctuelle ou mal documentée.
 
 ## DIAPO 19
 
-- Un point très fin de méthode :
-- le protocole initial comportait un volet mécanistique de sensibilité à la récompense.
-- Il utilisait une tâche de décision probabiliste :
-- 3 blocs de 60 essais, soit 180 essais ;
-- essais de gain et de perte ;
-- apprentissage progressif à partir des feedbacks ;
-- estimation de la sensibilité à la récompense par un modèle de reinforcement learning.
-- Mesures à la visite de randomisation, à 2 semaines et à 12 semaines.
-- Pourquoi c'est intéressant à dire ?
-- parce que cela montre que l'étude ne cherche pas seulement une efficacité moyenne ;
-- elle cherche aussi un mécanisme plausible et potentiellement des prédicteurs de réponse.
-- Dans l'article final, ce volet est annoncé mais reporté ailleurs.
+- Le protocole initial comportait aussi un volet mécanistique centré sur la sensibilité à la récompense.
+- Ce n'est pas le cœur de l'article final, mais cela aide à comprendre l'hypothèse biologique générale de l'essai.
+- Les auteurs utilisaient une tâche de décision probabiliste.
+- La tâche comportait 3 blocs de 60 essais, soit 180 essais au total.
+- Il y avait des essais de gain et des essais de perte.
+- Le participant devait apprendre progressivement à partir des résultats obtenus.
+- La sensibilité à la récompense était ensuite estimée à l'aide d'un modèle de reinforcement learning.
+- Ces mesures étaient réalisées à la visite de randomisation, puis à 2 semaines et à 12 semaines.
+- Pourquoi ce volet est-il intéressant ?
+- Parce qu'il relie la question clinique à un mécanisme cognitif plausible.
+- Les auteurs ne se contentent pas de demander si le médicament marche.
+- Ils se demandent aussi s'il agit sur un processus théorique pertinent, et si ce processus pourrait aider à prédire la réponse.
+- Dans l'article final, ce volet est annoncé mais les résultats détaillés sont reportés ailleurs.
 
 ## DIAPO 20
 
-- Populations d'analyse :
-- dans l'article final, la population principale correspond à tous les participants randomisés et éligibles ;
-- un participant a été retiré après randomisation car finalement inéligible ;
-- donc, en pratique, on a une ITT modifiée, pas une ITT stricte.
-- Les analyses d'efficacité et de sécurité sont faites sur ce même ensemble.
-- Aucune population per-protocol détaillée n'est mise en avant dans le texte principal.
-- Le protocole initial annonçait que les analyses primaires et secondaires d'efficacité seraient faites en intention de traiter.
-- Il précisait aussi que les analyses mécanistiques et économiques seraient réalisées uniquement chez les sujets disposant des données nécessaires, sans imputation.
-- C'est une nuance importante :
-- tout n'est pas analysé sur exactement la même base selon la nature des objectifs.
+- Les populations d'analyse doivent être expliquées avec précision, car c'est souvent un point de question du jury.
+- Dans l'article final, la population principale correspond à tous les participants randomisés et éligibles.
+- Un participant a été retiré après la randomisation parce qu'il s'est révélé inéligible.
+- Cela veut dire qu'en pratique, l'analyse principale relève d'une ITT modifiée, et non d'une ITT stricte au sens "tous les randomisés sans exception".
+- Les analyses d'efficacité et de sécurité reposent sur ce même ensemble.
+- Le texte principal ne met pas en avant de véritable population per-protocol.
+- C'est important, car cela signifie que l'article privilégie une logique pragmatique : on analyse les patients selon leur groupe de randomisation, indépendamment de la parfaite observance.
+- Le protocole initial annonçait bien que les analyses primaires et secondaires d'efficacité seraient réalisées en intention de traiter.
+- En revanche, il précisait aussi que les analyses mécanistiques et économiques seraient limitées aux sujets disposant des données requises, sans imputation.
+- Il faut donc retenir qu'il n'existe pas une seule population universelle pour toutes les questions de l'essai.
 
 ## DIAPO 21
 
-- Hypothèses statistiques et calcul d'effectif :
-- différence cliniquement pertinente fixée à 3 points sur le QIDS-SR16 à 12 semaines ;
-- écart-type supposé de 5,4 ;
-- taille d'effet standardisée attendue d'environ 0,56 ;
-- puissance de 90% ;
-- alpha de 5% pour l'objectif clinique principal.
-- Dans cette hypothèse, 68 patients par groupe sont nécessaires sans pertes de vue.
-- Le protocole initial, avec 20% de pertes de vue anticipées, prévoyait 170 patients au total pour le seul objectif clinique, et 204 si l'on voulait aussi protéger le risque alpha pour le volet mécanistique.
-- L'article final rapporte une adaptation du calcul :
-- le taux réel de pertes de vue observé était plus faible, autour de 8% ;
-- l'estimation a donc été revue à 74 par groupe, soit 148, pour le critère principal.
-- Dans l'article final, les auteurs ajoutent qu'en tenant compte aussi du volet mécanistique avec un alpha abaissé à 2,5%, il aurait fallu 89 patients par groupe, soit 178 au total.
-- Point oral important :
-- il y a eu adaptation d'un paramètre de faisabilité, pas changement opportuniste du critère principal.
+- Le calcul d'effectif repose sur une hypothèse clinique explicite, ce qui est un bon point.
+- Les auteurs considéraient qu'une différence de 3 points sur le QIDS-SR16 à 12 semaines serait cliniquement pertinente.
+- L'écart-type supposé était de 5,4.
+- Cela correspondait à une taille d'effet standardisée d'environ 0,56.
+- La puissance visée était de 90%.
+- L'alpha retenu pour l'objectif clinique principal était de 5%.
+- Dans ce cadre, 68 patients par groupe étaient nécessaires si l'on ne tenait pas compte des pertes de vue.
+- Dans le protocole initial, avec 20% de pertes de vue anticipées, le total prévu était de 170 participants pour l'objectif clinique seul.
+- Si l'on voulait en plus contrôler le risque alpha pour le volet mécanistique, le total montait à 204.
+- Dans l'article final, les auteurs expliquent qu'ils ont ajusté cette estimation parce que le taux réel de pertes de vue observé était plus faible, autour de 8%.
+- Le besoin estimé pour le critère principal a donc été révisé à 74 patients par groupe, soit 148 au total.
+- Ils ajoutent qu'en tenant compte aussi du volet mécanistique avec un alpha abaissé à 2,5%, il aurait fallu 89 patients par groupe, soit 178 au total.
+- Ce point mérite une explication simple à l'oral.
+- Il ne s'agit pas de changer le critère principal en cours de route.
+- Il s'agit d'actualiser une hypothèse logistique sur les pertes de vue à partir de ce qui a réellement été observé.
 
 ## DIAPO 22
 
-- Analyse statistique principale :
-- modèle mixte généralisé pour données longitudinales ;
-- utilisation des mesures répétées de QIDS-SR16 ;
-- effets fixes : groupe, temps, interaction groupe x temps, variables de minimisation, et niveau basal ;
-- effets aléatoires : participant, et dans l'article final site comme effet aléatoire.
-- Le point subtil est le suivant :
-- le critère principal est défini à 12 semaines ;
-- mais l'article précise que le modèle utilise toutes les données QIDS-SR16 recueillies jusqu'à 48 semaines.
-- Le protocole initial décrivait plutôt une analyse fondée sur les mesures hebdomadaires jusqu'à 12 semaines.
-- L'estimation de l'effet à 12 semaines est donc extraite d'un modèle longitudinal plus large.
-- C'est défendable, car cela améliore l'efficience de l'estimation.
-- Mais c'est légèrement inhabituel à commenter à l'oral, car des données postérieures à la phase la plus contrôlée participent à la modélisation.
+- L'analyse statistique principale repose sur un modèle mixte généralisé incluant toutes les données QIDS-SR16 recueillies jusqu'à la semaine 48.
+- Les effets fixes incluent le groupe de traitement, le temps, l'interaction entre le temps et le groupe, ainsi que les variables de minimisation.
+- Le site de traitement est inclus comme effet aléatoire et l'identification du participant comme intercept aléatoire.
+- En pratique, ce type de modèle est bien adapté lorsqu'on dispose de mesures répétées chez les mêmes patients, en modélisant la corrélation intra-individuelle.
+- Le point méthodologique subtil est le suivant.
+- Le critère principal est défini à 12 semaines.
+- Pourtant, l'article précise que le modèle utilise toutes les données QIDS-SR16 recueillies jusqu'à 48 semaines.
+- Dans le protocole initial, la description donnait plutôt l'impression d'une analyse centrée sur les mesures hebdomadaires jusqu'à 12 semaines.
+- Dans la publication finale, l'effet estimé à 12 semaines est donc extrait d'un modèle longitudinal plus large.
+- Cette stratégie se défend, car elle peut améliorer l'efficience de l'estimation et mieux utiliser l'information disponible.
+- Mais c'est un point qui mérite d'être expliqué à l'oral.
+- En effet, une partie des données utilisées pour la modélisation provient d'une période où les traitements concomitants sont moins strictement contrôlés.
 
 ## DIAPO 23
 
-- Analyses secondaires :
-- pour les variables continues, différences moyennes ajustées ;
-- pour les variables binaires, modèle logistique mixte puis expression des résultats en risques relatifs ;
-- pour les données de comptage, incidence ratios.
-- Ajustements :
-- groupe randomisé ;
-- âge ;
-- sexe ;
-- score QIDS-SR16 basal ;
-- interaction temps x groupe ;
-- parfois valeur initiale du critère concerné selon le critère analysé ;
-- site comme effet aléatoire ;
-- participant comme intercept aléatoire pour les données longitudinales.
-- À dire au jury :
-- l'idée d'un effet fixe, c'est un facteur qu'on ajuste explicitement ;
-- l'idée d'un effet aléatoire, c'est reconnaître une variabilité entre sujets ou entre centres sans chercher à estimer un coefficient propre à chaque unité.
+- Les analyses secondaires sont choisies en fonction du type de variable étudiée.
+- Pour les variables continues, les auteurs rapportent des différences moyennes ajustées.
+- Pour les variables binaires, ils utilisent un modèle logistique mixte puis expriment les résultats sous forme de risques relatifs.
+- Pour les données de comptage, ils rapportent des incidence ratios.
+- Les ajustements incluent le groupe randomisé, l'âge, le sexe, le score QIDS-SR16 basal, l'interaction temps par groupe, et parfois la valeur initiale du critère considéré.
+- Le site est traité comme effet aléatoire.
+- Pour les données longitudinales, le participant est pris en compte comme intercept aléatoire.
+- À l'oral, il faut expliciter deux notions.
+- Un effet fixe correspond à un facteur dont on veut estimer directement l'influence moyenne dans le modèle.
+- Un effet aléatoire sert plutôt à tenir compte d'une source de variabilité structurée, par exemple entre sujets ou entre centres, sans estimer un coefficient spécifique pour chaque unité.
+- Cette distinction est importante, car elle explique pourquoi les auteurs peuvent à la fois ajuster l'analyse et respecter la structure réelle des données.
 
 ## DIAPO 24
 
-- Gestion des données manquantes :
-- le texte principal ne décrit pas d'imputation simple de type last observation carried forward, ce qui est plutôt rassurant ;
-- l'analyse principale repose sur un modèle mixte utilisant les données disponibles ;
-- en pratique, cela suppose que les données manquantes soient au moins compatibles avec une hypothèse de type MAR, c'est-à-dire missing at random conditionnellement aux variables du modèle ;
-- pour la réponse et la rémission à 12 semaines, les auteurs précisent qu'il n'y a pas eu d'imputation ;
-- ils analysent donc les sujets ayant une donnée disponible dans la fenêtre prévue.
-- Les analyses de sensibilité sont mentionnées mais renvoyées à l'appendice.
-- Donc, point critique :
-- la stratégie de base est standard et acceptable ;
-- mais on ne peut pas discuter en détail, à partir du seul corps de l'article, la robustesse à des scénarios MNAR.
+- La gestion des données manquantes mérite une discussion prudente, car elle peut influencer l'interprétation.
+- Le texte principal ne décrit pas d'imputation simple du type last observation carried forward.
+- C'est plutôt rassurant, car ce type de méthode est souvent jugé trop simplificateur.
+- L'analyse principale repose sur un modèle mixte utilisant les données disponibles.
+- En pratique, cela revient à supposer que les données manquantes sont compatibles avec une hypothèse de type MAR, c'est-à-dire missing at random conditionnellement aux variables intégrées dans le modèle.
+- Dit autrement, une donnée peut manquer pour des raisons liées à des informations déjà observées, mais pas pour une raison entièrement cachée et indépendante de ce que le modèle sait déjà.
+- Pour la réponse et la rémission à 12 semaines, les auteurs précisent explicitement qu'il n'y a pas eu d'imputation.
+- Seuls les participants ayant une donnée disponible dans la fenêtre prévue sont donc comptés dans ces analyses.
+- Les analyses de sensibilité sont mentionnées, mais leurs détails sont renvoyés à l'appendice.
+- Le message critique à retenir est simple.
+- La stratégie principale est standard et acceptable.
+- En revanche, le corps de l'article ne permet pas de discuter finement la robustesse à des scénarios plus défavorables, par exemple si les données manquantes n'étaient pas MAR.
 
 ## DIAPO 25
 
-- Modifications de protocole et aspects opérationnels :
-- aucune modification des outcomes après le début de l'étude ;
-- modification du paramètre de pertes de vue utilisé pour le calcul d'effectif ;
-- recrutement retardé par la pandémie de COVID-19 ;
-- participants recrutés après septembre 2023 avec suivi plus court ;
-- mais tous ont eu le temps d'atteindre la semaine 12.
-- Conséquence méthodologique :
-- la robustesse du résultat principal n'est pas remise en cause ;
-- en revanche, les analyses à 48 semaines reposent sur un sous-ensemble plus restreint de participants.
+- Quelques points opérationnels doivent encore être mentionnés, car ils influencent l'interprétation de la phase longue.
+- Les auteurs précisent qu'aucun critère de jugement n'a été modifié après le début de l'étude.
+- En revanche, le paramètre de pertes de vue utilisé dans le calcul d'effectif a été ajusté.
+- Le recrutement a été retardé par la pandémie de COVID-19.
+- Les participants inclus après septembre 2023 ont eu un suivi plus court.
+- Tous ont néanmoins eu suffisamment de temps pour atteindre la semaine 12, qui correspond au critère principal.
+- La conséquence méthodologique est donc assez claire.
+- Le résultat principal à 12 semaines n'est pas réellement fragilisé par ce point.
+- En revanche, les analyses à 48 semaines portent sur un sous-ensemble plus restreint de participants.
+- Il faut donc présenter le long terme comme informatif, mais méthodologiquement moins robuste que l'analyse principale.
 
 ## DIAPO 26
 
-- Flux des participants :
-- 217 participants vus au screening ;
-- 66 exclus avant inclusion analytique ;
-- 151 randomisés ;
-- 1 participant retiré après randomisation car inéligible ;
-- 150 participants analysés, 75 par groupe.
-- Données disponibles au temps du critère principal :
-- 68 sur 75 dans le groupe pramipexole ;
-- 67 sur 75 dans le groupe placebo.
-- À 48 semaines, seuls 40 participants sous pramipexole et 39 sous placebo ont atteint cette durée avant clôture.
-- Pour l'oral :
-- il faut distinguer perte de donnée à 12 semaines, arrêt du traitement, retrait complet d'étude, et impossibilité d'atteindre 48 semaines avant fermeture.
+- Le flux des participants doit être présenté clairement.
+- 217 participants ont été vus au screening.
+- 66 ont été exclus avant l'inclusion analytique.
+- 151 ont été randomisés.
+- Un participant a ensuite été retiré après randomisation parce qu'il était inéligible.
+- Au final, 150 participants ont été analysés, soit 75 par groupe.
+- Pour le critère principal, les données disponibles à 12 semaines concernaient 68 participants sur 75 dans le groupe pramipexole et 67 sur 75 dans le groupe placebo.
+- À 48 semaines, seuls 40 participants sous pramipexole et 39 sous placebo avaient atteint cette durée de suivi avant la clôture.
+- À l'oral, il faut bien distinguer plusieurs situations.
+- Il y a les données manquantes au temps du critère principal.
+- Il y a l'arrêt du traitement.
+- Il y a le retrait complet d'étude.
+- Et il y a le fait de ne pas avoir pu atteindre 48 semaines avant la fermeture de l'essai.
 
 ## DIAPO 27
 
-- Caractéristiques initiales :
-- âge moyen 44,9 ans ;
-- 56% de femmes ;
-- score QIDS-SR16 moyen 16,3, donc dépression sévère en moyenne ;
-- durée médiane de l'épisode en cours 8,5 ans ;
-- nombre moyen de traitements inefficaces dans l'épisode en cours 3,5 ;
-- environ 21% déjà sous stratégie d'augmentation pharmacologique.
-- Donc la population est cliniquement lourde :
-- maladie chronique ;
-- forte résistance ;
-- retentissement fonctionnel important.
-- Cet aspect renforce la pertinence clinique du signal observé.
+- Les caractéristiques initiales confirment qu'il s'agit d'une population sévère.
+- L'âge moyen est de 44,9 ans.
+- 56% des participants sont des femmes.
+- Le score QIDS-SR16 moyen est de 16,3, ce qui correspond à une dépression sévère en moyenne.
+- La durée médiane de l'épisode en cours est de 8,5 ans.
+- Le nombre moyen de traitements inefficaces pendant l'épisode en cours est de 3,5.
+- Environ 21% des participants recevaient déjà une stratégie d'augmentation pharmacologique au moment de la randomisation.
+- En pratique, cela décrit une population cliniquement lourde.
+- La maladie est chronique.
+- La résistance thérapeutique est marquée.
+- Le retentissement fonctionnel est important.
+- Cet élément renforce la pertinence clinique du signal observé.
 
 ## DIAPO 28
 
-- Résultat principal à 12 semaines :
-- diminution moyenne du QIDS-SR16 de 6,4 points sous pramipexole ;
-- diminution de 2,4 points sous placebo ;
-- différence moyenne ajustée de -3,91 points ;
-- IC95% de -5,37 à -2,45 ;
-- p < 0,0001.
-- Ce résultat est à la fois :
-- statistiquement très significatif ;
-- compatible avec une pertinence clinique, puisque le seuil retenu pour le calcul d'effectif était 3 points ;
-- cohérent avec une taille d'effet standardisée importante, autour de 0,87.
-- Formulation orale possible :
-- on ne voit pas seulement un petit signal statistique ;
-- on observe un écart qui dépasse le seuil considéré a priori comme cliniquement important.
+- Le résultat principal à 12 semaines est net.
+- Le score QIDS-SR16 diminue en moyenne de 6,4 points dans le groupe pramipexole.
+- Dans le groupe placebo, la diminution est de 2,4 points.
+- La différence moyenne ajustée entre groupes est de -3,91 points.
+- L'intervalle de confiance à 95% va de -5,37 à -2,45.
+- La valeur de p est inférieure à 0,0001.
+- Ce résultat est important à trois niveaux.
+- D'abord, il est statistiquement très significatif.
+- Ensuite, il est compatible avec une pertinence clinique, puisque le seuil retenu pour le calcul d'effectif était de 3 points.
+- Enfin, la taille d'effet standardisée est importante, autour de 0,87.
+- On peut donc dire à l'oral qu'il ne s'agit pas d'un simple signal statistique faible.
+- L'écart observé dépasse le seuil considéré a priori comme cliniquement important.
 
 ## DIAPO 29
 
-- Résultats secondaires à 12 semaines :
-- réponse 44% versus 16% ;
-- RR 2,72 ;
-- rémission 28% versus 8% ;
-- RR 3,94 ;
-- amélioration aussi sur QIDS clinicien ;
-- amélioration sur SHAPS, donc l'anhédonie ;
-- amélioration sur GAD-7, donc l'anxiété.
-- Intérêt méthodologique :
-- la cohérence du signal sur plusieurs dimensions réduit l'hypothèse d'un résultat isolé ou aberrant ;
-- le fait que le QIDS clinicien aille dans le même sens que le QIDS autoévalué renforce un peu la crédibilité malgré le risque de démasquage.
+- Les résultats secondaires à 12 semaines vont dans le même sens.
+- Le taux de réponse est de 44% sous pramipexole contre 16% sous placebo.
+- Le risque relatif est de 2,72.
+- Le taux de rémission est de 28% sous pramipexole contre 8% sous placebo.
+- Le risque relatif est de 3,94.
+- Les auteurs observent aussi une amélioration du QIDS clinicien.
+- Ils observent également une amélioration du SHAPS, donc de l'anhédonie.
+- Le GAD-7 s'améliore lui aussi, ce qui suggère un bénéfice sur l'anxiété.
+- D'un point de vue méthodologique, cette cohérence entre plusieurs critères est importante.
+- Elle rend moins probable l'idée d'un résultat isolé ou aberrant.
+- Le fait que le QIDS clinicien évolue dans le même sens que le QIDS autoévalué renforce un peu la crédibilité du signal, même si cela ne supprime pas le problème du démasquage.
 
 ## DIAPO 30
 
-- Résultats à 48 semaines :
-- maintien d'un bénéfice sur le QIDS-SR16 avec différence ajustée de -2,02 ;
-- amélioration du WSAS ;
-- satisfaction de traitement supérieure.
-- Mais il faut être prudent :
-- tous les patients n'ont pas eu 48 semaines de suivi ;
-- les modifications d'antidépresseur étaient autorisées après 12 semaines ;
-- elles ont été plus fréquentes dans le groupe placebo.
-- Donc le message rigoureux est :
-- le signal de maintien est intéressant ;
-- mais le niveau de causalité est plus fort à 12 semaines qu'à 48 semaines.
+- À 48 semaines, les résultats restent globalement en faveur du pramipexole.
+- Les auteurs rapportent un maintien du bénéfice sur le QIDS-SR16, avec une différence ajustée de -2,02.
+- Ils rapportent aussi une amélioration du WSAS.
+- La satisfaction de traitement est également supérieure.
+- Il faut toutefois rester prudent dans l'interprétation.
+- Tous les participants n'ont pas eu 48 semaines complètes de suivi.
+- Après 12 semaines, les modifications d'antidépresseur étaient autorisées.
+- Ces modifications ont été plus fréquentes dans le groupe placebo.
+- Le message rigoureux est donc le suivant.
+- Le signal de maintien est intéressant.
+- En revanche, le niveau de preuve causal est plus fort à 12 semaines qu'à 48 semaines.
 
 ## DIAPO 31
 
-- Tolérance :
-- quasiment tous les participants ont rapporté au moins un événement indésirable ;
-- arrêt pour intolérance 20% sous pramipexole contre 5% sous placebo ;
-- RR 3,95.
-- Effets indésirables fréquents :
-- nausées ;
-- céphalées ;
-- vertiges ;
-- somnolence ;
-- troubles du sommeil ;
-- vomissements.
-- Signaux spécifiques surveillés :
-- troubles du contrôle des impulsions ;
-- symptômes maniaques ;
-- psychose ;
-- idées suicidaires.
-- Deux cas de troubles du contrôle des impulsions ont été observés sous pramipexole et ont régressé après baisse de dose.
+- La tolérance est un élément majeur de l'interprétation.
+- Presque tous les participants ont rapporté au moins un événement indésirable.
+- L'arrêt pour intolérance a concerné 20% des patients sous pramipexole contre 5% sous placebo.
+- Le risque relatif est de 3,95.
+- Les effets indésirables fréquents sont conformes au profil connu de la molécule.
+- Les plus fréquents sont les nausées, les céphalées, les vertiges, la somnolence, les troubles du sommeil et les vomissements.
+- Les auteurs surveillaient aussi des signaux plus spécifiques.
+- Il s'agissait des troubles du contrôle des impulsions, des symptômes maniaques, de la psychose et des idées suicidaires.
+- Deux cas de troubles du contrôle des impulsions ont été observés sous pramipexole.
+- Ces troubles ont régressé après réduction de dose.
 
 ## DIAPO 32
 
-- Biais et limites méthodologiques :
-- critère principal autoévalué ;
-- démasquage fonctionnel important en fin d'étude ;
-- exclusion après randomisation d'un patient, donc ITT modifiée ;
-- détails limités dans le texte principal sur les analyses de sensibilité ;
-- sélection importante des patients ;
-- absence de données d'ethnicité.
-- Le démasquage mérite d'être discuté à part :
-- 77% des participants placebo et 71% des participants pramipexole ont correctement deviné leur groupe ;
-- p < 0,001.
-- Comme le critère principal est autoévalué, cela peut majorer un effet d'attente.
-- C'est probablement la principale menace sur la validité interne.
+- Les principales limites méthodologiques doivent être exposées clairement.
+- Le critère principal est autoévalué.
+- Il existe un démasquage fonctionnel important en fin d'étude.
+- Un participant a été exclu après randomisation, ce qui conduit à une ITT modifiée.
+- Les détails des analyses de sensibilité ne sont pas fournis dans le corps du texte.
+- La sélection des patients est importante.
+- Les données d'ethnicité ne sont pas disponibles.
+- Le démasquage mérite une discussion spécifique.
+- 77% des participants du groupe placebo et 71% des participants du groupe pramipexole ont correctement deviné leur groupe.
+- La différence est statistiquement significative, avec p < 0,001.
+- Comme le critère principal repose sur un autoquestionnaire, ce démasquage peut majorer un effet d'attente.
+- C'est probablement la principale menace sur la validité interne de l'étude.
 
 ## DIAPO 33
 
-- Forces méthodologiques :
-- essai randomisé, multicentrique, placebo-contrôlé ;
-- allocation centralisée ;
-- plan d'analyse préspécifié ;
-- run-in pour limiter la baseline inflation ;
-- encadrement strict des co-interventions avant 12 semaines ;
-- suivi longitudinal fin par plateforme numérique et appels réguliers ;
-- cohérence entre plusieurs critères d'efficacité ;
-- population réellement résistante, donc question clinique pertinente.
-- En bref :
-- bonne validité interne globale ;
-- résultat principal crédible ;
-- mais pas totalement immunisé contre le biais d'aveugle imparfait.
+- Malgré ces limites, l'étude a de nombreuses forces méthodologiques.
+- Il s'agit d'un essai randomisé, multicentrique et contrôlé par placebo.
+- L'allocation est centralisée.
+- Le plan d'analyse statistique est préspécifié.
+- La phase de run-in réduit le risque de baseline inflation.
+- Les co-interventions sont strictement encadrées jusqu'à 12 semaines.
+- Le suivi longitudinal est fin, grâce à la plateforme numérique et aux appels réguliers.
+- Les différents critères d'efficacité sont globalement cohérents entre eux.
+- Enfin, la population est réellement résistante, ce qui donne un vrai intérêt clinique à la question posée.
+- En résumé, la validité interne globale est bonne.
+- Le résultat principal est crédible.
+- En revanche, l'essai n'est pas totalement protégé contre les conséquences d'un aveugle imparfait.
 
 ## DIAPO 34
 
-- Validité externe :
-- bonne pour des patients adultes avec dépression unipolaire résistante suivis en psychiatrie spécialisée au Royaume-Uni ;
-- plus limitée pour la médecine générale, les patients avec comorbidités sévères, bipolarité, psychose ou antécédents d'impulsivité ;
-- tolérance peut être moins favorable hors essai.
-- Portée clinique :
-- le pramipexole apparaît comme une option d'augmentation plausible ;
-- pas comme un nouveau standard définitif ;
-- il faudrait idéalement des essais comparatifs directs versus stratégies déjà utilisées, par exemple quétiapine ou lithium, avec un focus sur tolérance et coût-efficacité.
+- La validité externe est correcte, mais elle a des limites.
+- Les résultats sont pertinents pour des adultes avec dépression unipolaire résistante, suivis en psychiatrie spécialisée au Royaume-Uni.
+- En revanche, l'extrapolation est plus délicate vers la médecine générale.
+- Elle est aussi plus délicate chez les patients ayant des comorbidités sévères, un trouble bipolaire, une psychose ou des antécédents d'impulsivité.
+- De plus, la tolérance pourrait être moins favorable hors essai que dans ce cadre très sélectionné.
+- Sur le plan clinique, le pramipexole apparaît donc comme une option plausible d'augmentation.
+- En revanche, il ne peut pas être présenté comme un nouveau standard définitif à ce stade.
+- Des essais comparatifs directs seraient utiles, par exemple face à la quétiapine ou au lithium, avec une attention particulière portée à la tolérance et au coût-efficacité.
 
 ## DIAPO 35
 
-- Conclusion prudente :
-- l'étude montre de façon assez convaincante qu'à 12 semaines, chez des patients avec dépression unipolaire résistante déjà sous antidépresseur, le pramipexole améliore davantage les symptômes qu'un placebo.
-- Le signal est fort, cohérent, et cliniquement plausible.
+- La conclusion doit rester prudente.
+- L'étude montre de manière convaincante qu'à 12 semaines, chez des patients avec dépression unipolaire résistante déjà traités par antidépresseur, l'ajout de pramipexole améliore davantage les symptômes qu'un placebo.
+- Le signal observé est fort, cohérent et cliniquement plausible.
 - En revanche, la tolérance est moins bonne.
-- Le niveau de confiance est bon pour l'efficacité à court terme dans cette population sélectionnée.
-- Il est plus modéré pour :
-- la généralisation à des populations plus larges ;
-- l'effet à très long terme ;
-- l'ampleur exacte de l'effet si l'aveugle est imparfait.
-- Phrase de fin possible :
-- cette étude soutient l'usage du pramipexole comme option d'augmentation chez certains patients résistants, mais avec sélection rigoureuse, surveillance étroite, et sans exagérer la portée du résultat.
+- Le niveau de confiance est donc bon pour l'efficacité à court terme dans cette population sélectionnée.
+- Il est plus modéré pour la généralisation à des populations plus larges.
+- Il est aussi plus modéré pour l'effet à très long terme.
+- Enfin, il est plus modéré pour l'ampleur exacte de l'effet si l'aveugle a été imparfait.
+- Une phrase de conclusion possible à l'oral serait la suivante.
+- Cette étude soutient l'utilisation du pramipexole comme option d'augmentation chez certains patients résistants, mais à condition de sélectionner les patients avec rigueur, de surveiller étroitement la tolérance, et de ne pas surinterpréter la portée du résultat.
 
 ## Questions possibles du jury
 
@@ -513,100 +525,100 @@
 
 Pourquoi le placebo est-il un comparateur acceptable ici ?
 
-Réponse : parce qu'il n'existe pas de traitement pharmacologique d'augmentation unanimement reconnu comme standard de première ligne dans cette situation. Le placebo permet donc d'isoler proprement l'effet additif du pramipexole sur fond d'antidépresseur.
+Réponse : parce qu'il n'existe pas, dans cette situation précise, de stratégie pharmacologique d'augmentation unanimement reconnue comme standard de première ligne. Le placebo permet donc d'isoler proprement l'effet additif du pramipexole sur le traitement antidépresseur de fond.
 
 ### Question 2
 
 Pourquoi la phase de run-in est-elle méthodologiquement intéressante ?
 
-Réponse : elle permet de vérifier l'adhérence au recueil des données, la stabilité symptomatique, et de limiter la baseline inflation, c'est-à-dire l'exagération du score initial. En revanche, elle sélectionne des sujets plus stables et plus observants.
+Réponse : elle permet de vérifier l'adhérence au recueil des données, de s'assurer que les symptômes sont stables, et de limiter la baseline inflation, c'est-à-dire une exagération artificielle du score initial. En contrepartie, elle sélectionne des sujets plus stables et plus observants.
 
 ### Question 3
 
 Qu'entend-on par baseline inflation ?
 
-Réponse : c'est le fait qu'un score de départ soit artificiellement élevé, par exemple à cause du contexte de sélection ou des attentes du patient. Si on ne le contrôle pas, on peut surestimer l'amélioration ultérieure.
+Réponse : il s'agit d'un score de départ artificiellement élevé, par exemple en raison du contexte de sélection ou des attentes du patient. Si ce phénomène n'est pas contrôlé, on peut surestimer l'amélioration observée ensuite.
 
 ### Question 4
 
 L'étude est-elle vraiment en intention de traiter ?
 
-Réponse : pas strictement. Les auteurs utilisent le terme ITT, mais un patient randomisé a été retiré après randomisation car inéligible. En pratique, il s'agit donc d'une ITT modifiée.
+Réponse : pas au sens strict. Les auteurs utilisent le terme ITT, mais un participant randomisé a été retiré après randomisation parce qu'il s'est révélé inéligible. En pratique, on parle donc plutôt d'une ITT modifiée.
 
 ### Question 5
 
 Pourquoi la randomisation par minimisation est-elle intéressante ici ?
 
-Réponse : parce qu'avec un effectif modéré et plusieurs centres, elle limite les déséquilibres sur des facteurs pronostiques importants comme l'âge, le sexe, le centre et la sévérité initiale. Elle est particulièrement utile quand on veut des groupes comparables sans très grand effectif.
+Réponse : parce qu'avec un effectif modéré et plusieurs centres, elle limite les déséquilibres sur des facteurs pronostiques importants comme l'âge, le sexe, le centre et la sévérité initiale. Elle est particulièrement utile quand on veut obtenir des groupes comparables sans disposer d'un très grand effectif.
 
 ### Question 6
 
 Le double aveugle a-t-il vraiment fonctionné ?
 
-Réponse : techniquement oui au départ, mais fonctionnellement imparfait ensuite. Les effets indésirables du pramipexole ont probablement aidé les participants à deviner leur groupe. C'est un biais important, surtout avec un critère principal autoévalué.
+Réponse : il a probablement bien fonctionné au départ sur le plan technique, mais il a été imparfait sur le plan fonctionnel au cours de l'étude. Les effets indésirables du pramipexole ont probablement aidé les participants à deviner leur groupe. C'est problématique surtout parce que le critère principal est autoévalué.
 
 ### Question 7
 
 Pourquoi le choix du QIDS-SR16 comme critère principal peut-il être discuté ?
 
-Réponse : c'est un outil validé, sensible au changement et simple à recueillir de façon répétée. Mais comme il est autoévalué, il est plus vulnérable à un biais d'attente qu'un critère totalement évaluateur ou plus objectif.
+Réponse : c'est un outil validé, sensible au changement et facile à répéter au cours du suivi. En revanche, comme il est autoévalué, il est plus vulnérable à un biais d'attente qu'un critère purement évaluateur ou plus objectif.
 
 ### Question 8
 
 Comment les auteurs ont-ils géré les données manquantes ?
 
-Réponse : pour l'analyse principale, ils utilisent un modèle mixte sur les données disponibles, ce qui revient à une approche valide sous hypothèse MAR. Pour la réponse et la rémission à 12 semaines, ils précisent qu'il n'y a pas eu d'imputation. Les détails complets des analyses de sensibilité sont dans l'appendice.
+Réponse : pour l'analyse principale, ils utilisent un modèle mixte sur les données disponibles, ce qui correspond en pratique à une approche valide sous hypothèse MAR. Pour la réponse et la rémission à 12 semaines, ils précisent qu'il n'y a pas eu d'imputation. Les détails complets des analyses de sensibilité sont renvoyés à l'appendice.
 
 ### Question 9
 
 Qu'est-ce qu'une hypothèse MAR ?
 
-Réponse : cela signifie que la probabilité qu'une donnée manque peut dépendre des informations déjà observées, mais pas de la vraie valeur non observée une fois ces informations prises en compte dans le modèle. C'est une hypothèse fréquente, mais non vérifiable directement.
+Réponse : cela signifie que la probabilité qu'une donnée manque peut dépendre des informations déjà observées, mais pas de la vraie valeur non observée une fois ces informations prises en compte dans le modèle. C'est une hypothèse fréquente, mais elle n'est pas directement vérifiable.
 
 ### Question 10
 
 Pourquoi est-il un peu particulier d'utiliser toutes les données jusqu'à 48 semaines pour estimer un effet principal à 12 semaines ?
 
-Réponse : parce que le critère principal est défini à 12 semaines, alors que le modèle emprunte aussi de l'information aux autres temps de mesure. Cela peut améliorer la précision, mais cela mérite d'être expliqué car la phase post-12 semaines est moins contrôlée.
+Réponse : parce que le critère principal est défini à 12 semaines, alors que le modèle emprunte aussi de l'information aux autres temps de mesure. Cette stratégie peut améliorer la précision, mais elle mérite d'être explicitée, car la période postérieure à 12 semaines est moins contrôlée.
 
 ### Question 11
 
 Les analyses secondaires sont-elles solides ?
 
-Réponse : elles sont globalement adaptées et cohérentes avec l'analyse principale. En revanche, elles restent secondaires. Elles renforcent la cohérence du signal, mais ne doivent pas être interprétées comme si chacune avait la même force démonstrative que le critère principal.
+Réponse : elles sont globalement bien adaptées et cohérentes avec l'analyse principale. En revanche, elles restent secondaires. Elles renforcent la cohérence du signal, mais elles n'ont pas individuellement la même force démonstrative que le critère principal.
 
 ### Question 12
 
-Pourquoi les résultats à 48 semaines sont-ils moins convaincants causalement ?
+Pourquoi les résultats à 48 semaines sont-ils moins convaincants sur le plan causal ?
 
-Réponse : parce qu'une partie des patients n'a pas pu atteindre 48 semaines avant la clôture, et parce qu'après 12 semaines les antidépresseurs pouvaient être modifiés. Le contraste entre groupes devient donc moins pur.
+Réponse : parce qu'une partie des participants n'a pas pu atteindre 48 semaines avant la clôture, et parce qu'après 12 semaines les antidépresseurs pouvaient être modifiés. Le contraste entre groupes devient donc moins pur.
 
 ### Question 13
 
 Que penser du rapport bénéfice-risque ?
 
-Réponse : il paraît intéressant chez des patients très résistants, car le gain symptomatique est net. Mais il existe un coût en tolérance non négligeable, avec davantage d'arrêts de traitement et des effets dopaminergiques à surveiller.
+Réponse : il paraît intéressant chez des patients très résistants, car le gain symptomatique est net. En revanche, ce bénéfice s'accompagne d'un coût en tolérance non négligeable, avec davantage d'arrêts de traitement et des effets dopaminergiques qui nécessitent une surveillance.
 
 ### Question 14
 
 Quelle est la principale force de validité interne ?
 
-Réponse : l'association d'une randomisation centralisée, d'un comparateur placebo, d'un protocole préspécifié, d'un encadrement strict des co-interventions jusqu'à 12 semaines, et d'un suivi longitudinal dense.
+Réponse : c'est la combinaison d'une randomisation centralisée, d'un comparateur placebo, d'un protocole préspécifié, d'un contrôle strict des co-interventions jusqu'à 12 semaines, et d'un suivi longitudinal dense.
 
 ### Question 15
 
 Quelle est la principale limite de validité externe ?
 
-Réponse : la population est très sélectionnée, spécialisée, et certains profils à haut risque, comme les sujets avec antécédents d'impulsivité, psychose ou bipolarité, ont été exclus. On ne peut donc pas transposer sans prudence.
+Réponse : la population est très sélectionnée et spécialisée. En particulier, certains profils à haut risque, comme les patients avec antécédents d'impulsivité, de psychose ou de bipolarité, ont été exclus. On ne peut donc pas transposer les résultats sans prudence.
 
 ### Question 16
 
 Pourquoi le fait d'avoir aussi un QIDS clinicien est-il utile ?
 
-Réponse : parce que cela apporte une source d'évaluation différente du seul autoquestionnaire. Le fait que les deux aillent dans le même sens renforce un peu la crédibilité du signal, même si cela ne supprime pas totalement le problème de démasquage.
+Réponse : parce que cela apporte une source d'évaluation différente du seul autoquestionnaire. Le fait que le QIDS clinicien évolue dans le même sens renforce un peu la crédibilité du signal, même si cela ne règle pas complètement le problème du démasquage.
 
 ### Question 17
 
 Que montre vraiment cette étude, et que ne montre-t-elle pas ?
 
-Réponse : elle montre un bénéfice clinique à court terme du pramipexole en ajout à un antidépresseur chez des patients sélectionnés avec dépression résistante unipolaire. Elle ne montre pas encore qu'il s'agit du meilleur traitement d'augmentation, ni que ce bénéfice est généralisable à tous les patients ou parfaitement durable à long terme.
+Réponse : elle montre un bénéfice clinique à court terme du pramipexole en ajout à un antidépresseur chez des patients sélectionnés ayant une dépression unipolaire résistante. En revanche, elle ne montre pas encore que le pramipexole est la meilleure stratégie d'augmentation, ni que le bénéfice observé est généralisable à tous les patients, ni qu'il est parfaitement durable à long terme.

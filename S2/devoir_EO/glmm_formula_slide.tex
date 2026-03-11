@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\pagestyle{empty}
+
+\begin{document}
+
+\section*{GLMM for the Primary Outcome}
+
+Primary outcome: repeated \texttt{QIDS-SR16} measurements, with the treatment
+effect of interest evaluated at week 12.
+
+\subsection*{Model}
+
+\[
+\begin{aligned}
+Y_{ij} =\;& \beta_0
++ \beta_1 \,\mathrm{Treatment}_i
++ \beta_2 \,\mathrm{Time}_j
++ \beta_3 \,(\mathrm{Treatment}_i \times \mathrm{Time}_j) \\
+& + \beta_4 \,\mathrm{AgeGroup}_i
++ \beta_5 \,\mathrm{Sex}_i
++ \beta_6 \,\mathrm{BaselineSeverityCat}_i
++ \beta_7 \,\mathrm{BaselineQIDS}_i \\
+& + u_{\mathrm{site}(i)}
++ b_i
++ \varepsilon_{ij}
+\end{aligned}
+\]
+
+\subsection*{Fixed Effects}
+
+\begin{itemize}[leftmargin=2em]
+\item \textbf{Treatment}: pramipexole vs placebo
+\item \textbf{Time}: repeated follow-up timepoints
+\item \textbf{Treatment $\times$ Time}: allows the treatment effect to differ over time
+\item \textbf{Age group}: 18--50 vs $>$50 years
+\item \textbf{Sex}: male vs female
+\item \textbf{Baseline severity category}: QIDS-SR16 11--15, 16--20, $>$20
+\item \textbf{Baseline QIDS-SR16}: adjustment for baseline symptom level
+\end{itemize}
+
+\subsection*{Random Effects}
+
+\begin{itemize}[leftmargin=2em]
+\item \textbf{Site random effect} $u_{\mathrm{site}(i)}$:
+captures between-site heterogeneity
+\item \textbf{Participant random intercept} $b_i$:
+captures within-patient correlation across repeated measurements
+\item \textbf{Residual error} $\varepsilon_{ij}$:
+observation-level unexplained variation
+\end{itemize}
+
+\subsection*{Interpretation}
+
+\begin{itemize}[leftmargin=2em]
+\item $Y_{ij}$: QIDS-SR16 score for participant $i$ at timepoint $j$
+\item The treatment effect at week 12 is read from the
+\textbf{treatment $\times$ time interaction} at week 12
+\item This is a longitudinal model: it uses all available repeated QIDS-SR16 data
+rather than only complete cases at week 12
+\end{itemize}
+
+\end{document}

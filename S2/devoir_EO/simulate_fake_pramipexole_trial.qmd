@@ -1,0 +1,498 @@
+---
+title: "Fake Pramipexole Trial Simulation"
+format:
+  html:
+    toc: true
+    code-fold: false
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(broom.mixed)
+library(knitr)
+
+set.seed(20260311)
+```
+
+## Goal
+
+This Quarto document generates a **fully fictitious dataset** inspired by the design and the main orders of magnitude reported in `article.pdf`.
+
+Important points:
+
+- These are **not the real trial data**
+- The simulated sample size follows your request: **75 patients in the pramipexole arm and 70 in the placebo arm**
+- The real article used a **1:1 randomisation** and had **75 vs 75 eligible randomised participants**
+- The analysis below is only an **illustration** of a plausible mixed-model workflow close to the published primary analysis
+
+## Simulation assumptions
+
+The fake data are loosely based on the paper:
+
+- mean baseline QIDS-SR16 around **16.3**
+- age around **44.9 years**
+- about **56% women**
+- 9 sites with a distribution roughly inspired by the published table
+- a stronger reduction in QIDS-SR16 in the pramipexole arm by week 12
+- gradual increase in missing data over follow-up
+
+## 1. Simulate participant-level baseline data
+
+```{r}
+sites <- c(
+  "Oxford", "Newcastle", "Liverpool", "King's College London",
+  "Bristol", "UCL", "Nottingham", "Midlands Partnership", "Pennine Care"
+)
+
+site_probs <- c(74, 26, 12, 12, 10, 6, 6, 3, 1)
+site_probs <- site_probs / sum(site_probs)
+
+n_prami <- 75
+n_placebo <- 70
+n_total <- n_prami + n_placebo
+
+draw_qids_baseline <- function(severity_cat) {
+  if (severity_cat == "11-15") {
+    x <- rnorm(1, mean = 13.5, sd = 1.2)
+    return(min(max(x, 11), 15))
+  }
+  if (severity_cat == "16-20") {
+    x <- rnorm(1, mean = 17.6, sd = 1.2)
+    return(min(max(x, 16), 20))
+  }
+  x <- rnorm(1, mean = 22.0, sd = 1.3)
+  min(max(x, 20.1), 25)
+}
+
+participants <- tibble(
+  id = 1:n_total,
+  site = sample(sites, size = n_total, replace = TRUE, prob = site_probs),
+  age = pmin(pmax(rnorm(n_total, mean = 44.9, sd = 14), 18), 74),
+  sex = sample(c("Female", "Male"), size = n_total, replace = TRUE, prob = c(0.56, 0.44)),
+  severity_cat = sample(
+    c("11-15", "16-20", ">20"),
+    size = n_total,
+    replace = TRUE,
+    prob = c(0.45, 0.43, 0.12)
+  )
+) |>
+  mutate(
+    age_group = if_else(age <= 50, "18-50", ">50"),
+    baseline_qids = vapply(severity_cat, draw_qids_baseline, numeric(1))
+  ) |>
+  slice_sample(prop = 1) |>
+  mutate(entry_order = row_number())
+
+kable(head(participants, 10), digits = 2, caption = "First 10 fictitious participants")
+```
+
+## 2. Assign treatment with a minimisation algorithm
+
+This section mimics the published randomisation logic:
+
+- first 10 participants: random allocation without minimisation
+- then a minimisation algorithm
+- 80% probability in favour of the allocation that minimises imbalance
+
+To match your request, the fake dataset is capped at **75 pramipexole** and **70 placebo**.
+
+```{r}
+imbalance_score <- function(df) {
+  score_vars <- c("site", "age_group", "sex", "severity_cat")
+  total_score <- 0
+
+  for (v in score_vars) {
+    tab <- table(df[[v]], df$treatment)
+    for (arm in c("Placebo", "Pramipexole")) {
+      if (!arm %in% colnames(tab)) {
+        tab <- cbind(tab, setNames(rep(0, nrow(tab)), arm))
+      }
+    }
+    tab <- tab[, c("Placebo", "Pramipexole"), drop = FALSE]
+    total_score <- total_score + sum(abs(tab[, "Placebo"] - tab[, "Pramipexole"]))
+  }
+
+  total_score
+}
+
+assignments <- participants
+assignments$treatment <- NA_character_
+
+for (i in seq_len(n_total)) {
+  current <- assignments[seq_len(i - 1), , drop = FALSE]
+  remaining_prami <- n_prami - sum(current$treatment == "Pramipexole", na.rm = TRUE)
+  remaining_placebo <- n_placebo - sum(current$treatment == "Placebo", na.rm = TRUE)
+
+  if (remaining_prami == 0) {
+    assignments$treatment[i] <- "Placebo"
+    next
+  }
+  if (remaining_placebo == 0) {
+    assignments$treatment[i] <- "Pramipexole"
+    next
+  }
+
+  if (i <= 10) {
+    assignments$treatment[i] <- sample(c("Placebo", "Pramipexole"), size = 1)
+    next
+  }
+
+  candidate_placebo <- bind_rows(current, mutate(assignments[i, ], treatment = "Placebo"))
+  candidate_prami   <- bind_rows(current, mutate(assignments[i, ], treatment = "Pramipexole"))
+
+  score_placebo <- imbalance_score(candidate_placebo)
+  score_prami   <- imbalance_score(candidate_prami)
+
+  if (score_placebo < score_prami) {
+    favoured <- "Placebo"
+  } else if (score_prami < score_placebo) {
+    favoured <- "Pramipexole"
+  } else {
+    favoured <- sample(c("Placebo", "Pramipexole"), size = 1)
+  }
+
+  if (favoured == "Pramipexole") {
+    assignments$treatment[i] <- sample(c("Pramipexole", "Placebo"), size = 1, prob = c(0.8, 0.2))
+  } else {
+    assignments$treatment[i] <- sample(c("Placebo", "Pramipexole"), size = 1, prob = c(0.8, 0.2))
+  }
+}
+
+participants <- assignments |>
+  mutate(
+    treatment = factor(treatment, levels = c("Placebo", "Pramipexole")),
+    age_group = factor(age_group, levels = c("18-50", ">50")),
+    sex = factor(sex, levels = c("Female", "Male")),
+    severity_cat = factor(severity_cat, levels = c("11-15", "16-20", ">20")),
+    site = factor(site)
+  )
+
+participants |>
+  count(treatment) |>
+  kable(caption = "Final fictitious allocation counts")
+```
+
+```{r}
+baseline_summary <- participants |>
+  group_by(treatment) |>
+  summarise(
+    n = n(),
+    age_mean = mean(age),
+    female_pct = mean(sex == "Female") * 100,
+    baseline_qids_mean = mean(baseline_qids),
+    severe_or_very_severe_pct = mean(severity_cat %in% c("16-20", ">20")) * 100,
+    .groups = "drop"
+  )
+
+kable(baseline_summary, digits = 2, caption = "Baseline summary by arm")
+```
+
+## 3. Simulate repeated QIDS-SR16 measurements
+
+```{r}
+weeks <- c(2, 4, 6, 8, 10, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48)
+
+placebo_change <- c(-0.4, -0.9, -1.3, -1.7, -2.1, -2.5,
+                    -2.8, -3.1, -3.3, -3.5, -3.7, -3.8, -3.9, -4.0, -4.1)
+
+prami_extra <- c(-0.5, -1.1, -1.8, -2.4, -3.1, -3.9,
+                 -3.6, -3.4, -3.1, -2.8, -2.6, -2.4, -2.2, -2.1, -2.0)
+
+site_re <- rnorm(length(sites), mean = 0, sd = 0.35)
+names(site_re) <- sites
+
+participants <- participants |>
+  mutate(
+    site_re = site_re[as.character(site)],
+    subject_intercept = rnorm(n_total, mean = 0, sd = 1.2),
+    subject_slope = rnorm(n_total, mean = 0, sd = 0.8)
+  )
+
+longitudinal <- tidyr::expand_grid(id = participants$id, week = weeks) |>
+  left_join(participants, by = "id") |>
+  mutate(
+    placebo_component = placebo_change[match(week, weeks)],
+    treatment_component = if_else(treatment == "Pramipexole", prami_extra[match(week, weeks)], 0),
+    subject_time_component = subject_slope * sqrt(week / 12),
+    age_component = if_else(age_group == ">50", 0.3, 0),
+    sex_component = if_else(sex == "Male", 0.1, 0),
+    qids = baseline_qids +
+      placebo_component +
+      treatment_component +
+      age_component +
+      sex_component +
+      site_re +
+      subject_intercept * 0.25 +
+      subject_time_component +
+      rnorm(n(), mean = 0, sd = 1.5),
+    qids = pmin(pmax(qids, 0), 27)
+  )
+```
+
+## 4. Add plausible missingness
+
+```{r}
+sample_dropout_week <- function(trt) {
+  stage <- if (trt == "Pramipexole") {
+    sample(c("pre12", "post12", "complete"), size = 1, prob = c(0.10, 0.40, 0.50))
+  } else {
+    sample(c("pre12", "post12", "complete"), size = 1, prob = c(0.10, 0.38, 0.52))
+  }
+
+  if (stage == "pre12") {
+    return(sample(c(2, 4, 6, 8, 10), size = 1))
+  }
+  if (stage == "post12") {
+    return(sample(c(12, 16, 20, 24, 28, 32, 36, 40, 44), size = 1))
+  }
+  Inf
+}
+
+dropout_df <- participants |>
+  transmute(
+    id,
+    dropout_week = vapply(as.character(treatment), sample_dropout_week, numeric(1))
+  )
+
+longitudinal <- longitudinal |>
+  left_join(dropout_df, by = "id") |>
+  mutate(
+    observed = week <= dropout_week,
+    observed = if_else(observed, runif(n()) > 0.03, FALSE)
+  )
+
+analysis_df <- longitudinal |>
+  filter(observed) |>
+  mutate(week_f = factor(week))
+
+availability <- analysis_df |>
+  filter(week %in% c(12, 48)) |>
+  count(treatment, week) |>
+  tidyr::pivot_wider(names_from = week, values_from = n, names_prefix = "week_")
+
+kable(availability, caption = "Observed data counts at week 12 and week 48")
+```
+
+## 5. Save the fake data frames
+
+```{r}
+participant_export <- participants |>
+  select(id, treatment, site, age, age_group, sex, severity_cat, baseline_qids)
+
+long_export <- analysis_df |>
+  select(id, treatment, site, age_group, sex, severity_cat, baseline_qids, week, qids)
+
+write.csv(participant_export, "fake_trial_participants.csv", row.names = FALSE)
+write.csv(long_export, "fake_trial_longitudinal.csv", row.names = FALSE)
+```
+
+The following files are written in the working directory:
+
+- `fake_trial_participants.csv`
+- `fake_trial_longitudinal.csv`
+
+## 6. Descriptive results from the fictitious data
+
+```{r}
+observed_summary <- analysis_df |>
+  filter(week %in% c(12, 48)) |>
+  mutate(change_from_baseline = qids - baseline_qids) |>
+  group_by(treatment, week) |>
+  summarise(
+    n = n(),
+    mean_qids = mean(qids),
+    mean_change = mean(change_from_baseline),
+    sd_change = sd(change_from_baseline),
+    .groups = "drop"
+  )
+
+kable(observed_summary, digits = 2, caption = "Observed fake outcomes at week 12 and week 48")
+```
+
+## 7. Fit an approximate mixed model
+
+This model is designed to stay close to the published analysis:
+
+```{r}
+model_formula <- qids ~ treatment * week_f + age_group + sex + severity_cat + baseline_qids + (1 | site) + (1 | id)
+model_formula
+```
+
+```{r}
+fit <- lmerTest::lmer(
+  formula = model_formula,
+  data = analysis_df,
+  REML = FALSE
+)
+```
+
+## 8. How an adjusted mean difference is obtained
+
+For a continuous outcome, the paper reports an **adjusted mean difference** rather
+than a raw difference in observed means.
+
+In a linear mixed model, this means:
+
+- the model first estimates the average QIDS-SR16 trajectory after adjustment for
+  treatment, time, baseline QIDS-SR16, age group, sex, severity category, site,
+  and participant-level clustering
+- then the model-derived mean for each treatment arm is obtained at a given timepoint
+- the **adjusted mean difference** is the contrast between these two model-based means
+
+In this coding, with week treated as a factor, the adjusted difference at week 12 is:
+
+```text
+Adjusted MD at week 12
+= β[treatmentPramipexole] + β[treatmentPramipexole:week_f12]
+```
+
+because:
+
+```text
+Predicted mean at week 12 in placebo
+= β0 + β[week_f12] + covariate terms
+
+Predicted mean at week 12 in pramipexole
+= β0 + β[treatmentPramipexole] + β[week_f12]
+  + β[treatmentPramipexole:week_f12] + covariate terms
+```
+
+and the common covariate terms cancel out in the contrast.
+
+### Raw week-12 difference vs adjusted week-12 difference
+
+```{r}
+raw_week12 <- analysis_df |>
+  filter(week == 12) |>
+  group_by(treatment) |>
+  summarise(
+    n = n(),
+    mean_qids = mean(qids),
+    .groups = "drop"
+  )
+
+raw_md_week12 <- with(raw_week12, mean_qids[treatment == "Pramipexole"] - mean_qids[treatment == "Placebo"])
+
+raw_week12 |>
+  kable(digits = 3, caption = "Observed means at week 12")
+
+cat("\nObserved raw mean difference at week 12 (Pramipexole - Placebo):",
+    round(raw_md_week12, 3), "\n")
+```
+
+```{r}
+emm_all <- emmeans::emmeans(fit, ~ treatment | week_f)
+
+emm_week12 <- summary(emm_all) |>
+  as.data.frame() |>
+  filter(week_f == "12")
+
+contrast_week12 <- pairs(emm_all, reverse = TRUE) |>
+  summary(infer = c(TRUE, TRUE)) |>
+  as.data.frame() |>
+  filter(week_f == "12")
+
+kable(emm_week12, digits = 3, caption = "Model-based adjusted means at week 12")
+kable(contrast_week12, digits = 3, caption = "Adjusted mean difference at week 12")
+```
+
+### Direct check from the fixed-effect coefficients
+
+```{r}
+coefs <- lme4::fixef(fit)
+
+coef_check <- tibble(
+  term = c("treatmentPramipexole", "treatmentPramipexole:week_f12"),
+  estimate = c(
+    unname(coefs["treatmentPramipexole"]),
+    unname(coefs["treatmentPramipexole:week_f12"])
+  )
+) |>
+  bind_rows(
+    tibble(
+      term = "sum = adjusted mean difference at week 12",
+      estimate = sum(coefs["treatmentPramipexole"], coefs["treatmentPramipexole:week_f12"])
+    )
+  )
+
+kable(coef_check, digits = 3, caption = "Coefficient decomposition of the adjusted week-12 contrast")
+```
+
+### Random-effects standard deviations
+
+```{r}
+ran_pars <- broom.mixed::tidy(fit, effects = "ran_pars", scales = "sdcor")
+kable(ran_pars, digits = 3, caption = "Random-effects parameters")
+```
+
+### Adjusted treatment contrasts at week 12 and week 48
+
+```{r}
+contrasts_by_week <- pairs(emm_all, reverse = TRUE) |>
+  broom::tidy(conf.int = TRUE) |>
+  mutate(week = as.integer(as.character(week_f))) |>
+  filter(week %in% c(12, 48)) |>
+  select(week, contrast, estimate, std.error, statistic, p.value, conf.low, conf.high)
+
+kable(contrasts_by_week, digits = 3, caption = "Adjusted Pramipexole - Placebo contrasts")
+```
+
+### Selected fixed effects
+
+```{r}
+fixed_effects <- broom.mixed::tidy(fit, effects = "fixed", conf.int = TRUE) |>
+  filter(grepl("treatmentPramipexole|week_f12|treatmentPramipexole:week_f12|week_f48|treatmentPramipexole:week_f48|baseline_qids|age_group|sex|severity_cat", term))
+
+kable(fixed_effects, digits = 3, caption = "Selected fixed effects from the mixed model")
+```
+
+## 9. Illustration plot
+
+```{r}
+plot_df <- analysis_df |>
+  group_by(treatment, week) |>
+  summarise(
+    mean_qids = mean(qids),
+    se = sd(qids) / sqrt(n()),
+    .groups = "drop"
+  )
+
+ggplot(plot_df, aes(x = week, y = mean_qids, colour = treatment)) +
+  geom_line(linewidth = 0.9) +
+  geom_point(size = 2) +
+  geom_ribbon(
+    aes(ymin = mean_qids - 1.96 * se, ymax = mean_qids + 1.96 * se, fill = treatment),
+    alpha = 0.15,
+    colour = NA
+  ) +
+  scale_x_continuous(breaks = c(2, 4, 8, 12, 24, 36, 48)) +
+  labs(
+    title = "Fake repeated QIDS-SR16 trajectories",
+    x = "Week",
+    y = "Mean QIDS-SR16",
+    colour = "Treatment",
+    fill = "Treatment"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+## 10. Short interpretation
+
+This is what the simulated output is intended to show:
+
+- the two groups are reasonably balanced at baseline
+- the pramipexole arm shows a larger improvement by week 12
+- the difference narrows by week 48
+- the mixed model recovers an adjusted treatment contrast at week 12 that is plausibly in the direction of the published paper
+
+Again, this is only a **didactic fake-data exercise** built to resemble the article, not a reconstruction of the real data.

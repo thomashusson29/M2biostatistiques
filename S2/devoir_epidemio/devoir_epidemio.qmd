@@ -2417,9 +2417,9 @@ print(love_plot_baseline)
 
     - Une imputation est nécessaire si l'on veut inclure les variables avec des données manquantes dans le score de propension, car les méthodes d'appariement ne peuvent pas gérer les données manquantes.
 
-    - Comme expliqué dans l'article de Eiset et Frydenberg (2022), [@eisetConsiderationsUsingMultiple2022a], une imputation multiple n'est pas une bonne option dans ce cas car difficilement combinable avec un appariement : il faudrait gérer la multiplicité des jeux de données imputés et s'assurer que l'appariement est effectué de manière cohérente à travers les jeux (soit en calculant un score de propension moyen à travers les jeux, soit en réalisant l'appariement séparément dans chaque jeu puis en poolant les résultats).
+    - Comme expliqué dans l'article de Eiset et Frydenberg (2022), [@eisetConsiderationsUsingMultiple2022a], une imputation multiple est "tout sauf trivial" lorsque combinée avec un appariement : il faudrait gérer la multiplicité des jeux de données imputés et s'assurer que l'appariement est effectué de manière cohérente à travers les jeux (soit en calculant un score de propension moyen à travers les jeux, soit en réalisant l'appariement séparément dans chaque jeu puis en poolant les résultats).
 
-    - On propose donc de réaliser une imputation simple par la médiane pour les deux variables avec des données manquantes (score ADL et diurèse), ce qui permettra de les inclure dans le score de propension sans complexifier l'analyse.
+    - On propose donc de réaliser une imputation simple par la médiane pour les deux variables avec des données manquantes (score ADL et diurèse), ce qui permettra de les inclure dans le score de propension sans complexifier l'analyse. Il est tout à fait probable que cette méthode soit moins robuste que l'imputation multiple, mais elle est plus simple à mettre en œuvre dans le cadre de cet exercice.
 
 ```{r}
 #| label: imputation-propension
