@@ -1,0 +1,206 @@
+---
+title: "MOOC Données Multidimensionnelles : Analyse en Composantes Principales"
+bibliography: ../../Biblio/biblio-zotero.bib
+format:
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        number-sections: false
+        mainfont: Ubuntu
+        cite-method: natbib
+        biblio-style: unsrtnat
+        natbiboptions: "super,sort,compress"
+        filters:
+            - level6-heading.lua
+        header-includes: |
+            \usepackage{fontspec}
+            \setmainfont{Ubuntu}
+            \usepackage[dvipsnames]{xcolor}
+            \usepackage{array}
+            \usepackage{etoolbox}
+            \usepackage{needspace}
+            \definecolor{myblue}{rgb}{0.0078,0.0078,0.549}
+            \definecolor{mygreen}{rgb}{0,0.2745,0}
+            \definecolor{mybrown}{rgb}{0.392,0.094,0.094}
+            \definecolor{mypurple}{rgb}{0.286,0,0.286}
+            \definecolor{myorange}{rgb}{0.8,0.4,0}
+            \usepackage{sectsty}
+            \sectionfont{\color{black}\Large}
+            \subsectionfont{\color{myblue}\large}
+            \subsubsectionfont{\color{mygreen}\normalsize}
+            % Espace vertical de 0.3 cm haut/bas dans les cellules de tableau
+            \setlength{\extrarowheight}{0.3cm}
+            % Fixe la taille du corps de texte à 10pt avec un interligne cohérent
+            \AtBeginDocument{\fontsize{10pt}{12pt}\selectfont}
+            % Assure une vraie hiérarchie (### vs ####) dans le PDF
+            \setcounter{secnumdepth}{5}
+            \setcounter{tocdepth}{5}
+            % Avec KOMA-Script (scrartcl), éviter titlesec (incompatible) et
+            % redéclarer paragraph/subparagraph pour qu'ils soient en "block".
+            \RedeclareSectionCommand[
+                beforeskip=1.5ex plus .5ex minus .2ex,
+                afterskip=.6ex,
+                font=\normalfont\small\bfseries\color{mybrown}
+            ]{paragraph}
+            \RedeclareSectionCommand[
+                beforeskip=1.2ex plus .4ex minus .2ex,
+                afterskip=.5ex,
+                font=\normalfont\footnotesize\bfseries\color{mypurple}
+            ]{subparagraph}
+            % Niveau 6 (######) - titre personnalisé
+            \newcommand{\subsubparagraph}[1]{%
+                \vspace{1ex}%
+                {\normalfont\scriptsize\bfseries\color{myorange}#1}%
+                \vspace{0.4ex}%
+            }
+            % Veille à laisser suffisamment d'espace avant un tableau pour éviter son découpage
+            \AtBeginEnvironment{longtable}{\needspace{15\baselineskip}}
+    html:
+        toc: true
+        toc-location: left
+        toc-expand: true
+        css: heading-colors.css
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(plotrix)
+library(randomForest)
+library(tidyr)
+library(epiR)
+library(DHARMa)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(boot)
+library(psy)
+library(MASS)
+library(mgcv)
+library(rpart)
+library(logbin)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(kableExtra)
+library(gtsummary)
+library(dplyr)
+library(lattice)
+library(survey)
+library(mice)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(guideR)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(FactoMineR)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6)
+```
+
+## Données et problématique
+
+### Quel type de données ? 
+
+-   ACP s'intérese à des tableaux de données classique : lignes = observations, colonnes = variables quantitatives
+
+-   On a donc $i$ individus et $k$ variables, dont on peut estimer les moyennes et écarts types (sur le jeu de données, sans estimer l'écart type pour une population)
+
+-   L'objectif de l'ACP est de résumer les informations contenues dans un tableau de données en un nombre réduit de dimensions, tout en conservant une grande partie de la variance des données.
+
+### Domaines d'applications
+
+-   Analyse sensorielle : produit décrit selon des descripteurs sensoriels (acidité, amertume, salé, sucré). L'ACP crée une "description sensorielle multidimensionnelle" des produits.
+
+-   Génétique : les gênes décrivent les patients, donc énormément de variables.
+
+### Exemple
+
+-   Données de température
+
+-   15 observations : lignes = villes de France
+
+-   14 variables (colonnes) : 
+
+    -   12 températures mensuelles moyennes (tous les mois, sur 30 ans)
+
+    -   2 variables géographiques (latitude, longitude)
+
+```{r}
+#| label: df-temperatures
+#| echo: true
+temps_villes <- data.frame(
+    ville = c(
+        "Bordeaux", "Brest", "Clermont", "Grenoble", "Lille",
+        "Lyon", "Marseille", "Montpellier", "Nantes", "Nice",
+        "Paris", "Rennes", "Strasbourg", "Toulouse", "Vichy"
+    ),
+    Janv = c(5.6, 6.1, 2.6, 1.5, 2.4, 2.1, 5.5, 5.6, 5.0, 7.5, 3.4, 4.8, 0.4, 4.7, 2.4),
+    Fevr = c(6.6, 5.8, 3.7, 3.2, 2.9, 3.3, 6.6, 6.7, 5.3, 8.5, 4.1, 5.3, 1.5, 5.6, 3.4),
+    Mars = c(10.3, 7.8, 7.5, 7.7, 6.0, 7.7, 10.0, 9.9, 8.4, 10.8, 7.6, 7.9, 5.6, 9.2, 7.1),
+    Avri = c(12.8, 9.2, 10.3, 10.6, 8.9, 10.9, 13.0, 12.8, 10.8, 13.3, 10.7, 10.1, 9.8, 11.6, 9.9),
+    Mai  = c(15.8, 11.6, 13.8, 14.5, 12.4, 14.9, 16.8, 16.2, 13.9, 16.7, 14.3, 13.1, 14.0, 14.9, 13.6),
+    Juin = c(19.3, 14.4, 17.3, 17.8, 15.3, 18.5, 20.8, 20.1, 17.2, 20.1, 17.5, 16.2, 17.2, 18.7, 17.1),
+    Juil = c(20.9, 15.6, 19.4, 20.1, 17.1, 20.7, 23.3, 22.7, 18.8, 22.7, 19.1, 17.9, 19.0, 20.9, 19.3),
+    Aout = c(21.0, 16.0, 19.1, 19.5, 17.1, 20.1, 22.8, 22.3, 18.6, 22.5, 18.7, 17.8, 18.3, 20.9, 18.8),
+    Sept = c(18.6, 14.7, 16.2, 16.7, 14.7, 16.9, 19.9, 19.3, 16.4, 20.3, 16.0, 15.7, 15.1, 18.3, 16.0),
+    Octo = c(13.8, 12.0, 11.2, 11.4, 10.4, 11.4, 15.0, 14.6, 12.2, 16.0, 11.4, 11.6, 9.5, 13.3, 11.0),
+    Nove = c(9.1, 9.0, 6.6, 6.5, 6.1, 6.7, 10.2, 10.0, 8.2, 11.5, 7.1, 7.8, 4.9, 8.6, 6.6),
+    Dece = c(6.2, 7.0, 3.6, 2.3, 3.5, 3.1, 6.9, 6.5, 5.5, 8.2, 4.3, 5.4, 1.3, 5.5, 3.4),
+    Lat  = c(44.50, 48.24, 45.47, 45.10, 50.38, 45.45, 43.18, 43.36, 47.13, 43.42, 48.52, 48.05, 48.35, 43.36, 46.08),
+    Long = c(-0.34, -4.29, 3.05, 5.43, 3.04, 4.51, 5.24, 3.53, -1.33, 7.15, 2.20, -1.41, 7.45, 1.26, 3.26)
+)
+
+temps_villes
+```
+
+#### Description des données
+
+-  Si  l'on interprète ce tableau comme un ensemble de lignes : chercher les différences d'une ligne à l'autre 
+
+    -   Quand 2 individus se ressemblent ?
+
+    -   Quel bilan des ressemblances du point de vue de l'ensemble des colonnes ?
+
+    -   Objectif : constituer des groupes d'individus homogènes
+
+-   Si l'on interprète ce tableau comme un ensemble de colonnes : chercher les ressemblances entre colonnes
+
+    -   Même chose !
+
+    -   Quelles sont les ressemblances / LIAISONS entre 2 variables
+
+    -   Les plus simples = liaison linéaire
+
+#### Mesure de la ressemblance entre 2 variables
+
+-   Par le coefficient de corrélation linéaire de Pearson !
+
+-   Trouver des indicateurs qui rassemblent l'ensemble des variables
+
+    -   Indicateurs synthétiques (moyenne)
+
+    -   Indicateurs *a posteriori* : trouver un indicateur EN FONCTION DES DONNÉES présentes dans le tableau.
+
+#### Objectif de l'ACP
+
+-   Méthode de statistique descriptive / exploratoire multidimensionnelle
+
+-   Descriptif / exploratoire : visualisation des données par graphiques simples
+
+-   Synthèse / résumé de grands tableaux individus * variables
