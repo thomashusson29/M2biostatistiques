@@ -175,6 +175,8 @@ temps_villes
 
     -   Quand 2 individus se ressemblent ?
 
+    -   À l'intérieur d'un groupe, les individus se ressemblent mais entre deux groupes, les individus sont différents
+
     -   Quel bilan des ressemblances du point de vue de l'ensemble des colonnes ?
 
     -   Objectif : constituer des groupes d'individus homogènes
@@ -193,14 +195,148 @@ temps_villes
 
 -   Trouver des indicateurs qui rassemblent l'ensemble des variables
 
-    -   Indicateurs synthétiques (moyenne)
+    -   Indicateurs synthétiques *a priori* (= moyenne par exemple)
 
     -   Indicateurs *a posteriori* : trouver un indicateur EN FONCTION DES DONNÉES présentes dans le tableau.
+
+#### Lien entre étude des variables et études des individus
+
+-   Caractérisation des classes d'individus par les variables (= par les VALEURS contenues dans les variables)
+
+-   Liaisons entre variables, par exemple par opposition entre individus extrêmes
+
+    -   Par exemple : taille et poids sont liés
 
 #### Objectif de l'ACP
 
 -   Méthode de statistique descriptive / exploratoire multidimensionnelle
 
+-   Synthèse / résumé de grands tableaux individus * variable
+
 -   Descriptif / exploratoire : visualisation des données par graphiques simples
 
--   Synthèse / résumé de grands tableaux individus * variables
+#### Tableau de données = 2 nuages de points
+
+-   Ensemble de ligne = étude des individus
+
+    -   Un individu est un point
+
+    -   Dans un espace à $K$ dimensions (avec $K$ = le nombre de variables $k$)
+
+-   Ensemble des colonnes = études des variables
+
+    -   Une variable est un point
+
+    -   Dans un espace à $I$ dimensions (avec $I$ = le nombre d'individus $i$)
+
+## Étude des individus
+
+### Le nuage d'individu $N_i$
+
+-   1 individu = 1 ligne du tableau = 1 point dans un espace à $k$ dimension.
+
+    -   Si $K$ = 1, 1 seule variable donc représentation AXIALE
+
+    -   si $K$ = 2, nuage de points classique
+
+    -   si $K$ = 3, visualisation en 3D
+
+    -   Si $K$ >= 4; impossible à représenter mais concept simple !
+
+-   Distance entre 2 individus = somme des carrés des écarts entre 2 variables (= Pythagore)
+
+-   Ressemblance des individus si prennent des valeurs proches sur l'ensemble des variables
+
+#### Forme du nuage de points = étude des distances entre les individus
+
+-   Pré-traitement nécessaire
+
+-   par centrage et réduction
+
+##### Centrage 
+
+-   Centrage : ne modifie pas la forme du nuage (déplace juste le centre de gravité en le mettant à zéro)
+
+-   Donc toujours centrer !
+
+##### Réduction
+
+-   Réduction = mise à l'échelle des variables pour qu'elles aient la même importance dans l'analyse
+
+-   Permet de s'affranchir des unités
+
+-   Méthode : division par l'écart-type
+
+-   Pas forcément nécessaire si les variables sont déjà sur la même échelle (= même unité)
+
+#### Exemple sur le jeu de données
+
+-   Affichage du dataframe en kable :
+
+```{r}
+#| label: affichage-dataframe-initial-puis-centration-réduction-puis-affichage
+#| echo: false
+#| results: asis
+#| warning: false
+#| message: false
+# affichage du dataframe initial
+
+kableExtra::kable_styling(
+    knitr::kable(
+        temps_villes,
+        caption = "Jeu de données initial"
+    ),
+    full_width = FALSE
+)
+
+
+temps_villes_cr <- as.data.frame(
+    round(
+        scale(temps_villes[, -1, drop = FALSE], center = TRUE, scale = TRUE),
+        2
+    )
+)
+temps_villes_cr <- cbind(ville = temps_villes$ville, temps_villes_cr)
+kableExtra::kable_styling(
+    knitr::kable(
+        temps_villes_cr,
+        caption = "Jeu de données centré-réduit (moyenne 0, écart-type 1)"
+    ),
+    full_width = FALSE
+)
+```
+
+-   ACP = analyse du tableau centrée réduit
+
+-   Permet une visualisation en une image approchée (car on pourrait pas visualiser en 12 dimensions)
+
+##### Ajustement du nuage des individus
+
+-   ACP vise à fourner une image simplifiée de $N_I$ la plus fidèle possible
+
+-   Revient à dire : trouver le sous-espace qui résume le mieux les données
+
+##### Dispersion
+
+-   Plus un nuage de point est dispersé, plus il restitue fidèlement la forme du nuage
+
+-   Meilleure représentation de la variabilité et de la diversité
+
+-   Pour quantifier la qualité d'une image
+
+    -   Notion de dispersion ou variabilité = INERTIE
+
+    -   INERTIE = variance généralisée à plusieurs dimensions
+
+    -   Définition de l'inertie : 
+    
+        -   Pour un nuage de $n$ individus $x_i$ et leur centre de gravité $g$,
+            l'inertie est la moyenne des distances au carré au centre :
+            $I = \frac{1}{n}\sum_{i=1}^n \lVert x_i - g \rVert^2$.
+
+
+##### Composantes principales
+
+-   1ère composante principale = celle qui explique au maximum la variance des individus = celle sur laquelle les points sont le plus étalés
+
+-   2ème composante principale = orthogonale au plan de la première composante principale 
