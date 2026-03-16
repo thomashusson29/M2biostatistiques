@@ -328,11 +328,19 @@ kableExtra::kable_styling(
 
     -   INERTIE = variance généralisée à plusieurs dimensions
 
-    -   Définition de l'inertie : 
+    -   Définition de l'inertie : Pour un nuage de $n$ individus $x_i$ et leur centre de gravité $g$,
     
-        -   Pour un nuage de $n$ individus $x_i$ et leur centre de gravité $g$,
-            l'inertie est la moyenne des distances au carré au centre :
-            $I = \frac{1}{n}\sum_{i=1}^n \lVert x_i - g \rVert^2$.
+        -   l'inertie est la moyenne des distances au carré au centre :
+        
+        -   $I = \frac{1}{n}\sum_{i=1}^n \lVert x_i - g \rVert^2$.
+
+##### Trouver la meilleure image approchée du nuage ?
+
+1.  Trouver l'axe / facteur qui déforme le moins le nuage, donc point le plus éloigné possible
+
+    -   Globalement avec Pythagore, comme l'hypothénuse est constante pour un point (donc la distance entre le centre et le point est constante), on veut trouver l'axe pour lequel les autres côtés sont les plus grands
+
+2.  Idem pour 2e axe avec le deuxième axe perpandiculaire au premier
 
 
 ##### Composantes principales

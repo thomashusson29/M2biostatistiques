@@ -1,0 +1,3637 @@
+---
+title: "Devoir Épidémiologie"
+author: "Thomas Husson, Groupe 52"
+bibliography: /Users/thomashusson/Documents/Projets/M2biostatistiques/Biblio/biblio-zotero.bib
+prefer-pdf: true
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+        css: styles.css
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        pdf-engine: xelatex
+        cite-method: natbib
+        biblio-style: unsrtnat
+        natbiboptions: "super,sort,compress"
+        pdf-engine-opts:
+        - -interaction=nonstopmode
+        - -halt-on-error
+        number-sections: true
+        code-block-bg: false
+        header-includes: |
+            % Force la police Computer Modern pour le titre principal
+            \usepackage{fontspec}
+            \makeatletter
+            \renewcommand{\maketitle}{
+            \begin{center}
+                {\Large\bfseries\rmfamily \@title \par}
+                \vskip 1.5em
+                {\large\rmfamily \@author \par}
+                \vskip 1em
+            \end{center}
+            }
+            \makeatother
+            % Titres KOMA-Script en police roman par défaut
+            \setkomafont{disposition}{\rmfamily}
+            % Hyphenation française
+            \usepackage[french]{babel}
+            % Style des commentaires dans les blocs de code
+            \usepackage{xcolor}
+            \definecolor{commentgray}{HTML}{7A7A7A}
+            \providecommand{\CommentTok}[1]{#1}
+            \AtBeginDocument{
+            \renewcommand{\CommentTok}[1]{\textcolor{commentgray}{\textit{#1}}}
+            }
+            % Police "universelle" pour le code (XeLaTeX)
+            \usepackage{fontspec}
+            \IfFontExistsTF{Ubuntu Mono}{
+              \setmonofont{Ubuntu Mono}[Scale=MatchLowercase]
+            }{
+              \IfFontExistsTF{DejaVu Sans Mono}{
+                \setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]
+              }{
+                % fallback macOS (souvent dispo)
+                \IfFontExistsTF{Menlo}{
+                  \setmonofont{Menlo}[Scale=MatchLowercase]
+                }{
+                  \IfFontExistsTF{Monaco}{
+                    \setmonofont{Monaco}[Scale=MatchLowercase]
+                  }{
+                    % sinon on garde la police mono par défaut
+                  }
+                }
+              }
+            }
+            % Bloc de code R pour l'annexe (évite Shaded trop grand)
+            \usepackage{listings}
+            \lstset{
+            language=R,
+            basicstyle=\ttfamily\footnotesize\linespread{0.6}\selectfont\color{black},
+            commentstyle=\itshape\color{commentgray},
+            keywordstyle=\color{blue!60!black},
+            stringstyle=\color{brown!60!black},
+            showstringspaces=false,
+            showspaces=false,
+            showtabs=false,
+            breaklines=true,
+            breakatwhitespace=false,
+            columns=fullflexible,
+            xleftmargin=0.5em,
+            xrightmargin=0.5em
+            }
+
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+
+            % Gestion des chunks de code
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+            % \usepackage{rotating} % (désactivé)
+
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{3pt}
+            \hfuzz=100pt
+            \vfuzz=100pt
+            \hbadness=10000
+            \usepackage{enumitem}
+            \setlist[itemize]{itemsep=3pt, parsep=3pt, topsep=3pt}
+            \setlist[enumerate]{itemsep=3pt, parsep=3pt, topsep=3pt}
+            \setlist[description]{itemsep=3pt, parsep=3pt, topsep=3pt}
+
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(cobalt)
+library(plotrix)
+library(randomForest)
+library(dplyr)
+library(tidyr)
+library(epiR)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(pROC)
+library(treemap)
+library(psy)
+library(MASS)
+library(rpart)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(zoo)
+library(kableExtra)
+library(gtsummary)
+library(lattice)
+library(survey)
+library(corrplot)
+library(mice)
+library(paletteer)
+library(skimr)
+library(nord)
+library(wesanderson)
+library(lubridate)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#| label: extract code chunks
+#| echo: false
+#| include: false
+#| results: hide
+#| message: false
+#| warning: false
+#file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
+
+#extraction du code R pour le mettre à la fin du quarto md
+detect_qmd_path <- function() {
+    candidates <- c(
+        knitr::current_input(),
+        Sys.getenv("QUARTO_DOCUMENT_PATH", ""),
+        Sys.getenv("QUARTO_INPUT_FILE", ""),
+        "devoir_epidemio.qmd",
+        file.path("S2", "devoir_epidemio", "devoir_epidemio.qmd")
+    )
+    candidates <- unique(candidates[nzchar(candidates)])
+    for (p in candidates) {
+        if (file.exists(p)) return(normalizePath(p, winslash = "/", mustWork = TRUE))
+    }
+    NA_character_
+}
+
+file_qmd <- detect_qmd_path()
+if (is.na(file_qmd)) {
+    warning("Extraction des chunks R sautée : impossible de localiser le .qmd (problème de working directory / IDE).")
+} else {
+    lines <- readLines(file_qmd, warn = FALSE)
+
+    # trouver les débuts de chunks R
+    starts <- grep("^```\\{r\\b", lines)
+    code_r <- character(0)
+
+    for (s in starts) {
+        if (s >= length(lines)) next
+        rel_end <- which(grepl("^```\\s*$", lines[(s + 1):length(lines)]))[1]
+        if (is.na(rel_end)) {
+            warning("Extraction des chunks R partielle : fin de chunk manquante après la ligne ", s, ".")
+            next
+        }
+        e <- s + rel_end
+
+        # lignes à l’intérieur du chunk (excluant les balises de début et fin)
+        chunk_lines <- lines[(s + 1):(e - 1)]
+
+        # filtrer : garder seulement les lignes qui **ne sont pas des options Quarto**
+        real_code <- chunk_lines[!grepl("^\\s*#\\|", chunk_lines)]
+        code_r <- c(code_r, real_code, "")
+    }
+
+    outfile <- file.path(dirname(file_qmd), "all_chunks_code.R")
+    cat(code_r, file = outfile, sep = "\n")
+}
+```
+
+\newpage
+::: callout-important
+**Utilisation de l'IA**
+
+Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâches principales :
+
+-   En cas de problème d'exécution du code R (pour suggérer correction et amélioration)
+
+-   Pour amélioration du rendu depuis un fichier Quarto Markdown vers PDF (avec code nécessaire pour passage Quarto vers LaTeX, notamment pour les tableaux et la mise en forme générale)
+
+Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.
+:::
+
+\newpage
+# Introduction
+
+## Énoncé du devoir
+
+-   Étude observationnelle réalisée en unité de soins intensifs
+
+-   Question : efficacité de la pose d’une sonde de Swan Ganz pour cathéterisme cardiaque droit (*Right Heart Catheterization*, RHC) sur la mortalité des patients, en tenant compte des facteurs pronostiques et des risques associés à cette procédure invasive.
+
+-   Objectif : évaluer l’apport de la procédure de cathétérisme cardiaque droit sur la mortalité́, en tenant compte des nombreux facteurs pronostiques.
+
+-   Source : Connors et al. (1996): The effectiveness of RHC in the initial care of critically ill patients. J American Medical Association 276:889-897 [@connorsEffectivenessRightHeart1996].
+
+## Contexte
+
+-   **Cathéter de Swan Ganz** : dispositif médical diagnostique et thérapeutique mesurant en temps réel le débit et les pressions sanguines dans les cavités cardiaques droites et l’artère pulmonaire par cathétérisme cardiaque droit (RHC).
+
+-   Utilisé en réanimation à partir des années 1970, mais remis en question après réévaluation du rapport bénéfice/risque.
+
+-   Études randomisées contrôlées difficiles à réaliser pour des raisons éthiques, car de nombreux praticiens considèrent que ne pas utiliser la sonde de Swan-Ganz pourrait entraîner une perte de chances pour les patients.
+
+-   Article fourni : étude observationnelle conçue par Connors et al. pour aborder la question d’un point de vue épidémiologique, avec une cohorte prospective multicentrique de 5735 patients adultes hospitalisés en réanimation pour une déficience d’organe parmi 9 prédéfinies, dont 2184 ont eu un RHC.
+
+-   Données rapportées : données socio-démographiques, diagnostic principal, comorbditié, données de survie, durée d’hospitalisation.
+
+## Plan du devoir
+
+1.  Data-management : nettoyage du jeu de données, renommage des variables et de leurs catégories, remise à l’échelle le cas échéant, prise en compte des données aberrantes ou manquantes.
+
+2.  Analyse descriptive univariée de la population, des différentes variables et de leur répartition au sein de la cohorte.
+
+3.  Analyse bivariée de ces variables au sein de sous-groupes : analyse de l'impact du cathétérisme cardiaque droit sur la mortalité, afin de mettre en évidence une éventuelle différence significative entre les groupes.
+
+4.  Appariement des patients ayant eu un RHC avec des patients n’ayant pas eu de RHC, sur la base d’un score de propension à la réalisation d’un RHC, pour limiter les biais de confusion et améliorer la comparabilité des groupes.
+
+5.  Nouvelle analyse dans la population appariée, pour évaluer l’impact du RHC sur la mortalité à 180 jours, en utilisant des méthodes statistiques adaptées à la nature appariée des données.
+
+6.  Analyse multivariée en population globable pour confirmer les résultats obtenus dans la population appariée, en ajustant sur les variables de confusion.
+
+7.  Conclusion : synthèse des résultats, discussion
+
+\newpage
+# Data-management
+
+```{r}
+#| label: data-management
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# Charger les données
+#df <- read.csv2("/Users/thomashusson/Documents/Projets/M2biostatistiques/S2/devoir_epidemio/rhc devoir épidémio-RC csv.csv", header = TRUE, stringsAsFactors = FALSE)
+#linux
+df <- read.csv2("/home/thomashusson/Documents/Projets/M2biostatistiques/S2/devoir_epidemio/rhc devoir épidémio-RC csv.csv", header = TRUE, stringsAsFactors = FALSE)
+summary(df)
+colnames(df)
+skimr::skim(df)
+sum(is.na(df))
+```
+
+-   Le fichier contient 5735 observations et 63 variables, avec des types de données variés (numériques, caractères, facteurs).
+
+-   La première colonne et la dernière sont inutiles pour l’analyse (identifiant et index), et seront supprimées.
+
+-   Les variables de date sont au format caractère et doivent être converties en format date pour une manipulation plus facile.
+
+-   Les variables de type "Yes"/"No" seront converties en facteurs pour faciliter l’analyse statistique.
+
+-   Les colonnes sont renommées pour faciliter leur manipulation et leur compréhension.
+
+## Suppression des colonnes inutiles et renommage des variables
+
+```{r}
+#| label: nettoyage_renommage
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# Supprimer les colonnes inutile (ROWNAMES et PTID) en appelant explictement les noms des colonnes à supprimer
+df <- df[, !(colnames(df) %in% c("ROWNAMES", "PTID"))]
+colnames(df)
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# Renommer les colonnes 
+# syntaxe : names(df)[names(df) == "ANCIEN_NOM"] <- "NOUVEAU_NOM"
+names(df)[names(df) == "CAT1"] <- "primary_disease_category"
+names(df)[names(df) == "CAT2"] <- "secondary_disease_category"
+names(df)[names(df) == "CA"] <- "cancer"
+names(df)[names(df) == "SADMDTE"] <- "date_admission"
+names(df)[names(df) == "DSCHDTE"] <- "date_discharge"
+names(df)[names(df) == "DTHDTE"] <- "date_death"
+names(df)[names(df) == "LSTCTDTE"] <- "date_last_news"
+names(df)[names(df) == "DEATH"] <- "death_180d"
+
+names(df)[names(df) == "CARDIOHX"] <- "comorbidity_cardiovascular"
+names(df)[names(df) == "CHFHX"] <- "comorbidity_congestive_heart"
+names(df)[names(df) == "DEMENTHX"] <- "comorbidity_dementia"
+names(df)[names(df) == "PSYCHHX"] <- "comorbidity_psych"
+names(df)[names(df) == "CHRPULHX"] <- "comorbidity_chronic_pulmonary"
+names(df)[names(df) == "RENALHX"] <- "comorbidity_renal"
+names(df)[names(df) == "LIVERHX"] <- "comorbidity_liver"
+names(df)[names(df) == "GIBLEDHX"] <- "comorbidity_upper_gi_bleeding"
+names(df)[names(df) == "MALIGHX"] <- "comorbidity_malignancy"
+names(df)[names(df) == "IMMUNHX"] <- "comorbidity_immunosuppression"
+names(df)[names(df) == "TRANSHX"] <- "comorbidity_transfer"
+names(df)[names(df) == "AMIHX"] <- "comorbidity_myocardial_infarction"
+
+names(df)[names(df) == "AGE"] <- "age"
+names(df)[names(df) == "SEX"] <- "sex"
+names(df)[names(df) == "EDU"] <- "education_years"
+names(df)[names(df) == "SURV2MD1"] <- "survival_probability_2mths"
+names(df)[names(df) == "DAS2D3PC"] <- "DASI_score"
+names(df)[names(df) == "T3D30"] <- "time_to_death_if_death_within_30d"
+names(df)[names(df) == "DTH30"] <- "death_30d"
+
+names(df)[names(df) == "APS1"] <- "apache_score"
+names(df)[names(df) == "SCOMA1"] <- "glasgow_score"
+names(df)[names(df) == "MEANBP1"] <- "mean_blood_pressure"
+names(df)[names(df) == "WBLC1"] <- "wbc"
+names(df)[names(df) == "HRT1"] <- "heart_rate"
+names(df)[names(df) == "RESP1"] <- "respiratory_rate"
+names(df)[names(df) == "TEMP1"] <- "temperature"
+names(df)[names(df) == "PAFI1"] <- "pa_fi_ratio"
+names(df)[names(df) == "ALB1"] <- "albumin"
+names(df)[names(df) == "HEMA1"] <- "hematocrit"
+names(df)[names(df) == "BILI1"] <- "bilirubin"
+names(df)[names(df) == "CREA1"] <- "creatinine"
+names(df)[names(df) == "SOD1"] <- "sodium"
+names(df)[names(df) == "POT1"] <- "potassium"
+names(df)[names(df) == "PACO21"] <- "paco2"
+names(df)[names(df) == "PH1"] <- "ph"
+
+names(df)[names(df) == "SWANG1"] <- "rhc"
+names(df)[names(df) == "WTKILO1"] <- "weight"
+names(df)[names(df) == "DNR1"] <- "dnr_status"
+names(df)[names(df) == "NINSCLAS"] <- "insurance_class"
+
+names(df)[names(df) == "RESP"] <- "diagnosis_respiratory"
+names(df)[names(df) == "CARD"] <- "diagnosis_cardiovascular"
+names(df)[names(df) == "NEURO"] <- "diagnosis_neurological"
+names(df)[names(df) == "GASTR"] <- "diagnosis_gastrointestinal"
+names(df)[names(df) == "RENAL"] <- "diagnosis_renal"
+names(df)[names(df) == "META"] <- "diagnosis_metabolic"
+names(df)[names(df) == "HEMA"] <- "diagnosis_hematologic"
+names(df)[names(df) == "SEPS"] <- "diagnosis_sepsis"
+names(df)[names(df) == "TRAUMA"] <- "diagnosis_trauma"
+names(df)[names(df) == "ORTHO"] <- "diagnosis_orthopedic"
+
+names(df)[names(df) == "ADLD3P"] <- "adl_score"
+names(df)[names(df) == "URIN1"] <- "urine_output"
+names(df)[names(df) == "RACE"] <- "race"
+names(df)[names(df) == "INCOME"] <- "income"
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
+# Ajout d'une description des variables
+desc <- c(
+  primary_disease_category = "Diagnostic principal",
+  secondary_disease_category = "Comorbidité principale",
+  cancer = "Cancer (No, Yes, Metastatic)",
+  date_admission = "Date d'admission",
+  date_discharge = "Date de sortie",
+  date_death = "Date de décès",
+  date_last_news = "Date des dernières nouvelles",
+  death_180d = "Décès à 180 jours (Yes/No)",
+
+  comorbidity_cardiovascular = "Antécédent : cardiovasculaire",
+  comorbidity_congestive_heart = "Antécédent : insuffisance cardiaque",
+  comorbidity_dementia = "Antécédent : démence",
+  comorbidity_psych = "Antécédent : psychiatrique",
+  comorbidity_chronic_pulmonary = "Antécédent : respiratoire chronique",
+  comorbidity_renal = "Antécédent : rénal",
+  comorbidity_liver = "Antécédent : hépatique",
+  comorbidity_upper_gi_bleeding = "Antécédent : hémorragie digestive haute",
+  comorbidity_malignancy = "Antécédent : cancer",
+  comorbidity_immunosuppression = "Antécédent : immunodépression",
+  comorbidity_transfer = "Transfert (> 24h)",
+  comorbidity_myocardial_infarction = "Antécédent : infarctus du myocarde",
+
+  age = "Âge (années)",
+  sex = "Sexe",
+  education_years = "Niveau d'études (années)",
+  survival_probability_2mths = "Probabilité de survie prédite",
+  DASI_score = "Score DASI",
+  death_30d = "Décès à 30 jours",
+
+  apache_score = "Score APACHE",
+  glasgow_score = "Score de Glasgow",
+  mean_blood_pressure = "Pression artérielle moyenne",
+  wbc = "Leucocytes (x10^9/L)",
+  heart_rate = "Fréquence cardiaque (bpm)",
+  respiratory_rate = "Fréquence respiratoire (rpm)",
+  temperature = "Température (°C)",
+  pa_fi_ratio = "Rapport PaO2/FiO2",
+  albumin = "Albumine (g/L)",
+  hematocrit = "Hématocrite (%)",
+  bilirubin = "Bilirubine (mg/L)",
+  creatinine = "Créatinine (mg/L)",
+  sodium = "Sodium (mmol/L)",
+  potassium = "Potassium (mmol/L)",
+  paco2 = "PaCO2",
+  ph = "pH",
+
+  rhc = "Cathétérisme cardiaque droit (RHC)",
+  weight = "Poids (kg)",
+  dnr_status = "Statut de non-réanimation (DNR)",
+  insurance_class = "Classe d'assurance",
+
+  diagnosis_respiratory = "Diagnostic : respiratoire",
+  diagnosis_cardiovascular = "Diagnostic : cardiovasculaire",
+  diagnosis_neurological = "Diagnostic : neurologique",
+  diagnosis_gastrointestinal = "Diagnostic : gastro-intestinal",
+  diagnosis_renal = "Diagnostic : rénal",
+  diagnosis_metabolic = "Diagnostic : métabolique",
+  diagnosis_hematologic = "Diagnostic : hématologique",
+  diagnosis_sepsis = "Diagnostic : sepsis",
+  diagnosis_trauma = "Diagnostic : traumatique",
+  diagnosis_orthopedic = "Diagnostic : orthopédique",
+
+  adl_score = "Score ADL",
+  urine_output = "Diurèse",
+  race = "Origine / race (selon codage de la base)",
+  income = "Revenu (selon codage de la base)"
+)
+```
+
+Tableau de correspondance des noms avant -> après et description des variables :
+
+```{r}
+#| label: tableau-correspondance-variables
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+
+rename_map <- data.frame(
+  old_name = c(
+    "CAT1", "CAT2", "CA", "SADMDTE", "DSCHDTE", "DTHDTE", "LSTCTDTE", "DEATH",
+    "CARDIOHX", "CHFHX", "DEMENTHX", "PSYCHHX", "CHRPULHX", "RENALHX", "LIVERHX",
+    "GIBLEDHX", "MALIGHX", "IMMUNHX", "TRANSHX", "AMIHX",
+    "AGE", "SEX", "EDU", "SURV2MD1", "DAS2D3PC", "T3D30", "DTH30",
+    "APS1", "SCOMA1", "MEANBP1", "WBLC1", "HRT1", "RESP1", "TEMP1", "PAFI1",
+    "ALB1", "HEMA1", "BILI1", "CREA1", "SOD1", "POT1", "PACO21", "PH1",
+    "SWANG1", "WTKILO1", "DNR1", "NINSCLAS",
+    "RESP", "CARD", "NEURO", "GASTR", "RENAL", "META", "HEMA", "SEPS",
+    "TRAUMA", "ORTHO",
+    "ADLD3P", "URIN1", "RACE", "INCOME"
+  ),
+  new_name = c(
+    "primary_disease_category", "secondary_disease_category", "cancer", "date_admission",
+    "date_discharge", "date_death", "date_last_news", "death_180d",
+    "comorbidity_cardiovascular", "comorbidity_congestive_heart", "comorbidity_dementia",
+    "comorbidity_psych", "comorbidity_chronic_pulmonary", "comorbidity_renal",
+    "comorbidity_liver", "comorbidity_upper_gi_bleeding", "comorbidity_malignancy",
+    "comorbidity_immunosuppression", "comorbidity_transfer", "comorbidity_myocardial_infarction",
+    "age", "sex", "education_years", "survival_probability_2mths", "DASI_score",
+    "time_to_death_if_death_within_30d", "death_30d",
+    "apache_score", "glasgow_score", "mean_blood_pressure", "wbc", "heart_rate",
+    "respiratory_rate", "temperature", "pa_fi_ratio", "albumin", "hematocrit",
+    "bilirubin", "creatinine", "sodium", "potassium", "paco2", "ph",
+    "rhc", "weight", "dnr_status", "insurance_class",
+    "diagnosis_respiratory", "diagnosis_cardiovascular", "diagnosis_neurological",
+    "diagnosis_gastrointestinal", "diagnosis_renal", "diagnosis_metabolic",
+    "diagnosis_hematologic", "diagnosis_sepsis", "diagnosis_trauma", "diagnosis_orthopedic",
+    "adl_score", "urine_output", "race", "income"
+  ),
+  stringsAsFactors = FALSE
+)
+
+rename_map$Description <- unname(desc[rename_map$new_name])
+
+escape_latex <- function(x) {
+  x <- gsub("\\\\", "\\\\textbackslash{}", x)
+  x <- gsub("([#$%&_{}])", "\\\\\\1", x, perl = TRUE)
+  x <- gsub("~", "\\\\textasciitilde{}", x, fixed = TRUE)
+  x <- gsub("\\^", "\\\\textasciicircum{}", x, perl = TRUE)
+  x
+}
+
+rename_map[] <- lapply(rename_map, escape_latex)
+rename_map$old_name <- gsub("\\\\_", "\\\\_\\\\allowbreak{}", rename_map$old_name)
+rename_map$new_name <- gsub("\\\\_", "\\\\_\\\\allowbreak{}", rename_map$new_name)
+
+header <- c(
+  "\\begin{longtable}{p{2.4cm}p{4.3cm}p{7.3cm}}",
+  "\\caption{Tableau de correspondance des noms de variables}\\\\",
+  "\\toprule",
+  "Nom avant & Nom après & Description\\\\",
+  "\\midrule",
+  "\\endfirsthead",
+  "\\toprule",
+  "Nom avant & Nom après & Description\\\\",
+  "\\midrule",
+  "\\endhead",
+  "\\bottomrule",
+  "\\endfoot"
+)
+
+rows <- apply(rename_map, 1, function(row) {
+  paste0(row[["old_name"]], " & ", row[["new_name"]], " & ", row[["Description"]], "\\\\")
+})
+
+footer <- "\\end{longtable}"
+
+cat(paste(c(header, rows, footer), collapse = "\n"))
+```
+
+\newpage
+## Taux de données manquantes
+
+```{r}
+#| label: taux_donnees_manquantes
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Variables avec données manquantes"
+missing_data_summary <- data.frame(
+  variable = names(colSums(is.na(df))),
+  missing_nombre = colSums(is.na(df)),
+  missing_pourcentage = round(colSums(is.na(df)) / nrow(df) * 100, 1)
+)
+missing_data_summary <- missing_data_summary[missing_data_summary$missing_nombre > 0, ]
+#affichage du tableau des données manquantes avec kableExtra pour un rendu plus lisible
+missing_data_summary %>%
+  arrange(desc(missing_pourcentage)) %>%
+  kable(
+    col.names = c("Variable", "Nombre de données manquantes", "Pourcentage de données manquantes"),
+    align = c("l", "r", "r"),
+    row.names = FALSE
+  ) %>%
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+-  Les variables `adl_score` et `urine_output` sont les deux seules à avoir des données manquantes.
+
+-   Pour la variables `adl_score` (correspondant au score ADL), le taux de données manquantes est de 74,9%.
+
+-   Pour la variable `urine_output` (correspondant à la diurèse), le taux de données manquantes est de 52,8%.
+
+## Conversion des types de données
+
+-   Les variables de dates sont converties au format date.
+
+-   Les variables de type "Yes"/"No" sont converties en facteurs.
+
+-   Les variables de catégorie sont converties en facteurs avec des labels explicites.
+
+-   Les variables numériques sont converties en format numérique si nécessaire.
+
+```{r}
+#| label: conversion_dates_facteurs
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
+#| eval: true
+
+# Conversion des dates (les chaînes vides -> NA pour éviter les warnings)
+df$date_admission[df$date_admission == ""] <- NA
+df$date_discharge[df$date_discharge == ""] <- NA
+df$date_death[df$date_death == ""] <- NA
+df$date_last_news[df$date_last_news == ""] <- NA
+
+# Conversion en format date
+df$date_admission <- as.Date(df$date_admission, format = "%d/%m/%Y")
+df$date_discharge <- as.Date(df$date_discharge, format = "%d/%m/%Y")
+df$date_death <- as.Date(df$date_death, format = "%d/%m/%Y")
+df$date_last_news <- as.Date(df$date_last_news, format = "%d/%m/%Y")
+
+str(df$date_death)
+df$date_death <- as.Date(df$date_death, format = "%d/%m/%Y")
+str(df$date_death)
+
+# Facteurs et numériques
+df$death_180d <- factor(df$death_180d, levels = c("No", "Yes"))
+
+df$primary_disease_category <- factor(
+    df$primary_disease_category, 
+    levels = c("COPD","MOSF w/Sepsis","MOSF w/Malignancy","ARF","CHF","Coma","Cirrhosis","Lung Cancer","Colon Cancer"), 
+    labels = c("BPCO","Choc septique","Choc sur cancer","Insuffisance rénale aiguë","Insuffisance cardiaque","Coma","Cirrhose","Cancer du poumon","Cancer du côlon")
+    )
+unique(df$primary_disease_category)
+table(df$primary_disease_category)
+
+df$secondary_disease_category <- factor(
+    df$secondary_disease_category, 
+    levels = c("", "MOSF w/Sepsis","MOSF w/Malignancy", "Coma","Cirrhosis","Lung Cancer","Colon Cancer"), 
+    labels = c("Pas de comorbidité","Choc septique","Choc sur cancer", "Coma","Cirrhose","Cancer du poumon","Cancer du côlon")
+    )
+
+df$comorbidity_cardiovascular <- factor(df$comorbidity_cardiovascular, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_congestive_heart <- factor(df$comorbidity_congestive_heart, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_dementia <- factor(df$comorbidity_dementia, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_psych <- factor(df$comorbidity_psych, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_chronic_pulmonary <- factor(df$comorbidity_chronic_pulmonary, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_renal <- factor(df$comorbidity_renal, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_liver <- factor(df$comorbidity_liver, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_upper_gi_bleeding <- factor(df$comorbidity_upper_gi_bleeding, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_malignancy <- factor(df$comorbidity_malignancy, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_immunosuppression <- factor(df$comorbidity_immunosuppression, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_transfer <- factor(df$comorbidity_transfer, levels = c(0, 1), labels = c("No", "Yes"))
+df$comorbidity_myocardial_infarction <- factor(df$comorbidity_myocardial_infarction, levels = c(0, 1), labels = c("No", "Yes"))
+#recodage de la variable cancer (No, Yes, Metastatic en No, Localisé, Metastatic)
+df$cancer <- factor(df$cancer, levels = c("No", "Yes", "Metastatic"), labels = c("No", "Localisé", "Metastatic"))
+#créer une variable binaire pour le cancer (Yes/No) à partir de la variable cancer (No, Localisé, Metastatic, codé Yes si Localisé ou Metastatic, No sinon)
+df$cancer_YN <- ifelse(df$cancer %in% c("Localisé", "Metastatic"), "Yes", "No")
+table(df$cancer_YN)
+df$sex <- factor(df$sex, levels = c("Male", "Female"))
+df$death_30d <- factor(df$death_30d, levels = c("No", "Yes"))
+df$apache_score <- as.numeric(df$apache_score)
+df$glasgow_score <- as.numeric(df$glasgow_score)
+df$heart_rate <- as.numeric(df$heart_rate)
+df$sodium <- as.numeric(df$sodium)
+df$dnr_status <- factor(df$dnr_status, levels = c("No", "Yes"))
+df$insurance_class <- factor(
+    df$insurance_class,
+    levels = c(
+        "No insurance",
+        "Medicaid",
+        "Medicare",
+        "Medicare & Medicaid",
+        "Private",
+        "Private & Medicare"
+    )
+)
+df$diagnosis_respiratory <- factor(df$diagnosis_respiratory, levels = c("No", "Yes"))
+df$diagnosis_cardiovascular <- factor(df$diagnosis_cardiovascular, levels = c("No", "Yes"))
+df$diagnosis_neurological <- factor(df$diagnosis_neurological, levels = c("No", "Yes"))
+df$diagnosis_gastrointestinal <- factor(df$diagnosis_gastrointestinal, levels = c("No", "Yes"))
+df$diagnosis_renal <- factor(df$diagnosis_renal, levels = c("No", "Yes"))
+df$diagnosis_metabolic <- factor(df$diagnosis_metabolic, levels = c("No", "Yes"))
+df$diagnosis_hematologic <- factor(df$diagnosis_hematologic, levels = c("No", "Yes"))
+df$diagnosis_sepsis <- factor(df$diagnosis_sepsis, levels = c("No", "Yes"))
+df$diagnosis_trauma <- factor(df$diagnosis_trauma, levels = c("No", "Yes"))
+df$diagnosis_orthopedic <- factor(df$diagnosis_orthopedic, levels = c("No", "Yes"))
+df$adl_score <- as.numeric(df$adl_score)
+df$race <- factor(df$race)
+df$income <- as.character(df$income)
+df$income[df$income == "> $50k"] <- "Over $50k"
+df$income <- factor(df$income, levels = c("Under $11k", "$11-$25k", "$25-$50k", "Over $50k"))
+df$rhc <- factor(df$rhc, levels = c("No RHC", "RHC"))
+
+#recodage en binaire des primary_disease_category et secondary_disease_category (présence ou absence de chaque catégorie de maladie)
+df$primary_binaire_BPCO <- ifelse(df$primary_disease_category == "BPCO", "Yes", "No")
+df$primary_binaire_choc_septique <- ifelse(df$primary_disease_category == "Choc septique", "Yes", "No")
+df$primary_binaire_choc_sur_cancer <- ifelse(df$primary_disease_category == "Choc sur cancer", "Yes", "No")
+df$primary_binaire_insuffisance_renale_aigue <- ifelse(df$primary_disease_category == "Insuffisance rénale aiguë", "Yes", "No")
+df$primary_binaire_insuffisance_cardiaque <- ifelse(df$primary_disease_category == "Insuffisance cardiaque", "Yes", "No")
+df$primary_binaire_coma <- ifelse(df$primary_disease_category == "Coma", "Yes", "No")
+df$primary_binaire_cirrhose <- ifelse(df$primary_disease_category == "Cirrhose", "Yes", "No")
+df$primary_binaire_cancer_du_poumon <- ifelse(df$primary_disease_category == "Cancer du poumon", "Yes", "No")
+df$primary_binaire_cancer_du_colon <- ifelse(df$primary_disease_category == "Cancer du côlon", "Yes", "No")
+#recodage de la variable secondary_disease_category en binaire (présence ou absence de chaque catégorie de maladie)
+df$secondary_binaire_choc_septique <- ifelse(df$secondary_disease_category == "Choc septique", "Yes", "No")
+df$secondary_binaire_choc_sur_cancer <- ifelse(df$secondary_disease_category == "Choc sur cancer", "Yes", "No")
+df$secondary_binaire_coma <- ifelse(df$secondary_disease_category == "Coma", "Yes", "No")
+df$secondary_binaire_cirrhose <- ifelse(df$secondary_disease_category == "Cirrhose", "Yes", "No")
+df$secondary_binaire_cancer_du_poumon <- ifelse(df$secondary_disease_category == "Cancer du poumon", "Yes", "No")
+df$secondary_binaire_cancer_du_colon <- ifelse(df$secondary_disease_category == "Cancer du côlon", "Yes", "No")
+df$secondary_binaire_pas_de_comorbidite <- ifelse(df$secondary_disease_category == "Pas de comorbidité", "Yes", "No")
+str(df)
+```
+
+## Vérification de la cohérence des dates
+
+### Vérification de la cohérence entre date de décès et date des dernières nouvelles
+
+-   Il existe une colonne codant pour la date de décès et une codant pour la date des dernières nouvelles.
+
+-   Pour les patients décédés, on vérifie que la date de décès correspond à la date des dernières nouvelles
+
+```{r}
+#| label: verification_dates
+#| echo: false
+#| message: false
+#| results: hide
+#| warning: false
+#| include: false
+#| eval: true
+#vérification du format des datese 
+is.Date(df$date_death)
+is.Date(df$date_last_news) 
+# Vérification de la cohérence entre date_death et date_last_news pour les patients décédés
+incoherent_death_dates <- df$death_180d == "Yes" & df$date_death != df$date_last_news
+sum(incoherent_death_dates) # Nombre de cas incohérents
+```
+
+-   Il existe `r sum(incoherent_death_dates)` cas où les dates des dernières nouvelles sont incohérentes (soit postérieure à la date de décès, soit antérieure) : pour ces patients, on propose de corriger la date des dernières nouvelles en la remplaçant par la date de décès.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
+#| eval: true
+# Correction des dates incohérentes
+df$date_last_news[incoherent_death_dates] <- df$date_death[incoherent_death_dates]
+# Vérification après correction
+incoherent_death_dates_after <- df$death_180d == "Yes" & df$date_death != df$date_last_news
+sum(incoherent_death_dates_after) # Nombre de cas incohérents après correction (devrait être 0)
+```
+
+-   Après correction il existe `r sum(incoherent_death_dates_after)` cas incohérents, ce qui correspond à une correction réussie de tous les cas de dates incohérentes entre date de décès et date des dernières nouvelles.
+
+### Vérification de la cohérence entre date de sortie d'hospitalisation et date des dernières nouvelles
+
+-   On vérifie que la date de sortie d'hospitalisation n'est pas postérieure à la date des dernières nouvelles, ce qui serait incohérent.
+
+```{r}
+#| label: verification_dates_discharge
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
+#| eval: true
+# vérification du format des dates
+is.Date(df$date_discharge)
+is.Date(df$date_last_news)
+# Vérification de la cohérence entre date_discharge et date_last_news
+incoherent_discharge_dates <- df$date_discharge > df$date_last_news
+sum(incoherent_discharge_dates) # Nombre de cas incohérents
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
+# Vérification du patient avec date de sortie d'hospitalisation inconnue
+patient_missing_discharge <- is.na(df$date_discharge)
+sum(patient_missing_discharge) # Nombre de patients avec date de sortie d'hospitalisation inconnue
+# Vérification du statut de décès de ce patient
+if (df$death_180d[patient_missing_discharge] == "Yes") {
+    df$date_death[patient_missing_discharge]
+} else {
+    cat("Le patient n'est pas décédé)")
+}
+# Calcul de la différence entre la date de décès et la date d'admission pour ce patient
+days_missing_discharge <- as.numeric(df$date_death[patient_missing_discharge] - df$date_admission[patient_missing_discharge])
+days_missing_discharge
+```
+
+-   1 patient a une date de sortie d'hospitalisation inconnue
+
+-   Une vérification rapide montre qu'il est décédé `r days_missing_discharge` jours après son admission. On ne peut pas affirmer que le patient est sorti entre temps de son hospitalisation.
+
+\newpage
+# Description du jeu de données
+
+## Vue d’ensemble du jeu de données
+
+-   Nombre d'observations et de variables
+
+```{r}
+#| label: tbl-data-summary
+#| tbl-cap: "Nombre d'observations et de variables"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+
+n_rows <- nrow(df)
+n_cols <- ncol(df)
+
+tab <- data.frame(
+    `Nombre d'observations` = n_rows,
+    `Nombre de variables` = n_cols,
+    check.names = FALSE
+)
+
+knitr::kable(tab, booktabs = TRUE)
+```
+
+-   Types de variables (catégorielles, numériques, dates)
+
+```{r}
+#| label: tbl-variable-types
+#| tbl-cap: "Types de variables"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+col_type <- sapply(df, function(x) class(x)[1])
+col_type[col_type %in% c("Date", "POSIXct", "POSIXlt")] <- "Date"
+col_type[col_type %in% c("factor", "ordered")] <- "factor"
+col_type[col_type %in% c("numeric", "integer")] <- "numeric"
+
+type_freq <- sort(table(col_type), decreasing = TRUE)
+type_freq_str <- paste(names(type_freq), as.integer(type_freq), sep = " : ", collapse = ", ")
+
+tab <- data.frame(
+    Type = names(type_freq),
+    `Nombre` = as.integer(type_freq),
+    check.names = FALSE
+)
+knitr::kable(tab, booktabs = TRUE)
+```
+
+## Variables catégorielles
+
+-   Nom des variables catégorielles
+
+```{r}
+#| label: tbl-categorical-variables
+#| tbl-cap: "Variables catégorielles"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+cat_cols <- names(col_type)[col_type == "factor"]
+cat_cols <- intersect(cat_cols, names(df))
+cat_vars_df <- data.frame(
+    Variable = cat_cols,
+    check.names = FALSE,
+    Description = desc[cat_cols],
+    row.names = NULL
+)
+knitr::kable(cat_vars_df, booktabs = TRUE)
+```
+
+-   On peut séparer les variables catégorielles en plusieurs "sous-catégories" selon leur thème : comorbidités, diagnostics, variables sociodémographiques, etc.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# Séparation des variables catégorielles en sous-catégories thématiques
+cat_cols_disease_category <- grep("disease_category", cat_cols, value = TRUE)
+cat_cols_cancer <- grep("cancer", cat_cols, value = TRUE)
+cat_cols_comorbidity <- grep("comorbidity", cat_cols, value = TRUE)
+cat_cols_diagnosis <- grep("diagnosis", cat_cols, value = TRUE)
+cat_cols_death <- grep("death", cat_cols, value = TRUE)
+cat_cols_demographic <- c("sex", "dnr_status", "insurance_class", "race", "income")
+cat_cols_RHC <- grep("rhc", cat_cols, value = TRUE)
+```
+
+### Diagnostic principal et comorbidité principale
+
+```{r}
+#| label: fig-categorical-distribution
+#| fig-cap: "Distribution des modalités (diagnostic principal et comorbidité principale)"
+#| fig-width: 10
+#| fig-height: 4.6
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+
+# Création de deux barplots côte à côte pour les variables de catégorie de maladie principale et de comorbidité principale
+df_descriptif <- df
+
+# Calcul des effectifs pour les catégories de maladie principale et de comorbidité principale
+counts_primary <- sort(table(df_descriptif$primary_disease_category), decreasing = FALSE)
+counts_secondary <- sort(table(df_descriptif$secondary_disease_category), decreasing = FALSE)
+
+# Disposition côte à côte des barplots
+op <- par(no.readonly = TRUE)
+on.exit(par(op), add = TRUE)
+par(mfrow = c(1, 2))
+par(mai = c(0.9, 1.75, 0.9, 0.25))  # marge gauche fixe (à ajuster)
+
+# Création des barplots 
+barplot(
+    counts_primary,
+    names.arg = names(counts_primary),
+    main = "Diagnostic principal",
+    xlab = "Nombre de patients",
+    horiz = TRUE,
+    col = nord::nord("frost", length(counts_primary)),
+    las = 2,
+    cex.names = 0.75,
+    cex.axis = 0.8,
+    cex.lab = 0.9,
+    cex.main = 0.9
+)
+
+barplot(
+    counts_secondary,
+    names.arg = names(counts_secondary),
+    main = "Comorbidité principale",
+    xlab = "Nombre de patients",
+    horiz = TRUE,
+    col = nord::nord("aurora", length(counts_secondary)),
+    las = 2,
+    cex.names = 0.75,
+    cex.axis = 0.8,
+    cex.lab = 0.9,
+    cex.main = 0.9
+)
+```
+
+-   Le diagnostic principal le plus fréquent est l'insuffisance rénale aiguë avec `r sum(df$primary_disease_category == "Insuffisance rénale aiguë", na.rm = TRUE)` patients soit `r round(sum(df$primary_disease_category == "Insuffisance rénale aiguë", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients , suivi du choc septique avec `r sum(df$primary_disease_category == "Choc septique", na.rm = TRUE)` patients soit `r round(sum(df$primary_disease_category == "Choc septique", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients.
+
+
+
+
+### Diagnostic et comorbidités (variables "Yes"/"No")
+
+-   Les variables de diagnostic et de comorbidités sont codées "Yes"/"No". 
+
+-   On peut visualiser la distribution des modalités pour chacune de ces variables à l'aide de diagrammes en batons (barplots).
+
+#### Diagnostics
+
+-   Il existe 10 variables de diagnostic codées "Yes"/"No" : respiratoire, cardiovasculaire, neurologique, gastro-intestinal, rénal, métabolique, hématologique, sepsis, trauma et orthopédique.
+
+```{r}
+#| label: fig-categorical-diagnosis
+#| fig-cap: "Distribution des modalités (diagnostics)"
+#| fig-width: 10
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| results: asis
+#| message: false 
+# Bar plot pour chacun des diagnostics
+par(op, no.readonly = TRUE) # réinitialiser les paramètres graphiques
+par(mfrow = c(2, 5))
+barplot(
+    table(df$diagnosis_respiratory, useNA = "ifany"),
+    main = "Respiratoire",
+    col = nord::nord("frost", length(table(df$diagnosis_respiratory, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$diagnosis_cardiovascular, useNA = "ifany"),
+    main = "Cardiovasculaire",
+    col = nord::nord("frost", length(table(df$diagnosis_cardiovascular, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$diagnosis_neurological, useNA = "ifany"),
+    main = "Neurologique",
+    col = nord::nord("frost", length(table(df$diagnosis_neurological, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$diagnosis_gastrointestinal, useNA = "ifany"),
+    main = "Gastro-intestinal",
+    col = nord::nord("frost", length(table(df$diagnosis_gastrointestinal, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$diagnosis_renal, useNA = "ifany"),
+    main = "Rénal",
+    col = nord::nord("frost", length(table(df$diagnosis_renal, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$diagnosis_metabolic, useNA = "ifany"),
+    main = "Métabolique",
+    col = nord::nord("frost", length(table(df$diagnosis_metabolic, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$diagnosis_hematologic, useNA = "ifany"),
+    main = "Hématologique",
+    col = nord::nord("frost", length(table(df$diagnosis_hematologic, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$diagnosis_sepsis, useNA = "ifany"),
+    main = "Sepsis",
+    col = nord::nord("frost", length(table(df$diagnosis_sepsis, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$diagnosis_trauma, useNA = "ifany"),
+    main = "Trauma",
+    col = nord::nord("frost", length(table(df$diagnosis_trauma, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$diagnosis_orthopedic, useNA = "ifany"),
+    main = "Orthopédique",
+    col = nord::nord("frost", length(table(df$diagnosis_orthopedic, useNA = "ifany"))),
+    border = NA
+    )
+```
+
+\newpage
+#### Comorbidités
+
+-   Il existe 12 variables de comorbidités codées "Yes"/"No" : cardiovasculaire, insuffisance cardiaque, démence, psychiatrique, respiratoire chronique, rénal, hépatique, hémorragie digestive haute, cancer, immunodépression, transfert (\> 24h) et infarctus du myocarde.
+
+```{r}
+#| label: fig-categorical-comorbidity
+#| fig-cap: "Distribution des modalités (comorbidités)"
+#| fig-width: 10
+#| fig-height: 5
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+# Bar plot pour chacune des comorbidités
+par(op, no.readonly = TRUE) # réinitialiser les paramètres graphiques
+par(mfrow = c(3, 4))
+barplot(
+    table(df$comorbidity_cardiovascular, useNA = "ifany"),
+    main = "Cardiovasculaire",
+    col = nord::nord("aurora", length(table(df$comorbidity_cardiovascular, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_congestive_heart, useNA = "ifany"),
+    main = "Insuffisance cardiaque",
+    col = nord::nord("aurora", length(table(df$comorbidity_congestive_heart, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_dementia, useNA = "ifany"),
+    main = "Démence",
+    col = nord::nord("aurora", length(table(df$comorbidity_dementia, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_psych, useNA = "ifany"),
+    main = "Psychiatrique",
+    col = nord::nord("aurora", length(table(df$comorbidity_psych, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_chronic_pulmonary, useNA = "ifany"),
+    main = "Respiratoire chronique",
+    col = nord::nord("aurora", length(table(df$comorbidity_chronic_pulmonary, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_renal, useNA = "ifany"),
+    main = "Rénal",
+    col = nord::nord("aurora", length(table(df$comorbidity_renal, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_liver, useNA = "ifany"),
+    main = "Hépatique",
+    col = nord::nord("aurora", length(table(df$comorbidity_liver, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_upper_gi_bleeding, useNA = "ifany"),
+    main = "Hémorragie digestive haute",
+    col = nord::nord("aurora", length(table(df$comorbidity_upper_gi_bleeding, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_malignancy, useNA = "ifany"),
+    main = "Cancer",
+    col = nord::nord("aurora", length(table(df$comorbidity_malignancy, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_immunosuppression, useNA = "ifany"),
+    main = "Immunodépression",
+    col = nord::nord("aurora", length(table(df$comorbidity_immunosuppression, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_transfer, useNA = "ifany"),
+    main = "Transfert (> 24h)",
+    col = nord::nord("aurora", length(table(df$comorbidity_transfer, useNA = "ifany"))),
+    border = NA
+    )
+barplot(
+    table(df$comorbidity_myocardial_infarction, useNA = "ifany"),
+    main = "Infarctus du myocarde",
+    col = nord::nord("aurora", length(table(df$comorbidity_myocardial_infarction, useNA = "ifany"))),
+    border = NA
+    )
+```
+
+#### En un seul graphique
+
+-   Permet de mieux visualiser car même échelle pour tous, mais moins lisible car plus petit (surtout pour les moins fréquents)
+
+```{r}
+#| label: fig-categorical-diagnosis-comorbidity
+#| fig-cap: "Distribution des modalités (diagnostics et comorbidités)"
+#| fig-width: 10
+#| fig-height: 5
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+
+cat_cols_comorbidity <- grep("comorbidity", cat_cols, value = TRUE)
+cat_cols_diagnosis   <- grep("diagnosis",   cat_cols, value = TRUE)
+
+# création des matrices dans chunk
+comorbidity_matrix <- as.matrix(df[cat_cols_comorbidity]) == "Yes"
+diagnosis_matrix   <- as.matrix(df[cat_cols_diagnosis])   == "Yes"
+
+n <- nrow(df)
+bg_grey <- "grey92"
+
+op <- par(no.readonly = TRUE)
+on.exit(par(op), add = TRUE)
+par(mfrow = c(1, 2))
+par(mai = c(0.9, 2.4, 0.9, 0.25))  # un peu plus de marge pour des libellés longs
+
+yes_c <- sort(colSums(comorbidity_matrix, na.rm = TRUE), decreasing = FALSE)
+
+lab_c <- unname(desc[names(yes_c)])
+lab_c <- gsub("^Antécédent\\s*:?\\s*", "", lab_c)
+
+barplot(
+  rep(n, length(yes_c)),
+  names.arg = lab_c,
+  main = "Comorbidités",
+  xlab = "Nombre de patients",
+  horiz = TRUE,
+  col = bg_grey,
+  border = NA,
+  las = 2,
+  cex.names = 0.75,
+  cex.axis = 0.8,
+  cex.lab  = 0.9,
+  cex.main = 0.9,
+  xlim = c(0, n)
+)
+
+barplot(
+  yes_c,
+  horiz = TRUE,
+  col = nord::nord("frost", length(yes_c)),
+  border = NA,
+  add = TRUE,
+  axes = FALSE,
+  names.arg = rep("", length(yes_c))
+)
+
+# ---- Diagnostics ----
+yes_d <- sort(colSums(diagnosis_matrix, na.rm = TRUE), decreasing = FALSE)
+
+lab_d <- unname(desc[names(yes_d)])
+lab_d <- gsub("^Diagnostic\\s*:\\s*", "", lab_d)
+
+barplot(
+  rep(n, length(yes_d)),
+  names.arg = lab_d,
+  main = "Diagnostics",
+  xlab = "Nombre de patients",
+  horiz = TRUE,
+  col = bg_grey,
+  border = NA,
+  las = 2,
+  cex.names = 0.75,
+  cex.axis = 0.8,
+  cex.lab  = 0.9,
+  cex.main = 0.9,
+  xlim = c(0, n)
+)
+
+barplot(
+  yes_d,
+  horiz = TRUE,
+  col = nord::nord("aurora", length(yes_d)),
+  border = NA,
+  add = TRUE,
+  axes = FALSE,
+  names.arg = rep("", length(yes_d))
+)
+```
+
+-   La comorbidité la plus fréquente est l'immunodépression avec `r sum(df$comorbidity_immunosuppression == "Yes", na.rm = TRUE)` patients soit `r round(sum(df$comorbidity_immunosuppression == "Yes", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients, suivie du cancer avec `r sum(df$comorbidity_malignancy == "Yes", na.rm = TRUE)` patients soit `r round(sum(df$comorbidity_malignancy == "Yes", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients.
+
+-   Le diagnostic associé le plus fréquent est respiratoire avec `r sum(df$diagnosis_respiratory == "Yes", na.rm = TRUE)` patients soit `r round(sum(df$diagnosis_respiratory == "Yes", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients, suivi des problèmes cardiovasculaires avec `r sum(df$diagnosis_cardiovascular == "Yes", na.rm = TRUE)` patients soit `r round(sum(df$diagnosis_cardiovascular == "Yes", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients.
+
+
+### Variables sociodémographiques
+
+-   Il existe 5 variables sociodémographiques : sexe, statut non-réanimatoire, classe d'assurance, origine, revenu
+
+```{r}
+#| label: fig-categorical-sociodemographic
+#| fig-cap: "Distribution des modalités (variables sociodémographiques)"
+#| fig-width: 10
+#| fig-height: 5
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+op <- par(no.readonly = TRUE)
+on.exit(par(op), add = TRUE)
+par(mfrow = c(2, 3))
+
+barplot(
+    table(df$sex, useNA = "ifany"),
+    main = "Sexe",
+    col = nord::nord("frost", length(table(df$sex, useNA = "ifany"))),
+    border = NA,
+    las = 1,
+    cex.names = 0.8
+    )
+barplot(
+    table(df$dnr_status, useNA = "ifany"),
+    main = "Non-réanimatoire",
+    col = nord::nord("frost", length(table(df$dnr_status, useNA = "ifany"))),
+    border = NA,
+    las = 1,
+    cex.names = 0.8
+    )
+barplot(
+    table(df$race, useNA = "ifany"),
+    main = "Origine / race",
+    col = nord::nord("frost", length(table(df$race, useNA = "ifany"))),
+    border = NA,
+    las = 1,
+    cex.names = 0.6
+    )
+
+par(mar = c(4, 12, 3, 1) + 0.1)
+barplot(
+    table(df$insurance_class, useNA = "ifany"),
+    main = "Assurance",
+    col = nord::nord("frost", length(table(df$insurance_class, useNA = "ifany"))),
+    border = NA,
+    horiz = TRUE,
+    las = 1,
+    cex.names = 0.8
+    )
+
+barplot(
+    table(df$income, useNA = "ifany"),
+    main = "Revenu",
+    col = nord::nord("frost", length(table(df$income, useNA = "ifany"))),
+    border = NA,
+    horiz = TRUE,
+    las = 1,
+    cex.names = 0.8
+    )
+```
+
+### Cancer
+
+-   La variable "cancer" était initialement codée en 3 modalités : "No", "Yes" et "Metastatic".
+
+-   Du fait que les patients ayant la variable codée soit "Yes", soit "Metastatic", on en déduit que "Yes" correspond à un cancer localisé, tandis que "Metastatic" correspond à un cancer métastatique.
+
+-   Une variable binaire "cancer_YN" a été créée à partir de la variable "cancer", codée "Yes" si le patient a un cancer (localisé ou métastatique) et "No" sinon.
+
+```{r}
+#| label: tbl-cancer-percentage
+#| tbl-cap: "Pourcentage de patients avec cancer et répartition (Localisé vs Métastatique)"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+# avec pourcentage et effectifs
+cancer_yes_count <- sum(df$cancer_YN == "Yes", na.rm = TRUE)
+cancer_yes_percentage <- round(mean(df$cancer_YN == "Yes", na.rm = TRUE) * 100, 1)
+cancer_localized_count <- sum(df$cancer == "Localisé", na.rm = TRUE)
+cancer_metastatic_count <- sum(df$cancer == "Metastatic", na.rm = TRUE)
+cancer_localized_percentage <- round(cancer_localized_count / sum(df$cancer_YN == "Yes", na.rm = TRUE) * 100, 1)
+cancer_metastatic_percentage <- round(cancer_metastatic_count / sum(df$cancer_YN == "Yes", na.rm = TRUE) * 100, 1
+)
+cancer_summary_df <- data.frame(
+    `Variable` = c("Cancer (Yes/No)", "Cancer localisé", "Cancer métastatique"),
+    `Pourcentage` = c(paste0(cancer_yes_percentage, "%"), paste0(cancer_localized_percentage, "%"), paste0(cancer_metastatic_percentage, "%")),
+    `Effectifs` = c(paste0(cancer_yes_count, "/", nrow(df)), paste0(cancer_localized_count, "/", sum(df$cancer_YN == "Yes", na.rm = TRUE)), paste0(cancer_metastatic_count, "/", sum(df$cancer_YN == "Yes", na.rm = TRUE))),
+    check.names = FALSE
+)
+knitr::kable(cancer_summary_df, booktabs = TRUE)
+```
+
+```{r}
+#| label: fig-categorical-cancer
+#| fig-cap: "Distribution des modalités (cancer)"
+#| fig-width: 6
+#| fig-align: "center"
+#| fig-height: 3
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+barplot(
+    table(df$cancer, useNA = "ifany"),
+    col = nord::nord("lumina", length(table(df$cancer, useNA = "ifany"))),
+    border = NA,
+    las = 1,
+    cex.names = 0.8
+    )
+```
+
+### Variables liées au décès
+
+-   À 30 jours : `r sum(df$death_30d == "Yes", na.rm = TRUE)` patients sont décédés, soit `r round(mean(df$death_30d == "Yes", na.rm = TRUE) * 100, 1)`% de la cohorte.
+
+-   À 180 jours : `r sum(df$death_180d == "Yes", na.rm = TRUE)` patients sont décédés, soit `r round(mean(df$death_180d == "Yes", na.rm = TRUE) * 100, 1)`% de la cohorte.
+
+```{r}
+#| label: fig-categorical-death
+#| fig-cap: "Distribution des modalités (décès à 180 jours et à 30 jours)"
+#| fig-width: 10
+#| fig-height: 3
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+par(op, no.readonly = TRUE) # réinitialiser les paramètres graphiques
+par(mfrow = c(1, 2))
+barplot(
+    table(df$death_30d, useNA = "ifany"),
+    main = "Décès à 30 jours",
+    col = nord::nord("baie_mouton", length(table(df$death_30d, useNA = "ifany"))),
+    border = NA,
+    las = 1,
+    cex.names = 0.8
+    )
+barplot(
+    table(df$death_180d, useNA = "ifany"),
+    main = "Décès à 180 jours",
+    col = nord::nord("baie_mouton", length(table(df$death_180d, useNA = "ifany"))),
+    border = NA,
+    las = 1,
+    cex.names = 0.8
+)
+```
+
+```{r}
+#| label: tbl-death-percentage
+#| tbl-cap: "Pourcentage de décès à 30 jours et à 180 jours"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+death_30d_percentage <- round(mean(df$death_30d == "Yes", na.rm = TRUE) * 100, 1)
+death_180d_percentage <- round(mean(df$death_180d == "Yes", na.rm = TRUE) * 100, 1)
+# affichage aussi des effectifs dans une colonne (n/N)
+death_30d_count <- sum(df$death_30d == "Yes", na.rm = TRUE)
+death_30d_total <- sum(!is.na(df$death_30d))
+death_180d_count <- sum(df$death_180d == "Yes", na.rm = TRUE)
+death_180d_total <- sum(!is.na(df$death_180d))
+death_summary_df <- data.frame(
+    `Variable` = c("Décès à 30 jours", "Décès à 180 jours"),
+    `Pourcentage` = c(paste0(death_30d_percentage, "%"), paste0(death_180d_percentage, "%")),
+    `Effectifs` = c(paste0(death_30d_count, "/", death_30d_total), paste0(death_180d_count, "/", death_180d_total)),
+    check.names = FALSE
+)
+knitr::kable(death_summary_df, booktabs = TRUE)
+```
+
+
+-   On constate qu'environ 1/3 des patients sont décédés à 30 jours et près des 2/3 à 180 jours.
+
+\newpage
+### Cathéterisme cardiaque droit (RHC)
+
+-   `r sum(df$rhc == "RHC", na.rm = TRUE)` patients ont eu un cathétérisme cardiaque droit (RHC), soit `r round(mean(df$rhc == "RHC", na.rm = TRUE) * 100, 1)`% de la cohorte.
+
+```{r}
+#| label: fig-categorical-rhc
+#| fig-cap: "Distribution des modalités (cathétérisme cardiaque droit)"
+#| fig-width: 3
+#| fig-height: 3
+#| fig-align: "center"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+barplot(
+    table(df$rhc, useNA = "ifany"),
+    col = nord::nord("lumina", length(table(df$rhc, useNA = "ifany"))),
+    border = NA,
+    las = 1,
+    cex.names = 0.8
+    )
+```
+
+```{r}
+#| label: tbl-rhc-percentage
+#| tbl-cap: "Pourcentage de patients ayant eu un cathétérisme cardiaque droit (RHC)"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+rhc_percentage <- round(mean(df$rhc == "RHC", na.rm = TRUE) * 100, 1)
+rhc_count <- sum(df$rhc == "RHC", na.rm = TRUE)
+rhc_total <- sum(!is.na(df$rhc))
+rhc_summary_df <- data.frame(
+    `Variable` = "Cathéterisme cardiaque droit (RHC)",
+    `Pourcentage` = paste0(rhc_percentage, "%"),
+    `Effectifs` = paste0(rhc_count, "/", rhc_total),
+    check.names = FALSE
+)
+knitr::kable(rhc_summary_df, booktabs = TRUE)
+```
+
+\newpage
+## Variables numériques
+
+-   Nombre de variables numériques : `r sum(col_type == "numeric")`
+
+### Tableau récapitulatif des variables numériques
+
+```{r}
+#| label: tbl-numeric-variables
+#| tbl-cap: "Variables numériques"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+# tableau avec moyenne, SD, médiane, Q1, Q3, min et max pour chacune des variables numériques
+numeric_cols <- names(col_type)[col_type == "numeric"]
+numeric_cols <- setdiff(numeric_cols, "time_to_death_if_death_within_30d")
+
+#création du tableau récapitulatif des variables numériques
+numeric_summary_df <- data.frame(
+    Variables = desc[numeric_cols],
+    Moyenne = sapply(df[numeric_cols], function(x) round(mean(x, na.rm = TRUE), 2)),
+    SD = sapply(df[numeric_cols], function(x) round(sd(x, na.rm = TRUE), 2)),
+    Médiane = sapply(df[numeric_cols], function(x) round(median(x, na.rm = TRUE), 2)),
+    Q1 = sapply(df[numeric_cols], function(x) round(quantile(x, 0.25, na.rm = TRUE), 2)),
+    Q3 = sapply(df[numeric_cols], function(x) round(quantile(x, 0.75, na.rm = TRUE), 2)),
+    Min = sapply(df[numeric_cols], function(x) round(min(x, na.rm = TRUE), 2)),
+    Max = sapply(df[numeric_cols], function(x) round(max(x, na.rm = TRUE), 2)),
+    check.names = FALSE
+)
+
+#affichage du tableau
+knitr::kable(
+    numeric_summary_df,
+    booktabs = FALSE,
+    row.names = FALSE
+) %>%
+  kableExtra::column_spec(1, width = "6cm")
+```
+
+-   On constate quelques valeurs aberrantes dans les variables numériques : 
+
+    -  Pression artérielle moyenne minimale à 0mmHg.
+
+    -  Leucocytose minimale à 0 G/L.
+
+    -  Fréquence cardiaque minimale à 0 bpm.
+
+    -  Fréquence respiratoire minimale à 0 resp/min.
+
+    -  Poids minimal à 0 kg.
+
+### Gestion des valeurs aberrantes dans les variables numériques
+
+```{r}
+#| label: tbl-numeric-outliers
+#| tbl-cap: "Valeurs aberrantes dans les variables numériques"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tab-cap: "Valeurs 0 dans les variables numériques"
+# quel pourcentage les valeurs 0 représentent-elles pour chacune de ces variables ?
+outlier_summary_df <- data.frame(
+    Variable = c("Pression artérielle moyenne", "Leucocytose", "Fréquence cardiaque", "Fréquence respiratoire", "Poids"),
+    `Valeur aberrante` = c(sum(df$mean_blood_pressure == 0, na.rm = TRUE), sum(df$wbc == 0, na.rm = TRUE), sum(df$heart_rate == 0, na.rm = TRUE), sum(df$respiratory_rate == 0, na.rm = TRUE), sum(df$weight == 0, na.rm = TRUE)),
+    `Pourcentage de valeurs 0` = c(round(mean(df$mean_blood_pressure == 0, na.rm = TRUE) * 100, 2), round(mean(df$wbc == 0, na.rm = TRUE) * 100, 2), round(mean(df$heart_rate == 0, na.rm = TRUE) * 100, 2), round(mean(df$respiratory_rate == 0, na.rm = TRUE) * 100, 2), round(mean(df$weight == 0, na.rm = TRUE) * 100, 2))
+)
+
+#affichage du tableau 
+knitr::kable(outlier_summary_df, booktabs = TRUE)
+```
+
+-   Le taux de valeurs "0" est relativement faible pour chacune de ces variables, ce qui suggère que ces valeurs pourraient être des erreurs de saisie ou des données manquantes codées à tort comme "0". 
+
+-   Au maximum, la variable "Poids" contient `r round(mean(df$weight == 0, na.rm = TRUE) * 100, 2)`% de valeurs "0", ce qui est relativement faible.
+
+-   On propose d'imputer toutes ces valeurs manquantes par la médiane de chaque variable, ce qui est une méthode simple et robuste pour gérer les valeurs aberrantes et les données manquantes.
+
+-   Pour une seconde analyse effectuée en annexe, on remplace aussi les valeurs 0 par "NA"
+
+```{r}
+#| label: code-imputation-outliers
+#| echo: false
+#| message: false
+#| warning: false
+#création d'un dataframe pour l'imputation multiple
+df_imputation_multiple <- df
+
+# imputation des valeurs 0 par la médiane de chaque variable
+df$mean_blood_pressure[df$mean_blood_pressure == 0] <- median(df$mean_blood_pressure[df$mean_blood_pressure > 0], na.rm = TRUE)
+df$wbc[df$wbc == 0] <- median(df$wbc[df$wbc > 0], na.rm = TRUE)
+df$heart_rate[df$heart_rate == 0] <- median(df$heart_rate[df$heart_rate > 0], na.rm = TRUE)
+df$respiratory_rate[df$respiratory_rate == 0] <- median(df$respiratory_rate[df$respiratory_rate > 0], na.rm = TRUE)
+df$weight[df$weight == 0] <- median(df$weight[df$weight > 0], na.rm = TRUE)
+
+#remplacement des valeurs 0 dans df_imputation_multiple par NA
+df_imputation_multiple$mean_blood_pressure[df_imputation_multiple$mean_blood_pressure == 0] <- NA
+df_imputation_multiple$wbc[df_imputation_multiple$wbc == 0] <- NA
+df_imputation_multiple$heart_rate[df_imputation_multiple$heart_rate == 0] <- NA
+df_imputation_multiple$respiratory_rate[df_imputation_multiple$respiratory_rate == 0] <- NA
+df_imputation_multiple$weight[df_imputation_multiple$weight == 0] <- NA
+```
+
+### Tableau récapitulatif des variables numériques après imputation
+
+```{r}
+#| label: tbl-numeric-variables-imputed
+#| tbl-cap: "Variables numériques après imputation des valeurs aberrantes"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+# tableau avec moyenne, SD, médiane, Q1, Q3, min et max pour chacune des variables numériques après imputation
+numeric_cols_imputed <- c(
+  "mean_blood_pressure",
+  "wbc",
+  "heart_rate",
+  "respiratory_rate",
+  "weight"
+)
+
+numeric_summary_imputed_df <- data.frame(
+  Variables = numeric_cols_imputed,
+  Moyenne = sapply(df[numeric_cols_imputed], function(x) round(mean(x, na.rm = TRUE), 2)),
+  SD = sapply(df[numeric_cols_imputed], function(x) round(sd(x, na.rm = TRUE), 2)),
+  Médiane = sapply(df[numeric_cols_imputed], function(x) round(median(x, na.rm = TRUE), 2)),
+  Q1 = sapply(df[numeric_cols_imputed], function(x) round(quantile(x, 0.25, na.rm = TRUE), 2)),
+  Q3 = sapply(df[numeric_cols_imputed], function(x) round(quantile(x, 0.75, na.rm = TRUE), 2)),
+  Min = sapply(df[numeric_cols_imputed], function(x) round(min(x, na.rm = TRUE), 2)),
+  Max = sapply(df[numeric_cols_imputed], function(x) round(max(x, na.rm = TRUE), 2)),
+  check.names = FALSE
+)
+
+knitr::kable(
+  numeric_summary_imputed_df,
+  booktabs = FALSE,
+  row.names = FALSE
+) %>%
+  kableExtra::column_spec(1, width = "6cm")
+```
+
+
+### Histogramme et courbes de densité pour chacune des variables numériques
+
+```{r}
+#| label: fig-numeric-distribution
+#| fig-cap: "Distribution des variables numériques (histogrammes et courbes de densité)"
+#| fig-width: 12
+#| fig-height: 15
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+numeric_cols <- names(col_type)[col_type == "numeric"]
+
+op <- par(no.readonly = TRUE)
+on.exit(par(op), add = TRUE)
+
+cols <- viridisLite::viridis(n = max(length(numeric_cols), 1), begin = 0.1, end = 0.95)
+
+par(mfrow = c(4, 6), mar = c(4, 4, 2, 1))
+
+hist(
+  df$age, 
+  breaks = 20, 
+  main = "Âge", 
+  xlab = "Âge", 
+  ylab = "Fréquence",
+  col = cols[1], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$age, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$education_years, 
+  breaks = 20, 
+  main = "Années d'éducation", 
+  xlab = "Années d'éducation", 
+  ylab = "Fréquence",
+  col = cols[2], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$education_years, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$survival_probability_2mths, 
+  breaks = 20, 
+  main = "Probabilité de survie", 
+  xlab = "Probabilité de survie", 
+  ylab = "Fréquence",
+  col = cols[3], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$survival_probability_2mths, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$DASI_score, 
+  breaks = 20, 
+  main = "Score DASI", 
+  xlab = "Score DASI", 
+  ylab = "Fréquence",
+  col = cols[4], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$DASI_score, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$apache_score, 
+  breaks = 20, 
+  main = "Score APACHE", 
+  xlab = "Score APACHE", 
+  ylab = "Fréquence",
+  col = cols[6], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$apache_score, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$glasgow_score, 
+  breaks = 20, 
+  main = "score de Glasgow", 
+  xlab = "score de Glasgow", 
+  ylab = "Fréquence",
+  col = cols[7], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$glasgow_score, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$mean_blood_pressure, 
+  breaks = 20, 
+  main = "PA moyenne", 
+  xlab = "PA moyenne (mmHg)", 
+  ylab = "Fréquence",
+  col = cols[8], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$mean_blood_pressure, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$wbc, 
+  breaks = 20, 
+  main = "Leucocytose ", 
+  xlab = "Leucocytose (10^3/µL)", 
+  ylab = "Fréquence",
+  col = cols[9], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$wbc, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$heart_rate, 
+  breaks = 20, 
+  main = "Pouls", 
+  xlab = "Pouls (bpm)", 
+  ylab = "Fréquence",
+  col = cols[10], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$heart_rate, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$respiratory_rate, 
+  breaks = 20, 
+  main = "Fréquence respiratoire", 
+  xlab = "FR (resp/min)", 
+  ylab = "Fréquence",
+  col = cols[11], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$respiratory_rate, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$temperature, 
+  breaks = 20, 
+  main = "Température", 
+  xlab = "T (°C)", 
+  ylab = "Fréquence",
+  col = cols[12], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$temperature, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$pa_fi_ratio, 
+  breaks = 20, 
+  main = "PaO2/FiO2", 
+  xlab = "PaO2/FiO2", 
+  ylab = "Fréquence",
+  col = cols[13], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$pa_fi_ratio, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$albumin, 
+  breaks = 20, 
+  main = "Albuminémie", 
+  xlab = "Albuminémie (g/dL)", 
+  ylab = "Fréquence",
+  col = cols[14], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$albumin, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$hematocrit, 
+  breaks = 20, 
+  main = "Hématocrite", 
+  xlab = "Hématocrite (%)", 
+  ylab = "Fréquence",
+  col = cols[15], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$hematocrit, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$bilirubin, 
+  breaks = 20, 
+  main = "Bilirubinémie", 
+  xlab = "Bilirubine (µmol/L)", 
+  ylab = "Fréquence",
+  col = cols[16], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$bilirubin, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$creatinine, 
+  breaks = 20, 
+  main = "Créatininémie", 
+  xlab = "Créatinine (µmol/L)", 
+  ylab = "Fréquence",
+  col = cols[17], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$creatinine, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$sodium, 
+  breaks = 20, 
+  main = "Natrémie", 
+  xlab = "Natrémie (mmol/L)", 
+  ylab = "Fréquence",
+  col = cols[18], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$sodium, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$potassium, 
+  breaks = 20, 
+  main = "Kalémie", 
+  xlab = "Kalémie (mmol/L)", 
+  ylab = "Fréquence",
+  col = cols[19], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$potassium, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$paco2, 
+  breaks = 20, 
+  main = "PaCO2", 
+  xlab = "PaCO2 (mmHg)", 
+  ylab = "Fréquence",
+  col = cols[20], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$paco2, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$ph, 
+  breaks = 20, 
+  main = "pH", 
+  xlab = "pH", 
+  ylab = "Fréquence",
+  col = cols[21], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$ph, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$weight, 
+  breaks = 20, 
+  main = "Poids", 
+  xlab = "Poids (kg)", 
+  ylab = "Fréquence",
+  col = cols[22], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$weight, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$adl_score, 
+  breaks = 20, 
+  main = "Score ADL", 
+  xlab = "Score ADL", 
+  ylab = "Fréquence",
+  col = cols[23], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$adl_score, na.rm = TRUE), col = "blue", lwd = 2)
+hist(
+  df$urine_output, 
+  breaks = 20, 
+  main = "Diurèse", 
+  xlab = "Diurèse (mL)", 
+  ylab = "Fréquence",
+  col = cols[24], 
+  border = TRUE, 
+  freq = FALSE
+)
+lines(density(df$urine_output, na.rm = TRUE), col = "blue", lwd = 2)
+```
+
+### Normalité des variables
+
+-   Certaines variables numériques semblent suivre une distribution approximativement normale : c'est le cas de l'âge (même prédominance des âges jeunes donc asymétrie vers les âges plus élevés).
+
+-   A titre complémentaire, on peut réaliser un QQ-plot pour l'âge par exemple, qui visualise la distribution des données par rapport à une distribution normale théorique.
+
+```{r}
+#| label: fig-qqplot-age
+#| fig-cap: "QQ-plot pour l'âge"
+#| fig-width: 3.5
+#| fig-height: 3.5
+#| fig-align: "center"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+qqnorm(
+    df$age, 
+    main = "QQ-plot pour l'âge"
+)
+qqline(df$age, col = "red", lwd = 2)
+```
+
+\newpage
+# Analyse non ajustée
+
+## Résultats
+
+-   L'objectif de l'étude est d'évaluer le cathétérisme cardiaque droit (RHC) sur plusieurs critères : temps de survie, durée de séjour à l'hôpital et en réanimation, coûts hospitaliers et intensité des soins.
+
+-   On ne dispose pas dans le jeu de données d'informations sur les coûts hospitaliers et l'intensité des soins, donc on se concentre sur les deux premiers critères : temps de survie et durée de séjour à l'hôpital et en réanimation.
+
+-   Il s'agit d'une analyse non ajustée, c'est à dire sans contrôle pour les facteurs de confusion potentiels.
+
+### En utilisant des critères binaires (décès à 30 jours et à 180 jours)
+
+```{r}
+#| label: comparaison-deces-binary
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Comparaison des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC"
+# avec pourcentage de décès à 30 jours et à 180 jours dans les groupes R
+# utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC
+summary_table <- df %>%
+  select(rhc, death_30d, death_180d) %>%
+  tbl_summary(
+    by = rhc,
+    statistic = list(
+      death_30d ~ "{n} ({p}%)",
+      death_180d ~ "{n} ({p}%)"
+    ),
+    label = list(
+      death_30d ~ "Décès à 30 jours",
+      death_180d ~ "Décès à 180 jours"
+    ),
+    missing = "no"
+  ) %>%
+  add_p() %>%
+  modify_header(label = "**Variable**")
+#affichage du tableau
+summary_table
+```
+
+```{r}
+#| label: or-deces-binary
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Odds Ratio (OR) pour le décès à 30 jours et à 180 jours"
+# calcul de l'OR pour le décès à 30 jours
+or_30d <- epitools::oddsratio(
+  x = table(df$rhc, df$death_30d),
+  method = "wald",
+  conf.level = 0.95
+)
+# calcul de l'OR pour le décès à 180 jours
+or_180d <- epitools::oddsratio(
+  x = table(df$rhc, df$death_180d),
+  method = "wald",
+  conf.level = 0.95
+)
+# création d'un tableau récapitulatif des OR
+or_summary_df <- data.frame(
+  `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
+  `OR` = c(round(or_30d$measure[2, "estimate"], 2), round(or_180d$measure[2, "estimate"], 2)),
+  `IC 95%` = c(
+    paste0("(", round(or_30d$measure[2, "lower"], 2), ", ", round(or_30d$measure[2, "upper"], 2), ")"),
+    paste0("(", round(or_180d$measure[2, "lower"], 2), ", ", round(or_180d$measure[2, "upper"], 2), ")")
+  ),
+  check.names = FALSE
+)
+knitr::kable(or_summary_df, booktabs = TRUE)
+```
+
+-   Il y a significativement plus de décès à 30 jours et à 180 jours dans le groupe RHC que dans le groupe non-RHC (p \< 0.001 pour les deux critères).
+
+-   Les OR sont tous deux significativement positifs proches à 30 jours et 180 jours, indiquant une association positive entre le RHC et le risque de décès à ces deux critères.
+
+### En utilisant des critères de temps de survie (temps jusqu'au décès ou censure)
+
+```{r}
+#| label: code-variables-outcomes
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# Recalcul des temps à partir des dates (suivi "complet")
+df$time_to_death <- as.numeric(df$date_death - df$date_admission)
+df$time_to_last_news <- as.numeric(df$date_last_news - df$date_admission)
+
+# Événement "décès" selon la présence d'une date de décès
+df$event_death <- as.integer(!is.na(df$date_death))
+
+# Temps de suivi complet (décès -> date_death, sinon -> date_last_news)
+df$followup_time <- df$time_to_last_news
+
+# Si décès, temps de suivi = temps jusqu'au décès
+df$followup_time[df$event_death == 1] <- df$time_to_death[df$event_death == 1]
+
+# Temps d'inclusion : prend le minimum entre le temps de suivi et 180 jours (donc censure après 180 jours)
+df$survival_time_180d <- pmin(df$followup_time, 180)
+
+# Événement "décès" à 180 jours : vaut 1 si décès ET temps jusqu'au décès <= 180 jours
+df$event_180d <- as.integer(df$event_death == 1 & df$time_to_death <= 180)
+
+# Temps négatifs -> NA
+df$survival_time_180d[df$survival_time_180d < 0] <- NA
+```
+
+```{r}
+#| label: code-km-plot
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-width: 10
+#| fig-height: 7.5
+# création de l'objet de survie
+surv_object <- Surv(time = df$survival_time_180d, event = df$event_180d)
+# ajustement du modèle de survie de Kaplan-Meier
+km_fit <- survfit(surv_object ~ rhc, data = df)
+# affichage du graphique de survie
+km_plot <- ggsurvplot(
+  km_fit,
+  data = df,
+  pval = TRUE,
+  conf.int = TRUE,
+  risk.table = TRUE,
+  risk.table.height = 0.2,
+  risk.table.fontsize = 3.2,
+  break.time.by = 30,
+  xlim = c(0, 180),
+  legend.labs = c("Non-RHC", "RHC"),
+  legend.title = "Groupe",
+  xlab = "Temps (jours)",
+  ylab = "Probabilité de survie",
+  title = "Courbe de survie de Kaplan-Meier selon le RHC",
+  palette = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
+)
+print(km_plot)
+```
+
+-   Le test du log rank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC (p \< 0.001), suggérant une différence entre les deux courbes de survie.
+
+-   L'hypothèse de proportionnalité des risques semble être vérifiée, car les courbes de survie ne se croisent pas et restent parallèles au fil du temps
+
+::: {.callout-important title="Interprétation dans ce contexte"}
+-   Ces tests supposent la comparabilité des groupes !
+
+-   On ne sait pas si le décès est survenu à cause du cathétérisme cardiaque ou si les patients ayant eu un cathétérisme étaient plus graves au départ
+
+-   En l'absence de randomisation, il est très probable que les patients ayant eu un RHC étaient plus sévères au départ, ce qui pourrait expliquer la plus grande mortalité observée dans ce groupe.
+
+-   Il est donc essentiel de réaliser une analyse ajustée pour contrôler les facteurs de confusion potentiels avant de tirer des conclusions sur l'effet du RHC sur la mortalité.
+:::
+
+\newpage
+## Exploration des facteurs de confusion potentiels
+
+-   On a donc observé que :
+
+    -   Les patients ayant eu un cathétérisme cardiaque droit (RHC) ont une mortalité plus élevée à 30 jours et à 180 jours que les patients n'ayant pas eu de RHC.
+
+    -   Les courbes de survie de Kaplan-Meier sont différentes, selon que les patients ont eu ou non un RHC.
+
+    -   Il s'agit probablement d'une association confondue par la sévérité initiale des patients, car les patients ayant eu un RHC étaient probablement plus sévères au départ.
+
+-   Il faut donc réaliser une analyse ajustée pour contrôler les facteurs de confusion potentiels et améliorer la comparabilité des groupes RHC vs non-RHC.
+
+-   Il est probable que les patients ayant eu un RHC étaient plus sévères au départ, ce qui pourrait expliquer la plus grande mortalité observée dans ce groupe
+
+-   Il est donc essentiel d'explorer les caractéristiques basales des patients dans les groupes RHC vs non-RHC pour identifier les facteurs de confusion potentiels et évaluer la comparabilité des groupes avant de réaliser une analyse ajustée.
+
+## Les patients ayant eu un cathétérisme cardiaque droit sont-ils comparables aux patients n'en ayant pas eu ?
+
+-   Il est important d'évaluer si les patients ayant eu un RHC sont différents des patients n'ayant pas eu de RHC en termes de caractéristiques basales, car cela peut indiquer la présence d'un biais de confusion.
+
+-   Cela peut inclure des facteurs tels que l'âge, le sexe, la comorbidité, et la sévérité de la maladie au moment de l'admission.
+
+-   Pour évaluer :
+
+    -   Une analyse univariée avec test pour chaque variable (test de chi2 pour les variables catégorielles, test de t pour les variables numériques) peut être réalisée pour comparer les caractéristiques basales entre les groupes RHC et non-RHC, mais ça va donner beaucoup de p-values à interpréter et il y a un risque de surinterprétation des résultats.
+
+    -   On peut réaliser un "love plot" pour visualiser les différences moyennes standardisées (qui correspondent à la différence de moyenne entre les groupes RHC et non-RHC, divisée par l'écart-type) pour chaque variable, avant et après ajustement (par exemple, après appariement). Cela permet de visualiser l'équilibre des covariables entre les groupes.
+
+\newpage
+### Tests comparatifs des caractéristiques basales entre les groupes RHC vs non-RHC
+
+```{r}
+#| label: tableau-comparatif-rhc
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Comparaison des caractéristiques basales entre les groupes RHC vs non-RHC"
+# utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des caractéristiques basales entre les groupes RHC vs non-RHC
+# regroupement des variables
+primary_columns <- grep("^(primary_binaire_|secondary_binaire_)", names(df), value = TRUE)
+vars_demo <- c("age", "sex", "race", "education_years", "income", "insurance_class")
+vars_scores <- c("adl_score", "DASI_score", "glasgow_score", "apache_score", "dnr_status")
+vars_comorb <- c(
+  "comorbidity_cardiovascular",
+  "comorbidity_congestive_heart",
+  "comorbidity_myocardial_infarction",
+  "comorbidity_chronic_pulmonary",
+  "comorbidity_renal",
+  "comorbidity_liver",
+  "comorbidity_upper_gi_bleeding",
+  "comorbidity_dementia",
+  "comorbidity_psych",
+  "comorbidity_malignancy",
+  "comorbidity_immunosuppression",
+  "comorbidity_transfer"
+)
+vars_diag_other <- c(
+  "diagnosis_respiratory",
+  "diagnosis_cardiovascular",
+  "diagnosis_neurological",
+  "diagnosis_gastrointestinal",
+  "diagnosis_renal",
+  "diagnosis_metabolic",
+  "diagnosis_hematologic",
+  "diagnosis_sepsis",
+  "diagnosis_trauma",
+  "diagnosis_orthopedic"
+)
+vars_cancer <- c("cancer_YN", "cancer")
+vars_clinical <- c(
+  "weight", "mean_blood_pressure", "heart_rate",
+  "respiratory_rate", "temperature", "pa_fi_ratio",
+  "urine_output"
+)
+vars_bio <- c(
+  "wbc", "albumin", "hematocrit", "bilirubin",
+  "creatinine", "sodium", "potassium", "paco2", "ph"
+)
+
+# colonnes à inclure
+cols_to_include_baseline <- c(
+  vars_demo,
+  vars_scores,
+  vars_comorb,
+  primary_columns,
+  vars_diag_other,
+  vars_cancer,
+  vars_clinical,
+  vars_bio
+)
+
+df_baseline_tbl <- df[, unique(c("rhc", cols_to_include_baseline))]
+
+# répartition des variables en sous groupes pour la mise en forme du tableau
+primary_binaire_columns   <- grep("^primary_binaire_", primary_columns, value = TRUE)
+secondary_binaire_columns <- grep("^secondary_binaire_", primary_columns, value = TRUE)
+
+var_to_section <- c(
+  stats::setNames(rep("Démographie / socio-économique", length(vars_demo)), vars_demo),
+  stats::setNames(rep("Statut fonctionnel / scores", length(vars_scores)), vars_scores),
+  stats::setNames(rep("Comorbidités", length(vars_comorb)), vars_comorb),
+  stats::setNames(rep("Diagnostic principal (CAT1)", length(primary_binaire_columns)), primary_binaire_columns),
+  stats::setNames(rep("Comorbidité principale (CAT2)", length(secondary_binaire_columns)), secondary_binaire_columns),
+  stats::setNames(rep("Diagnostics", length(vars_diag_other)), vars_diag_other),
+  stats::setNames(rep("Cancer", length(vars_cancer)), vars_cancer),
+  stats::setNames(rep("Paramètres cliniques", length(vars_clinical)), vars_clinical),
+  stats::setNames(rep("Biologie", length(vars_bio)), vars_bio)
+)
+
+# Tableau avec gtsummary
+baseline_comparison_table <- gtsummary::tbl_summary(
+  df_baseline_tbl,
+  by = "rhc",
+  missing = "no",
+  statistic = list(
+    gtsummary::all_continuous() ~ "{mean} ({sd})",
+    gtsummary::all_categorical() ~ "{n} ({p}%)"
+  ),
+  label = list(
+    age ~ "Âge",
+    sex ~ "Sexe",
+    race ~ "Ethnie",
+    education_years ~ "Années d'éducation",
+    income ~ "Revenu",
+    insurance_class ~ "Classe d'assurance",
+    adl_score ~ "Score ADL",
+    DASI_score ~ "Score DASI",
+    glasgow_score ~ "Score Coma",
+    apache_score ~ "Score APACHE",
+    dnr_status ~ "Statut DNR",
+    primary_binaire_BPCO ~ "BPCO",
+    primary_binaire_choc_septique ~ "Choc septique",
+    primary_binaire_choc_sur_cancer ~ "Choc sur cancer",
+    primary_binaire_insuffisance_renale_aigue ~ "Insuffisance rénale aiguë",
+    primary_binaire_insuffisance_cardiaque ~ "Insuffisance cardiaque",
+    primary_binaire_coma ~ "Coma",
+    primary_binaire_cirrhose ~ "Cirrhose",
+    primary_binaire_cancer_du_poumon ~ "Cancer du poumon",
+    primary_binaire_cancer_du_colon ~ "Cancer du colon",
+    secondary_binaire_choc_septique ~ "Choc septique",
+    secondary_binaire_choc_sur_cancer ~ "Choc sur cancer",
+    secondary_binaire_coma ~ "Coma",
+    secondary_binaire_cirrhose ~ "Cirrhose",
+    secondary_binaire_cancer_du_poumon ~ "Cancer du poumon",
+    secondary_binaire_cancer_du_colon ~ "Cancer du colon",
+    comorbidity_cardiovascular ~ "Cardiopathie",
+    comorbidity_congestive_heart ~ "Insuffisance cardiaque congestive",
+    comorbidity_myocardial_infarction ~ "Infarctus du myocarde",
+    comorbidity_chronic_pulmonary ~ "Maladie pulmonaire chronique",
+    comorbidity_renal ~ "Insuffisance rénale",
+    comorbidity_liver ~ "Insuffisance hépatique",
+    comorbidity_upper_gi_bleeding ~ "Saignement GI supérieur",
+    comorbidity_dementia ~ "Démence",
+    comorbidity_psych ~ "Psychologique",
+    comorbidity_malignancy ~ "Malignité",
+    comorbidity_immunosuppression ~ "Immunosuppression",
+    comorbidity_transfer ~ "Transfert",
+    diagnosis_respiratory ~ "Diagnostic respiratoire",
+    diagnosis_cardiovascular ~ "Diagnostic cardiovasculaire",
+    diagnosis_neurological ~ "Diagnostic neurologique",
+    diagnosis_gastrointestinal ~ "Diagnostic gastro-intestinal",
+    diagnosis_renal ~ "Diagnostic rénal",
+    diagnosis_metabolic ~ "Diagnostic métabolique",
+    diagnosis_hematologic ~ "Diagnostic hématologique",
+    diagnosis_sepsis ~ "Diagnostic sepsis",
+    diagnosis_trauma ~ "Diagnostic traumatique",
+    diagnosis_orthopedic ~ "Diagnostic orthopédique",
+    cancer_YN ~ "Cancer (Oui/Non)",
+    cancer ~ "Type de cancer",
+    weight ~ "Poids",
+    mean_blood_pressure ~ "Pression artérielle moyenne",
+    heart_rate ~ "Fréquence cardiaque",
+    respiratory_rate ~ "Fréquence respiratoire",
+    temperature ~ "Température",
+    pa_fi_ratio ~ "Ratio Pa/FI",
+    urine_output ~ "Diurèse",
+    wbc ~ "Globules blancs",
+    albumin ~ "Albumine",
+    hematocrit ~ "Hématocrite",
+    bilirubin ~ "Bilirubine",
+    creatinine ~ "Créatinine",
+    sodium ~ "Sodium",
+    potassium ~ "Potassium",
+    paco2 ~ "PaCO2",
+    ph ~ "pH"
+  ),
+  type = list(adl_score ~ "continuous")
+)
+
+#mise en forme du tableau pour rendu quarto vers pdf
+baseline_comparison_table <- baseline_comparison_table |>
+  gtsummary::add_p(test = list(gtsummary::all_continuous() ~ "t.test")) |>
+  gtsummary::modify_header(label = "**Variable**")
+tb <- baseline_comparison_table$table_body
+tb$.pos <- seq_len(nrow(tb))
+section <- unname(var_to_section[tb$variable])
+mask <- tb$row_type == "label" & !is.na(section)
+first_pos <- tapply(tb$.pos[mask], section[mask], min)
+first_pos <- first_pos[order(first_pos)]
+sections <- names(first_pos)
+pos_cat <- as.numeric(first_pos) - 0.5
+template <- tb[1, , drop = FALSE]
+template[,] <- NA
+stat_cols <- grep("^stat_", names(tb), value = TRUE)
+cat_rows <- template[rep(1, length(sections)), , drop = FALSE]
+cat_rows$.pos <- pos_cat
+cat_rows$row_type <- "category"
+cat_rows$label <- sections
+cat_rows$variable <- paste0("cat__", make.names(sections))
+cat_rows[, stat_cols] <- ""
+cat_rows$p.value <- NA_real_
+out <- base::rbind(tb, cat_rows)
+out <- out[order(out$.pos), , drop = FALSE]
+out$.pos <- NULL
+baseline_comparison_table$table_body <- out
+baseline_comparison_table <- gtsummary::modify_table_styling(
+  baseline_comparison_table, columns = "label", rows = row_type == "category", text_format = "bold"
+)
+baseline_comparison_table <- gtsummary::modify_table_styling(
+  baseline_comparison_table, columns = "label", rows = row_type == "category", text_format = "italic"
+)
+# affichage du tableau pour quarto vers pdf
+baseline_comparison_table |>
+  gtsummary::as_kable_extra(booktabs = TRUE, longtable = TRUE) |>
+  kableExtra::kable_styling(
+    font_size = 8,
+    latex_options = c("repeat_header", "scale_down")
+  ) |>
+  kableExtra::row_spec(
+    which(baseline_comparison_table$table_body$row_type == "category"),
+    bold = TRUE,
+    italic = TRUE
+  )
+```
+
+-   Globalement, quasiment toutes les variables sont significativement différentes entre les groupes RHC et non-RHC, ce qui suggère que les patients ayant eu un RHC sont différents des patients n'ayant pas eu de RHC en termes de caractéristiques basales.
+
+### Visualisation des différences moyennes standardisées entre les groupes RHC et non-RHC (Love plot)
+
+-   On peut aussi visualiser les différences moyennes standardisées pour chaque variable entre les groupes RHC et non-RHC, par exemple à l'aide d'un "love plot", pour mieux visualiser l'équilibre des covariables entre les groupes.
+
+-   Les différences moyennes standardisées correspondent à la différence de moyenne entre les groupes RHC et non-RHC, divisée par l'écart-type. Une valeur proche de 0 indique une bonne balance entre les groupes pour cette variable, tandis qu'une valeur éloignée de 0 indique une différence importante entre les groupes pour cette variable.
+
+-   Un seuil de 0.1 est souvent utilisé pour indiquer une différence importante entre les groupes : si la différence moyenne standardisée est supérieure à 0.1 en valeur absolue, cela suggère une différence importante entre les groupes pour cette variable.
+
+```{r}
+#| label: SMD
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| fig-cap: "Love plot visualisant les différences moyennes standardisées pour les variables basales"
+#| fig-width: 10
+#| fig-height: 12
+# avec bal.tab et love.plot()
+# création d'un objet de balance pour les variables basales
+balance_baseline <- bal.tab(
+  x = as.formula(paste("rhc ~", paste(cols_to_include_baseline, collapse = " + "))),
+  data = df,
+  estimand = "ATE"
+)
+
+# Retirer les lignes de missingness (":<NA>") sans changer les SMD des vraies covariables
+balance_baseline_clean <- balance_baseline
+if (!is.null(balance_baseline_clean$Balance)) {
+  keep <- !grepl(":<NA>$", rownames(balance_baseline_clean$Balance))
+  balance_baseline_clean$Balance <- balance_baseline_clean$Balance[keep, , drop = FALSE]
+}
+```
+
+```{r}
+#| label: variables-smd
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Variables avec une différence moyenne standardisée (SMD) supérieure à 0.1 en valeur absolue"
+# identification des variables avec SMD > 0.1 en valeur absolue
+imbalanced_vars <- rownames(balance_baseline_clean$Balance)[abs(balance_baseline_clean$Balance$Diff.Un) > 0.1]
+smd_summary_df <- data.frame(
+  `Variable` = imbalanced_vars,
+  `SMD` = abs(round(balance_baseline_clean$Balance[imbalanced_vars, "Diff.Un"], 3))
+)
+knitr::kable(smd_summary_df, booktabs = TRUE)
+```
+
+-   Les variables ayant une différence moyenne standardisée supérieure à 0.1 en valeur absolue sont le score ADL, le score de Glasgow, le score APACHE, les diagnostics principaux et associés, le poids, la pression artérielle moyenne, la fréquence cardiaque, la fréquence respiratoire, le ratio Pa/FI, l'albumine, l'hématocrite, la bilirubine, la créatinine, la PaCO2 et le pH.
+
+
+
+```{r}
+#| label: SMD-plot
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Love plot visualisant les différences moyennes standardisées pour les variables basales"
+#| fig-width: 10
+#| fig-height: 12
+#labels pour lisibilité (on reprend les labels du tableau comparatif)
+labels_love_plot <- desc
+
+# création du love plot pour les variables basales
+love_plot_baseline <- cobalt::love.plot(
+  balance_baseline_clean,
+  threshold = 0.1,
+  var.order = "unadjusted",
+  abs = TRUE,
+  drop.missing = TRUE,
+  line = TRUE,
+  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4]),
+  var.names = labels_love_plot
+)
+print(love_plot_baseline)
+```
+
+
+
+\newpage
+# Appariement selon score de propension
+
+-   Pour assurer la comparabilité initiale des patients, on apparie les patients selon un score de propension calculé à partir de variables "pré-traitement".
+
+-   L'objectif est de créer 2 groupes de patients qui auraient des probabilités similaires de recevoir le traitement, afin de réduire les biais de sélection.
+
+-   L'identification des variables à inclure est cruciale : il s'agit d'inclure les variables qui influencent le choix du traitement ou non.
+
+-   Pour l'identification des variables à inclure, on peut : 
+
+    -   S'appuyer sur la littérature pour identifier les facteurs connus qui influencent le choix du traitement.
+
+    -   Consulter des experts cliniques pour obtenir des insights sur les variables pertinentes.
+
+    -   Utiliser des méthodes statistiques pour identifier les variables associées à la fois au traitement et à l'issue. 
+
+  -   Dans notre cas, on a vu que quasiment toutes les variables basales étaient significativement différentes entre les groupes RHC et non-RHC, ce qui suggère que les patients ayant eu un RHC sont différents des patients n'ayant pas eu de RHC en termes de caractéristiques basales.
+
+## Quelles variables inclure dans le score de propension ?
+
+### Choix des auteurs de l'article original publié
+
+-   Dans l'article original publié, les auteurs ont basé leur choix sur une discussion entre 7 experts en soins critiques, qui ont identifié les variables qu'ils considéraient comme étant liées à la décision de réaliser un RHC. Les variables sélectionnées sont : 
+
+    -   Démographiques : âge (`df$age`), sexe (`df$sex`), race (`df$race`), années d'éducation (`df$education_years`), revenu (`df$income`), type d'assurance médicale (`df$insurance_class`)
+
+    -   Cliniques : catégorie de maladie principale (`df$primary_disease_category`), catégorie de maladie secondaire (`df$secondary_disease_category`), 12 catégories de diagnostic d'admission (toutes les variables `df$diagnosis_`), score ADL (`df$adl_score`) et DASI 2 semaines (`df$DASI_score`) avant l'admission, statut non réanimatoire (`df$dnr_status`), cancer (`df$cancer`) (aucun, localisé, métastatique), estimation de la probabilité de survie à 2 mois (`df$survival_probability_2mths`), score APACHE (`df$apache_score`), score de Glasgow (`df$glasgow_score`), poids (`df$weight`), température (`df$temperature`), pression artérielle moyenne (`df$mean_blood_pressure`), fréquence respiratoire (`df$respiratory_rate`), fréquence cardiaque (`df$heart_rate`), rapport PaO2/FiO2 (`df$pa_fi_ratio`), PaCO2 (`df$paco2`), pH (`df$ph`), numération globulaire (WBC) (`df$wbc`), hématocrite (`df$hematocrit`), sodium (`df$sodium`), potassium (`df$potassium`), créatinine (`df$creatinine`), bilirubine (`df$bilirubin`), albumine (`df$albumin`), diurèse (`df$urine_output`) et 13 catégories de comorbidités (toutes les variables `df$comorbidity_`).
+
+-   On voit qu'ils ont inclu la diurèse et le score ADL dans leur modèle de propension, même si ces variables avaient des taux de données manquantes très élevés (environ 75% pour le score ADL et 53% pour la diurèse).
+
+-   Concernant la gestion des données manquantes, les auteurs disent avoir supposé que les données manquantes pour le étaient des valeurs normales ("*Missing measurements were assumed to have normal values*"), ce qui correspond à une imputation simple (imputation par la valeur normale).
+
+### Choix dans notre analyse
+
+-   On propose d'inclure les mêmes variables que celles sélectionnées par les auteurs de l'article original (car étant identifiées par des experts).
+
+-   Pour la gestion des données manquantes avant appariement : 
+
+    - Une imputation est nécessaire si l'on veut inclure les variables avec des données manquantes dans le score de propension, car les méthodes d'appariement ne peuvent pas gérer les données manquantes.
+
+    - Comme expliqué dans l'article de Eiset et Frydenberg (2022), [@eisetConsiderationsUsingMultiple2022a], une imputation multiple est "tout sauf trivial" lorsque combinée avec un appariement : il faudrait gérer la multiplicité des jeux de données imputés et s'assurer que l'appariement est effectué de manière cohérente à travers les jeux (soit en calculant un score de propension moyen à travers les jeux, soit en réalisant l'appariement séparément dans chaque jeu puis en poolant les résultats).
+
+    - On propose donc de réaliser une imputation simple par la médiane pour les deux variables avec des données manquantes (score ADL et diurèse), ce qui permettra de les inclure dans le score de propension sans complexifier l'analyse. Il est tout à fait probable que cette méthode soit moins robuste que l'imputation multiple, mais elle est plus simple à mettre en œuvre dans le cadre de cet exercice.
+
+```{r}
+#| label: imputation-propension
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# imputation par la médiane pour les variables score ADL et diurèse
+df_imputed <- df
+df_imputed$adl_score[is.na(df_imputed$adl_score)] <- median(df_imputed$adl_score, na.rm = TRUE)
+df_imputed$urine_output[is.na(df_imputed$urine_output)] <- median(df_imputed$urine_output, na.rm = TRUE)
+#vérification de l'imputation
+sum(is.na(df_imputed$adl_score))
+sum(is.na(df_imputed$urine_output))
+sum(is.na(df_imputed))
+```
+
+## Calcul du score de propension et appariement
+
+-   Paramètrage du score de propension : 
+
+    -  Modèle de régression logistique avec comme variable dépendante la réalisation d'un RHC (variable `rhc`) et comme variables indépendantes les variables sélectionnées (toutes les variables listées ci-dessus).
+
+    -  Appariement 1:1 sans remplacement (c'est à dire que chaque patient ayant eu un RHC est apparié à un seul patient n'ayant pas eu de RHC, et qu'un patient n'ayant pas eu de RHC ne peut être apparié qu'à un seul patient ayant eu un RHC) 
+  
+    -   Caliper = avec un caliper de $0,2 \times \text{SD}$ du score de propension (c'est à dire que les patients sont appariés uniquement s'ils ont des scores de propension qui diffèrent de moins de $0,2 \times \text{écart type}$ du score de propension)
+
+	    -   Choix du Caliper basé sur Austin (2011) [@austinOptimalCaliperWidths2011]
+
+```{r}
+#| label: calcul-propension
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# calcul du score de propension avec les variables sélectionnées
+df_imputed$rhc <- factor(df_imputed$rhc)
+
+vars_propension <- c(
+  "age", "sex", "race", "education_years", "income", "insurance_class",
+  "primary_disease_category", "secondary_disease_category",
+  grep("^diagnosis_", names(df_imputed), value = TRUE),
+  grep("^comorbidity_", names(df_imputed), value = TRUE),
+  "adl_score", "DASI_score", "dnr_status", "cancer",
+  "survival_probability_2mths", "apache_score", "glasgow_score",
+  "weight", "temperature", "mean_blood_pressure", "respiratory_rate", "heart_rate", "pa_fi_ratio", "paco2", "ph", "wbc", "hematocrit", "sodium", "potassium", "creatinine", "bilirubin", "albumin", "urine_output")
+
+formula_propension <- paste("rhc ~", paste(vars_propension, collapse = " + "))
+
+#estimation du score de propension
+set.seed(123) # pour la reproductibilité
+score_propension <- glm(
+  formula = as.formula(formula_propension),
+  data = df_imputed,
+  family = binomial()
+)
+# ajout du score de propension dans le dataframe
+df_imputed$score_propension <- predict(score_propension, type = "response")
+
+# appariement 1:1 sans remplacement avec un caliper de 0.2*SD du score de propension
+library(MatchIt)
+matchit_out <- MatchIt::matchit(
+  formula = as.formula(formula_propension),
+  data = df_imputed,
+  method = "nearest",
+  caliper = 0.2,
+  ratio = 1,
+  replace = FALSE
+)
+# création du dataframe apparié
+df_matched <- match.data(matchit_out)
+# vérification de la taille des groupes appariés
+table(df_matched$rhc)
+```
+
+
+## Évaluation de l'équilibre des covariables après appariement et de la qualité de l'appariement
+
+-   L'évaluation de l'équilibre des covariables après appariement est essentielle pour vérifier que les groupes appariés sont comparables en termes de caractéristiques basales, ce qui est crucial pour réduire les biais de sélection et améliorer la validité des conclusions de l'étude.
+
+-   Pour ce devoir, elle suit les recommandations citées par Garrido et al. (2014) [@garridoMethodsConstructingAssessing2014], Zhang et al. (2019) [@zhangBalanceDiagnosticsPropensity2019], Austin (2009) [@austinBalanceDiagnosticsComparing2009], Stuart et al. (2013) [@stuartPrognosticScoreBased2013] et Imai et al. (2008) [@imaiMisunderstandingsExperimentalistsObservationalists2008].
+
+
+### Distribution du score de propension avant et après appariement
+
+-   On peut visualiser l'équilibre du score de propension entre les groupes RHC et non-RHC avant et après appariement à l'aide d'un histogramme de densité du score de propension pour les deux groupes.
+
+-   Avant appariement, on s'attend à voir des distributions de score de propension différentes entre les groupes RHC et non-RHC, avec une distribution plus élevée de scores de propension dans le groupe RHC (car les patients ayant eu un RHC sont plus susceptibles d'avoir des caractéristiques associées à une probabilité plus élevée de recevoir un RHC).
+
+-   On utilise la fonction `bal.plot` du package `cobalt` pour créer ces graphiques.
+
+    -   la variable `distance` correspond au score de propension variant entre 0 et 1, calculé par `matchit` (variable `distance` dans l'objet `matchit_out`)
+
+    -   Treatment = 0 correspond au groupe non-RHC et Treatment = 1 correspond au groupe RHC
+
+```{r}
+#| label: density-plot-propension
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Histogramme de densité du score de propension avant et après appariement. Distance correspond au score de propension variant entre 0 et 1 ; Treatment = 0 correspond au groupe non-RHC et Treatment = 1 correspond au groupe RHC"
+#| fig-width: 10
+#| fig-height: 5
+density_plot <- cobalt::bal.plot(
+  matchit_out,
+  var.name = "distance",
+  which = "both",
+  type = "density",
+  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4]),
+  xlab = "Score de propension",
+  ylab = "Densité",
+  title = "Distribution du score de propension avant et après appariement"
+)
+print(density_plot)
+```
+
+-   On voit bien que la distribution du score de propension était différente avant appariement entre les groupes RHC et non-RHC, avec une distribution plus élevée de scores de propension dans le groupe RHC. Après appariement, les distributions sont beaucoup plus similaires entre les groupes, ce qui suggère que l'appariement a réussi à équilibrer les groupes en termes de score de propension.
+
+-   Une autre façon similaire de voir ça est l'histogramme-miroir du score de propension après appariement, qui montre les distributions de score de propension pour les deux groupes appariés. C'est globalement la même chose.
+
+```{r}
+#| label: histogram-mirror-propension
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Histogramme-miroir du score de propension après appariement, montrant les distributions de score de propension pour les deux groupes appariés"
+#| fig-width: 10
+#| fig-height: 4
+histogram_mirror_plot <- cobalt::bal.plot(
+  matchit_out,
+  var.name = "distance",
+  which = "both",
+  type = "histogram",
+  mirror = TRUE,
+  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4]),
+  xlab = "Score de propension",
+  ylab = "Fréquence",
+  title = "Histogramme-miroir du score de propension après appariement"
+)
+print(histogram_mirror_plot)
+```
+
+### Love plot des différences moyennes standardisées pour les variables basales après appariement
+
+-   Comme avant l'appariement, on peut visualiser l'équilibre des covariables basales entre les groupes RHC et non-RHC après appariement à l'aide d'un love plot, qui montre les différences moyennes standardisées (SMD) pour chaque variable basale entre les groupes.
+
+-   Après un appariement réussi, on s'attend à voir des SMD proches de 0 pour la plupart des variables, avec idéalement aucun SMD supérieur à 0.1 (ce qui correspond à une différence standardisée faible).
+
+```{r}
+#| label: love-plot-matched
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Love plot visualisant les différences moyennes standardisées pour les variables basales après appariement (Seuil de 0.1)"
+#| fig-width: 10
+#| fig-height: 12
+labels_love_plot_matched <- desc
+love_plot_matched <- love.plot(
+  matchit_out,
+  stats = "mean.diffs",
+  s.d.denom = "pooled",
+  binary = "std",
+  threshold = 0.1,
+  var.order = "unadjusted",
+  abs = TRUE,
+  line = TRUE,
+  var.names = labels_love_plot_matched,
+  colors = c(nord("aurora")[1], nord("aurora")[4])
+)
+print(love_plot_matched)
+```
+
+```{r}
+#| label: tableau-p-smd-matched
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Nombre de covariables avec |SMD| > 0,1 avant et après appariement"
+balance <- cobalt::bal.tab(matchit_out, un = TRUE)$Balance
+
+tab <- data.frame(
+  Avant_appariement = sum(abs(balance$Diff.Un) > 0.1, na.rm = TRUE),
+  Apres_appariement = sum(abs(balance$Diff.Adj) > 0.1, na.rm = TRUE)
+)
+
+knitr::kable(
+  tab,
+  format = "latex",
+  booktabs = TRUE,
+  row.names = FALSE
+)
+```
+
+### Tests comparatifs pour les variables basales après appariement
+
+-   Après appariement, on peut se poser la quesion de réaliser des tests comparatifs pour les variables basales afin de vérifier l'équilibre entre les groupes appariés.
+
+-   Cependant, comme on cherche à mettre en évidence l'absence de différence entre les groupes, les tests de significativité ne sont pas appropriés (les tests utilisés sont plutôt conçus pour détecter des différences).
+
+-   De plus, le fait que les groupes soient appariés signifie que les échantillons sont plus petits, ce qui réduit la puissance des tests statistiques pour détecter des différences, même si elles existent.
+
+### Conclusion sur l'évaluation de l'équilibre après appariement
+
+-   Au total, l'évaluation de l'équilibre des covariables après appariement suggère que l'appariement a réussi à équilibrer les groupes RHC et non-RHC en termes de caractéristiques basales, avec des distributions de score de propension similaires et des SMD < 0.1 pour toutes les variables basales après appariement.
+
+-   Cependant, il est important de noter que l'équilibre des covariables basales ne garantit pas l'absence de biais de sélection ou de confusion résiduelle, notamment du fait que certaines variables potentiellement confondantes n'ont pas été mesurées, donc pas incluses dans le score de propension.
+
+-   Ce n'est donc pas une preuve absolue de la comparabilité initiale des groupes, mais cela suggère que l'appariement a permis de réduire les différences observées entre les groupes en termes de caractéristiques basales.
+
+\newpage
+# Analyse après appariement
+
+## Résultats
+
+### En utilisant des critères binaires (décès à 30 jours et à 180 jours)
+
+```{r}
+#| label: comparaison-deces-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Comparaison des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC"
+# avec pourcentage de décès à 30 jours et à 180 jours dans les groupes R
+# utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC
+summary_table <- df_matched %>%
+  select(rhc, death_30d, death_180d) %>%
+  tbl_summary(
+    by = rhc,
+    statistic = list(
+      death_30d ~ "{n} ({p}%)",
+      death_180d ~ "{n} ({p}%)"
+    ),
+    label = list(
+      death_30d ~ "Décès à 30 jours",
+      death_180d ~ "Décès à 180 jours"
+    ),
+    missing = "no"
+  ) %>%
+  add_p() %>%
+  modify_header(label = "**Variable**")
+summary_table
+```
+
+```{r}
+#| label: or-deces-binary-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Odds Ratio (OR) pour le décès à 30 jours et à 180 jours"
+# calcul de l'OR pour le décès à 30 jours
+or_30d <- epitools::oddsratio(
+  x = table(df_matched$rhc, df_matched$death_30d),
+  method = "wald",
+  conf.level = 0.95
+)
+# calcul de l'OR pour le décès à 180 jours
+or_180d <- epitools::oddsratio(
+  x = table(df_matched$rhc, df_matched$death_180d),
+  method = "wald",
+  conf.level = 0.95
+)
+# création d'un tableau récapitulatif des OR
+or_summary_df <- data.frame(
+  `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
+  `OR` = c(round(or_30d$measure[2, "estimate"], 3), round(or_180d$measure[2, "estimate"], 3)),
+  `IC 95%` = c(
+    paste0("(", round(or_30d$measure[2, "lower"], 3), ", ", round(or_30d$measure[2, "upper"], 3), ")"),
+    paste0("(", round(or_180d$measure[2, "lower"], 3), ", ", round(or_180d$measure[2, "upper"], 3), ")")
+  ),
+  check.names = FALSE
+)
+knitr::kable(or_summary_df, booktabs = TRUE)
+```
+
+-   Il y a significativement plus de décès à 30 jours et à 180 jours dans le groupe RHC que dans le groupe non-RHC (p \< 0.001 pour les deux critères).
+
+-   Les OR sont significativement positifs à 30 et 180 jours et sont très proches.
+
+#### Version appariée par paire : régression logistique conditionnelle
+
+-   Les OR ci-dessus sont calculés sur l'échantillon apparié, mais ils restent des OR "simples" obtenus à partir d'un tableau 2 x 2 et ne tiennent pas explicitement compte des paires issues du score de propension.
+
+-   Après appariement 1:1, on peut estimer un OR conditionnel par paire avec une régression logistique conditionnelle, en stratifiant sur l'identifiant de paire (`subclass`).
+
+-   La fonction `clogit` permet de faire ça, en utilisant la variable `subclass` créée par `matchit` pour indiquer les paires appariées.
+
+-   C'est l'aproche recommandée par plusieurs articles, qui montre qu'une régression logistique sans approche conditionnelle peut donner des estimations biaisées après appariement, car elle ne tient pas compte de la structure de dépendance induite par l'appariement, notamment Pike et al. (1980) [@pikeBiasEfficiencyLogistic1980a], Wan et al. (2021) [@wanMatchedUnmatchedAnalysis2021] et Iwagami et al. (2023) [@iwagamiIntroductionMatchingCaseControl2022].
+
+```{r}
+#| label: or-conditionnel-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Odds Ratio conditionnel par paire pour le décès à 30 jours et à 180 jours"
+df_matched$death_30d_num <- as.integer(df_matched$death_30d == "Yes")
+df_matched$death_180d_num <- as.integer(df_matched$death_180d == "Yes")
+
+clogit_30d <- clogit(
+  death_30d_num ~ rhc + strata(subclass),
+  data = df_matched
+)
+
+clogit_180d <- clogit(
+  death_180d_num ~ rhc + strata(subclass),
+  data = df_matched
+)
+
+coef_30d <- summary(clogit_30d)$coefficients["rhcRHC", ]
+coef_180d <- summary(clogit_180d)$coefficients["rhcRHC", ]
+
+or_conditional_df <- data.frame(
+  `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
+  `OR conditionnel` = c(exp(coef_30d["coef"]), exp(coef_180d["coef"])),
+  `IC 95%` = c(
+    paste0(
+      "(",
+      round(exp(coef_30d["coef"] - 1.96 * coef_30d["se(coef)"]), 3),
+      ", ",
+      round(exp(coef_30d["coef"] + 1.96 * coef_30d["se(coef)"]), 3),
+      ")"
+    ),
+    paste0(
+      "(",
+      round(exp(coef_180d["coef"] - 1.96 * coef_180d["se(coef)"]), 3),
+      ", ",
+      round(exp(coef_180d["coef"] + 1.96 * coef_180d["se(coef)"]), 3),
+      ")"
+    )
+  ),
+  `p-value` = c(coef_30d["Pr(>|z|)"], coef_180d["Pr(>|z|)"]),
+  check.names = FALSE
+)
+
+or_conditional_df$`OR conditionnel` <- round(or_conditional_df$`OR conditionnel`, 3)
+or_conditional_df$`p-value` <- format.pval(or_conditional_df$`p-value`, digits = 3, eps = 0.001)
+
+knitr::kable(or_conditional_df, booktabs = TRUE)
+```
+
+
+-   Même en prenant en compte la structure appariée, les OR sont très proches de ceux obtenus sans prise en compte de la structure appariée. 
+
+
+### En utilisant des critères de temps de survie (temps jusqu'au décès ou censure)
+
+```{r}
+#| label: variables-outcomes-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# conversion des dates en format Date
+df_matched$date_admission <- as.Date(df_matched$date_admission)
+df_matched$date_death <- as.Date(df_matched$date_death)
+df_matched$date_last_news <- as.Date(df_matched$date_last_news)
+
+
+# Recalcul des temps à partir des dates (suivi "complet")
+df_matched$time_to_death <- as.numeric(df_matched$date_death - df_matched$date_admission)
+df_matched$time_to_last_news <- as.numeric(df_matched$date_last_news - df_matched$date_admission)
+
+df_matched$time_to_death
+
+# Événement "décès" selon la présence d'une date de décès
+df_matched$event_death <- as.integer(!is.na(df_matched$date_death))
+# Temps de suivi complet (décès -> date_death, sinon -> date_last_news)
+df_matched$followup_time <- df_matched$time_to_last_news
+
+# Si décès, temps de suivi = temps jusqu'au décès
+df_matched$followup_time[df_matched$event_death == 1] <- df_matched$time_to_death[df_matched$event_death == 1]
+
+# Temps d'inclusion : prend le minimum entre le temps de suivi et 180 jours (donc censure après 180 jours)
+df_matched$survival_time_180d <- pmin(df_matched$followup_time, 180)
+
+# Événement "décès" à 180 jours : vaut 1 si décès ET temps jusqu'au décès <= 180 jours
+df_matched$event_180d <- as.integer(df_matched$event_death == 1 & df_matched$time_to_death <= 180)
+
+# Temps négatifs -> NA
+df_matched$survival_time_180d[df_matched$survival_time_180d < 0] <- NA
+```
+
+```{r}
+#| label: km-plot-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-width: 10
+#| fig-height: 7.5
+#| fig-cap: "Courbe de survie de Kaplan-Meier selon le RHC dans la population appariée"
+# création de l'objet de survie
+surv_object <- Surv(time = df_matched$survival_time_180d, event = df_matched$event_180d)
+# ajustement du modèle de survie de Kaplan-Meier
+km_fit <- survfit(surv_object ~ rhc, data = df_matched)
+# affichage du graphique de survie
+km_plot <- ggsurvplot(
+  km_fit,
+  data = df_matched,
+  pval = TRUE,
+  conf.int = TRUE,
+  risk.table = TRUE,
+  risk.table.height = 0.2,
+  risk.table.fontsize = 3.2,
+  break.time.by = 30,
+  xlim = c(0, 180),
+  legend.labs = c("Non-RHC", "RHC"),
+  legend.title = "Groupe",
+  xlab = "Temps (jours)",
+  ylab = "Probabilité de survie",
+  title = "Courbe de survie de Kaplan-Meier selon le RHC",
+  palette = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
+)
+print(km_plot)
+```
+
+-   Le test du log rank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC (p \< 0.001), suggérant une différence persistante entre les courbes de survie après appariement.
+
+-   L'hypothèse de proportionnalité des risques semble être vérifiée, car les courbes de survie ne se croisent pas et restent parallèles au fil du temps
+
+-   NB : le test du log-rank "conventionnel" n'est peut-être pas idéal dans le contexte de données appariées, car il ne prend pas en compte la structure de dépendance introduite par l'appariement. S'en suit un risque d'erreur de type 1 artificiellement bas, comme cité dans un autre article d'Austin (2013) [@austinUsePropensityScore2014]
+
+-   L'article recommande : 
+
+    -  de réaliser un "log-rank stratifié sur les paires", qui est un test de rang qui prend en compte la structure de dépendance introduite par l'appariement en stratifiant les paires appariées.
+
+    -  on pourra aussi réaliser un modèle de Cox avec estimation robuste de la variance. Nous utiliserons un estimateur sandwich (qui fonctionne en ajustant les erreurs standard pour tenir compte de la corrélation au sein des paires appariées) pour obtenir des intervalles de confiance et des p-values corrects.
+
+### Prise en compte de la structure de dépendance introduite par l'appariement dans les tests de survie
+
+#### Test du log-rank conventionnel vs test du log-rank stratifié sur les paires
+
+```{r}
+#| label: conventionnal-and-stratified-log-rank-test
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Résultats du test du log-rank conventionnel et du test du log-rank stratifié sur les paires"
+# test du log-rank conventionnel
+logrank_conventional <- survdiff(surv_object ~ rhc, data = df_matched)
+p_logrank_conventional <- 1 - pchisq(logrank_conventional$chisq, df = 1)
+# test du log-rank stratifié sur les paires
+logrank_stratified <- survdiff(
+  surv_object ~ rhc + strata(subclass),
+  data = df_matched
+)
+
+p_logrank_stratified <- 1 - pchisq(logrank_stratified$chisq, df = 1)
+
+logrank_results <- data.frame(
+  Test = c("Log-rank conventionnel", "Log-rank stratifié"),
+  p_value = c(p_logrank_conventional, p_logrank_stratified)
+)
+
+knitr::kable(logrank_results, booktabs = TRUE)
+```
+
+-   Dans les 2 cas, le test du log-rank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC, suggérant une différence persistante entre les courbes de survie après appariement, même en prenant en compte la structure de dépendance introduite par l'appariement.
+
+#### Modèle de Cox stratifié sur les paires avec estimation robuste de la variance
+
+```{r}
+#| label: cox-stratified-robust
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Résultats du modèle de Cox stratifié sur les paires avec estimation robuste de la variance"
+# ajustement du modèle de Cox avec variance robuste et cluster sur les paires appariées
+cox_model <- coxph(
+  surv_object ~ rhc,
+  data = df_matched,
+  cluster = subclass
+)
+#affichage des résultats du modèle de Cox
+cox_summary <- summary(cox_model)
+cox_results <- data.frame(
+  Variable = rownames(cox_summary$coefficients),
+  HR = round(cox_summary$coefficients[, "exp(coef)"], 3),
+  `IC 95%` = paste0("(", round(cox_summary$conf.int[, "lower .95"], 3), ", ", round(cox_summary$conf.int[, "upper .95"], 3), ")"),
+  p_value = format.pval(cox_summary$coefficients[, "Pr(>|z|)"], digits = 3, eps = 0.001),
+  row.names = NULL
+)
+cox_results$Variable <- "RHC vs No RHC"
+knitr::kable(cox_results, booktabs = TRUE)
+```
+
+-   Le modèle de Cox stratifié sur les paires avec estimation robuste de la variance indique que le RHC est associé à un risque de décès à 180 jours significativement plus élevé que le non-RHC.
+
+-   Le risque instantané de décès à 180 jours est multiplié par `r cox_results$HR` chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de `r cox_results$IC_95` et une p-value < 0.001.
+
+-   En détails : 
+
+    - Le clustering sur les paires permet de prendre en compte la structure de dépendance introduite par l'appariement, en ajustant les erreurs standard pour tenir compte de la corrélation au sein des paires appariées.
+
+    - L'estimation robuste de la variance (estimateur sandwich) permet d'obtenir des intervalles de confiance et des p-values mieux estimés.
+
+-   Conditions de validité du modèle de Cox (par graphiques des résidus de Schoenfeld) : 
+
+```{r}
+#| label: cox-proportional-hazards-assumption
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Graphique des résidus de Schoenfeld pour vérifier l'hypothèse de proportionalité des risques"
+#| fig-width: 10
+#| fig-height: 4
+# vérification de l'hypothèse de proportionalité des risques avec les résidus de Schoenfeld
+cox_zph <- cox.zph(cox_model)
+plot(cox_zph)
+```
+
+-   Les résidus semblent stationnaires dans le temps, ce qui suggère que l'hypothèse de proportionalité des risques est vérifiée pour le modèle de Cox ajusté.
+
+## Interprétation des résultats
+
+-   Après appariement, le cathéterisme cardiaque droit (RHC) est associé à un risque de décès à 30 jours et à 180 jours significativement plus élevé que le non-RHC.
+
+-   Les analyses de survie indiquent que les patients ayant eu un RHC ont une probabilité de survie à 180 jours significativement plus faible que les patients n'ayant pas eu de RHC, même après appariement.
+
+\newpage
+# Autre approche : analyse multivariée sur la population totale (non appariée)
+
+## Principe
+
+-   L'analyse de survie multivariée sur la population totale (non appariée) permet d'estimer l'association entre le RHC et le risque de décès à 180 jours en ajustant pour les variables basales qui pourraient confondre cette association.
+
+-   Si l'association entre le RHC et le risque de décès à 180 jours reste significative après ajustement pour les variables basales, cela suggère que le RHC pourrait être associé à un risque de décès plus élevé indépendamment des caractéristiques basales des patients.
+
+## Quelles variables inclure dans le modèle de survie multivarié ?
+
+-   On peut inclure dans le modèle de survie multivarié les mêmes variables basales que celles utilisées pour le score de propension, car ce sont des variables qui ont été identifiées par les auteurs de l'article original comme étant liées à la décision de réaliser un RHC.
+
+-   Un seuil de 10 événements par variable est recommandé pour éviter le sur-ajustement.
+
+-   Dans la cohorte totale avant appariement, 3722 patients sont décédés à 180 jours. En suivant la règle de 10 événements par variable, on pourrait inclure jusqu'à environ 372 variables dans le modèle de survie multivarié sans risque majeur de sur-ajustement.
+
+## Mise en œuvre du modèle de survie multivarié
+
+-   On peut ajuster un modèle de Cox pour estimer l'association entre le RHC et le risque de décès à 180 jours, en incluant les variables basales comme covariables dans le modèle.
+
+-   Cela revient à inclure 84 variables basales (+ quelques "*dummy variables*" pour les catégories de variables catégorielles) dans le modèle de Cox, ce qui est faisable compte tenu du nombre d'événements disponibles.
+
+```{r}
+#| label: cox-multivariate
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Résultats du modèle de Cox multivarié ajusté pour les variables basales"
+# ajustement du modèle de Cox multivarié
+cox_multivariate_model <- coxph(
+  Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
+    primary_disease_category + secondary_disease_category +
+    diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
+    diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
+    diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
+    diagnosis_orthopedic + adl_score + DASI_score + dnr_status + cancer +
+    survival_probability_2mths + apache_score + glasgow_score +
+    weight + temperature + mean_blood_pressure + respiratory_rate +
+    heart_rate + pa_fi_ratio + paco2 + ph + wbc + hematocrit +
+    sodium + potassium + creatinine + bilirubin + albumin + comorbidity_cardiovascular + comorbidity_congestive_heart +
+    comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary + comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
+    comorbidity_malignancy + comorbidity_immunosuppression + comorbidity_transfer + comorbidity_myocardial_infarction +
+    urine_output,
+  data = df_imputed
+)
+#extraction de l'OR pour le RHC et de son intervalle de confiance
+cox_multivariate_summary <- summary(cox_multivariate_model)
+cox_multivariate_results <- data.frame(
+  Variable = rownames(cox_multivariate_summary$coefficients),
+  HR = round(cox_multivariate_summary$coefficients[, "exp(coef)"], 2),
+  IC95 = paste0("(", round(cox_multivariate_summary$conf.int[, "lower .95"], 2), ", ", round(cox_multivariate_summary$conf.int[, "upper .95"], 2), ")"),
+  p_value = format.pval(cox_multivariate_summary$coefficients[, "Pr(>|z|)"], digits = 3, eps = 0.001),
+  row.names = NULL
+)
+cox_multivariate_results <- cox_multivariate_results[cox_multivariate_results$Variable == "rhcRHC", ]
+
+
+cox_multivariate_results$Variable <- "RHC vs No RHC"
+
+knitr::kable(cox_multivariate_results, booktabs = TRUE)
+```
+
+-   On trouve un risque instantané de décès à 180 jours multiplié par `r cox_multivariate_results$HR` chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de `r cox_multivariate_results$IC95` et une p-value < 0.001. 
+
+-   C'est très similaire aux résultats obtenus dans la population appariée !
+
+## Interprétation des résultats du modèle de régression multivariée
+
+- Le RHC est associé à un risque de décès à 180 jours significativement plus élevé que le non-RHC, même après ajustement pour les variables basales.
+
+
+
+\newpage
+
+# Synthèse des estimateurs et analyse de robustesse
+
+-   Afin de vérifier la cohérence de nos résultats, nous comparons ci-dessous les rapports de risques (Hazard Ratio - HR) obtenus selon trois approches différentes. Cette comparaison permet d'évaluer la stabilité de l'association observée entre le cathétérisme cardiaque droit et la mortalité à 180 jours.
+
+```{r}
+#| label: tableau-comparaison-estimateurs
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+
+# 1. Modèle brut (non ajusté) sur population totale
+cox_brut <- coxph(Surv(survival_time_180d, event_180d) ~ rhc, data = df_imputed)
+sum_brut <- summary(cox_brut)
+
+# 2. Modèle sur population appariée (récupération du modèle précédent)
+sum_match <- summary(cox_model)
+
+# 3. Modèle multivarié sur population totale (récupération du modèle précédent)
+sum_multi <- summary(cox_multivariate_model)
+
+# Construction du tableau récapitulatif
+comp_df <- data.frame(
+  Approche = c(
+    "Analyse brute (Population totale)",
+    "Analyse appariée (Score de propension)",
+    "Analyse multivariée (Population totale)"
+  ),
+  HR = c(
+    round(sum_brut$coefficients[1, "exp(coef)"], 2),
+    round(sum_match$coefficients[1, "exp(coef)"], 2),
+    round(sum_multi$coefficients[1, "exp(coef)"], 2)
+  ),
+  `IC 95%` = c(
+    paste0("(", round(sum_brut$conf.int[1, "lower .95"], 2), ", ", round(sum_brut$conf.int[1, "upper .95"], 2), ")"),
+    paste0("(", round(sum_match$conf.int[1, "lower .95"], 2), ", ", round(sum_match$conf.int[1, "upper .95"], 2), ")"),
+    paste0("(", round(sum_multi$conf.int[1, "lower .95"], 2), ", ", round(sum_multi$conf.int[1, "upper .95"], 2), ")")
+  ),
+  `p-value` = c(
+    format.pval(sum_brut$coefficients[1, "Pr(>|z|)"], eps = 0.001),
+    format.pval(sum_match$coefficients[1, "Pr(>|z|)"], eps = 0.001),
+    format.pval(sum_multi$coefficients[1, "Pr(>|z|)"], eps = 0.001)
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(
+  comp_df, 
+  booktabs = TRUE, 
+  caption = "Comparaison des rapports de risques (HR) selon la méthode d'ajustement"
+) %>%
+  kableExtra::kable_styling(latex_options = "hold_position")
+```
+
+-   La convergence de ces trois méthodes vers des résultats similaires (HR compris entre `r min(comp_df$HR)` et `r max(comp_df$HR)`) renforce la solidité des conclusions. 
+-   On observe que l'ajustement (par appariement ou par régression) réduit légèrement l'effet par rapport à l'analyse brute, ce qui confirme la présence d'un biais de confusion initial lié à la gravité des patients, mais l'association reste fortement significative et stable.
+
+
+
+\newpage
+
+# Conclusion
+
+-   Le cathéterisme cardiaque droit est associé à un risque de décès à 30 jours et à 180 jours significativement plus élevé que le non-RHC, que ce soit dans la population totale en analyse "brute", dans une population appariée sur un score de propension, ou dans une analyse multivariée ajustée pour les variables basales.
+
+-   L'appariement a permis d'améliorer la comparabilité initiale des groupes ayant eu ou non un cathéterisme cardiaque droit en équilibrant les caractéristiques basales, mais il est important de noter que l'équilibre des covariables basales ne garantit pas l'absence de biais de sélection ou de confusion résiduelle, notamment du fait que certaines variables potentiellement confondantes n'ont pas été mesurées, donc pas incluses dans le score de propension.
+
+-   L'analyse multivariable sur la population totale ajustée pour les variables basales a permis de confirmer l'association entre le RHC et le risque de décès à 180 jours en ajustant pour les variables basales qui pourraient confondre cette association, et les résultats sont similaires à ceux obtenus dans la population appariée.
+
+-   Une randomisation *a priori*, c'est à dire avant la réalisation ou non du cathéterisme cardiaque droit, serait nécessaire pour mieux caractériser s'il existe une relation causale entre cathéterisme et risque de décès, en réduisant au maximum les biais de sélection et de confusion résiduels.
+
+-   Au total : le cathéterisme cardiaque droit est associé à un risque de décès plus élevé, mais on ne peut pas conclure à une relation causale à partir de ces analyses observationnelles, même après appariement et ajustement pour les variables basales.
+
+\newpage
+# Bibliographie
+
+::: {#refs}
+:::
+
+
+
+\newpage
+# Annexes 
+
+## Tableau comparatif post-appariement
+
+```{r}
+#| label: tests-comparatifs-matched
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+# calcul des p-values pour les variables basales après appariement
+df_baseline_post_matching <- df_matched[, unique(c("rhc", cols_to_include_baseline))]
+
+# Forcer l'affichage des variables binaires sur une seule ligne (compte du "Yes"),
+binary_var_names <- setdiff(
+  names(df_baseline_post_matching)[
+    grepl("^(primary_binaire_|secondary_binaire_|comorbidity_|diagnosis_)|^cancer_YN$", names(df_baseline_post_matching))
+  ],
+  "rhc"
+)
+
+df_baseline_post_matching[binary_var_names] <- lapply(df_baseline_post_matching[binary_var_names], function(x) {
+  x_chr <- as.character(x)
+  x_chr <- trimws(x_chr)
+  x_chr <- dplyr::case_when(
+    is.na(x_chr) ~ NA_character_,
+    x_chr %in% c("1", "TRUE", "True", "true", "Yes", "YES", "Oui", "OUI") ~ "Yes",
+    x_chr %in% c("0", "FALSE", "False", "false", "No", "NO", "Non", "NON") ~ "No",
+    TRUE ~ x_chr
+  )
+  factor(x_chr, levels = c("Yes", "No"))
+})
+
+# répartition des variables en sous groupes pour la mise en forme du tableau
+primary_binaire_columns   <- grep("^primary_binaire_", primary_columns, value = TRUE)
+secondary_binaire_columns <- grep("^secondary_binaire_", primary_columns, value = TRUE)
+
+var_to_section <- c(
+  stats::setNames(rep("Démographie / socio-économique", length(vars_demo)), vars_demo),
+  stats::setNames(rep("Statut fonctionnel / scores", length(vars_scores)), vars_scores),
+  stats::setNames(rep("Comorbidités", length(vars_comorb)), vars_comorb),
+  stats::setNames(rep("Diagnostic principal (CAT1)", length(primary_binaire_columns)), primary_binaire_columns),
+  stats::setNames(rep("Comorbidité principale (CAT2)", length(secondary_binaire_columns)), secondary_binaire_columns),
+  stats::setNames(rep("Diagnostics", length(vars_diag_other)), vars_diag_other),
+  stats::setNames(rep("Cancer", length(vars_cancer)), vars_cancer),
+  stats::setNames(rep("Paramètres cliniques", length(vars_clinical)), vars_clinical),
+  stats::setNames(rep("Biologie", length(vars_bio)), vars_bio)
+)
+
+# Tableau avec gtsummary
+baseline_comparison_table <- gtsummary::tbl_summary(
+  df_baseline_post_matching,
+  by = "rhc",
+  missing = "no",
+  statistic = list(
+    gtsummary::all_continuous() ~ "{mean} ({sd})",
+    gtsummary::all_dichotomous() ~ "{n} ({p}%)",
+    gtsummary::all_categorical() ~ "{n} ({p}%)"
+  ),
+  label = list(
+    age ~ "Âge",
+    sex ~ "Sexe",
+    race ~ "Ethnie",
+    education_years ~ "Années d'éducation",
+    income ~ "Revenu",
+    insurance_class ~ "Classe d'assurance",
+    adl_score ~ "Score ADL",
+    DASI_score ~ "Score DASI",
+    glasgow_score ~ "Score Coma",
+    apache_score ~ "Score APACHE",
+    dnr_status ~ "Statut DNR",
+    primary_binaire_BPCO ~ "BPCO",
+    primary_binaire_choc_septique ~ "Choc septique",
+    primary_binaire_choc_sur_cancer ~ "Choc sur cancer",
+    primary_binaire_insuffisance_renale_aigue ~ "Insuffisance rénale aiguë",
+    primary_binaire_insuffisance_cardiaque ~ "Insuffisance cardiaque",
+    primary_binaire_coma ~ "Coma",
+    primary_binaire_cirrhose ~ "Cirrhose",
+    primary_binaire_cancer_du_poumon ~ "Cancer du poumon",
+    primary_binaire_cancer_du_colon ~ "Cancer du colon",
+    secondary_binaire_choc_septique ~ "Choc septique",
+    secondary_binaire_choc_sur_cancer ~ "Choc sur cancer",
+    secondary_binaire_coma ~ "Coma",
+    secondary_binaire_cirrhose ~ "Cirrhose",
+    secondary_binaire_cancer_du_poumon ~ "Cancer du poumon",
+    secondary_binaire_cancer_du_colon ~ "Cancer du colon",
+    comorbidity_cardiovascular ~ "Cardiopathie",
+    comorbidity_congestive_heart ~ "Insuffisance cardiaque congestive",
+    comorbidity_myocardial_infarction ~ "Infarctus du myocarde",
+    comorbidity_chronic_pulmonary ~ "Maladie pulmonaire chronique",
+    comorbidity_renal ~ "Insuffisance rénale",
+    comorbidity_liver ~ "Insuffisance hépatique",
+    comorbidity_upper_gi_bleeding ~ "Saignement GI supérieur",
+    comorbidity_dementia ~ "Démence",
+    comorbidity_psych ~ "Psychologique",
+    comorbidity_malignancy ~ "Malignité",
+    comorbidity_immunosuppression ~ "Immunosuppression",
+    comorbidity_transfer ~ "Transfert",
+    diagnosis_respiratory ~ "Diagnostic respiratoire",
+    diagnosis_cardiovascular ~ "Diagnostic cardiovasculaire",
+    diagnosis_neurological ~ "Diagnostic neurologique",
+    diagnosis_gastrointestinal ~ "Diagnostic gastro-intestinal",
+    diagnosis_renal ~ "Diagnostic rénal",
+    diagnosis_metabolic ~ "Diagnostic métabolique",
+    diagnosis_hematologic ~ "Diagnostic hématologique",
+    diagnosis_sepsis ~ "Diagnostic sepsis",
+    diagnosis_trauma ~ "Diagnostic traumatique",
+    diagnosis_orthopedic ~ "Diagnostic orthopédique",
+    cancer_YN ~ "Cancer (Oui/Non)",
+    cancer ~ "Type de cancer",
+    weight ~ "Poids",
+    mean_blood_pressure ~ "Pression artérielle moyenne",
+    heart_rate ~ "Fréquence cardiaque",
+    respiratory_rate ~ "Fréquence respiratoire",
+    temperature ~ "Température",
+    pa_fi_ratio ~ "Ratio Pa/FI",
+    urine_output ~ "Diurèse",
+    wbc ~ "Globules blancs",
+    albumin ~ "Albumine",
+    hematocrit ~ "Hématocrite",
+    bilirubin ~ "Bilirubine",
+    creatinine ~ "Créatinine",
+    sodium ~ "Sodium",
+    potassium ~ "Potassium",
+    paco2 ~ "PaCO2",
+    ph ~ "pH"
+  ),
+  type = list(adl_score ~ "continuous", all_of(binary_var_names) ~ "dichotomous"),
+  value = list(all_of(binary_var_names) ~ "Yes")
+)
+
+#mise en forme du tableau pour rendu quarto vers pdf
+baseline_comparison_table <- baseline_comparison_table |>
+  gtsummary::add_p(test = list(gtsummary::all_continuous() ~ "t.test")) |>
+  gtsummary::modify_header(label = "**Variable**")
+
+tb <- baseline_comparison_table$table_body
+tb$.pos <- seq_len(nrow(tb))
+
+section <- unname(var_to_section[tb$variable])
+mask <- tb$row_type == "label" & !is.na(section)
+
+first_pos <- tapply(tb$.pos[mask], section[mask], min)
+first_pos <- first_pos[order(first_pos)]
+
+sections <- names(first_pos)
+pos_cat <- as.numeric(first_pos) - 0.5
+
+template <- tb[1, , drop = FALSE]
+template[,] <- NA
+
+stat_cols <- grep("^stat_", names(tb), value = TRUE)
+
+cat_rows <- template[rep(1, length(sections)), , drop = FALSE]
+cat_rows$.pos <- pos_cat
+cat_rows$row_type <- "category"
+cat_rows$label <- sections
+cat_rows$variable <- paste0("cat__", make.names(sections))
+cat_rows[, stat_cols] <- ""
+cat_rows$p.value <- NA_real_
+
+out <- base::rbind(tb, cat_rows)
+out <- out[order(out$.pos), , drop = FALSE]
+out$.pos <- NULL
+
+baseline_comparison_table$table_body <- out
+baseline_comparison_table <- gtsummary::modify_table_styling(
+  baseline_comparison_table, columns = "label", rows = row_type == "category", text_format = "bold"
+)
+baseline_comparison_table <- gtsummary::modify_table_styling(
+  baseline_comparison_table, columns = "label", rows = row_type == "category", text_format = "italic"
+)
+
+# affichage du tableau pour quarto vers pdf
+baseline_comparison_table |>
+  gtsummary::as_kable_extra(booktabs = TRUE, longtable = TRUE) |>
+  kableExtra::kable_styling(
+    font_size = 8,
+    latex_options = c("repeat_header", "scale_down")
+  ) |>
+  kableExtra::row_spec(
+    which(baseline_comparison_table$table_body$row_type == "category"),
+    bold = TRUE,
+    italic = TRUE
+  )
+
+```
+
+
+## Imputation multiple, appariement selon score de propension et résultats
+
+### Visualisation des données manquantes
+
+-   Des données manquantes sont présentes dans les variables :
+
+```{r}
+#| label: missing-data-overview
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Variables avec données manquantes"
+missing_data_summary <- data.frame(
+  Variable = names(df_imputation_multiple),
+  Missing_Count = sapply(df_imputation_multiple, function(x) sum(is.na(x))),
+  Missing_Percentage = sapply(df_imputation_multiple, function(x) mean(is.na(x)) * 100)
+)
+missing_data_summary <- missing_data_summary[missing_data_summary$Missing_Count > 0, ]
+missing_data_summary$Missing_Percentage <- round(missing_data_summary$Missing_Percentage, 2)
+knitr::kable(missing_data_summary, booktabs = TRUE)
+```
+
+-   Les variables comprenant des données manquantes sont : `date_discharge`, `date_death`, `mean_blood_pressure`, `wbc`, `heart_rate`, `respiratory_rate`, `weight`, `adl_score`, `urine_output`.
+
+### Imputation multiple des données manquantes
+
+```{r}
+#| label: multiple-imputation
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+
+# variables à imputer
+vars_pmm <- c(
+  "mean_blood_pressure",
+  "wbc",
+  "heart_rate",
+  "respiratory_rate",
+  "weight",
+  "adl_score",
+  "urine_output"
+)
+
+# méthode d'imputation : seulement ces 7 variables
+method_mice <- rep("", ncol(df_imputation_multiple))
+names(method_mice) <- names(df_imputation_multiple)
+method_mice[names(method_mice) %in% vars_pmm] <- "pmm"
+
+# variables exclues comme prédicteurs
+vars_exclues_predictors <- grep(
+  "^date_|^primary_binaire_|^secondary_binaire_|^cancer_YN$",
+  names(df_imputation_multiple),
+  value = TRUE
+)
+
+# matrice des prédicteurs
+predictor_matrix_mice <- mice::make.predictorMatrix(df_imputation_multiple)
+predictor_matrix_mice[, vars_exclues_predictors] <- 0
+
+# imputation multiple
+imputation_model <- mice::mice(
+  data = df_imputation_multiple,
+  m = 5,
+  method = method_mice,
+  predictorMatrix = predictor_matrix_mice,
+  seed = 123,
+  printFlag = FALSE
+)
+
+# extraction du dataset complet après imputation multiple
+df_imputation_multiple_complete <- mice::complete(
+  imputation_model,
+  action = "long",
+  include = TRUE
+)
+```
+
+### Appariement selon score de propension sur le dataset imputé
+
+#### Appariement "within" : on réalise l'appariement dans chaque dataset imputé
+
+-   On réalise l'appariement dans chaque dataset imputé, puis on combine les résultats des analyses réalisées dans chaque dataset imputeé en utilisant la règle de Rubin pour obtenir des estimations globales qui tiennent compte de l'incertitude liée à l'imputation.
+
+```{r}
+#| label: calcul-propension-within
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+
+library(MatchIt)
+
+# variable de traitement
+df_imputation_multiple_complete$rhc <- factor(df_imputation_multiple_complete$rhc)
+
+# variables du score de propension
+vars_propension <- c(
+  "age", "sex", "race", "education_years", "income", "insurance_class",
+  "primary_disease_category", "secondary_disease_category",
+  grep("^diagnosis_", names(df_imputation_multiple_complete), value = TRUE),
+  grep("^comorbidity_", names(df_imputation_multiple_complete), value = TRUE),
+  "adl_score", "DASI_score", "dnr_status", "cancer",
+  "survival_probability_2mths", "apache_score", "glasgow_score",
+  "weight", "temperature", "mean_blood_pressure", "respiratory_rate",
+  "heart_rate", "pa_fi_ratio", "paco2", "ph", "wbc", "hematocrit",
+  "sodium", "potassium", "creatinine", "bilirubin", "albumin",
+  "urine_output"
+)
+
+formula_propension <- as.formula(
+  paste("rhc ~", paste(vars_propension, collapse = " + "))
+)
+
+# séparation des 5 jeux imputés
+df_imp_1 <- subset(df_imputation_multiple_complete, .imp == 1)
+df_imp_2 <- subset(df_imputation_multiple_complete, .imp == 2)
+df_imp_3 <- subset(df_imputation_multiple_complete, .imp == 3)
+df_imp_4 <- subset(df_imputation_multiple_complete, .imp == 4)
+df_imp_5 <- subset(df_imputation_multiple_complete, .imp == 5)
+
+# imputation 1
+score_propension_1 <- glm(
+  formula = formula_propension,
+  data = df_imp_1,
+  family = binomial()
+)
+
+df_imp_1$score_propension <- predict(score_propension_1, type = "response")
+
+matchit_out_1 <- MatchIt::matchit(
+  formula = formula_propension,
+  data = df_imp_1,
+  distance = df_imp_1$score_propension,
+  method = "nearest",
+  caliper = 0.2,
+  std.caliper = TRUE,
+  ratio = 1,
+  replace = FALSE
+)
+
+df_matched_1 <- MatchIt::match.data(matchit_out_1)
+
+# imputation 2
+score_propension_2 <- glm(
+  formula = formula_propension,
+  data = df_imp_2,
+  family = binomial()
+)
+
+df_imp_2$score_propension <- predict(score_propension_2, type = "response")
+
+matchit_out_2 <- MatchIt::matchit(
+  formula = formula_propension,
+  data = df_imp_2,
+  distance = df_imp_2$score_propension,
+  method = "nearest",
+  caliper = 0.2,
+  std.caliper = TRUE,
+  ratio = 1,
+  replace = FALSE
+)
+
+df_matched_2 <- MatchIt::match.data(matchit_out_2)
+
+# imputation 3
+score_propension_3 <- glm(
+  formula = formula_propension,
+  data = df_imp_3,
+  family = binomial()
+)
+
+df_imp_3$score_propension <- predict(score_propension_3, type = "response")
+
+matchit_out_3 <- MatchIt::matchit(
+  formula = formula_propension,
+  data = df_imp_3,
+  distance = df_imp_3$score_propension,
+  method = "nearest",
+  caliper = 0.2,
+  std.caliper = TRUE,
+  ratio = 1,
+  replace = FALSE
+)
+
+df_matched_3 <- MatchIt::match.data(matchit_out_3)
+
+# imputation 4
+score_propension_4 <- glm(
+  formula = formula_propension,
+  data = df_imp_4,
+  family = binomial()
+)
+
+df_imp_4$score_propension <- predict(score_propension_4, type = "response")
+
+matchit_out_4 <- MatchIt::matchit(
+  formula = formula_propension,
+  data = df_imp_4,
+  distance = df_imp_4$score_propension,
+  method = "nearest",
+  caliper = 0.2,
+  std.caliper = TRUE,
+  ratio = 1,
+  replace = FALSE
+)
+
+df_matched_4 <- MatchIt::match.data(matchit_out_4)
+
+# imputation 5
+score_propension_5 <- glm(
+  formula = formula_propension,
+  data = df_imp_5,
+  family = binomial()
+)
+
+df_imp_5$score_propension <- predict(score_propension_5, type = "response")
+
+matchit_out_5 <- MatchIt::matchit(
+  formula = formula_propension,
+  data = df_imp_5,
+  distance = df_imp_5$score_propension,
+  method = "nearest",
+  caliper = 0.2,
+  std.caliper = TRUE,
+  ratio = 1,
+  replace = FALSE
+)
+
+df_matched_5 <- MatchIt::match.data(matchit_out_5)
+
+# vérification des effectifs appariés
+table(df_matched_1$rhc)
+table(df_matched_2$rhc)
+table(df_matched_3$rhc)
+table(df_matched_4$rhc)
+table(df_matched_5$rhc)
+```
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| results: hide
+#| label: calcul-propension-within-MatchThem
+
+library(mice)
+library(MatchThem)
+
+# retour du format long vers un objet mids
+imp_mids <- mice::as.mids(df_imputation_multiple_complete)
+
+# variable de traitement
+imp_mids$data$rhc <- factor(imp_mids$data$rhc)
+
+# variables du score de propension
+vars_propension <- c(
+  "age", "sex", "race", "education_years", "income", "insurance_class",
+  "primary_disease_category", "secondary_disease_category",
+  grep("^diagnosis_", names(imp_mids$data), value = TRUE),
+  grep("^comorbidity_", names(imp_mids$data), value = TRUE),
+  "adl_score", "DASI_score", "dnr_status", "cancer",
+  "survival_probability_2mths", "apache_score", "glasgow_score",
+  "weight", "temperature", "mean_blood_pressure", "respiratory_rate",
+  "heart_rate", "pa_fi_ratio", "paco2", "ph", "wbc", "hematocrit",
+  "sodium", "potassium", "creatinine", "bilirubin", "albumin",
+  "urine_output"
+)
+
+formula_propension <- as.formula(
+  paste("rhc ~", paste(vars_propension, collapse = " + "))
+)
+
+set.seed(123)
+
+matchit_within <- MatchThem::matchthem(
+  formula = formula_propension,
+  datasets = imp_mids,
+  approach = "within",
+  method = "nearest",
+  ratio = 1,
+  replace = FALSE,
+  caliper = 0.2
+)
+
+# extraction des jeux appariés si besoin
+df_matched_list <- MatchThem::complete(matchit_within, action = "all")
+```
+
+
+
+## code R
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| results: asis
+
+#insérer le code à la fin du fichier
+
+# lire le fichier code genere
+code <- readLines("all_chunks_code.R", warn = FALSE)
+
+	code_wrapped <- code
+	
+	if (knitr::is_latex_output()) {
+  code_safe <- code_wrapped
+  code_safe <- gsub("`([^`]*[’'][^`]*)`", "\"\\1\"", code_safe, perl = TRUE)
+  code_safe <- gsub("`([^`]*\\s+[^`]*)`", "\"\\1\"", code_safe, perl = TRUE)
+  code_safe <- gsub(
+      "\\\\(begin|end)\\{lstlisting\\}",
+      "\\\\textbackslash \\1{lstlisting}",
+      code_safe
+  )
+  cat("\\begin{lstlisting}\n")
+  cat(code_safe, sep = "\n")
+  cat("\n\\end{lstlisting}\n")
+	} else {
+    cat("```r\n")
+    cat(code_wrapped, sep = "\n")
+    cat("\n```")
+}
+```
