@@ -1,3 +1,157 @@
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: setup
+#| include: false
+#| echo: false
 library(forecast)
 library(cobalt)
 library(plotrix)
@@ -44,7 +198,15 @@ library(e1071)
 library(psy)
 library(reshape2)
 knitr::opts_chunk$set(echo = TRUE)
-
+#
+#
+#
+#| label: extract code chunks
+#| echo: false
+#| include: false
+#| results: hide
+#| message: false
+#| warning: false
 #file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
 
 #extraction du code R pour le mettre à la fin du quarto md
@@ -93,7 +255,74 @@ if (is.na(file_qmd)) {
     outfile <- file.path(dirname(file_qmd), "all_chunks_code.R")
     cat(code_r, file = outfile, sep = "\n")
 }
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: data-management
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 # Charger les données
 df <- read.csv2("/Users/thomashusson/Documents/Projets/M2biostatistiques/S2/devoir_epidemio/rhc devoir épidémio-RC csv.csv", header = TRUE, stringsAsFactors = FALSE)
 #linux
@@ -102,11 +331,36 @@ summary(df)
 colnames(df)
 skimr::skim(df)
 sum(is.na(df))
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: nettoyage_renommage
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 # Supprimer les colonnes inutile (ROWNAMES et PTID) en appelant explictement les noms des colonnes à supprimer
 df <- df[, !(colnames(df) %in% c("ROWNAMES", "PTID"))]
 colnames(df)
-
+#
+#
+#
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 # Renommer les colonnes 
 # syntaxe : names(df)[names(df) == "ANCIEN_NOM"] <- "NOUVEAU_NOM"
 names(df)[names(df) == "CAT1"] <- "primary_disease_category"
@@ -176,7 +430,14 @@ names(df)[names(df) == "ADLD3P"] <- "adl_score"
 names(df)[names(df) == "URIN1"] <- "urine_output"
 names(df)[names(df) == "RACE"] <- "race"
 names(df)[names(df) == "INCOME"] <- "income"
-
+#
+#
+#
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
 # Ajout d'une description des variables
 desc <- c(
   primary_disease_category = "Diagnostic principal",
@@ -246,7 +507,16 @@ desc <- c(
   race = "Origine / race (selon codage de la base)",
   income = "Revenu (selon codage de la base)"
 )
-
+#
+#
+#
+#
+#
+#| label: tableau-correspondance-variables
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 
 rename_map <- data.frame(
   old_name = c(
@@ -318,7 +588,19 @@ rows <- apply(rename_map, 1, function(row) {
 footer <- "\\end{longtable}"
 
 cat(paste(c(header, rows, footer), collapse = "\n"))
-
+#
+#
+#
+#
+#
+#
+#
+#| label: taux_donnees_manquantes
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Variables avec données manquantes"
 missing_data_summary <- data.frame(
   variable = names(colSums(is.na(df))),
   missing_nombre = colSums(is.na(df)),
@@ -334,7 +616,32 @@ missing_data_summary %>%
     row.names = FALSE
   ) %>%
   kable_styling(full_width = FALSE, position = "center")
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: conversion_dates_facteurs
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
+#| eval: true
 
 # Conversion des dates (les chaînes vides -> NA pour éviter les warnings)
 df$date_admission[df$date_admission == ""] <- NA
@@ -440,27 +747,76 @@ df$secondary_binaire_cancer_du_poumon <- ifelse(df$secondary_disease_category ==
 df$secondary_binaire_cancer_du_colon <- ifelse(df$secondary_disease_category == "Cancer du côlon", "Yes", "No")
 df$secondary_binaire_pas_de_comorbidite <- ifelse(df$secondary_disease_category == "Pas de comorbidité", "Yes", "No")
 str(df)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: verification_dates
+#| echo: false
+#| message: false
+#| results: hide
+#| warning: false
+#| include: false
+#| eval: true
 #vérification du format des datese 
 is.Date(df$date_death)
 is.Date(df$date_last_news) 
 # Vérification de la cohérence entre date_death et date_last_news pour les patients décédés
 incoherent_death_dates <- df$death_180d == "Yes" & df$date_death != df$date_last_news
 sum(incoherent_death_dates) # Nombre de cas incohérents
-
+#
+#
+#
+#
+#
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
+#| eval: true
 # Correction des dates incohérentes
 df$date_last_news[incoherent_death_dates] <- df$date_death[incoherent_death_dates]
 # Vérification après correction
 incoherent_death_dates_after <- df$death_180d == "Yes" & df$date_death != df$date_last_news
 sum(incoherent_death_dates_after) # Nombre de cas incohérents après correction (devrait être 0)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: verification_dates_discharge
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
+#| eval: true
 # vérification du format des dates
 is.Date(df$date_discharge)
 is.Date(df$date_last_news)
 # Vérification de la cohérence entre date_discharge et date_last_news
 incoherent_discharge_dates <- df$date_discharge > df$date_last_news
 sum(incoherent_discharge_dates) # Nombre de cas incohérents
-
+#
+#
+#
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| include: false
 # Vérification du patient avec date de sortie d'hospitalisation inconnue
 patient_missing_discharge <- is.na(df$date_discharge)
 sum(patient_missing_discharge) # Nombre de patients avec date de sortie d'hospitalisation inconnue
@@ -473,7 +829,27 @@ if (df$death_180d[patient_missing_discharge] == "Yes") {
 # Calcul de la différence entre la date de décès et la date d'admission pour ce patient
 days_missing_discharge <- as.numeric(df$date_death[patient_missing_discharge] - df$date_admission[patient_missing_discharge])
 days_missing_discharge
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: tbl-data-summary
+#| tbl-cap: "Nombre d'observations et de variables"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 
 n_rows <- nrow(df)
 n_cols <- ncol(df)
@@ -485,7 +861,17 @@ tab <- data.frame(
 )
 
 knitr::kable(tab, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#| label: tbl-variable-types
+#| tbl-cap: "Types de variables"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 col_type <- sapply(df, function(x) class(x)[1])
 col_type[col_type %in% c("Date", "POSIXct", "POSIXlt")] <- "Date"
 col_type[col_type %in% c("factor", "ordered")] <- "factor"
@@ -500,7 +886,19 @@ tab <- data.frame(
     check.names = FALSE
 )
 knitr::kable(tab, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#| label: tbl-categorical-variables
+#| tbl-cap: "Variables catégorielles"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 cat_cols <- names(col_type)[col_type == "factor"]
 cat_cols <- intersect(cat_cols, names(df))
 cat_vars_df <- data.frame(
@@ -510,7 +908,15 @@ cat_vars_df <- data.frame(
     row.names = NULL
 )
 knitr::kable(cat_vars_df, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 # Séparation des variables catégorielles en sous-catégories thématiques
 cat_cols_disease_category <- grep("disease_category", cat_cols, value = TRUE)
 cat_cols_cancer <- grep("cancer", cat_cols, value = TRUE)
@@ -519,7 +925,19 @@ cat_cols_diagnosis <- grep("diagnosis", cat_cols, value = TRUE)
 cat_cols_death <- grep("death", cat_cols, value = TRUE)
 cat_cols_demographic <- c("sex", "dnr_status", "insurance_class", "race", "income")
 cat_cols_RHC <- grep("rhc", cat_cols, value = TRUE)
-
+#
+#
+#
+#
+#
+#| label: fig-categorical-distribution
+#| fig-cap: "Distribution des modalités (diagnostic principal et comorbidité principale)"
+#| fig-width: 10
+#| fig-height: 4.6
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 
 # Création de deux barplots côte à côte pour les variables de catégorie de maladie principale et de comorbidité principale
 df_descriptif <- df
@@ -562,7 +980,29 @@ barplot(
     cex.lab = 0.9,
     cex.main = 0.9
 )
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: fig-categorical-diagnosis
+#| fig-cap: "Distribution des modalités (diagnostics)"
+#| fig-width: 10
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| results: asis
+#| message: false 
 # Bar plot pour chacun des diagnostics
 par(op, no.readonly = TRUE) # réinitialiser les paramètres graphiques
 par(mfrow = c(2, 5))
@@ -626,7 +1066,23 @@ barplot(
     col = nord::nord("frost", length(table(df$diagnosis_orthopedic, useNA = "ifany"))),
     border = NA
     )
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: fig-categorical-comorbidity
+#| fig-cap: "Distribution des modalités (comorbidités)"
+#| fig-width: 10
+#| fig-height: 5
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 # Bar plot pour chacune des comorbidités
 par(op, no.readonly = TRUE) # réinitialiser les paramètres graphiques
 par(mfrow = c(3, 4))
@@ -702,7 +1158,21 @@ barplot(
     col = nord::nord("aurora", length(table(df$comorbidity_myocardial_infarction, useNA = "ifany"))),
     border = NA
     )
-
+#
+#
+#
+#
+#
+#
+#
+#| label: fig-categorical-diagnosis-comorbidity
+#| fig-cap: "Distribution des modalités (diagnostics et comorbidités)"
+#| fig-width: 10
+#| fig-height: 5
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 
 cat_cols_comorbidity <- grep("comorbidity", cat_cols, value = TRUE)
 cat_cols_diagnosis   <- grep("diagnosis",   cat_cols, value = TRUE)
@@ -781,7 +1251,25 @@ barplot(
   axes = FALSE,
   names.arg = rep("", length(yes_d))
 )
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: fig-categorical-sociodemographic
+#| fig-cap: "Distribution des modalités (variables sociodémographiques)"
+#| fig-width: 10
+#| fig-height: 5
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 op <- par(no.readonly = TRUE)
 on.exit(par(op), add = TRUE)
 par(mfrow = c(2, 3))
@@ -831,7 +1319,23 @@ barplot(
     las = 1,
     cex.names = 0.8
     )
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: tbl-cancer-percentage
+#| tbl-cap: "Pourcentage de patients avec cancer et répartition (Localisé vs Métastatique)"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 # avec pourcentage et effectifs
 cancer_yes_count <- sum(df$cancer_YN == "Yes", na.rm = TRUE)
 cancer_yes_percentage <- round(mean(df$cancer_YN == "Yes", na.rm = TRUE) * 100, 1)
@@ -847,7 +1351,18 @@ cancer_summary_df <- data.frame(
     check.names = FALSE
 )
 knitr::kable(cancer_summary_df, booktabs = TRUE)
-
+#
+#
+#
+#| label: fig-categorical-cancer
+#| fig-cap: "Distribution des modalités (cancer)"
+#| fig-width: 6
+#| fig-align: "center"
+#| fig-height: 3
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 barplot(
     table(df$cancer, useNA = "ifany"),
     col = nord::nord("lumina", length(table(df$cancer, useNA = "ifany"))),
@@ -855,7 +1370,23 @@ barplot(
     las = 1,
     cex.names = 0.8
     )
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: fig-categorical-death
+#| fig-cap: "Distribution des modalités (décès à 180 jours et à 30 jours)"
+#| fig-width: 10
+#| fig-height: 3
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 par(op, no.readonly = TRUE) # réinitialiser les paramètres graphiques
 par(mfrow = c(1, 2))
 barplot(
@@ -874,7 +1405,15 @@ barplot(
     las = 1,
     cex.names = 0.8
 )
-
+#
+#
+#
+#| label: tbl-death-percentage
+#| tbl-cap: "Pourcentage de décès à 30 jours et à 180 jours"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 death_30d_percentage <- round(mean(df$death_30d == "Yes", na.rm = TRUE) * 100, 1)
 death_180d_percentage <- round(mean(df$death_180d == "Yes", na.rm = TRUE) * 100, 1)
 # affichage aussi des effectifs dans une colonne (n/N)
@@ -889,7 +1428,26 @@ death_summary_df <- data.frame(
     check.names = FALSE
 )
 knitr::kable(death_summary_df, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: fig-categorical-rhc
+#| fig-cap: "Distribution des modalités (cathétérisme cardiaque droit)"
+#| fig-width: 3
+#| fig-height: 3
+#| fig-align: "center"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 barplot(
     table(df$rhc, useNA = "ifany"),
     col = nord::nord("lumina", length(table(df$rhc, useNA = "ifany"))),
@@ -897,7 +1455,15 @@ barplot(
     las = 1,
     cex.names = 0.8
     )
-
+#
+#
+#
+#| label: tbl-rhc-percentage
+#| tbl-cap: "Pourcentage de patients ayant eu un cathétérisme cardiaque droit (RHC)"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 rhc_percentage <- round(mean(df$rhc == "RHC", na.rm = TRUE) * 100, 1)
 rhc_count <- sum(df$rhc == "RHC", na.rm = TRUE)
 rhc_total <- sum(!is.na(df$rhc))
@@ -908,7 +1474,23 @@ rhc_summary_df <- data.frame(
     check.names = FALSE
 )
 knitr::kable(rhc_summary_df, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: tbl-numeric-variables
+#| tbl-cap: "Variables numériques"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 # tableau avec moyenne, SD, médiane, Q1, Q3, min et max pour chacune des variables numériques
 numeric_cols <- names(col_type)[col_type == "numeric"]
 numeric_cols <- setdiff(numeric_cols, "time_to_death_if_death_within_30d")
@@ -933,7 +1515,30 @@ knitr::kable(
     row.names = FALSE
 ) %>%
   kableExtra::column_spec(1, width = "6cm")
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: tbl-numeric-outliers
+#| tbl-cap: "Valeurs aberrantes dans les variables numériques"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tab-cap: "Valeurs 0 dans les variables numériques"
 # quel pourcentage les valeurs 0 représentent-elles pour chacune de ces variables ?
 outlier_summary_df <- data.frame(
     Variable = c("Pression artérielle moyenne", "Leucocytose", "Fréquence cardiaque", "Fréquence respiratoire", "Poids"),
@@ -943,7 +1548,21 @@ outlier_summary_df <- data.frame(
 
 #affichage du tableau 
 knitr::kable(outlier_summary_df, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: code-imputation-outliers
+#| echo: false
+#| message: false
+#| warning: false
 #création d'un dataframe pour l'imputation multiple
 df_imputation_multiple <- df
 
@@ -960,7 +1579,17 @@ df_imputation_multiple$wbc[df_imputation_multiple$wbc == 0] <- NA
 df_imputation_multiple$heart_rate[df_imputation_multiple$heart_rate == 0] <- NA
 df_imputation_multiple$respiratory_rate[df_imputation_multiple$respiratory_rate == 0] <- NA
 df_imputation_multiple$weight[df_imputation_multiple$weight == 0] <- NA
-
+#
+#
+#
+#
+#
+#| label: tbl-numeric-variables-imputed
+#| tbl-cap: "Variables numériques après imputation des valeurs aberrantes"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 # tableau avec moyenne, SD, médiane, Q1, Q3, min et max pour chacune des variables numériques après imputation
 numeric_cols_imputed <- c(
   "mean_blood_pressure",
@@ -988,7 +1617,19 @@ knitr::kable(
   row.names = FALSE
 ) %>%
   kableExtra::column_spec(1, width = "6cm")
-
+#
+#
+#
+#
+#
+#| label: fig-numeric-distribution
+#| fig-cap: "Distribution des variables numériques (histogrammes et courbes de densité)"
+#| fig-width: 12
+#| fig-height: 15
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 numeric_cols <- names(col_type)[col_type == "numeric"]
 
 op <- par(no.readonly = TRUE)
@@ -1251,13 +1892,52 @@ hist(
   freq = FALSE
 )
 lines(density(df$urine_output, na.rm = TRUE), col = "blue", lwd = 2)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: fig-qqplot-age
+#| fig-cap: "QQ-plot pour l'âge"
+#| fig-width: 3.5
+#| fig-height: 3.5
+#| fig-align: "center"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 qqnorm(
     df$age, 
     main = "QQ-plot pour l'âge"
 )
 qqline(df$age, col = "red", lwd = 2)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: comparaison-deces-binary
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Comparaison des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC"
 # avec pourcentage de décès à 30 jours et à 180 jours dans les groupes R
 # utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC
 summary_table <- df %>%
@@ -1278,7 +1958,15 @@ summary_table <- df %>%
   modify_header(label = "**Variable**")
 #affichage du tableau
 summary_table
-
+#
+#
+#
+#| label: or-deces-binary
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Odds Ratio (OR) pour le décès à 30 jours et à 180 jours"
 # calcul de l'OR pour le décès à 30 jours
 or_30d <- epitools::oddsratio(
   x = table(df$rhc, df$death_30d),
@@ -1302,7 +1990,20 @@ or_summary_df <- data.frame(
   check.names = FALSE
 )
 knitr::kable(or_summary_df, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: code-variables-outcomes
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 # Recalcul des temps à partir des dates (suivi "complet")
 df$time_to_death <- as.numeric(df$date_death - df$date_admission)
 df$time_to_last_news <- as.numeric(df$date_last_news - df$date_admission)
@@ -1324,7 +2025,16 @@ df$event_180d <- as.integer(df$event_death == 1 & df$time_to_death <= 180)
 
 # Temps négatifs -> NA
 df$survival_time_180d[df$survival_time_180d < 0] <- NA
-
+#
+#
+#
+#| label: code-km-plot
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-width: 10
+#| fig-height: 7.5
 # création de l'objet de survie
 surv_object <- Surv(time = df$survival_time_180d, event = df$event_180d)
 # ajustement du modèle de survie de Kaplan-Meier
@@ -1348,7 +2058,63 @@ km_plot <- ggsurvplot(
   palette = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
 )
 print(km_plot)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: tableau-comparatif-rhc
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Comparaison des caractéristiques basales entre les groupes RHC vs non-RHC"
 # utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des caractéristiques basales entre les groupes RHC vs non-RHC
 # regroupement des variables
 primary_columns <- grep("^(primary_binaire_|secondary_binaire_)", names(df), value = TRUE)
@@ -1545,7 +2311,27 @@ baseline_comparison_table |>
     bold = TRUE,
     italic = TRUE
   )
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: SMD
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+#| fig-cap: "Love plot visualisant les différences moyennes standardisées pour les variables basales"
+#| fig-width: 10
+#| fig-height: 12
 # avec bal.tab et love.plot()
 # création d'un objet de balance pour les variables basales
 balance_baseline <- bal.tab(
@@ -1560,7 +2346,15 @@ if (!is.null(balance_baseline_clean$Balance)) {
   keep <- !grepl(":<NA>$", rownames(balance_baseline_clean$Balance))
   balance_baseline_clean$Balance <- balance_baseline_clean$Balance[keep, , drop = FALSE]
 }
-
+#
+#
+#
+#| label: variables-smd
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Variables avec une différence moyenne standardisée (SMD) supérieure à 0.1 en valeur absolue"
 # identification des variables avec SMD > 0.1 en valeur absolue
 imbalanced_vars <- rownames(balance_baseline_clean$Balance)[abs(balance_baseline_clean$Balance$Diff.Un) > 0.1]
 smd_summary_df <- data.frame(
@@ -1568,7 +2362,19 @@ smd_summary_df <- data.frame(
   `SMD` = abs(round(balance_baseline_clean$Balance[imbalanced_vars, "Diff.Un"], 3))
 )
 knitr::kable(smd_summary_df, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#| label: SMD-plot
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Love plot visualisant les différences moyennes standardisées pour les variables basales"
+#| fig-width: 10
+#| fig-height: 12
 #labels pour lisibilité (on reprend les labels du tableau comparatif)
 labels_love_plot <- desc
 
@@ -1584,7 +2390,60 @@ love_plot_baseline <- cobalt::love.plot(
   var.names = labels_love_plot
 )
 print(love_plot_baseline)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: imputation-propension
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 # imputation par la médiane pour les variables score ADL et diurèse
 df_imputed <- df
 df_imputed$adl_score[is.na(df_imputed$adl_score)] <- median(df_imputed$adl_score, na.rm = TRUE)
@@ -1593,7 +2452,26 @@ df_imputed$urine_output[is.na(df_imputed$urine_output)] <- median(df_imputed$uri
 sum(is.na(df_imputed$adl_score))
 sum(is.na(df_imputed$urine_output))
 sum(is.na(df_imputed))
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: calcul-propension
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 # calcul du score de propension avec les variables sélectionnées
 df_imputed$rhc <- factor(df_imputed$rhc)
 
@@ -1634,7 +2512,35 @@ matchit_out <- matchit(
 df_matched <- match.data(matchit_out)
 # vérification de la taille des groupes appariés
 table(df_matched$rhc)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: density-plot-propension
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Histogramme de densité du score de propension avant et après appariement. Distance correspond au score de propension variant entre 0 et 1 ; Treatment = 0 correspond au groupe non-RHC et Treatment = 1 correspond au groupe RHC"
+#| fig-width: 10
+#| fig-height: 5
 density_plot <- cobalt::bal.plot(
   matchit_out,
   var.name = "distance",
@@ -1646,7 +2552,21 @@ density_plot <- cobalt::bal.plot(
   title = "Distribution du score de propension avant et après appariement"
 )
 print(density_plot)
-
+#
+#
+#
+#
+#
+#
+#
+#| label: histogram-mirror-propension
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Histogramme-miroir du score de propension après appariement, montrant les distributions de score de propension pour les deux groupes appariés"
+#| fig-width: 10
+#| fig-height: 4
 histogram_mirror_plot <- cobalt::bal.plot(
   matchit_out,
   var.name = "distance",
@@ -1659,14 +2579,29 @@ histogram_mirror_plot <- cobalt::bal.plot(
   title = "Histogramme-miroir du score de propension après appariement"
 )
 print(histogram_mirror_plot)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: love-plot-matched
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Love plot visualisant les différences moyennes standardisées pour les variables basales après appariement (Seuil de 0.1)"
+#| fig-width: 10
+#| fig-height: 12
 labels_love_plot_matched <- desc
 love_plot_matched <- love.plot(
   matchit_out,
   stats = "mean.diffs",
   s.d.denom = "pooled",
   binary = "std",
-  drop.distance = TRUE,
   threshold = 0.1,
   var.order = "unadjusted",
   abs = TRUE,
@@ -1675,9 +2610,16 @@ love_plot_matched <- love.plot(
   colors = c(nord("aurora")[1], nord("aurora")[4])
 )
 print(love_plot_matched)
-
+#
+#
+#
+#| label: tableau-p-smd-matched
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Nombre de covariables avec |SMD| > 0,1 avant et après appariement"
 balance <- cobalt::bal.tab(matchit_out, un = TRUE)$Balance
-balance <- balance[rownames(balance) != "distance", , drop = FALSE]
 
 tab <- data.frame(
   Avant_appariement = sum(abs(balance$Diff.Un) > 0.1, na.rm = TRUE),
@@ -1690,7 +2632,39 @@ knitr::kable(
   booktabs = TRUE,
   row.names = FALSE
 )
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: comparaison-deces-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Comparaison des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC"
 # avec pourcentage de décès à 30 jours et à 180 jours dans les groupes R
 # utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC
 summary_table <- df_matched %>%
@@ -1710,7 +2684,15 @@ summary_table <- df_matched %>%
   add_p() %>%
   modify_header(label = "**Variable**")
 summary_table
-
+#
+#
+#
+#| label: or-deces-binary-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Odds Ratio (OR) pour le décès à 30 jours et à 180 jours"
 # calcul de l'OR pour le décès à 30 jours
 or_30d <- epitools::oddsratio(
   x = table(df_matched$rhc, df_matched$death_30d),
@@ -1734,7 +2716,29 @@ or_summary_df <- data.frame(
   check.names = FALSE
 )
 knitr::kable(or_summary_df, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: or-conditionnel-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Odds Ratio conditionnel par paire pour le décès à 30 jours et à 180 jours"
 df_matched$death_30d_num <- as.integer(df_matched$death_30d == "Yes")
 df_matched$death_180d_num <- as.integer(df_matched$death_180d == "Yes")
 
@@ -1778,7 +2782,18 @@ or_conditional_df$`OR conditionnel` <- round(or_conditional_df$`OR conditionnel`
 or_conditional_df$`p-value` <- format.pval(or_conditional_df$`p-value`, digits = 3, eps = 0.001)
 
 knitr::kable(or_conditional_df, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#| label: variables-outcomes-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 # conversion des dates en format Date
 df_matched$date_admission <- as.Date(df_matched$date_admission)
 df_matched$date_death <- as.Date(df_matched$date_death)
@@ -1807,7 +2822,17 @@ df_matched$event_180d <- as.integer(df_matched$event_death == 1 & df_matched$tim
 
 # Temps négatifs -> NA
 df_matched$survival_time_180d[df_matched$survival_time_180d < 0] <- NA
-
+#
+#
+#
+#| label: km-plot-apres-appariement
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-width: 10
+#| fig-height: 7.5
+#| fig-cap: "Courbe de survie de Kaplan-Meier selon le RHC dans la population appariée"
 # création de l'objet de survie
 surv_object <- Surv(time = df_matched$survival_time_180d, event = df_matched$event_180d)
 # ajustement du modèle de survie de Kaplan-Meier
@@ -1831,7 +2856,31 @@ km_plot <- ggsurvplot(
   palette = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
 )
 print(km_plot)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: conventionnal-and-stratified-log-rank-test
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Résultats du test du log-rank conventionnel et du test du log-rank stratifié sur les paires"
 # test du log-rank conventionnel
 logrank_conventional <- survdiff(surv_object ~ rhc, data = df_matched)
 p_logrank_conventional <- 1 - pchisq(logrank_conventional$chisq, df = 1)
@@ -1849,7 +2898,19 @@ logrank_results <- data.frame(
 )
 
 knitr::kable(logrank_results, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#| label: cox-stratified-robust
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Résultats du modèle de Cox stratifié sur les paires avec estimation robuste de la variance"
 # ajustement du modèle de Cox avec variance robuste et cluster sur les paires appariées
 cox_model <- coxph(
   surv_object ~ rhc,
@@ -1867,11 +2928,73 @@ cox_results <- data.frame(
 )
 cox_results$Variable <- "RHC vs No RHC"
 knitr::kable(cox_results, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: cox-proportional-hazards-assumption
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Graphique des résidus de Schoenfeld pour vérifier l'hypothèse de proportionalité des risques"
+#| fig-width: 10
+#| fig-height: 4
 # vérification de l'hypothèse de proportionalité des risques avec les résidus de Schoenfeld
 cox_zph <- cox.zph(cox_model)
 plot(cox_zph)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: cox-multivariate
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Résultats du modèle de Cox multivarié ajusté pour les variables basales"
 # ajustement du modèle de Cox multivarié
 cox_multivariate_model <- coxph(
   Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
@@ -1904,7 +3027,28 @@ cox_multivariate_results <- cox_multivariate_results[cox_multivariate_results$Va
 cox_multivariate_results$Variable <- "RHC vs No RHC"
 
 knitr::kable(cox_multivariate_results, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: tableau-comparaison-estimateurs
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 
 # 1. Modèle brut (non ajusté) sur population totale
 cox_brut <- coxph(Surv(survival_time_180d, event_180d) ~ rhc, data = df_imputed)
@@ -1947,7 +3091,44 @@ knitr::kable(
   caption = "Comparaison des rapports de risques (HR) selon la méthode d'ajustement"
 ) %>%
   kableExtra::kable_styling(latex_options = "hold_position")
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: tests-comparatifs-matched
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 # calcul des p-values pour les variables basales après appariement
 df_baseline_post_matching <- df_matched[, unique(c("rhc", cols_to_include_baseline))]
 
@@ -2124,7 +3305,75 @@ baseline_comparison_table |>
     italic = TRUE
   )
 
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: missing-data-overview
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Variables avec données manquantes"
 missing_data_summary <- data.frame(
   Variable = names(df_imputation_multiple),
   Missing_Count = sapply(df_imputation_multiple, function(x) sum(is.na(x))),
@@ -2133,7 +3382,24 @@ missing_data_summary <- data.frame(
 missing_data_summary <- missing_data_summary[missing_data_summary$Missing_Count > 0, ]
 missing_data_summary$Missing_Percentage <- round(missing_data_summary$Missing_Percentage, 2)
 knitr::kable(missing_data_summary, booktabs = TRUE)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: multiple-imputation
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
 
 # variables à imputer
 vars_pmm <- c(
@@ -2147,43 +3413,57 @@ vars_pmm <- c(
 )
 
 # méthode d'imputation : seulement ces 7 variables
-#attribue "pmm" pour les variables à imputer et "" pour les autres (pas d'imputation)
-method_mice <- setNames(
-  ifelse(names(df_imputation_multiple) %in% vars_pmm, "pmm", ""),
-  names(df_imputation_multiple)
+method_mice <- rep("", ncol(df_imputation_multiple))
+names(method_mice) <- names(df_imputation_multiple)
+method_mice[names(method_mice) %in% vars_pmm] <- "pmm"
+
+# variables exclues comme prédicteurs
+vars_exclues_predictors <- grep(
+  "^date_|^primary_binaire_|^secondary_binaire_|^cancer_YN$",
+  names(df_imputation_multiple),
+  value = TRUE
 )
 
-# variables crées pour précédentes analyses sont exclues des prédicteurs
-vars_exclues_predictors <- c(
-  grep("^date_", names(df_imputation_multiple), value = TRUE),
-  grep("^primary_binaire_", names(df_imputation_multiple), value = TRUE),
-  grep("^secondary_binaire_", names(df_imputation_multiple), value = TRUE),
-  grep("^cancer_YN$", names(df_imputation_multiple), value = TRUE)
-)
-
-# matrice des prédicteurs : toutes les variables sauf celles exclues
+# matrice des prédicteurs
 predictor_matrix_mice <- mice::make.predictorMatrix(df_imputation_multiple)
 predictor_matrix_mice[, vars_exclues_predictors] <- 0
 
-# modèle d'imputation multiple (= objet de classe "mids" de mice)
-imputation_mids <- mice(
+# imputation multiple
+imputation_model <- mice::mice(
   data = df_imputation_multiple,
   m = 5,
   method = method_mice,
   predictorMatrix = predictor_matrix_mice,
-  seed = 123
+  seed = 123,
+  printFlag = FALSE
 )
 
-
 # extraction du dataset complet après imputation multiple
-# fonction "complete" de mice avec "action = long" pour obtenir un dataset long avec tous les jeux imputés empilés, et "include = TRUE" pour inclure le dataset original incomplet
-# entrée = objet mids (ici imputation_mids) et output = dataframe
 df_imputation_multiple_complete <- mice::complete(
-  imputation_mids,
+  imputation_model,
   action = "long",
   include = TRUE
 )
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: calcul-propension-within
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 # variable de traitement
 df_imputation_multiple_complete$rhc <- factor(df_imputation_multiple_complete$rhc)
 
@@ -2328,45 +3608,135 @@ table(df_matched_matchit_2$rhc)
 table(df_matched_matchit_3$rhc)
 table(df_matched_matchit_4$rhc)
 table(df_matched_matchit_5$rhc)
-
-
-#on reprend l'objet d'imputation multiple mids créé précédemment "imputation_mids"
+#
+#
+#
+#
+#
+#| label: effectifs-apparies
+#| echo: false
+#| results: asis
+#| message: false
+#| warning: false
+effectifs_apparies <- data.frame(
+  Imputation = paste0("Imputation ", 1:5),
+  RHC = c(table(df_matched_matchit_1$rhc)[["RHC"]], table(df_matched_matchit_2$rhc)[["RHC"]], table(df_matched_matchit_3$rhc)[["RHC"]], table(df_matched_matchit_4$rhc)[["RHC"]], table(df_matched_matchit_5$rhc)[["RHC"]]),
+  No_RHC = c(table(df_matched_matchit_1$rhc)[["No RHC"]], table(df_matched_matchit_2$rhc)[["No RHC"]], table(df_matched_matchit_3$rhc)[["No RHC"]], table(df_matched_matchit_4$rhc)[["No RHC"]], table(df_matched_matchit_5$rhc)[["No RHC"]])
+)
+knitr::kable(effectifs_apparies, booktabs = TRUE)
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: calcul-propension-within-MatchThem1
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
 
 # variable de traitement dans l'objet mids
-imputation_mids$data$rhc <- factor(imputation_mids$data$rhc)
+imputation_model$data$rhc <- factor(imputation_model$data$rhc)
 
 set.seed(123)
 
-#fonction matchthem() : entrée = mids, output = mimids
-matchthem_mimids <- matchthem(
-  formula = formula_propension, 
-  datasets = imputation_mids, #objet de classe "mids" créé par mice
+matchthem_out <- matchthem(
+  formula = formula_propension,
+  datasets = imputation_model,
   approach = "within",
   method = "nearest",
+  distance = "glm",
   caliper = 0.2,
   std.caliper = TRUE,
   ratio = 1,
   replace = FALSE
 )
 
-#fonction complete() : entrée = mimids, output = dataframe apparié
-#NB : 2 fonctions "complete" existent ! celle de mice pour extraire les jeux de données imputés (entrée = mids), et celle de MatchThem pour extraire les jeux de données appariés (entrée = mimids). En soi, MatchThem::complete appelle la fonction mice::complete, mais ça permet de ne pas trop se perdre dans les étapes
-matchthem_dataframe_1 <- MatchThem::complete(matchthem_mimids, action = 1, all = FALSE)
-matchthem_dataframe_2 <- MatchThem::complete(matchthem_mimids, action = 2, all = FALSE)
-matchthem_dataframe_3 <- MatchThem::complete(matchthem_mimids, action = 3, all = FALSE)
-matchthem_dataframe_4 <- MatchThem::complete(matchthem_mimids, action = 4, all = FALSE)
-matchthem_dataframe_5 <- MatchThem::complete(matchthem_mimids, action = 5, all = FALSE)
+# extraction des 5 jeux de données appariés seuls
+df_matched_matchthem_1 <- complete(matchthem_out, action = 1, all = FALSE)
+df_matched_matchthem_2 <- complete(matchthem_out, action = 2, all = FALSE)
+df_matched_matchthem_3 <- complete(matchthem_out, action = 3, all = FALSE)
+df_matched_matchthem_4 <- complete(matchthem_out, action = 4, all = FALSE)
+df_matched_matchthem_5 <- complete(matchthem_out, action = 5, all = FALSE)
+
 # vérification des effectifs appariés
-table(matchthem_dataframe_1$rhc)
-table(matchthem_dataframe_2$rhc)
-table(matchthem_dataframe_3$rhc)
-table(matchthem_dataframe_4$rhc)
-table(matchthem_dataframe_5$rhc)
+table(df_matched_matchthem_1$rhc)
+table(df_matched_matchthem_2$rhc)
+table(df_matched_matchthem_3$rhc)
+table(df_matched_matchthem_4$rhc)
+table(df_matched_matchthem_5$rhc)
+#
+#
+#
+#| echo: false
+#| eval: true
+#| message: false
+#| results: hide
+#| label: calcul-propension-within-MatchThem
 
+library(mice)
+library(MatchThem)
 
-#entrée = mimids, donc utilisation de matchthem_mimids.
-density_plot <- bal.plot(
-  matchthem_mimids,
+# retour du format long vers un objet mids
+imp_mids <- mice::as.mids(df_imputation_multiple_complete)
+
+# variable de traitement
+imp_mids$data$rhc <- factor(imp_mids$data$rhc)
+
+# variables du score de propension
+vars_propension <- c(
+  "age", "sex", "race", "education_years", "income", "insurance_class",
+  "primary_disease_category", "secondary_disease_category",
+  grep("^diagnosis_", names(imp_mids$data), value = TRUE),
+  grep("^comorbidity_", names(imp_mids$data), value = TRUE),
+  "adl_score", "DASI_score", "dnr_status", "cancer",
+  "survival_probability_2mths", "apache_score", "glasgow_score",
+  "weight", "temperature", "mean_blood_pressure", "respiratory_rate",
+  "heart_rate", "pa_fi_ratio", "paco2", "ph", "wbc", "hematocrit",
+  "sodium", "potassium", "creatinine", "bilirubin", "albumin",
+  "urine_output"
+)
+
+formula_propension <- as.formula(
+  paste("rhc ~", paste(vars_propension, collapse = " + "))
+)
+
+set.seed(123)
+
+matchit_within <- matchthem(
+  formula = formula_propension,
+  datasets = imp_mids,
+  approach = "within",
+  method = "nearest",
+  ratio = 1,
+  replace = FALSE,
+  caliper = 0.2
+)
+
+# extraction des jeux appariés si besoin
+df_matched_list <- complete(matchit_within, action = "all")
+#
+#
+#
+#
+#
+#
+#
+#| label: density-plot-propension-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Distribution du score de propension avant et après appariement dans les données imputées multiples"
+#| fig-width: 10
+#| fig-height: 6
+
+density_plot <- cobalt::bal.plot(
+  matchthem_out,
   var.name = "distance",
   which = "both",
   type = "density",
@@ -2376,10 +3746,22 @@ density_plot <- bal.plot(
   title = "Distribution du score de propension avant et après appariement"
 )
 print(density_plot)
+#
+#
+#
+#
+#
+#| label: histogram-mirror-propension-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Histogramme-miroir du score de propension après appariement dans les données imputées multiples"
+#| fig-width: 10
+#| fig-height: 6
 
-
-histogram_mirror_plot <- bal.plot(
-  matchthem_mimids,
+histogram_mirror_plot <- cobalt::bal.plot(
+  matchthem_out,
   var.name = "distance",
   which = "both",
   type = "histogram",
@@ -2390,16 +3772,25 @@ histogram_mirror_plot <- bal.plot(
   title = "Histogramme-miroir du score de propension après appariement"
 )
 print(histogram_mirror_plot)
-
+#
+#
+#
+#| label: love-plot-matched-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Love plot des différences moyennes standardisées après appariement dans les données imputées multiples"
+#| fig-width: 10
+#| fig-height: 12
 
 labels_love_plot_matched <- desc
 
-love_plot_matched <- love.plot(
-  matchthem_mimids,
+love_plot_matched <- cobalt::love.plot(
+  matchthem_out,
   stats = "mean.diffs",
   s.d.denom = "pooled",
   drop.distance = TRUE,
-
   binary = "std",
   threshold = 0.1,
   var.order = "unadjusted",
@@ -2409,57 +3800,83 @@ love_plot_matched <- love.plot(
   colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
 )
 print(love_plot_matched)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: comparaison-deces-apres-appariement-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Décès à 30 jours et à 180 jours après appariement dans les 5 imputations"
 
 resume_deces <- data.frame(
   Imputation = paste0("Jeu ", 1:5),
 
   RHC_n = c(
-    sum(matchthem_dataframe_1$rhc == "RHC"),
-    sum(matchthem_dataframe_2$rhc == "RHC"),
-    sum(matchthem_dataframe_3$rhc == "RHC"),
-    sum(matchthem_dataframe_4$rhc == "RHC"),
-    sum(matchthem_dataframe_5$rhc == "RHC")
+    sum(df_matched_matchthem_1$rhc == "RHC"),
+    sum(df_matched_matchthem_2$rhc == "RHC"),
+    sum(df_matched_matchthem_3$rhc == "RHC"),
+    sum(df_matched_matchthem_4$rhc == "RHC"),
+    sum(df_matched_matchthem_5$rhc == "RHC")
   ),
 
   No_RHC_n = c(
-    sum(matchthem_dataframe_1$rhc == "No RHC"),
-    sum(matchthem_dataframe_2$rhc == "No RHC"),
-    sum(matchthem_dataframe_3$rhc == "No RHC"),
-    sum(matchthem_dataframe_4$rhc == "No RHC"),
-    sum(matchthem_dataframe_5$rhc == "No RHC")
+    sum(df_matched_matchthem_1$rhc == "No RHC"),
+    sum(df_matched_matchthem_2$rhc == "No RHC"),
+    sum(df_matched_matchthem_3$rhc == "No RHC"),
+    sum(df_matched_matchthem_4$rhc == "No RHC"),
+    sum(df_matched_matchthem_5$rhc == "No RHC")
   ),
 
   Deces_30j_RHC = c(
-    sum(matchthem_dataframe_1$rhc == "RHC" & matchthem_dataframe_1$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_2$rhc == "RHC" & matchthem_dataframe_2$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_3$rhc == "RHC" & matchthem_dataframe_3$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_4$rhc == "RHC" & matchthem_dataframe_4$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_5$rhc == "RHC" & matchthem_dataframe_5$death_30d == "Yes", na.rm = TRUE)
+    sum(df_matched_matchthem_1$rhc == "RHC" & df_matched_matchthem_1$death_30d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_2$rhc == "RHC" & df_matched_matchthem_2$death_30d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_3$rhc == "RHC" & df_matched_matchthem_3$death_30d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_4$rhc == "RHC" & df_matched_matchthem_4$death_30d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_5$rhc == "RHC" & df_matched_matchthem_5$death_30d == "Yes", na.rm = TRUE)
   ),
 
   Deces_30j_No_RHC = c(
-    sum(matchthem_dataframe_1$rhc == "No RHC" & matchthem_dataframe_1$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_2$rhc == "No RHC" & matchthem_dataframe_2$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_3$rhc == "No RHC" & matchthem_dataframe_3$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_4$rhc == "No RHC" & matchthem_dataframe_4$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_5$rhc == "No RHC" & matchthem_dataframe_5$death_30d == "Yes", na.rm = TRUE)
+    sum(df_matched_matchthem_1$rhc == "No RHC" & df_matched_matchthem_1$death_30d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_2$rhc == "No RHC" & df_matched_matchthem_2$death_30d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_3$rhc == "No RHC" & df_matched_matchthem_3$death_30d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_4$rhc == "No RHC" & df_matched_matchthem_4$death_30d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_5$rhc == "No RHC" & df_matched_matchthem_5$death_30d == "Yes", na.rm = TRUE)
   ),
 
   Deces_180j_RHC = c(
-    sum(matchthem_dataframe_1$rhc == "RHC" & matchthem_dataframe_1$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_2$rhc == "RHC" & matchthem_dataframe_2$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_3$rhc == "RHC" & matchthem_dataframe_3$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_4$rhc == "RHC" & matchthem_dataframe_4$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_5$rhc == "RHC" & matchthem_dataframe_5$death_180d == "Yes", na.rm = TRUE)
+    sum(df_matched_matchthem_1$rhc == "RHC" & df_matched_matchthem_1$death_180d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_2$rhc == "RHC" & df_matched_matchthem_2$death_180d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_3$rhc == "RHC" & df_matched_matchthem_3$death_180d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_4$rhc == "RHC" & df_matched_matchthem_4$death_180d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_5$rhc == "RHC" & df_matched_matchthem_5$death_180d == "Yes", na.rm = TRUE)
   ),
 
   Deces_180j_No_RHC = c(
-    sum(matchthem_dataframe_1$rhc == "No RHC" & matchthem_dataframe_1$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_2$rhc == "No RHC" & matchthem_dataframe_2$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_3$rhc == "No RHC" & matchthem_dataframe_3$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_4$rhc == "No RHC" & matchthem_dataframe_4$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_5$rhc == "No RHC" & matchthem_dataframe_5$death_180d == "Yes", na.rm = TRUE)
+    sum(df_matched_matchthem_1$rhc == "No RHC" & df_matched_matchthem_1$death_180d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_2$rhc == "No RHC" & df_matched_matchthem_2$death_180d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_3$rhc == "No RHC" & df_matched_matchthem_3$death_180d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_4$rhc == "No RHC" & df_matched_matchthem_4$death_180d == "Yes", na.rm = TRUE),
+    sum(df_matched_matchthem_5$rhc == "No RHC" & df_matched_matchthem_5$death_180d == "Yes", na.rm = TRUE)
   )
 )
 
@@ -2477,52 +3894,64 @@ tableau_deces <- data.frame(
 )
 
 knitr::kable(tableau_deces, booktabs = TRUE)
-
-
-#La fonction "with" de `mice` permet d'appliquer une fonction à chaque jeu de données imputé, et de stocker les résultats dans un objet de classe "mira" (Multiply Imputed Repeated Analysis).
-#obtention d'un objet de classe "mira" contenant les résultats de la régression logistique conditionnelle par paire pour le décès à 30 jours dans chaque jeu de données imputé
-clogit_30d_mira <- with(
-  data = matchthem_mimids, #mimids créé par MatchThem
-  expr = clogit(
-    death_30d == "Yes" ~ rhc + strata(subclass)
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: or-conditionnel-apres-appariement-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Odds ratio conditionnel par paire pour le décès à 30 jours et à 180 jours, poolé sur les 5 imputations"
+# analyse dans chaque jeu apparié puis pooling
+clogit_30d_mi <- with(
+  data = matchthem_out,
+  expr = survival::clogit(
+    as.integer(death_30d == "Yes") ~ rhc + strata(subclass)
   )
 )
+clogit_30d_mi
 
-#fonction "pool" de `mice` pour combiner les résultats des analyses dans les jeux imputés, en utilisant la règle de Rubin.
-#obtention d'un objet de classe "mipo" (Multiply Imputed Pooled Object) contenant les résultats poolés de la régression logistique conditionnelle par paire pour le décès à 30 jours
-clogit_30d_mipo <- pool(
-  object = clogit_30d_mira,
-  rule = "rubin1987")
+pool_30d <- pool(clogit_30d_mi)
 
-
-clogit_30d_pooled_dataframe <- summary(
-  object = clogit_30d_mipo,
+res_30d <- summary(
+  pool_30d,
   conf.int = TRUE,
   exponentiate = TRUE
 )
 
-
-clogit_180d_mira <- with(
-  data = matchthem_mimids,
-  expr = clogit(
-    death_180d == "Yes" ~ rhc + strata(subclass)
+clogit_180d_mi <- with(
+  data = matchthem_out,
+  expr = survival::clogit(
+    as.integer(death_180d == "Yes") ~ rhc + strata(subclass)
   )
 )
 
-clogit_180d_mipo <- pool(
-  object = clogit_180d_mira, 
-  rule = "rubin1987")
+pool_180d <- pool(clogit_180d_mi)
 
-
-clogit_180d_pooled_dataframe <- summary(
-  object = clogit_180d_mipo,
+res_180d <- summary(
+  pool_180d,
   conf.int = TRUE,
   exponentiate = TRUE
 )
 
 # extraction de la ligne rhc
-ligne_30d <- clogit_30d_pooled_dataframe[clogit_30d_pooled_dataframe$term == "rhcRHC", ]
-ligne_180d <- clogit_180d_pooled_dataframe[clogit_180d_pooled_dataframe$term == "rhcRHC", ]
+ligne_30d <- res_30d[res_30d$term == "rhcRHC", ]
+ligne_180d <- res_180d[res_180d$term == "rhcRHC", ]
 
 or_conditional_mi_df <- data.frame(
   `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
@@ -2542,86 +3971,65 @@ or_conditional_mi_df <- data.frame(
 )
 
 knitr::kable(or_conditional_mi_df, booktabs = TRUE)
+#
+#
+#
+#
+#
+#| label: cox-poole-apres-appariement-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Modèle de Cox poolé sur les 5 imputations après appariement"
 
+# variables de survie calculées une seule fois
+surv_vars <- within(matchthem_out$object$data, {
+  date_admission <- as.Date(date_admission)
+  date_death <- as.Date(date_death)
+  date_last_news <- as.Date(date_last_news)
 
-# création des variables de temps et d'événement pour l'analyse de survie
-df_survie_matchthem <- matchthem_mimids$object$data
+  time_to_death <- as.numeric(date_death - date_admission)
+  time_to_last_news <- as.numeric(date_last_news - date_admission)
 
-# Recalcul des temps à partir des dates
-df_survie_matchthem$date_admission <- as.Date(df_survie_matchthem$date_admission)
-df_survie_matchthem$date_death <- as.Date(df_survie_matchthem$date_death)
-df_survie_matchthem$date_last_news <- as.Date(df_survie_matchthem$date_last_news)
+  event_death <- as.integer(!is.na(date_death))
 
-df_survie_matchthem$time_to_death <- as.numeric(df_survie_matchthem$date_death - df_survie_matchthem$date_admission)
-df_survie_matchthem$time_to_last_news <- as.numeric(df_survie_matchthem$date_last_news - df_survie_matchthem$date_admission)
+  followup_time <- time_to_last_news
+  followup_time[event_death == 1] <- time_to_death[event_death == 1]
 
-# Événement décès
-df_survie_matchthem$event_death <- as.integer(!is.na(df_survie_matchthem$date_death))
+  survival_time_180d <- pmin(followup_time, 180)
+  event_180d <- as.integer(event_death == 1 & time_to_death <= 180)
 
-# Temps de suivi complet
-df_survie_matchthem$followup_time <- df_survie_matchthem$time_to_last_news
-df_survie_matchthem$followup_time[df_survie_matchthem$event_death == 1] <- df_survie_matchthem$time_to_death[df_survie_matchthem$event_death == 1]
+  survival_time_180d[survival_time_180d < 0] <- NA
+})
 
-# Censure à 180 jours
-df_survie_matchthem$survival_time_180d <- pmin(df_survie_matchthem$followup_time, 180)
-df_survie_matchthem$event_180d <- as.integer(df_survie_matchthem$event_death == 1 & df_survie_matchthem$time_to_death <= 180)
-
-# Temps négatifs -> NA
-df_survie_matchthem$survival_time_180d[df_survie_matchthem$survival_time_180d < 0] <- NA
-
-# ajout des variables à l'objet mimids pour les réutiliser ensuite
-matchthem_mimids <- MatchThem::cbind(
-  matchthem_mimids,
-  survival_time_180d = df_survie_matchthem$survival_time_180d,
-  event_180d = df_survie_matchthem$event_180d
+# ajout au mids sous-jacent pour rendre les variables visibles dans chaque imputation
+matchthem_out$object <- mice::cbind(
+  matchthem_out$object,
+  survival_time_180d = surv_vars$survival_time_180d,
+  event_180d = surv_vars$event_180d
 )
-
-# extraction de la première imputation appariée
-df_km_matchthem <- MatchThem::complete(matchthem_mimids, action = 1, all = FALSE)
-
-km_fit <- survfit(
-  Surv(survival_time_180d, event_180d) ~ rhc,
-  data = df_km_matchthem
-)
-km_plot <- ggsurvplot(
-  km_fit,
-  data = df_km_matchthem,
-  risk.table = TRUE,
-  pval = TRUE,
-  conf.int = TRUE,
-  xlab = "Temps (jours)",
-  ylab = "Probabilité de survie",
-  title = "Courbe de survie de Kaplan-Meier pour la première imputation appariée",
-  legend.title = "Groupe",
-  legend.labs = c("No RHC", "RHC"),
-  palette = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
-)
-print(km_plot)
-
 
 # Cox dans chaque imputation puis pooling
-cox_mira <- with(
-  data = matchthem_mimids,
+cox_mi <- with(
+  data = matchthem_out,
   expr = survival::coxph(
     survival::Surv(survival_time_180d, event_180d) ~ rhc + cluster(subclass)
   )
 )
 
-cox_mipo <- pool(
-  object = cox_mira,
-  rule = "rubin1987"
-)
+pool_cox <- pool(cox_mi)
 
-cox_pooled_dataframe <- summary(
-  cox_mipo,
+res_cox <- summary(
+  pool_cox,
   conf.int = TRUE,
   exponentiate = TRUE
 )
 
-ligne_cox <- cox_pooled_dataframe[cox_pooled_dataframe$term == "rhcRHC", ]
+ligne_cox <- res_cox[res_cox$term == "rhcRHC", ]
 hr_original <- ligne_cox$estimate
 
-cox_results_pooled <- data.frame(
+cox_results_mi <- data.frame(
   Variable = "RHC vs No RHC",
   HR = round(ligne_cox$estimate, 3),
   `IC 95%` = paste0(
@@ -2635,8 +4043,283 @@ cox_results_pooled <- data.frame(
   check.names = FALSE
 )
 
-knitr::kable(cox_results_pooled, booktabs = TRUE)
+knitr::kable(cox_results_mi, booktabs = TRUE)
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#| label: calcul-propension-across-MatchThem
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+set.seed(123)
 
+imp_mids <- mice::as.mids(df_imputation_multiple_complete)
+# variable de traitement
+imp_mids$data$rhc <- factor(imp_mids$data$rhc)
+
+matchthem_across <- matchthem(
+  formula = formula_propension,
+  datasets = imp_mids,
+  approach = "across",
+  method = "nearest",
+  distance = "glm",
+  caliper = 0.2,
+  std.caliper = TRUE,
+  ratio = 1,
+  replace = FALSE
+)
+
+# extraction des 5 jeux de données appariés seuls
+df_matched_across_1 <- complete(matchthem_across, action = 1, all = FALSE)
+df_matched_across_2 <- complete(matchthem_across, action = 2, all = FALSE)
+df_matched_across_3 <- complete(matchthem_across, action = 3, all = FALSE)
+df_matched_across_4 <- complete(matchthem_across, action = 4, all = FALSE)
+df_matched_across_5 <- complete(matchthem_across, action = 5, all = FALSE)
+# vérification des effectifs appariés
+table(df_matched_across_1$rhc)
+table(df_matched_across_2$rhc)
+table(df_matched_across_3$rhc)
+table(df_matched_across_4$rhc)
+table(df_matched_across_5$rhc)
+#
+#
+#
+#
+#
+#| label: love-plot-matched-across-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Love plot des différences moyennes standardisées après appariement avec l'approche across"
+#| fig-width: 10
+#| fig-height: 12
+labels_love_plot_across <- desc
+
+love_plot_across <- cobalt::love.plot(
+  matchthem_across,
+  stats = "mean.diffs",
+  s.d.denom = "pooled",
+  drop.distance = TRUE,
+  binary = "std",
+  threshold = 0.1,
+  var.order = "unadjusted",
+  abs = TRUE,
+  line = TRUE,
+  var.names = labels_love_plot_across,
+  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
+)
+print(love_plot_across)
+#
+#
+#
+#
+#
+#| label: or-conditionnel-apres-appariement-across-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Odds ratio conditionnel par paire pour le décès à 30 jours et à 180 jours, poolé sur les 5 imputations avec l'approche across"
+# analyse dans chaque jeu apparié puis pooling
+clogit_30d_across_mi <- with(
+  data = matchthem_across,
+  expr = survival::clogit(
+    as.integer(death_30d == "Yes") ~ rhc + strata(subclass)
+  )
+)
+pool_30d_across <- pool(clogit_30d_across_mi)
+res_30d_across <- summary(
+  pool_30d_across,
+  conf.int = TRUE,
+  exponentiate = TRUE
+)
+clogit_180d_across_mi <- with(
+  data = matchthem_across,
+  expr = survival::clogit(
+    as.integer(death_180d == "Yes") ~ rhc + strata(subclass)
+  )
+)
+pool_180d_across <- pool(clogit_180d_across_mi)
+res_180d_across <- summary(
+  pool_180d_across,
+  conf.int = TRUE,
+  exponentiate = TRUE
+)
+# extraction de la ligne rhc
+ligne_30d_across <- res_30d_across[res_30d_across$term == "rhcRHC", ]
+ligne_180d_across <- res_180d_across[res_180d_across$term == "rhcRHC", ]
+or_conditional_across_mi_df <- data.frame(
+  `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
+  `OR conditionnel` = c(
+    round(ligne_30d_across$estimate, 3),
+    round(ligne_180d_across$estimate, 3)
+  ),
+  `IC 95%` = c(
+    paste0("(", round(ligne_30d_across$`2.5 %`, 3), ", ", round(ligne_30d_across$`97.5 %`, 3), ")"),
+    paste0("(", round(ligne_180d_across$`2.5 %`, 3), ", ", round(ligne_180d_across$`97.5 %`, 3), ")")
+  ),
+  `p-value` = c(
+    format.pval(ligne_30d_across$p.value, digits = 3, eps = 0.001),
+    format.pval(ligne_180d_across$p.value, digits = 3, eps = 0.001)
+  ),
+  check.names = FALSE
+)
+knitr::kable(or_conditional_across_mi_df, booktabs = TRUE)
+#
+#
+#
+#
+#
+m_boot <- imputation_model$m
+
+bootstrap_full_chain_cox <- function(data_boot) {
+  
+  data_boot$rhc <- factor(data_boot$rhc)
+  
+  imp_boot <- mice::mice(
+    data = data_boot,
+    m = m_boot,
+    method = method_mice,
+    predictorMatrix = predictor_matrix_mice,
+    seed = sample.int(1e9, 1),
+    printFlag = FALSE
+  )
+  
+  match_boot <- MatchThem::matchthem(
+    formula = formula_propension,
+    datasets = imp_boot,
+    approach = "within",
+    method = "nearest",
+    distance = "glm",
+    caliper = 0.2,
+    std.caliper = TRUE,
+    ratio = 1,
+    replace = FALSE
+  )
+  
+  matched_list <- MatchThem::complete(
+    match_boot,
+    action = "all",
+    all = FALSE
+  )
+  
+  beta <- rep(NA_real_, length(matched_list))
+  
+  for (i in seq_along(matched_list)) {
+    
+    d <- matched_list[[i]]
+    
+    d$date_admission <- as.Date(d$date_admission)
+    d$date_death <- as.Date(d$date_death)
+    d$date_last_news <- as.Date(d$date_last_news)
+    
+    d$time_to_death <- as.numeric(d$date_death - d$date_admission)
+    d$time_to_last_news <- as.numeric(d$date_last_news - d$date_admission)
+    
+    d$event_death <- as.integer(!is.na(d$date_death))
+    
+    d$followup_time <- d$time_to_last_news
+    d$followup_time[d$event_death == 1] <- d$time_to_death[d$event_death == 1]
+    
+    d$survival_time_180d <- pmin(d$followup_time, 180)
+    d$event_180d <- as.integer(d$event_death == 1 & d$time_to_death <= 180)
+    
+    d$survival_time_180d[d$survival_time_180d < 0] <- NA
+    
+    fit <- survival::coxph(
+      survival::Surv(survival_time_180d, event_180d) ~ rhc + cluster(subclass),
+      data = d
+    )
+    
+    beta[i] <- unname(stats::coef(fit)["rhcRHC"])
+  }
+  
+  mean(beta, na.rm = TRUE)
+}
+#
+#
+#
+#| label: bootstrap-cox-mi
+#| echo: false
+#| message: false
+#| warning: false
+set.seed(123)
+idx <- sample.int(nrow(df_imputation_multiple), nrow(df_imputation_multiple), replace = TRUE)
+data_b <- df_imputation_multiple[idx, , drop = FALSE]
+
+bootstrap_full_chain_cox(data_b)
+#
+#
+#
+#| label: bootstrap-cox-mi2
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+B <- 2
+loghr_boot <- rep(NA_real_, B)
+
+set.seed(123)
+
+for (b in seq_len(B)) {
+  idx <- sample.int(
+    n = nrow(df_imputation_multiple),
+    size = nrow(df_imputation_multiple),
+    replace = TRUE
+  )
+  
+  data_b <- df_imputation_multiple[idx, , drop = FALSE]
+  
+  loghr_boot[b] <- tryCatch(
+    bootstrap_full_chain_cox(data_b),
+    error = function(e) NA_real_
+  )
+}
+
+loghr_boot_valid <- loghr_boot[is.finite(loghr_boot)]
+
+ci_boot <- quantile(
+  loghr_boot_valid,
+  probs = c(0.025, 0.975),
+  na.rm = TRUE
+)
+
+bootstrap_results_cox <- data.frame(
+  Variable = "RHC vs No RHC",
+  HR_original = round(hr_original, 3),
+  `IC 95% bootstrap` = paste0(
+    "(",
+    round(exp(ci_boot[1]), 3),
+    ", ",
+    round(exp(ci_boot[2]), 3),
+    ")"
+  ),
+  `SE bootstrap (log-HR)` = round(sd(loghr_boot_valid), 3),
+  `Réplications valides` = length(loghr_boot_valid),
+  `Réplications échouées` = B - length(loghr_boot_valid),
+  check.names = FALSE
+)
+
+knitr::kable(bootstrap_results_cox, booktabs = TRUE)
+#
+#
+#
+#
+#
+#| echo: false
+#| eval: true
+#| message: false
+#| results: asis
 
 #insérer le code à la fin du fichier
 
@@ -2662,4 +4345,6 @@ code <- readLines("all_chunks_code.R", warn = FALSE)
     cat(code_wrapped, sep = "\n")
     cat("\n```")
 }
-
+#
+#
+#

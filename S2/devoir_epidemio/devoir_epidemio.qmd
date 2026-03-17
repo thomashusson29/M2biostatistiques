@@ -2603,6 +2603,7 @@ print(love_plot_matched)
 #| results: asis
 #| tbl-cap: "Nombre de covariables avec |SMD| > 0,1 avant et après appariement"
 balance <- cobalt::bal.tab(matchit_out, un = TRUE)$Balance
+balance <- balance[rownames(balance) != "distance", , drop = FALSE]
 
 tab <- data.frame(
   Avant_appariement = sum(abs(balance$Diff.Un) > 0.1, na.rm = TRUE),
