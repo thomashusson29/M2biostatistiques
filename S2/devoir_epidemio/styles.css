@@ -1,0 +1,33 @@
+h1, h2, h3, h4, h5 {
+  font-family: inherit;
+}
+
+h1 {
+  color: #1D4E89;
+  font-weight: 700;
+}
+
+h2 {
+  color: #8B1E3F;
+  font-weight: 700;
+}
+
+h3 {
+  color: #1F6B4F;
+  font-weight: 700;
+}
+
+h4 {
+  color: #5A2E8A;
+  font-weight: 700;
+}
+
+h5 {
+  color: #2F2F2F;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.header-section-number {
+  color: inherit;
+}

@@ -44,6 +44,9 @@ library(e1071)
 library(psy)
 library(reshape2)
 knitr::opts_chunk$set(echo = TRUE)
+if (knitr::is_latex_output()) {
+    knitr::opts_chunk$set(dev = "pdf", fig.path = "devoir_epidemio_files/figure-pdf/")
+}
 
 #file_qmd <- "/Users/thomashusson/Documents/Projets/M2biostatistiques/devoir_stats_avancees/devoir_stats_avancees.qmd"
 
@@ -1296,6 +1299,7 @@ df_avant_imputation$event_180d <- as.integer(df_avant_imputation$event_death == 
 
 # Temps négatifs -> NA
 df_avant_imputation$survival_time_180d[df_avant_imputation$survival_time_180d < 0] <- NA
+df_avant_imputation$event_180d[is.na(df_avant_imputation$survival_time_180d)] <- NA
 
 # création de l'objet de survie
 surv_object_brut <- Surv(time = df_avant_imputation$survival_time_180d, event = df_avant_imputation$event_180d)
@@ -1730,7 +1734,9 @@ vars_exclues_predictors <- c(
   grep("^date_", names(df_avant_imputation), value = TRUE),
   grep("^primary_binaire_", names(df_avant_imputation), value = TRUE),
   grep("^secondary_binaire_", names(df_avant_imputation), value = TRUE),
-  grep("^cancer_YN$", names(df_avant_imputation), value = TRUE)
+  grep("^cancer_YN$", names(df_avant_imputation), value = TRUE),
+  "time_to_death", "time_to_last_news", "event_death", "followup_time",
+  "death_30d", "time_to_death_if_death_within_30d", "death_180d"
 )
 
 # matrice des prédicteurs : toutes les variables sauf celles exclues
@@ -1989,6 +1995,7 @@ df_matched_mediane$event_180d <- as.integer(df_matched_mediane$event_death == 1 
 
 # Temps négatifs -> NA
 df_matched_mediane$survival_time_180d[df_matched_mediane$survival_time_180d < 0] <- NA
+df_matched_mediane$event_180d[is.na(df_matched_mediane$survival_time_180d)] <- NA
 
 # création de l'objet de survie
 surv_object_matched_mediane <- Surv(time = df_matched_mediane$survival_time_180d, event = df_matched_mediane$event_180d)
@@ -2063,10 +2070,8 @@ knitr::kable(cox_results, booktabs = TRUE)
 cox_zph <- cox.zph(cox_model)
 plot(cox_zph)
 
-
-resume_deces <- data.frame(
+effectifs_apres_appariement <- data.frame(
   Imputation = paste0("Jeu ", 1:5),
-
   RHC_n = c(
     sum(matchthem_dataframe_1$rhc == "RHC"),
     sum(matchthem_dataframe_2$rhc == "RHC"),
@@ -2074,62 +2079,15 @@ resume_deces <- data.frame(
     sum(matchthem_dataframe_4$rhc == "RHC"),
     sum(matchthem_dataframe_5$rhc == "RHC")
   ),
-
   No_RHC_n = c(
     sum(matchthem_dataframe_1$rhc == "No RHC"),
     sum(matchthem_dataframe_2$rhc == "No RHC"),
     sum(matchthem_dataframe_3$rhc == "No RHC"),
     sum(matchthem_dataframe_4$rhc == "No RHC"),
     sum(matchthem_dataframe_5$rhc == "No RHC")
-  ),
-
-  Deces_30j_RHC = c(
-    sum(matchthem_dataframe_1$rhc == "RHC" & matchthem_dataframe_1$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_2$rhc == "RHC" & matchthem_dataframe_2$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_3$rhc == "RHC" & matchthem_dataframe_3$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_4$rhc == "RHC" & matchthem_dataframe_4$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_5$rhc == "RHC" & matchthem_dataframe_5$death_30d == "Yes", na.rm = TRUE)
-  ),
-
-  Deces_30j_No_RHC = c(
-    sum(matchthem_dataframe_1$rhc == "No RHC" & matchthem_dataframe_1$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_2$rhc == "No RHC" & matchthem_dataframe_2$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_3$rhc == "No RHC" & matchthem_dataframe_3$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_4$rhc == "No RHC" & matchthem_dataframe_4$death_30d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_5$rhc == "No RHC" & matchthem_dataframe_5$death_30d == "Yes", na.rm = TRUE)
-  ),
-
-  Deces_180j_RHC = c(
-    sum(matchthem_dataframe_1$rhc == "RHC" & matchthem_dataframe_1$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_2$rhc == "RHC" & matchthem_dataframe_2$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_3$rhc == "RHC" & matchthem_dataframe_3$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_4$rhc == "RHC" & matchthem_dataframe_4$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_5$rhc == "RHC" & matchthem_dataframe_5$death_180d == "Yes", na.rm = TRUE)
-  ),
-
-  Deces_180j_No_RHC = c(
-    sum(matchthem_dataframe_1$rhc == "No RHC" & matchthem_dataframe_1$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_2$rhc == "No RHC" & matchthem_dataframe_2$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_3$rhc == "No RHC" & matchthem_dataframe_3$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_4$rhc == "No RHC" & matchthem_dataframe_4$death_180d == "Yes", na.rm = TRUE),
-    sum(matchthem_dataframe_5$rhc == "No RHC" & matchthem_dataframe_5$death_180d == "Yes", na.rm = TRUE)
   )
 )
-
-resume_deces$Deces_30j_RHC_pct <- round(100 * resume_deces$Deces_30j_RHC / resume_deces$RHC_n, 1)
-resume_deces$Deces_30j_No_RHC_pct <- round(100 * resume_deces$Deces_30j_No_RHC / resume_deces$No_RHC_n, 1)
-resume_deces$Deces_180j_RHC_pct <- round(100 * resume_deces$Deces_180j_RHC / resume_deces$RHC_n, 1)
-resume_deces$Deces_180j_No_RHC_pct <- round(100 * resume_deces$Deces_180j_No_RHC / resume_deces$No_RHC_n, 1)
-
-tableau_deces <- data.frame(
-  Imputation = resume_deces$Imputation,
-  `RHC, décès à 30 j` = paste0(resume_deces$Deces_30j_RHC, " (", resume_deces$Deces_30j_RHC_pct, "%)"),
-  `No RHC, décès à 30 j` = paste0(resume_deces$Deces_30j_No_RHC, " (", resume_deces$Deces_30j_No_RHC_pct, "%)"),
-  `RHC, décès à 180 j` = paste0(resume_deces$Deces_180j_RHC, " (", resume_deces$Deces_180j_RHC_pct, "%)"),
-  `No RHC, décès à 180 j` = paste0(resume_deces$Deces_180j_No_RHC, " (", resume_deces$Deces_180j_No_RHC_pct, "%)")
-)
-
-knitr::kable(tableau_deces, booktabs = TRUE)
+knitr::kable(effectifs_apres_appariement, booktabs = TRUE)
 
 
 #La fonction "with" de `mice` permet d'appliquer une fonction à chaque jeu de données imputé, et de stocker les résultats dans un objet de classe "mira" (Multiply Imputed Repeated Analysis).
@@ -2226,6 +2184,7 @@ df_survie_matchthem$event_180d <- as.integer(df_survie_matchthem$event_death == 
 
 # Temps négatifs -> NA
 df_survie_matchthem$survival_time_180d[df_survie_matchthem$survival_time_180d < 0] <- NA
+df_survie_matchthem$event_180d[is.na(df_survie_matchthem$survival_time_180d)] <- NA
 
 # ajout des variables à l'objet mimids pour les réutiliser ensuite
 matchthem_mimids <- MatchThem::cbind(
@@ -2307,38 +2266,75 @@ cox_results_pooled <- data.frame(
 
 knitr::kable(cox_results_pooled, booktabs = TRUE)
 
-# ajustement du modèle de Cox multivarié
-cox_multivariate_model <- coxph(
-  Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
-    primary_disease_category + secondary_disease_category +
-    diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
-    diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
-    diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
-    diagnosis_orthopedic + adl_score + DASI_score + dnr_status + cancer +
-    survival_probability_2mths + apache_score + glasgow_score +
-    weight + temperature + mean_blood_pressure + respiratory_rate +
-    heart_rate + pa_fi_ratio + paco2 + ph + wbc + hematocrit +
-    sodium + potassium + creatinine + bilirubin + albumin + comorbidity_cardiovascular + comorbidity_congestive_heart +
-    comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary + comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
-    comorbidity_malignancy + comorbidity_immunosuppression + comorbidity_transfer + comorbidity_myocardial_infarction +
-    urine_output,
-  data = df_imputation_mediane
+formule_cox_multivariee <- Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
+  primary_disease_category + secondary_disease_category +
+  diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
+  diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
+  diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
+  diagnosis_orthopedic + adl_score + DASI_score + dnr_status + cancer +
+  survival_probability_2mths + apache_score + glasgow_score +
+  weight + temperature + mean_blood_pressure + respiratory_rate +
+  heart_rate + pa_fi_ratio + paco2 + ph + wbc + hematocrit +
+  sodium + potassium + creatinine + bilirubin + albumin + comorbidity_cardiovascular + comorbidity_congestive_heart +
+  comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary + comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
+  comorbidity_malignancy + comorbidity_immunosuppression + comorbidity_transfer + comorbidity_myocardial_infarction +
+  urine_output
+
+n_total_cox_multivarie <- nrow(df_avant_imputation)
+n_analyse_cox_multivarie <- nrow(stats::na.omit(model.frame(formule_cox_multivariee, data = df_avant_imputation)))
+n_exclus_cox_multivarie <- n_total_cox_multivarie - n_analyse_cox_multivarie
+
+effectif_cox_multivarie <- data.frame(
+  `Patients totaux` = n_total_cox_multivarie,
+  `Patients analyses` = n_analyse_cox_multivarie,
+  `Patients exclus` = n_exclus_cox_multivarie,
+  `% exclus` = round(100 * n_exclus_cox_multivarie / n_total_cox_multivarie, 1),
+  check.names = FALSE
 )
-#extraction de l'OR pour le RHC et de son intervalle de confiance
-cox_multivariate_summary <- summary(cox_multivariate_model)
-cox_multivariate_results <- data.frame(
-  Variable = rownames(cox_multivariate_summary$coefficients),
-  HR = round(cox_multivariate_summary$coefficients[, "exp(coef)"], 2),
-  IC95 = paste0("(", round(cox_multivariate_summary$conf.int[, "lower .95"], 2), ", ", round(cox_multivariate_summary$conf.int[, "upper .95"], 2), ")"),
-  p_value = format.pval(cox_multivariate_summary$coefficients[, "Pr(>|z|)"], digits = 3, eps = 0.001),
+
+knitr::kable(effectif_cox_multivarie, booktabs = TRUE)
+
+cox_multivariate_mira <- with(
+  data = imputation_mids,
+  expr = survival::coxph(
+    survival::Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
+      primary_disease_category + secondary_disease_category +
+      diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
+      diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
+      diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
+      diagnosis_orthopedic + adl_score + DASI_score + dnr_status + cancer +
+      survival_probability_2mths + apache_score + glasgow_score +
+      weight + temperature + mean_blood_pressure + respiratory_rate +
+      heart_rate + pa_fi_ratio + paco2 + ph + wbc + hematocrit +
+      sodium + potassium + creatinine + bilirubin + albumin + comorbidity_cardiovascular + comorbidity_congestive_heart +
+      comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary + comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
+      comorbidity_malignancy + comorbidity_immunosuppression + comorbidity_transfer + comorbidity_myocardial_infarction +
+      urine_output
+  )
+)
+
+cox_multivariate_mipo <- pool(
+  object = cox_multivariate_mira,
+  rule = "rubin1987"
+)
+
+cox_multivariate_pooled_dataframe <- summary(
+  cox_multivariate_mipo,
+  conf.int = TRUE,
+  exponentiate = TRUE
+)
+
+cox_multivariate_pooled_results <- cox_multivariate_pooled_dataframe[cox_multivariate_pooled_dataframe$term == "rhcRHC", ]
+
+cox_multivariate_pooled_results <- data.frame(
+  Variable = "RHC vs No RHC",
+  HR = round(cox_multivariate_pooled_results$estimate, 2),
+  IC95 = paste0("(", round(cox_multivariate_pooled_results$`2.5 %`, 2), ", ", round(cox_multivariate_pooled_results$`97.5 %`, 2), ")"),
+  p_value = format.pval(cox_multivariate_pooled_results$p.value, digits = 3, eps = 0.001),
   row.names = NULL
 )
-cox_multivariate_results <- cox_multivariate_results[cox_multivariate_results$Variable == "rhcRHC", ]
 
-
-cox_multivariate_results$Variable <- "RHC vs No RHC"
-
-knitr::kable(cox_multivariate_results, booktabs = TRUE)
+knitr::kable(cox_multivariate_pooled_results, booktabs = TRUE)
 
 synthese_estimateurs <- data.frame(
   Estimateur = c(
@@ -2388,7 +2384,7 @@ comparaison_estimateurs <- data.frame(
     "Avant ajustement",
     "Imputation médiane + appariement",
     "Imputation multiple + appariement",
-    "Cox multivarié, population totale"
+    "Cox multivarié poolé, imputation multiple"
   ),
   `OR décès 30 j` = c(
     paste0(or_summary_df_OR_30d_nonajuste, " ", or_summary_df_IC_30d_nonajuste),
@@ -2406,7 +2402,7 @@ comparaison_estimateurs <- data.frame(
     paste0(cox_summary_non_ajuste_HR, " ", cox_summary_non_ajuste_IC95),
     paste0(cox_summary_ajuste_mediane_HR, " ", cox_summary_ajuste_mediane_IC95),
     paste0(cox_summary_ajuste_multiple_HR, " ", cox_summary_ajuste_multiple_IC95),
-    paste0(cox_multivariate_results$HR, " ", cox_multivariate_results$IC95)
+    paste0(cox_multivariate_pooled_results$HR, " ", cox_multivariate_pooled_results$IC95)
   ),
   check.names = FALSE
 )
@@ -2425,7 +2421,7 @@ knitr::kable(
   )
 
 # calcul des p-values pour les variables basales après appariement
-df_baseline_post_matching <- df_matched_mediane[, unique(c("rhc", cols_to_include_baseline))]
+df_baseline_post_matching <- df_matched_mediane[, unique(c("rhc", "subclass", cols_to_include_baseline))]
 
 # Forcer l'affichage des variables binaires sur une seule ligne (compte du "Yes"),
 binary_var_names <- setdiff(
@@ -2467,6 +2463,7 @@ var_to_section <- c(
 baseline_comparison_table <- gtsummary::tbl_summary(
   df_baseline_post_matching,
   by = "rhc",
+  include = -subclass,
   missing = "no",
   statistic = list(
     gtsummary::all_continuous() ~ "{mean} ({sd})",
@@ -2547,7 +2544,16 @@ baseline_comparison_table <- gtsummary::tbl_summary(
 
 #mise en forme du tableau pour rendu quarto vers pdf
 baseline_comparison_table <- baseline_comparison_table |>
-  gtsummary::add_p(test = list(gtsummary::all_continuous() ~ "t.test")) |>
+  gtsummary::add_p(
+    group = subclass,
+    test = list(
+      gtsummary::all_continuous() ~ "paired.wilcox.test",
+      gtsummary::all_dichotomous() ~ "mcnemar.test"
+    )
+  ) |>
+  gtsummary::modify_footnote(
+    p.value ~ "Wilcoxon apparié (continues), McNemar (binaires)."
+  ) |>
   gtsummary::modify_header(label = "**Variable**")
 
 tb <- baseline_comparison_table$table_body
@@ -2600,6 +2606,59 @@ baseline_comparison_table |>
     italic = TRUE
   )
 
+
+# ajustement du modèle de Cox multivarié
+cox_multivariate_model <- coxph(
+  formule_cox_multivariee,
+  data = df_avant_imputation
+)
+#extraction de l'OR pour le RHC et de son intervalle de confiance
+cox_multivariate_summary <- summary(cox_multivariate_model)
+cox_multivariate_results <- data.frame(
+  Variable = rownames(cox_multivariate_summary$coefficients),
+  HR = round(cox_multivariate_summary$coefficients[, "exp(coef)"], 2),
+  IC95 = paste0("(", round(cox_multivariate_summary$conf.int[, "lower .95"], 2), ", ", round(cox_multivariate_summary$conf.int[, "upper .95"], 2), ")"),
+  p_value = format.pval(cox_multivariate_summary$coefficients[, "Pr(>|z|)"], digits = 3, eps = 0.001),
+  row.names = NULL
+)
+cox_multivariate_results <- cox_multivariate_results[cox_multivariate_results$Variable == "rhcRHC", ]
+
+
+cox_multivariate_results$Variable <- "RHC vs No RHC"
+
+knitr::kable(cox_multivariate_results, booktabs = TRUE)
+
+# identification des variables avec des données manquantes
+variables_manquantes <- names(df_avant_imputation)[colSums(is.na(df_avant_imputation)) > 0]
+# ajustement du modèle de Cox multivarié sans les variables avec des données manquantes
+cox_multivariate_sans_missing_model <- coxph(
+  Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
+    primary_disease_category + secondary_disease_category +
+    diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
+    diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
+    diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
+    diagnosis_orthopedic + DASI_score + dnr_status + cancer +
+    survival_probability_2mths + apache_score + glasgow_score +
+    temperature + pa_fi_ratio + paco2 + ph + hematocrit +
+    sodium + potassium + creatinine + bilirubin + albumin +
+    comorbidity_cardiovascular + comorbidity_congestive_heart +
+    comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary +
+    comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
+    comorbidity_malignancy + comorbidity_immunosuppression +
+    comorbidity_transfer + comorbidity_myocardial_infarction,
+  data = df_avant_imputation
+)
+#extraction de l'OR pour le RHC et de son intervalle de confiance
+cox_multivariate_sans_missing_summary <- summary(cox_multivariate_sans_missing_model)
+cox_multivariate_sans_missing_results <- data.frame(
+  Variable = rownames(cox_multivariate_sans_missing_summary$coefficients),
+  HR = round(cox_multivariate_sans_missing_summary$coefficients[, "exp(coef)"], 2),
+  IC95 = paste0("(", round(cox_multivariate_sans_missing_summary$conf.int[, "lower .95"], 2), ", ", round(cox_multivariate_sans_missing_summary$conf.int[, "upper .95"], 2), ")"),
+  p_value = format.pval(cox_multivariate_sans_missing_summary$coefficients[, "Pr(>|z|)"], digits = 3, eps = 0.001),
+  row.names = NULL
+)
+cox_multivariate_sans_missing_results <- cox_multivariate_sans_missing_results[cox_multivariate_sans_missing_results$Variable == "rhcRHC", ]
+knitr::kable(cox_multivariate_sans_missing_results, booktabs = TRUE)
 
 
 #insérer le code à la fin du fichier

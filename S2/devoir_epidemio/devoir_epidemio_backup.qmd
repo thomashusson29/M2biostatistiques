@@ -163,6 +163,7 @@ library(viridisLite)
 library(ggplot2)
 library(binom)
 library(survminer)
+library(MatchThem)
 library(pROC)
 library(treemap)
 library(psy)
@@ -257,9 +258,8 @@ if (is.na(file_qmd)) {
 ```
 
 \newpage
-::: callout-important
-**Utilisation de l'IA**
 
+::: {.callout-important title="Utilisation de l'IA"}
 Des LLMs ont été utilisés à plusieurs reprises dans ce devoir, pour deux tâches principales :
 
 -   En cas de problème d'exécution du code R (pour suggérer correction et amélioration)
@@ -270,6 +270,7 @@ Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.
 :::
 
 \newpage
+
 # Introduction
 
 ## Énoncé du devoir
@@ -311,6 +312,7 @@ Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.
 7.  Conclusion : synthèse des résultats, discussion
 
 \newpage
+
 # Data-management
 
 ```{r}
@@ -321,6 +323,8 @@ Utilisation de Gemini pour le rendu Quarto et Github Copilot pour le code R.
 #| results: hide
 # Charger les données
 df <- read.csv2("/Users/thomashusson/Documents/Projets/M2biostatistiques/S2/devoir_epidemio/rhc devoir épidémio-RC csv.csv", header = TRUE, stringsAsFactors = FALSE)
+#linux
+#df <- read.csv2("/home/thomashusson/Documents/Projets/M2biostatistiques/S2/devoir_epidemio/rhc devoir épidémio-RC csv.csv", header = TRUE, stringsAsFactors = FALSE)
 summary(df)
 colnames(df)
 skimr::skim(df)
@@ -503,8 +507,6 @@ desc <- c(
 )
 ```
 
-Tableau de correspondance des noms avant -> après et description des variables :
-
 ```{r}
 #| label: tableau-correspondance-variables
 #| echo: false
@@ -585,6 +587,7 @@ cat(paste(c(header, rows, footer), collapse = "\n"))
 ```
 
 \newpage
+
 ## Taux de données manquantes
 
 ```{r}
@@ -611,7 +614,7 @@ missing_data_summary %>%
   kable_styling(full_width = FALSE, position = "center")
 ```
 
--  Les variables `adl_score` et `urine_output` sont les deux seules à avoir des données manquantes.
+-   Les variables `adl_score` et `urine_output` sont les deux seules à avoir des données manquantes.
 
 -   Pour la variables `adl_score` (correspondant au score ADL), le taux de données manquantes est de 74,9%.
 
@@ -829,6 +832,7 @@ days_missing_discharge
 -   Une vérification rapide montre qu'il est décédé `r days_missing_discharge` jours après son admission. On ne peut pas affirmer que le patient est sorti entre temps de son hospitalisation.
 
 \newpage
+
 # Description du jeu de données
 
 ## Vue d’ensemble du jeu de données
@@ -976,12 +980,11 @@ barplot(
 
 -   Le diagnostic principal le plus fréquent est l'insuffisance rénale aiguë avec `r sum(df$primary_disease_category == "Insuffisance rénale aiguë", na.rm = TRUE)` patients soit `r round(sum(df$primary_disease_category == "Insuffisance rénale aiguë", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients , suivi du choc septique avec `r sum(df$primary_disease_category == "Choc septique", na.rm = TRUE)` patients soit `r round(sum(df$primary_disease_category == "Choc septique", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients.
 
-
-
+\newpage
 
 ### Diagnostic et comorbidités (variables "Yes"/"No")
 
--   Les variables de diagnostic et de comorbidités sont codées "Yes"/"No". 
+-   Les variables de diagnostic et de comorbidités sont codées "Yes"/"No".
 
 -   On peut visualiser la distribution des modalités pour chacune de ces variables à l'aide de diagrammes en batons (barplots).
 
@@ -1064,6 +1067,7 @@ barplot(
 ```
 
 \newpage
+
 #### Comorbidités
 
 -   Il existe 12 variables de comorbidités codées "Yes"/"No" : cardiovasculaire, insuffisance cardiaque, démence, psychiatrique, respiratoire chronique, rénal, hépatique, hémorragie digestive haute, cancer, immunodépression, transfert (\> 24h) et infarctus du myocarde.
@@ -1072,7 +1076,7 @@ barplot(
 #| label: fig-categorical-comorbidity
 #| fig-cap: "Distribution des modalités (comorbidités)"
 #| fig-width: 10
-#| fig-height: 5
+#| fig-height: 8
 #| echo: false
 #| message: false
 #| warning: false
@@ -1154,6 +1158,7 @@ barplot(
     )
 ```
 
+\newpage
 #### En un seul graphique
 
 -   Permet de mieux visualiser car même échelle pour tous, mais moins lisible car plus petit (surtout pour les moins fréquents)
@@ -1171,7 +1176,7 @@ barplot(
 cat_cols_comorbidity <- grep("comorbidity", cat_cols, value = TRUE)
 cat_cols_diagnosis   <- grep("diagnosis",   cat_cols, value = TRUE)
 
-# création des matrices dans CE chunk
+# création des matrices dans chunk
 comorbidity_matrix <- as.matrix(df[cat_cols_comorbidity]) == "Yes"
 diagnosis_matrix   <- as.matrix(df[cat_cols_diagnosis])   == "Yes"
 
@@ -1251,7 +1256,7 @@ barplot(
 
 -   Le diagnostic associé le plus fréquent est respiratoire avec `r sum(df$diagnosis_respiratory == "Yes", na.rm = TRUE)` patients soit `r round(sum(df$diagnosis_respiratory == "Yes", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients, suivi des problèmes cardiovasculaires avec `r sum(df$diagnosis_cardiovascular == "Yes", na.rm = TRUE)` patients soit `r round(sum(df$diagnosis_cardiovascular == "Yes", na.rm = TRUE) / nrow(df) * 100, 1)`% des patients.
 
-
+\newpage
 ### Variables sociodémographiques
 
 -   Il existe 5 variables sociodémographiques : sexe, statut non-réanimatoire, classe d'assurance, origine, revenu
@@ -1425,10 +1430,10 @@ death_summary_df <- data.frame(
 knitr::kable(death_summary_df, booktabs = TRUE)
 ```
 
-
 -   On constate qu'environ 1/3 des patients sont décédés à 30 jours et près des 2/3 à 180 jours.
 
 \newpage
+
 ### Cathéterisme cardiaque droit (RHC)
 
 -   `r sum(df$rhc == "RHC", na.rm = TRUE)` patients ont eu un cathétérisme cardiaque droit (RHC), soit `r round(mean(df$rhc == "RHC", na.rm = TRUE) * 100, 1)`% de la cohorte.
@@ -1472,6 +1477,7 @@ knitr::kable(rhc_summary_df, booktabs = TRUE)
 ```
 
 \newpage
+
 ## Variables numériques
 
 -   Nombre de variables numériques : `r sum(col_type == "numeric")`
@@ -1511,17 +1517,17 @@ knitr::kable(
   kableExtra::column_spec(1, width = "6cm")
 ```
 
--   On constate quelques valeurs aberrantes dans les variables numériques : 
+-   On constate quelques valeurs aberrantes dans les variables numériques :
 
-    -  Pression artérielle moyenne minimale à 0mmHg.
+    -   Pression artérielle moyenne minimale à 0mmHg.
 
-    -  Leucocytose minimale à 0 G/L.
+    -   Leucocytose minimale à 0 G/L.
 
-    -  Fréquence cardiaque minimale à 0 bpm.
+    -   Fréquence cardiaque minimale à 0 bpm.
 
-    -  Fréquence respiratoire minimale à 0 resp/min.
+    -   Fréquence respiratoire minimale à 0 resp/min.
 
-    -  Poids minimal à 0 kg.
+    -   Poids minimal à 0 kg.
 
 ### Gestion des valeurs aberrantes dans les variables numériques
 
@@ -1544,63 +1550,27 @@ outlier_summary_df <- data.frame(
 knitr::kable(outlier_summary_df, booktabs = TRUE)
 ```
 
--   Le taux de valeurs "0" est relativement faible pour chacune de ces variables, ce qui suggère que ces valeurs pourraient être des erreurs de saisie ou des données manquantes codées à tort comme "0". 
+-   Le taux de valeurs "0" est relativement faible pour chacune de ces variables, ce qui suggère que ces valeurs pourraient être des erreurs de saisie ou des données manquantes codées à tort comme "0".
 
 -   Au maximum, la variable "Poids" contient `r round(mean(df$weight == 0, na.rm = TRUE) * 100, 2)`% de valeurs "0", ce qui est relativement faible.
 
--   On propose d'imputer toutes ces valeurs manquantes par la médiane de chaque variable, ce qui est une méthode simple et robuste pour gérer les valeurs aberrantes et les données manquantes.
+-  Pour l'instant, ces valeurs "0" sont considérées comme des données manquantes et seront remplacées par `NA`.
 
 ```{r}
 #| label: code-imputation-outliers
 #| echo: false
 #| message: false
 #| warning: false
-# imputation des valeurs 0 par la médiane de chaque variable
-df$mean_blood_pressure[df$mean_blood_pressure == 0] <- median(df$mean_blood_pressure[df$mean_blood_pressure > 0], na.rm = TRUE)
-df$wbc[df$wbc == 0] <- median(df$wbc[df$wbc > 0], na.rm = TRUE)
-df$heart_rate[df$heart_rate == 0] <- median(df$heart_rate[df$heart_rate > 0], na.rm = TRUE)
-df$respiratory_rate[df$respiratory_rate == 0] <- median(df$respiratory_rate[df$respiratory_rate > 0], na.rm = TRUE)
-df$weight[df$weight == 0] <- median(df$weight[df$weight > 0], na.rm = TRUE)
+#création d'un dataframe pour l'imputation multiple
+df_avant_imputation <- df
+
+#remplacement des valeurs 0 dans df_avant_imputation par NA
+df_avant_imputation$mean_blood_pressure[df_avant_imputation$mean_blood_pressure == 0] <- NA
+df_avant_imputation$wbc[df_avant_imputation$wbc == 0] <- NA
+df_avant_imputation$heart_rate[df_avant_imputation$heart_rate == 0] <- NA
+df_avant_imputation$respiratory_rate[df_avant_imputation$respiratory_rate == 0] <- NA
+df_avant_imputation$weight[df_avant_imputation$weight == 0] <- NA
 ```
-
-### Tableau récapitulatif des variables numériques après imputation
-
-```{r}
-#| label: tbl-numeric-variables-imputed
-#| tbl-cap: "Variables numériques après imputation des valeurs aberrantes"
-#| echo: false
-#| message: false
-#| warning: false
-#| results: asis
-# tableau avec moyenne, SD, médiane, Q1, Q3, min et max pour chacune des variables numériques après imputation
-numeric_cols_imputed <- c(
-  "mean_blood_pressure",
-  "wbc",
-  "heart_rate",
-  "respiratory_rate",
-  "weight"
-)
-
-numeric_summary_imputed_df <- data.frame(
-  Variables = numeric_cols_imputed,
-  Moyenne = sapply(df[numeric_cols_imputed], function(x) round(mean(x, na.rm = TRUE), 2)),
-  SD = sapply(df[numeric_cols_imputed], function(x) round(sd(x, na.rm = TRUE), 2)),
-  Médiane = sapply(df[numeric_cols_imputed], function(x) round(median(x, na.rm = TRUE), 2)),
-  Q1 = sapply(df[numeric_cols_imputed], function(x) round(quantile(x, 0.25, na.rm = TRUE), 2)),
-  Q3 = sapply(df[numeric_cols_imputed], function(x) round(quantile(x, 0.75, na.rm = TRUE), 2)),
-  Min = sapply(df[numeric_cols_imputed], function(x) round(min(x, na.rm = TRUE), 2)),
-  Max = sapply(df[numeric_cols_imputed], function(x) round(max(x, na.rm = TRUE), 2)),
-  check.names = FALSE
-)
-
-knitr::kable(
-  numeric_summary_imputed_df,
-  booktabs = FALSE,
-  row.names = FALSE
-) %>%
-  kableExtra::column_spec(1, width = "6cm")
-```
-
 
 ### Histogramme et courbes de densité pour chacune des variables numériques
 
@@ -1623,7 +1593,7 @@ cols <- viridisLite::viridis(n = max(length(numeric_cols), 1), begin = 0.1, end 
 par(mfrow = c(4, 6), mar = c(4, 4, 2, 1))
 
 hist(
-  df$age, 
+  df_avant_imputation$age, 
   breaks = 20, 
   main = "Âge", 
   xlab = "Âge", 
@@ -1632,9 +1602,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$age, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$age, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$education_years, 
+  df_avant_imputation$education_years, 
   breaks = 20, 
   main = "Années d'éducation", 
   xlab = "Années d'éducation", 
@@ -1643,9 +1613,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$education_years, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$education_years, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$survival_probability_2mths, 
+  df_avant_imputation$survival_probability_2mths, 
   breaks = 20, 
   main = "Probabilité de survie", 
   xlab = "Probabilité de survie", 
@@ -1654,9 +1624,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$survival_probability_2mths, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$survival_probability_2mths, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$DASI_score, 
+  df_avant_imputation$DASI_score, 
   breaks = 20, 
   main = "Score DASI", 
   xlab = "Score DASI", 
@@ -1665,9 +1635,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$DASI_score, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$DASI_score, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$apache_score, 
+  df_avant_imputation$apache_score, 
   breaks = 20, 
   main = "Score APACHE", 
   xlab = "Score APACHE", 
@@ -1676,9 +1646,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$apache_score, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$apache_score, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$glasgow_score, 
+  df_avant_imputation$glasgow_score, 
   breaks = 20, 
   main = "score de Glasgow", 
   xlab = "score de Glasgow", 
@@ -1687,9 +1657,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$glasgow_score, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$glasgow_score, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$mean_blood_pressure, 
+  df_avant_imputation$mean_blood_pressure, 
   breaks = 20, 
   main = "PA moyenne", 
   xlab = "PA moyenne (mmHg)", 
@@ -1698,9 +1668,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$mean_blood_pressure, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$mean_blood_pressure, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$wbc, 
+  df_avant_imputation$wbc, 
   breaks = 20, 
   main = "Leucocytose ", 
   xlab = "Leucocytose (10^3/µL)", 
@@ -1709,9 +1679,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$wbc, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$wbc, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$heart_rate, 
+  df_avant_imputation$heart_rate, 
   breaks = 20, 
   main = "Pouls", 
   xlab = "Pouls (bpm)", 
@@ -1720,9 +1690,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$heart_rate, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$heart_rate, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$respiratory_rate, 
+  df_avant_imputation$respiratory_rate, 
   breaks = 20, 
   main = "Fréquence respiratoire", 
   xlab = "FR (resp/min)", 
@@ -1731,9 +1701,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$respiratory_rate, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$respiratory_rate, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$temperature, 
+  df_avant_imputation$temperature, 
   breaks = 20, 
   main = "Température", 
   xlab = "T (°C)", 
@@ -1742,9 +1712,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$temperature, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$temperature, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$pa_fi_ratio, 
+  df_avant_imputation$pa_fi_ratio, 
   breaks = 20, 
   main = "PaO2/FiO2", 
   xlab = "PaO2/FiO2", 
@@ -1753,9 +1723,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$pa_fi_ratio, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$pa_fi_ratio, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$albumin, 
+  df_avant_imputation$albumin, 
   breaks = 20, 
   main = "Albuminémie", 
   xlab = "Albuminémie (g/dL)", 
@@ -1764,9 +1734,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$albumin, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$albumin, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$hematocrit, 
+  df_avant_imputation$hematocrit, 
   breaks = 20, 
   main = "Hématocrite", 
   xlab = "Hématocrite (%)", 
@@ -1775,9 +1745,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$hematocrit, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$hematocrit, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$bilirubin, 
+  df_avant_imputation$bilirubin, 
   breaks = 20, 
   main = "Bilirubinémie", 
   xlab = "Bilirubine (µmol/L)", 
@@ -1786,9 +1756,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$bilirubin, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$bilirubin, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$creatinine, 
+  df_avant_imputation$creatinine, 
   breaks = 20, 
   main = "Créatininémie", 
   xlab = "Créatinine (µmol/L)", 
@@ -1797,9 +1767,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$creatinine, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$creatinine, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$sodium, 
+  df_avant_imputation$sodium, 
   breaks = 20, 
   main = "Natrémie", 
   xlab = "Natrémie (mmol/L)", 
@@ -1808,9 +1778,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$sodium, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$sodium, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$potassium, 
+  df_avant_imputation$potassium, 
   breaks = 20, 
   main = "Kalémie", 
   xlab = "Kalémie (mmol/L)", 
@@ -1819,9 +1789,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$potassium, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$potassium, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$paco2, 
+  df_avant_imputation$paco2, 
   breaks = 20, 
   main = "PaCO2", 
   xlab = "PaCO2 (mmHg)", 
@@ -1830,9 +1800,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$paco2, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$paco2, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$ph, 
+  df_avant_imputation$ph, 
   breaks = 20, 
   main = "pH", 
   xlab = "pH", 
@@ -1841,9 +1811,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$ph, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$ph, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$weight, 
+  df_avant_imputation$weight, 
   breaks = 20, 
   main = "Poids", 
   xlab = "Poids (kg)", 
@@ -1852,9 +1822,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$weight, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$weight, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$adl_score, 
+  df_avant_imputation$adl_score, 
   breaks = 20, 
   main = "Score ADL", 
   xlab = "Score ADL", 
@@ -1863,9 +1833,9 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$adl_score, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$adl_score, na.rm = TRUE), col = "blue", lwd = 2)
 hist(
-  df$urine_output, 
+  df_avant_imputation$urine_output, 
   breaks = 20, 
   main = "Diurèse", 
   xlab = "Diurèse (mL)", 
@@ -1874,7 +1844,7 @@ hist(
   border = TRUE, 
   freq = FALSE
 )
-lines(density(df$urine_output, na.rm = TRUE), col = "blue", lwd = 2)
+lines(density(df_avant_imputation$urine_output, na.rm = TRUE), col = "blue", lwd = 2)
 ```
 
 ### Normalité des variables
@@ -1894,13 +1864,14 @@ lines(density(df$urine_output, na.rm = TRUE), col = "blue", lwd = 2)
 #| warning: false
 #| results: asis
 qqnorm(
-    df$age, 
+    df_avant_imputation$age, 
     main = "QQ-plot pour l'âge"
 )
-qqline(df$age, col = "red", lwd = 2)
+qqline(df_avant_imputation$age, col = "red", lwd = 2)
 ```
 
 \newpage
+
 # Analyse non ajustée
 
 ## Résultats
@@ -1922,7 +1893,7 @@ qqline(df$age, col = "red", lwd = 2)
 #| tbl-cap: "Comparaison des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC"
 # avec pourcentage de décès à 30 jours et à 180 jours dans les groupes R
 # utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC
-summary_table <- df %>%
+summary_table <- df_avant_imputation %>%
   select(rhc, death_30d, death_180d) %>%
   tbl_summary(
     by = rhc,
@@ -1950,25 +1921,33 @@ summary_table
 #| results: asis
 #| tbl-cap: "Odds Ratio (OR) pour le décès à 30 jours et à 180 jours"
 # calcul de l'OR pour le décès à 30 jours
-or_30d <- epitools::oddsratio(
-  x = table(df$rhc, df$death_30d),
+or_30d_nonajuste <- epitools::oddsratio(
+  x = table(df_avant_imputation$rhc, df_avant_imputation$death_30d),
   method = "wald",
   conf.level = 0.95
 )
 # calcul de l'OR pour le décès à 180 jours
-or_180d <- epitools::oddsratio(
-  x = table(df$rhc, df$death_180d),
+or_180d_nonajuste <- epitools::oddsratio(
+  x = table(df_avant_imputation$rhc, df_avant_imputation$death_180d),
   method = "wald",
   conf.level = 0.95
 )
 # création d'un tableau récapitulatif des OR
+or_summary_df_OR_30d_nonajuste <- round(or_30d_nonajuste$measure[2, "estimate"], 2)
+or_summary_df_IC_30d_nonajuste <- paste0("(", round(or_30d_nonajuste$measure[2, "lower"], 2), ", ", round(or_30d_nonajuste$measure[2, "upper"], 2), ")")
+or_summary_df_OR_180d_nonajuste <- round(or_180d_nonajuste$measure[2, "estimate"], 2)
+or_summary_df_IC_180d_nonajuste <- paste0("(", round(or_180d_nonajuste$measure[2, "lower"], 2), ", ", round(or_180d_nonajuste$measure[2, "upper"], 2), ")")
+
 or_summary_df <- data.frame(
-  `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
-  `OR` = c(round(or_30d$measure[2, "estimate"], 2), round(or_180d$measure[2, "estimate"], 2)),
+  `Critère` = c(
+    "Décès à 30 jours", 
+    "Décès à 180 jours"),
+  `OR` = c(
+    or_summary_df_OR_30d_nonajuste, 
+    or_summary_df_OR_180d_nonajuste),
   `IC 95%` = c(
-    paste0("(", round(or_30d$measure[2, "lower"], 2), ", ", round(or_30d$measure[2, "upper"], 2), ")"),
-    paste0("(", round(or_180d$measure[2, "lower"], 2), ", ", round(or_180d$measure[2, "upper"], 2), ")")
-  ),
+    or_summary_df_IC_30d_nonajuste,
+    or_summary_df_IC_180d_nonajuste),
   check.names = FALSE
 )
 knitr::kable(or_summary_df, booktabs = TRUE)
@@ -1978,7 +1957,10 @@ knitr::kable(or_summary_df, booktabs = TRUE)
 
 -   Les OR sont tous deux significativement positifs proches à 30 jours et 180 jours, indiquant une association positive entre le RHC et le risque de décès à ces deux critères.
 
+\newpage
 ### En utilisant des critères de temps de survie (temps jusqu'au décès ou censure)
+
+#### Comparaison des courbes de survie de Kaplan-Meier entre les groupes RHC vs non-RHC
 
 ```{r}
 #| label: code-variables-outcomes
@@ -1987,26 +1969,25 @@ knitr::kable(or_summary_df, booktabs = TRUE)
 #| warning: false
 #| results: hide
 # Recalcul des temps à partir des dates (suivi "complet")
-df$time_to_death <- as.numeric(df$date_death - df$date_admission)
-df$time_to_last_news <- as.numeric(df$date_last_news - df$date_admission)
+df_avant_imputation$time_to_death <- as.numeric(df_avant_imputation$date_death - df_avant_imputation$date_admission)
+df_avant_imputation$time_to_last_news <- as.numeric(df_avant_imputation$date_last_news - df_avant_imputation$date_admission)
 
 # Événement "décès" selon la présence d'une date de décès
-df$event_death <- as.integer(!is.na(df$date_death))
-
+df_avant_imputation$event_death <- as.integer(!is.na(df_avant_imputation$date_death))
 # Temps de suivi complet (décès -> date_death, sinon -> date_last_news)
-df$followup_time <- df$time_to_last_news
+df_avant_imputation$followup_time <- df_avant_imputation$time_to_last_news
 
 # Si décès, temps de suivi = temps jusqu'au décès
-df$followup_time[df$event_death == 1] <- df$time_to_death[df$event_death == 1]
+df_avant_imputation$followup_time[df_avant_imputation$event_death == 1] <- df_avant_imputation$time_to_death[df_avant_imputation$event_death == 1]
 
 # Temps d'inclusion : prend le minimum entre le temps de suivi et 180 jours (donc censure après 180 jours)
-df$survival_time_180d <- pmin(df$followup_time, 180)
+df_avant_imputation$survival_time_180d <- pmin(df_avant_imputation$followup_time, 180)
 
 # Événement "décès" à 180 jours : vaut 1 si décès ET temps jusqu'au décès <= 180 jours
-df$event_180d <- as.integer(df$event_death == 1 & df$time_to_death <= 180)
+df_avant_imputation$event_180d <- as.integer(df_avant_imputation$event_death == 1 & df_avant_imputation$time_to_death <= 180)
 
 # Temps négatifs -> NA
-df$survival_time_180d[df$survival_time_180d < 0] <- NA
+df_avant_imputation$survival_time_180d[df_avant_imputation$survival_time_180d < 0] <- NA
 ```
 
 ```{r}
@@ -2018,13 +1999,13 @@ df$survival_time_180d[df$survival_time_180d < 0] <- NA
 #| fig-width: 10
 #| fig-height: 7.5
 # création de l'objet de survie
-surv_object <- Surv(time = df$survival_time_180d, event = df$event_180d)
+surv_object_brut <- Surv(time = df_avant_imputation$survival_time_180d, event = df_avant_imputation$event_180d)
 # ajustement du modèle de survie de Kaplan-Meier
-km_fit <- survfit(surv_object ~ rhc, data = df)
+km_fit <- survfit(surv_object_brut ~ rhc, data = df_avant_imputation)
 # affichage du graphique de survie
 km_plot <- ggsurvplot(
   km_fit,
-  data = df,
+  data = df_avant_imputation,
   pval = TRUE,
   conf.int = TRUE,
   risk.table = TRUE,
@@ -2042,9 +2023,56 @@ km_plot <- ggsurvplot(
 print(km_plot)
 ```
 
--   Le test du log rank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC (p \< 0.001), suggérant une différence entre les deux courbes de survie.
+-   Le test du logrank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC (p \< 0.001), suggérant une différence entre les deux courbes de survie.
 
 -   L'hypothèse de proportionnalité des risques semble être vérifiée, car les courbes de survie ne se croisent pas et restent parallèles au fil du temps
+
+\newpage
+#### Modèle de Cox non ajusté pour évaluer l'association entre le RHC et le temps de survie jusqu'au décès à 180 jours
+
+```{r}
+#| label: code-cox-non-ajuste
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Résultats du modèle de Cox non ajusté"
+# ajustement du modèle de Cox non ajusté
+cox_fit_non_ajuste <- coxph(surv_object_brut ~ rhc, data = df_avant_imputation)
+
+# mise en forme des résultats sous forme de tableau
+cox_summary_non_ajuste <- summary(cox_fit_non_ajuste)
+
+cox_summary_non_ajuste_HR <- round(cox_summary_non_ajuste$coefficients[, "exp(coef)"], 2)
+cox_summary_non_ajuste_IC95 <- paste0(
+  "(",
+  round(cox_summary_non_ajuste$conf.int[, "lower .95"], 2),
+  ", ",
+  round(cox_summary_non_ajuste$conf.int[, "upper .95"], 2),
+  ")"
+)
+cox_summary_non_ajuste_p_value <- format.pval(
+  cox_summary_non_ajuste$coefficients[, "Pr(>|z|)"],
+  digits = 3,
+  eps = 0.001
+)
+
+
+cox_results_non_ajuste <- data.frame(
+  Variable = rownames(cox_summary_non_ajuste$coefficients),
+  HR = cox_summary_non_ajuste_HR,
+  IC95 = cox_summary_non_ajuste_IC95,
+  p_value = cox_summary_non_ajuste_p_value,
+  row.names = NULL
+)
+
+cox_results_non_ajuste <- cox_results_non_ajuste[
+  cox_results_non_ajuste$Variable == "rhcRHC",
+]
+cox_results_non_ajuste$Variable <- "RHC vs No RHC"
+
+knitr::kable(cox_results_non_ajuste, booktabs = TRUE)
+```
 
 ::: {.callout-important title="Interprétation dans ce contexte"}
 -   Ces tests supposent la comparabilité des groupes !
@@ -2057,6 +2085,7 @@ print(km_plot)
 :::
 
 \newpage
+
 ## Exploration des facteurs de confusion potentiels
 
 -   On a donc observé que :
@@ -2086,6 +2115,7 @@ print(km_plot)
     -   On peut réaliser un "love plot" pour visualiser les différences moyennes standardisées (qui correspondent à la différence de moyenne entre les groupes RHC et non-RHC, divisée par l'écart-type) pour chaque variable, avant et après ajustement (par exemple, après appariement). Cela permet de visualiser l'équilibre des covariables entre les groupes.
 
 \newpage
+
 ### Tests comparatifs des caractéristiques basales entre les groupes RHC vs non-RHC
 
 ```{r}
@@ -2097,7 +2127,7 @@ print(km_plot)
 #| tbl-cap: "Comparaison des caractéristiques basales entre les groupes RHC vs non-RHC"
 # utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des caractéristiques basales entre les groupes RHC vs non-RHC
 # regroupement des variables
-primary_columns <- grep("^(primary_binaire_|secondary_binaire_)", names(df), value = TRUE)
+primary_columns <- grep("^(primary_binaire_|secondary_binaire_)", names(df_avant_imputation), value = TRUE)
 vars_demo <- c("age", "sex", "race", "education_years", "income", "insurance_class")
 vars_scores <- c("adl_score", "DASI_score", "glasgow_score", "apache_score", "dnr_status")
 vars_comorb <- c(
@@ -2149,7 +2179,7 @@ cols_to_include_baseline <- c(
   vars_bio
 )
 
-df_baseline_tbl <- df[, unique(c("rhc", cols_to_include_baseline))]
+df_baseline_tbl <- df_avant_imputation[, unique(c("rhc", cols_to_include_baseline))]
 
 # répartition des variables en sous groupes pour la mise en forme du tableau
 primary_binaire_columns   <- grep("^primary_binaire_", primary_columns, value = TRUE)
@@ -2295,6 +2325,10 @@ baseline_comparison_table |>
 
 -   Globalement, quasiment toutes les variables sont significativement différentes entre les groupes RHC et non-RHC, ce qui suggère que les patients ayant eu un RHC sont différents des patients n'ayant pas eu de RHC en termes de caractéristiques basales.
 
+-   Cette analyse n'est pas idéale car contribue à l'inflation du risque alpha par multiplication des tests.
+
+-   En pratique, on peut simplement considérer que les patients ne sont par définition pas comparables, car il n'y ni randomisation, ni contrôle pour les facteurs de confusion potentiels.
+
 ### Visualisation des différences moyennes standardisées entre les groupes RHC et non-RHC (Love plot)
 
 -   On peut aussi visualiser les différences moyennes standardisées pour chaque variable entre les groupes RHC et non-RHC, par exemple à l'aide d'un "love plot", pour mieux visualiser l'équilibre des covariables entre les groupes.
@@ -2316,7 +2350,7 @@ baseline_comparison_table |>
 # création d'un objet de balance pour les variables basales
 balance_baseline <- bal.tab(
   x = as.formula(paste("rhc ~", paste(cols_to_include_baseline, collapse = " + "))),
-  data = df,
+  data = df_avant_imputation,
   estimand = "ATE"
 )
 
@@ -2334,7 +2368,7 @@ if (!is.null(balance_baseline_clean$Balance)) {
 #| message: false
 #| warning: false
 #| results: asis
-#| tbl-cap: "Variables avec une différence moyenne standardisée (SMD) supérieure à 0.1 en valeur absolue"
+#| tbl-cap: "Variables avec une différence moyenne standardisée (SMD) > 0.1 en valeur absolue"
 # identification des variables avec SMD > 0.1 en valeur absolue
 imbalanced_vars <- rownames(balance_baseline_clean$Balance)[abs(balance_baseline_clean$Balance$Diff.Un) > 0.1]
 smd_summary_df <- data.frame(
@@ -2345,8 +2379,6 @@ knitr::kable(smd_summary_df, booktabs = TRUE)
 ```
 
 -   Les variables ayant une différence moyenne standardisée supérieure à 0.1 en valeur absolue sont le score ADL, le score de Glasgow, le score APACHE, les diagnostics principaux et associés, le poids, la pression artérielle moyenne, la fréquence cardiaque, la fréquence respiratoire, le ratio Pa/FI, l'albumine, l'hématocrite, la bilirubine, la créatinine, la PaCO2 et le pH.
-
-
 
 ```{r}
 #| label: SMD-plot
@@ -2374,9 +2406,8 @@ love_plot_baseline <- cobalt::love.plot(
 print(love_plot_baseline)
 ```
 
-
-
 \newpage
+
 # Appariement selon score de propension
 
 -   Pour assurer la comparabilité initiale des patients, on apparie les patients selon un score de propension calculé à partir de variables "pré-traitement".
@@ -2385,21 +2416,21 @@ print(love_plot_baseline)
 
 -   L'identification des variables à inclure est cruciale : il s'agit d'inclure les variables qui influencent le choix du traitement ou non.
 
--   Pour l'identification des variables à inclure, on peut : 
+-   Pour l'identification des variables à inclure, on peut :
 
     -   S'appuyer sur la littérature pour identifier les facteurs connus qui influencent le choix du traitement.
 
     -   Consulter des experts cliniques pour obtenir des insights sur les variables pertinentes.
 
-    -   Utiliser des méthodes statistiques pour identifier les variables associées à la fois au traitement et à l'issue. 
+    -   Utiliser des méthodes statistiques pour identifier les variables associées à la fois au traitement et à l'issue.
 
-  -   Dans notre cas, on a vu que quasiment toutes les variables basales étaient significativement différentes entre les groupes RHC et non-RHC, ce qui suggère que les patients ayant eu un RHC sont différents des patients n'ayant pas eu de RHC en termes de caractéristiques basales.
+-   Dans notre cas, on a vu que quasiment toutes les variables basales étaient significativement différentes entre les groupes RHC et non-RHC, ce qui suggère que les patients ayant eu un RHC sont différents des patients n'ayant pas eu de RHC en termes de caractéristiques basales.
 
 ## Quelles variables inclure dans le score de propension ?
 
 ### Choix des auteurs de l'article original publié
 
--   Dans l'article original publié, les auteurs ont basé leur choix sur une discussion entre 7 experts en soins critiques, qui ont identifié les variables qu'ils considéraient comme étant liées à la décision de réaliser un RHC. Les variables sélectionnées sont : 
+-   Dans l'article original publié, les auteurs ont basé leur choix sur une discussion entre 7 experts en soins critiques, qui ont identifié les variables qu'ils considéraient comme étant liées à la décision de réaliser un RHC. Les variables sélectionnées sont :
 
     -   Démographiques : âge (`df$age`), sexe (`df$sex`), race (`df$race`), années d'éducation (`df$education_years`), revenu (`df$income`), type d'assurance médicale (`df$insurance_class`)
 
@@ -2407,19 +2438,40 @@ print(love_plot_baseline)
 
 -   On voit qu'ils ont inclu la diurèse et le score ADL dans leur modèle de propension, même si ces variables avaient des taux de données manquantes très élevés (environ 75% pour le score ADL et 53% pour la diurèse).
 
--   Concernant la gestion des données manquantes, les auteurs disent avoir supposé que les données manquantes pour le étaient des valeurs normales ("*Missing measurements were assumed to have normal values*"), ce qui correspond à une imputation simple (imputation par la valeur normale).
+-   Concernant la gestion des données manquantes, les auteurs disent avoir supposé que les données manquantes étaient des valeurs normales ("*Missing measurements were assumed to have normal values*"), ce qui correspond à une imputation simple (imputation par la valeur normale).
 
 ### Choix dans notre analyse
 
 -   On propose d'inclure les mêmes variables que celles sélectionnées par les auteurs de l'article original (car étant identifiées par des experts).
 
--   Pour la gestion des données manquantes avant appariement : 
+## Gestion des données manquantes
 
-    - Une imputation est nécessaire si l'on veut inclure les variables avec des données manquantes dans le score de propension, car les méthodes d'appariement ne peuvent pas gérer les données manquantes.
+### Problématique des données manquantes
 
-    - Comme expliqué dans l'article de Eiset et Frydenberg (2022), [@eisetConsiderationsUsingMultiple2022a], une imputation multiple est "tout sauf trivial" lorsque combinée avec un appariement : il faudrait gérer la multiplicité des jeux de données imputés et s'assurer que l'appariement est effectué de manière cohérente à travers les jeux (soit en calculant un score de propension moyen à travers les jeux, soit en réalisant l'appariement séparément dans chaque jeu puis en poolant les résultats).
+-   Une imputation est nécessaire avant appariement, car les méthodes d'appariement ne peuvent pas gérer les données manquantes. En effet, si une variable incluse dans le score de propension a des données manquantes, les patients avec des données manquantes pour cette variable seront exclus de l'appariement, ce qui peut réduire la taille de l'échantillon et introduire un biais si les données manquantes ne sont pas aléatoires.
 
-    - On propose donc de réaliser une imputation simple par la médiane pour les deux variables avec des données manquantes (score ADL et diurèse), ce qui permettra de les inclure dans le score de propension sans complexifier l'analyse. Il est tout à fait probable que cette méthode soit moins robuste que l'imputation multiple, mais elle est plus simple à mettre en œuvre dans le cadre de cet exercice.
+### Méthode d'imputation 
+
+-   Initialement : 
+
+    -  Pour ce devoir, une imputation par la médiane avait initialement été effectuée pour les deux variables avec des données manquantes (score ADL et diurèse), ainsi que pour les autres variables avec données aberrantes.
+
+    -  Ce choix était basé sur une recherche dans la littérature, qui suggérait que combinait imputation multiple et appariement était "tout sauf trivial", du fait de la gestion de la multiplicité des jeux de données imputés [@eisetConsiderationsUsingMultiple2022a].
+
+-   Ensuite, après lectures spécialisées..
+
+    -  Une imputation multiple a été réalisée pour les variables avec données manquantes
+
+    -  Puis appariement et pooling des résultats à travers les jeux de données imputés.
+
+-   De ce fait, j'ai choisi de laisser les deux méthodes dans ce devoir. Si je devais n'en choisir qu'une, je choisirais l'imputation multiple, qui est plus robuste que l'imputation par la médiane.
+
+\newpage
+## Partie 1 : imputation par la médiane et appariement selon score de propension
+
+### Imputation par la médiane pour les variables avec données manquantes
+
+-   Les variables numériques avec données manquantes ou aberrantes qui avaient été considérées comme manquantes sont imputées par la médiane de chaque variable.
 
 ```{r}
 #| label: imputation-propension
@@ -2427,27 +2479,34 @@ print(love_plot_baseline)
 #| message: false
 #| warning: false
 #| results: hide
+df_imputation_mediane <- df_avant_imputation
+
+# imputation des valeurs NA par la médiane de chaque variable
+df_imputation_mediane$mean_blood_pressure[is.na(df_imputation_mediane$mean_blood_pressure)] <- median(df_imputation_mediane$mean_blood_pressure, na.rm = TRUE)
+
+df_imputation_mediane$wbc[is.na(df_imputation_mediane$wbc)] <- median(df_imputation_mediane$wbc, na.rm = TRUE)
+df_imputation_mediane$heart_rate[is.na(df_imputation_mediane$heart_rate)] <- median(df_imputation_mediane$heart_rate, na.rm = TRUE)
+df_imputation_mediane$respiratory_rate[is.na(df_imputation_mediane$respiratory_rate)] <- median(df_imputation_mediane$respiratory_rate, na.rm = TRUE)
+df_imputation_mediane$weight[is.na(df_imputation_mediane$weight)] <- median(df_imputation_mediane$weight, na.rm = TRUE)
 # imputation par la médiane pour les variables score ADL et diurèse
-df_imputed <- df
-df_imputed$adl_score[is.na(df_imputed$adl_score)] <- median(df_imputed$adl_score, na.rm = TRUE)
-df_imputed$urine_output[is.na(df_imputed$urine_output)] <- median(df_imputed$urine_output, na.rm = TRUE)
+df_imputation_mediane$adl_score[is.na(df_imputation_mediane$adl_score)] <- median(df_imputation_mediane$adl_score, na.rm = TRUE)
+df_imputation_mediane$urine_output[is.na(df_imputation_mediane$urine_output)] <- median(df_imputation_mediane$urine_output, na.rm = TRUE)
 #vérification de l'imputation
-sum(is.na(df_imputed$adl_score))
-sum(is.na(df_imputed$urine_output))
-sum(is.na(df_imputed))
+sum(is.na(df_imputation_mediane$adl_score))
+sum(is.na(df_imputation_mediane$urine_output))
 ```
 
-## Calcul du score de propension et appariement
+### Calcul du score de propension et appariement après imputation par la médiane
 
--   Paramètrage du score de propension : 
+-   Paramètrage du score de propension :
 
-    -  Modèle de régression logistique avec comme variable dépendante la réalisation d'un RHC (variable `rhc`) et comme variables indépendantes les variables sélectionnées (toutes les variables listées ci-dessus).
+    -   Modèle de régression logistique avec comme variable dépendante la réalisation d'un cathéterisme (variable `rhc`) et comme variables indépendantes les variables sélectionnées (toutes les variables listées ci-dessus).
 
-    -  Appariement 1:1 sans remplacement (c'est à dire que chaque patient ayant eu un RHC est apparié à un seul patient n'ayant pas eu de RHC, et qu'un patient n'ayant pas eu de RHC ne peut être apparié qu'à un seul patient ayant eu un RHC) 
-   
+    -   Appariement 1:1 sans remplacement (c'est à dire que chaque patient ayant eu un cathéterisme est apparié à un seul patient n'ayant pas eu de cathéterisme, et qu'un patient n'ayant pas eu de cathéterisme ne peut être apparié qu'à un seul patient ayant eu un cathéterisme)
+
     -   Caliper = avec un caliper de $0,2 \times \text{SD}$ du score de propension (c'est à dire que les patients sont appariés uniquement s'ils ont des scores de propension qui diffèrent de moins de $0,2 \times \text{écart type}$ du score de propension)
 
-	    -   Choix du Caliper basé sur Austin (2011) [@austinOptimalCaliperWidths2011]
+    -   Choix du Caliper basé sur Austin (2011) [@austinOptimalCaliperWidths2011]
 
 ```{r}
 #| label: calcul-propension
@@ -2456,13 +2515,13 @@ sum(is.na(df_imputed))
 #| warning: false
 #| results: hide
 # calcul du score de propension avec les variables sélectionnées
-df_imputed$rhc <- factor(df_imputed$rhc)
+df_imputation_mediane$rhc <- factor(df_imputation_mediane$rhc)
 
 vars_propension <- c(
   "age", "sex", "race", "education_years", "income", "insurance_class",
   "primary_disease_category", "secondary_disease_category",
-  grep("^diagnosis_", names(df_imputed), value = TRUE),
-  grep("^comorbidity_", names(df_imputed), value = TRUE),
+  grep("^diagnosis_", names(df_imputation_mediane), value = TRUE),
+  grep("^comorbidity_", names(df_imputation_mediane), value = TRUE),
   "adl_score", "DASI_score", "dnr_status", "cancer",
   "survival_probability_2mths", "apache_score", "glasgow_score",
   "weight", "temperature", "mean_blood_pressure", "respiratory_rate", "heart_rate", "pa_fi_ratio", "paco2", "ph", "wbc", "hematocrit", "sodium", "potassium", "creatinine", "bilirubin", "albumin", "urine_output")
@@ -2473,37 +2532,37 @@ formula_propension <- paste("rhc ~", paste(vars_propension, collapse = " + "))
 set.seed(123) # pour la reproductibilité
 score_propension <- glm(
   formula = as.formula(formula_propension),
-  data = df_imputed,
+  data = df_imputation_mediane,
   family = binomial()
 )
 # ajout du score de propension dans le dataframe
-df_imputed$score_propension <- predict(score_propension, type = "response")
+df_imputation_mediane$score_propension <- predict(score_propension, type = "response")
 
 # appariement 1:1 sans remplacement avec un caliper de 0.2*SD du score de propension
 library(MatchIt)
-matchit_out <- MatchIt::matchit(
+matchit_out <- matchit(
   formula = as.formula(formula_propension),
-  data = df_imputed,
+  data = df_imputation_mediane,
   method = "nearest",
-  caliper = 0.2 * sd(df_imputed$score_propension),
+  std.caliper = TRUE,
+  caliper = 0.2,
+
   ratio = 1,
   replace = FALSE
 )
 # création du dataframe apparié
-df_matched <- match.data(matchit_out)
+df_matched_mediane <- match.data(matchit_out)
 # vérification de la taille des groupes appariés
-table(df_matched$rhc)
+table(df_matched_mediane$rhc)
 ```
 
-
-## Évaluation de l'équilibre des covariables après appariement et de la qualité de l'appariement
+### Évaluation de l'équilibre des covariables après appariement et de la qualité de l'appariement
 
 -   L'évaluation de l'équilibre des covariables après appariement est essentielle pour vérifier que les groupes appariés sont comparables en termes de caractéristiques basales, ce qui est crucial pour réduire les biais de sélection et améliorer la validité des conclusions de l'étude.
 
 -   Pour ce devoir, elle suit les recommandations citées par Garrido et al. (2014) [@garridoMethodsConstructingAssessing2014], Zhang et al. (2019) [@zhangBalanceDiagnosticsPropensity2019], Austin (2009) [@austinBalanceDiagnosticsComparing2009], Stuart et al. (2013) [@stuartPrognosticScoreBased2013] et Imai et al. (2008) [@imaiMisunderstandingsExperimentalistsObservationalists2008].
 
-
-### Distribution du score de propension avant et après appariement
+#### Distribution du score de propension avant et après appariement
 
 -   On peut visualiser l'équilibre du score de propension entre les groupes RHC et non-RHC avant et après appariement à l'aide d'un histogramme de densité du score de propension pour les deux groupes.
 
@@ -2521,9 +2580,9 @@ table(df_matched$rhc)
 #| message: false
 #| warning: false
 #| results: asis
-#| fig-cap: "Histogramme de densité du score de propension avant et après appariement. Distance correspond au score de propension variant entre 0 et 1 ; Treatment = 0 correspond au groupe non-RHC et Treatment = 1 correspond au groupe RHC"
+#| fig-cap: "Histogramme de densité du score de propension avant et après appariement"
 #| fig-width: 10
-#| fig-height: 5
+#| fig-height: 4
 density_plot <- cobalt::bal.plot(
   matchit_out,
   var.name = "distance",
@@ -2537,9 +2596,9 @@ density_plot <- cobalt::bal.plot(
 print(density_plot)
 ```
 
--   On voit bien que la distribution du score de propension était différente avant appariement entre les groupes RHC et non-RHC, avec une distribution plus élevée de scores de propension dans le groupe RHC. Après appariement, les distributions sont beaucoup plus similaires entre les groupes, ce qui suggère que l'appariement a réussi à équilibrer les groupes en termes de score de propension.
+-   Les distributions du score de propension sont similaires après appariement, ce qui suggère que l'appariement a réussi à équilibrer les groupes
 
--   Une autre façon similaire de voir ça est l'histogramme-miroir du score de propension après appariement, qui montre les distributions de score de propension pour les deux groupes appariés. C'est globalement la même chose.
+-   Un histogramme miroir du score de propension permet de voir la même chose.
 
 ```{r}
 #| label: histogram-mirror-propension
@@ -2547,9 +2606,9 @@ print(density_plot)
 #| message: false
 #| warning: false
 #| results: asis
-#| fig-cap: "Histogramme-miroir du score de propension après appariement, montrant les distributions de score de propension pour les deux groupes appariés"
+#| fig-cap: "Histogramme-miroir du score de propension après appariement"
 #| fig-width: 10
-#| fig-height: 4
+#| fig-height: 3.5
 histogram_mirror_plot <- cobalt::bal.plot(
   matchit_out,
   var.name = "distance",
@@ -2564,11 +2623,11 @@ histogram_mirror_plot <- cobalt::bal.plot(
 print(histogram_mirror_plot)
 ```
 
-### Love plot des différences moyennes standardisées pour les variables basales après appariement
+#### Love plot des différences moyennes standardisées pour les variables basales après appariement
 
--   Comme avant l'appariement, on peut visualiser l'équilibre des covariables basales entre les groupes RHC et non-RHC après appariement à l'aide d'un love plot, qui montre les différences moyennes standardisées (SMD) pour chaque variable basale entre les groupes.
+-   Comme avant l'appariement, on peut visualiser l'équilibre des covariables basales après appariement à l'aide d'un love plot, qui montre les différences moyennes standardisées (SMD).
 
--   Après un appariement réussi, on s'attend à voir des SMD proches de 0 pour la plupart des variables, avec idéalement aucun SMD supérieur à 0.1 (ce qui correspond à une différence standardisée faible).
+-   Après un appariement réussi, les SMD sont < 0,1 dans l'idéal. 
 
 ```{r}
 #| label: love-plot-matched
@@ -2576,7 +2635,7 @@ print(histogram_mirror_plot)
 #| message: false
 #| warning: false
 #| results: asis
-#| fig-cap: "Love plot visualisant les différences moyennes standardisées pour les variables basales après appariement (Seuil de 0.1)"
+#| fig-cap: "Love plot visualisant les SMD avant-après appariement"
 #| fig-width: 10
 #| fig-height: 12
 labels_love_plot_matched <- desc
@@ -2585,6 +2644,7 @@ love_plot_matched <- love.plot(
   stats = "mean.diffs",
   s.d.denom = "pooled",
   binary = "std",
+  drop.distance = TRUE,
   threshold = 0.1,
   var.order = "unadjusted",
   abs = TRUE,
@@ -2601,7 +2661,7 @@ print(love_plot_matched)
 #| message: false
 #| warning: false
 #| results: asis
-#| tbl-cap: "Nombre de covariables avec |SMD| > 0,1 avant et après appariement"
+#| tbl-cap: 'Nombre de covariables avec SMD absolue > 0,1 avant et après appariement'
 balance <- cobalt::bal.tab(matchit_out, un = TRUE)$Balance
 balance <- balance[rownames(balance) != "distance", , drop = FALSE]
 
@@ -2618,7 +2678,7 @@ knitr::kable(
 )
 ```
 
-### Tests comparatifs pour les variables basales après appariement
+#### Tests comparatifs pour les variables basales après appariement
 
 -   Après appariement, on peut se poser la quesion de réaliser des tests comparatifs pour les variables basales afin de vérifier l'équilibre entre les groupes appariés.
 
@@ -2626,20 +2686,318 @@ knitr::kable(
 
 -   De plus, le fait que les groupes soient appariés signifie que les échantillons sont plus petits, ce qui réduit la puissance des tests statistiques pour détecter des différences, même si elles existent.
 
-### Conclusion sur l'évaluation de l'équilibre après appariement
+-   Ces tests ont tout de même été effectués en annexe.
 
--   Au total, l'évaluation de l'équilibre des covariables après appariement suggère que l'appariement a réussi à équilibrer les groupes RHC et non-RHC en termes de caractéristiques basales, avec des distributions de score de propension similaires et des SMD < 0.1 pour toutes les variables basales après appariement.
+#### Conclusion sur l'évaluation de l'équilibre après appariement
+
+-   Au total, l'évaluation de l'équilibre des covariables après appariement suggère que l'appariement a réussi à équilibrer les groupes RHC et non-RHC en termes de caractéristiques basales, avec des distributions de score de propension similaires et des SMD \< 0.1 pour toutes les variables basales après appariement.
 
 -   Cependant, il est important de noter que l'équilibre des covariables basales ne garantit pas l'absence de biais de sélection ou de confusion résiduelle, notamment du fait que certaines variables potentiellement confondantes n'ont pas été mesurées, donc pas incluses dans le score de propension.
 
 -   Ce n'est donc pas une preuve absolue de la comparabilité initiale des groupes, mais cela suggère que l'appariement a permis de réduire les différences observées entre les groupes en termes de caractéristiques basales.
 
 \newpage
+
+## Partie 2 : imputation multiple et appariement selon score de propension
+
+### Imputation multiple avec le package `mice`
+
+#### Justification du choix de la méthode d'imputation
+
+-   Dans l'analyse initiale, une imputation simple par la médiane avait été réalisée pour les variables avec des données manquantes, ce qui ne tient pas compte de l'incertitude liée aux données manquantes.
+
+-   La méthode combinant imputation multiple et appariement est plus complexe et plusieurs articles ont été nécessaires pour la réalisation de ce devoir : 
+
+    -   "Propensity score matching after multiple imputation when a confounder has missing data" de Segalas et al., *Stat Med 2023*[@segalasPropensityScoreMatching2023]
+
+    -   "Avoiding pitfalls when combining multiple imputation and propensity scores" de Granger et al., *Stat Med 2019* [@grangerAvoidingPitfallsWhen2019]
+
+    -   "Multiple imputation for propensity score analysis with covariates missing at random: some clarity on “within” and “across” methods" de Nguyen et al., *American Journal of Epidemiology* 2024 [@nguyenMultipleImputationPropensity2024]
+
+    -   "How to Apply Multiple Imputation in Propensity Score Matching with Partially Observed Confounders: A Simulation Study and Practical Recommendations" de Ling et al., *Journal of Modern Applied Statistical Methods* 2020 [@lingHowApplyMultiple2020]
+
+    -   "Avoiding Pitfalls When Combining Multiple Imputation and Propensity Scores" de Granger et al., *Stat Med* 2019 [@grangerAvoidingPitfallsWhen2019]
+
+    -   "Model Diagnostics for Remote Access Regression Servers" de Reiter, *Statistics and Computing* 2003 [@reiterModelDiagnosticsRemote2003]
+
+    -   "Bootstrap Inference When Using Multiple Imputation" de Schomaker et al., *Stat Med* 2019 [@schomakerBootstrapInferenceWhen2018]
+
+-  Ainsi que 2 tutoriels publiés : 
+
+    -   "`mice()`: Multivariate Imputation by Chained Equations in R", Van Buuren et al., *Journal of Statistical Software* 2011 [@vanBuuren2011mice]
+
+    -   "`MatchThem()`:: Matching and Weighting after Multiple Imputation", Pishgar et al., *The R Journal* 2021 [@pishgarMatchThemMatchingWeighting2021]
+
+#### Résumé de la méthode 
+
+-   On met donc en œuvre :
+
+    -   Une imputation multiple
+
+    -   Un appariement selon score de propension dans chaque dataset imputé (= appariement "*within*")
+
+    -   Une analyse des résultats au sein de chaque dataset imputé, 
+    
+    -   Enfin une combinaison des résultats pour obtenir des estimations globales qui tiennent compte de l'incertitude liée à l'imputation.
+
+### Visualisation des données manquantes
+
+-   Des données manquantes sont présentes dans les variables : `mean_blood_pressure`, `wbc`, `heart_rate`, `respiratory_rate`, `weight`, `adl_score` et `urine_output`.
+
+-   Les variables de date et liées au décès ne sont pas inclues dans l'imputation, car elles ne sont pas des variables de prédiction pour le score de propension, mais plutôt des variables d'issue.
+
+### Imputation multiple des données manquantes
+
+-   Imputation multiple par "*predictive mean matching*" (PMM) avec `mice()`
+
+-   Seules les variables continues avec des données manquantes sont imputées par PMM, les autres variables sont utilisées comme prédicteurs dans le modèle d'imputation mais ne sont pas elles-mêmes imputées.
+
+-   5 jeux de données imputés sont générés.
+
+::: {.callout-note title="Définitions nécessaires pour interprétation du code"}
+-   Objet `mids` : Multiply Imputed Data Set, obtenu avec `mice()`.
+
+-   Objet `mimids`: Multiply Imputed Matched Data Set (après appariement dans chaque jeu imputé), obtenu avec `MatchThem()`.
+
+-   Objet `mipo`: Multiply Imputed Pooled Object, obtenu après combinaison des résultats des analyses dans les jeux imputés, avec `pool()`.
+
+-   Objet `mira`: Multiply Imputed Repeated Analysis, obtenu après analyse dans les jeux imputés, avec `with()`.
+:::
+
+```{r}
+#| label: multiple-imputation-annexe
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+
+# variables à imputer
+vars_pmm <- c(
+  "mean_blood_pressure",
+  "wbc",
+  "heart_rate",
+  "respiratory_rate",
+  "weight",
+  "adl_score",
+  "urine_output"
+)
+
+# méthode d'imputation : seulement ces 7 variables
+#attribue "pmm" pour les variables à imputer et "" pour les autres (pas d'imputation)
+method_mice <- setNames(
+  ifelse(names(df_avant_imputation) %in% vars_pmm, "pmm", ""),
+  names(df_avant_imputation)
+)
+
+# les variables crées pour précédentes analyses sont exclues des prédicteurs
+vars_exclues_predictors <- c(
+  grep("^date_", names(df_avant_imputation), value = TRUE),
+  grep("^primary_binaire_", names(df_avant_imputation), value = TRUE),
+  grep("^secondary_binaire_", names(df_avant_imputation), value = TRUE),
+  grep("^cancer_YN$", names(df_avant_imputation), value = TRUE)
+)
+
+# matrice des prédicteurs : toutes les variables sauf celles exclues
+predictor_matrix_mice <- mice::make.predictorMatrix(df_avant_imputation)
+predictor_matrix_mice[, vars_exclues_predictors] <- 0
+
+# modèle d'imputation multiple (= objet de classe "mids" de mice)
+imputation_mids <- mice(
+  data = df_avant_imputation,
+  m = 5,
+  method = method_mice,
+  predictorMatrix = predictor_matrix_mice,
+  seed = 123
+)
+
+
+# extraction du dataset complet après imputation multiple
+# fonction "complete" de mice avec "action = long" pour obtenir un dataset long avec tous les jeux imputés empilés, et "include = TRUE" pour inclure le dataset original incomplet
+# entrée = objet mids (ici imputation_mids) et output = dataframe
+df_imputation_multiple_complete <- mice::complete(
+  imputation_mids,
+  action = "long",
+  include = TRUE
+)
+```
+
+### Appariement selon score de propension sur le dataset imputé
+
+-   L'appariement après imputation multiple est réalisé avec la méthode "*within*", c'est à dire que l'appariement est réalisé dans chaque jeu de données imputé séparément, en utilisant le score de propension estimé dans ce jeu imputé [@nguyenMultipleImputationPropensity2024].
+
+-   *Une autre approche possible serait l'appariement "across", qui consiste à calculer un score de propension moyen à partir des scores de propension estimés dans chaque jeu de données imputé, puis à réaliser l'appariement dans chaque jeu imputé en utilisant ce score moyen*.
+
+\newpage
+#### Appariement "within" 
+
+-   On réalise l'appariement dans chaque dataset imputé
+
+-   Le score de propension est estimé dans chaque dataset imputé en utilisant les mêmes variables que celles utilisées pour le score de propension dans l'analyse principale (c'est à dire les variables basales utilisées pour l'appariement dans la population totale avant imputation)
+
+-   Le package `MatchThem()` est spécifiquement conçu pour apparier des données imputées multiples, et faciliter ensuite les analyses poolées des résultats à travers les jeux de données imputés.
+
+-   Il prend comme entrée un objet `mids` (= objet d'imputation multiple "Multiple Imputed Data Set" créé par `mice()`).
+
+```{r}
+#| label: calcul-propension-within-annexe
+#| echo: false
+#| message: false
+#| warning: false
+#| results: hide
+# variable de traitement
+df_imputation_multiple_complete$rhc <- factor(df_imputation_multiple_complete$rhc)
+
+# variables du score de propension
+vars_propension <- c(
+  "age", "sex", "race", "education_years", "income", "insurance_class",
+  "primary_disease_category", "secondary_disease_category",
+  grep("^diagnosis_", names(df_imputation_multiple_complete), value = TRUE),
+  grep("^comorbidity_", names(df_imputation_multiple_complete), value = TRUE),
+  "adl_score", "DASI_score", "dnr_status", "cancer",
+  "survival_probability_2mths", "apache_score", "glasgow_score",
+  "weight", "temperature", "mean_blood_pressure", "respiratory_rate",
+  "heart_rate", "pa_fi_ratio", "paco2", "ph", "wbc", "hematocrit",
+  "sodium", "potassium", "creatinine", "bilirubin", "albumin",
+  "urine_output"
+)
+
+formula_propension <- as.formula(
+  paste("rhc ~", paste(vars_propension, collapse = " + "))
+)
+
+#on reprend l'objet d'imputation multiple mids créé précédemment "imputation_mids"
+
+# variable de traitement dans l'objet mids
+imputation_mids$data$rhc <- factor(imputation_mids$data$rhc)
+
+set.seed(123)# reproductibilité
+#fonction matchthem() : entrée = mids, output = mimids
+matchthem_mimids <- matchthem(
+  formula = formula_propension, 
+  datasets = imputation_mids, #objet de classe "mids" créé par mice
+  approach = "within",
+  method = "nearest",
+  caliper = 0.2,
+  std.caliper = TRUE,
+  ratio = 1,
+  replace = FALSE
+)
+
+#fonction complete() : entrée = mimids, output = dataframe apparié
+#NB : 2 fonctions "complete" existent ! celle de mice pour extraire les jeux de données imputés (entrée = mids), et celle de MatchThem pour extraire les jeux de données appariés (entrée = mimids). En soi, MatchThem::complete appelle la fonction mice::complete, mais ça permet de ne pas trop se perdre dans les étapes
+matchthem_dataframe_1 <- MatchThem::complete(matchthem_mimids, action = 1, all = FALSE)
+matchthem_dataframe_2 <- MatchThem::complete(matchthem_mimids, action = 2, all = FALSE)
+matchthem_dataframe_3 <- MatchThem::complete(matchthem_mimids, action = 3, all = FALSE)
+matchthem_dataframe_4 <- MatchThem::complete(matchthem_mimids, action = 4, all = FALSE)
+matchthem_dataframe_5 <- MatchThem::complete(matchthem_mimids, action = 5, all = FALSE)
+# vérification des effectifs appariés
+table(matchthem_dataframe_1$rhc)
+table(matchthem_dataframe_2$rhc)
+table(matchthem_dataframe_3$rhc)
+table(matchthem_dataframe_4$rhc)
+table(matchthem_dataframe_5$rhc)
+```
+
+### Évaluation de la qualité de l'appariement après imputation multiple
+
+-   De la même manière que pour l'appariement réalisé après imputation par la médiane, on peut évaluer la qualité de l'appariement réalisé avec différentes visualisations.
+
+```{r}
+#| label: density-plot-propension-mi-annexe
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Distribution du score de propension avant et après appariement dans les données imputées multiples"
+#| fig-width: 10
+#| fig-height: 6
+
+#entrée = mimids, donc utilisation de matchthem_mimids.
+density_plot <- bal.plot(
+  matchthem_mimids,
+  var.name = "distance",
+  which = "both",
+  type = "density",
+  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4]),
+  xlab = "Score de propension",
+  ylab = "Densité",
+  title = "Distribution du score de propension avant et après appariement"
+)
+print(density_plot)
+```
+
+-   Les distributions du score de propension sont beaucoup plus similaires après appariement, ce qui suggère que l'appariement a permis d'améliorer la comparabilité des groupes.
+
+```{r}
+#| label: histogram-mirror-propension-mi-annexe
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Histogramme-miroir du score de propension après appariement dans les données imputées multiples"
+#| fig-width: 10
+#| fig-height: 10
+
+histogram_mirror_plot <- bal.plot(
+  matchthem_mimids,
+  var.name = "distance",
+  which = "both",
+  type = "histogram",
+  mirror = TRUE,
+  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4]),
+  xlab = "Score de propension",
+  ylab = "Fréquence",
+  title = "Histogramme-miroir du score de propension après appariement"
+)
+print(histogram_mirror_plot)
+```
+
+```{r}
+#| label: love-plot-matched-mi-annexe
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Love plot des SMD après appariement dans les données imputées multiples"
+#| fig-width: 10
+#| fig-height: 12
+
+labels_love_plot_matched <- desc
+
+love_plot_matched <- love.plot(
+  matchthem_mimids,
+  stats = "mean.diffs",
+  s.d.denom = "pooled",
+  drop.distance = TRUE,
+
+  binary = "std",
+  threshold = 0.1,
+  var.order = "unadjusted",
+  abs = TRUE,
+  line = TRUE,
+  var.names = labels_love_plot_matched,
+  colors = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
+)
+print(love_plot_matched)
+```
+
+-   Les différences moyennes standardisées sont fournies avec une "plage" de valeurs, correspondante à l'incertitude liée à l'imputation multiple.
+
+-   Elles sont toutes < 0,1.
+\newpage
+
+\newpage
 # Analyse après appariement
 
-## Résultats
+::: {.callout-important title="Plan de l'analyse après appariement"}
+-   Les résultats obtenus après imputation par la médiane sont présentés en première partie
 
-### En utilisant des critères binaires (décès à 30 jours et à 180 jours)
+-   Puis sont présentés les résultats obtenus après imputation multiple, qui sont ceux que je considère comme les plus robustes et sur lesquels je me baserais pour tirer des conclusions.
+:::
+
+## Dans la population appariée après imputation par la médiane
+
+### Après imputation par la médiane : critères binaires (décès à 30 jours et à 180 jours)
 
 ```{r}
 #| label: comparaison-deces-apres-appariement
@@ -2650,7 +3008,7 @@ knitr::kable(
 #| tbl-cap: "Comparaison des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC"
 # avec pourcentage de décès à 30 jours et à 180 jours dans les groupes R
 # utilisation de tbl_summary de gtsummary pour faire un tableau comparatif des décès à 30 jours et à 180 jours entre les groupes RHC vs non-RHC
-summary_table <- df_matched %>%
+summary_table <- df_matched_mediane %>%
   select(rhc, death_30d, death_180d) %>%
   tbl_summary(
     by = rhc,
@@ -2678,24 +3036,37 @@ summary_table
 #| tbl-cap: "Odds Ratio (OR) pour le décès à 30 jours et à 180 jours"
 # calcul de l'OR pour le décès à 30 jours
 or_30d <- epitools::oddsratio(
-  x = table(df_matched$rhc, df_matched$death_30d),
+  x = table(df_matched_mediane$rhc, df_matched_mediane$death_30d),
   method = "wald",
   conf.level = 0.95
 )
 # calcul de l'OR pour le décès à 180 jours
 or_180d <- epitools::oddsratio(
-  x = table(df_matched$rhc, df_matched$death_180d),
+  x = table(df_matched_mediane$rhc, df_matched_mediane$death_180d),
   method = "wald",
   conf.level = 0.95
 )
 # création d'un tableau récapitulatif des OR
+or_summary_df_OR_30d_ajuste_mediane_nonconditionnel <- round(or_30d$measure[2, "estimate"], 2)
+or_summary_df_OR_180d_ajuste_mediane_nonconditionnel <- round(or_180d$measure[2, "estimate"], 2)
+or_summary_df_IC_30d_ajuste_mediane_nonconditionnel <- paste0(
+  "(",
+  round(or_30d$measure[2, "lower"], 3),
+  ", ",
+  round(or_30d$measure[2, "upper"], 3),
+  ")"
+)
+or_summary_df_IC_180d_ajuste_mediane_nonconditionnel <- paste0(
+  "(",
+  round(or_180d$measure[2, "lower"], 3),
+  ", ",
+  round(or_180d$measure[2, "upper"], 3),
+  ")"
+)
 or_summary_df <- data.frame(
   `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
-  `OR` = c(round(or_30d$measure[2, "estimate"], 3), round(or_180d$measure[2, "estimate"], 3)),
-  `IC 95%` = c(
-    paste0("(", round(or_30d$measure[2, "lower"], 3), ", ", round(or_30d$measure[2, "upper"], 3), ")"),
-    paste0("(", round(or_180d$measure[2, "lower"], 3), ", ", round(or_180d$measure[2, "upper"], 3), ")")
-  ),
+  `OR` = c(or_summary_df_OR_30d_ajuste_mediane_nonconditionnel, or_summary_df_OR_180d_ajuste_mediane_nonconditionnel),
+  `IC 95%` = c(or_summary_df_IC_30d_ajuste_mediane_nonconditionnel, or_summary_df_IC_180d_ajuste_mediane_nonconditionnel),
   check.names = FALSE
 )
 knitr::kable(or_summary_df, booktabs = TRUE)
@@ -2705,7 +3076,7 @@ knitr::kable(or_summary_df, booktabs = TRUE)
 
 -   Les OR sont significativement positifs à 30 et 180 jours et sont très proches.
 
-#### Version appariée par paire : régression logistique conditionnelle
+### Après imputation par la médiane : régression logistique conditionnelle
 
 -   Les OR ci-dessus sont calculés sur l'échantillon apparié, mais ils restent des OR "simples" obtenus à partir d'un tableau 2 x 2 et ne tiennent pas explicitement compte des paires issues du score de propension.
 
@@ -2722,56 +3093,58 @@ knitr::kable(or_summary_df, booktabs = TRUE)
 #| warning: false
 #| results: asis
 #| tbl-cap: "Odds Ratio conditionnel par paire pour le décès à 30 jours et à 180 jours"
-df_matched$death_30d_num <- as.integer(df_matched$death_30d == "Yes")
-df_matched$death_180d_num <- as.integer(df_matched$death_180d == "Yes")
+df_matched_mediane$death_30d_num <- as.integer(df_matched_mediane$death_30d == "Yes")
+df_matched_mediane$death_180d_num <- as.integer(df_matched_mediane$death_180d == "Yes")
 
 clogit_30d <- clogit(
   death_30d_num ~ rhc + strata(subclass),
-  data = df_matched
+  data = df_matched_mediane
 )
 
 clogit_180d <- clogit(
   death_180d_num ~ rhc + strata(subclass),
-  data = df_matched
+  data = df_matched_mediane
 )
 
 coef_30d <- summary(clogit_30d)$coefficients["rhcRHC", ]
 coef_180d <- summary(clogit_180d)$coefficients["rhcRHC", ]
 
+or_summary_df_OR_30d_mediane_conditionnel <- round(exp(coef_30d["coef"]), 2)
+or_summary_df_OR_180d_mediane_conditionnel <- round(exp(coef_180d["coef"]), 2)
+or_summary_df_IC_30d_mediane_conditionnel <- paste0(
+  "(",
+  round(exp(coef_30d["coef"] - 1.96 * coef_30d["se(coef)"]), 2),
+  ", ",
+  round(exp(coef_30d["coef"] + 1.96 * coef_30d["se(coef)"]), 2),
+  ")"
+)
+or_summary_df_IC_180d_mediane_conditionnel <- paste0(
+  "(",
+  round(exp(coef_180d["coef"] - 1.96 * coef_180d["se(coef)"]), 2),
+  ", ",
+  round(exp(coef_180d["coef"] + 1.96 * coef_180d["se(coef)"]), 2),
+  ")"
+)
 or_conditional_df <- data.frame(
   `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
-  `OR conditionnel` = c(exp(coef_30d["coef"]), exp(coef_180d["coef"])),
-  `IC 95%` = c(
-    paste0(
-      "(",
-      round(exp(coef_30d["coef"] - 1.96 * coef_30d["se(coef)"]), 3),
-      ", ",
-      round(exp(coef_30d["coef"] + 1.96 * coef_30d["se(coef)"]), 3),
-      ")"
-    ),
-    paste0(
-      "(",
-      round(exp(coef_180d["coef"] - 1.96 * coef_180d["se(coef)"]), 3),
-      ", ",
-      round(exp(coef_180d["coef"] + 1.96 * coef_180d["se(coef)"]), 3),
-      ")"
-    )
+  `OR conditionnel` = c(or_summary_df_OR_30d_mediane_conditionnel, or_summary_df_OR_180d_mediane_conditionnel),
+  `IC 95%` = c(or_summary_df_IC_30d_mediane_conditionnel, or_summary_df_IC_180d_mediane_conditionnel
   ),
-  `p-value` = c(coef_30d["Pr(>|z|)"], coef_180d["Pr(>|z|)"]),
+  `p-value` = c(
+    coef_30d["Pr(>|z|)"],
+    coef_180d["Pr(>|z|)"]
+  ),
   check.names = FALSE
 )
 
-or_conditional_df$`OR conditionnel` <- round(or_conditional_df$`OR conditionnel`, 3)
 or_conditional_df$`p-value` <- format.pval(or_conditional_df$`p-value`, digits = 3, eps = 0.001)
 
 knitr::kable(or_conditional_df, booktabs = TRUE)
 ```
 
+-   Même en prenant en compte la structure appariée, les OR sont très proches de ceux obtenus sans prise en compte de la structure appariée.
 
--   Même en prenant en compte la structure appariée, les OR sont très proches de ceux obtenus sans prise en compte de la structure appariée. 
-
-
-### En utilisant des critères de temps de survie (temps jusqu'au décès ou censure)
+### Après imputation par la médiane : survie
 
 ```{r}
 #| label: variables-outcomes-apres-appariement
@@ -2780,33 +3153,33 @@ knitr::kable(or_conditional_df, booktabs = TRUE)
 #| warning: false
 #| results: hide
 # conversion des dates en format Date
-df_matched$date_admission <- as.Date(df_matched$date_admission)
-df_matched$date_death <- as.Date(df_matched$date_death)
-df_matched$date_last_news <- as.Date(df_matched$date_last_news)
+df_matched_mediane$date_admission <- as.Date(df_matched_mediane$date_admission)
+df_matched_mediane$date_death <- as.Date(df_matched_mediane$date_death)
+df_matched_mediane$date_last_news <- as.Date(df_matched_mediane$date_last_news)
 
 
 # Recalcul des temps à partir des dates (suivi "complet")
-df_matched$time_to_death <- as.numeric(df_matched$date_death - df_matched$date_admission)
-df_matched$time_to_last_news <- as.numeric(df_matched$date_last_news - df_matched$date_admission)
+df_matched_mediane$time_to_death <- as.numeric(df_matched_mediane$date_death - df_matched_mediane$date_admission)
+df_matched_mediane$time_to_last_news <- as.numeric(df_matched_mediane$date_last_news - df_matched_mediane$date_admission)
 
-df_matched$time_to_death
+df_matched_mediane$time_to_death
 
 # Événement "décès" selon la présence d'une date de décès
-df_matched$event_death <- as.integer(!is.na(df_matched$date_death))
+df_matched_mediane$event_death <- as.integer(!is.na(df_matched_mediane$date_death))
 # Temps de suivi complet (décès -> date_death, sinon -> date_last_news)
-df_matched$followup_time <- df_matched$time_to_last_news
+df_matched_mediane$followup_time <- df_matched_mediane$time_to_last_news
 
 # Si décès, temps de suivi = temps jusqu'au décès
-df_matched$followup_time[df_matched$event_death == 1] <- df_matched$time_to_death[df_matched$event_death == 1]
+df_matched_mediane$followup_time[df_matched_mediane$event_death == 1] <- df_matched_mediane$time_to_death[df_matched_mediane$event_death == 1]
 
 # Temps d'inclusion : prend le minimum entre le temps de suivi et 180 jours (donc censure après 180 jours)
-df_matched$survival_time_180d <- pmin(df_matched$followup_time, 180)
+df_matched_mediane$survival_time_180d <- pmin(df_matched_mediane$followup_time, 180)
 
 # Événement "décès" à 180 jours : vaut 1 si décès ET temps jusqu'au décès <= 180 jours
-df_matched$event_180d <- as.integer(df_matched$event_death == 1 & df_matched$time_to_death <= 180)
+df_matched_mediane$event_180d <- as.integer(df_matched_mediane$event_death == 1 & df_matched_mediane$time_to_death <= 180)
 
 # Temps négatifs -> NA
-df_matched$survival_time_180d[df_matched$survival_time_180d < 0] <- NA
+df_matched_mediane$survival_time_180d[df_matched_mediane$survival_time_180d < 0] <- NA
 ```
 
 ```{r}
@@ -2819,13 +3192,13 @@ df_matched$survival_time_180d[df_matched$survival_time_180d < 0] <- NA
 #| fig-height: 7.5
 #| fig-cap: "Courbe de survie de Kaplan-Meier selon le RHC dans la population appariée"
 # création de l'objet de survie
-surv_object <- Surv(time = df_matched$survival_time_180d, event = df_matched$event_180d)
+surv_object_matched_mediane <- Surv(time = df_matched_mediane$survival_time_180d, event = df_matched_mediane$event_180d)
 # ajustement du modèle de survie de Kaplan-Meier
-km_fit <- survfit(surv_object ~ rhc, data = df_matched)
+km_fit <- survfit(surv_object_matched_mediane ~ rhc, data = df_matched_mediane)
 # affichage du graphique de survie
 km_plot <- ggsurvplot(
   km_fit,
-  data = df_matched,
+  data = df_matched_mediane,
   pval = TRUE,
   conf.int = TRUE,
   risk.table = TRUE,
@@ -2843,21 +3216,21 @@ km_plot <- ggsurvplot(
 print(km_plot)
 ```
 
--   Le test du log rank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC (p \< 0.001), suggérant une différence persistante entre les courbes de survie après appariement.
+-   Le test du logrank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC (p \< 0.001), suggérant une différence persistante entre les courbes de survie après appariement.
 
 -   L'hypothèse de proportionnalité des risques semble être vérifiée, car les courbes de survie ne se croisent pas et restent parallèles au fil du temps
 
 -   NB : le test du log-rank "conventionnel" n'est peut-être pas idéal dans le contexte de données appariées, car il ne prend pas en compte la structure de dépendance introduite par l'appariement. S'en suit un risque d'erreur de type 1 artificiellement bas, comme cité dans un autre article d'Austin (2013) [@austinUsePropensityScore2014]
 
--   L'article recommande : 
+-   L'article recommande :
 
-    -  de réaliser un "log-rank stratifié sur les paires", qui est un test de rang qui prend en compte la structure de dépendance introduite par l'appariement en stratifiant les paires appariées.
+    -   de réaliser un "log-rank stratifié sur les paires", qui est un test de rang qui prend en compte la structure de dépendance introduite par l'appariement en stratifiant les paires appariées.
 
-    -  on pourra aussi réaliser un modèle de Cox avec estimation robuste de la variance. Nous utiliserons un estimateur sandwich (qui fonctionne en ajustant les erreurs standard pour tenir compte de la corrélation au sein des paires appariées) pour obtenir des intervalles de confiance et des p-values corrects.
+    -   on pourra aussi réaliser un modèle de Cox avec estimation robuste de la variance. Nous utiliserons un estimateur sandwich (qui fonctionne en ajustant les erreurs standard pour tenir compte de la corrélation au sein des paires appariées) pour obtenir des intervalles de confiance et des p-values corrects.
 
-### Prise en compte de la structure de dépendance introduite par l'appariement dans les tests de survie
+#### Prise en compte de la structure de dépendance introduite par l'appariement
 
-#### Test du log-rank conventionnel vs test du log-rank stratifié sur les paires
+##### Test du log-rank conventionnel vs test du log-rank stratifié sur les paires
 
 ```{r}
 #| label: conventionnal-and-stratified-log-rank-test
@@ -2865,21 +3238,22 @@ print(km_plot)
 #| message: false
 #| warning: false
 #| results: asis
-#| tbl-cap: "Résultats du test du log-rank conventionnel et du test du log-rank stratifié sur les paires"
+#| tbl-cap: "Résultats du log-rank conventionnel et du log-rank stratifié sur les paires"
 # test du log-rank conventionnel
-logrank_conventional <- survdiff(surv_object ~ rhc, data = df_matched)
+logrank_conventional <- survdiff(surv_object_matched_mediane ~ rhc, data = df_matched_mediane)
 p_logrank_conventional <- 1 - pchisq(logrank_conventional$chisq, df = 1)
 # test du log-rank stratifié sur les paires
 logrank_stratified <- survdiff(
-  surv_object ~ rhc + strata(subclass),
-  data = df_matched
+  surv_object_matched_mediane ~ rhc + strata(subclass),
+  data = df_matched_mediane
 )
 
 p_logrank_stratified <- 1 - pchisq(logrank_stratified$chisq, df = 1)
 
 logrank_results <- data.frame(
   Test = c("Log-rank conventionnel", "Log-rank stratifié"),
-  p_value = c(p_logrank_conventional, p_logrank_stratified)
+  #pvalue : afficher la p-value < 0,001 comme "< 0.001"
+  p_value = ifelse(c(p_logrank_conventional, p_logrank_stratified) < 0.001, "< 0.001", c(p_logrank_conventional, p_logrank_stratified))
 )
 
 knitr::kable(logrank_results, booktabs = TRUE)
@@ -2887,6 +3261,7 @@ knitr::kable(logrank_results, booktabs = TRUE)
 
 -   Dans les 2 cas, le test du log-rank indique une différence significative entre les courbes de survie des groupes RHC et non-RHC, suggérant une différence persistante entre les courbes de survie après appariement, même en prenant en compte la structure de dépendance introduite par l'appariement.
 
+\newpage
 #### Modèle de Cox stratifié sur les paires avec estimation robuste de la variance
 
 ```{r}
@@ -2895,19 +3270,27 @@ knitr::kable(logrank_results, booktabs = TRUE)
 #| message: false
 #| warning: false
 #| results: asis
-#| tbl-cap: "Résultats du modèle de Cox stratifié sur les paires avec estimation robuste de la variance"
+#| tbl-cap: "Résultats du modèle de Cox avec clustering sur les paires et estimation robuste de la variance"
 # ajustement du modèle de Cox avec variance robuste et cluster sur les paires appariées
 cox_model <- coxph(
-  surv_object ~ rhc,
-  data = df_matched,
+  surv_object_matched_mediane ~ rhc,
+  data = df_matched_mediane,
   cluster = subclass
 )
 #affichage des résultats du modèle de Cox
 cox_summary <- summary(cox_model)
+cox_summary_ajuste_mediane_HR <- round(cox_summary$coefficients[, "exp(coef)"], 2)
+cox_summary_ajuste_mediane_IC95 <- paste0(
+  "(",
+  round(cox_summary$conf.int[, "lower .95"], 2),
+  ", ",
+  round(cox_summary$conf.int[, "upper .95"], 2),
+  ")"
+)
 cox_results <- data.frame(
   Variable = rownames(cox_summary$coefficients),
-  HR = round(cox_summary$coefficients[, "exp(coef)"], 3),
-  `IC 95%` = paste0("(", round(cox_summary$conf.int[, "lower .95"], 3), ", ", round(cox_summary$conf.int[, "upper .95"], 3), ")"),
+  HR = cox_summary_ajuste_mediane_HR,
+  `IC 95%` = cox_summary_ajuste_mediane_IC95,
   p_value = format.pval(cox_summary$coefficients[, "Pr(>|z|)"], digits = 3, eps = 0.001),
   row.names = NULL
 )
@@ -2917,15 +3300,15 @@ knitr::kable(cox_results, booktabs = TRUE)
 
 -   Le modèle de Cox stratifié sur les paires avec estimation robuste de la variance indique que le RHC est associé à un risque de décès à 180 jours significativement plus élevé que le non-RHC.
 
--   Le risque instantané de décès à 180 jours est multiplié par `r cox_results$HR` chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de `r cox_results$IC_95` et une p-value < 0.001.
+-   Le risque instantané de décès à 180 jours est multiplié par `r cox_results$HR` chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de `r cox_results$IC_95` et une p-value \< 0.001.
 
--   En détails : 
+-   En détails :
 
-    - Le clustering sur les paires permet de prendre en compte la structure de dépendance introduite par l'appariement, en ajustant les erreurs standard pour tenir compte de la corrélation au sein des paires appariées.
+    -   Le clustering sur les paires permet de prendre en compte la structure de dépendance introduite par l'appariement, en ajustant les erreurs standard pour tenir compte de la corrélation au sein des paires appariées.
 
-    - L'estimation robuste de la variance (estimateur sandwich) permet d'obtenir des intervalles de confiance et des p-values mieux estimés.
+    -   L'estimation robuste de la variance (estimateur sandwich) permet d'obtenir des intervalles de confiance et des p-values mieux estimés.
 
--   Conditions de validité du modèle de Cox (par graphiques des résidus de Schoenfeld) : 
+-   Conditions de validité du modèle de Cox (par graphiques des résidus de Schoenfeld) :
 
 ```{r}
 #| label: cox-proportional-hazards-assumption
@@ -2933,7 +3316,7 @@ knitr::kable(cox_results, booktabs = TRUE)
 #| message: false
 #| warning: false
 #| results: asis
-#| fig-cap: "Graphique des résidus de Schoenfeld pour vérifier l'hypothèse de proportionalité des risques"
+#| fig-cap: "Graphique des résidus de Schoenfeld pour proportionalité des risques"
 #| fig-width: 10
 #| fig-height: 4
 # vérification de l'hypothèse de proportionalité des risques avec les résidus de Schoenfeld
@@ -2943,6 +3326,299 @@ plot(cox_zph)
 
 -   Les résidus semblent stationnaires dans le temps, ce qui suggère que l'hypothèse de proportionalité des risques est vérifiée pour le modèle de Cox ajusté.
 
+\newpage
+## Dans la population appariée après imputation multiple
+
+-   D'abord analyse des résultats dans chaque jeu de données imputé séparément
+
+-   Puis combinaison des résultats pour obtenir des estimations globales qui tiennent compte de l'incertitude liée à l'imputation
+
+-   On utilise la méthode de Rubin pour la combinaison des résultats, reposant sur le calcul de la moyenne des coefficients estimés puis l'addition des 2 composantes de la variance [@rosenbaumCentralRolePropensity]
+
+    -   Variance moyenne au sein de chaque imputation (fluctuation due à l'échantillonnage)
+
+    -   Variance entre les imputations (fluctuation due à l'imputation, liée aux données manquantes)
+
+    -   Variance totale permet de calculer une erreur standard pooler et des intervalles de confiance poolés qui tiennent compte de l'incertitude liée à l'imputation.
+    
+
+### Tableau descriptif post-appariement dans les données imputées multiples
+
+-   Effectifs des 5 jeux de données : 
+
+```{r}
+#| label: effectifs-apres-appariement-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+effectifs_apres_appariement <- data.frame(
+  Imputation = paste0("Jeu ", 1:5),
+  RHC_n = c(
+    sum(matchthem_dataframe_1$rhc == "RHC"),
+    sum(matchthem_dataframe_2$rhc == "RHC"),
+    sum(matchthem_dataframe_3$rhc == "RHC"),
+    sum(matchthem_dataframe_4$rhc == "RHC"),
+    sum(matchthem_dataframe_5$rhc == "RHC")
+  ),
+  No_RHC_n = c(
+    sum(matchthem_dataframe_1$rhc == "No RHC"),
+    sum(matchthem_dataframe_2$rhc == "No RHC"),
+    sum(matchthem_dataframe_3$rhc == "No RHC"),
+    sum(matchthem_dataframe_4$rhc == "No RHC"),
+    sum(matchthem_dataframe_5$rhc == "No RHC")
+  )
+)
+knitr::kable(effectifs_apres_appariement, booktabs = TRUE)
+```
+
+### Après imputation multiple : critères binaires (régressions logistiques conditionnelles) 
+
+-   D'abord régression logistique conditionnelle par paire dans chaque jeu apparié
+
+-   Puis combinaison des résultats des 5 analyses en utilisant la règle de Rubin pour obtenir une estimation globale de l'odds ratio conditionnel.
+
+-   Règle de Rubin : calcule la moyenne des coefficients estimés puis additioner 2 composantes de la variance :
+
+    -   Variance moyenne au sein de chaque imputation (fluctuation due à l'échantillonnage)
+
+    -   Variance entre les imputations (fluctuation due à l'imputation, liée aux données manquantes)
+
+-   La variance totale obtenue permet de calculer une erreur standard poolée, donc des intervalles de confiance poolés qui tiennent compte de l'incertitude liée à l'imputation.
+
+```{r}
+#| label: or-conditionnel-apres-appariement-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Odds ratio conditionnel par paire pour le décès à 30 jours et à 180 jours, poolé sur les 5 imputations"
+
+#La fonction "with" de `mice` permet d'appliquer une fonction à chaque jeu de données imputé, et de stocker les résultats dans un objet de classe "mira" (Multiply Imputed Repeated Analysis).
+#obtention d'un objet de classe "mira" contenant les résultats de la régression logistique conditionnelle par paire pour le décès à 30 jours dans chaque jeu de données imputé
+clogit_30d_mira <- with(
+  data = matchthem_mimids, #mimids créé par MatchThem
+  expr = clogit(
+    death_30d == "Yes" ~ rhc + strata(subclass)
+  )
+)
+
+#fonction "pool" de `mice` pour combiner les résultats des analyses dans les jeux imputés, en utilisant la règle de Rubin.
+#obtention d'un objet de classe "mipo" (Multiply Imputed Pooled Object) contenant les résultats poolés de la régression logistique conditionnelle par paire pour le décès à 30 jours
+clogit_30d_mipo <- pool(
+  object = clogit_30d_mira,
+  rule = "rubin1987")
+
+
+clogit_30d_pooled_dataframe <- summary(
+  object = clogit_30d_mipo,
+  conf.int = TRUE,
+  exponentiate = TRUE
+)
+
+
+clogit_180d_mira <- with(
+  data = matchthem_mimids,
+  expr = clogit(
+    death_180d == "Yes" ~ rhc + strata(subclass)
+  )
+)
+
+clogit_180d_mipo <- pool(
+  object = clogit_180d_mira, 
+  rule = "rubin1987")
+
+
+clogit_180d_pooled_dataframe <- summary(
+  object = clogit_180d_mipo,
+  conf.int = TRUE,
+  exponentiate = TRUE
+)
+
+# extraction de la ligne rhc
+ligne_30d <- clogit_30d_pooled_dataframe[clogit_30d_pooled_dataframe$term == "rhcRHC", ]
+ligne_180d <- clogit_180d_pooled_dataframe[clogit_180d_pooled_dataframe$term == "rhcRHC", ]
+
+or_summary_df_OR_30d_ajuste_multiple <- round(ligne_30d$estimate, 2)
+or_summary_df_OR_180d_ajuste_multiple <- round(ligne_180d$estimate, 2)
+or_summary_df_IC_30d_ajuste_multiple <- paste0(
+  "(", round(ligne_30d$`2.5 %`, 2), ", ", round(ligne_30d$`97.5 %`, 2), ")"
+)
+or_summary_df_IC_180d_ajuste_multiple <- paste0(
+  "(", round(ligne_180d$`2.5 %`, 2), ", ", round(ligne_180d$`97.5 %`, 2), ")"
+)
+
+or_conditional_mi_df <- data.frame(
+  `Critère` = c("Décès à 30 jours", "Décès à 180 jours"),
+  `OR conditionnel` = c(or_summary_df_OR_30d_ajuste_multiple, or_summary_df_OR_180d_ajuste_multiple)
+  ,
+  `IC 95%` = c(or_summary_df_IC_30d_ajuste_multiple, or_summary_df_IC_180d_ajuste_multiple
+  ),
+  `p-value` = c(
+    format.pval(ligne_30d$p.value, digits = 3, eps = 0.001),
+    format.pval(ligne_180d$p.value, digits = 3, eps = 0.001)
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(or_conditional_mi_df, booktabs = TRUE)
+```
+
+### Après imputation multiple : survie
+
+### Kaplan Meier et log-rank
+
+-   Les fonctions utilisés sont faites pour pooler des estimations de modèle avec estimateur, erreur standard et degrés de libertés.
+
+-   Il n'existe pas de solution "clé en main" pour pooler des objets de survie et obtenir une courbe de Kaplan-Meier poolée, ou un test de log-rank poolé.
+
+-   On prend donc le parti de présenter une courbe de Kaplan-Meier pour une imputation appariée (par exemple la première imputation).
+
+```{r}
+#| label: variables-survie-apres-appariement-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
+
+# création des variables de temps et d'événement pour l'analyse de survie
+df_survie_matchthem <- matchthem_mimids$object$data
+
+# Recalcul des temps à partir des dates
+df_survie_matchthem$date_admission <- as.Date(df_survie_matchthem$date_admission)
+df_survie_matchthem$date_death <- as.Date(df_survie_matchthem$date_death)
+df_survie_matchthem$date_last_news <- as.Date(df_survie_matchthem$date_last_news)
+
+df_survie_matchthem$time_to_death <- as.numeric(df_survie_matchthem$date_death - df_survie_matchthem$date_admission)
+df_survie_matchthem$time_to_last_news <- as.numeric(df_survie_matchthem$date_last_news - df_survie_matchthem$date_admission)
+
+# Événement décès
+df_survie_matchthem$event_death <- as.integer(!is.na(df_survie_matchthem$date_death))
+
+# Temps de suivi complet
+df_survie_matchthem$followup_time <- df_survie_matchthem$time_to_last_news
+df_survie_matchthem$followup_time[df_survie_matchthem$event_death == 1] <- df_survie_matchthem$time_to_death[df_survie_matchthem$event_death == 1]
+
+# Censure à 180 jours
+df_survie_matchthem$survival_time_180d <- pmin(df_survie_matchthem$followup_time, 180)
+df_survie_matchthem$event_180d <- as.integer(df_survie_matchthem$event_death == 1 & df_survie_matchthem$time_to_death <= 180)
+
+# Temps négatifs -> NA
+df_survie_matchthem$survival_time_180d[df_survie_matchthem$survival_time_180d < 0] <- NA
+
+# ajout des variables à l'objet mimids pour les réutiliser ensuite
+matchthem_mimids <- MatchThem::cbind(
+  matchthem_mimids,
+  survival_time_180d = df_survie_matchthem$survival_time_180d,
+  event_180d = df_survie_matchthem$event_180d
+)
+```
+
+```{r}
+#| label: km-plot-apres-appariement-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| fig-cap: "Courbe de survie de Kaplan-Meier pour la première imputation appariée"
+#| fig-width: 10
+#| fig-height: 7.5
+# extraction de la première imputation appariée
+df_km_matchthem <- MatchThem::complete(matchthem_mimids, action = 1, all = FALSE)
+
+km_fit <- survfit(
+  Surv(survival_time_180d, event_180d) ~ rhc,
+  data = df_km_matchthem
+)
+km_plot <- ggsurvplot(
+  km_fit,
+  data = df_km_matchthem,
+  risk.table = TRUE,
+  pval = TRUE,
+  conf.int = TRUE,
+  xlab = "Temps (jours)",
+  ylab = "Probabilité de survie",
+  title = "Courbe de survie de Kaplan-Meier pour la première imputation appariée",
+  legend.title = "Groupe",
+  legend.labs = c("No RHC", "RHC"),
+  palette = c(nord::nord("aurora")[1], nord::nord("aurora")[4])
+)
+print(km_plot)
+```
+
+-   Comme le test du logrank compare les courbes, il compare ici les courbes de la première imputation appariée, et ne tient pas compte de l'incertitude liée à l'imputation multiple.
+
+-   On peut calculer le log-rank pour chaque imputation appariée : 
+
+```{r}
+#| label: logrank-apres-appariement-mi
+#| echo: false
+#| message: false
+#| warning: false
+# calcul du log-rank pour chaque imputation appariée
+logrank_pvalues <- sapply(1:5, function(i) {
+  df_km <- MatchThem::complete(matchthem_mimids, action = i, all = FALSE)
+  surv_diff <- survdiff(Surv(survival_time_180d, event_180d) ~ rhc, data = df_km)
+  p_value <- 1 - pchisq(surv_diff$chisq, length(surv_diff$n) - 1)
+  return(p_value)
+})
+logrank_pvalues_df <- data.frame(
+  Imputation = paste0("Jeu ", 1:5),
+  `p-value log-rank` = format.pval(logrank_pvalues, digits = 3, eps = 0.001)
+)
+knitr::kable(logrank_pvalues_df, booktabs = TRUE)
+```
+
+-   En pratique, on pourrait essayer de faire une courbe de Kaplan-Meier "moyenne" en moyennant les points de survie point par point sur les 5 imputations.
+
+#### Après imputation multiple : modèle de Cox poolé avec clustering sur les paires
+
+```{r}
+#| label: cox-poole-apres-appariement-mi
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+#| tbl-cap: "Modèle de Cox avec cluster sur les paires poolé sur les 5 imputations"
+
+# Cox dans chaque imputation puis pooling
+cox_mira <- with(
+  data = matchthem_mimids,
+  expr = survival::coxph(
+    survival::Surv(survival_time_180d, event_180d) ~ rhc + cluster(subclass)
+  )
+)
+
+cox_mipo <- pool(
+  object = cox_mira,
+  rule = "rubin1987"
+)
+
+cox_pooled_dataframe <- summary(
+  cox_mipo,
+  conf.int = TRUE,
+  exponentiate = TRUE
+)
+
+ligne_cox <- cox_pooled_dataframe[cox_pooled_dataframe$term == "rhcRHC", ]
+hr_original <- ligne_cox$estimate
+
+cox_summary_ajuste_multiple_HR <- round(hr_original, 2)
+cox_summary_ajuste_multiple_IC95 <- paste0(
+  "(", round(ligne_cox$`2.5 %`, 2), ", ", round(ligne_cox$`97.5 %`, 2), ")"
+)
+
+cox_results_pooled <- data.frame(
+  Variable = "RHC vs No RHC",
+  HR = cox_summary_ajuste_multiple_HR,
+  `IC 95%` = cox_summary_ajuste_multiple_IC95,
+  `p-value` = format.pval(ligne_cox$p.value, digits = 3, eps = 0.001),
+  check.names = FALSE
+)
+
+knitr::kable(cox_results_pooled, booktabs = TRUE)
+```
+
 ## Interprétation des résultats
 
 -   Après appariement, le cathéterisme cardiaque droit (RHC) est associé à un risque de décès à 30 jours et à 180 jours significativement plus élevé que le non-RHC.
@@ -2950,7 +3626,7 @@ plot(cox_zph)
 -   Les analyses de survie indiquent que les patients ayant eu un RHC ont une probabilité de survie à 180 jours significativement plus faible que les patients n'ayant pas eu de RHC, même après appariement.
 
 \newpage
-# Autre approche : analyse multivariée sur la population totale (non appariée)
+# Autre approche : analyse multivariée sur population totale (non appariée)
 
 ## Principe
 
@@ -2994,7 +3670,7 @@ cox_multivariate_model <- coxph(
     comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary + comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
     comorbidity_malignancy + comorbidity_immunosuppression + comorbidity_transfer + comorbidity_myocardial_infarction +
     urine_output,
-  data = df_imputed
+  data = df_imputation_mediane
 )
 #extraction de l'OR pour le RHC et de son intervalle de confiance
 cox_multivariate_summary <- summary(cox_multivariate_model)
@@ -3013,82 +3689,149 @@ cox_multivariate_results$Variable <- "RHC vs No RHC"
 knitr::kable(cox_multivariate_results, booktabs = TRUE)
 ```
 
--   On trouve un risque instantané de décès à 180 jours multiplié par `r cox_multivariate_results$HR` chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de `r cox_multivariate_results$IC95` et une p-value < 0.001. 
+-   On trouve un risque instantané de décès à 180 jours multiplié par `r cox_multivariate_results$HR` chez les patients ayant eu un RHC par rapport à ceux n'ayant pas eu de RHC, avec un intervalle de confiance à 95% allant de `r cox_multivariate_results$IC95` et une p-value \< 0.001.
 
 -   C'est très similaire aux résultats obtenus dans la population appariée !
 
 ## Interprétation des résultats du modèle de régression multivariée
 
-- Le RHC est associé à un risque de décès à 180 jours significativement plus élevé que le non-RHC, même après ajustement pour les variables basales.
-
-
+-   Le RHC est associé à un risque de décès à 180 jours significativement plus élevé que le non-RHC, même après ajustement pour les variables basales.
 
 \newpage
 
 # Synthèse des estimateurs et analyse de robustesse
 
--   Afin de vérifier la cohérence de nos résultats, nous comparons ci-dessous les rapports de risques (Hazard Ratio - HR) obtenus selon trois approches différentes. Cette comparaison permet d'évaluer la stabilité de l'association observée entre le cathétérisme cardiaque droit et la mortalité à 180 jours.
+-   Afin de vérifier la cohérence globale de nos résultats, on regroupe ci-dessous les estimateurs déjà calculés plus haut et on y ajoute le HR issu du modèle de Cox multivarié sur la population totale. Cela permet de comparer directement l'effet du RHC selon le critère étudié et la stratégie d'ajustement.
 
 ```{r}
-#| label: tableau-comparaison-estimateurs
+#| label: tbl-comparaison-estimateurs
 #| echo: false
 #| message: false
 #| warning: false
 #| results: asis
-
-# 1. Modèle brut (non ajusté) sur population totale
-cox_brut <- coxph(Surv(survival_time_180d, event_180d) ~ rhc, data = df_imputed)
-sum_brut <- summary(cox_brut)
-
-# 2. Modèle sur population appariée (récupération du modèle précédent)
-sum_match <- summary(cox_model)
-
-# 3. Modèle multivarié sur population totale (récupération du modèle précédent)
-sum_multi <- summary(cox_multivariate_model)
-
-# Construction du tableau récapitulatif
-comp_df <- data.frame(
-  Approche = c(
-    "Analyse brute (Population totale)",
-    "Analyse appariée (Score de propension)",
-    "Analyse multivariée (Population totale)"
+synthese_estimateurs <- data.frame(
+  Estimateur = c(
+    "OR conditionnel, décès à 30 jours",
+    "OR conditionnel, décès à 180 jours",
+    "HR, survie à 180 jours"
   ),
-  HR = c(
-    round(sum_brut$coefficients[1, "exp(coef)"], 2),
-    round(sum_match$coefficients[1, "exp(coef)"], 2),
-    round(sum_multi$coefficients[1, "exp(coef)"], 2)
+  `Avant ajustement` = c(
+    paste0(
+      or_summary_df_OR_30d_nonajuste, " ", or_summary_df_IC_30d_nonajuste
+    ),
+    paste0(
+      or_summary_df_OR_180d_nonajuste, " ", or_summary_df_IC_180d_nonajuste
+    ),
+    paste0(
+      cox_summary_non_ajuste_HR," ", cox_summary_non_ajuste_IC95
+    )
   ),
-  `IC 95%` = c(
-    paste0("(", round(sum_brut$conf.int[1, "lower .95"], 2), ", ", round(sum_brut$conf.int[1, "upper .95"], 2), ")"),
-    paste0("(", round(sum_match$conf.int[1, "lower .95"], 2), ", ", round(sum_match$conf.int[1, "upper .95"], 2), ")"),
-    paste0("(", round(sum_multi$conf.int[1, "lower .95"], 2), ", ", round(sum_multi$conf.int[1, "upper .95"], 2), ")")
+  `Après imputation par la médiane et appariement` = c(
+    paste0(
+      or_summary_df_OR_30d_mediane_conditionnel, " ", or_summary_df_IC_30d_mediane_conditionnel
+    ),
+    paste0(
+      or_summary_df_OR_180d_mediane_conditionnel, " ", or_summary_df_IC_180d_mediane_conditionnel
+    ),
+    paste0(
+      cox_summary_ajuste_mediane_HR, " ", cox_summary_ajuste_mediane_IC95
+    )
   ),
-  `p-value` = c(
-    format.pval(sum_brut$coefficients[1, "Pr(>|z|)"], eps = 0.001),
-    format.pval(sum_match$coefficients[1, "Pr(>|z|)"], eps = 0.001),
-    format.pval(sum_multi$coefficients[1, "Pr(>|z|)"], eps = 0.001)
+  `Après imputation multiple et appariement` = c(
+    paste0(
+      or_summary_df_OR_30d_ajuste_multiple, " ", or_summary_df_IC_30d_ajuste_multiple
+    ),
+    paste0(
+      or_summary_df_OR_180d_ajuste_multiple, " ", or_summary_df_IC_180d_ajuste_multiple
+    ),
+    paste0(
+      cox_summary_ajuste_multiple_HR, " ", cox_summary_ajuste_multiple_IC95
+    )
+  ),
+  check.names = FALSE
+)
+
+# tableau transposé pour un meilleur rendu en PDF
+comparaison_estimateurs <- data.frame(
+  Analyse = c(
+    "Avant ajustement",
+    "Imputation médiane + appariement",
+    "Imputation multiple + appariement",
+    "Cox multivarié, population totale"
+  ),
+  `OR décès 30 j` = c(
+    paste0(or_summary_df_OR_30d_nonajuste, " ", or_summary_df_IC_30d_nonajuste),
+    paste0(or_summary_df_OR_30d_mediane_conditionnel, " ", or_summary_df_IC_30d_mediane_conditionnel),
+    paste0(or_summary_df_OR_30d_ajuste_multiple, " ", or_summary_df_IC_30d_ajuste_multiple),
+    "-"
+  ),
+  `OR décès 180 j` = c(
+    paste0(or_summary_df_OR_180d_nonajuste, " ", or_summary_df_IC_180d_nonajuste),
+    paste0(or_summary_df_OR_180d_mediane_conditionnel, " ", or_summary_df_IC_180d_mediane_conditionnel),
+    paste0(or_summary_df_OR_180d_ajuste_multiple, " ", or_summary_df_IC_180d_ajuste_multiple),
+    "-"
+  ),
+  `HR survie 180 j` = c(
+    paste0(cox_summary_non_ajuste_HR, " ", cox_summary_non_ajuste_IC95),
+    paste0(cox_summary_ajuste_mediane_HR, " ", cox_summary_ajuste_mediane_IC95),
+    paste0(cox_summary_ajuste_multiple_HR, " ", cox_summary_ajuste_multiple_IC95),
+    paste0(cox_multivariate_results$HR, " ", cox_multivariate_results$IC95)
   ),
   check.names = FALSE
 )
 
 knitr::kable(
-  comp_df, 
-  booktabs = TRUE, 
-  caption = "Comparaison des rapports de risques (HR) selon la méthode d'ajustement"
+  comparaison_estimateurs,
+  booktabs = TRUE,
+  align = c("l", "c", "c", "c"),
+  caption = "Synthèse des estimateurs selon la méthode d'analyse"
 ) %>%
-  kableExtra::kable_styling(latex_options = "hold_position")
+  kableExtra::column_spec(1, width = "5.2cm") %>%
+  kableExtra::kable_styling(
+    full_width = FALSE,
+    font_size = 9,
+    latex_options = c("hold_position", "scale_down")
+  )
 ```
 
--   La convergence de ces trois méthodes vers des résultats similaires (HR compris entre `r min(comp_df$HR)` et `r max(comp_df$HR)`) renforce la solidité des conclusions. 
--   On observe que l'ajustement (par appariement ou par régression) réduit légèrement l'effet par rapport à l'analyse brute, ce qui confirme la présence d'un biais de confusion initial lié à la gravité des patients, mais l'association reste fortement significative et stable.
+-   Pour le décès à 30 jours, les estimations restent toutes supérieures à 1, avec des OR de `r or_summary_df_OR_30d_nonajuste`, `r or_summary_df_OR_30d_mediane_conditionnel` et `r or_summary_df_OR_30d_ajuste_multiple`, et des intervalles de confiance qui n'incluent pas 1. Cela suggère une augmentation du risque de décès à 30 jours chez les patients ayant eu un RHC.
 
+-   Pour le décès à 180 jours, les résultats sont du même ordre de grandeur, avec des OR de `r or_summary_df_OR_180d_nonajuste`, `r or_summary_df_OR_180d_mediane_conditionnel` et `r or_summary_df_OR_180d_ajuste_multiple`. L'association défavorable observée à 30 jours persiste donc à 180 jours.
 
+-   Pour la survie à 180 jours, les HR sont très proches entre l'analyse brute (`r cox_summary_non_ajuste_HR`), l'analyse appariée après imputation par la médiane (`r cox_summary_ajuste_mediane_HR`), l'analyse appariée après imputation multiple (`r cox_summary_ajuste_multiple_HR`) et l'analyse multivariée ajustée (`r cox_multivariate_results$HR`). Cette convergence renforce la robustesse du résultat, avec un excès de risque instantané de décès à 180 jours d'environ 20 à 30 % associé au RHC.
 
 \newpage
 
+# Au total : que conserver / que mettre dans l'analyse de sensibilité ?
+
+-   Certaines analyses sont redondantes : analyse brute, imputations par la médiane et par imputation multiple, prise en compte de la structure de dépendance après appariement ou non...
+
+-   **Pour la partie descriptive** : il n'y a pas de redondance : tout est à garder ! 
+
+-   **Pour la partie analytique** : 
+
+    - Imputation multiple + appariement
+
+    - Estimation de l'OR conditionnel par paire pour les critères binaires
+
+    - Log-rank avec prise en compte de l'appariement
+
+    - Modèle de Cox avec prise en compte de l'appariement
+
+-  En analyse de sensibilité / supplementaire :
+
+    - L'analyse brute n'a pas vraiment d'intérêt car on sait que les groupes sont très différents, mais on peut la présenter pour montrer l'effet de l'ajustement.
+
+    - L'analyse multivariée sur la population totale peut être présentée en analyse de sensibilité, pour montrer que les résultats sont similaires à ceux obtenus dans la population appariée, même sans appariement.
+
+    - L'imputation par la médiane est une analyse de sensibilité intéressante pour montrer que les résultats sont globalement similaires, même avec une méthode d'imputation plus simple et plus conservatrice.
+
+    - Les analyses sans prise en compte de l'appariement n'ont pas vraiment d'interêt, car elles ne tiennent pas compte de la structure de dépendance induite par l'appariement, et peuvent donc être biaisées (même si les résultats sont très proches).
+
+\newpage
 # Conclusion
 
--   Le cathéterisme cardiaque droit est associé à un risque de décès à 30 jours et à 180 jours significativement plus élevé que le non-RHC, que ce soit dans la population totale en analyse "brute", dans une population appariée sur un score de propension, ou dans une analyse multivariée ajustée pour les variables basales.
+-   Le cathéterisme cardiaque droit est associé à un risque de décès à 30 jours et à 180 jours significativement plus élevé que le non-RHC, que ce soit dans la population totale en analyse "brute", dans une population appariée sur un score de propension quelque soit la méthode d'imputation utilisée, ou dans une analyse multivariée ajustée pour les variables basales.
 
 -   L'appariement a permis d'améliorer la comparabilité initiale des groupes ayant eu ou non un cathéterisme cardiaque droit en équilibrant les caractéristiques basales, mais il est important de noter que l'équilibre des covariables basales ne garantit pas l'absence de biais de sélection ou de confusion résiduelle, notamment du fait que certaines variables potentiellement confondantes n'ont pas été mesurées, donc pas incluses dans le score de propension.
 
@@ -3099,15 +3842,15 @@ knitr::kable(
 -   Au total : le cathéterisme cardiaque droit est associé à un risque de décès plus élevé, mais on ne peut pas conclure à une relation causale à partir de ces analyses observationnelles, même après appariement et ajustement pour les variables basales.
 
 \newpage
+
 # Bibliographie
 
 ::: {#refs}
 :::
 
-
-
 \newpage
-# Annexes 
+
+# Annexes
 
 ## Tableau comparatif post-appariement
 
@@ -3118,7 +3861,7 @@ knitr::kable(
 #| warning: false
 #| results: asis
 # calcul des p-values pour les variables basales après appariement
-df_baseline_post_matching <- df_matched[, unique(c("rhc", cols_to_include_baseline))]
+df_baseline_post_matching <- df_matched_mediane[, unique(c("rhc", cols_to_include_baseline))]
 
 # Forcer l'affichage des variables binaires sur une seule ligne (compte du "Yes"),
 binary_var_names <- setdiff(
@@ -3294,6 +4037,8 @@ baseline_comparison_table |>
   )
 
 ```
+
+\newpage
 
 ## code R
 
