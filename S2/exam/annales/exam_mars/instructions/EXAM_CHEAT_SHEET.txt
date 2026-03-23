@@ -1,0 +1,284 @@
+================================================================================
+EXAM CHEAT SHEET - KEY FINDINGS & WHERE TO FIND THEM
+================================================================================
+
+ARTICLE 1: STAMPEDE RCT (Radiotherapy in Metastatic Prostate Cancer)
+Published: Lancet 2018; 392: 2353-66
+
+PRIMARY FINDING:
+  Radiotherapy does NOT improve overall survival in UNSELECTED metastatic prostate cancer
+  HR 0.92 (95% CI 0.80-1.06), p=0.266
+  Location: Results lines 558-576
+
+CRITICAL SUBGROUP FINDING:
+  ✓ LOW metastatic burden: BENEFITED from radiotherapy
+    HR 0.68 (95% CI 0.52-0.90), p=0.007
+    3-year OS: 73% vs 81% (8% absolute difference)
+    
+  ✗ HIGH metastatic burden: NO benefit
+    HR 1.07 (95% CI 0.90-1.28), p=0.420
+    3-year OS: 54% vs 53% (similar)
+  
+  INTERACTION p=0.0098 → Treatment effect DIFFERS significantly by burden
+  Location: Results lines 570-580, Table 2, Figure 4A
+
+SECONDARY FINDING (Interesting contrast):
+  Failure-free survival IMPROVED overall:
+  HR 0.76 (95% CI 0.68-0.84), p<0.0001
+  But did NOT translate to OS survival benefit
+  Location: Results lines 582-650
+
+DESIGN FEATURES TO KNOW:
+  - Stratified randomization: 7 factors (hospital, age, nodal status, PS, planned ADT/docetaxel, aspirin)
+  - Sample size: 2061 (1029 control, 1032 radiotherapy)
+  - Primary outcome: Overall survival
+  - Power: 90% to detect HR 0.75
+  - Analysis: Stratified log-rank test, Cox proportional hazards
+  - Follow-up: 37 months median
+  Location: Methods lines 21-30, 150-158, 345-350, 402-432
+
+BASELINE CHARACTERISTICS (confirms randomization worked):
+  - Median age: 68 years (IQR 63-73) - SAME in both arms
+  - Median PSA: 97 ng/mL - SAME in both arms
+  - 71% WHO performance status 0 - SAME in both arms
+  - 64% nodal involvement (N+) - SAME in both arms
+  - Table 1 shows groups well-balanced
+  Location: Lines 517-556, Table 1
+
+RADIOTHERAPY DOSE (compare with standard):
+  - Daily schedule: 55 Gy in 20 fractions over 4 weeks (52% of patients)
+  - Weekly schedule: 36 Gy in 6 fractions over 6 weeks (48% of patients)
+  - Daily showed stronger benefit on FFS (HR 0.69 vs 0.85 weekly)
+  Location: Lines 31-32, 200-204, 536-550
+
+ADVERSE EVENTS - Well tolerated:
+  - 5% RTOG grade 3-4 during radiotherapy
+  - 4% RTOG grade 3-4 after radiotherapy
+  - 38-39% any CTCAE grade 3+ event (similar between arms)
+  Location: Lines 51-55
+
+WHAT THIS MEANS:
+  → Radiotherapy NOT recommended for all metastatic prostate cancer patients
+  → May be considered for low metastatic burden subset
+  → Improved biochemical control but not survival benefit in unselected patients
+
+================================================================================
+
+ARTICLE 2: NURSES' HEALTH STUDY (Rotating Night Shift Work & Type 2 Diabetes)
+Published: BMJ 2018; 363: k4641
+
+PRIMARY FINDING:
+  Both rotating night shift work AND unhealthy lifestyle independently increase T2DM risk
+  
+  Shift work alone (per 5-year increment):
+    HR 1.31 (95% CI 1.19-1.44) - modest effect
+  
+  Unhealthy lifestyle (per factor):
+    HR 2.30 (1.88-2.83) - stronger effect
+  
+  Location: Abstract + Results Table 2, lines 320-350
+
+CRITICAL INTERACTION FINDING:
+  When BOTH shift work + unhealthy lifestyle present:
+  
+  Joint HR: 2.83 (95% CI 2.15-3.73)
+  
+  Multiplicative interaction: p > 0.67 (NOT significant)
+    → Effects do NOT multiply on HR scale
+  
+  ADDITIVE interaction (RERI): p < 0.001 (SIGNIFICANT)
+    → Effects DO add on risk difference scale
+    → Joint risk exceeds independent sum
+  
+  Location: Results lines 413-437, Table 3
+
+ATTRIBUTABLE PROPORTIONS (breakdown of joint risk):
+  Among women with BOTH exposures:
+  
+    71.2% attributable to unhealthy lifestyle ALONE
+    17.1% attributable to shift work ALONE
+    11.3% attributable to their ADDITIVE INTERACTION
+    ─────────
+    100% total
+  
+  PUBLIC HEALTH IMPLICATION:
+    - Modify lifestyle → prevent 71% of T2DM cases
+    - Extra 11% benefit if shift workers adopt healthy lifestyle
+    - Shift workers benefit MORE from lifestyle intervention
+  
+  Location: Table 3, lines 431-435
+
+HIGHEST RISK GROUP:
+  ≥10 years rotating night shift work + ≥3 unhealthy lifestyle factors
+  HR 7.04 (95% CI 5.29-9.37)
+  ~7-fold elevated risk vs reference group
+  Location: Lines 413-421
+
+STUDY DESIGN:
+  - Type: Prospective cohort study (2 cohorts)
+  - NHS: 55,324 women, baseline 1988, 22-24 years follow-up
+  - NHS II: 88,086 women, baseline 1991, 22-24 years follow-up
+  - Total participants: 143,410
+  - Total T2DM cases: 10,915 (5,474 NHS + 5,441 NHS II)
+  Location: Methods lines 122-145, Results lines 260-277
+
+EXPOSURE DEFINITIONS:
+  Rotating night shift work:
+    ≥3 night shifts/month PLUS day/evening shifts same month
+    Duration categories: Never, 1-5, 5-9, ≥10 years
+  
+  Unhealthy lifestyle (4 INDEPENDENT factors):
+    1. Current smoking
+    2. Physical activity <30 min/day at moderate-vigorous intensity
+    3. Diet quality in bottom 3/5 of Alternate Healthy Eating Index
+    4. BMI ≥25 kg/m²
+    Scored 0-4 scale (sum of factors present)
+  
+  Location: Methods lines 101-116, 119-166, Abstract
+
+OUTCOME VALIDATION (Why 98% concordance important):
+  Self-reported T2DM on questionnaire
+  ↓
+  Supplementary questionnaire with diagnostic criteria
+  ↓
+  Investigator review (standardized)
+  ↓
+  Validation check: 98% concordance with blinded medical record review
+  
+  Diagnostic criteria applied:
+    Pre-1998: NDDG (classic symptoms + glucose OR ≥2 glucose readings OR treatment)
+    Post-1998: ADA (fasting glucose ≥7.0 mmol/L)
+  
+  Location: Methods lines 200-225
+
+STATISTICAL APPROACH:
+  - Analyzed separately per cohort (different ages, baseline years)
+  - Then pooled with inverse-variance weighted random effects meta-analysis
+  - Used multivariable time-dependent Cox models (covariates updated biennially)
+  - Tested BOTH multiplicative AND additive interaction (rare!)
+  - Decomposed joint effect into proportional contributions
+  - 5 sensitivity analyses to confirm robustness
+  
+  Location: Methods lines 227-277, 250-258
+
+COHORT DIFFERENCES (Age effect):
+  NHS (older, mean age 55): RERI 0.13
+  NHS II (younger, mean age 36): RERI 0.32 ← 2.5x stronger interaction
+  
+  Interpretation: Younger women show stronger synergistic effects of shift work + lifestyle
+  
+  Location: Results lines 436-437, Discussion lines 489-550
+
+SENSITIVITY ANALYSES (shows robustness):
+  All effects remained significant when:
+  - Adjusted for hypertension/hyperlipidemia
+  - Restricted to symptomatic diabetes only
+  - Used baseline (not updated) lifestyle factors
+  - Used weighted (vs equal-weight) lifestyle score
+  - Removed BMI from lifestyle definition
+  
+  Location: Results lines 438-456
+
+WHAT THIS MEANS:
+  → Lifestyle intervention most important for preventing T2DM
+  → Shift workers get additional benefit from lifestyle changes (11% synergistic)
+  → Focus on modifiable factors (smoking, activity, diet, weight)
+  → Age affects magnitude of interaction (younger benefit more)
+
+================================================================================
+
+COMPARING THE TWO STUDIES - Key Contrasts
+
+| Feature | RC (STAMPEDE) | EPI (Nurses' Health) |
+|---------|---------------|----------------------|
+| Q being answered | Does intervention work? | Do exposures associate? |
+| Design strength for causation | HIGH (randomization) | MEDIUM (observational) |
+| Sample size | 2,061 | 143,410 |
+| Follow-up | 37 months | 22-24 years |
+| Main outcome | Hard (death) | Soft (self-reported disease) |
+| Primary question | Overall survival | Joint associations |
+| Randomization | Yes, stratified (7 factors) | No, observational |
+| Confounder control | Eliminated by randomization | Adjusted multivariable models |
+| Interaction testing | Prespecified subgroup analysis | Multiplicative + additive |
+| Main statistical model | Stratified log-rank test, Cox | Cox with time-varying covariates |
+| Effect modifier tested | Metastatic burden (prespecified) | Multiplicative & additive scales |
+| Main finding | No OS benefit (unselected); yes in low burden | Additive interaction; 71% lifestyle |
+| Clinical implication | Radiotherapy only for low burden | Lifestyle modification priority |
+
+================================================================================
+
+MOST LIKELY EXAM QUESTIONS
+
+1. "What was the main finding of STAMPEDE?"
+   → No OS benefit for unselected patients; subgroup benefit in low burden (HR 0.68, p=0.007)
+   → Location: Results lines 558-576, 570-580
+
+2. "Explain the subgroup interaction in STAMPEDE."
+   → Treatment effect differs significantly by metastatic burden (p=0.0098)
+   → Low burden: HR 0.68 (benefit); High burden: HR 1.07 (no benefit)
+   → Location: Table 2, Figure 4A
+
+3. "What was the main finding of the Nurses' Health study?"
+   → Additive interaction between shift work and unhealthy lifestyle (p<0.001)
+   → Joint HR 2.83; attributable proportions 71% lifestyle, 11% interaction
+   → Location: Results lines 413-437, Table 3
+
+4. "Explain multiplicative vs additive interaction in the Nurses' study."
+   → Multiplicative p>0.67 (not sig) = effects don't multiply
+   → Additive p<0.001 (sig) = effects add on risk difference scale
+   → Location: Results lines 413-437, Methods lines 210-214
+
+5. "What does the 71% attributable proportion mean?"
+   → 71% of T2DM in shift workers with unhealthy lifestyle is due to lifestyle alone
+   → Public health implication: modify lifestyle to prevent most cases
+   → Location: Table 3, Discussion
+
+6. "Why did STAMPEDE show improved FFS but not OS?"
+   → FFS is early event (months); OS is delayed (years)
+   → 37-month follow-up may be insufficient
+   → Radiotherapy delays but may not prevent death
+   → Location: Results lines 582-650
+
+7. "What stratification factors were used in STAMPEDE?"
+   → Hospital, age, nodal status, WHO PS, planned ADT, planned docetaxel, aspirin/NSAID use
+   → Location: Methods lines 150-158, Table 1 confirms balance
+
+8. "How was diabetes outcome validated in Nurses' study?"
+   → Self-report + supplementary questionnaire + investigator review + 98% medical record concordance
+   → Location: Methods lines 200-225
+
+9. "What is intention-to-treat analysis and why important?"
+   → Analyze in allocated arm regardless of adherence (preserves randomization benefit)
+   → Location: Methods lines 502-503
+
+10. "Why analyze NHS and NHS II separately then pool?"
+    → Different baseline years, ages, questionnaires → different confounding structures
+    → Separate analysis controls better; pooling gives overall estimate
+    → Location: Methods lines 250-258
+
+================================================================================
+
+QUICK FACTS TO MEMORIZE
+
+STAMPEDE RCT:
+  ✓ 2061 patients, 1:1 randomization, 37-month follow-up
+  ✓ Stratified randomization by 7 factors
+  ✓ Main result: HR 0.92 (no OS benefit)
+  ✓ Subgroup: HR 0.68 low burden (benefit), HR 1.07 high burden (none)
+  ✓ Interaction p=0.0098 (significant)
+  ✓ Secondary: FFS improved (HR 0.76) but not OS
+
+NURSES' HEALTH:
+  ✓ 143,410 women, prospective cohort, 22-24 years follow-up
+  ✓ 10,915 T2DM cases
+  ✓ Shift work HR 1.31, lifestyle HR 2.30, joint HR 2.83
+  ✓ Additive interaction p<0.001 (significant)
+  ✓ Attributable proportions: 71% lifestyle, 11% interaction
+  ✓ Highest risk: HR 7.04 for ≥10 years shift + ≥3 lifestyle factors
+
+KEY NUMBERS TO CITE:
+  STAMPEDE: HR 0.92 (p=0.266) vs HR 0.68 (p=0.007) in subgroup
+  Nurses: 71% vs 11% attributable proportions
+  Nurses: 10,915 cases over 22-24 years in 143,410 women
+
+================================================================================

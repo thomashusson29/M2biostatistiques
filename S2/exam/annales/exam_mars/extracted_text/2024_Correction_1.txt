@@ -1,0 +1,65 @@
+M2 méthodologie et statistique en recherche biomédicale 2023/2024
+29/03/2024
+À propos de l’article :
+Chronic pain, cannabis legalisation, and cannabis use disorder among patients  in the US Veterans Health Administration system, 2005 to 2019:  a repeated, cross-sectional study
+
+
+1/ Il s’agit d’une étude transversale répétée. Quels sont les avantages et inconvénients par rapport à une étude de cohorte ?
+Bonne question 😉 !
+Une étude transversale répétée (type « baromètre santé » ou ESCAPAD pour la France) est, en général, une étude représentative faite tous les ans, 2 ans ou 5 ans (par exemple). Son principal intérêt est de donner des tendances d’évolution des prévalences des grands problèmes de santé (ce que ne permet pas aussi bien une étude de cohorte, en particulier du fait de l’attrition). Elles sont également en principe moins couteuses qu’une cohorte (sur la même durée) et plus simples à réaliser (une fois qu’une vague est faite, on peut tourner la page alors qu’avec une cohorte il faut faire très attention à l’échantillon). Le principal inconvénient est, bien sûr, qu’il n’y a pas de relation temporelle entre la survenue d’un facteur de risque et celle de l’outcome d’intérêt. En résumé : les études transversales répétées sont plus à vocation descriptive, alors que les cohortes à vocation analytique.
+
+2/ Le design de l’étude, que l’on peut qualifier de quasi-expérimental, relève d’une approche dite de “staggered difference-in-difference model”. De quoi s’agit-il ?
+Ce sont des études “avant/après » / « ici/ailleurs ». Elles sont analysées avec un modèle qui inclus un effet temps, un effet groupe et le terme d’interaction qui est le terme d’intérêt. Ce type de modélisation permet de considérer des situations où l’intervention intervient à des moments différents d’un endroit à l’autre. Ce type de design est très utilisé par les politistes ou les économistes. Il y a des conditions de validités assez draconiennes (parallélisme par exemple).
+
+3/ Dans l’article, les auteurs indiquent “our model was on the additive, not multiplicative scale, as the additive scale is often seen as the more relevant public health measure”. Expliquez ce qu’ils veulent dire par là.
+Dans les modèles additifs (binomial ici) on modélise directement la probabilité de faire l’évènement et pas le log ou le logit (comme c’est le cas pour la régression logistique). Les auteurs disent que c’est plus pertinent pour la santé publique, mais alors pourquoi ces modèles ne sont-ils jamais utilisés dans ce domaine (tout le monde utilise la régression logistique bien sûr) ? Le principal problème de ces modèles additifs c’est qu’ils sont manifestement boiteux (on ne peut pas modéliser une probabilité (qui varie entre 0 et 1) par une combinaison linéaire de variables (qui peuvent varier de - à +), en fait on les utilisait surtout avant que les ordinateurs soient assez puissants pour estimer des régressions logistiques). Certes dans certains cas ils sont utiles (effet aléatoire (ce qui n’est pas le cas ici) ou recherche d’une interaction additive (ce qui n’est pas le cas ici non plus)).
+PS : visiblement vous avez été nombreux à chercher des infos sur ces modèles et ce que j’ai trouvé n’était pas toujours correct. Notamment il peut y avoir des modèles additifs avec interactions et des modèles multiplicatifs sans interaction. Par ailleurs un modèle multiplicatif n’implique pas une « synergie » entre les variables ou le fait que les variables explicatives ne sont pas indépendantes. Un modèle multiplicatif explique un log (pour le dire vite), un modèle additif la variable brute. C’est tout. Est-ce que l’un est plus pertinent dans le fond que l’autre, impossible à dire…
+
+4/ Que pensez-vous de la conclusion de l’article telle que présentée dans l’abstract ?
+Factuellement c’est pas faux, mais c’est manifestement tendancieux. Les auteurs ont visiblement un préjugé contre ces lois. Quand on regarde dans le détail il y a certains états où il y a un mieux et d’autres où il y a un moins bien. Globalement cela conduit à un « petit » moins bien, mais de là à être péremptoire comme ils le sont (en particulier vu les biais possibles que l’on verra dans la question suivante) ça n’est pas une position scientifique mais une position politique. 
+
+5/ Quelle est, selon vous, la principale limite méthodologique de l’étude ?
+Il y en a plein, pour moi j’en vois 2 :
+- Une de fond : l’échantillonnage. Majoritairement des hommes blancs, plutôt âgés, et anciens militaires : leur rapport au cannabis (et à la douleur) est tout sauf généralisable…
+- Une technique : l’hétérogénéité de l’effet d’un état à l’autre nuit considérablement à l’interprétabilité, voire à la validité, de l’approche staggered DiD.
+Il y en a d’autres bien sûr (spillover, hétérogénéité des textes de lois et d’accompagnement des sujets, etc.), 
+M2 méthodologie et statistique en recherche biomédicale 2023/2024
+29/03/2024
+À propos de l’article :
+Antipsychotic dose reduction and discontinuation versus maintenance treatment  in people with schizophrenia and other recurrent psychotic disorders in England
+ (the RADAR trial): an open, parallel group, randomised controlled trial
+
+
+1/ Dans les essais randomisés en psychiatrie la question de l’aveugle est souvent considérée comme particulièrement importante. Comment est gérer cette question ici ?
+Les patients et les investigateurs ne sont pas en aveugle. En fait le contraire aurait été impossible (on pourrait imaginer, difficilement un placebo en aveugle, mais la question de recherche aurait été différente).
+Ils ont fait des efforts pour que les évaluateurs soient en aveugle (échelles et adjudication des rechutes), en étant honnêtes sur les fois où ça n’a pas fonctionné. 
+Difficile de faire mieux.
+PS : vous avez été nombreux à parler de la randomisation dans cette question, j’ai beau réfléchir je ne vois pas trop le rapport avec l’aveugle (?)…
+
+2/ Le critère principal est la « Social Functioning Scale ». êtes-vous satisfait de ce choix ? Auriez-vous préféré un des critères secondaires et, si oui ou non, sur quels arguments ?
+On peut bien sûr discuter le concept de fonctionnement (très opératoire et relevant d’une culture plutôt anglo-américaine, au contraire de la qualité de vie par exemple, plus en lien avec le vécu subjectif)
+On peut bien sûr discuter l’instrument SFS : quid de sa sensibilité au changement (sûrement médiocre malgré ce qu’ils en disent) ; il est assez long ; et bien sûr se pose la question de la fiabilité dans une étude en ouvert. Ce dernier point est très complexe (il y a du pour et du contre).
+Mais surtout fallait-il mettre en premier la non infériorité pour les rechutes ? Big question… La aussi ça se discute et c’est un choix politique (préférer le fonctionnement au risque des rechutes)
+
+3/ Pensez-vous qu’il aurait été souhaitable de prévoir des analyses intermédiaires ?
+Des analyses intermédiaires d’efficacité ce serait sans intérêt (peu probable que ça soit significatif tôt).
+Des analyses intermédiaires de futilité ce serait d’un intérêt très limité (intérêt de toutes façons d’aller jusqu’au bout).
+Des analyses intermédiaires de sécurité (sur les rechutes) là par contre ça se discute sérieusement. Là aussi ça se discute (d’un côté ça complique et le risque serait limité (?), de l’autre ça sécurise quand même)
+
+4/ Essayez, dans la mesure du possible, de retrouver le « Nombre de Sujets Nécessaires » que les auteurs calculent pour le test de l’hypothèse de non-infériorité.
+Si on utilise la formule
+2(za+zb)^2 [p1(1-p1) + p1(1-p1)]/(p1-p2)^2
+Avec :
+(za+zb)^2 = 10
+p1=10%
+p2=20%
+On trouve 360 sujets en tout ce qui colle assez bien…
+
+5/ Le design de cette étude est assez inhabituel (hypothèse de supériorité associée à une hypothèse de non-infériorité en particulier). En oubliant les résultats finalement obtenus, qu’est ce que cette étude était susceptible d’apporter comme conclusion ?
+Si tout va bien, on aurait quelque chose du type :
+	•	Une supériorité statistiquement significative sur la SFS (dont le sens clinique serait difficile à établit, malgré le MCID)
+	•	Un risque d’augmentation des rechutes de 10% sur une base de 10% inférieur à5%
+Donc même si tout va bien, le résultat n’est pas très engageant…
+C’est tout le problème de la non infériorité, ça n’est que rarement pertinent et ici c’est sûrement le cas. Une alternative (mais difficilement tenable pour les comités d’éthique et pour les revues) aurait été de tester la supériorité de la SFS et d’estimer simplement le taux de rechute, avec secondairement une analyse clinique du rapport bénéfice/risque. 
+
+

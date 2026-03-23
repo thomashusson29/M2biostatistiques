@@ -1,0 +1,2781 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Thomas Husson, Groupe 52">
+
+<title>Devoir RC</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="52_Husson_RC_files/libs/clipboard/clipboard.min.js"></script>
+<script src="52_Husson_RC_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="52_Husson_RC_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="52_Husson_RC_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="52_Husson_RC_files/libs/quarto-html/popper.min.js"></script>
+<script src="52_Husson_RC_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="52_Husson_RC_files/libs/quarto-html/anchor.min.js"></script>
+<link href="52_Husson_RC_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="52_Husson_RC_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="52_Husson_RC_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="52_Husson_RC_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="52_Husson_RC_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sujet-rc" id="toc-sujet-rc" class="nav-link active" data-scroll-target="#sujet-rc"><span class="header-section-number">1</span> Sujet RC</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a></li>
+  <li><a href="#méthodologie" id="toc-méthodologie" class="nav-link" data-scroll-target="#méthodologie"><span class="header-section-number">3</span> Méthodologie</a>
+  <ul>
+  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design"><span class="header-section-number">3.1</span> Design</a></li>
+  <li><a href="#patients" id="toc-patients" class="nav-link" data-scroll-target="#patients"><span class="header-section-number">3.2</span> Patients</a>
+  <ul>
+  <li><a href="#critères-dinclusion" id="toc-critères-dinclusion" class="nav-link" data-scroll-target="#critères-dinclusion"><span class="header-section-number">3.2.1</span> Critères d’inclusion</a></li>
+  <li><a href="#critères-dexclusion" id="toc-critères-dexclusion" class="nav-link" data-scroll-target="#critères-dexclusion"><span class="header-section-number">3.2.2</span> Critères d’exclusion</a></li>
+  <li><a href="#screening-et-évaluation-préliminaire" id="toc-screening-et-évaluation-préliminaire" class="nav-link" data-scroll-target="#screening-et-évaluation-préliminaire"><span class="header-section-number">3.2.3</span> Screening et évaluation préliminaire</a></li>
+  </ul></li>
+  <li><a href="#objectifs" id="toc-objectifs" class="nav-link" data-scroll-target="#objectifs"><span class="header-section-number">3.3</span> Objectifs</a>
+  <ul>
+  <li><a href="#objectif-principal" id="toc-objectif-principal" class="nav-link" data-scroll-target="#objectif-principal"><span class="header-section-number">3.3.1</span> Objectif principal</a>
+  <ul class="collapse">
+  <li><a href="#hypothèses" id="toc-hypothèses" class="nav-link" data-scroll-target="#hypothèses"><span class="header-section-number">3.3.1.1</span> Hypothèses</a></li>
+  </ul></li>
+  <li><a href="#objectifs-secondaires" id="toc-objectifs-secondaires" class="nav-link" data-scroll-target="#objectifs-secondaires"><span class="header-section-number">3.3.2</span> Objectifs secondaires</a></li>
+  </ul></li>
+  <li><a href="#recueil-des-données" id="toc-recueil-des-données" class="nav-link" data-scroll-target="#recueil-des-données"><span class="header-section-number">3.4</span> Recueil des données</a></li>
+  </ul></li>
+  <li><a href="#intervention" id="toc-intervention" class="nav-link" data-scroll-target="#intervention"><span class="header-section-number">4</span> Intervention</a>
+  <ul>
+  <li><a href="#randomisation" id="toc-randomisation" class="nav-link" data-scroll-target="#randomisation"><span class="header-section-number">4.1</span> Randomisation</a></li>
+  <li><a href="#aveugle" id="toc-aveugle" class="nav-link" data-scroll-target="#aveugle"><span class="header-section-number">4.2</span> Aveugle</a></li>
+  <li><a href="#déroulement" id="toc-déroulement" class="nav-link" data-scroll-target="#déroulement"><span class="header-section-number">4.3</span> Déroulement</a></li>
+  <li><a href="#visites-dévaluation" id="toc-visites-dévaluation" class="nav-link" data-scroll-target="#visites-dévaluation"><span class="header-section-number">4.4</span> Visites d’évaluation</a></li>
+  </ul></li>
+  <li><a href="#calcul-de-la-taille-déchantillon" id="toc-calcul-de-la-taille-déchantillon" class="nav-link" data-scroll-target="#calcul-de-la-taille-déchantillon"><span class="header-section-number">5</span> Calcul de la taille d’échantillon</a>
+  <ul>
+  <li><a href="#principe-général" id="toc-principe-général" class="nav-link" data-scroll-target="#principe-général"><span class="header-section-number">5.1</span> Principe général</a></li>
+  <li><a href="#hypothèses-de-calcul" id="toc-hypothèses-de-calcul" class="nav-link" data-scroll-target="#hypothèses-de-calcul"><span class="header-section-number">5.2</span> Hypothèses de calcul</a></li>
+  <li><a href="#calcul-théorique-cohérent-avec-le-design-en-cross-over" id="toc-calcul-théorique-cohérent-avec-le-design-en-cross-over" class="nav-link" data-scroll-target="#calcul-théorique-cohérent-avec-le-design-en-cross-over"><span class="header-section-number">5.3</span> Calcul théorique cohérent avec le design en cross-over</a>
+  <ul>
+  <li><a href="#manuellement" id="toc-manuellement" class="nav-link" data-scroll-target="#manuellement"><span class="header-section-number">5.3.1</span> Manuellement</a></li>
+  <li><a href="#en-utilisant-r" id="toc-en-utilisant-r" class="nav-link" data-scroll-target="#en-utilisant-r"><span class="header-section-number">5.3.2</span> En utilisant R</a></li>
+  </ul></li>
+  <li><a href="#calcul-conservateur-sans-bénéfice-du-cross-over" id="toc-calcul-conservateur-sans-bénéfice-du-cross-over" class="nav-link" data-scroll-target="#calcul-conservateur-sans-bénéfice-du-cross-over"><span class="header-section-number">5.4</span> Calcul conservateur sans bénéfice du cross-over</a>
+  <ul>
+  <li><a href="#manuellement-1" id="toc-manuellement-1" class="nav-link" data-scroll-target="#manuellement-1"><span class="header-section-number">5.4.1</span> Manuellement</a></li>
+  <li><a href="#en-utilisant-r-1" id="toc-en-utilisant-r-1" class="nav-link" data-scroll-target="#en-utilisant-r-1"><span class="header-section-number">5.4.2</span> En utilisant R</a></li>
+  </ul></li>
+  <li><a href="#en-prenant-en-compte-une-perte-de-suivi" id="toc-en-prenant-en-compte-une-perte-de-suivi" class="nav-link" data-scroll-target="#en-prenant-en-compte-une-perte-de-suivi"><span class="header-section-number">5.5</span> En prenant en compte une perte de suivi</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5.6</span> Conclusion</a></li>
+  </ul></li>
+  <li><a href="#analyses-statistiques" id="toc-analyses-statistiques" class="nav-link" data-scroll-target="#analyses-statistiques"><span class="header-section-number">6</span> Analyses statistiques</a>
+  <ul>
+  <li><a href="#types-danalyses" id="toc-types-danalyses" class="nav-link" data-scroll-target="#types-danalyses"><span class="header-section-number">6.1</span> Types d’analyses</a></li>
+  <li><a href="#flow-chart-de-létude" id="toc-flow-chart-de-létude" class="nav-link" data-scroll-target="#flow-chart-de-létude"><span class="header-section-number">6.2</span> Flow-chart de l’étude</a></li>
+  <li><a href="#variables-et-codage" id="toc-variables-et-codage" class="nav-link" data-scroll-target="#variables-et-codage"><span class="header-section-number">6.3</span> Variables et codage</a></li>
+  <li><a href="#data-management" id="toc-data-management" class="nav-link" data-scroll-target="#data-management"><span class="header-section-number">6.4</span> Data management</a>
+  <ul>
+  <li><a href="#transformation-en-format-long" id="toc-transformation-en-format-long" class="nav-link" data-scroll-target="#transformation-en-format-long"><span class="header-section-number">6.4.1</span> Transformation en format long</a></li>
+  <li><a href="#conversion-et-recodage-des-variables" id="toc-conversion-et-recodage-des-variables" class="nav-link" data-scroll-target="#conversion-et-recodage-des-variables"><span class="header-section-number">6.4.2</span> Conversion et recodage des variables</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#bibliographie" id="toc-bibliographie" class="nav-link" data-scroll-target="#bibliographie"><span class="header-section-number">7</span> Bibliographie</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="52_Husson_RC.docx"><i class="bi bi-file-word"></i>MS Word</a></li><li><a href="../../52_Husson_RC.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Devoir RC</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Husson, Groupe 52 </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sujet-rc" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Sujet RC</h1>
+<p>Sujet : Ecrire le plan d’analyse statistique de l’essai thérapeutique suivant après avoir précisé les critères principaux et secondaires d’efficacité. Calculez un nombre de sujets à inclure. (Un plan d’analyse statistique décrit de façon claire, cohérente, précise et détaillée l’ensemble des analyses qui seront réalisées pour interpréter au mieux les données récoltées lors de l’essai).</p>
+<p>Title: Modafinil In the Treatment of Fatigue in Post-Polio Syndrome</p>
+<p>Summary: This study, conducted at the Walter Reed Army Medical Center, the National Rehabilitation Hospital, and the National Institutes of Health, will examine whether the drug Modafinil can decrease fatigue in patients with postpolio syndrome. Many people who have had polio develop weakness and severe fatigue several years after their recovery from the acute disease. Modafinil is approved by the Food and Drug Administration to improve wakefulness in patients with narcolepsy (disease in which patients have excessive daytime sleepiness) and has been used to treat patients with fatigue related to other medical conditions, such as multiple sclerosis. This study will compare the effects of one dose of Modafinil and of a placebo (a pill with no active ingredient) on fatigue in patients with post-polio syndrome. Patients who develop fatigue, weakness, muscle pain or atrophy, and functional loss at least 15 years after recovering from polio and whose symptoms cannot be attributed to another cause may be eligible for this study. Candidates will be screened with a medical history, physical and neurological examinations, fatigue rating scales, electrocardiogram, blood and urine tests, drowsiness and depression evaluations, and an electroymogram (EMG) to diagnose nerve or muscle problems. For the EMG, electrodes (small metal discs) are taped to the skin and a needle is inserted into a muscle to record the electrical activity. Candidates will also undergo a sleep study to exclude abnormal sleep patterns as the cause of the fatigue. For this study, patients stay overnight at the NIH hospital. Electrodes are placed on the throat, on a finger, and on the chest (for an electrocardiogram), and a respiratory belt is placed around the chest-abdomen area. During sleep (from 10:30 p.m. to 6 a.m.), brain waves, eye and leg movements, muscle tone, respiration, and heart rate are recorded. Beginning at 8 a.m. the following morning, the patient takes 20-minute naps to measure the level of daytime sleepiness, using a recording technique similar to that of the all-night study. When five naps are completed, the sleep study ends. Candidates may also undergo a lumbar puncture (spinal tap) to check for certain chemicals in the spinal fluid that might be related to fatigue and to look for possible causes of post-polio syndrome. This procedure is optional. For the lumbar puncture, a local anesthetic is given and a needle is inserted in the space between the bones in the lower back where the cerebrospinal fluid circulates below the spinal cord. A small amount of fluid is collected through the needle. Patients enrolled in the study will complete a sleep diary during the entire study period. They will be randomly assigned to Modafinil or placebo for 6 weeks, followed by a 2-week washout period with no medication, and then a crossover phase, in which patients who took Modafinil for the first 6 weeks now take placebo, and those who took placebo now take Modafinil. At the first study visit, patients will be given a supply of study medication and have blood drawn. They will take one pill twice a day during both study phases. In both study phases, evaluations will be done 3 and 6 weeks after starting the medication. The evaluations include filling out the same forms completed at the screening visit, a review of drug side effects, and a review of medical problems since the last study visit. At the 6-week visit, blood is also drawn.</p>
+<p>Eligibility Criteria:</p>
+<p>INCLUSION CRITERIA: Patients will have to meet the clinical criteria for the diagnosis of PPS, have fatigue as a major complaint, and be 18 years or older, of either sex.</p>
+<p>EXCLUSION CRITERIA: Sensitivity to modafinil. A score below the 75 on the FIS. Another general medical condition that might produce fatigue to a sufficient degree to compound and confuse the assessment of fatigue due to PPS. Use of a drug known to cause a clinically significant interaction. Presence of sleep disorder or depression severe enough to compound the fatigue evaluation. Pregnancy. Breastfeeding. Use of stimulants, such as Ritalin and herbal preparations, such as ephedra. Presence of known cardiac disease.</p>
+<hr>
+<p>Sujet Rédiger le plan d’analyse statistique de l’essai thérapeutique suivant après avoir précisé les critères principaux et secondaires d’efficacité. Calculer un nombre de sujets à inclure. (Un plan d’analyse statistique décrit de façon claire, cohérente, précise et détaillée l’ensemble des analyses qui seront réalisées pour interpréter au mieux les données recueillies lors de l’essai.)</p>
+<p>Titre Modafinil dans le traitement de la fatigue du syndrome post-polio</p>
+<p>Résumé Cette étude, menée au Walter Reed Army Medical Center, au National Rehabilitation Hospital et aux National Institutes of Health, examinera si le médicament Modafinil peut diminuer la fatigue chez les patients atteints de syndrome post-polio. De nombreuses personnes ayant eu une poliomyélite développent, plusieurs années après la guérison de la maladie aiguë, une faiblesse et une fatigue sévère. Le Modafinil est approuvé par la Food and Drug Administration pour améliorer l’éveil chez les patients atteints de narcolepsie (maladie caractérisée par une somnolence diurne excessive) et a été utilisé pour traiter des patients présentant une fatigue liée à d’autres pathologies, telles que la sclérose en plaques. Cette étude comparera les effets d’une dose de Modafinil à ceux d’un placebo (comprimé sans principe actif) sur la fatigue chez des patients atteints de syndrome post-polio.</p>
+<p>Population étudiée et critères d’éligibilité Critères d’inclusion Les patients devront : • répondre aux critères cliniques du diagnostic de syndrome post-polio • présenter la fatigue comme plainte principale • être âgés de 18 ans ou plus • être de sexe masculin ou féminin Critères d’exclusion • hypersensibilité au modafinil • score inférieur à 75 au Fatigue Impact Scale (FIS) • autre affection médicale générale pouvant induire une fatigue suffisante pour interférer avec l’évaluation de la fatigue liée au syndrome post-polio • utilisation d’un médicament susceptible d’interagir de manière cliniquement significative • présence d’un trouble du sommeil ou d’une dépression suffisamment sévère pour interférer avec l’évaluation de la fatigue • grossesse • allaitement • utilisation de stimulants (par exemple Ritalin) ou de préparations à base de plantes (par exemple éphédra) • présence d’une maladie cardiaque connue ________________________________________ Procédure de sélection (screening) Les candidats seront évalués par : • anamnèse médicale • examen physique • examen neurologique • échelles d’évaluation de la fatigue • électrocardiogramme • analyses sanguines et urinaires • évaluation de la somnolence • évaluation de la dépression • électromyogramme (EMG) Pour l’EMG : • des électrodes (petits disques métalliques) sont fixées sur la peau • une aiguille est insérée dans un muscle afin d’enregistrer l’activité électrique Les candidats subiront également une étude du sommeil afin d’exclure des troubles du sommeil comme cause de la fatigue. ________________________________________ Étude du sommeil Les patients passent une nuit à l’hôpital du NIH. Dispositif : • électrodes sur la gorge • électrode sur un doigt • électrodes thoraciques (ECG) • ceinture respiratoire thoraco-abdominale Enregistrement nocturne (22h30 – 6h) : • activité cérébrale • mouvements oculaires • mouvements des jambes • tonus musculaire • respiration • fréquence cardiaque Le lendemain à partir de 8h : • siestes de 20 minutes • mesure de la somnolence diurne • méthode d’enregistrement similaire à celle de la nuit Après cinq siestes : • fin de l’étude du sommeil ________________________________________ Ponction lombaire (optionnelle) Les candidats peuvent subir une ponction lombaire pour : • analyser certaines substances dans le liquide céphalo-rachidien • rechercher des causes potentielles du syndrome post-polio Procédure : • anesthésie locale • insertion d’une aiguille entre les vertèbres lombaires • prélèvement d’une petite quantité de liquide ________________________________________ Déroulement de l’étude Design • essai randomisé • en cross-over • contrôlé par placebo Schéma 1. Première phase : o Modafinil ou placebo pendant 6 semaines 2. Période de washout : o 2 semaines sans traitement 3. Phase de cross-over : o les patients changent de traitement o ceux ayant reçu Modafinil reçoivent placebo o ceux ayant reçu placebo reçoivent Modafinil ________________________________________ Traitement • prise de 1 comprimé deux fois par jour • pendant les deux phases de traitement ________________________________________ Suivi et évaluations Journal • tenue d’un journal du sommeil pendant toute la durée de l’étude Visite initiale • délivrance du traitement • prélèvement sanguin Évaluations pendant chaque phase • à 3 semaines • à 6 semaines Évaluations comprenant : • remplissage des mêmes questionnaires que lors du screening • évaluation des effets secondaires • revue des problèmes médicaux depuis la visite précédente À 6 semaines : • prélèvement sanguin supplémentaire</p>
+<p>Symptômes requis pour inclusion Patients présentant : • fatigue • faiblesse • douleurs musculaires ou atrophie • perte fonctionnelle survenant : • au moins 15 ans après la poliomyélite et non expliqués par une autre cause</p>
+<p>Remarque méthodologique implicite Comparaison intra-individuelle : • chaque patient reçoit les deux traitements • comparaison Modafinil vs placebo chez un même individu</p>
+</section>
+<section id="introduction" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
+<ul>
+<li><p>Le syndrome post-polio (PPS) est une complication tardive de la poliomyélite, survenant plusieurs années, voire plusieurs décennies après la phase aiguë de la maladie. Il se caractérise par l’apparition progressive de nouveaux symptômes, notamment une faiblesse musculaire, une fatigabilité, des douleurs musculaires et une perte d’autonomie fonctionnelle. Parmi ces manifestations, la fatigue constitue l’un des symptômes les plus fréquents et les plus invalidants, avec un impact majeur sur la qualité de vie des patients.</p></li>
+<li><p>La physiopathologie du PPS n’est pas entièrement comprise. Plusieurs mécanismes sont évoqués, incluant une dénervation progressive des unités motrices, une surcharge fonctionnelle des motoneurones survivants et des altérations centrales de la régulation de la vigilance. À ce jour, la prise en charge repose principalement sur des mesures symptomatiques et de réadaptation, sans traitement pharmacologique clairement efficace sur la fatigue.</p></li>
+<li><p>Le Modafinil est un agent éveillant, initialement développé pour le traitement de la narcolepsie, et approuvé pour améliorer la vigilance chez les patients présentant une somnolence diurne. Son mécanisme d’action implique une modulation de plusieurs systèmes de neurotransmission, notamment dopaminergiques et noradrénergiques, susceptibles d’influencer la vigilance et la perception de la fatigue. Le Modafinil a également été utilisé dans d’autres pathologies associées à une fatigue chronique, telles que la sclérose en plaques, avec des résultats variables.</p></li>
+<li><p>Dans ce contexte, l’évaluation de l’efficacité du Modafinil dans la réduction de la fatigue liée au syndrome post-polio apparaît pertinente. Le recours à un essai randomisé contrôlé, avec un schéma en cross-over, permet de comparer directement l’effet du Modafinil à celui d’un placebo chez un même individu, en limitant la variabilité interindividuelle.</p></li>
+<li><p>L’objectif de cet essai est donc d’évaluer si le Modafinil permet de diminuer significativement la fatigue chez des patients atteints de syndrome post-polio, comparativement à un placebo, dans le cadre d’un essai randomisé en cross-over.</p></li>
+</ul>
+</section>
+<section id="méthodologie" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Méthodologie</h1>
+<section id="design" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="design"><span class="header-section-number">3.1</span> Design</h2>
+<ul>
+<li><p>Il s’agit d’une étude randomisée, en cross-over, contrôlée par placebo, de phase III, visant à évaluer l’efficacité du Modafinil dans la réduction de la fatigue chez les patients atteints de syndrome post-polio.</p></li>
+<li><p>Design multicentrique dans 3 centres américains.</p></li>
+<li><p>Collecte des données : sur base unique centralisée, sécurisé, permettant la collecte pour l’analyse statistique.</p></li>
+</ul>
+</section>
+<section id="patients" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="patients"><span class="header-section-number">3.2</span> Patients</h2>
+<section id="critères-dinclusion" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="critères-dinclusion"><span class="header-section-number">3.2.1</span> Critères d’inclusion</h3>
+<ul>
+<li><p>Âge supérieur ou égal à 18 ans</p></li>
+<li><p>Sexe masculin ou féminin</p></li>
+<li><p>Répondre aux critères cliniques du diagnostic de syndrome post-polio définies par la conférence March of Dimes <span class="citation" data-cites="gonzalezManagementPostpolioSyndrome2010">(<a href="#ref-gonzalezManagementPostpolioSyndrome2010" role="doc-biblioref">Gonzalez, Olsson, and Borg 2010</a>)</span></p>
+<ul>
+<li><p>Antécédent de poliomyélite</p></li>
+<li><p>Intervalle d’au moins 15 ans entre la phase aiguë de la poliomyélite et l’apparition des symptômes</p></li>
+<li><p>Présence de nouveaux symptômes progressifs, tels que fatigue, faiblesse musculaire, douleurs musculaires ou atrophie, et perte fonctionnelle</p></li>
+<li><p>Absence d’autre cause pouvant expliquer les symptômes</p></li>
+</ul></li>
+<li><p>Fatigue comme plainte principale</p></li>
+</ul>
+</section>
+<section id="critères-dexclusion" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="critères-dexclusion"><span class="header-section-number">3.2.2</span> Critères d’exclusion</h3>
+<ul>
+<li><p>Contre-indication au Modafinil (hypersensibilité, allergie, réactions cutanées)</p></li>
+<li><p>Score inférieur à 75 au Fatigue Impact Scale (FIS) <span class="citation" data-cites="fiskMeasuringFunctionalImpact1994">(<a href="#ref-fiskMeasuringFunctionalImpact1994" role="doc-biblioref">Fisk et al. 1994</a>)</span></p></li>
+<li><p>Présence d’une autre affection pouvant induire une fatigue significative :</p>
+<ul>
+<li><p>Anémie &lt; 9 g/dL</p></li>
+<li><p>Troubles hydroélectrolytiques : sodium &lt; 130 mEq/L, potassium &lt; 3.0 mEq/L ou &gt; 5.5 mEq/L, calcémie corrigée &lt; 2.0 mmol/L ou &gt; 2.8 mmol/L</p></li>
+<li><p>Hépatopathie : transaminases &gt; 3 fois la normale, bilirubine &gt; 2 mg/dL</p></li>
+<li><p>Insuffisance rénale : clairance de la créatinine &lt; 45 mL/min/1,73m²</p></li>
+<li><p>Hypothyroïdie non équilibrée : TSH &gt; 10 mIU/L</p></li>
+<li><p>Carence vitaminique non substituée : vitamine D &lt; 15 ng/mL, vitamine B9 &lt; 4.0 ng/mL, vitamine B12 &lt; 148 pg/mL</p></li>
+<li><p>Antécédent de maladie auto-immune ou de maladie inflammatoire chronique</p></li>
+<li><p>Antécédent de sclérose en plaques ou de toute autre maladie neurodégénérative (maladie de Parkinson, maladie d’Alzheimer, etc.)</p></li>
+<li><p>Antécédent d’un cancer évolutif ou d’une pathologie mettant en jeu à court terme le pronostic vital</p></li>
+<li><p>Existence de troubles du sommeil pouvant expliquer l’état de fatigue (apnée du sommeil, hypersomnie idiopathique, narcolepsie)</p></li>
+</ul></li>
+<li><p>Prise d’un médicament susceptible d’interaction : ciclosporine, résines chélatrices, contraceptifs oraux, antifongiques azolés, topiques gastro-intestinaux, anti-épileptiques</p></li>
+<li><p>Trouble du sommeil ou dépression sévère pouvant compliquer l’évaluation de la fatigue</p></li>
+<li><p>Grossesse ou allaitement</p></li>
+<li><p>Fortes douleurs déclarées par le patient</p></li>
+<li><p>Utilisation de stimulants (Ritaline) ou de préparations à base de plantes (éphédra)</p></li>
+<li><p>Maladie cardiaque connue (arythmie, insuffisance cardiaque stade NYHA IV)</p></li>
+</ul>
+</section>
+<section id="screening-et-évaluation-préliminaire" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="screening-et-évaluation-préliminaire"><span class="header-section-number">3.2.3</span> Screening et évaluation préliminaire</h3>
+<ul>
+<li>Les patients “screenés” seront évalués avant la randomisation pour vérifier l’absence d’une condition pré-existante pouvant fausser les résultats :</li>
+</ul>
+<div class="cell" data-tbl-cap="Procédure de screening et d’évaluation préliminaire">
+<div class="cell-output-display">
+<div id="khgxtbylvc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#khgxtbylvc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#khgxtbylvc thead, #khgxtbylvc tbody, #khgxtbylvc tfoot, #khgxtbylvc tr, #khgxtbylvc td, #khgxtbylvc th {
+  border-style: none;
+}
+
+#khgxtbylvc p {
+  margin: 0;
+  padding: 0;
+}
+
+#khgxtbylvc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#khgxtbylvc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#khgxtbylvc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#khgxtbylvc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#khgxtbylvc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#khgxtbylvc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#khgxtbylvc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#khgxtbylvc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#khgxtbylvc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#khgxtbylvc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#khgxtbylvc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#khgxtbylvc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#khgxtbylvc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#khgxtbylvc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#khgxtbylvc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#khgxtbylvc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#khgxtbylvc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#khgxtbylvc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#khgxtbylvc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#khgxtbylvc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#khgxtbylvc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#khgxtbylvc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#khgxtbylvc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#khgxtbylvc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#khgxtbylvc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#khgxtbylvc .gt_left {
+  text-align: left;
+}
+
+#khgxtbylvc .gt_center {
+  text-align: center;
+}
+
+#khgxtbylvc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#khgxtbylvc .gt_font_normal {
+  font-weight: normal;
+}
+
+#khgxtbylvc .gt_font_bold {
+  font-weight: bold;
+}
+
+#khgxtbylvc .gt_font_italic {
+  font-style: italic;
+}
+
+#khgxtbylvc .gt_super {
+  font-size: 65%;
+}
+
+#khgxtbylvc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#khgxtbylvc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#khgxtbylvc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#khgxtbylvc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#khgxtbylvc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#khgxtbylvc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#khgxtbylvc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#khgxtbylvc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#khgxtbylvc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<caption>Procédure de screening et d’évaluation préliminaire</caption>
+<colgroup>
+<col style="width: 35%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings header">
+<th id="Examen" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Examen</th>
+<th id="Description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Description</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Examen">Anamnèse médicale</td>
+<td class="gt_row gt_left" headers="Description">Histoire clinique complète; prises médicamenteuses; recherche d'une cause alternative de fatigue</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Examen">Examen physique</td>
+<td class="gt_row gt_left" headers="Description">Examen général et neurologique avant randomisation</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Examen">Échelle d’évaluation de la fatigue</td>
+<td class="gt_row gt_left" headers="Description"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Examen">Électrocardiogramme</td>
+<td class="gt_row gt_left" headers="Description">Dépistage d'une cardiopathie</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Examen">Biologie sanguine et urinaire</td>
+<td class="gt_row gt_left" headers="Description">β-hCG, NFS, ionogramme, bilan hépatique et rénal, TSH, vitamines D/B9/B12</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Examen">Électromyogramme (EMG)</td>
+<td class="gt_row gt_left" headers="Description">Électrodes cutanées et aiguille intramusculaire pour enregistrer l'activité électrique</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Examen">Polysomnographie nocturne</td>
+<td class="gt_row gt_left" headers="Description">Nuit au NIH avec électrodes gorge/doigt/thorax et ceinture respiratoire; enregistrement cérébral, oculaire, respiratoire, musculaire et cardiaque</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Examen">Somnolence diurne</td>
+<td class="gt_row gt_left" headers="Description">Dès 8 h: cinq siestes de 20 min pour mesurer la somnolence diurne</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Examen">Ponction lombaire (optionnelle)</td>
+<td class="gt_row gt_left" headers="Description">Analyse du LCR pour causes potentielles du syndrome post-polio sous anesthésie locale</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="objectifs" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="objectifs"><span class="header-section-number">3.3</span> Objectifs</h2>
+<section id="objectif-principal" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="objectif-principal"><span class="header-section-number">3.3.1</span> Objectif principal</h3>
+<ul>
+<li><p><strong>Objectif principal</strong> : Évaluer l’efficacité du Modafinil dans la réduction de la fatigue chez les patients atteints de syndrome post-polio, comparativement à un placebo, mesurée par le <em>Fatigue Severity Scale</em> (FSS).</p></li>
+<li><p>Mesure du score FSS 6 fois chez chaque patient : à l’inclusion, à 3 semaines et à 6 semaines de chaque phase de traitement (Modafinil et placebo).</p>
+<ul>
+<li><p>n°1 : semaine 0</p></li>
+<li><p>n°2 : semaine 3 : à 3 semaines de Modafinil ou placebo</p></li>
+<li><p>n°3 : semaine 6 : à 6 semaines de Modafinil ou placebo</p></li>
+<li><p>n°4 : semaine 8 : à 2 semaines de washout, avant le cross-over</p></li>
+<li><p>n°5 : semaine 11 : à 3 semaines de cross-over (Modafinil ou placebo)</p></li>
+<li><p>n°6 : semaine 14 : à 6 semaines de cross-over</p></li>
+</ul></li>
+<li><p>Concernant l’échelle de fatigue utilisée, la FSS est un choix pertinent pour plusieurs raisons :</p>
+<ul>
+<li><p>Questionnaire composé de 9 questions, chaque réponse évaluée sur une échelle type Likert de 1 (désacord fort) à 7 (accord fort). Le score total est la moyenne des réponses, un score <span class="math inline">\(\geq 4\)</span> indique un niveau de fatigue modéré à élevé.</p></li>
+<li><p>C’est l’échelle la plus fréquemment utilisée dans la recherche sur le syndrome post-polio <span class="citation" data-cites="koopmanMeasuringFatiguePolio2014">(<a href="#ref-koopmanMeasuringFatiguePolio2014" role="doc-biblioref">Fieke S. Koopman et al. 2014</a>)</span>.</p></li>
+<li><p>Elle est simple, brève et donc pratique pour un essai avec mesures répétées.</p></li>
+<li><p>Bonnes propriétés métrologiques : consistance interne élevée (<span class="math inline">\(\alpha\)</span> de Cronbach entre 0.80 et 0.90), fiabilité test-retest acceptable (0.80), plus petit changement détectable de 1,5 point, et mesure d’un construit unidimensionnel latent de sévérité de la fatigue, plutôt que son retentissement, et validité convergente <span class="citation" data-cites="koopmanMeasuringFatiguePolio2014 horemansComparison4Questionnaires2004 oncuPsychometricPropertiesFatigue2013">(<a href="#ref-koopmanMeasuringFatiguePolio2014" role="doc-biblioref">Fieke S. Koopman et al. 2014</a>; <a href="#ref-horemansComparison4Questionnaires2004" role="doc-biblioref">Horemans et al. 2004</a>; <a href="#ref-oncuPsychometricPropertiesFatigue2013" role="doc-biblioref">Oncu et al. 2013</a>)</span>.</p></li>
+</ul></li>
+<li><p>Le critère principal d’efficacité sera le score total de la FSS, mesuré à la fin de chaque période de traitement, soit à 6 semaines sous modafinil et à 6 semaines sous placebo.</p></li>
+<li><p>L’analyse principale sera réalisée selon le principe du plan croisé 2×2. L’effet du modafinil sur le score FSS sera estimé à l’aide d’un modèle linéaire mixte. La différence moyenne de score FSS entre modafinil et placebo sera estimée avec son intervalle de confiance à 95 %. L’effet principal d’intérêt sera la différence moyenne ajustée de score FSS entre modafinil et placebo, estimée avec son intervalle de confiance à 95 % et testée au seuil bilatéral de 5 %.</p></li>
+</ul>
+<section id="hypothèses" class="level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="hypothèses"><span class="header-section-number">3.3.1.1</span> Hypothèses</h4>
+<ul>
+<li><p>Hypothèse nulle (H0) : Il n’y a pas de différence de score FSS entre les périodes de traitement au Modafinil et au placebo.</p></li>
+<li><p>Hypothèse alternative (H1) : Il existe une différence de score FSS entre les périodes de traitement au Modafinil et au placebo.</p></li>
+</ul>
+</section>
+</section>
+<section id="objectifs-secondaires" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="objectifs-secondaires"><span class="header-section-number">3.3.2</span> Objectifs secondaires</h3>
+<ul>
+<li><p>Les objectifs secondaires seront :</p>
+<ul>
+<li><p>Évaluer l’effet du traitement sur la fatigue, à l’aide de mesures complémentaires au FSS, telles que la <em>Visual Analog Scale for Fatigue</em> (VAS-F) et la <em>Fatigue Impact Scale</em> (FIS) <span class="citation" data-cites="koopmanTreatmentPostpolioSyndrome2015a schankeFatiguePolioSurvivors2001 horemansComparison4Questionnaires2004">(<a href="#ref-koopmanTreatmentPostpolioSyndrome2015a" role="doc-biblioref">Fieke Sophia Koopman et al. 2015</a>; <a href="#ref-schankeFatiguePolioSurvivors2001" role="doc-biblioref">Schanke and Stanghelle 2001</a>; <a href="#ref-horemansComparison4Questionnaires2004" role="doc-biblioref">Horemans et al. 2004</a>)</span></p></li>
+<li><p>évaluer l’effet du traitement sur la qualité de vie liée à la santé à l’aide du Short Form-36 (SF-36) <span class="citation" data-cites="wareMOS36itemShortform1992">(<a href="#ref-wareMOS36itemShortform1992" role="doc-biblioref">Ware and Sherbourne 1992</a>)</span> ;</p></li>
+<li><p>décrire la tolérance du traitement, notamment par le recueil des événements indésirables, des événements indésirables graves et des arrêts de traitement pour effet indésirable.</p></li>
+</ul></li>
+<li><p>Au total, ils comprendront :</p>
+<p>Critères de jugement secondaires</p>
+<ul>
+<li><p>le score VASF mesuré à chaque visite d’évaluation ;</p></li>
+<li><p>le score total FIS mesuré à chaque visite d’évaluation ;</p></li>
+<li><p>les scores du SF-36 évaluant la qualité de vie : questionnaire de 36 questions réparties en huit dimensions portant sur l’état de santé perçu par le patient au cours des quatre dernières semaines, avec calcul du Physical Composite Score (PCS) et du Mental Composite Score (MCS) ;</p></li>
+<li><p>la survenue d’au moins un événement indésirable (c’est à dire un événement médical indésirable survenant pendant l’étude, qu’il soit ou non considéré comme lié au traitement) ;</p></li>
+<li><p>la survenue d’au moins un événement indésirable grave (c’est à dire un événement médical indésirable entraînant la mort, mettant en jeu le pronostic vital, nécessitant une hospitalisation ou une prolongation d’hospitalisation, entraînant une invalidité ou une incapacité significative, ou constituant une anomalie congénitale) ;</p></li>
+<li><p>l’arrêt du traitement pour cause d’effet indésirable.</p></li>
+</ul></li>
+<li><p>Les hypothèses associées à ces objectifs secondaires seront formulées de manière similaire à celles de l’objectif principal, en testant l’effet du Modafinil par rapport au placebo sur chaque critère de jugement secondaire.</p></li>
+</ul>
+</section>
+</section>
+<section id="recueil-des-données" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="recueil-des-données"><span class="header-section-number">3.4</span> Recueil des données</h2>
+<ul>
+<li><p>Constitution d’une base de données centralisée et sécurisée, avec des champs pré-définis pour chaque variable d’intérêt, permettant une saisie standardisée et facilitant l’analyse statistique.</p></li>
+<li><p>À chaque visite :</p>
+<ul>
+<li><p>Scores cliniques : FIS, FSS, SF36, VAS-F</p></li>
+<li><p>Données démographiques et cliniques : âge, sexe, centre d’inclusion, taille, poids, médicaments actuels et antérieurs</p></li>
+<li><p>Résultats biologiques et cliniques : analyses sanguines et urinaires, électrocardiogramme, électromyogramme, polysomnographie, etc.</p></li>
+</ul></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="intervention" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Intervention</h1>
+<section id="randomisation" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="randomisation"><span class="header-section-number">4.1</span> Randomisation</h2>
+<ul>
+<li><p>Les patients éligibles seront randomisés selon un schéma en cross-over 2×2 en deux séquences de traitement :</p>
+<ul>
+<li><p>soit modafinil puis placebo</p></li>
+<li><p>soit placebo puis modafinil</p></li>
+</ul></li>
+<li><p>La randomisation sera réalisée de manière centralisée et informatisée, selon une procédure en blocs de taille variable non divulguée, afin d’assurer un équilibre entre les séquences tout en préservant l’aveugle.</p></li>
+<li><p>Le choix de ne pas stratifier la randomisation est justifié par le fait que les patients serviront de leur propre contrôle dans le design en cross-over. De plus, l’augmentation des strates peut compliquer la randomisation car augmente le nombre de listes de randomisation à gérer, ce qui peut poser des problèmes logistiques et de suivi, surtout dans une étude avec un nombre de patients limité.</p></li>
+</ul>
+</section>
+<section id="aveugle" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="aveugle"><span class="header-section-number">4.2</span> Aveugle</h2>
+<ul>
+<li><p>L’étude sera conduite en double aveugle : ni les patients, ni les investigateurs ne connaîtront le traitement administré à chaque période.</p></li>
+<li><p>Le modafinil et le placebo seront conditionnés sous forme de capsules strictement identiques en termes d’apparence, de goût et de conditionnement, afin d’assurer le maintien de l’aveugle.</p></li>
+<li><p>La gestion de l’assignation des traitements et de la liste de randomisation sera assurée par la pharmacie de recherche, qui conservera les codes de traitement de manière sécurisée.</p></li>
+<li><p>Les procédures de levée d’aveugle seront définies a priori et ne pourront être mises en œuvre qu’en cas de nécessité médicale, avec traçabilité de toute levée d’aveugle.</p></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="déroulement" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="déroulement"><span class="header-section-number">4.3</span> Déroulement</h2>
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deroulement-html-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<object data="deroulement.svg" type="image/svg+xml" style="display: block; width: 88%; margin: 0 auto;">
+<img src="deroulement.svg" alt="Schéma du déroulement de l'étude" style="width: 100%;" class="figure-img">
+</object>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deroulement-html-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Schéma du déroulement de l’étude.
+</figcaption>
+</figure>
+<ul>
+<li><p>Périodes de 6 semaines séparées par un <em>wash-out</em> de 14 jours pour élimination du produit et éviter les interactions entre les périodes de traitement (demi-vie d’environ 15 heures, soit 3 jours pour réaliser 5 demi-vies, le délai de 14 jours est suffisant pour prévenir un éventuel effet carry-over) <span class="citation" data-cites="ModafinilSubstanceActive">(<a href="#ref-ModafinilSubstanceActive" role="doc-biblioref"><span>“<span>Modafinil : substance active à effet thérapeutique</span>”</span> n.d.</a>)</span>.</p></li>
+<li><p>Données collectées avant, pendant et à l’issu de chaque période (car visite d’évaluation à S0, S3 et S6 de chaque période).</p></li>
+<li><p>Posologie :</p>
+<ul>
+<li><p>200mg deux fois par jour, soit 400 mg/jour, répartis au petit déjeuner et au déjeuner, conformément aux recommandations nationales.</p></li>
+<li><p>En cas d’intolérance, possibilité de réduire la dose à 100 mg deux fois par jour (200 mg/jour) ou à 100 mg une fois par jour (100 mg/jour), selon la tolérance individuelle.</p></li>
+</ul></li>
+<li><p>L’observance thérapeutique sera suivie par la restitution des traitements, avec comptage des comprimés restants à chaque fin de période, et par la vérification des prises consignées par le participant. Les patients tiendront également un journal quotidien de sommeil pendant toute la durée de l’étude.</p></li>
+<li><p>La tolérance sera évaluée à chaque visite par un recueil systématique des événements indésirables, des événements indésirables graves et des problèmes médicaux intercurrents survenus depuis la visite précédente dans un formulaire standardisé.</p></li>
+<li><p>En cas d’absence d’un patient à une visite de suivi, une tentative de contact sera réaliser pour évaluer les raisons de l’absence, pour éviter les données manquantes non liées au hasard.</p></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="visites-dévaluation" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="visites-dévaluation"><span class="header-section-number">4.4</span> Visites d’évaluation</h2>
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tableau-suivi-html-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Tableau récapitulatif du suivi et des évaluations prévues par visite.
+</figcaption>
+<div aria-describedby="tbl-tableau-suivi-html-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<object data="tableau_suivi.svg" type="image/svg+xml" style="display: block; width: 100%; margin: 0 auto;">
+<img src="tableau_suivi.svg" alt="Tableau récapitulatif du suivi et des évaluations prévues par visite" style="width: 100%;" class="figure-img">
+</object>
+</div>
+</figure>
+<ul>
+<li><p>Visites prévues selon le Tableau <span class="math inline">\(\ref{tbl:tableau-suivi}\)</span> :</p>
+<ul>
+<li><p>Scores et examens cliniques à chaque visite. Recueil des événements indésirables à chaque visite.</p></li>
+<li><p>Prélèvements sanguins à l’inclusion et à la fin de chaque période de traitement (S6 de chaque période)</p></li>
+<li><p>Données initiales paracliniques autres (EMG, polysomnographie, etc.) collectées lors du screening avant la randomisation.</p></li>
+</ul></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="calcul-de-la-taille-déchantillon" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Calcul de la taille d’échantillon</h1>
+<section id="principe-général" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="principe-général"><span class="header-section-number">5.1</span> Principe général</h2>
+<ul>
+<li><p>Calcul repose sur le <strong>critère principal d’efficacité</strong> : le score total de la FSS à 6 semaines de traitement.</p></li>
+<li><p>L’analyse principale est prévue selon un plan croisé 2x2 à l’aide d’un modèle linéaire mixte, le paramètre d’intérêt étant la différence moyenne intra-individuelle de score FSS entre modafinil et placebo.</p></li>
+<li><p><strong>Il n’existe pas de formule simple pour le calcul d’effectif directement basée sur un modèle mixte complet</strong> : le calcul repose donc sur une approximation basée sur la comparaison appariée de deux moyennes.</p></li>
+</ul>
+</section>
+<section id="hypothèses-de-calcul" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="hypothèses-de-calcul"><span class="header-section-number">5.2</span> Hypothèses de calcul</h2>
+<ul>
+<li><p>Reposent sur les données disponibles dans la littérature : <span class="citation" data-cites="oncuPsychometricPropertiesFatigue2013 horemansComparison4Questionnaires2004">(<a href="#ref-oncuPsychometricPropertiesFatigue2013" role="doc-biblioref">Oncu et al. 2013</a>; <a href="#ref-horemansComparison4Questionnaires2004" role="doc-biblioref">Horemans et al. 2004</a>)</span></p>
+<ul>
+<li><p>FSS moyen entre 5 et 6</p></li>
+<li><p>Écart type entre 0,9 et 1,1</p></li>
+<li><p>Différence test-retest de 0,2 ± 0,8, suggérant une variabilité intra-individuelle de 0,8</p></li>
+<li><p>Plus petit changement détectable de 1,5 point</p></li>
+</ul></li>
+<li><p>Il n’existe pas de différence minimale cliniquement importante consensuelle</p></li>
+<li><p>La variabilité du score FSS est proche de 1 point.</p></li>
+<li><p>En conséquence : les hypothèses retenues sont :</p>
+<ul>
+<li><p>Test de supériorité bilatéral</p></li>
+<li><p>Risque de première espèce (<span class="math inline">\(\alpha\)</span>) : 5 %</p></li>
+<li><p>Puissance (1 - <span class="math inline">\(\beta\)</span>) : 80 %</p></li>
+<li><p>Écart type <span class="math inline">\(\sigma\)</span> : 1</p></li>
+<li><p>Différence minimale à détecter <span class="math inline">\(\Delta\)</span> : 1 point</p></li>
+</ul></li>
+<li><p>Le choix de <span class="math inline">\(\Delta\)</span> = 1 correspond à une hypothèse de différence minimale cliniquement importante, en l’absence de seuil validé, et se base sur :</p>
+<ul>
+<li><p>la variabilité du score FSS (écart type d’environ 1 point)</p></li>
+<li><p>une variation &gt; 10% du score total (qui correspondrait à 0,7 point sur une échelle de 1 à 7)</p></li>
+</ul></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="calcul-théorique-cohérent-avec-le-design-en-cross-over" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="calcul-théorique-cohérent-avec-le-design-en-cross-over"><span class="header-section-number">5.3</span> Calcul théorique cohérent avec le design en cross-over</h2>
+<section id="manuellement" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="manuellement"><span class="header-section-number">5.3.1</span> Manuellement</h3>
+<ul>
+<li>Dans un essai croisé avec critère continu (score FSS), la formule pour le calcul d’effectif est :</li>
+</ul>
+<p><span class="math display">\[
+n = \frac{(Z_{1-\alpha/2} + Z_{1-\beta})^2 \times \sigma^2}{\Delta^2}
+\quad \Leftrightarrow \quad
+n = \frac{(1.96 + 0.84)^2 \times 1^2}{1^2} = 7.84
+\]</span></p>
+<p>où :</p>
+<ul>
+<li><p><span class="math inline">\(n\)</span> = nombre de patients nécessaires</p></li>
+<li><p><span class="math inline">\(\sigma\)</span> = écart type de la différence intra-individuelle (ici estimé à 1)</p></li>
+<li><p><span class="math inline">\(\Delta\)</span> = différence minimale à détecter</p></li>
+<li><p>soit environ 8 patients à inclure</p></li>
+</ul>
+</section>
+<section id="en-utilisant-r" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="en-utilisant-r"><span class="header-section-number">5.3.2</span> En utilisant R</h3>
+<ul>
+<li>Le calcul manuel utilise une approximation par la loi normale. Il est possible d’utiliser la fonction <code>pwr.t.test</code> du package <code>pwr</code> pour un calcul plus précis reposant sur la distribution t de Student.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(<span class="at">d =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">1</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.80</span>, <span class="at">type =</span> <span class="st">"paired"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Paired t test power calculation 
+
+              n = 9.93785
+              d = 1
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number of *pairs*</code></pre>
+</div>
+</div>
+<ul>
+<li>La fonction <code>pwr.t.test</code> obtient un nombre arrondi de paires à 10.</li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="calcul-conservateur-sans-bénéfice-du-cross-over" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="calcul-conservateur-sans-bénéfice-du-cross-over"><span class="header-section-number">5.4</span> Calcul conservateur sans bénéfice du cross-over</h2>
+<section id="manuellement-1" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="manuellement-1"><span class="header-section-number">5.4.1</span> Manuellement</h3>
+<ul>
+<li>Par prudence, il est préférable d’envisager qu’en présence d’effet de période ou d’effet de report (carry-over), le bénéfice du design en cross-over pourrait être réduit, et que l’analyse pourrait se rapprocher d’une comparaison de deux groupes indépendants.</li>
+</ul>
+<p><span class="math display">\[
+n = 2 \times \frac{(Z_{1-\alpha/2} + Z_{1-\beta})^2 \times \sigma^2}{\Delta^2}
+\quad \Leftrightarrow \quad
+n = 2 \times \frac{(1.96 + 0.84)^2 \times 1^2}{1^2} = 15.68
+\]</span></p>
+<p>soit environ 16 sujets par groupe, soit 32 sujets au total.</p>
+</section>
+<section id="en-utilisant-r-1" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="en-utilisant-r-1"><span class="header-section-number">5.4.2</span> En utilisant R</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(<span class="at">d =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">1</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.80</span>, <span class="at">type =</span> <span class="st">"two.sample"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 16.71472
+              d = 1
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+</div>
+</div>
+<ul>
+<li>La fonction <code>pwr.t.test</code> obtient un nombre de sujets par groupe à 17, soit un total de 34.</li>
+</ul>
+</section>
+</section>
+<section id="en-prenant-en-compte-une-perte-de-suivi" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="en-prenant-en-compte-une-perte-de-suivi"><span class="header-section-number">5.5</span> En prenant en compte une perte de suivi</h2>
+<ul>
+<li><p>En tenant compte d’une perte de suivi de 10%, il est nécessaire d’augmenter le nombre de sujets à inclure pour maintenir la puissance de l’étude :</p>
+<ul>
+<li><p>Pour le calcul théorique cohérent avec le design en cross-over : 11 sujets à inclure.</p></li>
+<li><p>Pour le calcul conservateur sans bénéfice du cross-over : 37 sujets à inclure au total.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="conclusion" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5.6</span> Conclusion</h2>
+<ul>
+<li><p>Le calcul conservateur est retenu, soit 38 patients à inclure pour nombre pair (19 par groupe)</p></li>
+<li><p>Ce choix est justifié par la robustesse méthodologique, la possibilité d’un effet de période ou de report, l’incertitude sur la variabilité réelle du score FSS dans cette population, et la nécessité de garantir la puissance de l’étude dans un contexte clinique réel où les conditions idéales du cross-over pourraient ne pas être parfaitement respectées.</p></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="analyses-statistiques" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Analyses statistiques</h1>
+<section id="types-danalyses" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="types-danalyses"><span class="header-section-number">6.1</span> Types d’analyses</h2>
+<ul>
+<li><p>Critères d’efficacité :</p>
+<ul>
+<li><p>Analyse principale en <strong>intention de traiter</strong> : inclue tous les patients randomisés, analysés selon le traitement auquel ils ont été assignés, indépendamment de leur observance ou de leur suivi.</p></li>
+<li><p>Analyse de sensibilité en <strong>per-protocol</strong> : inclue uniquement les patients ayant respecté le protocole de l’étude, c’est à dire ceux ayant suivi les deux périodes de traitement et ayant complété les évaluations prévues.</p></li>
+</ul></li>
+<li><p>Critères de sécurité : analyse descriptive de la tolérance, incluant tous les patients ayant reçu au moins une dose de traitement, selon le traitement effectivement reçu.</p></li>
+</ul>
+</section>
+<section id="flow-chart-de-létude" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="flow-chart-de-létude"><span class="header-section-number">6.2</span> Flow-chart de l’étude</h2>
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flowchart-html-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<object data="flowchart.svg" type="image/svg+xml" style="display: block; width: 100%; margin: 0 auto;">
+<img src="flowchart.svg" alt="Flow-chart de l'étude" style="width: 100%;" class="figure-img">
+</object>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flowchart-html-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Flow-chart de l’étude.
+</figcaption>
+</figure>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="variables-et-codage" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="variables-et-codage"><span class="header-section-number">6.3</span> Variables et codage</h2>
+<ul>
+<li><p>Les données seront collectées dans un dataframe “large” pour faciliter la lisibilité du recueil clinique et la vérification des données.</p></li>
+<li><p>Pour les scores, chaque composante du score (FSS, VASF, FIS, SF-36) sera collectée à chaque visite d’évaluation, avec un suffixe indiquant la visite (S0, S3, S6, S8, S11, S14). Le score total sera calculé a posteriori à partir des composantes, pour éviter les erreurs de calcul lors de la saisie.</p></li>
+<li><p>Les variables d’observance et de sécurité seront également collectées à chaque visite, avec un suffixe indiquant la visite.</p></li>
+<li><p>Pour les analyses, les données seront ensuite transformées en format “long” pour permettre l’utilisation de modèles linéaires mixtes avec des mesures répétées, en créant une variable “temps” indiquant la visite d’évaluation et une variable “traitement” indiquant le traitement reçu à chaque période.</p></li>
+</ul>
+</section>
+<section id="data-management" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="data-management"><span class="header-section-number">6.4</span> Data management</h2>
+<ul>
+<li>Le dataframe “large” sera utilisé pour la saisie et la vérification des données, avec des champs pré-définis pour chaque variable d’intérêt.</li>
+</ul>
+<section id="transformation-en-format-long" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="transformation-en-format-long"><span class="header-section-number">6.4.1</span> Transformation en format long</h3>
+<ul>
+<li>Après vérification et nettoyage des données, un dataframe “long” sera créé à partir du dataframe “large”, en utilisant la fonction <code>reshape2</code> pour transformer les données en format long, avec une variable “temps” indiquant la visite d’évaluation et une variable “traitement” indiquant le traitement reçu à chaque période (en conservant l’aveugle via la variable “sequence_randomisation”).</li>
+</ul>
+</section>
+<section id="conversion-et-recodage-des-variables" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="conversion-et-recodage-des-variables"><span class="header-section-number">6.4.2</span> Conversion et recodage des variables</h3>
+<ul>
+<li>Description du jeu de données via les fonctions <code>summary</code> et <code>str</code> pour identifier les types de variables, les valeurs manquantes, les distributions, etc. Une bonne fonction est la fonction <code>skim</code> du package <code>skimr</code> qui fournit un résumé détaillé des variables, y compris les types, les valeurs manquantes, les statistiques descriptives, etc.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(df_large_simplifie)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">df_large_simplifie</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">38</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">84</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">centre</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">NIH: 13, NRH: 13, WRA: 12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sequence_randomisation</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">MP: 19, PM: 19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sexe</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Hom: 23, Fem: 15</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 9%">
+<col style="width: 13%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">id_patient</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">19.50</td>
+<td style="text-align: right;">11.11</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">10.25</td>
+<td style="text-align: right;">19.50</td>
+<td style="text-align: right;">28.75</td>
+<td style="text-align: right;">38.0</td>
+<td style="text-align: left;">▇▇▇▇▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">age_annees</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">59.84</td>
+<td style="text-align: right;">12.03</td>
+<td style="text-align: right;">39.0</td>
+<td style="text-align: right;">50.25</td>
+<td style="text-align: right;">64.50</td>
+<td style="text-align: right;">69.75</td>
+<td style="text-align: right;">78.0</td>
+<td style="text-align: left;">▆▅▃▇▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">taille_cm</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">166.41</td>
+<td style="text-align: right;">7.16</td>
+<td style="text-align: right;">153.9</td>
+<td style="text-align: right;">161.15</td>
+<td style="text-align: right;">165.60</td>
+<td style="text-align: right;">171.62</td>
+<td style="text-align: right;">183.1</td>
+<td style="text-align: left;">▃▇▆▅▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">poids_kg</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">73.11</td>
+<td style="text-align: right;">12.55</td>
+<td style="text-align: right;">45.6</td>
+<td style="text-align: right;">63.10</td>
+<td style="text-align: right;">76.30</td>
+<td style="text-align: right;">83.07</td>
+<td style="text-align: right;">93.0</td>
+<td style="text-align: left;">▂▅▃▇▅</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">imc</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">26.56</td>
+<td style="text-align: right;">5.19</td>
+<td style="text-align: right;">16.0</td>
+<td style="text-align: right;">23.13</td>
+<td style="text-align: right;">27.30</td>
+<td style="text-align: right;">30.47</td>
+<td style="text-align: right;">36.9</td>
+<td style="text-align: left;">▂▅▃▇▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pps_confirme</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fatigue_plainte_majeure</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">delai_depuis_polio_ans</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">34.82</td>
+<td style="text-align: right;">11.75</td>
+<td style="text-align: right;">15.0</td>
+<td style="text-align: right;">27.25</td>
+<td style="text-align: right;">35.00</td>
+<td style="text-align: right;">42.50</td>
+<td style="text-align: right;">54.0</td>
+<td style="text-align: left;">▅▃▇▂▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fis_screening</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">131.66</td>
+<td style="text-align: right;">19.88</td>
+<td style="text-align: right;">84.0</td>
+<td style="text-align: right;">116.00</td>
+<td style="text-align: right;">134.50</td>
+<td style="text-align: right;">147.50</td>
+<td style="text-align: right;">160.0</td>
+<td style="text-align: left;">▁▅▃▇▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">elig_fis_sup_75</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sensibilite_modafinil</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">autre_cause_medicale_fatigue</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">interaction_medicamenteuse</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">trouble_sommeil_excluant</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">depression_excluante</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">grossesse</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">allaitement</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">stimulants_ou_ephedra</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cardiopathie_connue</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fss_S0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5.64</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">5.12</td>
+<td style="text-align: right;">5.65</td>
+<td style="text-align: right;">6.27</td>
+<td style="text-align: right;">6.9</td>
+<td style="text-align: left;">▅▃▇▇▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fss_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5.23</td>
+<td style="text-align: right;">1.01</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">4.62</td>
+<td style="text-align: right;">5.25</td>
+<td style="text-align: right;">5.90</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: left;">▂▃▇▇▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fss_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.94</td>
+<td style="text-align: right;">1.17</td>
+<td style="text-align: right;">2.5</td>
+<td style="text-align: right;">4.12</td>
+<td style="text-align: right;">5.10</td>
+<td style="text-align: right;">5.77</td>
+<td style="text-align: right;">6.9</td>
+<td style="text-align: left;">▂▅▅▇▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fss_S8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5.72</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">3.9</td>
+<td style="text-align: right;">5.10</td>
+<td style="text-align: right;">5.85</td>
+<td style="text-align: right;">6.27</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: left;">▃▃▃▇▆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fss_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5.37</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">3.6</td>
+<td style="text-align: right;">4.73</td>
+<td style="text-align: right;">5.50</td>
+<td style="text-align: right;">5.88</td>
+<td style="text-align: right;">6.9</td>
+<td style="text-align: left;">▁▆▅▇▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fss_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5.08</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: right;">4.60</td>
+<td style="text-align: right;">5.15</td>
+<td style="text-align: right;">5.60</td>
+<td style="text-align: right;">6.6</td>
+<td style="text-align: left;">▁▅▆▇▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vasf_S0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">73.02</td>
+<td style="text-align: right;">11.38</td>
+<td style="text-align: right;">54.2</td>
+<td style="text-align: right;">63.73</td>
+<td style="text-align: right;">72.10</td>
+<td style="text-align: right;">84.60</td>
+<td style="text-align: right;">92.1</td>
+<td style="text-align: left;">▆▆▆▃▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vasf_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">67.60</td>
+<td style="text-align: right;">13.70</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">59.05</td>
+<td style="text-align: right;">70.20</td>
+<td style="text-align: right;">75.92</td>
+<td style="text-align: right;">98.2</td>
+<td style="text-align: left;">▃▃▇▅▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vasf_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">65.54</td>
+<td style="text-align: right;">15.11</td>
+<td style="text-align: right;">35.0</td>
+<td style="text-align: right;">56.00</td>
+<td style="text-align: right;">64.80</td>
+<td style="text-align: right;">76.47</td>
+<td style="text-align: right;">97.2</td>
+<td style="text-align: left;">▃▇▆▇▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vasf_S8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">75.05</td>
+<td style="text-align: right;">11.13</td>
+<td style="text-align: right;">50.9</td>
+<td style="text-align: right;">67.42</td>
+<td style="text-align: right;">76.00</td>
+<td style="text-align: right;">84.02</td>
+<td style="text-align: right;">93.0</td>
+<td style="text-align: left;">▂▆▇▇▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vasf_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">69.40</td>
+<td style="text-align: right;">11.83</td>
+<td style="text-align: right;">44.5</td>
+<td style="text-align: right;">60.70</td>
+<td style="text-align: right;">70.45</td>
+<td style="text-align: right;">77.15</td>
+<td style="text-align: right;">92.8</td>
+<td style="text-align: left;">▂▇▅▇▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vasf_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">67.18</td>
+<td style="text-align: right;">11.65</td>
+<td style="text-align: right;">46.2</td>
+<td style="text-align: right;">59.33</td>
+<td style="text-align: right;">68.75</td>
+<td style="text-align: right;">75.72</td>
+<td style="text-align: right;">87.0</td>
+<td style="text-align: left;">▆▃▆▇▆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fis_S0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">121.85</td>
+<td style="text-align: right;">18.63</td>
+<td style="text-align: right;">86.3</td>
+<td style="text-align: right;">111.10</td>
+<td style="text-align: right;">122.60</td>
+<td style="text-align: right;">134.70</td>
+<td style="text-align: right;">159.1</td>
+<td style="text-align: left;">▅▆▇▇▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fis_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">111.23</td>
+<td style="text-align: right;">23.31</td>
+<td style="text-align: right;">64.2</td>
+<td style="text-align: right;">95.40</td>
+<td style="text-align: right;">114.80</td>
+<td style="text-align: right;">128.73</td>
+<td style="text-align: right;">151.5</td>
+<td style="text-align: left;">▃▃▅▇▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fis_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">108.03</td>
+<td style="text-align: right;">21.86</td>
+<td style="text-align: right;">66.5</td>
+<td style="text-align: right;">94.75</td>
+<td style="text-align: right;">106.35</td>
+<td style="text-align: right;">125.22</td>
+<td style="text-align: right;">145.0</td>
+<td style="text-align: left;">▅▆▇▇▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fis_S8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">123.97</td>
+<td style="text-align: right;">17.02</td>
+<td style="text-align: right;">88.5</td>
+<td style="text-align: right;">110.55</td>
+<td style="text-align: right;">128.15</td>
+<td style="text-align: right;">136.00</td>
+<td style="text-align: right;">155.2</td>
+<td style="text-align: left;">▂▅▂▇▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fis_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">114.21</td>
+<td style="text-align: right;">16.98</td>
+<td style="text-align: right;">80.2</td>
+<td style="text-align: right;">103.48</td>
+<td style="text-align: right;">113.45</td>
+<td style="text-align: right;">125.93</td>
+<td style="text-align: right;">150.6</td>
+<td style="text-align: left;">▃▂▇▅▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fis_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">107.16</td>
+<td style="text-align: right;">16.79</td>
+<td style="text-align: right;">69.0</td>
+<td style="text-align: right;">93.07</td>
+<td style="text-align: right;">108.85</td>
+<td style="text-align: right;">120.40</td>
+<td style="text-align: right;">140.3</td>
+<td style="text-align: left;">▂▅▅▇▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sf36_pcs_S0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">39.71</td>
+<td style="text-align: right;">9.39</td>
+<td style="text-align: right;">22.0</td>
+<td style="text-align: right;">30.95</td>
+<td style="text-align: right;">40.15</td>
+<td style="text-align: right;">48.10</td>
+<td style="text-align: right;">57.1</td>
+<td style="text-align: left;">▅▅▇▇▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sf36_pcs_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">42.01</td>
+<td style="text-align: right;">10.84</td>
+<td style="text-align: right;">11.2</td>
+<td style="text-align: right;">36.30</td>
+<td style="text-align: right;">40.15</td>
+<td style="text-align: right;">49.55</td>
+<td style="text-align: right;">62.3</td>
+<td style="text-align: left;">▁▂▇▃▅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sf36_pcs_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">45.21</td>
+<td style="text-align: right;">11.51</td>
+<td style="text-align: right;">25.1</td>
+<td style="text-align: right;">36.20</td>
+<td style="text-align: right;">44.75</td>
+<td style="text-align: right;">51.73</td>
+<td style="text-align: right;">69.7</td>
+<td style="text-align: left;">▆▆▇▅▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sf36_pcs_S8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">39.05</td>
+<td style="text-align: right;">9.16</td>
+<td style="text-align: right;">22.3</td>
+<td style="text-align: right;">31.50</td>
+<td style="text-align: right;">38.80</td>
+<td style="text-align: right;">46.35</td>
+<td style="text-align: right;">61.4</td>
+<td style="text-align: left;">▅▇▇▆▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sf36_pcs_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">41.44</td>
+<td style="text-align: right;">8.75</td>
+<td style="text-align: right;">24.1</td>
+<td style="text-align: right;">36.65</td>
+<td style="text-align: right;">40.95</td>
+<td style="text-align: right;">47.43</td>
+<td style="text-align: right;">58.3</td>
+<td style="text-align: left;">▂▆▇▅▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sf36_pcs_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">43.63</td>
+<td style="text-align: right;">9.52</td>
+<td style="text-align: right;">22.3</td>
+<td style="text-align: right;">36.85</td>
+<td style="text-align: right;">43.50</td>
+<td style="text-align: right;">48.92</td>
+<td style="text-align: right;">62.3</td>
+<td style="text-align: left;">▂▅▇▅▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sf36_mcs_S0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">46.32</td>
+<td style="text-align: right;">9.11</td>
+<td style="text-align: right;">25.6</td>
+<td style="text-align: right;">38.22</td>
+<td style="text-align: right;">48.55</td>
+<td style="text-align: right;">51.67</td>
+<td style="text-align: right;">69.1</td>
+<td style="text-align: left;">▁▇▇▅▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sf36_mcs_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">52.94</td>
+<td style="text-align: right;">9.68</td>
+<td style="text-align: right;">32.0</td>
+<td style="text-align: right;">47.72</td>
+<td style="text-align: right;">55.05</td>
+<td style="text-align: right;">57.95</td>
+<td style="text-align: right;">71.9</td>
+<td style="text-align: left;">▃▃▇▇▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sf36_mcs_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">53.46</td>
+<td style="text-align: right;">11.03</td>
+<td style="text-align: right;">36.2</td>
+<td style="text-align: right;">43.92</td>
+<td style="text-align: right;">52.40</td>
+<td style="text-align: right;">61.00</td>
+<td style="text-align: right;">75.5</td>
+<td style="text-align: left;">▇▅▆▅▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sf36_mcs_S8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">48.57</td>
+<td style="text-align: right;">8.31</td>
+<td style="text-align: right;">33.3</td>
+<td style="text-align: right;">42.55</td>
+<td style="text-align: right;">46.70</td>
+<td style="text-align: right;">55.53</td>
+<td style="text-align: right;">66.3</td>
+<td style="text-align: left;">▃▇▅▆▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sf36_mcs_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">49.48</td>
+<td style="text-align: right;">6.99</td>
+<td style="text-align: right;">33.7</td>
+<td style="text-align: right;">46.45</td>
+<td style="text-align: right;">49.05</td>
+<td style="text-align: right;">53.05</td>
+<td style="text-align: right;">63.8</td>
+<td style="text-align: left;">▂▂▇▃▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sf36_mcs_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">51.66</td>
+<td style="text-align: right;">7.95</td>
+<td style="text-align: right;">40.1</td>
+<td style="text-align: right;">45.85</td>
+<td style="text-align: right;">49.50</td>
+<td style="text-align: right;">56.68</td>
+<td style="text-align: right;">75.0</td>
+<td style="text-align: left;">▇▆▆▂▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">journal_sommeil_S0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">journal_sommeil_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">journal_sommeil_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">journal_sommeil_S8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">journal_sommeil_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">journal_sommeil_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">heures_sommeil_S0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6.72</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">5.8</td>
+<td style="text-align: right;">6.35</td>
+<td style="text-align: right;">6.80</td>
+<td style="text-align: right;">7.07</td>
+<td style="text-align: right;">7.6</td>
+<td style="text-align: left;">▃▇▅▇▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">heures_sommeil_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6.96</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">6.60</td>
+<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">7.30</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: left;">▅▆▇▆▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">heures_sommeil_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7.20</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">6.1</td>
+<td style="text-align: right;">6.73</td>
+<td style="text-align: right;">7.10</td>
+<td style="text-align: right;">7.70</td>
+<td style="text-align: right;">8.7</td>
+<td style="text-align: left;">▆▇▆▆▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">heures_sommeil_S8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6.68</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">6.40</td>
+<td style="text-align: right;">6.60</td>
+<td style="text-align: right;">7.00</td>
+<td style="text-align: right;">7.9</td>
+<td style="text-align: left;">▅▇▆▂▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">heures_sommeil_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6.98</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">6.3</td>
+<td style="text-align: right;">6.73</td>
+<td style="text-align: right;">7.00</td>
+<td style="text-align: right;">7.20</td>
+<td style="text-align: right;">7.8</td>
+<td style="text-align: left;">▃▅▇▅▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">heures_sommeil_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7.15</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">6.3</td>
+<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">7.20</td>
+<td style="text-align: right;">7.40</td>
+<td style="text-align: right;">7.9</td>
+<td style="text-align: left;">▃▇▆▇▆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">compliance_pct_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">93.34</td>
+<td style="text-align: right;">3.23</td>
+<td style="text-align: right;">88.2</td>
+<td style="text-align: right;">90.62</td>
+<td style="text-align: right;">93.30</td>
+<td style="text-align: right;">95.65</td>
+<td style="text-align: right;">99.3</td>
+<td style="text-align: left;">▇▇▇▅▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">compliance_pct_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">91.87</td>
+<td style="text-align: right;">4.26</td>
+<td style="text-align: right;">84.6</td>
+<td style="text-align: right;">88.48</td>
+<td style="text-align: right;">91.50</td>
+<td style="text-align: right;">95.18</td>
+<td style="text-align: right;">99.5</td>
+<td style="text-align: left;">▆▃▃▇▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">compliance_pct_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">93.43</td>
+<td style="text-align: right;">3.37</td>
+<td style="text-align: right;">88.2</td>
+<td style="text-align: right;">90.35</td>
+<td style="text-align: right;">92.85</td>
+<td style="text-align: right;">96.33</td>
+<td style="text-align: right;">99.4</td>
+<td style="text-align: left;">▇▆▆▃▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">compliance_pct_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">91.05</td>
+<td style="text-align: right;">5.00</td>
+<td style="text-align: right;">84.1</td>
+<td style="text-align: right;">86.88</td>
+<td style="text-align: right;">90.50</td>
+<td style="text-align: right;">95.70</td>
+<td style="text-align: right;">99.8</td>
+<td style="text-align: left;">▇▅▆▂▆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nb_comprimes_pris_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">39.21</td>
+<td style="text-align: right;">1.40</td>
+<td style="text-align: right;">37.0</td>
+<td style="text-align: right;">38.00</td>
+<td style="text-align: right;">39.00</td>
+<td style="text-align: right;">40.00</td>
+<td style="text-align: right;">42.0</td>
+<td style="text-align: left;">▇▅▅▂▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nb_comprimes_pris_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">77.21</td>
+<td style="text-align: right;">3.58</td>
+<td style="text-align: right;">71.0</td>
+<td style="text-align: right;">74.25</td>
+<td style="text-align: right;">77.00</td>
+<td style="text-align: right;">80.00</td>
+<td style="text-align: right;">84.0</td>
+<td style="text-align: left;">▆▅▃▇▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nb_comprimes_pris_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">39.21</td>
+<td style="text-align: right;">1.36</td>
+<td style="text-align: right;">37.0</td>
+<td style="text-align: right;">38.00</td>
+<td style="text-align: right;">39.00</td>
+<td style="text-align: right;">40.00</td>
+<td style="text-align: right;">42.0</td>
+<td style="text-align: left;">▇▇▃▃▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nb_comprimes_pris_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">76.50</td>
+<td style="text-align: right;">4.20</td>
+<td style="text-align: right;">71.0</td>
+<td style="text-align: right;">73.00</td>
+<td style="text-align: right;">76.00</td>
+<td style="text-align: right;">80.00</td>
+<td style="text-align: right;">84.0</td>
+<td style="text-align: left;">▇▆▅▃▅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ei_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ei_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ei_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ei_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eig_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eig_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eig_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eig_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">arret_traitement_pour_ei_S3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">arret_traitement_pour_ei_S6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">arret_traitement_pour_ei_S11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">arret_traitement_pour_ei_S14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+</section>
+<section id="bibliographie" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Bibliographie</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-fiskMeasuringFunctionalImpact1994" class="csl-entry" role="listitem">
+Fisk, J. D., P. G. Ritvo, L. Ross, D. A. Haase, T. J. Marrie, and W. F. Schlech. 1994. <span>“Measuring the Functional Impact of Fatigue: Initial Validation of the Fatigue Impact Scale.”</span> <em>Clinical Infectious Diseases: An Official Publication of the Infectious Diseases Society of America</em> 18 Suppl 1 (January): S79–83. <a href="https://doi.org/10.1093/clinids/18.supplement_1.s79">https://doi.org/10.1093/clinids/18.supplement_1.s79</a>.
+</div>
+<div id="ref-gonzalezManagementPostpolioSyndrome2010" class="csl-entry" role="listitem">
+Gonzalez, Henrik, Tomas Olsson, and Kristian Borg. 2010. <span>“Management of Postpolio Syndrome.”</span> <em>The Lancet. Neurology</em> 9 (6): 634–42. <a href="https://doi.org/10.1016/S1474-4422(10)70095-8">https://doi.org/10.1016/S1474-4422(10)70095-8</a>.
+</div>
+<div id="ref-horemansComparison4Questionnaires2004" class="csl-entry" role="listitem">
+Horemans, Herwin L, Frans Nollet, Anita Beelen, and Gustaaf J Lankhorst. 2004. <span>“A Comparison of 4 Questionnaires to Measure Fatigue in Postpoliomyelitis Syndrome 1.”</span> <em>Archives of Physical Medicine and Rehabilitation</em> 85 (3): 392–98. <a href="https://doi.org/10.1016/j.apmr.2003.06.007">https://doi.org/10.1016/j.apmr.2003.06.007</a>.
+</div>
+<div id="ref-koopmanMeasuringFatiguePolio2014" class="csl-entry" role="listitem">
+Koopman, Fieke S., Merel A. Brehm, Yvonne F. Heerkens, Frans Nollet, and Anita Beelen. 2014. <span>“Measuring Fatigue in Polio Survivors: Content Comparison and Reliability of the <span>Fatigue Severity Scale</span> and the <span>Checklist Individual Strength</span>.”</span> <em>Journal of Rehabilitation Medicine</em> 46 (8): 761–67. <a href="https://doi.org/10.2340/16501977-1838">https://doi.org/10.2340/16501977-1838</a>.
+</div>
+<div id="ref-koopmanTreatmentPostpolioSyndrome2015a" class="csl-entry" role="listitem">
+Koopman, Fieke Sophia, Anita Beelen, Nils Erik Gilhus, Marianne de Visser, and Frans Nollet. 2015. <span>“Treatment for Postpolio Syndrome.”</span> <em>The Cochrane Database of Systematic Reviews</em> 2015 (5): CD007818. <a href="https://doi.org/10.1002/14651858.CD007818.pub3">https://doi.org/10.1002/14651858.CD007818.pub3</a>.
+</div>
+<div id="ref-ModafinilSubstanceActive" class="csl-entry" role="listitem">
+<span>“<span>Modafinil : substance active à effet thérapeutique</span>.”</span> n.d. <em>VIDAL</em>. https://www.vidal.fr/medicaments/substances/modafinil-5886.html. Accessed March 23, 2026.
+</div>
+<div id="ref-oncuPsychometricPropertiesFatigue2013" class="csl-entry" role="listitem">
+Oncu, Julide, Funda Atamaz, Berrin Durmaz, and Arzu On. 2013. <span>“Psychometric Properties of Fatigue Severity and Fatigue Impact Scales in Postpolio Patients.”</span> <em>International Journal of Rehabilitation Research. Internationale Zeitschrift Fur Rehabilitationsforschung. Revue Internationale De Recherches De Readaptation</em> 36 (4): 339–45. <a href="https://doi.org/10.1097/MRR.0b013e3283646b56">https://doi.org/10.1097/MRR.0b013e3283646b56</a>.
+</div>
+<div id="ref-schankeFatiguePolioSurvivors2001" class="csl-entry" role="listitem">
+Schanke, A. K., and J. K. Stanghelle. 2001. <span>“Fatigue in Polio Survivors.”</span> <em>Spinal Cord</em> 39 (5): 243–51. <a href="https://doi.org/10.1038/sj.sc.3101147">https://doi.org/10.1038/sj.sc.3101147</a>.
+</div>
+<div id="ref-wareMOS36itemShortform1992" class="csl-entry" role="listitem">
+Ware, J. E., and C. D. Sherbourne. 1992. <span>“<a href="https://www.ncbi.nlm.nih.gov/pubmed/1593914">The <span>MOS</span> 36-Item Short-Form Health Survey (<span>SF-36</span>). <span>I</span>. <span>Conceptual</span> Framework and Item Selection</a>.”</span> <em>Medical Care</em> 30 (6): 473–83.
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

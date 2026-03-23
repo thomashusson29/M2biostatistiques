@@ -1,0 +1,68 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                        📚 COMPLETE STUDY PACKAGE                          ║
+║                  M2 MÉTHODOLOGIE - ALL YEARS (2019-2024)                  ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📖 MAIN DOCUMENTS (in this directory):
+
+1. START_HERE.txt ⭐ BEGIN HERE
+   └─ Quick orientation + guaranteed concepts
+
+2. RECAP_NOTIONS_ET_FORMULES.md 🌟 COMPREHENSIVE REFERENCE
+   └─ 965 lines, 7 sections, everything you need
+
+3. QUICK_FORMULAS.md ⚡ RAPID LOOKUP  
+   └─ Formulas condensed, 30-second decision tables
+
+4. README_RECAP.md 📋 GUIDE & AUTO-TESTS
+   └─ Navigation + 6 practice questions
+
+5. DOCUMENTS_SUMMARY.txt 📊 THIS DOCUMENT
+   └─ Overview of all content
+
+
+════════════════════════════════════════════════════════════════════════════
+
+⏱️ TIME ALLOCATION:
+
+30 minutes:   Read START_HERE.txt + skim QUICK_FORMULAS
+2 hours:      Deep read RECAP sections 1-3 + 1 auto-test  
+6 hours:      Read entire RECAP + do all auto-tests
+1 week:       1 section per day + practice calculations
+
+
+════════════════════════════════════════════════════════════════════════════
+
+🎯 GUARANTEED EXAM TOPICS (100% will appear):
+
+✓ NSN Calculation (6 parameters minimum)
+✓ OR vs RR interpretation
+✓ Confounder vs Mediator distinction  
+✓ Study design pros/cons
+✓ At least one bias type
+
+
+════════════════════════════════════════════════════════════════════════════
+
+💡 MOST IMPORTANT FORMULAS TO MEMORIZE:
+
+NSN (means):     2[(z_α + z_β)²σ²]/δ²
+NSN (proportions): [(z_α + z_β)²(p₀(1-p₀) + p₁(1-p₁))]/(p₀-p₁)²
+Cluster Effect:  1 + (m-1) × ICC
+RERI:           RR(A+B+) - RR(A+B-) - RR(A-B+) + 1
+
+
+════════════════════════════════════════════════════════════════════════════
+
+🚨 NEVER FORGET (Exam Day):
+
+1. ICC adjustment for cluster trials
+2. Source justification for NSN parameters
+3. Assumptions before choosing any test
+4. Confounder ≠ Mediator
+5. OR ≈ RR only if disease is rare
+
+
+════════════════════════════════════════════════════════════════════════════
+
+Good luck! 💪📊

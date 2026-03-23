@@ -1,0 +1,161 @@
+---
+title: "Devoir Épidémiologie"
+author: "Thomas Husson, Groupe 52"
+bibliography: /Users/thomashusson/Documents/Projets/M2biostatistiques/Biblio/biblio-zotero.bib
+prefer-pdf: true
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+        css: styles.css
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        pdf-engine: xelatex
+        cite-method: natbib
+        biblio-style: unsrtnat
+        natbiboptions: "super,sort,compress"
+        pdf-engine-opts:
+        - -interaction=nonstopmode
+        - -halt-on-error
+        number-sections: true
+        code-block-bg: false
+        header-includes: |
+            % Force la police Computer Modern pour le titre principal
+            \usepackage{fontspec}
+            \makeatletter
+            \renewcommand{\maketitle}{
+            \begin{center}
+                {\Large\bfseries\rmfamily \@title \par}
+                \vskip 1.5em
+                {\large\rmfamily \@author \par}
+                \vskip 1em
+            \end{center}
+            }
+            \makeatother
+            % Titres KOMA-Script en police roman par défaut
+            \setkomafont{disposition}{\rmfamily}
+            \definecolor{sectionblue}{HTML}{1D4E89}
+            \definecolor{subsectionblue}{HTML}{8B1E3F}
+            \definecolor{subsubsectiongreen}{HTML}{1F6B4F}
+            \definecolor{paragraphslate}{HTML}{5A2E8A}
+            \definecolor{subparagraphgray}{HTML}{2F2F2F}
+            \setkomafont{section}{\rmfamily\color{sectionblue}\bfseries}
+            \setkomafont{subsection}{\rmfamily\color{subsectionblue}\bfseries}
+            \setkomafont{subsubsection}{\rmfamily\color{subsubsectiongreen}\bfseries}
+            \setkomafont{paragraph}{\rmfamily\color{paragraphslate}\bfseries}
+            \setkomafont{subparagraph}{\rmfamily\color{subparagraphgray}\bfseries\itshape}
+            \RedeclareSectionCommand[runin=false,afterskip=0.4\baselineskip]{paragraph}
+            \RedeclareSectionCommand[runin=false,afterskip=0.3\baselineskip]{subparagraph}
+            % Hyphenation française
+            \usepackage[french]{babel}
+            % Style des commentaires dans les blocs de code
+            \usepackage{xcolor}
+            \definecolor{commentgray}{HTML}{7A7A7A}
+            \providecommand{\CommentTok}[1]{#1}
+            \AtBeginDocument{
+            \renewcommand{\CommentTok}[1]{\textcolor{commentgray}{\textit{#1}}}
+            }
+            % Police "universelle" pour le code (XeLaTeX)
+            \usepackage{fontspec}
+            \IfFontExistsTF{Ubuntu Mono}{
+            \setmonofont{Ubuntu Mono}[Scale=MatchLowercase]
+            }{
+            \IfFontExistsTF{DejaVu Sans Mono}{
+                \setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]
+            }{
+                % fallback macOS (souvent dispo)
+                \IfFontExistsTF{Menlo}{
+                \setmonofont{Menlo}[Scale=MatchLowercase]
+                }{
+                \IfFontExistsTF{Monaco}{
+                    \setmonofont{Monaco}[Scale=MatchLowercase]
+                }{
+                    % sinon on garde la police mono par défaut
+                }
+                }
+            }
+            }
+            % Bloc de code R pour l'annexe (évite Shaded trop grand)
+            \usepackage{listings}
+            \lstset{
+            language=R,
+            basicstyle=\ttfamily\footnotesize\linespread{0.6}\selectfont\color{black},
+            commentstyle=\itshape\color{commentgray},
+            keywordstyle=\color{blue!60!black},
+            stringstyle=\color{brown!60!black},
+            showstringspaces=false,
+            showspaces=false,
+            showtabs=false,
+            breaklines=true,
+            breakatwhitespace=false,
+            columns=fullflexible,
+            xleftmargin=0.5em,
+            xrightmargin=0.5em
+            }
+
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+
+            % Gestion des chunks de code
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+            \usepackage{needspace}
+            \usepackage{float}
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+            % \usepackage{rotating} % (désactivé)
+
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{3pt}
+            \hfuzz=100pt
+            \vfuzz=100pt
+            \hbadness=10000
+            \usepackage{enumitem}
+            \setlist[itemize]{itemsep=3pt, parsep=3pt, topsep=3pt}
+            \setlist[enumerate]{itemsep=3pt, parsep=3pt, topsep=3pt}
+            \setlist[description]{itemsep=3pt, parsep=3pt, topsep=3pt}
+
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---

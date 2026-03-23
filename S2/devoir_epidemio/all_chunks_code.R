@@ -2607,6 +2607,34 @@ baseline_comparison_table |>
   )
 
 
+formule_cox_multivariee <- Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
+  primary_disease_category + secondary_disease_category +
+  diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
+  diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
+  diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
+  diagnosis_orthopedic + adl_score + DASI_score + dnr_status + cancer +
+  survival_probability_2mths + apache_score + glasgow_score +
+  weight + temperature + mean_blood_pressure + respiratory_rate +
+  heart_rate + pa_fi_ratio + paco2 + ph + wbc + hematocrit +
+  sodium + potassium + creatinine + bilirubin + albumin + comorbidity_cardiovascular + comorbidity_congestive_heart +
+  comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary + comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
+  comorbidity_malignancy + comorbidity_immunosuppression + comorbidity_transfer + comorbidity_myocardial_infarction +
+  urine_output
+
+n_total_cox_multivarie <- nrow(df_avant_imputation)
+n_analyse_cox_multivarie <- nrow(stats::na.omit(model.frame(formule_cox_multivariee, data = df_avant_imputation)))
+n_exclus_cox_multivarie <- n_total_cox_multivarie - n_analyse_cox_multivarie
+
+effectif_cox_multivarie <- data.frame(
+  `Patients totaux` = n_total_cox_multivarie,
+  `Patients analyses` = n_analyse_cox_multivarie,
+  `Patients exclus` = n_exclus_cox_multivarie,
+  `% exclus` = round(100 * n_exclus_cox_multivarie / n_total_cox_multivarie, 1),
+  check.names = FALSE
+)
+
+knitr::kable(effectif_cox_multivarie, booktabs = TRUE)
+
 # ajustement du modèle de Cox multivarié
 cox_multivariate_model <- coxph(
   formule_cox_multivariee,
@@ -2648,6 +2676,41 @@ cox_multivariate_sans_missing_model <- coxph(
     comorbidity_transfer + comorbidity_myocardial_infarction,
   data = df_avant_imputation
 )
+
+n_total_cox_multivarie_sans_missing <- nrow(df_avant_imputation)
+n_analyse_cox_multivarie_sans_missing <- nrow(stats::na.omit(model.frame(cox_multivariate_sans_missing_model, data = df_avant_imputation)))
+n_exclus_cox_multivarie_sans_missing <- n_total_cox_multivarie_sans_missing - n_analyse_cox_multivarie_sans_missing
+
+effectif_cox_multivarie_sans_missing <- data.frame(
+  `Patients totaux` = n_total_cox_multivarie_sans_missing,
+  `Patients analyses` = n_analyse_cox_multivarie_sans_missing,
+  `Patients exclus` = n_exclus_cox_multivarie_sans_missing,
+  `% exclus` = round(100 * n_exclus_cox_multivarie_sans_missing / n_total_cox_multivarie_sans_missing, 1),
+  check.names = FALSE
+)
+
+knitr::kable(effectif_cox_multivarie_sans_missing, booktabs = TRUE)
+
+# identification des variables avec des données manquantes
+variables_manquantes <- names(df_avant_imputation)[colSums(is.na(df_avant_imputation)) > 0]
+# ajustement du modèle de Cox multivarié sans les variables avec des données manquantes
+cox_multivariate_sans_missing_model <- coxph(
+  Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
+    primary_disease_category + secondary_disease_category +
+    diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
+    diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
+    diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
+    diagnosis_orthopedic + DASI_score + dnr_status + cancer +
+    survival_probability_2mths + apache_score + glasgow_score +
+    temperature + pa_fi_ratio + paco2 + ph + hematocrit +
+    sodium + potassium + creatinine + bilirubin + albumin +
+    comorbidity_cardiovascular + comorbidity_congestive_heart +
+    comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary +
+    comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
+    comorbidity_malignancy + comorbidity_immunosuppression +
+    comorbidity_transfer + comorbidity_myocardial_infarction,
+  data = df_avant_imputation
+)
 #extraction de l'OR pour le RHC et de son intervalle de confiance
 cox_multivariate_sans_missing_summary <- summary(cox_multivariate_sans_missing_model)
 cox_multivariate_sans_missing_results <- data.frame(
@@ -2658,7 +2721,9 @@ cox_multivariate_sans_missing_results <- data.frame(
   row.names = NULL
 )
 cox_multivariate_sans_missing_results <- cox_multivariate_sans_missing_results[cox_multivariate_sans_missing_results$Variable == "rhcRHC", ]
-knitr::kable(cox_multivariate_sans_missing_results, booktabs = TRUE)
+
+cox_multivariate_sans_missing_results$Variable <- "RHC vs No RHC"
+knitr::kable(cox_multivariate_sans_missing_results, booktabs = FALSE)
 
 
 #insérer le code à la fin du fichier

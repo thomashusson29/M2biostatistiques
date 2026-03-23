@@ -1,0 +1,863 @@
+         Articles
+
+
+
+
+                                     Ethnic density and other neighbourhood associations for
+                                     mortality in severe mental illness: a retrospective cohort
+                                     study with multi-level analysis from an urbanised and
+                                     ethnically diverse location in the UK
+                                     Jayati Das-Munshi, Peter Schofield, Vishal Bhavsar, Chin-Kuo Chang, Michael E Dewey, Craig Morgan, Robert Stewart, Graham Thornicroft,
+                                     Martin J Prince
+
+                                     Summary
+        Lancet Psychiatry 2019;      Background Neighbourhood social context might play a role in modifying mortality outcomes in severe mental
+                     6: 506–17       illness, but has received little attention to date. Therefore, we aimed to assess in an ethnically diverse and urban
+                Published Online     location the association of neighbourhood-level characteristics and individual-level factors for all-cause, natural-cause,
+                    May 13, 2019
+                                     and unnatural-cause mortality in those with severe mental illness.
+      http://dx.doi.org/10.1016/
+       S2215-0366(19)30126-9
+        See Comment page 456
+                                     Methods We did a retrospective cohort study using a case-registry from a large secondary mental health-care Trust in
+   Department of Psychological
+                                     an ethnically diverse and urban location in south London, UK. Linked data for deaths and areas of residence were
+    Medicine (J Das-Munshi PhD,      identified from the case-registry. We included all individuals aged 15 years or more at the time of diagnosis for a
+          Prof R Stewart MD) and     severe mental illness from Jan 1, 2007, to Dec 31, 2014. We used individual-level information in our analyses, such as
+ Department of Health Services       gender, marital status, and the presence of current or previous substance use disorders. We assessed neighbourhood
+       and Population Research
+                   (V Bhavsar PhD,
+                                     or area-level indicators at the Lower Super Output Area level. Association of neighbourhood-level characteristics,
+             Prof M E Dewey PhD,     which included the interaction between ethnicity and own ethnic density, deprivation, urbanicity, and social
+              Prof C Morgan PhD,     fragmentation, alongside individual-level factors for all-cause, natural-cause, and unnatural-cause mortality in those
+           Prof G Thornicroft PhD,   with severe mental illness was assessed.
+Prof M J Prince MD), Institute of
+     Psychiatry, Psychology and
+  Neurosciences, King’s College      Findings A total of 18 201 individuals were included in this cohort for analyses, with a median follow-up of 6∙36 years.
+            London, London, UK;      There were 1767 (9∙7%) deaths from all causes, 1417 (7∙8%) from natural causes, and 192 (1∙1%) from unnatural
+      Department of Population
+                                     causes. In the least ethnically dense areas, the adjusted rate ratio (aRR) for all-cause mortality in ethnic minority
+ Health Sciences, Faculty of Life
+  Sciences and Medicine, King’s      groups with severe mental illness compared with white British people with severe mental illness were similar
+   College London, London, UK        (aRR 0∙96, 95% CI 0∙71–1∙29); however in the highest ethnic density areas, ethnic minority groups with severe
+         (P Schofield PhD); South    mental illness had a lower risk of death (aRR 0∙52, 95% CI 0∙38–0∙71; p<0∙0001), with similar trends for natural-
+London and Maudsley National
+                                     cause mortality (p=0∙071 for statistical interaction). In the cohort with severe mental illness, residency in deprived,
+      Health Service Foundation
+               Trust, London, UK     urban, and socially fragmented neighbourhoods was not associated with higher mortality rates. Compared with the
+  (J Das-Munshi, Prof R Stewart);    general population, age-standardised and gender-standardised mortality ratios were elevated in the cohort with severe
+ and Department of Health and        mental illness across all neighbourhood-level characteristics assessed.
+   Welfare, University of Taipei,
+              Taipei City, Taiwan
+                  (C-K Chang PhD)    Interpretation For ethnic minority groups with severe mental illness, residency in areas of higher own-group ethnic
+             Correspondence to:      density is associated with lower mortality compared to white British groups with severe mental illness.
+           Dr Jayati Das-Munshi,
+   Department of Psychological       Funding Health Foundation, National Institute for Health Research, EU Seventh Framework, and National Institute
+Medicine, Institute of Psychiatry,
+                                     of Mental Health.
+ Psychology and Neurosciences,
+          King’s College London,
+            London SE5 8AF, UK       Copyright © 2019 The Author(s). Published by Elsevier Ltd. This is an Open Access article under the CC BY 4.0 license.
+ jayati.das-munshi@kcl.ac.uk
+                                     Introduction                                                              Almost 20 years ago WHO coordinated a series of
+                                     Across international settings, people with severe mental                studies on the long-term outcomes of schizophrenia,
+                                     illness, such as schizophrenia and bipolar disorder, have               using identical epidemiological case-finding methods for
+                                     a markedly elevated risk of death.1 Mortality in these                  schizophrenia across international centres.4–7 The
+                                     populations is mostly from preventable physical causes,                 investigators noted that although the absolute risk of
+                                     and the gap in life expectancy is thought to be increasing              mortality in severe mental illness was increased
+                                     over time.1 Approaches to address this issue have                       compared with national populations across all surveyed
+                                     tended to focus on individual-level risks for physical                  contexts, standardised mortality ratios were most
+                                     health,2 despite a growing acknowledgement that such                    increased in industrialised centres compared with non-
+                                     approaches miss opportunities at the population level                   industrialised centres.4–7 The notion that outcomes in
+                                     for intervention.3                                                      severe mental illness, including mortality, might be more
+
+
+506                                                                                                                                  www.thelancet.com/psychiatry Vol 6 June 2019
+                                                                                                                                              Articles
+
+
+
+
+  Research in context
+  Evidence before this study                                            of five retrieved studies supported residency in more deprived
+  People with severe mental illness have major reductions in            areas being associated with elevated mortality in people with
+  life-expectancy and a markedly elevated risk of death                 severe mental illness. However, in one study from a nationally
+  compared with the general population across all international         representative sample from the UK, the investigators reported
+  contexts surveyed. To date, most previous studies have                that people with severe mental illness resident in more deprived
+  focused on risk factors at the individual level (such as tobacco      areas had a lower risk of suicide than people resident in less
+  use, diet, and physical activity) for mortality; however, there       deprived areas. No studies were identified that assessed the
+  are growing calls to consider the role of broader social and          association of ethnic density or social fragmentation with
+  contextual determinants.                                              mortality in severe mental illness.
+  We searched MEDLINE for studies examining area-level factors          Added value of this study
+  associated with mortality in people with mental illness, from         This study is the first to systematically assess a range of
+  inception to Feb 6, 2019, with no language restrictions.              neighbourhood-level exposures and, specifically, ethnic density,
+  We used the MeSH terms, “Mortality” and “Mental illness”,             with mortality in severe mental illness. The study was situated in
+  and keywords including “residential characteristics”,                 a geographically defined, ethnically diverse, urban location in the
+  “neighbourhood characteristics”, “multilevel analysis”, “ethnic       UK. We found strong support for the observation that, for certain
+  density”, “social fragmentation”, “urban”, and “deprivation”.         ethnic minority groups with severe mental illness, mortality risks
+  We used a previous systematic review to inform the search             (especially for deaths from all causes and natural causes) are
+  terms used in our searches (appendix). We also manually               lower in areas of higher own-group density relative to white
+  searched the reference list of another recently published             British people with severe mental illness. Other area-level
+  systematic review. For inclusion, eligible studies had to have        indicators (social fragmentation, urbanicity, and area-level
+  relevant area-level indicators and associations with mortality        deprivation) as assessed in this study were not associated with
+  presented, include populations consisting of people with severe       excess mortality in severe mental illness. Our findings build on a
+  mental illness, and have an effect size for the association of the    previous analysis that had shown that risks of all-cause,
+  area-level indicator with mortality outcomes. We excluded             natural-cause, and unnatural-cause mortality were lower in most
+  ecological studies. A total of 1281 studies were identified,          UK ethnic minority groups with severe mental illness compared
+  which were screened by abstract or full text for possible             with a white British reference group with severe mental illness.
+  inclusion. A total of eight studies were identified as relevant.      The present study suggests that the ethnic density of the area
+  Six focused on all-cause mortality of which one study also            where ethnic minority groups with severe mental illness reside
+  included deaths from natural and unnatural causes, and the            might have an important role in modifying mortality risks.
+  other two studies focused on suicide. The studies also assessed       Residency in areas of higher own-group density might buffer
+  area-level exposures across international settings, which             against social isolation or might be associated with exposure to
+  included Ethiopia (two studies), China (one study), Taiwan            stronger health-protective social norms, which might ultimately
+  (one study), UK and devolved countries (two studies),                 protect against premature mortality in severe mental illness.
+  and Canada (two studies).                                             Our findings challenge approaches that focus purely on
+  Across all studies, irrespective of area-level associations, people   individual-level risk factors.
+  with severe mental illness had increased mortality compared with      Implications of all the available evidence
+  reference groups without severe mental illness. Associations with     Premature mortality in people with mental illness might reflect
+  area-level indicators and mortality outcomes followed differing       a complex array of both individual and contextual or
+  patterns, dependent on context. There were mixed findings             neighbourhood-level influences. Future studies must account
+  across studies examining the effect of urbanicity on mortality        for both individual-level and group-level sources of variation in
+  outcomes in severe mental illness. This included one study            mortality in these populations. A clearer understanding of the
+  suggesting an increased risk of death in urban compared with          sources of variation could be used to guide the development of
+  rural areas (from Ethiopia), one study indicating an increased risk   interventions to address premature mortality in people with
+  in rural compared with urban areas (from China), and two studies      severe mental illness and should be explored in the future.
+  suggesting no association (from Canada and Ethiopia). Four out
+
+benign in less-developed countries has been severely                    and other factors mitigating against social isolation,
+critiqued.8 However, it remains a possibility that strong               potentially have an important role in outcomes such as
+social factors in the environment, beyond traditional risk              mortality.5–7,9 In particular, a more recent finding has been
+factors measured at the individual level, might modify                  that for certain ethnic minority groups with severe
+the excess risk of mortality in people living with severe               mental illness, mortality outcomes might be lower than
+mental illness. The WHO study investigators postulated                  in reference groups with severe mental illness.10 For
+that socio­environmental factors, such as family involve­               ethnic minority groups in the general population,
+ment, community solidarity, cohesive neighbour­hoods,                   residency in areas of higher own ethnic density might
+
+
+www.thelancet.com/psychiatry Vol 6 June 2019                                                                                                             507
+        Articles
+
+
+
+
+                                     confer health benefits through enhanced social support        correspondence.13 A 2018 audit of the performance of the
+                                     and buffering against social isolation and exclusion for      Natural Language Processing algorithm that was used to
+                                     marginalised groups.11,12 No studies to date have assessed    determine clinical diagnoses from the free-text fields,
+                                     either this hypothesis or the possibility that other          which supplemented the structured field diagnoses
+                                     neighbourhood or group-level factors have a role in           entered by clinicians, found that for severe mental illness
+                                     mitigating against elevated mortality in people with          as a whole recall (ie, sensitivity) was 0∙43 and precision
+                                     severe mental illness.                                        (positive predictive value) was 0∙95. For schizophrenia
+                                       To address this gap in the literature, we aimed to          this sensitivity was 0∙63 and positive predictive value
+                                     assess in an ethnically diverse and urban location the        was 0∙96. These figures reflect performance of the
+                                     association of neighbourhood-level characteristics along­     application at annotation level; we would expect sensitivity
+                                     side individual-level factors, with all-cause, natural-       to be higher at the patient level since there would be
+                                     cause, and unnatural-cause mortality in people with           repeat annotations, which has not yet been assessed.
+                                     severe mental illness. Additionally, we assessed whether         We obtained permission to do secondary analysis of the
+                                     an interaction between area-level ethnic density and          CRIS system from the Oxfordshire Research Ethics
+                                     individual-level ethnicity exists. We hypothesised that       Committee C (reference 18/SC/0372). Additionally, we
+                                     individuals of an ethnic minority background with             obtained separate approvals to examine linked mortality
+                                     severe mental illness would have lower mortality risks        data with approved researcher status from the UK Health
+                                     when living in areas of higher ethnic density and that        and Social Care Information Centre.
+                                     mortality would be increased in all people with severe           All individuals aged 15 years or more at the time of
+                                     mental illness living in neighbourhoods that were more        diagnosis after contact with any of the services (inpatient,
+                                     deprived, urbanised, and socially fragmented.                 outpatient, and accident and emergency contacts) from
+                                                                                                   South London and Maudsley NHS Trust were included
+                                     Methods                                                       in the cohort. Individuals with comorbid dementia
+                                     Study design and participants                                 diagnoses before the diagnosis of severe mental illness
+                                     We did a retrospective cohort study in an ethnically          were excluded. The observation period for this study was
+                                     diverse and urban location in south London, UK.               from Jan 1, 2007, to Dec 31, 2014, with individuals
+                                     South London and Maudsley National Health Service             entering the cohort at the date of their severe mental
+                                     (NHS) Trust is one of Europe’s largest secondary mental       illness diagnosis.
+      For the study protocol see     health-care providers.13 The Trust provides comprehensive        The protocol for this study is registered with Open
+             https://osf.io/x3tf6/   secondary mental health care to a catchment area of           Science Framework and is available online.
+                                     approximately 1∙36 million people in an ethnically
+                                     diverse location in south London, which includes the          Measures
+                                     London Boroughs of Lambeth, Lewisham, Croydon, and            We used individual-level information in our analyses,
+                                     Southwark. According to the 2011 Office for National          which included gender, marital status (married or
+                                     Statistics’ rural-urban classification system, these          cohabiting, divorced, separated, widowed, and single),
+                                     boroughs are considered urban with major conurbation          and the presence of current or previous substance use
+                                     areas, defined as built-up areas with resident populations    disorders (alcohol and drug use). We also used birth date
+                                     of more than 10 000 people. The London Borough of             to derive age, which was handled in the analyses as a
+                                     Croydon also contains less urban areas towards the south      time-changing variable. We classified self-ascribed
+                                     of the borough.                                               ethnicity according to the UK Office for National
+                                       Since 2006, South London and Maudsley NHS Trust             Statistics criteria for the main ethnic groups: white
+                                     has operated fully electronic health records. The Clinical    British, black Caribbean, black African, south Asian, and
+                                     Record Interactive Search (CRIS) system, established          Irish groups, which were also aggregated into a binary
+                                     in 2008, is an ethically approved electronic health records   white British and ethnic minority variable. We classified
+                                     interface system that allows researchers to access de-        ICD-10 F30 and F31 codes as affective diagnoses and
+                                     identified electronic health records from this Trust for      ICD-10 code F2* as non-affective disorders. Previous or
+                                     research.13,14 All clinicians and mental health teams are     current substance use disorder diagnoses were deter­
+                                     required to assign psychiatric diagnoses according to         mined by the presence of an ICD-10 code for F10–F19
+                                     ICD-10 to patients who make contact with the mental           (mental and behavioural disorders due to psychoactive
+                                     health Trust. Individuals with ICD-10 diagnoses of severe     substance use), noted at some point in the clinical record.
+                                     mental illness, specifically schizophrenia-spectrum             We assessed neighbourhood or area-level indicators at
+                                     disorders (F2*) and bipolar disorders (F30 and F31), were     the Lower Super Output Area (LSOA) level. LSOAs are
+                                     identified through searches of CRIS-structured fields,        national administrative areas that have a mean population
+                                     supplemented by a Natural Language Processing                 of 1614 individuals.15 Area-level measures were calculated
+                                     application developed with Generalised Architecture           for the LSOAs based on individuals’ addresses at the time
+                                     for Text Engineering, which extracts diagnostic state­        of their first recorded severe mental illness diagnosis. We
+                                     ments from the free text of case notes and clinical           used the Index for Multiple Deprivation from 2010 to
+
+
+508                                                                                                                     www.thelancet.com/psychiatry Vol 6 June 2019
+                                                                                                                                                                         Articles
+
+
+
+
+assess multiple deprivation across seven domains:                                  used and then standardised, generating Z scores. Z scores
+income, employment, health and disability, education,                              for each of these variables were then added together,
+housing, crime, and living environment.16 We mapped the                            resulting in a social fragmentation variable, which was
+Index for Multiple Deprivation to LSOA boundaries                                  divided at the quartile, leading to four categories, with the
+from 2011 (ie, the midpoint of the observation window).                            upper fourth further divided at the 90th percentile,
+  We determined all other area-level indicators at the                             because of the skew of the variable.19 The resultant social
+LSOA using publicly available data from the UK Office                              fragmentation variable comprised five categories ranging                     For data from the UK Office for
+for National Statistics. Urbanicity at the LSOA level was                          from the least to the most socially fragmented areas.                        National Statistics see
+                                                                                                                                                                https://www.nomisweb.co.uk/
+derived from the 2011 Census data by calculating the                                 Own-group ethnic density for each of the LSOAs was
+number of people per hectare of land.17 We derived an                              determined as the percentage of the total population
+indicator for social fragmentation based on the                                    accounted for by each of the minority ethnic groups
+theoretically informed approaches taken by previous                                resident in the area at the time of the 2011 Census and
+investigators,18–20 using 2011 census data at the LSOA level.                      derived for black Caribbean, black African, south Asian,
+Census variables for numbers of privately rented                                   and Irish groups. An overall ethnic density variable was
+households, single-person households, and unmarried                                also derived, which was the proportion of the total
+individuals or individuals not in cohabiting relationships                         population in each area who were ethnic minority
+at the LSOA level, and mobility in the previous year (ie,                          residents. The ethnic density variable was retained as a
+numbers not resident at the same address 1 year                                    continuous variable across all regression models. In
+previously) at the Middle Super Output Area level were                             order to estimate standardised mortality ratios in the
+
+                                      Total sample     All-cause mortality                Natural cause mortality            Unnatural cause mortality
+                                                       All-cause      Crude rate          Natural-cause Crude rate           Unnatural-cause Crude rate
+                                                       deaths         (95% CI)            deaths        (95% CI)             deaths          (95% CI)
+  Total                                18 201 (100%)   1767 (9·7%)    14·4 (13·7–15·1)    1417 (7·8%)     11·5 (11·0–12·2)    192 (1·1%)        1·6 (1·4–1·8)
+  Area level indicators
+    Index of Multiple Deprivation (rank score)
+      4 (most deprived)                 3667 (20·1%)    377 (10·3%)   14·4 (13·0–16·0)     305 (8·3%)     11·7 (10·4–13·1)     33 (0·9%)        1·3 (0·9–1·8)
+      4276                              3646 (20·0%)    342 (9·4%)    13·3 (12·0–14·8)     273 (7·5%)    10·6 (9·4–12·0)       35 (1·0%)        1·4 (1·0–1·9)
+      6144                              3629 (19·9%)    313 (8·6%)    12·5 (11·2–14·0)     247 (6·8%)     9·9 (8·7–11·2)       37 (1·0%)        1·5 (1·1–2·0)
+      8747                              3673 (20·2%)    371 (10·1%)   14·9 (13·5–16·5)     297 (8·1%)    12·0 (10·7–13·4)      39 (1·1%)        1·6 (1·1–2·1)
+      12 859 (least deprived)           3586 (19·7%)    364 (10·2%)    17·3 (15·6–19·2)    295 (8·2%)    14·0 (12·5–15·7)      48 (1·3%)        2·3 (1·7–3·0)
+    Urbanicity (persons per hectare)
+      0·1 (least populous)              3613 (19·9%)    377 (10·4%)    17·5 (15·8–19·4)    301 (8·3%)    14·0 (12·5–15·7)      42 (1·2%)        2·0 (1·4–2·6)
+      55·3                              3762 (20·7%)    370 (9·8%)    15·0 (13·5–16·6)     282 (7·5%)     11·4 (10·2–12·8)     49 (1·3%)        2·0 (1·5–2·6)
+      88·6                              3667 (20·1%)    347 (9·5%)    13·5 (12·1–14·9)     275 (7·5%)    10·7 (9·5–12·0)       41 (1·1%)        1·6 (1·2–2·2)
+      111·4                             3652 (20·1%)    374 (10·2%)   14·7 (13·3–16·2)     315 (8·6%)    12·4 (11·1–13·8)      29 (0·8%)        1·1 (0·8–1·6)
+      145·0 (most populous)             3507 (19·3%)    299 (8·5%)     11·8 (10·6–13·3)    244 (7·0%)     9·7 (8·5–11·0)       31 (0·9%)        1·2 (0·9–1·7)
+    Social fragmentation
+      –7·2 (least fragmented)           4669 (25·7%)    451 (9·7%)    15·8 (14·4–17·3)     364 (7·8%)    12·7 (11·5–14·1)      51 (1·1%)        1·8 (1·4–2·3)
+      –2·4                              4593 (25·2%)    477 (10·4%)   15·0 (13·7–16·4)     390 (8·5%)    12·3 (11·1–13·6)      45 (1·0%)        1·4 (1·1–1·9)
+      –0·2                              4534 (24·9%)    469 (10·3%)   14·7 (13·4–16·1)     366 (8·1%)     11·5 (10·4–12·7)     52 (1·1%)        1·6 (1·2–2·1)
+      2·0                               2686 (14·8%)    227 (8·5%)    12·2 (10·7–13·9)     185 (6·9%)     9·9 (8·6–11·5)       25 (0·9%)        1·3 (0·9–2·0)
+      >4·7 (most fragmented)            1719 (9·4%)     143 (8·3%)    12·1 (10·3–14·3)     112 (6·5%)     9·5 (7·9–11·4)       19 (1·1%)        1·6 (1·0–2·5)
+    Ethnic density (% ethnic minorities)
+      0·3 (lowest ethnic density)       1665 (9·1%)     138 (8·3%)    16·6 (14·0–19·7)     107 (6·4%)    12·9 (10·7–15·6)      23 (1·4%)        2·8 (1·8–4·2)
+      19·0                              1783 (9·8%)     189 (10·6%) 16·3 (14·1–18·8)       154 (8·6%)    13·3 (11·3–15·5)      21 (1·2%)        1·8 (1·2–2·8)
+      28·7                              1788 (9·8%)     187 (10·5%)   15·2 (13·2–17·6)     152 (8·5%)    12·4 (10·6–14·5)      20 (1·1%)        1·6 (1·1–2·5)
+      35·0                              1765 (9·7%)     173 (9·8%)    13·8 (11·8–16·0)     135 (7·6%)    10·7 (9·1–12·7)       19 (1·1%)        1·5 (1·0–2·4)
+      39·6                              1861 (10·2%)     171 (9·2%)   13·2 (11·4–15·4)     135 (7·3%)    10·5 (8·8–12·4)       24 (1·3%)        1·9 (1·2–2·8)
+      43·8                              1851 (10·2%)    208 (11·2%)   16·0 (14·0–18·3)     166 (9·0%)    12·8 (11·0–14·9)      22 (1·2%)        1·7 (1·1–2·6)
+      48·4                              1840 (10·1%)    190 (10·3%)   14·6 (12·7–16·8)     149 (8·1%)     11·5 (9·8–13·5)      15 (0·8%)        1·2 (0·7–1·9)
+      53·3                              1884 (10·4%)    181 (9·6%)    13·5 (11·7–15·6)     146 (7·7%)    10·9 (9·3–12·8)       18 (1·0%)        1·3 (0·8–2·1)
+      60·0                              1872 (10·3%)    162 (8·7%)    12·5 (10·8–14·6)     137 (7·3%)    10·6 (9·0–12·5)       11 (0·6%)        0·9 (0·5–1·5)
+      67·1 (highest ethnic density)     1892 (10·4%)    168 (8·9%)    13·2 (11·3–15·4)     136 (7·2%)    10·7 (9·0–12·6)       19 (1·0%)        1·5 (1·0–2·3)
+                                                                                                                             (Table 1 continues on next page)
+
+
+
+
+www.thelancet.com/psychiatry Vol 6 June 2019                                                                                                                                               509
+      Articles
+
+
+
+
+                                                       Total sample        All-cause mortality                     Natural cause mortality                 Unnatural cause mortality
+                                                                           All-cause         Crude rate            Natural-cause Crude rate                Unnatural-cause Crude rate
+                                                                           deaths            (95% CI)              deaths        (95% CI)                  deaths          (95% CI)
+                   (Continued from previous page)
+                   Individual-level indicators
+                     Age at diagnosis (years)*
+                       <38·1                              8723 (47·9%)       230 (2·6%)        3·92 (3·4–4·5)        121 (1·4%)        2·1 (1·7–2·5)         92 (1·1%)          1·6 (1·3–1·9)
+                       ≥38·2                              9478 (52·1%)      1537 (16·2%)     24·0 (22·8–25·2)       1296 (13·7%)      20·2 (19·2–21·4)      100 (1·1%)          1·6 (1·3–1·9)
+                     Gender
+                       Males                              9610 (52·8%)       908 (9·4%)       13·4 (12·6–14·3)       707 (7·4%)       10·4 (9·7–11·2)       132 (1·4%)          1·9 (1·6–2·3)
+                       Females                            8591 (47·2%)       859 (10·0%)     15·6 (14·6–16·7)        710 (8·3%)       12·9 (12·0–13·9)       60 (0·7%)          1·1 (0·8–1·4)
+                     Diagnosis
+                       Non-affective                    13 160 (72·3%)      1358 (10·3%)     14·7 (14·0–15·5)       1090 (8·3%)       11·8 (11·1–12·5)      141 (1·1%)          1·5 (1·3–1·8)
+                       Affective                          5041 (27·7%)       409 (8·1%)      13·4 (12·2–14·8)        327 (6·5%)       10·7 (9·6–11·9)        51 (1·0%)          1·7 (1·3–2·2)
+                     Marital status
+                       Married or cohabiting              2781 (15·3%)       267 (9·6%)      15·8 (14·0–17·8)        220 (7·9%)       13·0 (11·4–14·9)       22 (0·8%)          1·3 (0·9–2·0)
+                       Divorced, separated,             15 420 (84·7%)      1500 (9·7%)      14·2 (13·5–14·9)       1197 (7·8%)       11·3 (10·7–12·0)      170 (1·1%)          1·6 (1·4–1·9)
+                       widowed, or single
+                     Substance use disorder
+                       No substance use disorder        15 046 (82·7%)      1519 (10·1%)     15·1 (14·3–15·8)       1251 (8·3%)       12·4 (11·7–13·1)      128 (0·9%)          1·3 (1·1–1·5)
+                       Life-time substance use            3155 (17·3%)       248 (7·9%)       11·3 (10·0–12·9)       166 (5·3%)        7·6 (6·5–8·8)         64 (2·0%)          2·9 (2·3–3·7)
+                       disorder
+                     Ethnicity
+                       White British                      9047 (49·7%)      1130 (12·5%)     19·9 (18·8–21·1)        913 (10·1%)      16·1 (15·1–17·2)      125 (1·4%)          2·2 (1·8–2·6)
+                       Ethnic minorities                  9154 (50·3%)       637 (7·0%)        9·7 (8·9–10·4)        504 (5·5%)        7·6 (7·0–8·3)         67 (0·7%)          1·0 (0·8–1·3)
+
+                  Data are n (%), unless otherwise specified. Crude rates are per 1000 person-years. 158 deaths were from causes not otherwise classified (R00-R99) and contribute to all-cause
+                  mortality totals in the sample. *Age was handled as a time-varying covariate in all regression models and is displayed here divided at the median.
+
+                  Table 1: Demographic composition, deaths, and crude mortality rates in the sample
+
+
+
+                 sample, we also derived a categorical ethnic density                                      corresponding to the reference population’s age groups.
+                 variable, whereby the continuous variable was divided                                     As the cohort was followed-up for varying periods,
+                 into ten equal groups, with standardised mortality ratios                                 depending on diagnosis dates within the 8-year observation
+                 estimated for the lowest and highest groups.                                              window, we derived weights taking the mean observation
+                   Details of deaths for patients who had received care                                    periods contributed by cohort members within each age
+                 from the South London and Maudsley NHS Trust were                                         and gender band. Weights were then multiplied by the
+                 provided by the UK Office of National Statistics and                                      number of deaths recorded in each corresponding age and
+                 linked to health records using unique patient identifiers.                                gender band for the standard population, which had been
+                 The linkage meant that death certificate information                                      observed for 1 year only, to generate the expected numbers
+                 with date and cause of death according to ICD-10 was                                      of death as the denominators of standardised mortality
+                 available for all cohort members who died during the                                      ratios for the cohort. Standardised mortality ratios were
+                 study observation period.21 Deaths were classified as from                                then calculated for all-cause, natural-cause, and unnatural-
+                 all causes (A00-R99; U00-Y89), natural causes (A00-Q99),                                  cause mortality for each of the area-level indicators
+                 and unnatural causes, which included deaths from                                          (deprivation, urbanicity, social fragmentation, and ethnic
+                 suicide and external causes (U509, V01-Y89). Deaths not                                   density) at the highest and lowest levels.
+                 otherwise classified (R00-R99) were included in analyses                                    Individuals were followed-up from date of their
+                 of all-cause mortality but not analysed separately.                                       diagnosis until death, emigration, or the end of the
+                                                                                                           observation window on Dec 31, 2014. For all-cause
+                 Statistical analysis                                                                      mortality, multi-level Poisson regression using the
+                 We derived standardised mortality ratios through indirect                                 mepoisson command in Stata were used specifying
+                 age-standardisation and gender-standardisation to the                                     individuals nested within LSOAs. A cross-level interaction
+                 resident population and deaths in England and Wales, in                                   was fitted between self-ascribed ethnicity (at the individual
+                 2011. Age was determined at the midpoint of the                                           level) and own ethnic density (at the area level) for all
+                 observation period (Jan 1, 2011) or at the diagnosis date of                              models. Initially, this was for a binary ethnicity variable
+                 the mental disorder if this diagnosis occurred after                                      (white British [reference], all ethnic minority groups
+                 Jan 1, 2011. Age was categorised into 10-year bands                                       [exposure]), but was then repeated for each interaction
+
+
+510                                                                                                                                       www.thelancet.com/psychiatry Vol 6 June 2019
+                                                                                                                                                                                   Articles
+
+
+
+
+                                                    Total sample            All-cause deaths Model 1                                        Model 2
+                                                    (n=18 201)              (n=1767)
+                                                                                                  Incidence risk ratios    p value          Adjusted incidence        p value
+                                                                                                  (95% CI)                                  risk ratios (95% CI)
+  Area level indicators
+  Index of Multiple Deprivation (per increase       ··                      ··                     0·98 (0·95–1·02)          0·34*           1·03 (0·99–1·07)           0·19*
+  in fifths; from less to more deprived)
+  Urbanicity (per increase in fifths; from less     ··                      ··                     0·95 (0·92–0·99)          0·01*          0·97 (0·93–1·01)            0·14*
+  to more urban)
+  Social fragmentation (per unit increase;          ··                      ··                     0·95 (0·92–1·00)          0·03*          0·98 (0·94–1·03)            0·45*
+  from less to more fragmented)
+  Individual-level indicators
+  Gender
+    Male                                                 9610 (52·8%)            908 (51·4%)      Ref                                       Ref
+    Female                                               8591 (47·2%)            859 (48·6%)       1·07 (0·98–1·18)          0·13           0·86 (0·78–0·94)            0·0015
+  Diagnosis
+    Non-affective                                    13 160 (72·3%)          1358 (76·9%)         Ref                                       Ref
+    Affective                                            5041 (27·7%)            409 (23·1%)       0·82 (0·73–0·91)         <0·0001         0·83 (0·74–0·93)            0·0015
+  Marital status
+    Married or cohabiting                                2781 (15·3%)            267 (15·1%)      Ref                                       Ref
+    Divorced, separated, widowed, or single          15 420 (84·7%)          1500 (84·9%)          1·01 (0·89–1·15)          0·89            1·28 (1·12–1·46)         <0·0001
+  Substance use disorder
+    No substance disorder                            15 046 (82·7%)          1519 (86·0%)         Ref                                       Ref
+    Life-time substance use disorder                     3155 (17·3%)            248 (14·0%)       0·79 (0·69–0·90)         <0·001           1·17 (1·02–1·35)           0·024
+  Interaction of ethnicity with areal ethnic density
+  Lowest ethnic density area (0% ethnic minorities)
+    White British                                   ··                      ··                    Ref                                       Ref
+    Ethnic minorities                               ··                      ··                     0·88 (0·65–1·17)          0·38           0·96 (0·71–1·29)            0·77
+  Highest ethnic density area (95% ethnic minorities)
+    White British                                   ··                      ··                    Ref                                       Ref
+    Ethnic minorities                               ··                      ··                     0·31 (0·23–0·43)         <0·0001         0·52 (0·38–0·71)          <0·0001
+  p value between ethnicity and ethnic              ··                      ··                      ··                      <0·0001           ··                        0·036
+  density interaction
+
+ Data are n (%), unless otherwise specified. Model 1 is crude estimates. Model 2 is adjusted for age, interaction between area-level ethnic density and ethnicity, and all other
+ displayed variables. p values are from Wald tests. *p value for linear trend.
+
+ Table 2: Association of area-level and individual-level indicators with all-cause mortality in people with severe mental illness
+
+
+
+(ethnicity × own ethnic density). For the ethnic minority                                      Wald tests to assess for associations and interactions. We
+groups and own ethnic density analyses, we present the                                         also used this approach to run a post-hoc sensitivity
+stratum-specific estimates for the ethnic minority group                                       analysis, testing our models against the possibility that
+in question. Lexis expansion was used to model age as a                                        migrant groups with poorer health might be more likely
+time-changing variable, which was grouped into three                                           to migrate back to their country of origin before death,
+bands (age 15–44, 45–64, and ≥65 years).                                                       leading to a numerator-denominator mismatch and a
+  To model deaths from natural and unnatural causes, a                                         false impression of healthy migrant effects.23 This is
+competing-risks regression was fitted, using the stcrreg                                       relevant as a large proportion of the ethnic minority
+command in Stata.22 These approaches estimate sub-                                             groups in the cohort might have been first-generation
+distribution hazard ratios (HRs), with 95% CIs, for deaths                                     migrant groups. We specified date of emigration out of
+from a specified cause, while taking into account the                                          the cohort as a competing risk against all-cause mortality
+competing risk of death from other causes occurring                                            in this sensitivity analysis.10 For each continuous variable
+during the observation period.22 Using this approach,                                          (area-level deprivation, urbanicity, social fragmentation,
+models assessing the association of risk factors with                                          ethnic density, and age), a linear association for the
+natural-cause mortality were assessed, specifying                                              variable with outcome was assessed compared with a
+unnatural-cause mortality as the competing risk and vice                                       categorical or quadratic association, using likelihood ratio
+versa. We used robust standard errors to adjust for                                            tests (in multi-level models for all-cause mortality) or Wald
+clustering at LSOA level across these models and used                                          tests (in competing risk regression models for natural and
+
+
+www.thelancet.com/psychiatry Vol 6 June 2019                                                                                                                                                  511
+      Articles
+
+
+
+
+                                                                                   Total sample           Natural-cause   Model 1                                        Model 2
+                                                                                   (n=18 201)             deaths (n=1417)
+                                                                                                                                Sub-hazard ratios       p value          Sub-hazard ratios        p value
+                                                                                                                                (95% CI)                                 (95% CI)
+                                  Area-level indicators
+                                  Index of Multiple Deprivation (per increase      ··                     ··                     0·95 (0·91–1·00)         0·05*          1·02 (0·97–1·06)           0·49*
+                                  in fifths; from less to more deprived)
+                                  Urbanicity (per increase in fifths; from less    ··                     ··                     0·94 (0·90–0·98)         0·005*         0·99 (0·94–1·03)           0·55*
+                                  to more urban)
+                                  Social fragmentation (per unit increase;         ··                     ··                     0·93 (0·88–0·97)         0·002*         0·98 (0·93–1·03)           0·41*
+                                  from less to more fragmented)
+                                  Individual-level indicators
+                                  Gender
+                                    Male                                            9610 (52·8%)               707 (49·9%)      Ref                                      Ref
+                                    Female                                          8591 (47·2%)               710 (50·1%)       1·25 (1·11–1·39)        <0·0001         0·92 (0·82–1·02)           0·11
+                                  Diagnosis
+                                    Non-affective                                  13 160 (72·3%)          1090 (76·9%)         Ref                                      Ref
+                                    Affective                                       5041 (27·7%)               327 (23·1%)       0·90 (0·80–1·02)         0·11           0·82 (0·73–0·93)           0·002
+                                  Marital status
+                                    Married or cohabiting                           2781 (15·3%)               220 (15·5%)      Ref                                      Ref
+                                    Divorced, separated, widowed, or single        15 420 (84·7%)          1197 (84·5%)          0·87 (0·74–1·01)         0·07           1·16 (1·00–1·35)           0·05
+                                  Substance use disorder
+                                    No substance use disorder                      15 046 (82·7%)          1251 (88·3%)         Ref                                      Ref
+                                    Life-time substance use disorder                3155 (17·3%)               166 (11·7%)       0·61 (0·52–0·71)        <0·0001         0·91 (0·77–1·06)           0·22
+                                  Interaction of ethnicity with areal ethnic density
+                                  Lowest ethnic density area (0% ethnic minorities)
+                                    White British                                  ··                     ··                    Ref                                      Ref
+                                    Ethnic minorities                              ··                     ··                     0·69 (0·51–0·94)         0·019          0·78 (0·57–1·05)           0·11
+                                  Highest ethnic density area (95% ethnic minorities)
+                                    White British                                  ··                     ··                    Ref                                      Ref
+                                    Ethnic minorities                              ··                     ··                     0·31 (0·22–0·44)        <0·0001         0·44 (0·32–0·62)          <0·0001
+                                  p value between ethnicity and ethnic             ··                     ··                      ··                      0·013            ··                       0·071
+                                  density interaction
+
+                                 Data are n (%), unless otherwise specified. Competing risks regression models with robust standard errors to adjust for clustering at Lower Super Output Area level were used
+                                 to estimate sub-hazard ratios. Model 1 is crude estimates. Model 2 is adjusted for age, an interaction between area level own ethnic density and ethnicity, and all other
+                                 displayed variables. p values are from Wald tests. *p value for linear trend.
+
+                                 Table 3: Sub-hazard ratio estimates for natural-cause mortality in people with severe mental illness
+
+
+                                unnatural mortality). A quadratic relationship between                                       173∙1 persons per hectare (90th percentile). Ethnic density
+                                age and outcomes and a linear relationship between area-                                     ranged from 20∙3% ethnic minorities (10th percentile) to
+                                level variables and outcomes were noted across all models                                    67∙1% ethnic minorities (90th percentile). Both variables
+                                and therefore used in this form in the final analyses. We                                    were normally distributed.
+                                used Stata/SE (version 13.1) for data analyses.                                                When compared with the total population of England
+                                                                                                                             and Wales, the age-standardised and gender-standardised
+                                Results                                                                                      mortality ratios were higher for the sample irrespective
+                                A total of 18 201 individuals contributed 122 731 person-                                    of the neighbourhood-level characteristics of areas of
+      See Online for appendix   years to the cohort for analyses, with a median follow-up                                    residence (appendix). Standardised mortality ratios by
+                                time of 6∙36 years. There were 1767 deaths from all                                          each area-level characteristic were broadly similar with
+                                causes, including 1417 deaths due to natural causes,                                         overlapping 95% CIs. Deaths from all causes and natural
+                                192 deaths due to unnatural causes, and 158 deaths from                                      causes were elevated approximately 2–3 times in the
+                                unknown causes, corresponding to an overall all-cause                                        sample, whereas deaths from unnatural causes were
+                                crude mortality rate of 14∙4 deaths per 1000 person-years                                    elevated around 4–7 times in the sample, when age-
+                                (95% CI 13∙7–15∙1; table 1).                                                                 standardised and gender-standardised to the population
+                                  Considerable variation was observed across the sample                                      of England and Wales.
+                                for area-level indicators. For example, urbanicity ranged                                      In the cohort with severe mental illness, we found that
+                                from 36∙7 persons per hectare (10th percentile) to                                           none of the area-level indicators for deprivation,
+
+
+512                                                                                                                                                      www.thelancet.com/psychiatry Vol 6 June 2019
+                                                                                                                                                                                 Articles
+
+
+
+
+                                                   Total sample           Unnatural-cause Model 1                                        Model 2
+                                                   (n=18 201)             deaths (n=192)
+                                                                                               Sub-hazard ratios        p value          Sub-hazard ratios        p value
+                                                                                               (95% CI)                                  (95% CI)
+  Area level indicators
+  Index of Multiple Deprivation (per increase      ··                     ··                    0·88 (0·80–0·98)          0·02*           0·94 (0·83–1·06)          0·32*
+  in fifths; from less to more deprived)
+  Urbanicity (per increase in fifths; from less    ··                     ··                    0·87 (0·79–0·97)          0·01*           0·94 (0·83–1·07)          0·33*
+  to more urban)
+  Social fragmentation (per unit increase;         ··                     ··                    0·98 (0·87–1·10)          0·70*           1·02 (0·90–1·15)          0·80*
+  from less to more fragmented)
+  Individual-level indicators
+  Gender
+    Male                                                9610 (52·8%)       132 (68·8%)         Ref                                       Ref
+    Female                                              8591 (47·2%)           60 (31·3%)       0·54 (0·40–0·73)        <0·0001           0·61 (0·44–0·84)          0·0026
+  Diagnosis
+    Non-affective                                   13 160 (72·3%)         141 (73·4%)         Ref                                       Ref
+    Affective                                           5041 (27·7%)           51 (26·6%)       1·05 (0·76–1·45)          0·75            1·01 (0·73–1·41)          0·95
+  Marital status
+    Married or cohabiting                               2781 (15·3%)           22 (11·5%)      Ref                                       Ref
+    Divorced, separated, widowed, or single         15 420 (84·7%)         170 (88·5%)          1·29 (0·83–2·00)          0·26            1·08 (0·69–1·68)          0·75
+  Substance use disorder
+    No substance use disorder                       15 046 (82·7%)         128 (66·7%)         Ref                                       Ref
+    Life-time substance use disorder                    3155 (17·3%)           64 (33·3%)       2·36 (1·74–3·20)        <0·0001           2·07 (1·52–2·81)         <0·0001
+  Interaction of ethnicity with areal ethnic density
+  Lowest ethnic density area (0% ethnic minorities)
+    White British                                  ··                     ··                   Ref                                       Ref
+    Ethnic minorities                              ··                     ··                    0·57 (0·24–1·39)          0·22            0·52 (0·21–1·26)          0·15
+  Highest ethnic density area (95% ethnic minorities)
+    White British                                  ··                     ··                   Ref                                       Ref
+    Ethnic minorities                              ··                     ··                    0·47 (0·17–1·30)          0·15            0·51 (0·19–1·40)          0·19
+  p value between ethnicity and ethnic             ··                     ··                     ··                       0·84             ··                       0·99
+  density interaction
+
+ Data are n (%), unless otherwise specified. Competing risks regression models with robust standard errors to adjust for clustering at Lower Super Output Area level were used
+ to estimate sub-hazard ratios. Model 1 is crude estimates. Model 2 is adjusted for age, an interaction between area level own ethnic density and ethnicity, and all other
+ displayed variables. p values are from Wald tests. *p value for linear trend.
+
+ Table 4: Sub-hazard ratio estimates for unnatural-cause mortality in people with severe mental illness
+
+
+urbanicity, or social fragmentation appeared to have an                                        We assessed the cross-level interaction of individual-
+association with any of the mortality risks, across                                         level ethnicity (all of the ethnic minority groups in the
+adjusted models (tables 2–4), although there were                                           study aggregated) with area-level total ethnic density
+noteworthy associations for individual-level variables                                      across mortality outcomes. Significant ethnicity to ethnic
+with causes of death. Women with severe mental illness                                      density cross-level interactions were noted for all-cause
+had a lower risk of death from all causes and from                                          mortality (figure). In the least ethnically dense areas
+unnatural causes than in men, the presence of an                                            (lowest decile category range of 0∙30–19% ethnic
+affective diagnosis compared with non-affective was                                         minorities, adjusted incidence risk ratios [as] estimated
+associated with a lower risk of death from all causes and                                   at 0% ethnic minorities), individuals with severe mental
+from natural causes, and people with severe mental                                          illness, belonging to an ethnic minority group, had a
+illness who were divorced or in disrupted relationships                                     similar adjusted rate ratio (aRR) of death compared with
+had a higher risk of death from all causes and from                                         white British individuals with severe mental illness
+natural causes than in those with severe mental illness                                     (aRR 0∙96 95% CI 0∙71–1∙29); whereas in the highest
+who were married or cohabiting. A history of current or                                     ethnic density areas (highest decile category range
+previous substance use disorders was associated with an                                     of 67∙196∙4%, aIRR estimated at 95% ethnic minorities)
+increased risk of death from all causes and from                                            the relative risk reduced to half that of white British
+unnatural causes in the cohort with severe mental illness                                   individuals with severe mental illness (aRR 0∙52, 95% CI
+(tables 2–4).                                                                               0∙38–0∙71), with strong evidence in support of a
+
+
+www.thelancet.com/psychiatry Vol 6 June 2019                                                                                                                                                513
+                           Articles
+
+
+
+
+                                                                                                                      evidence in support of a cross-level statistical interaction
+                           A
+                          1·4                                                                                         (p=0∙071 for statistical interaction; table 3; figure). No
+                                                                                                                      cross-level interactions were noted for deaths from
+                          1·2                                                                                         unnatural causes (table 4; figure).
+                                                                                                                         We also assessed cross-level ethnicity and own-group
+                          1·0
+                                                                                                                      ethnic density associations for each of the ethnic minority
+  Incidence risk ratios
+
+
+
+
+                          0·8                                                                                         groups within the sample. In general, similar trends were
+                                                                                                                      supported across black African, black Caribbean, and
+                          0·6                                                                                         south Asian groups with severe mental illness, but most
+                                                                                                                      pronounced in the south Asian group. In adjusted models,
+                          0·4
+                                                                                                                      aRRs for deaths from all causes in south Asian people
+                          0·2                                                                                         with severe mental illness were similar to white British
+                                                                                                                      people with severe mental illness in the lowest south
+                           0                                                                                          Asian ethnic density areas (lowest decile category ranged
+                                                                                                                      from 0–4∙1%, calculated at 0% south Asian ethnic density;
+                          B
+                          1·4                                                                                         aRR 1∙08, 95% CI 0∙76–1∙54; p=0∙67). This aRR reduced
+                                                                                                                      to 0∙07 (95% CI 0∙01–0∙49; p=0∙007) in the highest south
+                          1·2                                                                                         Asian ethnic density areas (highest decile category ranged
+                                                                                                                      from 19∙8% to 86∙8%, calculated at 90% south Asian
+                          1·0
+                                                                                                                      ethnic density). A similar trend was noted for deaths from
+  Sub-hazard ratios
+
+
+
+
+                          0·8
+                                                                                                                      natural causes for this group with severe mental illness
+                                                                                                                      (relative to white British people with severe mental illness,
+                          0·6                                                                                         aRR was 1∙03, 95% CI 0∙73–1∙45; p=0∙88) in the areas of
+                                                                                                                      the lowest south Asian ethnic density, which had reduced
+                          0·4                                                                                         to aRR 0∙04 (95% CI 0∙01–0∙23; p<0∙0001) in the areas of
+                                                                                                                      highest south Asian ethnic density. Similar, albeit weaker
+                          0·2
+                                                                                                                      associations were noted for the black African group with
+                           0                                                                                          severe mental illness, with similar trends for all-cause and
+                                                                                                                      natural-cause mortality in black Caribbean groups with
+                          C                                                                                           severe mental illness (appendix).
+                          1·4                                                                                            Sensitivity analyses were run specifying the risk of
+                          1·2
+                                                                                                                      emigration out of the cohort as a competing risk in
+                                                                                                                      regression models for all-cause mortality. On the whole,
+                          1·0                                                                                         most associations across the cohort were retained. Ethnic
+  Sub-hazard ratios
+
+
+
+
+                                                                                                                      density associations highlighting a reduced risk of all-
+                          0·8
+                                                                                                                      cause mortality in areas of higher ethnic density in ethnic
+                          0·6                                                                                         minority cohort members with severe mental illness
+                                                                                                                      (relative to white British people with severe mental
+                          0·4
+                                                                                                                      illness) were still observed across models, although the
+                          0·2                                                                                         strength of the evidence in support of the ethnicity and
+                                                                                                                      ethnic density cross-level interaction across the adjusted
+                           0                                                                                          model was weaker (appendix).
+                                0   10   20       30          40        50         60         70   80   90      95
+                                                       Percentage of ethnic minorities (LSOA)
+                                                                                                                      Discussion
+Figure: Ethnic density associations at LSOA level (n=18 201)                                                          We found that in areas of low ethnic density, risks for
+(A) Adjusted incidence risk ratios for all-cause mortality by ethnic density. (B) Adjusted sub-hazard ratios for
+                                                                                                                      all-cause and natural-cause mortality were similar in
+natural-cause mortality by ethnic density. (C) Adjusted sub-hazard ratios for unnatural-cause mortality by ethnic
+density. Estimates are adjusted for area-level deprivation, urbanicity, social fragmentation, gender, diagnosis,      ethnic minority groups with severe mental illness
+marital status, substance use disorders, and age. p values for ethnicity × ethnic density interactions were p=0∙036   compared with white British people with severe mental
+for all-cause mortality, p=0∙071 for natural-cause mortality, and p=0∙99 for unnatural-cause mortality. Dark red      illness. By contrast, in neighbourhoods of high ethnic
+lines show adjusted incidence risk ratios (all-cause mortality) or adjusted sub-hazard ratios (natural-cause or
+unnatural-cause mortality) in ethnic minority groups relative to white British people with severe mental illness
+                                                                                                                      density, risks for death from all causes and from natural
+(reference group), with 95% CIs delineated by light red lines. Grey lines show incidence risk ratio or sub-hazard     causes were significantly reduced in ethnic minority
+ratios of 1·00 for the reference group. LSOA=Lower Super Output Area.                                                 groups with severe mental illness relative to white
+                                                                                                                      British people with severe mental illness. Similar
+                                              statistical interaction between individual-level ethnicity              trends were observed across most of the ethnic minority
+                                              and area-level ethnic density (p=0∙036 for statistical                  groups in the study, with the strongest associations
+                                              interaction; table 2; figure). A similar trend was noted                noted for all-cause and natural-cause mortality in south
+                                              for deaths from natural causes although with weaker                     Asian groups with severe mental illness compared with
+
+
+514                                                                                                                                        www.thelancet.com/psychiatry Vol 6 June 2019
+                                                                                                                              Articles
+
+
+
+
+white British groups with severe mental illness.                settings,4 whereas investigators in a more recent
+Residency in areas that were more deprived, urban, or           systematic review did not find an association between
+socially fragmented did not appear to be associated             urbanicity and mortality in severe mental illness.30 The
+with elevated all-cause, natural-cause, or unnatural-           notion that outcomes, including mortality, for people
+cause mortality in people with severe mental illness.           living with severe mental illness in developing versus
+People with severe mental illness in this study                 developed countries are better has been critiqued.8 We did
+experienced a 2–3-times increased risk of all-cause and         not find an association between urbanicity and mortality
+natural-cause mortality and 4–7-times increased risk of         in severe mental illness in our study, although we observed
+unnatural-cause mortality, when age-standardised and            that residency in areas of higher own-group ethnic density
+gender-standardised to a non-severe mental illness              for some ethnic minority groups was associated with
+reference population. These differences persisted when          fewer adverse mortality outcomes in severe mental illness.
+compared across the different characteristics of the            An understanding of possible aetiological mechanisms
+neighbourhoods surveyed.                                        underlying observed associations might be informed by
+   Our literature reviews did not identify any studies that     previous research, in which the association of own ethnic
+have previously directly assessed the association of            density with physical health morbidity and mortality
+residency in socially fragmented neighbourhoods with            outcomes in populations without severe mental illness,
+mortality in severe mental illness, although previous           has been explored.31 For example, in the UK, black African,
+ecological studies have suggested an association between        black Caribbean, and south Asian individuals resident in
+increasing social fragmentation and suicide mortality in        areas of higher own-group density report lower levels of
+the general population.18,20 The lack of an association         alcohol use.32 Mechanisms underlying these findings
+between social fragmentation and mortality in our study,        might include the mutual support of others of a similar
+in contrast to previous work, might be because previously       ethnic background, as well as the health protective effects
+noted associations were only observed at the whole-             of social norms mitigating against adverse health-related
+population level, whereas our study had a primary focus         behaviours.31 Conversely, residency in areas of low ethnic
+on a population with severe mental illness. Previous work       density for ethnic minority groups might be associated
+might have also been affected by ecological bias, whereby       with lower social support, greater social isolation, and
+inferences about individuals are erroneously determined         greater discrimination.11,12 Therefore, the findings in the
+from ecological or area-level characteristics. The differ­      present study might not just be specific to severe mental
+ences between our study and this previous work might            illness but might reflect the wider effect of own-group
+also reflect that we were able to include both individual-      ethnic density on health-related behaviours and mortality
+level and area-level covariates, avoiding such biases.          in general. The role of neighbourhood or group-level
+   For area-level deprivation, research findings have been      factors in accounting for mortality risks in severe mental
+inconsistent. Although associations have been noted in          illness could be an important area of future enquiry.2
+some studies between residency in more deprived areas              Ethnic density trends were most notable for south
+and increased mortality in severe mental illness,3,24,25 in     Asian and black African groups. There is a large literature
+one study from a UK nationally representative sample,           indicating poorer mental and physical health in Irish
+the investigators reported that people with severe mental       people in the UK,33 which for common mental disorders
+illness resident in more deprived areas had a lower risk        and suicidal ideation might be offset by residency in
+of suicide than people resident in less deprived areas.26       areas of higher own-group density;12,34 however, this
+Our findings might indicate that for ethnic minority            finding was not observed in the present study. Smaller
+groups with severe mental illness, area-level factors such      sample sizes in the present study might have reduced the
+as ethnic density, which might buffer against social            power to detect differences for Irish people with severe
+isolation and be associated with enhanced social                mental illness. In addition, unlike the other ethnic
+support11,12 and social capital,27 might counteract any         minority groups within the study, we found that whereas
+neighbourhood material advantages on health.                    strong positive correlations were observed with own-
+   Markedly increased standardised mortality ratios             group density and the total ethnic minority density
+observed in this cohort, when compared with the                 variable for black African, black Caribbean, and south
+population without severe mental illness, are consistent        Asian groups, this finding was not observed for Irish
+with previous work in international samples, and underlie       own-group density (appendix), possibly reflecting
+an urgent need to address premature mortality in people         differing historical patterns of settlement across each of
+with severe mental illness.1,2 Across international contexts,   these groups in the catchment area of the study. Within
+associations between residency in urban areas and               this catchment area, Irish groups with severe mental
+mortality in people with severe mental illness have been        illness were resident in areas of lower total ethnic
+mixed.28,29 Investigators in the original WHO international     minority density and were more dispersed. This factor
+studies of schizophrenia observed that all-cause mortality      might be another reason why we did not find an ethnic
+in people with severe mental illness was lower in less          density association for the Irish group and could be
+industrialised settings compared with industrialised            explored in larger nationally representative samples.
+
+
+www.thelancet.com/psychiatry Vol 6 June 2019                                                                                             515
+      Articles
+
+
+
+
+                    We used reliable methodologies to derive each of the            these groups. The southern part of the catchment area
+                 area-level variables, which have been widely used                  for this study included less urbanised areas and there is a
+                 previously, have a strong theoretical basis, and have been         possibility that overall there was inadequate variation in
+                 validated.11,16,18,19 A strength of the present study was in the   the degree of urbanisation to enable associations to be
+                 possibility of using both neighbourhood and individual-            detected. However, previous work from this location
+                 level variables. It may be a limitation that we assessed           has indicated “considerable heterogeneity” across this
+                 area-level factors at one timepoint only (time of diagnosis)       catchment area for ethnic density, population density,
+                 and could not assess all individual-level variables at cohort      and other measures of social fragmentation such as voter
+                 entry. This may have led to random measurement error.              turnout,36 which was also observed in the range of
+                 If this was the case, then associations between exposures          urbanicity and ethnic density variables in the present
+                 with outcomes may have been under-estimated. As we                 study. In addition, our scoping of the literature indicated
+                 used address at the time of diagnosis, linked to area-level        inconsistent associations between residency in urban
+                 indicators from the study midpoint (2010–11), this may             versus rural areas and mortality in severe mental
+                 also have further contributed to imprecise estimates.              illness,28,37,38 so our findings are not inconsistent with the
+                    People with severe mental illness are more likely to            broader literature; future work could explore these
+                 experience downward social drift as their illness                  associations using national data. Finally, most of the
+                 progresses. Such drift effects might also operate in the           ethnic density comparisons were made internally to the
+                 prodromal phase, before onset. A possible limitation of            cohort with severe mental illness; therefore, it is possible
+                 our methods is that the location of residency was                  that these findings reflect ethnic density associations for
+                 obtained at the point of diagnosis. It is unclear how such         ethnic minority people in general and should be explored
+                 drift effects might have biased our findings. As ethnically        in the future using a population without severe mental
+                 dense areas are also in general more deprived and urban,           illness.
+                 it is unlikely that individuals with severe mental illness            For ethnic minority groups with severe mental illness,
+                 from minority ethnic groups would be able to drift into            we might speculate that residency in areas of higher own-
+                 ethnically less dense areas (as such areas would be                group density buffers against social exclusion, social
+                 expected to be more affluent and less urban). However,             isolation, and promotes health-protective behaviours,
+                 white British people with severe mental illness might              which might have a role in mitigating against premature
+                 drift into higher ethnic density areas. As we would also           mortality in severe mental illness. However, the study was
+                 expect that ethnic minority groups with severe mental              unable to directly assess this hypothesis. Future research
+                 illness in low ethnic density areas could drift into higher        should explore the role of contextual factors in accounting
+                 ethnic density areas, it is difficult to quantify how far          for mortality outcomes in severe mental illness, which
+                 such drift effects would operate selectively for ethnic            could be used to guide intervention development.2
+                 groups with severe mental illness, and how this effect             Contributors
+                 would then affect the mortality findings.                          JD-M conceived the study idea, did all analyses, and led the drafting of
+                    Other limitations of the study included our inability to        the final manuscript for publication. The design of the analysis was
+                                                                                    determined by JD-M with input from PS and MJP. VB assisted with
+                 assess important individual-level variables such as                literature searches. MED advised on statistical aspects of the analysis.
+                 health-related behaviours, physical health comorbidities,          All authors contributed to the interpretation of the findings, drafting of
+                 individual-level socioeconomic status, and social support.         the manuscript, and approved the final version for publication. JD-M is
+                 Work is underway to link the cohort to other data sources,         the guarantor of the data and analyses. All authors agree to be
+                                                                                    accountable for all aspects of the work.
+                 which might eventually allow us directly to assess these
+                 indicators as potential confounders or mediators for               Declaration of interests
+                                                                                    RS reports grants from Janssen, Takeda, and Roche; and has a PhD
+                 mortality. A further limitation is that it was not possible        studentship funded by GlaxoSmithKline outside of the submitted work.
+                 to derive standardised mortality ratios by ethnicity, as           All other authors declare no competing interests.
+                 this information is not routinely recorded in UK death             Data sharing
+                 certificates.35 Although the catchment area of the study is        Data are owned by a third party South London and Maudsley Biomedical
+                 typical of many large urbanised locations in Britain and           Research Centre Clinical Record Interactive Search tool that provides
+                 internationally, with potentially good generalisability to         access to anonymised data derived from electronic medical records of the
+                                                                                    South London and Maudsley National Health Service Foundation Trust.
+                 metropolitan locations elsewhere, it is a limitation that          These data can only be accessed by permitted individuals from within a
+                 we were not able to include locations outside of the               secure firewall (ie, remote access is not possible, and the data cannot be
+                 Greater London area, which could be considered in                  sent elsewhere) in the same manner as the authors.
+                 future work. We focused the analyses on key ethnic                 Acknowledgments
+                 minority groups who were well represented within the               JD-M is funded by the Health Foundation working together with the
+                                                                                    Academy of Medical Sciences. RS is part funded by the National Institute
+                 catchment area of the study and have previously been
+                                                                                    for Health Research (NIHR) Biomedical Research Centre at South London
+                 included in national surveys of ethnic minority health;            and Maudsley National Health Service (NHS) Foundation Trust and King’s
+                 however, other ethnic minority groups were not included,           College London. GT is supported by the NIHR Collaboration for
+                 such as those who might self-identify as “white other”.            Leadership in Applied Health Research and Care South London at King’s
+                                                                                    College London NHS Foundation Trust. GT is supported by the European
+                 Future work could explore health inequalities affecting
+
+
+516                                                                                                            www.thelancet.com/psychiatry Vol 6 June 2019
+                                                                                                                                                            Articles
+
+
+
+
+Union Seventh Framework Programme (FP7/2007-2013) Emerald project.            16   Noble M, Wright G, Smith G, Dibben C. Measuring multiple
+GT also receives support from the National Institute of Mental Health of           deprivation at the small-area level. Environ Plan A 2006; 38: 169–85.
+the National Institutes of Health (award number R01MH100470; Cobalt           17   Heinz A, Deserno L, Reininghaus U. Urbanicity, social adversity
+study). GT is also supported by the UK Medical Research Council in                 and psychosis. World Psychiatry 2013; 12: 187–97.
+relation to the Emilia (MR/S001255/1) and Indigo Partnership                  18   Congdon P. Suicide and parasuicide in London: a small-area study.
+(MR/R023697/1) awards. GT and MJP are supported by the NIHR Global                 Urban Stud 1996; 33: 137–58.
+Health Research Unit on Health System Strengthening in Sub-Saharan            19   Allardyce J, Gilmour H, Atkinson J, Rapson T, Bishop J,
+Africa, King’s College London (GHRU 16/136/54). The views expressed are            McCreadie RG. Social fragmentation, deprivation and urbanicity:
+those of the authors and not necessarily those of the NHS, the NIHR, or            relation to first-admission rates for psychoses. Br J Psychiatry 2005;
+the UK Department of Health and Social Care. PS was supported by a UK              187: 401–06.
+Medical Research Council fellowship (MR/K021494/1). JD-M had access to        20   Smith GD, Whitley E, Dorling D, Gunnell D. Area based measures of
+the raw data. We thank Hitesh Shetty for providing assistance with data            social and economic circumstances: cause specific mortality patterns
+extraction for this report, Maelenn Guerchet for assistance in translating         depend on the choice of index. J Epidemiol Community Health 2001;
+                                                                                   55: 149–50.
+French language articles, and Jessica Irving for her assistance in checking
+the performance of the diagnosis Natural Language Processing algorithm        21   WHO. International statistical classification of diseases and related
+                                                                                   health problems, 10th revision. Geneva: World Health Organization,
+in the Clinical Record Interactive Search for severe mental illness and
+                                                                                   2011.
+schizophrenia diagnoses.
+                                                                              22   Fine JP, Gray RJ. A proportional hazards model for the subdistribution
+References                                                                         of a competing risk. J Am Stat Assoc 1999; 94: 496–509.
+1    Saha S, Chant D, McGrath J. A systematic review of mortality in          23   Razum O. Commentary: of salmon and time travellers—musing on
+     schizophrenia: is the differential mortality gap worsening over               the mystery of migrant mortality. Int J Epidemiol 2006; 35: 919–21.
+     time? Arch Gen Psychiatry 2007; 64: 1123–31.                             24   Kisely S, Smith M, Lawrence D, Maaten S. Mortality in individuals
+2    Liu NH, Daumit GL, Dua T, et al. Excess mortality in persons with             who have had psychiatric treatment: Population-based study in
+     severe mental disorders: a multilevel intervention framework and              Nova Scotia. Br J Psychiatry 2005; 187: 552–58.
+     priorities for clinical practice, policy and research agendas.           25   Martin JL, McLean G, Park J, et al. Impact of socioeconomic
+     World Psychiatry 2017; 16: 30–40.                                             deprivation on rate and cause of death in severe mental illness.
+3    Tsai AC, Mendenhall E, Trostle JA, Kawachi I. Co-occurring                    BMC Psychiatry 2014; 14: 261.
+     epidemics, syndemics, and population health. Lancet 2017;                26   Osborn D, Levy G, Nazareth I, King M. Suicide and severe mental
+     389: 978–82.                                                                  illness. Cohort study within the UK general practice research
+4    Harrison G, Hopper K, Craig T, et al. Recovery from psychotic                 database. Schizophr Res 2008; 99: 134–38.
+     illness: a 15- and 25-year international follow-up study.                27   Pickett KE, Wilkinson RG. People like us: ethnic group density
+     Br J Psychiatry 2001; 178: 506–17.                                            effects on health. Ethn Health 2008; 13: 321–34.
+5    Hopper K, Wanderling J. Revisiting the developed versus developing       28   Phillips MR, Yang G, Li S, Li Y. Suicide and the unique prevalence
+     country distinction in course and outcome in schizophrenia: results           pattern of schizophrenia in mainland China: a retrospective
+     from ISoS, the WHO collaborative followup project. International              observational study. Lancet 2004; 364: 1062–68.
+     Study of Schizophrenia. Schizophr Bull 2000; 26: 835–46.
+                                                                              29   Ferrada-Noli M, Asberg M. Psychiatric health, ethnicity and
+6    Jablensky A, Sartorius N. What did the WHO studies really find?               socioeconomic factors among suicides in Stockholm. Psychol Rep
+     Schizophr Bull 2008; 34: 253–55.                                              1997; 81: 323–32.
+7    Jablensky A, Sartorius N, Ernberg G, et al. Schizophrenia:               30   McGrath J, Saha S, Chant D, Welham J. Schizophrenia: a concise
+     manifestations, incidence and course in different cultures. A World           overview of incidence, prevalence, and mortality. Epidemiol Rev 2008;
+     Health Organization ten-country study. Psychol Med Monogr Suppl               30: 67–76.
+     1992; 20: 1–97.
+                                                                              31   Bécares L, Shaw R, Nazroo J, et al. Ethnic density effects on physical
+8    Cohen A, Patel V, Thara R, Gureje O. Questioning an axiom: better             morbidity, mortality, and health behaviors: a systematic review of
+     prognosis for schizophrenia in the developing world? Schizophr Bull           the literature. Am J Public Health 2012; 102: e33–66.
+     2008; 34: 229–44.
+                                                                              32   Bécares L, Nazroo J, Stafford M. The ethnic density effect on alcohol
+9    Sartorius N, Jablensky A, Shapiro R. Cross-cultural differences in            use among ethnic minority people in the UK.
+     the short-term prognosis of schizophrenic psychoses. Schizophr Bull           J Epidemiol Community Health 2011; 65: 20–25.
+     1978; 4: 102–113.
+                                                                              33   Das-Munshi J, Clark C, Dewey ME, Leavey G, Stansfeld SA,
+10 Das-Munshi J, Chang CK, Dutta R, et al. Ethnicity and excess                    Prince MJ. Does childhood adversity account for poorer mental and
+     mortality in severe mental illness: a cohort study. Lancet Psychiatry         physical health in second-generation Irish people living in Britain?
+     2017; 4: 389–99.                                                              Birth cohort study from Britain (NCDS). BMJ Open 2013;
+11 Bécares L, Dewey ME, Das-Munshi J. Ethnic density effects for                   3: e001335.
+     adult mental health: systematic review and meta-analysis of              34   Bécares L, Das-Munshi J. Ethnic density, health care seeking
+     international studies. Psychol Med 2018; 48: 2054–72.                         behaviour and expected discrimination from health services among
+12 Das-Munshi J, Becares L, Dewey ME, Stansfeld SA, Prince MJ.                     ethnic minority people in England. Health Place 2013; 22: 48–55.
+     Understanding the effect of ethnic density on mental health:             35   Morris M, Woods LM, Rachet B. A novel ecological methodology for
+     multi-level investigation of survey data from England. BMJ 2010;              constructing ethnic-majority life tables in the absence of individual
+     341: c5367.                                                                   ethnicity information. J Epidemiol Community Health 2015;
+13 Perera G, Broadbent M, Callard F, et al. Cohort profile of the South            69: 361–67.
+     London and Maudsley NHS Foundation Trust Biomedical Research             36   Kirkbride JB, Morgan C, Fearon P, Dazzan P, Murray RM,
+     Centre (SLaM BRC) Case Register: current status and recent                    Jones PB. Neighbourhood-level effects on psychoses: re-examining
+     enhancement of an Electronic Mental Health Record-derived data                the role of context. Psychol Med 2007; 37: 1413–25.
+     resource. BMJ Open 2016; 6: e008721.
+                                                                              37   Teferra S, Shibre T, Fekadu A, et al. Five-year mortality in a cohort
+14 Fernandes AC, Cloete D, Broadbent MT, et al. Development and                    of people with schizophrenia in Ethiopia. BMC Psychiatry 2011;
+     evaluation of a de-identification procedure for a case register               11: 165.
+     sourced from mental health electronic records.
+                                                                              38   Fekadu A, Medhin G, Kebede D, et al. Excess mortality in severe
+     BMC Med Inform Decis Mak 2013; 13: 71.
+                                                                                   mental illness: 10-year population-based cohort study in rural
+15 The Office for National Statistics. 2011 Census: population and                 Ethiopia. Br J Psychiatry 2015; 206: 289–96.
+     household estimates for small areas in England and Wales,
+     March 2011. 2012. https://www.ons.gov.uk/peoplepopulation
+     andcommunity/populationandmigration/populationestimates/bull
+     etins/2011censuspopulationandhouseholdestimatesforsmallareasin
+     englandandwales/2012-11-23#population (accessed April 19, 2019).
+
+
+
+
+www.thelancet.com/psychiatry Vol 6 June 2019                                                                                                                           517
+

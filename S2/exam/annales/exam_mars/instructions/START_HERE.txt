@@ -1,0 +1,208 @@
+================================================================================
+                   📚 M2 MÉTHODOLOGIE - CHEAT SHEET COMPLET
+           Extraction complète des 6 années d'examen (2019-2024)
+================================================================================
+
+📌 FICHIERS DISPONIBLES (3 docs):
+
+1️⃣  RECAP_NOTIONS_ET_FORMULES.md (⭐ COMPLET - 30 KB)
+    ├─ Défnitions précises de TOUS les concepts attendus
+    ├─ Formules complètes avec exemples
+    ├─ Tableaux de décision pour les tests
+    ├─ Pièges et erreurs courantes
+    ├─ Format: Texte détaillé + tables
+    └─ Utilisation: Révision approfondie, préparation sérieuse
+
+2️⃣  QUICK_FORMULAS.md (⚡ RAPIDE - 20 KB)
+    ├─ Formules seules (sans blabla)
+    ├─ Tables de décision 30 secondes
+    ├─ 10 pièges majeurs
+    ├─ Format: Code + tables condensé
+    └─ Utilisation: Jour J exam, dernière minute, quick check
+
+3️⃣  README_RECAP.md (📋 GUIDE - 7 KB)
+    ├─ Structure complète des docs
+    ├─ Thèmes par année exam
+    ├─ Checklist jour d'exam
+    ├─ Auto-test questions
+    └─ Utilisation: Navigation, conseils, structure
+
+================================================================================
+                         🎯 PAR OÙ COMMENCER?
+
+Si tu as 30 minutes:
+  → Lis QUICK_FORMULAS.md en entier (résumé ultra)
+
+Si tu as 2 heures:
+  → Lis RECAP_NOTIONS_ET_FORMULES.md sections 1-3 (NSN, mesures, tests)
+
+Si tu as 6 heures (révision sérieuse):
+  → Lis RECAP_NOTIONS_ET_FORMULES.md EN ENTIER
+  → Fais les 6 auto-tests dans README_RECAP.md
+  → Révise QUICK_FORMULAS.md après
+
+Si tu as 5 minutes (avant examen):
+  → Lis QUICK_FORMULAS.md (ton ami)
+
+================================================================================
+                    📊 CONCEPTS ATTENDUS (GUARANTEED)
+
+Tous les exams contiennent:
+
+OBLIGATOIRE (100%):
+✅ NSN Calculation (alpha, beta, delta, sigma, dropout, ICC)
+✅ OR vs RR interpretation
+✅ HR / Cox proportional hazards
+✅ Chi-square vs Fisher
+✅ T-test vs Wilcoxon
+✅ Confounder vs Mediator
+✅ Design avantages/inconvénients
+✅ Au moins 1 biais (selection/information/confounding)
+
+TRÈS PROBABLE (80%+):
+✅ Cluster RCT design effect
+✅ Interaction (multiplicative/additive)
+✅ Attrition bias gestion
+✅ ITT vs PP analysis
+✅ Multiple comparisons correction
+✅ RERI / Fraction attribuable
+
+POSSIBLE (50%+):
+✅ Ecological bias
+✅ Non-inferiority margin
+✅ Negative control strategies
+✅ Co-primary endpoints
+✅ Mixed models
+✅ Bayesian approaches
+
+================================================================================
+                      ⚠️  LES 10 PIÈGES À ÉVITER
+
+1. ❌ Oublier ICC dans cluster RCT → NSN dramatiquement sous-estimé
+2. ❌ Confondre OR et RR → interprétation complètement fausse
+3. ❌ Ajuster sur médiateur → signal disparaît!
+4. ❌ Pas de relation temporelle cas-contrôle → pas de causalité
+5. ❌ Chi-carré avec effectif < 5 → utiliser Fisher!
+6. ❌ Cox sans proportional hazards test → résultat invalide
+7. ❌ Interaction multiplicative = additive → NON! (peuvent différer)
+8. ❌ Ecological study → inférer au niveau individu = biais
+9. ❌ Complete case sans justifier dans RCT → sélection bias
+10. ❌ Non-infériorité en Per-Protocol → marge pas protégée
+
+================================================================================
+                       🏆 COMMENT AVOIR TOUS LES POINTS
+
+NSN Question:
+  • Tous les 6 paramètres mentionnés (α, β, δ, σ, p₀, p₁)
+  • Source de chaque paramètre (littérature? étude pilote?)
+  • Ajustement dropout: NSN / (1 - taux)
+  • Ajustement multiplicité: Bonferroni si nécessaire
+  • Ajustement cluster: × (1 + (m-1) × ICC)
+  • Nombre FINAL arrondi vers haut
+  ⇒ Typical response: 3/4 page détaillé
+
+Mesures Association:
+  • Clairement label: OR / RR / HR
+  • IC 95% fourni (formule ou résultat)
+  • Interprétation: "2x plus de risque" ou "50% diminution"
+  • Si OR: vérifier approximation OR ≈ RR (maladie rare?)
+  ⇒ Typical response: 1/2 page + équations
+
+Tests Statistiques:
+  • Hypothèses du test listées
+  • Tests pour vérifier (Levene? Shapiro?)
+  • Justification du test CHOISI
+  • Alternative si hypothèses violées
+  ⇒ Typical response: 1/2 page
+
+Design D'étude:
+  • Avantages DE CE DESIGN (3-4 points)
+  • Inconvénients DE CE DESIGN (3-4 points)
+  • Biais potentiels SPÉCIFIQUES au design
+  • Comment minimisés/gérés
+  ⇒ Typical response: 3/4 page
+
+Biais:
+  • Type de biais identifié (selection/information/confounding/ecological)
+  • Définition précise
+  • Direction et magnitude (si possible)
+  • Stratégies d'atténuation
+  ⇒ Typical response: 1/2 page
+
+================================================================================
+                         📱 FORMAT RAPIDE RÉPONSE
+
+TEMPLATE pour NSN (1 minute):
+
+NSN = 2 × [(z_α + z_β)² × σ²] / δ²
+    = 2 × [(1.96 + 1.28)² × 100] / 25
+    = 2 × [10.49 × 100] / 25
+    = 84 par bras
+
+Dropout 10%: 84 / (1-0.10) = 93
+5 comparaisons (Bonferroni): 93 × (5/1) = ... attendez non! 
+→ Bonferroni change alpha (0.05/5), pas directement NSN...
+
+TEMPLATE pour Confounder (30 secondes):
+
+Age est confounder SI:
+  ✓ Associé exposition (âge → travail nuit?)
+  ✓ Associé outcome (âge → diabète?)
+  ✓ PAS sur chemin causal (age → travail → diabète)
+
+Si vrai: AJUSTER dans regression
+Si mediateur (age → hypertension → diabète): NE PAS AJUSTER
+
+TEMPLATE pour Design (3/4 page):
+
+RCT Avantages:
+  • Randomisation élimine confondeurs connus ET inconnus
+  • Relation temporelle claire (randomisation → outcome)
+  • Puissance bien définie (NSN calculation)
+
+RCT Inconvénients:
+  • Coûteux et long
+  • Populations souvent sélectionnées
+  • Compliance problèmes
+
+Biais possibles:
+  • Attrition bias si perdus vue ≠ aléatoires
+  • Selection bias si critères inclusion trop restrictifs
+
+Mitigation:
+  • ITT analysis (minimise attrition bias)
+  • Pre-register protocole
+  • Analyse sensibilité scenarios
+
+================================================================================
+                    💡 CONSEIL FINAL PROF (INFÉRÉ)
+
+Le prof semble valoriser:
+1. PRÉCISION des définitions (pas vague!)
+2. JUSTIFICATIONS des choix (pourquoi cette formule?)
+3. HONNÊTETÉ sur limitations ("c'est une limite que...")
+4. STRUCTURE claire (pas réponse désordonnée)
+5. ILLUSTRATION (exemple concret aide)
+
+DON'T:
+- Réponses super brèves (< 1/2 page)
+- Formules sans contexte
+- Assumer le lecteur sait
+- Fake certainitude ("c'est obvious")
+
+DO:
+- Explique ta logique
+- Relie concepts entre eux
+- Reconnais complexité
+- Mentionne alternatives
+
+================================================================================
+
+                    ✨ GOOD LUCK - YOU GOT THIS! 💪
+
+                   Questions? Vérifiez d'abord RECAP...
+              Si réponse pas là → prob. couverte dans corrections
+
+                          À demain exam! 📊
+
+================================================================================

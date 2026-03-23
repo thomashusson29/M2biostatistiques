@@ -1,0 +1,729 @@
+         Articles
+
+
+
+
+                                      Maternal infection during pregnancy and likelihood of autism
+                                      and intellectual disability in children in Sweden: a negative
+                                      control and sibling comparison cohort study
+                                      Martin Brynge*, Hugo Sjöqvist*, Renee M Gardner, Brian K Lee, Christina Dalman, Håkan Karlsson
+
+                                      Summary
+         Lancet Psychiatry 2022;
+                                      Background Maternal infections during pregnancy are associated with intellectual disability and autism in exposed
+                      9: 782–91
+                                      children. Whether these associations are causal, and therefore should be targets of preventive strategies, remains
+                Published Online
+              September 7, 2022
+                                      unknown. We aimed to investigate these associations, to determine whether there is a causal role of maternal
+        http://.doi.org/10.1016/      infection during pregnancy for children’s risk of autism and intellectual disability, by accounting for unmeasured
+       S2215-0366(22)00264-4          familial factors.
+            *Contributed equally
+ For the Swedish translation of the   Methods We used a register-based cohort study design, and included children living in Stockholm County, Sweden,
+abstract see Online for appendix 1    who were born in 1987–2010. We excluded children not born in Sweden, adopted children, and children with unknown
+    Department of Global Public       biological mothers or fathers. Maternal infections during pregnancy, defined by ICD-8, ICD-9, and ICD-10 codes,
+            Health (M Brynge MD,
+                                      were identified in the National Patient Register and Medical Birth Register. Children were followed up from birth to
+ H Sjöqvist MS, R M Gardner PhD,
+ B K Lee PhD, Prof C Dalman PhD)      an outcome or a censoring event (death, migration from Stockholm, age 18 years, or Dec 31, 2016, whichever occurred
+               and Department of      first). The primary outcomes were diagnosis of autism or diagnosis of intellectual disability. We did a survival analysis
+ Neuroscience (H Karlsson PhD),       to examine the association between inpatient and outpatient specialised care for any infection during pregnancy and
+            Karolinska Institutet,
+                                      likelihood of autism or intellectual disability in the child. To address potential residual confounding, we also estimated
+             Stockholm, Sweden;
+   Department of Epidemiology         the relationship between maternal infection in the year preceding pregnancy as a negative control exposure and
+         and Biostatistics, Drexel    conducted a matched sibling analysis of sibling pairs who were discordant for autism or intellectual disability.
+      University School of Public
+   Health, Philadelphia, PA, USA
+                                      Findings 647 947 children living in Stockholm County were identified and, after excluding 97 980 children, we included
+      (B K Lee); A J Drexel Autism
+Institute, Philadelphia, PA, USA      549 967 in the study (267 995 [48·7%] were female and 281 972 [51·3%] were male; mean age at censoring 13·5 years
+              (B K Lee); Centre for   [SD 5·0; range <1 to 18]; 142 597 [25·9%] had a mother who was not born in Sweden). 445 (1·3%) of 34 013 children
+ Epidemiology and Community           exposed to maternal infection during pregnancy were diagnosed with intellectual disability and 1123 (3·3%) with
+   Medicine, Region Stockholm,
+                                      autism. 5087 (1·0%) of 515 954 unexposed children were diagnosed with intellectual disability and 13 035 (2·5%) with
+              Stockholm, Sweden
+                   (Prof C Dalman)    autism. Maternal infection during pregnancy was associated with autism (hazard ratio [HR] 1·16, 95% CI 1·09–1·23)
+              Correspondence to:      and intellectual disability (1·37, 1·23–1·51) in exposed children compared with unexposed children. Maternal
+Dr Martin Brynge, Department of       infection in the year before pregnancy (negative control exposure) was also associated with autism (HR 1·25, 95% CI
+ Global Public Health, Karolinska     1·14–1·36), but was not associated with intellectual disability (1·09, 0·94–1·27). In sibling comparisons, the
+ Institutet, Stockholm SE-17177,
+                                      associations with maternal infection during pregnancy were attenuated for autism (HR 0·94, 95% CI 0·82–1·08;
+                         Sweden
+                m.brynge@ki.se        n=21 864), but not to the same extent for intellectual disability (1·15, 0·95–1·40; n=9275).
+
+                                      Interpretation Although infections in pregnant women are associated with both autism and intellectual disability in
+                                      their children, the association with autism does not appear to reflect a causal relationship, but is more likely to be
+                                      explained by factors shared between family members such as genetic variation or aspects of the shared environment.
+                                      Thus, infection prevention is not expected to reduce autism incidence. For intellectual disability, unmeasured familial
+                                      factors might not fully explain the observed associations, and a causal role of maternal infections cannot be excluded.
+                                      Causal effects of specific but rare infections or infections not requiring health care contact cannot be excluded in
+                                      either autism or intellectual disability.
+
+                                      Funding Swedish Research Council, Stanley Medical Research Institute, and Autism Speaks.
+
+                                      Copyright © 2022 Elsevier Ltd. All rights reserved.
+
+                                      Introduction                                                            more severe outcomes.2 Due to immunisation
+                                      Some infections (eg, Toxoplasma gondii, rubella, and                    programmes against rubella, congenital infections are
+                                      cytomegalovirus) during pregnancy are human teratogens                  infrequent in most parts of the world, with only a
+                                      that can target the fetal brain causing malformations                   small proportion of exposed children developing severe
+                                      leading to behavioural, sensory, and cognitive deficits.1               sequelae.1 However, maternal infections during pregnancy
+                                      The gestational age of the fetus influences the outcome of              by a broader range of common pathogens, not necessarily
+                                      such exposures, with earlier exposures associated with                  involving vertical transmission to the fetus, have been
+
+
+782                                                                                                                                www.thelancet.com/psychiatry Vol 9 October 2022
+                                                                                                                                       Articles
+
+
+
+
+  Research in context
+  Evidence before this study                                          associated with autism, but not with intellectual disability.
+  We searched PubMed from database inception to Jan 30, 2022,         When comparing full siblings, the association between
+  restricting the search to abstracts in English, using the terms     maternal infections during pregnancy and intellectual
+  (“Case-Control Studies”[Mesh] OR “Cohort Studies”[Mesh] OR          disability was attenuated, although not to the same extent as
+  “Prenatal Exposure Delayed Effects/epidemiology”[Mesh] OR           for autism. Therefore, although our observations at the
+  “Registries”[Mesh] OR “Risk Factors”[Mesh]) AND (“Autism            population level in Sweden are similar to those in previous
+  Spectrum Disorder”[Mesh] OR “Intellectual Disability”[Mesh]         studies, our negative control and sibling comparison analyses
+  OR “Child Development Disorders, Pervasive”[Mesh]) AND              suggest that maternal infections requiring specialised care in
+  (“Infections”[Mesh] OR “Pregnancy Complications,                    pregnancy are not causally related to autism.
+  Infectious”[Mesh]) AND (“Pregnancy Complications”[Mesh] OR
+                                                                      Implications of all the available evidence
+  “Pregnancy”[Mesh]), to identify epidemiological studies of
+                                                                      Although maternal infections requiring specialised care have
+  potential associations between maternal infections,
+                                                                      been shown to be associated with autism in exposed children
+  prospectively recorded in health-care registers, and intellectual
+                                                                      in previous studies and in our own results here, our results
+  disability or autism. Increased chances of these outcomes,
+                                                                      from the negative control and sibling comparison analyses
+  particularly autism, were reported in several, but not all,
+                                                                      suggest that maternal infections during pregnancy in general
+  previous studies. A meta-analysis based on 36 studies reported
+                                                                      are not meaningful targets of preventive strategies. For
+  a significantly increased risk (by 32%) of autism following
+                                                                      intellectual disability, a causal role of maternal infections
+  maternal infection or fever during pregnancy. However,
+                                                                      during pregnancy cannot be excluded. Moreover, this study
+  whether such associations are causal, and therefore should be
+                                                                      does not contradict the well documented associations
+  targets of preventive strategies, remains unknown.
+                                                                      between specific but rare maternal infections during
+  Added value of this study                                           pregnancy, such as rubella, Zika, or cytomegalovirus, and
+  We found that maternal infections during pregnancy were             children’s likelihood of intellectual disability. It should be
+  associated with increased likelihood of autism and intellectual     noted that our work does not exclude a causal role of other
+  disability in exposed children. We also explored the potential      specific maternal infections during pregnancy and likelihood
+  for confounding of these associations by unmeasured familial        of autism or intellectual disability, and future studies will
+  factors, finding that maternal infections in the year before        need to consider the potential effect of SARS-CoV-2, as our
+  pregnancy (negative control exposures) were equally strongly        study took place before the global pandemic.
+
+
+
+proposed to induce neurodevelopmental differences by                  associated with maternal urinary tract infections during
+other mechanisms, such as the transmission of a maternal              pregnancy, and associations of a similar magnitude were
+immune signal across the placental–fetal interface.                   reported in two smaller cohort studies.8,9
+Such signals are hypothesised to change immune                          Various epidemiological studies have reported
+signalling pathways that are also involved in typical                 associations between such maternal infections during
+neurodevelopmental processes.3 Experimental studies                   pregnancy and risk of autism, although results have been
+indicate that maternal infections or immune activation                inconsistent.10–15 In a meta-analysis of 36 epidemiological
+during pregnancy can induce autism-related behaviours                 studies, which included more than 6 million people,
+and cognitive deficits in exposed animals.4 Clinically,               maternal infection or fever during pregnancy was
+autism and intellectual disability show some diagnostic               associated with a 32% increase in odds of autism in the
+overlap,5 and 25–30% of autistic people are also diagnosed            children.15 In a previous cohort study of more than
+with intellectual disability, despite positive phenotypic and         2·3 million Swedish children, we reported a similar
+genotypic associations between autism and high                        30% increase in odds of autism associated with a maternal
+intelligence.6                                                        inpatient infection diagnosis during pregnancy,
+  Few epidemiological studies have investigated the                   regardless of timing of infection or adjustments for
+potential relation between maternal infections with                   various confounders.11 A Swedish national cohort study of
+a broader range of common pathogens during                            1·3 million people reported an 81% increase in risk of
+pregnancy and intellectual disability in offspring.7–9 The            autism associated with maternal inpatient diagnosis of
+only studies to investigate the relationship between                  severe infection and an 89% increase in risk of autism
+intellectual disability and common pregnancy infections               with maternal urinary tract infection, both of which were
+considered urinary tract infections, and none accounted               robust to moderate unknown confounding in quantitative
+for familial confounding. In a register-based study                   bias analysis.13 In a Danish study of 1·6 million children,
+including 376 579 children, Langridge and colleagues7                 which used registered maternal inpatient diagnoses of
+reported a 36% increased odds of mild to moderate                     infections, there was no overall association with autism.10
+intellectual disability, but not severe intellectual disability,      Similar to other studies,10,12,14 significant associations
+
+
+www.thelancet.com/psychiatry Vol 9 October 2022                                                                                                   783
+         Articles
+
+
+
+
+                                    emerged, albeit inconsistently, after categorising the                                 unknown biological mothers or fathers, and children
+                                    exposures according to timing, type of infection, or organ                             affected by a study outcome who were also diagnosed
+                                    system affected.                                                                       with chromosomal abnormalities or disorders of amino
+                                      Residual confounding by unobserved factors (eg, shared                               acid metabolism associated with intellectual disability
+       See Online for appendix 2    genetic liability between autism or intellectual disability                            or autism (appendix 2 p 9). To understand the potential
+                                    and serious infections) has rarely been considered in                                  for unmeasured confounding by familial factors, we
+                                    previous studies. Host susceptibility to infections is                                 additionally used two alternate comparison designs,
+                                    associated with genetic factors,16,17 and both autism and                              using maternal infections during the year preceding
+                                    intellectual disability are associated with variants of genes                          pregnancy as a negative control, and comparing full
+                                    related to the innate immune system.18,19 A genetic                                    siblings. Children with no siblings and sibling pairs
+                                    correlation between treated infections and any psychiatric                             without the relevant outcome were removed for the
+                                    diagnosis has been reported.18 Thus, there is a possibility                            sibling analysis. Ethics approval was obtained by the
+                                    that associations between maternal infections and autism                               Stockholm regional review board (DNR 2010/1185-31/5,
+                                    or intellectual disability in observational studies might be                           DNR 2016/987-32). Individual informed consent was
+                                    partially explained by genetic confounding rather than                                 not required for this anonymised register-based study.
+                                    representing causal relationships.20
+                                      We aimed to evaluate whether there is a causal role of                               Procedures
+                                    maternal infections during pregnancy on children’s                                     All instances of inpatient or outpatient specialised care
+                                    likelihood of autism and intellectual disability, by                                   with a diagnosis of infection, defined by ICD-8, ICD-9
+                                    accounting for unmeasured familial factors.                                            and ICD-10 codes (appendix 2 pp 10–11), were identified
+                                                                                                                           in the National Patient Register (NPR) and MBR, as
+                                    Methods                                                                                detailed previously.21 Infections were recorded if they
+                                    Study design and participants                                                          were diagnosed during pregnancy, from the estimated
+                                    We used a register-based cohort study design and                                       conception date to the date of birth of the index child, or
+                                    included children living in Stockholm County, Sweden,                                  during the 1 year before the start of the index pregnancy
+                                    who were born in 1987–2010. We excluded children not                                   for the negative control analysis. In pregnancies with
+                                    born in Sweden, adopted children, births not registered                                missing conception dates (0·17%), the date of conception
+                                    in the Medical Birth Register (MBR), children with                                     was imputed as 40 weeks before the index child’s date of
+                                                                                                                           birth.
+                                                                                                                             We considered other categorisations of infections for
+                     647 947 children born in 1987–2010 living in Stockholm County were identified                         sensitivity analyses, including infections categorised as
+                                                                                                                           viral, bacterial, and other or unknown (appendix 2 pp
+                                                                                                                           10–11),11 and exposures categorised by trimester at
+                                                                   97 980 excluded
+                                                                          63 858 not born in Sweden
+                                                                                                                           diagnosis and restricted to those diagnosed in inpatient
+                                                                             661 adopted                                   care, for comparability with previous studies.
+                                                                          26 651 not registered in MBR                       Covariates were selected a priori on the basis of
+                                                                              45 unknown mother
+                                                                            5732 unknown father                            previously documented associations with intellectual
+                                                                             949 congenital or metabolic intellectual      disability or autism.22,23 Children’s covariates included
+                                                                                 disability
+                                                                              84 congenital or metabolic autism
+                                                                                                                           sex, year of birth, birth order, and season of birth.24
+                                                                                                                           Parental covariates included parental region of origin
+                                                                                                                           (unknown or missing was coded as Swedish), quintiles
+                     549 967 included in the analytical sample (born to 310 284 mothers)                                   of family income recorded at birth of the index child
+                                                                                                                           (calculated relative to the entire population of Sweden
+                                                                                                                           for the specific year to adjust for inflation, and adjusted
+                                                                                                 155 874 had no            by size of family; missing values were coded as the third
+                                                                                                         siblings          quintile), highest education of the mother or father
+                                                                                                                           (missing was categorised as ≤9 years on the assumption
+    549 967 included in full cohort comparison                   394 093 with siblings included in sibling comparison
+                                                                                                                           that missing education information is translated as not
+               5532 diagnosed with intellectual                           3937 diagnosed with intellectual disability      finishing basic education or being a migrant without a
+                     disability                                           5338 matched siblings not diagnosed with         registered education level), maternal BMI at first
+            544 435 not diagnosed with intellectual                             intellectual disability
+                     disability                                          10 030 diagnosed with autism                      antenatal visit (in kg/m²; 27·2% missing information,
+              14 158 diagnosed with autism                               11 834 matched siblings not diagnosed             coded as a separate category), parental age at birth,
+            535 809 not diagnosed with autism                                   with autism
+                                                                                                                           paternal infections, and lifetime history of maternal and
+                                                                                                                           paternal psychiatric history (appendix 2 p 9).
+Figure 1: Study profile
+                                                                                                                             Children were followed up from birth to an outcome or
+Congenital or metabolic intellectual disability or autism refers to children with intellectual disability or autism also
+diagnosed with congenital deformations, chromosomal abnormalities, or disorders of amino acid metabolism                   a censoring event (death, emigration from Stockholm,
+(appendix 2 p 9). MBR=Medical Birth Register.                                                                              age 18 years, or Dec 31, 2016, whichever occurred first).
+
+
+784                                                                                                                                          www.thelancet.com/psychiatry Vol 9 October 2022
+                                                                                                                                                         Articles
+
+
+
+
+Outcomes
+                                                                                                                No maternal infection   Maternal infection     p value*
+Diagnostic outcomes as of Dec 31, 2016 (the date of the                                                         during pregnancy        during pregnancy
+latest register update) were defined by validated procedures                                                    (n=515 954)             (n=34 013)
+covering all inpatient and outpatient pathways to care and         Autism                                             ··                     ··                <0·0001
+diagnosis in Stockholm County using national and                     No autism diagnosis                        502 919 (97·5%)         32 890 (96·7%)            ··
+regional register resources (appendix 2 pp 10–11).25 The             Any autism diagnosis                        13 035 (2·5%)            1123 (3·3%)             ··
+primary outcomes were any diagnosis of autism or any               Intellectual disability                            ··                     ··                <0·0001
+diagnosis of intellectual disability.25 Children who were            No intellectual disability diagnosis       510 867 (99·0%)         33 568 (98·7%)            ··
+diagnosed with both autism and intellectual disability               Any intellectual disability diagnosis        5087 (1·0%)             445 (1·3%)              ··
+would be included as cases in both analyses. Children were
+                                                                   Mutually exclusive autism and intellectual         ··                     ··                <0·0001
+considered unaffected if they had not been diagnosed with          disability diagnoses
+the relevant outcome, although they could still be                   No autism or intellectual disability       500 171 (96·9%)         32 647 (96·0%)            ··
+diagnosed with the other outcome. We also considered                 Autism with intellectual disability          2339 (0·5%)              202 (0·6%)             ··
+three mutually exclusive diagnostic outcomes: autism                 Autism without intellectual disability      10 696 (2·1%)             921 (2·7%)             ··
+without co-occurring intellectual disability, autism with            Intellectual disability without autism       2748 (0·5%)              243 (0·7%)             ··
+co-occurring intellectual disability, and intellectual             Sex                                                ··                     ··                 0·082
+disability without co-occurring autism. For these latter             Female                                     251 576 (48·8%)         16 419 (48·3%)            ··
+analyses, children were considered unaffected if they had            Male                                       264 378 (51·2%)         17 594 (51·7%)            ··
+not received any diagnosis of autism or intellectual               Single or multiple birth                           ··                     ··                <0·0001
+disability. While we recognise that there is discussion
+                                                                     Singleton                                  502 997 (97·5%)         32 417 (95·3%)            ··
+among community members regarding terminology
+                                                                     Twins                                       12 652 (2·5%)           1544 (4·5%)              ··
+describing neurodevelopmental conditions,26 here we
+                                                                     Triplets                                       285 (0·1%)              48 (0·1%)             ··
+chose to use the term unaffected to indicate children that
+                                                                     Quadruplets                                     20 (<0·1%)              4 (<0·1%)            ··
+did not receive the diagnosis of interest for each specific
+                                                                   Birth order                                        ··                     ··                <0·0001
+analysis, for clarity when comparing results.
+                                                                     First born                                 230 348 (44·6%)         17 072 (50·2%)            ··
+                                                                     Second born                                188 740 (36·6%)         10 749 (31·6%)            ··
+Statistical analysis
+                                                                     Third born or later                        96 866 (18·8%)           6192 (18·2%)             ··
+We calculated person-time from birth to diagnosis of an
+                                                                   Season of birth                                    ··                     ··                 0·0002
+outcome or a censoring event. We used Cox regression
+                                                                     December–February                          121 061 (23·5%)          7966 (23·4%)             ··
+models, assuming a proportional hazard from age 0 to
+                                                                     March–May                                  139 537 (27·0%)          9113 (26·8%)             ··
+18 years (ie, the weighted average of the relative risk during
+childhood), to model potential associations between                  June–August                                134 147 (26·0%)          8609 (25·3%)             ··
+
+maternal infection during pregnancy and the outcomes,                September–November                         121 209 (23·5%)          8325 (24·5%)             ··
+with the child’s age as the underlying timescale. We used a        Maternal psychiatric diagnosis                     ··                     ··                <0·0001
+robust sandwich estimator clustered on the mother to                 Not present                                295 148 (57·2%)         15 942 (46·9%)            ··
+calculate SEs, corrected for the dependence between                  Present                                    220 806 (42·8%)         18 071 (53·1%)            ··
+observations among children born to the same mother. We            Maternal pre-pregnancy infection†                  ··                     ··                <0·0001
+fitted models independently for the outcomes of any                  No pre-pregnancy infection                 501 688 (97·2%)         30 908 (90·9%)            ··
+autism diagnosis, any intellectual disability diagnosis,             Pre-pregnancy infection                     14 266 (2·8%)           3105 (9·1%)              ··
+autism without intellectual disability, autism with                Maternal age, years                                ··                     ··                <0·0001
+intellectual disability, and intellectual disability without         <25                                         75 181 (14·6%)          6088 (17·9%)             ··
+autism, with the unaffected group for each analysis as               25–29                                      152 878 (29·6%)          9350 (27·5%)             ··
+already specified.                                                   30–34                                      180 442 (35·0%)         11 125 (32·7%)            ··
+   Minimally adjusted models (model 1; adjusted for the              35–39                                      89 286 (17·3%)           6039 (17·8%)             ··
+child’s sex and birth year) were compared with models                >39                                         18 167 (3·5%)            1411 (4·1%)             ··
+adjusted for the child’s sex, birth year, birth order, and         Maternal BMI, km/m²                                ··                     ··                <0·0001
+season of birth; maternal age and BMI; parental psychiatric          Underweight (<18·5)                         13 964 (2·7%)            943 (2·8%)              ··
+history, income at birth, education level at birth, and              Healthy weight (18·5 to <25)               261 765 (50·7%)         17 016 (50·0%)            ··
+regions of origin; and paternal infection during pregnancy           Overweight (25 to <30)                      73 385 (14·2%)          6221 (18·3%)             ··
+(model 2 and model 3). Model 3 was additionally adjusted             Obese (>30)                                 24 292 (4·7%)           2840 (8·3%)              ··
+for maternal infections in the 1 year before pregnancy, to           Missing‡                                   142 548 (27·6%)          6993 (20·6%)             ··
+account for potential differences in susceptibility to                                                                                     (Table 1 continues on next page)
+infections or care-seeking behaviours between outcome
+groups.
+   To account for possible confounding by shared                 measured the risk of autism or intellectual disability
+familial      factors,   we     used     two      approaches     associated with maternal infections in the 1 year before
+(appendix 2 pp 1–2). First, as a negative control, we            pregnancy (the analogous time period and seasonality
+
+
+www.thelancet.com/psychiatry Vol 9 October 2022                                                                                                                           785
+         Articles
+
+
+
+
+                                                                                                                              Sensitivity analyses investigated whether associations
+                                                   No maternal infection        Maternal infection         p value*
+                                                   during pregnancy             during pregnancy                            varied by trimester in which infection occurred, type of
+                                                   (n=515 954)                  (n=34 013)                                  infection, or diagnoses restricted to inpatient care, and
+  (Continued from previous page)                                                                                            examined the potential for non-linear time-dependent
+  Maternal region of origin                                ··                          ··                  <0·0001
+                                                                                                                            associations (appendix 2 pp 1–2). We carried out a complete
+                                                                                                                            case analysis in which all children who were missing any
+      Sweden                                       384 854 (74·6%)              22 516 (66·2%)                ··
+                                                                                                                            covariate information were excluded from the analytical
+      Nordics                                       14 658 (2·8%)                   742 (2·2%)                ··
+                                                                                                                            sample. To test for carryover effects in the sibling
+      Western Europe                                 22 941 (4·4%)                1509 (4·4%)                 ··
+                                                                                                                            comparison,27 sibling cohorts were divided into groups of
+      Africa                                        22 860 (4·4%)                 2698 (7·9%)                 ··
+                                                                                                                            older exposed and younger unexposed versus younger
+      Asia and Oceania                              10 666 (2·1%)                  980 (2·9%)                 ··
+                                                                                                                            exposed and older unexposed.
+      Middle East                                   42 180 (8·2%)                 4115 (12·1%)                ··
+                                                                                                                              All statistical analyses were performed using Stata/MP
+      Eastern Europe and Russia                       6896 (1·3%)                  556 (1·6%)                 ··
+                                                                                                                            (version 15.1).
+      South America                                  10 825 (2·1%)                 890 (2·6%)                 ··
+      Unknown or missing§                                74 (<0·1%)                    7 (<0·1%)              ··
+                                                                                                                            Role of the funding source
+  Family income quintile at birth                          ··                          ··                  <0·0001
+                                                                                                                            The funders of the study had no role in study design,
+      Low (0–20%)                                    72 189 (14·0%)               5677 (16·7%)                ··
+                                                                                                                            data collection, data analysis, data interpretation, or
+      Medium-low (>20 to 40%)                      107 418 (20·8%)                8337 (24·5%)                ··            writing of the report.
+      Medium (>40 to 60%)                           112 120 (21·7%)               7357 (21·6%)                ··
+      Medium-high (>60 to 80%)                     112 162 (21·7%)                6591 (19·4%)                ··            Results
+      High (>80 to 100%)                            111 413 (21·6%)               6004 (17·7%)                ··            647 947 children living in Stockholm County were identified
+      Missing¶                                          652 (0·1%)                   47 (0·1%)                ··            and, after excluding 97 980, the total analytical sample
+  Highest parental education at birth, years               ··                          ··                  <0·0001          included 549 967 children (267 995 [48·7%] were female
+      <10                                           30 096 (5·8%)                 2794 (8·2%)                 ··            and 281 972 [51·3%] were male; mean age at censoring
+      10–12                                        197 076 (38·2%)               13 071 (38·4%)               ··            13·5 years [SD 5·0; range <1 to 18]; figure 1). Information
+      >12                                          287 618 (55·7%)              18 056 (53·1%)                ··            on ethnicity was not available, but 142 597 (25·9%) children
+      Missing||                                       1164 (0·2%)                    92 (0·3%)                ··            had a mother who was not born in Sweden. The study data
+  Paternal psychiatric diagnosis                           ··                          ··                  <0·0001          were analysed from May 28, 2021, to April 20, 2022. All
+      Not present                                  374 296 (72·5%)              23 308 (68·5%)                ··            covariates, except sex of the child, differed by exposure to
+      Present                                      141 658 (27·5%)              10 705 (31·5%)                ··            maternal infections during pregnancy (table 1). Mothers
+  Paternal infection during pregnancy                      ··                          ··                  <0·0001          who had infection during pregnancy were more likely to
+      No infection                                 508 908 (98·6%)              32 874 (96·7%)                ··            have a history of psychiatric illness and were more likely to
+      Pregnancy infection                             7046 (1·4%)                 1139 (3·3%)                 ··            have been treated for an infection in the year before
+  Paternal region of origin                                ··                          ··                  <0·0001          pregnancy than mothers who did not have an infection
+      Sweden                                       391 165 (75·8%)              22 776 (67·0%)                ··            during pregnancy (table 1). 445 (1·3%) of 34 013 children
+      Nordics                                        18 671 (3·6%)                 890 (2·6%)                 ··            exposed to maternal infection during pregnancy were
+      Western Europe                                 15 018 (2·9%)                1045 (3·1%)                 ··            diagnosed with intellectual disability and 1123 (3·3%) were
+      Africa                                        18 916 (3·7%)                 2402 (7·1%)                 ··            diagnosed with autism. 5087 (1·0%) of 515 954 unexposed
+      Asia and Oceania                               15 788 (3·1%)                1515 (4·5%)                 ··            children were diagnosed with intellectual disability and
+      Middle East                                   35 645 (6·9%)                 3675 (10·8%)                ··            13 035 (2·5%) were diagnosed with autism (table 1).
+      Eastern Europe and Russia                     10 992 (2·1%)                  810 (2·4%)                 ··              In the total analytical sample, all covariates
+      South America                                   9744 (1·9%)                  898 (2·6%)                 ··            differed by the presence of intellectual disability or
+      Unknown or missing§                                15 (<0·1%)                   2 (<0·1%)               ··
+                                                                                                                            autism (appendix 2 pp 12–15), including exposure to
+                                                                                                                            maternal infections during pregnancy (table 2).
+ Data are n (%) or p values. *p values reported for χ2 test. †Pre-pregnancy infection was defined as infection during the
+ analogous time period including the same seasons as the index pregnancy, but occurring in the year before the index
+                                                                                                                            However, children diagnosed with either intellectual
+ child’s conception. ‡Missing BMI observations were included in the model as its own category. §Missing observations        disability or autism were exposed to a maternal
+ were recorded as born in Sweden. ¶Missing observations were recoded as medium income. ||Missing observations               infection during pregnancy to a similar extent as their
+ were recorded as <10 years of education.
+                                                                                                                            unaffected siblings (appendix 2 pp 16–17; table 2).
+ Table 1: Characteristics of children in the study sample by exposure to maternal infection during                            In the full cohort comparison (n=549 967), maternal
+ pregnancy                                                                                                                  infection during pregnancy was associated with both
+                                                                                                                            intellectual disability (hazard ratio [HR] 1·37, 95% CI
+                                                                                                                            1·23–1·51) and autism (1·16, 1·09–1·23) in exposed
+                                    for the index pregnancy, but occurring in the year before                               children compared with unexposed children in the fully
+                                    the index child’s conception). Second, we conducted a                                   adjusted models (figure 2; appendix 2 p 3). We also
+                                    survival-based sibling analysis, in which we compared                                   observed associations between maternal infection
+                                    the occurrence of maternal infection among full-sibling                                 during pregnancy and each of the mutually exclusive
+                                    pairs.                                                                                  outcomes, with the highest likelihood observed for
+
+
+786                                                                                                                                            www.thelancet.com/psychiatry Vol 9 October 2022
+                                                                                                                                                                                Articles
+
+
+
+
+intellectual disability without autism (HR 1·40, 95% CI                                 was not associated with autism with intellectual disability
+1·21–1·61), followed by autism with intellectual disability                             (1·01, 0·81–1·27) or intellectual disability without autism
+(1·35, 1·17–1·56), and autism without intellectual                                      (1·13, 0·92–1·39; figure 3).
+disability (1·13, 1·06–1·21; figure 3).                                                    After excluding children without siblings and sibling
+  In the negative control exposure in the full cohort,                                  pairs without the relevant outcome, 394 093 children
+maternal infection in the year before pregnancy was                                     were included in the sibling comparison, including
+associated with autism (HR 1·25, 95% CI 1·14–1·36), but                                 9275 children in the comparison for intellectual disability
+was not associated with intellectual disability (1·09,                                  (3937 with a diagnosis and 5338 siblings without), and
+0·94–1·27; figure 2). Maternal infection in the year before                             21 864 were included in the comparison for autism
+pregnancy was associated with autism without                                            (10 030 with a diagnosis and 11 834 siblings without;
+intellectual disability (HR 1·30, 95% CI 1·19–1·43), but                                figure 1). In the sibling comparison, the relative risk for
+                                                                                        intellectual disability was attenuated compared with the
+                                                                                        full cohort analysis and no longer showed a significant
+                                      Number of             Children exposed to
+                                      children              maternal infection          association (HR 1·15, 95% CI 0·95–1·40). The association
+                                                                                        between maternal infection during pregnancy and autism
+   Full cohort comparison (n=549 967)
+                                                                                        was completely attenuated in the sibling comparison
+   Intellectual disability
+                                                                                        (HR 0·94, 95% CI 0·82–1·08; figure 2; appendix 2 p 4).
+     Diagnosis                             5532               445 (8·0%)
+                                                                                        When implementing the non-stratified analytical models
+     No diagnosis                     544 435               33 568 (6·2%)
+                                                                                        restricted to the sibling sample (n=394 093), our findings
+   Autism
+                                                                                        did not notably differ from the full population-based
+     Diagnosis                           14 158               1123 (7·9%)
+                                                                                        comparison (appendix 2 p 5).
+     No diagnosis                     535 809               32 890 (6·1%)                  For the mutually exclusive outcomes, the associations
+   Sibling comparison (n=394 093)                                                       with maternal infection during pregnancy were
+   Intellectual disability                                                              attenuated for autism with intellectual disability
+     Diagnosis                             3937               281 (7·1%)                (HR 1·20, 95% CI 0·92–1·58), intellectual disability
+     Siblings without diagnosis            5388               365 (6·8%)                without autism (1·18, 0·90–1·55), and autism without
+   Autism                                                                               intellectual disability (0·89, 0·77–1·04) in the sibling
+     Diagnosis                           10 030               693 (6·9%)                analysis compared with the full cohort analysis
+     Siblings without diagnosis          11 834                797 (6·7%)               (figure 3).
+  Data are n or n (%).                                                                     In the full cohort, there was no notable difference from
+                                                                                        the primary analyses when maternal infections were
+  Table 2: Exposure to maternal infection during pregnancy by diagnosis
+  of intellectual disability or autism
+                                                                                        partitioned by type of infection (appendix 2 p 18) or
+                                                                                        trimester of pregnancy (appendix 2 p 19), or restricted to
+
+                                Cases      Person-years                                               HR (95% CI)
+
+                                                                                                      Model 1            Model 2            Model 3        Sibling model
+
+   Any intellectual disability diagnosis
+   No pre-pregnancy infection     5352 7 216 766                                                      1 (ref)            1 (ref)
+   Pre-pregnancy infection         180      190 116                                                   1·32 (1·13–1·53)   1·09 (0·94–1·27)
+   No pregnancy infection         5087 7 022 404                                                      1 (ref)            1 (ref)            1 (ref)
+   Pregnancy infection             445      384 478                                                   1·63 (1·48–1·81) 1·37 (1·24–1·52) 1·37 (1·23–1·51)
+   No pregnancy infection         3656      106 572                                                                                                        1 (ref)
+   Pregnancy infection             281         6725                                                                                                        1·15 (0·95–1·40)
+   Any autism diagnosis
+   No pre-pregnancy infection 13 590 7 187 807                                                        1 (ref)            1 (ref)
+   Pre-pregnancy infection         567      188 903                                                   1·37 (1·26–1·49) 1·25 (1·14–1·36)
+   No pregnancy infection       13 034 6 994 459                                                      1 (ref)            1 (ref)            1 (ref)
+   Pregnancy infection            1123      382 251                                                   1·31 (1·23–1·40) 1·17 (1·10–1·24) 1·16 (1·09–1·23)
+   No pregnancy infection         9336      254 965                                                                                                        1 (ref)
+   Pregnancy infection            693        15 959                                                                                                        0·94 (0·82–1·08)
+
+                                                      0·8         1·0        1·2       1·4      1·6
+
+Figure 2: The relationship between maternal infection during pregnancy and likelihood of intellectual disability and autism
+Person-years indicate the total person-time for the study sample according to exposure status. Pre-pregnancy infection was defined as infection during the analogous
+time period including the same seasons as the index pregnancy, but occurring in the year before the index child’s conception. Model 1 was adjusted for child’s sex and
+birth year. Model 2 was adjusted for child’s sex, birth year, birth order, and season of birth; maternal age and BMI; parental psychiatric history, income at birth, level of
+education at birth, and regions of origin; and paternal infection during pregnancy. Model 3 was adjusted as model 2, but also adjusted for maternal pre-pregnancy
+infection. The sibling model was adjusted for child’s sex, birth order, birth year, and season of birth; and paternal infection with model stratification on the nuclear
+family. The forest plot shows the point estimates for HR for each fully adjusted model on the log scale. Error bars are 95% CIs. HR=hazard ratio.
+
+
+
+www.thelancet.com/psychiatry Vol 9 October 2022                                                                                                                                            787
+      Articles
+
+
+
+
+                                                 Cases    Person-years                                                 HR (95% CI)
+
+                                                                                                                       Model 1            Model 2            Model 3            Sibling model
+
+                    Autism with intellectual disability
+                    No pre-pregnancy infection 2707       7 230 224                                                    1 (ref)            1 (ref)
+                    Pre-pregnancy infection        84        190 553                                                   1·17 (0·94–1·47) 1·01 (0·81–1·27)
+                    No pregnancy infection       2567     7 035 356                                                    1 (ref)            1 (ref)            1 (ref)
+                    Pregnancy infection           224        385 421                                                   1·58 (1·37–1·81)   1·35 (1·17–1·56) 1·35 (1·17–1·56)
+                    No pregnancy infection       1854         50687                                                                                                             1 (ref)
+                    Pregnancy infection           141          3126                                                                                                             1·20 (0·92–1·58)
+                    Autism without intellectual disability
+                    No pre-pregnancy infection 11 010     7 208 716                                                    1 (ref)            1 (ref)
+                    Pre-pregnancy infection       485        189 509                                                   1·41 (1·29–1·55)   1·30 (1·19–1·43)
+                    No pregnancy infection     10 582     7 014 382                                                    1 (ref)            1 (ref)            1 (ref)
+                    Pregnancy infection           913        383 842                                                   1·27 (1·19–1·36)   1·15 (1·07–1·23)   1·13 (1·06–1·21)
+                    No pregnancy infection       7544        211057                                                                                                             1 (ref)
+                    Pregnancy infection           559         13336                                                                                                             0·89 (0·77–1·04)
+                    Intellectual disability without autism
+                    No pre-pregnancy infection 2766       7 236 398                                                    1 (ref)            1 (ref)
+                    Pre-pregnancy infection        96        190 680                                                   1·42 (1·16–1·74)   1·13 (0·92–1·39)
+                    No pregnancy infection       2633     7 041 090                                                    1 (ref)            1 (ref)            1 (ref)
+                    Pregnancy infection           229        385 988                                                   1·70 (1·48–1·95) 1·40 (1·22–1·61) 1·40 (1·21–1·61)
+                    No pregnancy infection       1880         58541                                                                                                             1 (ref)
+                    Pregnancy infection           145          3662                                                                                                             1·18 (0·90–1·55)
+
+                                                                       0·8        1·0      1·2     1·4     1·6   1·8
+
+                 Figure 3: The relationship between maternal infection during pregnancy and likelihood of the mutually exclusive outcomes of autism with intellectual
+                 disability, autism without intellectual disability, and intellectual disability without autism
+                 Person-years indicate the total person-time for the study sample according to exposure status. Pre-pregnancy infection was defined as infection during the analogous
+                 time period including the same seasons as the index pregnancy, but occurring in the year before the index child’s conception. Model 1 was adjusted for child’s sex and
+                 birth year. Model 2 was adjusted for child’s sex, birth year, birth order, and season of birth; maternal age and BMI; parental psychiatric history, income at birth, level of
+                 education at birth, and regions of origin; and paternal infection during pregnancy. Model 3 was adjusted as model 2, but also adjusted for maternal pre-pregnancy
+                 infection. The sibling model was adjusted for child’s sex, birth order, birth year, and season of birth; and paternal infection with model stratification on the nuclear
+                 family. The forest plot shows the point estimates for HR for each fully adjusted model on the log scale. Error bars are 95% CIs. HR=hazard ratio.
+
+
+                 maternal infections diagnosed in inpatient care for both                                analyses of mutually exclusive outcomes, where only
+                 the full cohort (appendix 2 p 6) and the sibling comparisons                            autism without intellectual disability was associated
+                 (appendix 2 p 7). There were no apparent non-linear, time-                              with maternal infection in the year before pregnancy.
+                 dependent associations (appendix 2 p 3). We did not                                     Our analyses of full siblings suggest that familial
+                 observe substantial differences between the results of                                  factors—eg, genetic variation or shared environment—
+                 the complete-case analysis and our primary analysis                                     largely explain the association between maternal
+                 (appendix 2 p 20). We observed no indication of carryover                               infection during pregnancy and autism observed in the
+                 effects in the sibling comparisons, with similar estimates                              general population. For intellectual disability, such
+                 when comparing older exposed or younger unexposed                                       factors might not fully explain the risk associated with
+                 versus younger exposed or older unexposed sibling groups                                maternal infection during pregnancy.
+                 (appendix 2 p 21).                                                                        One previous study of autism compared exposure-
+                                                                                                         discordant sibling pairs to controls for unmeasured
+                 Discussion                                                                              familial confounders.28 The authors found no association
+                 We investigated the associations between maternal                                       between gestational urinary tract infection and autism
+                 infections during pregnancy and chance of autism and                                    when comparing autistic children with general
+                 intellectual disability in their offspring in Sweden. In                                population controls or their non-autistic siblings.
+                 the general population, we observed an association                                      However, the study had a small number of exposed
+                 between maternal infection during pregnancy and both                                    cases (n=17) and the follow-up period was short.
+                 autism and intellectual disability in exposed children, in                                In our total study sample, we observed an association
+                 concordance with previous register-based studies.7,10,11,13                             between a record of maternal infection during pregnancy
+                 Moreover, we observed an association between maternal                                   and intellectual disability in exposed children. We observed
+                 infection during the same period in the year before                                     no association between maternal infections during the
+                 pregnancy and risk of autism, but this was not associated                               year before pregnancy and intellectual disability, regardless
+                 with intellectual disability. This discrepancy between                                  of whether intellectual disability co-occurred with autism.
+                 autism and intellectual disability was highlighted in the                               The absence of an association with infections in the year
+
+
+788                                                                                                                                   www.thelancet.com/psychiatry Vol 9 October 2022
+                                                                                                                               Articles
+
+
+
+
+before pregnancy might indicate that the observed               previous register studies, which reported a prevalence of
+association in the full cohort comparison was not due to a      maternal infections in pregnancy of 1·3–3·4%.10,11,13
+general susceptibility to infections among mothers, but         Nevertheless, we could still only include mothers who
+might rather be related to maternal infections during the       sought specialised care, and we could not include
+pregnancy period specifically. This finding does not            infections treated in primary care. Potentially, the more
+confirm, but is compatible with, a causal role of maternal      inclusive ascertainment strategy might dilute relevant
+infections in intellectual disability. In the sibling           associations, if only the more severe infections were to
+comparison, the associations between maternal infections        have a harmful, causal effect on the developing fetus, and
+and intellectual disability, regardless of co-occurring         such infections were more likely to be treated in an
+autism diagnoses, were attenuated and not significant.          inpatient setting. However, we observed similar results
+Overall, our results suggest that unmeasured factors            when comparing the broader exposure classification and
+shared between family members explain some, but                 inpatient-only diagnoses. We could not evaluate
+potentially not all, of the observed association between        associations with specific or rare infections, infections
+maternal infections during pregnancy and risk of                not requiring contact with specialised health care, or
+intellectual disability. Some specific maternal infections      infections that were not present in the population during
+during pregnancy are known causes of intellectual               the study period (eg, SARS-CoV-2). Due to health
+disability, and sometimes also autism-related symptoms.         disparities across socioeconomic strata, mothers with low
+In the current sample, such causal exposures were               household income might be less likely to be ascertained
+probably too rare to be detected.                               as exposed if they were less able or less inclined to seek
+  Consistent with several epidemiological studies,15 we         specialised care for infections. However, the universal
+observed an association between maternal infection              Swedish health-care system provides care to all residents
+during pregnancy and autism at the population level.            at a nominal cost, including a free programme of
+However, an association of similar magnitude was also           antenatal care, which would limit the impact of such
+observed between maternal infections during the year            ascertainment bias. Although we were not able to adjust
+before pregnancy and autism in their children, indicating       for all confounding by sociodemographic factors, the
+that infection during pregnancy might in itself pose no         sibling comparison allowed us intrinsically to account for
+specific change to the likelihood of autism. Additionally,      factors that are shared within families, such as
+associations were not observed in comparisons between           socioeconomic status or health-care seeking patterns.
+sibling pairs, further supporting that these exposures are      Missing observations in several covariates, including a
+not causally related to autism. The absence of an               relatively high proportion of missing data for maternal
+association did not appear to be due the study being            BMI, might introduce residual confounding even in our
+underpowered, as a non-stratified model (between-family         fully adjusted models. The degree of bias that could arise
+comparison) restricted to the same smaller sibling              from our treatment of the missing observations is
+population gave results similar to those observed in the        dependent on factors such as the proportion missing and
+total study population analysis. Taken together, these          the magnitude of the associations of the covariate with
+observations suggest that a general association between         exposure and outcome (ie, potential for confounding).
+maternal infections during pregnancy and autism,                Because the proportion missing for all variables except
+particularly autism without intellectual disability, might be   maternal BMI was less than 0·5% and the magnitude of
+attributable to unmeasured confounding. Our analyses of         the associations with the outcomes was generally small,
+mutually exclusive diagnostic subgroups indicate that           we assume that they were weak confounders.22,23 The
+confounding by familial factors might not fully explain the     complete case analysis provided further reassurance that
+association with autism with intellectual disability. Family    missing data were not likely to be a notable source of bias.
+studies suggest that autism with intellectual disability is       The use of register diagnoses to identify cases of
+less familial than autism without intellectual disability.29    intellectual disability and autism might miss less severe
+The reported phenotypic and genotypic correlations              cases in the population. Such misclassification would
+between risk for maternal infections and autism might           drive estimated risks towards the null. However, a
+suggest that women with higher genetic liability for autism     strength of our case ascertainment is that we use a well
+are more vulnerable to infections than the general              characterised cohort within a socialised health-care
+population.19                                                   system with validated ascertainment procedures covering
+  A common limitation with exposure ascertainment of            all pathways to habilitation services and care.25 The
+infections using medical records is that detection relies       prevalence of autism and intellectual disability in this
+on contact with the health-care system. Previous register       study were in line with the international estimates
+studies have relied solely on inpatient records. In this        (1·5% for autism and 1·0% for intellectual disability).22,23
+study, we combined inpatient and specialised outpatient           There is evidence to suggest that the underlying cause
+care sources to capture a wider range of infections. Using      of intellectual disability varies by grade of severity, with
+this extended exposure ascertainment, we increased the          dominant non-inherited genetic variation explaining a
+proportion of infection exposures compared with                 large proportion of severe or profound cases, whereas the
+
+
+www.thelancet.com/psychiatry Vol 9 October 2022                                                                                           789
+      Articles
+
+
+
+
+                 milder cases seem to have a more complex multigenic              results of the negative control analyses. Together, these
+                 background with potentially greater influence from               models indicate that the commonly observed association
+                 environmental factors.30 Treating intellectual disability as a   between maternal infection during pregnancy and exposed
+                 single condition might preclude the detection of severity-       children’s likelihood of autism might be confounded by
+                 specific causal effects, and severity grade would thus           unobserved factors shared within families, such as shared
+                 preferably be considered in the analyses. However, due to        environment or genetic variation. The association between
+                 a large proportion of missing data (41·6%) on severity           maternal infection during pregnancy and exposed
+                 grade of intellectual disability and a low proportion (5·2%)     children’s likelihood of intellectual disability also appears
+                 of severe intellectual disability cases in this cohort,31 our    to be explained by residual confounding, but potentially
+                 categorisations would be incomplete and our analysis             not to the same extent. It should be noted that our work
+                 would be underpowered.                                           does not exclude a causal role of specific maternal
+                   Overall, the main strength of our study is the ability to      infections during pregnancy and likelihood of autism or
+                 compare estimates across different models—a general              intellectual disability, or both, and does not contradict the
+                 population estimate, a negative control exposure, and a          well-documented associations between, for example,
+                 sibling comparison—to assess and control for bias from           maternal rubella or cytomegalovirus infections during
+                 unmeasured confounding factors. The negative control             pregnancy and children’s risk for intellectual disability.
+                 exposure design enables detection of unmeasured                  Contributors
+                 confounding by investigating an exposure with no                 MB drafted the first manuscript and contributed to study design and data
+                 plausible biological effect on the outcome of interest.32        analysis. HS drafted the first manuscript, and contributed to study design,
+                                                                                  data acquisition, and data analysis. HK contributed to study design, data
+                 There is the possibility that long-term consequences of          analysis, and manuscript preparation. RMG contributed to study design,
+                 an infection in the year before pregnancy might affect           data acquisition, data analysis, and manuscript preparation.
+                 the index pregnancy in some way. Mutual adjustments              CD contributed to data acquisition, study design, and manuscript
+                 for differences in the rate of infections before or during       preparation. BKL contributed to study design and manuscript preparation.
+                                                                                  MB, HS, RMG, and CD had full access to and verified the data. All
+                 pregnancy did not influence any of the associations,             authors had final responsibility for the decision to submit for publication.
+                 indicating that risks associated with these exposures
+                                                                                  Declaration of interests
+                 were independent of each other. Analogous paternal               We declare no competing interests.
+                 exposures are often considered a negative control. In the
+                                                                                  Data sharing
+                 case of paternal infections during the maternal pregnancy        The Swedish health and population register data used in this study are
+                 period, there is a possibility of disease transmission           available from Statistics Sweden and the Swedish National Board of
+                 between the parents. Hence, paternal infections were             Health and Welfare. The authors are not allowed to distribute the data
+                 only included as a covariate.                                    according to the ethical approval for this study and the agreements with
+                                                                                  Statistics Sweden and the Swedish National Board of Health and Welfare.
+                   Previous studies have recognised the possibility of
+                                                                                  Acknowledgments
+                 shared genetic liability between serious infections and
+                                                                                  This work was supported by grants from the Swedish Research Council
+                 neurodevelopmental conditions and have attempted to              (2016-01477, 2012-2264, and 523-2010-1052 [to CD]; 2017-02900 [to RG]),
+                 guard against such confounding by including diagnosed            Autism Speaks (7618 [to BKL]), and the Stanley Medical Research
+                 parental psychiatric history in their models.10,11 Such          Institute (to HK).
+                 measures are limited by their inability to capture               References
+                 subclinical traits and by uneven data quality over time and      1    Bale JF Jr. Fetal infections and brain development. Clin Perinatol
+                                                                                       2009; 36: 639–53.
+                 across populations (eg, for immigrants). By implementing         2    Bopegamage S, Precechtelova J, Marosova L, et al. Outcome of
+                 a within-family approach, we were able to account for                 challenge with Coxsackievirus B4 in young mice after maternal
+                 unmeasured familial factors.                                          infection with the same virus during gestation.
+                                                                                       FEMS Immunol Med Microbiol 2012; 64: 184–90.
+                   Sibling comparisons are sensitive to bias from                 3    Stephan AH, Barres BA, Stevens B. The complement system:
+                 carryover effects,27 measurement error, and unobserved                an unexpected role in synaptic pruning during development and
+                 confounders that are not perfectly shared by siblings.33              disease. Annu Rev Neurosci 2012; 35: 369–89.
+                 There is a risk of measurement error for both exposure           4    Karlsson H. Etiological environmental models: virus infection
+                                                                                       models. In: Pletnikov MV, Waddington JL, eds. Handbook of
+                 and outcome status, considering the inability to ascertain            behavioral neuroscience. Amsterdam: Elsevier, 2016: 193–207.
+                 less severe cases, and time trends in the prevalence of          5    Thurm A, Farmer C, Salzman E, Lord C, Bishop S. State of the field:
+                 autism, which could attenuate the within-pair estimates               differentiating intellectual disability from autism spectrum
+                                                                                       disorder. Front Psychiatry 2019; 10: 526.
+                 towards the null. However, changing the classification of        6    Crespi BJ. Autism as a disorder of high intelligence. Front Neurosci
+                 infections (by restricting to inpatient diagnoses) yielded            2016; 10: 300.
+                 similar point estimates. We also found no evidence to            7    Langridge AT, Glasson EJ, Nassar N, et al. Maternal conditions and
+                                                                                       perinatal characteristics associated with autism spectrum disorder
+                 suggest a presence of carryover effects of the exposure,              and intellectual disability. PLoS One 2013; 8: e50963.
+                 in an analysis which also helps to reassure that the             8    McDermott S, Callaghan W, Szwejbka L, Mann H, Daguise V.
+                 results are not strongly biased by time trends in autism              Urinary tract infections during pregnancy and mental retardation
+                                                                                       and developmental delay. Obstet Gynecol 2000; 96: 113–19.
+                 diagnoses.
+                                                                                  9    McDermott S, Daguise V, Mann H, Szwejbka L, Callaghan W.
+                   Although the results from the sibling comparison should             Perinatal risk for mortality and mental retardation associated with
+                 be interpreted with some caution, they do align with the              maternal urinary-tract infections. J Fam Pract 2001; 50: 433–37.
+
+
+
+790                                                                                                      www.thelancet.com/psychiatry Vol 9 October 2022
+                                                                                                                                                        Articles
+
+
+
+
+10   Atladóttir HO, Thorsen P, Østergaard L, et al. Maternal infection       22   Lyall K, Croen L, Daniels J, et al. The changing epidemiology of
+     requiring hospitalization during pregnancy and autism spectrum               autism spectrum disorders. Annu Rev Public Health 2017;
+     disorders. J Autism Dev Disord 2010; 40: 1423–30.                            38: 81–102.
+11   Lee BK, Magnusson C, Gardner RM, et al. Maternal hospitalization        23   Patel DR, Cabral MD, Ho A, Merrick J. A clinical primer on
+     with infection during pregnancy and risk of autism spectrum                  intellectual disability. Transl Pediatr 2020; 9 (suppl 1): S23–35.
+     disorders. Brain Behav Immun 2015; 44: 100–05.                          24   Lee BK, Gross R, Francis RW, et al. Birth seasonality and risk of
+12   Zerbo O, Qian Y, Yoshida C, Grether JK, Van de Water J, Croen LA.            autism spectrum disorder. Eur J Epidemiol 2019; 34: 785–92.
+     Maternal infection during pregnancy and autism spectrum                 25   Idring S, Rai D, Dal H, et al. Autism spectrum disorders in the
+     disorders. J Autism Dev Disord 2015; 45: 4015–25.                            Stockholm Youth Cohort: design, prevalence and validity. PLoS One
+13   Al-Haddad BJS, Jacobsson B, Chabra S, et al. Long-term risk of               2012; 7: e41280.
+     neuropsychiatric disease after exposure to infection in utero.          26   Kenny L, Hattersley C, Molins B, Buckley C, Povey C, Pellicano E.
+     JAMA Psychiatry 2019; 76: 594–602.                                           Which terms should be used to describe autism? Perspectives from
+14   Atladóttir HÓ, Henriksen TB, Schendel DE, Parner ET. Autism after            the UK autism community. Autism 2016; 20: 442–62.
+     infection, febrile episodes, and antibiotic use during pregnancy:       27   Sjölander A, Frisell T, Kuja-Halkola R, Öberg S, Zetterqvist J.
+     an exploratory study. Pediatrics 2012; 130: e1447–54.                        Carryover effects in sibling comparison designs. Epidemiology 2016;
+15   Tioleco N, Silberman AE, Stratigos K, et al. Prenatal maternal               27: 852–58.
+     infection and risk for autism in offspring: a meta-analysis.            28   Glasson EJ, Bower C, Petterson B, de Klerk N, Chaney G,
+     Autism Res 2021; 14: 1296–316.                                               Hallmayer JF. Perinatal factors and the development of autism:
+16   Chapman SJ, Hill AV. Human genetic susceptibility to infectious              a population study. Arch Gen Psychiatry 2004; 61: 618–27.
+     disease. Nat Rev Genet 2012; 13: 175–88.                                29   Xie S, Karlsson H, Dalman C, et al. The familial risk of autism
+17   Tian C, Hromatka BS, Kiefer AK, et al. Genome-wide association               spectrum disorder with and without intellectual disability.
+     and HLA region fine-mapping studies identify susceptibility loci             Autism Res 2020; 13: 2242–50.
+     for multiple common infections. Nat Commun 2017; 8: 599.                30   Reichenberg A, Cederlöf M, McMillan A, et al. Discontinuity in the
+18   Nudel R, Benros ME, Krebs MD, et al. Immunity and mental                     genetic and environmental causes of the intellectual disability
+     illness: findings from a Danish population-based immunogenetic               spectrum. Proc Natl Acad Sci USA 2016; 113: 1098–103.
+     study of seven psychiatric and neurodevelopmental disorders.            31   Gardner RM, Dalman C, Rai D, Lee BK, Karlsson H.
+     Eur J Hum Genet 2019; 27: 1445–55.                                           The association of paternal IQ with autism spectrum disorders and
+19   Nudel R, Wang Y, Appadurai V, et al. A large-scale genomic                   its comorbidities: a population-based cohort study.
+     investigation of susceptibility to infection and its association with        J Am Acad Child Adolesc Psychiatry 2020; 59: 410–21.
+     mental disorders in the Danish population. Transl Psychiatry 2019;      32   Lipsitch M, Tchetgen Tchetgen E, Cohen T. Negative controls: a tool
+     9: 283.                                                                      for detecting confounding and bias in observational studies.
+20   Yip BHK, Bai D, Mahjani B, et al. Heritable variation, with little or        Epidemiology 2010; 21: 383–88.
+     no maternal effect, accounts for recurrence risk to autism spectrum     33   Frisell T, Öberg S, Kuja-Halkola R, Sjölander A. Sibling comparison
+     disorder in Sweden. Biol Psychiatry 2018; 83: 589–97.                        designs: bias from non-shared confounders and measurement
+21   Blomström Å, Karlsson H, Svensson A, et al. Hospital admission               error. Epidemiology 2012; 23: 713–20.
+     with infection during childhood and risk for psychotic illness—
+     a population-based cohort study. Schizophr Bull 2014; 40: 1518–25.
+
+
+
+
+www.thelancet.com/psychiatry Vol 9 October 2022                                                                                                                    791
+

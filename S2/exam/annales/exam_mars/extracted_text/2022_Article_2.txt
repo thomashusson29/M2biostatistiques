@@ -1,0 +1,736 @@
+                                                                   T h e n e w e ng l a n d j o u r na l o f m e dic i n e
+
+
+
+
+                                                                                    Original Article
+
+
+                                                    Dupilumab in Children with Uncontrolled
+                                                          Moderate-to-Severe Asthma
+                                                   L.B. Bacharier, J.F. Maspero, C.H. Katelaris, A.G. Fiocchi, R. Gagnon, I. de Mir,
+                                                  N. Jain, L.D. Sher, X. Mao, D. Liu, Y. Zhang, A.H. Khan, U. Kapoor, F.A. Khokhar,
+                                                          P.J. Rowe, Y. Deniz, M. Ruddy, E. Laws, N. Patel, D.M. Weinreich,
+                                                      G.D. Yancopoulos, N. Amin, L.P. Mannent, D.J. Lederer, and M. Hardin,
+                                                                    for the Liberty Asthma VOYAGE Investigators*​​
+
+                                                                                        A BS T R AC T
+
+                                                  BACKGROUND
+The authors’ full names, academic de-             Children with moderate-to-severe asthma continue to have disease complications
+grees, and affiliations are listed in the         despite the receipt of standard-of-care therapy. The monoclonal antibody dupilu­
+Appendix. Dr. Bacharier can be contacted
+at ­leonard​.­bacharier@​­vumc​.­org or at the    mab has been approved for the treatment of adults and adolescents with asthma
+Division of Allergy, Immunology, and              as well as with other type 2 inflammatory diseases.
+Pulmonary Medicine, Monroe Carell Jr.
+Children’s Hospital at Vanderbilt Univer-         METHODS
+sity Medical Center, 2200 Children’s Way,         In this 52-week phase 3, randomized, double-blind, placebo-controlled trial, we
+Doctor’s Office Tower 11205, Nashville,           assigned 408 children between the ages of 6 and 11 years who had uncontrolled
+TN 37232.
+                                                  moderate-to-severe asthma to receive a subcutaneous injection of dupilumab (at a
+*A complete list of the investigators in          dose of 100 mg for those weighing ≤30 kg and 200 mg for those weighing >30 kg)
+ the Liberty Asthma VOYAGE trial is pro-
+ vided in the Supplementary Appendix,             or matched placebo every 2 weeks. All the children continued to receive a stable
+ available at NEJM.org.                           dose of standard background therapy. The primary end point was the annualized
+N Engl J Med 2021;385:2230-40.                    rate of severe asthma exacerbations. Secondary end points included the change
+DOI: 10.1056/NEJMoa2106567                        from baseline in the percentage of predicted prebronchodilator forced expiratory
+Copyright © 2021 Massachusetts Medical Society.
+                                                  volume in 1 second (ppFEV1) at week 12 and in the score on the Asthma Control
+   CME                                            Questionnaire 7 Interviewer-Administered (ACQ-7-IA) at week 24. End points were
+at NEJM.org                                       evaluated in the two primary efficacy populations who had either a type 2 inflam-
+                                                  matory asthma phenotype (≥150 blood eosinophils per cubic millimeter or a frac-
+                                                  tion of exhaled nitric oxide of ≥20 ppb at baseline) or a blood eosinophil count of
+                                                  at least 300 cells per cubic millimeter at baseline.
+                                                  RESULTS
+                                                  In patients with the type 2 inflammatory phenotype, the annualized rate of severe
+                                                  asthma exacerbations was 0.31 (95% confidence interval [CI], 0.22 to 0.42) with
+                                                  dupilumab and 0.75 (95% CI, 0.54 to 1.03) with placebo (relative risk reduction in
+                                                  the dupilumab group, 59.3%; 95% CI, 39.5 to 72.6; P<0.001). The mean (±SE)
+                                                  change from baseline in the ppFEV1 was 10.5±1.0 percentage points with dupilu­
+                                                  mab and 5.3±1.4 percentage points with placebo (mean difference, 5.2 percentage
+                                                  points; 95% CI, 2.1 to 8.3; P<0.001). Dupilumab also resulted in significantly bet-
+                                                  ter asthma control than placebo (P<0.001). Similar results were observed in the
+                                                  patients with an eosinophil count of at least 300 cells per cubic millimeter at
+                                                  baseline. The incidence of serious adverse events was similar in the two groups.
+                                                  CONCLUSIONS
+                                                  Among children with uncontrolled moderate-to-severe asthma, those who received
+                                                  add-on dupilumab had fewer asthma exacerbations and better lung function
+                                                  and asthma control than those who received placebo. (Funded by Sanofi and
+                                                  Regeneron Pharmaceuticals; Liberty Asthma VOYAGE ClinicalTrials.gov number,
+                                                  NCT02948959.)
+
+2230                                                          n engl j med 385;24   nejm.org   December 9, 2021
+
+                                                         The New England Journal of Medicine
+              Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                                           Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                   Dupilumab in Children with Moder ate-to-Severe Asthma
+
+
+
+
+A
+        sthma affects 1 in 12 children in                  were analyzed by the sponsors according to a
+        the United States.1 Approximately 5 to 10%         predefined statistical analysis plan.
+        of all children with asthma have disease               The trial was conducted in accordance with           A Quick Take
+that is characterized as severe,2,3 with increasing        the principles of the Declaration of Helsinki, the       is available at
+severity associated with substantial health care           Good Clinical Practice guidelines of the Interna-        NEJM.org
+costs, caregiver burden, impaired quality of life,         tional Council for Harmonisation, and applica-
+and loss of school days.4-8 Children with moder-           ble regulatory requirements. An independent data
+ate-to-severe asthma can have reduced lung                 and safety monitoring committee conducted
+function and are at increased risk for abnormal            blinded monitoring of patient safety data (as
+patterns of lung growth and decline, including             outlined in Section 3 in the Supplementary Ap-
+an increased risk of chronic obstructive pulmo-            pendix). The local institutional review board or
+nary disease (COPD) in adulthood.9-13                      ethics committee at each trial center oversaw the
+   Type 2 inflammation is the predominant                  conduct and documentation of the trial. Parents
+driver of asthma in children and is characterized          or guardians of patients provided written in-
+by the release of signature cytokines interleu-            formed consent. The children provided assent
+kin-4, interleukin-5, and interleukin-13, which            according to the standard practice for pediatric
+leads to the downstream activation of eosino-              patients that had been approved by the ethics
+phils, the production of IgE, and increased levels         committee at each participating center.
+of fraction of exhaled nitric oxide (FeNO) and                 All the authors participated in interpretation
+mucus production.14 To identify adolescent and             of the data and provided input into the drafting
+adult patients with severe, uncontrolled asthma            of the manuscript, critical feedback, and final
+who may benefit from biologic therapies target-            approval for submission, and they take responsi-
+ing type 2 inflammation, the Global Initiative for         bility for the accuracy and completeness of the
+Asthma (GINA) recommends the use of an elevat-             data and for the fidelity of the trial to the proto-
+ed peripheral-blood eosinophil count (≥150 cells           col. All the investigators had confidentiality
+per cubic millimeter), an elevated FeNO (≥20 parts         agreements with the sponsors pertaining to the
+per billion [ppb]), or both as cutoff values.15            details of the trial and the data collected. The
+   Dupilumab, a fully human monoclonal anti-               manuscript drafts were prepared with the assis-
+body, blocks the alpha subunit of the interleu-            tance of a medical writer who was paid by the
+kin-4 receptor and inhibits signaling by interleu-         sponsors.
+kin-4 and interleukin-13.16,17 It is approved for
+the treatment of adults and adolescents with               Patients
+asthma as well as other type 2 inflammatory                Children between the ages of 6 and 11 years
+diseases, including atopic dermatitis and chronic          were eligible to participate if they had physician-
+rhinosinusitis with nasal polyposis. We designed           diagnosed moderate-to-severe asthma according
+a multinational, randomized, placebo-controlled,           to GINA guidelines.18 Patients completed a screen-
+phase 3 trial, Liberty Asthma VOYAGE (Evalua-              ing period of 4 weeks (±1 week) followed by
+tion of Dupilumab in Children with Uncontrolled            randomization. At screening, patients were re-
+Asthma), to assess the efficacy and safety of              quired to have at least a 3-month history of
+dupilumab in children between the ages of 6 and            receiving either a medium-dose inhaled gluco-
+11 years with moderate-to-severe asthma.                   corticoid in combination with a second control-
+                                                           ler or a high-dose inhaled glucocorticoid alone
+                                                           or in combination with a second controller at a
+                    Me thods
+                                                           dose that had been stable for at least 1 month
+Trial Design and Oversight                                 before screening (Table S1). Additional key inclu-
+Full details regarding the trial design are pro-           sion criteria included at least one severe exacer-
+vided in Figure S1 and Section 2 in the Supple-            bation (defined as leading to the use of systemic
+mentary Appendix, available with the full text of          glucocorticoids, hospitalization, or emergency
+this article at NEJM.org. The protocol (also avail-        department visit for worsening asthma) within
+able at NEJM.org) was developed by the spon-               the past year, a prebronchodilator forced expira-
+sors, Sanofi and Regeneron Pharmaceuticals.                tory volume in 1 second (FEV1) of 95% or less of
+Data were collected by the investigators and               the predicted value at screening and baseline
+
+
+                                 n engl j med 385;24   nejm.org   December 9, 2021                                               2231
+                                            The New England Journal of Medicine
+ Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                              Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                                             T h e n e w e ng l a n d j o u r na l o f m e dic i n e
+
+
+
+                visits, and FEV1 reversibility of 10% or more. The         exacerbations within a 28-day period were con-
+                enrollment of patients with a baseline blood               sidered to be a single exacerbation.
+                eosinophil count of less than 150 cells per cubic             The key secondary end point was the change
+                millimeter was limited to 20% of the total popu-           from baseline at week 12 in the percentage of
+                lation. A complete list of inclusion and exclusion         predicted prebronchodilator FEV1 (ppFEV1). Ad-
+                criteria is provided in Section 3 of the Supple-           ditional multiplicity-controlled end points in-
+                mentary Appendix.                                          cluded the change from baseline to week 24 in
+                    There were two primary efficacy populations:           asthma control (as assessed with the Asthma
+                patients with the type 2 inflammatory asthma               Control Questionnaire 7 Interviewer-Administered
+                phenotype (defined as a blood eosinophil count             [ACQ-7-IA]) and the change from baseline to
+                of ≥150 cells per cubic millimeter or a FeNO of            week 12 in the FeNO level (Table S2 in the Sup-
+                ≥20 ppb at baseline) and patients with a blood             plementary Appendix). ACQ-7-IA scores range
+                eosinophil count of at least 300 cells per cubic           from 0 (totally controlled asthma) to 6 (severely
+                millimeter at baseline. The selection of these             uncontrolled); a change of 0.5 is considered to
+                populations was based on efficacy findings in              be clinically important. Additional efficacy end
+                studies of dupilumab involving adults and ado-             points are presented in Section 3 in the Supple-
+                lescents with asthma,19,20 which suggested that            mentary Appendix. Biomarkers in the dupilumab
+                either the blood eosinophil count or FeNO could            and placebo groups during the 52-week period
+                be used to identify patients with type 2 inflam-           were evaluated in prespecified and descriptive
+                matory asthma. Additional efficacy populations             exploratory analyses.
+                in the multiplicity-controlled testing hierarchy
+                included patients with a baseline blood eosino-            Statistical Analysis
+                phil count of at least 150 cells per cubic milli-          The trial was sufficiently powered to detect a
+                meter, those with a baseline FeNO of 20 ppb or             reduction in asthma exacerbations in the two
+                more, and all the patients who had undergone               primary efficacy populations. The estimated sam-
+                randomization.                                             ple size was based on the observed effect sizes
+                    The safety population consisted of all the             for these populations in the phase 3 trial involv-
+                patients who had received at least one dose or             ing adults and adolescents.19 We determined that
+                part of a dose of dupilumab or placebo. The                a sample of approximately 345 and 255 patients
+                safety analysis was performed according to the             would have approximately 94% and 96% power
+                intervention that the patients actually received.          to detect a 54% and 60% relative reduction in the
+                                                                           annualized rate of severe exacerbations in the two
+                Trial Regimens                                             primary efficacy populations, respectively, assum-
+                Eligible patients were randomly assigned to re-            ing a randomization ratio of 2:1 and annualized
+                ceive subcutaneous dupilumab or volume-matched             rates of severe exacerbation of 0.7 and 0.8 in the
+                placebo every 2 weeks for 52 weeks. Patients               placebo group, with a two-tailed significance
+                with a body weight of 30 kg or less at random-             level of 0.05. These calculations assumed an aver-
+                ization received 100 mg of dupilumab or match-             age exposure duration of 0.9 years and a disper-
+                ing placebo, and those with a body weight of               sion measure of 1.5 for the negative binomial
+                more than 30 kg received 200 mg of dupilumab               distribution assumed for the exacerbation count.
+                or matching placebo. Home administration of                   Data were analyzed in the intention-to-treat
+                the trial regimen was permitted after week 12.             population according to the assigned interven-
+                                                                           tion, regardless of whether the intervention was
+                End Points                                                 received. All analyses were prespecified unless
+                The primary end point was the annualized rate              specifically stated otherwise. The annualized rate
+                of severe asthma exacerbations during the 52-              of severe exacerbations was analyzed with the
+                week treatment period. A severe asthma exacer-             use of a negative binominal regression model
+                bation was defined as a deterioration of asthma            that included the total number of events that
+                control leading to treatment with systemic glu-            were observed from randomization until week
+                cocorticoids for at least 3 days, hospitalization,         52 or the last trial contact date (whichever oc-
+                or an emergency department visit leading to the            curred earlier) as the response variable and in-
+                systemic administration of glucocorticoids. Two            cluded as covariates the trial group, age, base-
+
+
+2232                                             n engl j med 385;24   nejm.org   December 9, 2021
+
+                                                  The New England Journal of Medicine
+       Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                                    Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                   Dupilumab in Children with Moder ate-to-Severe Asthma
+
+
+line weight (≤30 kg or >30 kg), geographic                 dence interval [CI], 0.22 to 0.42) in the dupil-
+region, baseline eosinophil level (<300 cells or           umab group and 0.75 (95% CI, 0.54 to 1.03) in
+≥300 cells per cubic millimeter), baseline FeNO            the placebo group (relative risk reduction in the
+(<20 ppb or ≥20 ppb), baseline dose of inhaled             dupilumab group, 59.3%; 95% CI, 39.5 to 72.6;
+glucocorticoid (medium or high), and the num-              P<0.001) (Fig. 1A). Among the patients with at
+ber of severe exacerbation events within 1 year            least 300 eosinophils per cubic millimeter at
+before the initiation of the trial; the log-trans-         baseline, the adjusted annualized rate of severe
+formed standardized observation duration was               asthma exacerbations was 0.24 (95% CI, 0.16 to
+included as an offset variable. The change from            0.35) in the dupilumab group and 0.67 (95% CI,
+baseline in the prebronchodilator ppFEV1 was               0.47 to 0.95) in the placebo group (relative risk
+analyzed with the use of a mixed-effects model             reduction, 64.7%; 95% CI, 43.8 to 77.8; P<0.001).
+with a repeated-measures approach, including                  The relative reduction in the risk of severe
+trial group, baseline weight, geographic region,           exacerbations with dupilumab, as compared
+race or ethnic group, baseline eosinophil count,           with placebo, was 61.0% (95% CI, 41.7 to 73.9)
+baseline FeNO, baseline dose of inhaled gluco-             among the patients with at least 150 eosinophils
+corticoid, visit, treatment-by-visit interaction,          per cubic millimeter at baseline, 61.6% (95% CI,
+baseline ppFEV1, and a baseline-by-visit interac-          35.1 to 77.3) among those with a FeNO of at least
+tion term as covariates. Changes from baseline             20 ppb at baseline, and 54.2% (95% CI, 32.9 to
+in biomarker levels are presented with the use of          68.7) among all the patients who had undergone
+descriptive statistics unless otherwise specified.         randomization (Fig. 1A). Similar findings to
+    To control the family-wise type I error for the        those in the above-mentioned groups were ob-
+statistical analyses of the primary and selected           served in patients who were receiving high-dose
+secondary efficacy end points, a step-down hier-           inhaled glucocorticoids at baseline (Fig. S5).
+archical testing procedure was applied at a two-
+sided significance level of 0.05. Two separate             Additional Exacerbation-Related End Points
+testing orders were prespecified and reflected             The percentage of patients who had no exacerba-
+regional differences in the dupilumab indication           tions during the 52-week treatment period was
+label for adults and adolescents with asthma               77.1% in the dupilumab group and 59.6% in the
+(Table S2). Additional details regarding the sta-          placebo group among the patients with the type 2
+tistical methods, including a description of how           phenotype; among those with at least 300 eosino-
+missing data were handled, are summarized in               phils per cubic millimeter at baseline, the per-
+the Supplementary Appendix.                                centage was 79.0% and 58.3% in the two groups,
+                                                           respectively. Patients in the dupilumab group
+                                                           had a longer time until the first severe exacerba-
+                     R e sult s
+                                                           tion than those in the placebo group, both
+Patients                                                   among those with the type 2 phenotype (hazard
+A total of 408 patients underwent randomiza-               ratio, 0.44; 95% CI, 0.29 to 0.67) and among
+tion: 273 to the dupilumab group and 135 to the            those with at least 300 eosinophils per cubic
+placebo group (Table S6). In the dupilumab                 millimeter at baseline (hazard ratio, 0.38; 95%
+group, 3 patients did not receive the assigned             CI, 0.23 to 0.63).
+intervention (Fig. S4). The demographic and                   Patients in the dupilumab group also had a
+clinical characteristics of the patients in the two        lower risk of loss of asthma control than those
+groups were similar at baseline, and the treat-            in the placebo group among the patients with
+ment assignments were balanced between the                 the type 2 phenotype (hazard ratio, 0.69; 95%
+two primary efficacy populations (Table 1 and              CI, 0.52 to 0.9) and among those with at least
+Table S7). The median follow-up duration was               300 eosinophils per cubic millimeter at baseline
+365 days.                                                  (hazard ratio, 0.66; 95% CI, 0.48 to 0.90) (Figs.
+                                                           S4 and S5). In the dupilumab group, the annual-
+Primary End Point                                          ized number of treatment courses with systemic
+In the population with the type 2 inflammatory             glucocorticoids was lower than that in the pla-
+phenotype, the adjusted annualized rate of se-             cebo group by 59.3% (95% CI, 39.1 to 72.8)
+vere asthma exacerbations was 0.31 (95% confi-             among patients with the type 2 phenotype and
+
+
+                                 n engl j med 385;24   nejm.org   December 9, 2021                                            2233
+                                            The New England Journal of Medicine
+ Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                              Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                                                        T h e n e w e ng l a n d j o u r na l o f m e dic i n e
+
+
+
+
+ Table 1. Demographic and Clinical Characteristics of the Patients in the Two Primary Efficacy Populations at Baseline.*
+
+                                                                                Patients with                                Patients with
+  Characteristic                                                       Type 2 Inflammatory Phenotype                ≥300 Blood Eosinophils per mm3
+                                                                        Placebo              Dupilumab                Placebo            Dupilumab
+                                                                       (N = 114)              (N = 236)               (N = 84)            (N = 175)
+  Age — yr                                                              9.0±1.6                 8.9±1.6                9.0±1.5             8.9±1.6
+  Male sex — no. (%)                                                   78 (68.4)              152 (64.4)              58 (69.0)           116 (66.3)
+  Race or ethnic group — no. (%)†
+     White                                                            102 (89.5)              208 (88.1)              75 (89.3)           151 (86.3)
+     Black                                                               5 (4.4)                 9 (3.8)               5 (6.0)              8 (4.6)
+     Asian                                                                 0                     2 (0.8)                  0                 2 (1.1)
+     American Indian or Alaska Native                                      0                     1 (0.4)                  0                 1 (0.6)
+     Other                                                               7 (6.1)               16 (6.8)                4 (4.8)             13 (7.4)
+  Weight — kg                                                         37.1±11.6                35.6±10.0              37.0±11.7           35.4±10.0
+  Use of high-dose inhaled glucocorticoid — no. (%)                    50 (43.9)              102 (43.2)              41 (48.8)            74 (42.3)
+  No. of severe asthma exacerbations in past year                       2.2±1.6                 2.6±2.6                2.4±1.7             2.8±2.9
+  Asthma exacerbations in past year — no. (%)
+     1                                                                 47 (41.2)               85 (36.0)              32 (38.1)            64 (36.6)
+     2                                                                 32 (28.1)               75 (31.8)              20 (23.8)            53 (30.3)
+     3                                                                 21 (18.4)               29 (12.3)              19 (22.6)            17 (9.7)
+     ≥4                                                                14 (12.3)               47 (19.9)              13 (15.5)            41 (23.4)
+  Atopic medical condition — no. (%)‡                                 103 (90.4)              226 (95.8)              79 (94.0)           171 (97.7)
+  Prebronchodilator FEV1
+     Mean volume — liter                                              1.53±0.46                1.48±0.39              1.52±0.48           1.45±0.39
+     Mean percent of predicted value                                  78.4±14.5                77.7±14.4              77.9±15.2           76.4±14.6
+  FEV1 reversibility — %                                              15.8±16.4                21.5±21.4              16.2±15.8           22.9±23.2
+  Score on ACQ-7-IA§                                                    2.1±0.8                 2.2±0.7                2.2±0.8             2.2±0.7
+  Blood eosinophil count
+     Mean — cells/mm3                                                  520±360                 600±390                640±350              740±360
+     Median (IQR) — cells/mm        3
+                                                                    440 (280–660)           510 (290–780)           530 (420–730)      660 (480–910)
+     ≥150 cells/mm3 — no. (%)                                         108 (94.7)              223 (94.5)              84 (100)            175 (100)
+  Median total IgE (IQR) — IU/ml                                    397 (144–862)          530 (213–1268)         554 (215–1101)       600 (331–1470)
+  Fractional exhaled nitric oxide
+     Mean — ppb                                                       28.4±23.4                31.8±24.9              31.3±23.5           34.5±25.8
+     ≥20 ppb — no. (%)                                                 62 (54.4)              141 (59.7)              52 (61.9)           114 (65.1)
+  Serum thymus and activation-regulated chemokine                    568.0±666.3             525.6±511.8            579.3±728.5          573.8±573.8
+        — pg/ml
+
+*	Plus–minus values are means ±SD. The two primary efficacy populations included patients who had a type 2 inflammatory asthma pheno-
+   type (≥150 blood eosinophils per cubic millimeter or a fraction of exhaled nitric oxide of ≥20 ppb at baseline) and those who had at least
+   300 eosinophils per cubic millimeter at baseline. Percentages may not total 100 because of rounding. FEV1 denotes forced expiratory volume
+   in 1 second, IQR interquartile range, and ppb parts per billion.
+†	Race or ethnic group was reported by the patients’ parents or guardians.
+‡	An atopic medical condition was defined as the presence of one or more of the following ongoing conditions: atopic dermatitis, allergic
+   conjunctivitis, allergic rhinitis, eosinophilic esophagitis, food allergy, or hives or a baseline total IgE level of at least 100 IU per milliliter and
+   positivity (≥0.35 IU/ml) for at least one aeroallergen-specific IgE at baseline.
+§	Scores on the Asthma Control Questionnaire 7 Interviewer-Administered (ACQ-7-IA) range from 0 (totally controlled) to 6 (severely uncon-
+   trolled); a change of 0.5 is considered to be clinically important.
+
+
+
+
+2234                                                         n engl j med 385;24    nejm.org     December 9, 2021
+
+                                                        The New England Journal of Medicine
+             Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                                          Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                     Dupilumab in Children with Moder ate-to-Severe Asthma
+
+
+
+ A Severe Asthma Exacerbations
+  Populations                         Dupilumab       Placebo                    Relative Risk vs. Placebo (95% CI)
+                                            no. of patients
+  Type 2 inflammatory phenotype           236            114                                                          0.41 (0.27 to 0.61)
+  Blood eosinophil count ≥300 cells/mm3   175             84                                                          0.35 (0.22 to 0.56)
+  Blood eosinophil count ≥150 cells/mm3   223            108                                                          0.39 (0.26 to 0.58)
+  FENO ≥20 ppb                            141             62                                                          0.38 (0.23 to 0.65)
+  Total population                        273            135                                                          0.46 (0.31 to 0.67)
+                                                                0.00    0.25   0.50   0.75      1.00   1.50   2.00
+
+                                                                       Dupilumab Better           Placebo Better
+
+
+ B Change from Baseline in ppFEV1
+  Populations                         Dupilumab       Placebo             LS Mean Difference vs. Placebo (95% CI)
+                                            no. of patients
+  Type 2 inflammatory phenotype           229            110                                                           5.2 (2.1 to 8.3)
+  Blood eosinophil count ≥300 cells/mm3   168             80                                                           5.3 (1.8 to 8.9)
+  Blood eosinophil count ≥150 cells/mm3   216            104                                                           5.0 (1.8 to 8.1)
+  FENO ≥20 ppb                            141             62                                                           6.7 (2.5 to 10.9)
+  Total population                        264            131                                                           4.7 (1.9 to 7.5)
+                                                                 −6 −4 −2        0    2     4    6     8   10 12
+
+                                                                Placebo Better            Dupilumab Better
+
+ C Change from Baseline in ACQ-7-IA Score
+  Populations                         Dupilumab       Placebo             LS Mean Difference vs. Placebo (95% CI)
+                                            no. of patients
+  Type 2 inflammatory phenotype           227            110                                                         −0.33 (−0.50 to −0.16)
+  Blood eosinophil count ≥300 cells/mm3   166             80                                                         −0.46 (−0.67 to −0.26)
+  Blood eosinophil count ≥150 cells/mm3   214            104                                                         −0.36 (−0.53 to −0.18)
+  FENO ≥20 ppb                            141             62                                                         −0.41 (−0.64 to −0.18)
+  Total population                        262            131                                                         −0.28 (−0.44 to −0.12)
+                                                                −1.00 −0.75 −0.50 −0.25 0.00           1.50   2.00
+
+                                                                       Dupilumab Better           Placebo Better
+
+
+ Figure 1. Key End Points in Children with Moderate-to-Severe Asthma.
+ Among the children with uncontrolled moderate-to-severe asthma who received either dupilumab or placebo in the
+ trial, Panel A shows a forest plot of the relative risk of severe asthma exacerbations, Panel B shows the least-squares
+ (LS) mean difference in the change from baseline (measured in percentage points) in the percentage of the predict-
+ ed prebronchodilator forced expiratory volume in 1 second (ppFEV1) at week 12, and Panel C shows the LS mean
+ difference in the change from baseline in the Asthma Control Questionnaire 7 Interviewer-Administered (ACQ-7-IA)
+ score at week 24. These key end points were evaluated in the two primary efficacy populations — patients who had
+ a type 2 inflammatory asthma phenotype (≥150 blood eosinophils per cubic millimeter or a fraction of exhaled ni-
+ tric oxide [FeNO] of ≥20 ppb at baseline) and those who had at least 300 blood eosinophils per cubic millimeter at
+ baseline — and in the patients who had at least 150 eosinophils per cubic millimeter at baseline, in those who had a
+ FeNO of at least 20 ppb at baseline, and in the total population.
+
+
+
+
+by 66.0% (95% CI, 45.5 to 78.8) among those baseline to week 12 was 10.5±1.01 percentage
+with at least 300 eosinophils per cubic millime- points in the dupilumab group and 5.3±1.4 per-
+ter at baseline (Table S8).                      centage points in the placebo group (mean dif-
+                                                 ference, 5.2 percentage points; 95% CI, 2.1 to
+Prebronchodilator ppFEV1                         8.3; P<0.001). The mean (±SD) ppFEV1 at base-
+In the type 2 phenotype population, the least- line was 77.7±14.4 in the dupilumab group and
+squares mean (±SE) change in the ppFEV1 from 78.4±14.5 in the placebo group, values that in-
+
+
+
+                                    n engl j med 385;24        nejm.org    December 9, 2021                                                   2235
+                                            The New England Journal of Medicine
+ Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                              Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                                                                         T h e n e w e ng l a n d j o u r na l o f m e dic i n e
+
+
+
+
+                 A Type 2 Inflammatory Phenotype
+                                                  15
+                                                  14
+                                                                                                                                                  Dupilumab
+                                                  13
+
+
+                   LS Mean Change from Baseline
+                                                  12
+                                                  11
+                        (percentage points)
+                                                  10
+                                                   9
+                                                   8
+                                                   7
+                                                   6
+                                                   5
+                                                   4
+                                                   3                                                                                              Placebo
+                                                   2
+                                                   1
+                                                   0
+                                                  −1
+                                                       Base- 2   4   6    8   10 12      16         20       24          28   32    36    40    44     48     52
+                                                        line
+                                                                                                                  Week
+                  No. at Risk
+                  Dupilumab                            236 232 225 226 226 226 228       227    224          228     224      222   217   217   214    212    215
+                  Placebo                              114 108 109 112 112 112 111       110    112          113     112      110   111   107   107    109    106
+
+                 B ≥300 Blood Eosinophils per mm3
+                                                  15
+                                                  14                                                                                              Dupilumab
+                                                  13
+                   LS Mean Change from Baseline
+
+
+
+
+                                                  12
+                                                  11
+                        (percentage points)
+
+
+
+
+                                                  10
+                                                   9
+                                                   8
+                                                   7
+                                                   6
+                                                   5
+                                                   4
+                                                   3
+                                                                                                                                                  Placebo
+                                                   2
+                                                   1
+                                                   0
+                                                  −1
+                                                       Base- 2   4   6    8   10 12      16         20       24          28   32    36    40    44     48     52
+                                                        line
+                                                                                                                  Week
+                  No. at Risk
+                  Dupilumab                            175 171 165 167 167 167 168       167    165          168     164      162   160   159   158    154    158
+                  Placebo                               84 78 80 82 82 82 81              82     82           83      82       80    81    78    78     79     76
+
+                  Figure 2. Change in ppFEV1 during the 52-Week Trial Period, According to Primary Efficacy Population.
+                  Shown is the LS mean change from baseline in the ppFEV1 in patients with the type 2 inflammatory phenotype
+                  (Panel A) and in those with at least 300 blood eosinophils per cubic millimeter at baseline (Panel B). The I bars indi-
+                  cate standard errors.
+
+
+
+                creased to 87.8±14.6 and 83.2±15.5 at week 12, greater reductions indicating better asthma con-
+                respectively. Similar findings were observed introl) was −1.33±0.05 in the dupilumab group and
+                the patients with at least 300 eosinophils per −1.00±0.07 in the placebo group among the pa-
+                cubic millimeter at baseline and in all multi- tients with the type 2 phenotype and −1.34±0.06
+                plicity-controlled populations (Figs. 1B, 2, and
+                                                               and −0.88±0.09, respectively, among those with
+                S8). The results for additional lung-function end
+                                                               at least 300 eosinophils per cubic millimeter at
+                points are provided in Tables S9 and S10.      baseline (P<0.001 for both comparisons). Simi-
+                                                               lar changes were observed across all multiplic-
+                Patient-Reported End Points                    ity-controlled populations (Fig. 1C) and were
+                The least-squares mean (±SE) change from base- sustained up to week 52 in all populations
+                line in the ACQ-7-IA score at week 24 (with (Figs. S9 and S10). The results for other patient-
+
+2236                                                                          n engl j med 385;24        nejm.org    December 9, 2021
+
+                                                  The New England Journal of Medicine
+       Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                                    Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                   Dupilumab in Children with Moder ate-to-Severe Asthma
+
+
+reported end points are provided in Tables S11 tic therapy with no permanent discontinuation
+and S12.                                            of dupilumab or placebo (Table 2 and Section 3.4
+                                                    of the Supplementary Appendix). Asthma exacer-
+Biomarker End Points                                bations leading to hospitalization were reported
+In a multiplicity-controlled analysis, the decrease in 4 of 271 patients (1.5%) in the dupilumab
+from baseline to week 12 in the FeNO was sig- group and in no patients in the placebo group
+nificantly greater in the dupilumab group than (Section 3.5 in the Supplementary Appendix).
+in the placebo group in the two primary efficacy The incidence of conjunctivitis was low in both
+populations (P<0.001 for both comparisons) groups; one case of keratitis was reported in each
+(Table S13). In prespecified exploratory analyses group. There were no deaths during the trial.
+in the safety population, numerically greater Antidrug antibody responses were observed in
+reductions in the mean FeNO, total serum IgE, 6.3% of the patients in the dupilumab group and
+and serum thymus and activation-regulated che- in 3.0% of those in the placebo group (Table S14).
+mokine (TARC) were observed during the 52-week
+treatment period with dupilumab than with                            Discussion
+placebo (Fig. S11). In the dupilumab group, a
+transient increase from baseline in the mean Among the children between the ages of 6 and
+blood eosinophil count was observed at the first 11 years in our trial who had uncontrolled
+postbaseline assessment at week 12, with mean moderate-to-severe asthma, those who added
+counts returning to baseline levels by week 36 dupilumab to their standard therapy had a sig-
+(Fig. S11B). The median eosinophil counts re- nificantly lower rate of severe asthma exacerba-
+mained stable across 52 weeks in the two treat- tions and had better lung function and asthma
+ment groups (Fig. S12B).                            control than those who received placebo. Few
+                                                    randomized trials of add-on biologic therapy
+Safety                                              have been conducted in this age group, and we
+The frequencies of adverse events during the 52- found that add-on dupilumab provided a clini-
+week trial period were similar across trial groups cally meaningful effect on lung function. Further-
+in the safety population (83.0% with dupilumab more, we determined the utility of a biomarker-
+and 79.9% with placebo) (Table 2). The most driven approach to phenotyping and treating
+common adverse event that occurred in at least children with uncontrolled asthma.
+5% of the patients and at a higher frequency in        Dupilumab treatment led to significant im-
+the dupilumab group was viral infection of the provements in all end points in the testing hier-
+upper respiratory tract (12.2% with dupilumab archy. Even though the number of asthma exacer-
+and 9.7% with placebo). Discontinuation of a bations had averaged at least two in the previous
+trial intervention owing to adverse events oc- year, the percentage of children who remained
+curred in 1.8% of the patients in the dupilumab exacerbation-free during the 52-week treatment
+group and in 1.5% of those in the placebo period was almost 78% in the dupilumab group
+group. Serious adverse events were reported in and 60% in the placebo group. Children in the
+13 patients (4.8%) in the dupilumab group and dupilumab group also had a lower exposure to
+in 6 (4.5%) in the placebo group. Eosinophilia systemic glucocorticoids than those who received
+occurred in 5.9% and 0.7% of the patients in the placebo, a finding that is especially important in
+dupilumab and placebo groups, respectively. Most this population. The efficacy of dupilumab was
+episodes of eosinophilia were self-limited labo- rapid, with observably higher values in the
+ratory findings without any associated symp- ppFEV1 than with placebo by the first on-treat-
+toms. A single case of eosinophilia was asso- ment assessment at week 2 and with a longer
+ciated with clinical symptoms that included time until the first exacerbation by week 4, with
+hospitalization and permanent discontinuation sustained benefits during the 52-week treatment
+of dupilumab (Section 3 in the Supplementary period.
+Appendix).                                             Significant reductions in severe exacerbations
+   Parasitic infections were reported in 7 patients and improvement in lung function are clinically
+(2.6%) in the dupilumab group. All cases of relevant, since uncontrolled asthma in childhood
+parasitic infections were mild, and all the pa- can lead to reduced lung function, irreversible
+tients recovered after treatment with anthelmin- airflow limitation, and COPD in adulthood.11,12
+
+                                 n engl j med 385;24   nejm.org   December 9, 2021                                            2237
+                                            The New England Journal of Medicine
+ Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                              Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                                                T h e n e w e ng l a n d j o u r na l o f m e dic i n e
+
+
+
+
+                 Table 2. Adverse Events and Injection-Site Reactions (Safety Population).*
+
+                                                                                               Placebo                   Dupilumab
+                 Event                                                                        (N = 134)                  (N = 271)
+
+                                                                                                   number of patients (percent)
+                 Adverse events
+                     Any                                                                    107 (79.9)                    225 (83.0)
+                     Leading to permanent discontinuation                                      2 (1.5)                      5 (1.8)
+                 Serious adverse events                                                        6 (4.5)                     13 (4.8)
+                 Adverse events in ≥5% of patients in either group†
+                     Nasopharyngitis                                                          29 (21.6)                    50 (18.5)
+                     Upper respiratory tract infection
+                         Any                                                                  18 (13.4)                    35 (12.9)
+                         Viral                                                                13 (9.7)                     33 (12.2)
+                     Pharyngitis                                                              14 (10.4)                    24 (8.9)
+                     Influenza                                                                12 (9.0)                     20 (7.4)
+                     Bronchitis                                                               14 (10.4)                    17 (6.3)
+                     Sinusitis                                                                 7 (5.2)                      9 (3.3)
+                     Eosinophilia‡                                                              1 (0.7)                    16 (5.9)
+                     Headache                                                                 10 (7.5)                     19 (7.0)
+                     Allergic rhinitis                                                        16 (11.9)                    16 (5.9)
+                     Cough                                                                     9 (6.7)                     15 (5.5)
+                     Accidental overdose§                                                      7 (5.2)                      3 (1.1)
+                     Injection-site reaction¶
+                         Erythema                                                             13 (9.7)                     35 (12.9)
+                         Edema                                                                 7 (5.2)                     28 (10.3)
+                         Nodule                                                                3 (2.2)                     17 (6.3)
+                 Adverse events of special interest
+                     Parasitic infection
+                         Any‖                                                                     0                         7 (2.6)
+                         Enterobiasis                                                             0                         5 (1.8)
+                         Ascariasis                                                               0                         1 (0.4)
+                         Lice infestation                                                         0                         1 (0.4)
+                     Conjunctivitis
+                         Narrow custom MedDRA query                                            9 (6.7)                      7 (2.6)
+                         Broad custom MedDRA query                                            10 (7.5)                      8 (3.0)
+
+                *	The safety population consisted of all the patients who had received at least one dose or part of a dose of dupilumab
+                   or placebo. No deaths were reported in either group during the trial. MedDRA denotes Medical Dictionary for Regulatory
+                   Activities.
+                †	Adverse events are reported at the preferred-term level of the MedDRA hierarchy.
+                ‡	Eosinophilia was defined as a peripheral-blood eosinophil count at least 3000 cells per cubic millimeter.
+                §	Overdose was defined as at least twice the standard dose of either dupilumab or placebo during an interval of less than
+                   11 days.
+                ¶	Descriptions of injection-site reactions include MedDRA high-level terms.
+                ‖	One additional patient in the placebo group had parasitic gastroenteritis that was erroneously not recorded as a para-
+                   sitic infection and therefore was not identified as an adverse event of special interest.
+
+
+
+
+2238                                                  n engl j med 385;24   nejm.org   December 9, 2021
+
+                                                  The New England Journal of Medicine
+       Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                                    Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                      Dupilumab in Children with Moder ate-to-Severe Asthma
+
+
+Longer-term studies are needed to determine                       which the condition resolved. Instances of para-
+whether dupilumab leads to sustained improve-                     sitic infections were not serious and were not
+ments in lung function and whether it can re-                     considered by trial investigators to be related to
+store normal patterns of lung growth.                             dupilumab.
+   Efficacy was observed among the patients                           Our trial has several limitations. Although the
+with the type 2 phenotype and in populations                      trial patients reflected the demographic makeup
+defined by individual type 2 inflammatory bio-                    of the geographic regions, the limited ethnic
+markers. These findings support a biomarker-                      diversity in the trial population, particularly the
+driven approach to the treatment of children                      low number of Black children who were en-
+with uncontrolled asthma in which clinicians                      rolled, should be considered when generalizing
+would use peripheral-blood eosinophil counts,                     findings to the wider population of children
+FeNO, or both to identify patients who are like­                  with asthma. The inclusion of these underrepre-
+ly to have a response to treatments such as                       sented populations in future studies is needed.
+dupilumab that target type 2 inf lammatory                        The rapid decrease in the FeNO among the chil-
+pathways.16,17                                                    dren receiving dupilumab could have given in-
+   In our trial, dupilumab also provided rapid                    vestigators a suspicion of trial-group assignment
+and sustained decreases in markers of type 2                      that could have had an effect on treatment deci-
+inflammation in airways (FeNO) and circulation                    sions. However, we note that data regarding the
+(serum total IgE and TARC), findings that were                    effect of dupilumab on FeNO levels in adoles-
+consistent with results in adults and adoles-                     cents and adults19 were not available until mid-
+cents.19-21 These data strengthen the clinical                    way through the trial, and multiple objective
+understanding of the dupilumab mechanism of                       measures of efficacy, such as the clear improve-
+action, with effective blockade of signaling me-                  ment in lung function, support the overall effi-
+diated by interleukin-4 and interleukin-13 that                   cacy of dupilumab in this population.
+leads to broad suppression of type 2 inflamma-                        Dupilumab therapy led to meaningful im-
+tion. In contrast, median blood eosinophil counts                 provements through reductions in asthma exac-
+remained stable during 52 weeks, with a tran-                     erbations and rapid improvements in lung func-
+sient early increase in mean levels similar to                    tion and asthma control during the 52-week
+findings in adults and adolescents.19 This result                 trial period. The treatment also had an accept-
+was consistent with the hypothesis that dupilu­                   able side-effect profile in patients between the
+mab blocks the migration of eosinophils into                      ages of 6 and 11 years with uncontrolled moder-
+tissue by inhibiting the production of eotaxin                    ate-to-severe asthma and a type 2 inflammatory
+and vascular-cell adhesion molecule mediated by                   asthma phenotype.
+interleukin-4 and interleukin-1319,22,23 but not
+eosinophil production or egress from bone                            Supported by Sanofi and Regeneron Pharmaceuticals.
+                                                                     Disclosure forms provided by the authors are available with
+marrow.17                                                         the full text of this article at NEJM.org.
+   Dupilumab had a generally acceptable adverse-                     A data sharing statement provided by the authors is available
+event profile in this pediatric asthma popula-                    with the full text of this article at NEJM.org.
+                                                                     We thank Mahlet Woldemariam, Valerie LeVreaux, Heribert
+tion, with safety findings similar to those in                    Staudinger, Imad Rabie, Christine Xu, Michel Djandji, Colin
+adult and adolescent patients.19-21 One case of                   Mitchell, and Ariel Teper of Sanofi and John Huber, Siddhesh
+symptomatic eosinophilia associated with head-                    Kamat, Benjamin Ortiz, Rebecca Gall, and Nora Crikelair of
+                                                                  Regeneron Pharmaceuticals for their contributions to the trial;
+ache and dizziness was reported, which involved                   and Alessia Piazza and Amninder Sangha of Excerpta Medica for
+hospitalization and cessation of dupilumab, after                 their writing and editorial support.
+
+
+                                                           Appendix
+The authors’ full names and academic degrees are as follows: Leonard B. Bacharier, M.D., Jorge F. Maspero, M.D., Constance H.
+Katelaris, M.D., Alessandro G. Fiocchi, M.D., Remi Gagnon, M.D., Ines de Mir, M.D., Neal Jain, M.D., Lawrence D. Sher, M.D.,
+Xuezhou Mao, Ph.D., Dongfang Liu, M.S., Yi Zhang, Ph.D., M.P.H., Asif H. Khan, M.B., B.S., M.P.H., Upender Kapoor, M.D., Faisal A.
+Khokhar, M.D., Paul J. Rowe, M.D., Yamo Deniz, M.D., Marcella Ruddy, M.D., Elizabeth Laws, Ph.D., Naimish Patel, M.D., David M.
+Weinreich, M.D., George D. Yancopoulos, M.D., Ph.D., Nikhil Amin, M.D., Leda P. Mannent, M.D., David J. Lederer, M.D., and Megan
+Hardin, M.D., M.P.H.
+
+
+
+
+                                      n engl j med 385;24    nejm.org    December 9, 2021                                            2239
+                                            The New England Journal of Medicine
+ Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                              Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+                                         Dupilumab in Children with Moder ate-to-Severe Asthma
+
+
+                   The authors’ affiliations are as follows: Monroe Carell Jr. Children’s Hospital at Vanderbilt, Nashville (L.B.B.); Fundación CIDEA,
+                Buenos Aires (J.F.M.); Campbelltown Hospital, Campbelltown, NSW, and Western Sydney University, Sydney (C.H.K.) — both in Aus-
+                tralia; Bambino Gesù Children’s Hospital IRCCS, Rome (A.G.F.); Clinique Spécialisée en Allergie de la Capitale, Quebec, QC, Canada
+                (R.G.); Hospital Vall d’Hebron, Barcelona (I.M.); Arizona Allergy and Immunology Research, Gilbert (N.J.); Peninsula Research Associ-
+                ates, Rolling Hills Estates, CA (L.D.S.); Sanofi, Bridgewater, NJ (X.M., U.K., P.J.R., E.L.); Sanofi, Beijing (D.L.); Regeneron Pharmaceu-
+                ticals, Tarrytown, NY (Y.Z., F.A.K., Y.D., M.R., D.M.W., G.D.Y., N.A., D.J.L.); Sanofi, Chilly-Mazarin, France (A.H.K., L.P.M.); and
+                Sanofi Genzyme, Cambridge, MA (N.P., M.H.).
+
+
+                References
+                1. Centers for Disease Control and Pre-           10. McGeachie MJ, Yates KP, Zhou X, et al.            18. Global Initiative for Asthma (GINA).
+                vention. Vital signs (https://www​.­cdc​.­gov/​   Patterns of growth and decline in lung                Global Strategy for Asthma Management
+                ­vitalsigns).                                     function in persistent childhood asthma.              and Prevention. 2020 (https://ginasthma​
+                 2. Chung KF, Wenzel SE, Brozek JL, et al.        N Engl J Med 2016;​374:​1842-52.                      .­org/​­w p​-­content/​­uploads/​­2020/​­06/​­GINA​
+                 International ERS/ATS guidelines on defi-        11. McGeachie MJ. Childhood asthma is a               -­2020​-­report_20_06_04​-­1​-­wms​.­pdf).
+                 nition, evaluation and treatment of severe       risk factor for the development of chronic            19. Castro M, Corren J, Pavord ID, et al.
+                 asthma. Eur Respir J 2014;​43:​343-73.           obstructive pulmonary disease. Curr Opin              Dupilumab efficacy and safety in moder-
+                 3. Ramratnam SK, Bacharier LB, Guil-             Allergy Clin Immunol 2017;​17:​104-9.                 ate-to-severe uncontrolled asthma. N Engl
+                 bert TW. Severe asthma in children. J Al-        12. Tagiyeva N, Devereux G, Fielding S,               J Med 2018;​378:​2486-96.
+                 lergy Clin Immunol Pract 2017;​5:​889-98.        Turner S, Douglas G. Outcomes of child-               20. Wenzel S, Castro M, Corren J, et al.
+                 4. Godard P, Chanez P, Siraudin L,               hood asthma and wheezy bronchitis:                    Dupilumab efficacy and safety in adults
+                Nicoloyannis N, Duru G. Costs of asthma           a 50-year cohort study. Am J Respir Crit              with uncontrolled persistent asthma de-
+                are correlated with severity: a 1-yr pro-         Care Med 2016;​193:​23-30.                            spite use of medium-to-high-dose inhaled
+                 spective study. Eur Respir J 2002;​19:​61-7.     13. Hayden LP, Cho MH, Raby BA, Beaty                 corticosteroids plus a long-acting β2 ago-
+                 5. Rabe KF, Nair P, Brusselle G, et al.          TH, Silverman EK, Hersh CP. Childhood                 nist: a randomised double-blind placebo-
+                 Efficacy and safety of dupilumab in gluco-       asthma is associated with COPD and                    controlled pivotal phase 2b dose-ranging
+                 corticoid-dependent severe asthma. N Engl        known asthma variants in COPDGene:                    trial. Lancet 2016;​388:​31-44.
+                 J Med 2018;​378:​2475-85.                        a genome-wide association study. Respir               21. Rabe KF, Adachi M, Lai CKW, et al.
+                 6. Fleming L, Murray C, Bansal AT, et al.        Res 2018;​19:​209.                                    Worldwide severity and control of asthma
+                 The burden of severe asthma in childhood         14. Fahy JV. Type 2 inflammation in asth-             in children and adults: the global asthma
+                 and adolescence: results from the paediat-       ma — present in most, absent in many.                 insights and reality surveys. J Allergy Clin
+                 ric U-BIOPRED cohorts. Eur Respir J 2015;​       Nat Rev Immunol 2015;​15:​57-65.                      Immunol 2004;​114:​40-7.
+                 46:​1322-33.                                     15. Global Initiative for Asthma (GINA).              22. Barthel SR, Johansson MW, McNamee
+                 7. Bellin MH, Osteen P, Kub J, et al.            Global strategy for asthma management                 DM, Mosher DF. Roles of integrin activa-
+                 Stress and quality of life in urban caregiv-     and prevention. 2021 (https://ginasthma​              tion in eosinophil function and the eosino-
+                 ers of children with poorly controlled           .­org/​­w p​-­content/​­uploads/​­2021/​­05/​­GINA​   philic inflammation of asthma. J Leukoc
+                 asthma: a longitudinal analysis. J Pediatr       -­Main​-­Report​-­2021​-­V2​-­WMS​.­pdf).             Biol 2008;​83:​1-12.
+                 Health Care 2015;​29:​536-46.                    16. Gandhi NA, Pirozzi G, Graham NMH.                 23. Tozawa H, Kanki Y, Suehiro J, et al.
+                 8. Nunes C, Pereira AM, Morais-Almeida           Commonality of the IL-4/IL-13 pathway in              Genome-wide approaches reveal functional
+                M. Asthma costs and social impact. Asth-          atopic diseases. Expert Rev Clin Immunol              interleukin-4-inducible STAT6 binding
+                 ma Res Pract 2017;​3:​1.                         2017;​13:​425-37.                                     to the vascular cell adhesion molecule 1
+                 9. Tai A, Tran H, Roberts M, Clarke N,           17. Le Floc’h A, Allinne J, Nagashima K,              promoter. Mol Cell Biol 2011;​            31:​2196-
+                Wilson J, Robertson CF. The association           et al. Dual blockade of IL-4 and IL-13 with           209.
+                between childhood asthma and adult                dupilumab, an IL-4Rα antibody, is re-                 Copyright © 2021 Massachusetts Medical Society.
+                chronic obstructive pulmonary disease.            quired to broadly inhibit type 2 inflam-
+                Thorax 2014;​69:​805-10.                          mation. Allergy 2020;​75:​1188-204.
+
+
+
+
+2240                                                      n engl j med 385;24         nejm.org       December 9, 2021
+
+                                                  The New England Journal of Medicine
+       Downloaded from nejm.org at INSERM DISC DOC on December 23, 2021. For personal use only. No other uses without permission.
+                                    Copyright © 2021 Massachusetts Medical Society. All rights reserved.
+

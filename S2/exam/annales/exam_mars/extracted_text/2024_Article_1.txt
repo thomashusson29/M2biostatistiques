@@ -1,0 +1,827 @@
+                                                                                                                                               Articles
+
+
+
+
+Chronic pain, cannabis legalisation, and cannabis use
+disorder among patients in the US Veterans Health
+Administration system, 2005 to 2019: a repeated, cross-
+sectional study
+Deborah S Hasin, Melanie M Wall, Daniel M Alschuler, Zachary L Mannes, Carol Malte, Mark Olfson, Katherine M Keyes, Jaimie L Gradus,
+Magdalena Cerdá, Charles C Maynard, Salomeh Keyhani, Silvia S Martins, David S Fink, Ofir Livne, Yoanna McDowell, Scott Sherman,
+Andrew J Saxon
+
+Summary
+Background Cannabis use disorder is associated with considerable comorbidity and impairment in functioning, and                        Lancet Psychiatry 2023;
+prevalence is increasing among adults with chronic pain. We aimed to assess the effect of introduction of medical                      10: 877–86
+
+cannabis laws (MCL) and recreational cannabis laws (RCL) on the increase in cannabis use disorder among patients                       Published Online
+                                                                                                                                       October 11, 2023
+in the US Veterans Health Administration (VHA).
+                                                                                                                                       https://doi.org/10.1016/
+                                                                                                                                       S2215-0366(23)00268-7
+Methods Data from patients with one or more primary care, emergency, or mental health visit to the VHA in 2005–19                      This online publication has
+were analysed using 15 repeated cross-sectional VHA electronic health record datasets (ie, one dataset per year).                      been corrected. The corrected
+Patients in hospice or palliative care were excluded. Patients were stratified as having chronic pain or not using an                  version first appeared at
+                                                                                                                                       thelancet.com/psychiatry on
+American Pain Society taxonomy of painful medical conditions. We used staggered-adoption difference-in-difference
+                                                                                                                                       October 18, 2023
+analyses to estimate the role of MCL and RCL enactment in the increases in prevalence of diagnosed cannabis use
+                                                                                                                                       See Comment page 823
+disorder and associations with presence of chronic pain, accounting for the year that state laws were enacted. We did
+                                                                                                                                       Columbia University Irving
+this by fitting a linear binomial regression model stratified by pain, with time-varying cannabis law status, fixed                    Medical Center, New York, NY,
+effects for state, categorical year, time-varying state-level sociodemographic covariates, and patient covariates (age                 USA (Prof D S Hasin PhD,
+group [18–34 years, 35–64 years, and 65–75 years], sex, and race and ethnicity).                                                       Prof M M Wall PhD,
+                                                                                                                                       Prof M Olfson MD MPH);
+                                                                                                                                       Columbia University Mailman
+Findings Between 2005 and 2019, 3 234 382–4 579 994 patients were included per year. Among patients without pain in                    School of Public Health, New
+2005, 5·1% were female, mean age was 58·3 (SD 12·6) years, and 75·7%, 15·6%, and 3·6% were White, Black, and                           York, NY, USA (Prof D S Hasin,
+Hispanic or Latino, respectively. In 2019, 9·3% were female, mean age was 56·7 (SD 15·2) years, and 68·1%, 18·2%,                      Prof K M Keyes PhD,
+and 6·5% were White, Black, and Hispanic or Latino, respectively. Among patients with pain in 2005, 7·1% were                          Prof S S Martins MD PhD);
+                                                                                                                                       New York State Psychiatric
+female, mean age was 57·2 (SD 11·4) years, and 74·0%, 17·8%, and 3·9% were White, Black, and Hispanic or Latino,                       Institute, New York, NY, USA
+respectively. In 2019, 12·4% were female, mean age was 57·2 (SD 13·8) years, and 65·3%, 21·9%, and 7·0% were                           (Prof D S Hasin, Prof M M Wall,
+White, Black, and Hispanic or Latino, respectively. Among patients with chronic pain, enacting MCL led to a 0·135%                     D M Alschuler MS,
+(95% CI 0·118–0·153) absolute increase in cannabis use disorder prevalence, with 8·4% of the total increase in MCL-                    Z L Mannes PhD, D S Fink PhD,
+                                                                                                                                       O Livne MD); Health Services
+enacting states attributable to MCL. Enacting RCL led to a 0·188% (0·160–0·217) absolute increase in cannabis use                      Research & Development
+disorder prevalence, with 11·5% of the total increase in RCL-enacting states attributable to RCL. In patients without                  (HSR&D) Seattle Center of
+chronic pain, enacting MCL and RCL led to smaller absolute increases in cannabis use disorder prevalence (MCL:                         Innovation for Veteran-
+                                                                                                                                       Centered and Value-Driven
+0·037% [0·027–0·048], 5·7% attributable to MCL; RCL: 0·042% [0·023–0·060], 6·0% attributable to RCL). Overall,
+                                                                                                                                       Care, Veterans Affairs Puget
+associations of MCL and RCL with cannabis use disorder were greater in patients with chronic pain than in patients                     Sound Health Care System,
+without chronic pain.                                                                                                                  Seattle, WA, USA (C Malte MSW,
+                                                                                                                                       Prof C C Maynard PhD,
+                                                                                                                                       Prof A J Saxon MD); Center of
+Interpretation Increasing cannabis use disorder prevalence among patients with chronic pain following state
+                                                                                                                                       Excellence in Substance
+legalisation is a public health concern, especially among older age groups. Given cannabis commercialisation and                       Addiction Treatment and
+widespread public beliefs about its efficacy, clinical monitoring of cannabis use and discussion of the risk of cannabis               Education, VA Puget Sound
+use disorder among patients with chronic pain is warranted.                                                                            Health Care System, Seattle,
+                                                                                                                                       WA, USA (C Malte,
+                                                                                                                                       Y McDowell PhD, Prof A J Saxon);
+Funding NIDA grant R01DA048860, New York State Psychiatric Institute, and the VA Centers of Excellence in                              Boston University School of
+Substance Addiction Treatment and Education.                                                                                           Public Health, Boston, MA, USA
+                                                                                                                                       (Prof J L Gradus DMSc DSc);
+                                                                                                                                       New York University, New York,
+Copyright © 2023 Elsevier Ltd. All rights reserved.
+                                                                                                                                       NY, USA (Prof M Cerdá DrPH,
+                                                                                                                                       Prof S Sherman MD); University
+Introduction                                                            withdrawal, craving, neglect of other activities, clinically   of Washington, Seattle, WA,
+Cannabis use disorder is a substance use disorder                       significant distress or impairment, and associated             USA (Prof C C Maynard); San
+                                                                                                                                       Francisco VA Health System,
+defined by the same symptoms as other such disorders,1,2                psychosocial and health-related problems.3,4 Although          San Francisco, CA, USA
+including problematic patterns of use, tolerance,                       many individuals can use cannabis without harm,                (S Keyhani MD);
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                                                 877
+        Articles
+
+
+
+
+ University of California at San
+  Francisco, San Francisco, CA,       Research in context
+USA (S Keyhani); VA Manhattan
+ Harbor Healthcare, New York,         Evidence before this study                                       Added value of this study
+     NY, USA (Prof S Sherman);        PubMed was searched by DSH for publications on US time           To our knowledge, this is the first study to show the
+     University of Washington         trends in cannabis legalisation, cannabis use disorders, and     relationship between state MCL and RCL and the nationally
+  School of Medicine, Seattle,
+       WA, USA (Prof A J Saxon)
+                                      pain from database inception until March 15, 2023, without       increasing US rates of adult cannabis use disorder differed by
+                                      language restrictions. The following search terms were used:     whether individuals experience chronic pain or not. Using
+             Correspondence to:
+  Prof Deborah Hasin, Columbia        (medical cannabis laws) AND (pain) AND (cannabis use             electronic medical record data from patients in the Veterans
+      University/New York State       disorder); (recreational cannabis laws) AND (pain) AND           Health Administration that included extensive information on
+ Psychiatric Institute, New York,     (cannabis use disorder); (cannabis laws) AND (pain) AND          medical conditions associated with chronic pain, the study
+                  NY 10032, USA
+                                      (cannabis use disorder). Only three studies have examined the    showed that the associations of MCL and RCL with the
+   deborah.hasin@gmail.com
+                                      role of state medical cannabis laws (MCL) or recreational        increasing prevalence of cannabis use disorder were stronger
+                                      cannabis laws (RCL) in the increasing prevalence of cannabis     among individuals with chronic pain aged 35–64 years and
+                                      use disorder in US adults, finding significant MCL and RCL       65–75 years, with particularly pronounced differences in
+                                      effects but with modest effect sizes. Effects of MCL and RCL     patients aged 65–75 years.
+                                      might vary across important subgroups of the population,
+                                                                                                       Implications of all the available evidence
+                                      including individuals with chronic pain. Only one study was
+                                                                                                       MCL and RCL are likely to influence the prevalence of cannabis use
+                                      found that had cannabis use disorder as an outcome, and this
+                                                                                                       disorder through commercialisation that increases availability and
+                                      study used cross-sectional data from a single year, which
+                                                                                                       portrays cannabis use as normal and safe, thereby decreasing
+                                      cannot be used to determine trends over time. Therefore,
+                                                                                                       perception of cannabis risk. When developing cannabis legislation,
+                                      evidence has been lacking on whether the role of state medical
+                                                                                                       unintended consequences should be considered, including
+                                      and recreational cannabis legalisation in the increasing US
+                                                                                                       increased risk of cannabis use disorder in large vulnerable
+                                      adult prevalence of cannabis use disorder differed by chronic
+                                                                                                       subgroups of the population such as patients with chronic pain.
+                                      pain status.
+
+
+                                    33% of those who regularly use cannabis develop                    subgroups, obscuring important differences when
+                                    cannabis use disorder;5 among US adults aged 18 years              groups are combined. Specifically, studies have not
+                                    and older, the prevalence of cannabis use disorder is              investigated whether state MCL or RCL effects differ
+                                    5·9%, or 15 million adults.6                                       between individuals with and without chronic pain.
+                                      The legal status of cannabis varies across countries and           Chronic pain (ie, pain lasting ≥3 months20) is an
+                                    time periods. In the UK, cannabis use is illegal, with             increasing health problem in the USA.21,22 Veterans have
+                                    stricter legal penalties under discussion.7 By contrast,           high rates of chronic pain.22 Pain and cannabis use
+                                    Canada legalised cannabis nationally for medical use in            disorder are associated.23 The prevalence of cannabis use
+                                    2001 and recreational use in 2018, with legislation that           disorder diagnoses has increased disproportionately
+                                    emphasised public health concerns.8 In the USA,                    among patients with chronic pain in the VHA system,
+                                    legalisation has occurred on a state-by-state basis—since          particularly for older patients,24 possibly due to an
+                                    1996, 39 US states have enacted medical cannabis laws              increasing use of cannabis to manage pain,25 expanding
+                                    (MCL), and since 2012, 21 states have enacted recreational         the pool of individuals using cannabis who are vulnerable
+                                    cannabis laws (RCL). Much of the US legislation has                to cannabis use disorder. Most US adults, particularly in
+                                    been industry friendly rather than public health focused.9         MCL and RCL states, believe that cannabis is effective for
+                                      Over the past two decades, the proportion of Americans           treating pain26 despite inconclusive evidence,27 and pain
+                                    favouring cannabis legalisation has increased to 68%,              is the most common qualifying condition for medical
+                                    perceived risk of cannabis use has decreased,10 and rates          cannabis.28 Given that cannabis legalisation plays a part
+                                    of US adult cannabis use11,12 and cannabis use disorder            in increased cannabis use disorder prevalence, rates of
+                                    have increased.11–14 Adjusted for nationally increasing            chronic pain are high in patients in the VHA, pain is
+                                    trends, MCL and RCL have been shown to play a part in              associated with cannabis use disorder, and beliefs that
+                                    the increasing prevalence of cannabis use.15 However, a            cannabis is useful for pain are more prevalent in MCL
+                                    few similarly adjusted national studies examined MCL               and RCL states, we hypothesised that MCL or RCL would
+                                    and RCL effects on trends in the prevalence of cannabis            play a greater part in the national increases in rates of
+                                    use disorder,16,17 two using the same survey data from the         cannabis use disorder in patients in the VHA with
+                                    US general population16,17 and one using data from                 chronic pain than in patients without chronic pain. If so,
+                                    Veterans Health Administration (VHA) records.18 These              the information would be important to convey to health-
+                                    studies indicate that MCL and RCL had a role in the                care policy makers tasked with formulating laws and
+                                    increasing prevalence of cannabis use disorder,16,18,19 but        regulations regarding cannabis use, and to clinicians
+                                    that their effects were modest. The modest-sized effects           treating patients with chronic pain in different
+                                    could occur if MCL and RCL effects differ across                   jurisdictions.
+
+
+878                                                                                                                     www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                                  Articles
+
+
+
+
+Methods                                                         year. A binary variable was created indicating any chronic
+Study design                                                    pain condition each year from 2005 to 2019.
+The VHA is the largest integrated US health-care system.          Primary exposures were state cannabis laws, with state-
+We leveraged VHA electronic health record data from             year variables indicating state MCL or both MCL and RCL
+2005 to 2019 to investigate whether the role of MCL and         enactment. Patient state-of-residence was indicated by last
+RCL enactment in the increases in rates of cannabis use         health-care encounter for each year. States were categorised
+disorder diagnoses differed between patients with and           each year as no-cannabis law (No-CL), MCL-only, or MCL
+without chronic pain. Because MCL and RCL have                  and RCL. For sensitivity analysis involving state legal
+stronger effects in older adults15,16,18 and disproportionate   dispensaries, which can occur subsequent to MCL or RCL
+increases in cannabis use disorder are greatest in older        enactment, we used RAND-USC OPTIC marijuana policy
+patients with pain,24 we also examined results by age           data32 to create state-year variables indicating the years that
+group. Additionally, because the impact of MCL or RCL           legally protected dispensaries were operational.
+enactment could take time to emerge, we explored a 1-year         Age-group definitions followed previous studies and
+time lag after enactment. Because enactment does not            were categorised as 18–34 years, 35–64 years, and
+necessarily change cannabis availability, we also explored      65–75 years.13,18,24 Patients aged 76 years or older were
+the dates that dispensaries were legally permitted.             excluded because of their very low cannabis use disorder
+  This study examined changes in cannabis use disorder          prevalence.18 Control covariates included variables
+prevalence in sequential yearly VHA electronic health           previously shown to be related to chronic pain33 and to
+record data in the USA from 2005 to 2019. For this              cannabis use disorder,4 and were age, sex, and race and
+purpose, VHA data were configured to form repeated              ethnicity (non-Hispanic White, non-Hispanic Black,
+cross-sectional datasets. Data were obtained through the        Hispanic, other or multiple, and unknown). Time-
+VHA corporate data warehouse, a data repository for care        varying yearly state control covariates included those
+provided at VHA facilities or paid by the VHA. Veterans         previously shown to be related to state rates of various
+aged 18–75 years with one or more VHA primary care,             health conditions; state and year rates from American
+emergency department, or mental health visit for any            Community Survey data; percentage male; non-Hispanic
+reason in a given calendar year were included, except           White; non-Hispanic Black; Hispanic; aged 18 years or
+those in hospice or palliative care or outside the 50 states    older; unemployed; below the poverty threshold; and
+plus Washington, DC. The institutional review boards at         yearly median household income. 1-year estimates were
+New York State Psychiatric Institute, VA Puget Sound,           used for 2005–08 and 5-year estimates were used for
+and VA New York Harbor Healthcare Systems approved              2009–19, using R tidycensus.
+the research. This included waivers or exemptions for the
+need to obtain informed consent for analyses of the             Statistical analysis
+electronic medical records, while implementing extensive        We conducted the analyses in two stages. We began by
+procedures to protect the confidentiality of the patients.      describing overall time trends in yearly cannabis use
+                                                                disorder prevalence by pain status among patients living
+Outcomes and exposures                                          in states that had enacted MCL-only, MCL and RCL, or
+The primary outcome was a clinician-assigned cannabis           neither by the end of the study period, 2019. The purpose
+use disorder diagnosis at one or more outpatient or             was to provide a general summary of the magnitude of
+inpatient encounter within a calendar year, ICD-9-CM            differences and trend patterns across these three groups
+(2005–15: 305.2X, abuse; 304.3X, dependence),                   of states regardless of when laws were enacted during the
+and ICD-10-CM (2016–19: F12.1X, abuse; F12.2X,                  period, while adjusting for background differences in
+dependence), excluding cannabis use disorder in                 demographics. To do this, we grouped diagnosed
+remission and unspecified cannabis use codes.                   cannabis use disorder prevalence across 2005–19 by
+  As previously described,24 patients were classified with      chronic pain and by state cannabis law (CL) status at the
+chronic pain using an American Pain Society taxonomy            end of the study period (2019) into No-CL; MCL-only; and
+and ICD-9-CM–ICD-10-CM crosswalk29 to identify                  MCL and RCL. Adjusted yearly prevalence estimates
+11 clusters of chronic pain conditions:30 back; neck;           were obtained from a linear binomial regression model
+limb, extremity, or joint pain, and non-systemic non-           interacting state law status in 2019 by year, controlling for
+inflammatory arthritic disorders; fibromyalgia; headache        age, sex, race, ethnicity, and time-varying state covariates.
+or migraine; orofacial, ear, or temporomandibular               Additional models were run stratified by both chronic
+disorders; abdominal or bowel disorders; urogenital,            pain and age group.
+pelvic, or menstrual disorders; neuropathy; systemic              The second stage of analysis took into account the
+disorders; and other painful conditions. The ICD codes          specific timing of the year that MCL or RCL laws were
+are available elsewhere.31 We excluded cancer-related and       enacted, testing whether cannabis use disorder prevalence
+acute pain (eg, fractures).24 We required diagnoses for         differences pre-MCL and RCL enactment and post-MCL
+specific conditions from two or more outpatient visits or       and RCL enactment were greater than those expected
+one or more inpatient hospitalisations within each study        given contemporaneous trends in states that did not enact
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                            879
+      Articles
+
+
+
+
+                                                                    2005 (N=3 234 382)                                             2019 (N=4 579 994)
+                                                                    Patients without pain          Patients with pain              Patients without pain          Patients with pain
+                                                                    (n=1 952 361)                  (n=1 282 021)                   (n=2 086 807)                  (n=2 493 187)
+                  Age (continuous)                                         58·33 (12·59)                  57·23 (11·39)                   56·67 (15·17)                  57·19 (13·78)
+                  Age (categorical)
+                    <35 years                                        122 708 (6·3%)                  60 101 (4·7%)                  261 075 (12·5%)                 221 418 (8·9%)
+                    35–64 years                                     1 125 137 (57·6%)               868 355 (67·7%)                 939 778 (45·0%)               1 295 657 (52·0%)
+                    65–75 years                                      704 516 (36·1%)                353 565 (27·6%)                 885 954 (42·5%)                 976 112 (39·2%)
+                  Sex
+                    Female                                           100 228 (5·1%)                  90 918 (7·1%)                  194 585 (9·3%)                 309 659 (12·4%)
+                    Male                                            1 852 133 (94·9%)              1 191 103 (92·9%)               1 892 222 (90·7%)              2 183 528 (87·6%)
+                  Race or ethnicity
+                    White                                           1 477 147 (75·7%)               948 825 (74·0%)                1 420 467 (68·1%)              1 629 004 (65·3%)
+                    Black                                            305 221 (15·6%)                228 588 (17·8%)                 379 810 (18·2%)                 546 973 (21·9%)
+                    Hispanic or Latino                                70 609 (3·6%)                  49 960 (3·9%)                  136 680 (6·5%)                  174 481 (7·0%)
+                    Asian                                              11 542 (0·6%)                    5682 (0·4%)                  26 669 (1·3%)                   28 587 (1·1%)
+                    American Indian or Alaska Native                   10 190 (0·5%)                    8062 (0·6%)                   14 597 (0·7%)                  19 932 (0·8%)
+                    Pacific Islander or Native Hawaiian                13 323 (0·7%)                    9550 (0·7%)                   14 052 (0·7%)                  19 180 (0·8%)
+                    Multiple race or ethnicity                         12 175 (0·6%)                 10 569 (0·8%)                    17 595 (0·8%)                  23 717 (1·0%)
+                    Unknown                                            52 154 (2·7%)                 20 785 (1·6%)                   76 937 (3·7%)                   51 313 (2·1%)
+
+                 Data are n (%) or mean (SD).
+
+                 Table 1: Patient demographics in patients with and without chronic pain, 2005 and 2019
+
+
+
+                                                                        Patients with chronic pain                                   Patients without chronic pain
+                                                                        CUD prevalence*                        Absolute change       CUD prevalence*                       Absolute change
+                                                                        2005                2019                                     2005               2019
+                  Full sample, age ≥18 years                             1 282 021          2 493 187                   ··           1 952 361          2 086 807                    ··
+                    No-CL (17 states)                                             1·76%              2·92%              1·17%                 1·01%              1·53%               0·52%
+                    MCL-only (22 states)                                          1·76%              3·37%              1·61%†                1·01%              1·66%               0·65%†
+                    MCL and RCL (11 states and DC)                                1·77%              3·41%              1·64%‡                1·03%              1·73%               0·70%‡
+                  Age 18–34 years                                           60 101           221 418                    ··             122 708            261 075                    ··
+                    No-CL (17 states by 2019)                                     1·96%              5·61%              3·64%                 1·24%              3·53%               2·29%
+                    MCL-only (23 states by 2019)§                                 2·21%              6·10%              3·89%†                1·56%              3·65%               2·09%†
+                    MCL and RCL (ten states and DC by 2019)§                      2·53%              6·65%              4·12%‡                1·59%              4·02%               2·43%‡
+                  Age 35–64 years                                         868 355           1 295 657                   ··           1 125 137            939 778                    ··
+                    No-CL (17 states by 2019)                                     1·57%              3·49%              1·92%                 1·00%              1·89%               0·89%
+                    MCL-only (23 states by 2019)§                                 1·69%              4·26%              2·57%†                1·22%              2·16%               0·94%†
+                    MCL and RCL (ten states and DC by 2019)§                      1·91%              4·36%              2·45%‡                1·37%              2·24%               0·87%‡
+                  Age 65–75 years                                         353 565            976 112                    ··             704 516            885 954                    ··
+                    No-CL (17 states by 2019)                                     0·48%              1·34%              0·86%                 0·18%              0·56%               0·38%
+                    MCL-only (23 states by 2019)§                                 0·52%              1·62%              1·10%†                0·21%              0·64%               0·42%†
+                    MCL and RCL (ten states and DC by 2019)§                      0·48%              1·63%              1·16%‡                0·21%              0·68%               0·47%‡
+
+                 CL=cannabis law. CUD=cannabis use disorder. DC=District of Columbia. MCL=medical cannabis law. RCL=recreational cannabis law. *Adjusted for categorical age, sex, race or
+                 ethnicity, all age, race or ethnicity, and sex interactions, state-level median income and percentages (male, Hispanic, non-Hispanic White, non-Hispanic Black, poverty, aged
+                 18 years or older, unemployed). †Value used as denominator to determine percentage of overall increase attributable to MCL enactment based on difference-in-difference
+                 estimates of MCL effect (see table 3). ‡Value used as denominator to determine percentage of overall increase attributable to RCL enactment based on difference-in-
+                 difference estimates of RCL effect (see table 3). §During the period from 2005 to 2019, 22 states and DC made a change from no-CL to MCL-only; 11 states and DC made a
+                 change from MCL-only to MCL and RCL. Note, three of these states and DC made both changes between 2005 and 2019 (ie, from no-CL to MCL-only and then later to MCL
+                 and RCL). There were 20 states that by 2019 had made no law changes (three with MCL-only and 17 with no-CL).
+
+                 Table 2: Adjusted CUD prevalence in 2005 and 2019, by pain and enacted state law status as of 2019
+
+
+
+
+880                                                                                                                              www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                                                                                   Articles
+
+
+
+
+the respective laws by that time. To do this, we used the          or RCL state and year variables with 1-year post-enactment
+staggered-adoption difference-in-difference (DiD) model.           dates. The duration of this lag was chosen to maximise
+This model uses each state that enacts a law as its own            the number of RCL states that could be included, since
+control by comparing aggregated cannabis use disorder              many RCLs were enacted only in recent years.
+prevalence before and after MCL and RCL enactment
+while controlling for expected trends using data from all          Role of the funding source
+other states that did not enact the respective law in              The study sponsors had no role in the study design,
+contemporaneous years. A time-varying indicator was                analysis, interpretation of data, writing the paper, or the
+constructed for each state-year indicating No-CL, MCL-             decision to submit for publication.
+only, or MCL and RCL for that year. DiD estimates and
+95% CIs for results on MCL-only and MCL and RCL were               Results
+obtained from a linear binomial regression model stratified        In 15 repeated cross-sectional yearly datasets from the
+by chronic pain, with fixed effects for state, categorical year,   VHA (one for each year, 2005–19), the resulting numbers
+and time-varying state law status, controlling for age, sex,       of patients included in the prevalence model ranged
+race, ethnicity, and time-varying state-level covariates.          from 3 234 382 to 4 579 994 (see appendix p 2 for yearly                                                See Online for appendix
+Since DiD estimation is typically performed as a difference        numbers). Over the 15 years, of the 27 854 691 patients
+in risk differences, we used the linear binomial model             with chronic pain, the mean age (SD) was 56·74 (12·74)
+because it provides the absolute risk differences rather           years, 25 097 693 (90·1%) were male, and 19 294 950
+than relative measures of association.34 Note that state was       (69·3%) were white. Of the 31 791 112 patients without
+included as a fixed effect to account for all time-invariant       chronic pain over the 15 years, the mean age was 56·91
+differences between states. It was not possible to                 (14·02) years, 29 490 559 (92·8%) were male, and
+additionally control for state as a random effect; patients        22 875 493 (72·0%) were white (table 1).
+were clustered by design within state and year. Resulting            Covariate-adjusted cannabis use disorder prevalence
+DiD estimates include states moving from No-CL to MCL-             trends in the no-CL, MCL-only, and MCL and RCL
+only and from MCL-only to MCL and RCL among patients               states (defined by their 2019 status) are shown in table 2
+with and without pain. Differences in DiD results between          and figure 1. Among patients with chronic pain,
+patients with and without pain were determined by the CIs          cannabis use disorder prevalence increased 1·17%
+around the DiD estimates for both groups; non-overlapping          (from 1·76% to 2·92%) in no-CL states, 1·61% (from
+CIs indicated that the DiD results for the two groups              1·76% to 3·37%) in MCL states, and 1·64% (from
+differed significantly. Additional DiD models were run             1·77% to 3·41%) in MCL and RCL states. Among
+stratified by both chronic pain and age group (18–34 years,        patients without chronic pain, cannabis use disorder
+35–64 years, and 65–75 years), adjusting for within-group          prevalence increased 0·52% (from 1·01% to 1·53%)
+continuous age.                                                    in no-CL states, 0·65% (from 1·01% to 1·66%) in
+  As noted previously, the ICD-9-CM to ICD-10-CM                   MCL-only states, and 0·70% (from 1·03% to 1·73%) in
+transition resulted in a slight downward shift in cannabis
+use disorder prevalence in 2015 across the VHA and all
+states.13,18 DiD estimates took this into account by utilising                                                              ICD-9-CM                         ICD-10-CM
+                                                                                                           3·5
+states that had not yet passed MCL or RCL (which
+experienced the ICD transition at the same time) as
+                                                                                                           3·0
+contemporaneous controls.
+  Following previous procedures,18 we illustrate the
+                                                                    Cannabis use disorder prevalence (%)
+
+
+
+
+                                                                                                           2·5
+magnitude of the DiD estimates relative to the overall
+increases in cannabis use disorder prevalence (ie, the
+                                                                                                           2·0
+amount of change attributable to the laws) by dividing
+the DiD estimates by the absolute changes between
+                                                                                                           1·5
+2005 and 2019 in the states with the respective laws by
+2019. To explore whether law effects differed by earlier
+or later enactment, we produced state-specific DiD                                                         1·0
+
+estimates using interaction terms between state and                                                              Law and pain status
+                                                                                                                 No-CL with pain                No-CL with no pain
+time-varying no-CL, MCL-only, and RCL status.                                                              0·5
+                                                                                                                 MCL-only with pain             MCL-only with no pain
+  In sensitivity analyses, we explored two additional                                                            MCL and RCL with pain          MCL and RCL with no pain
+issues. First, we examined the potential influence on                                                       0
+availability (ie, cannabis dispensaries), by replacing state
+                                                                                                               09
+
+
+
+
+                                                                                                               19
+                                                                                                                10
+
+
+
+
+                                                                                                                13
+                                                                                                                12
+                                                                                                                11
+
+
+
+
+                                                                                                               14
+                                                                                                               05
+
+
+
+
+                                                                                                               15
+                                                                                                               08
+
+
+
+
+                                                                                                               18
+                                                                                                               07
+
+
+
+
+                                                                                                               17
+                                                                                                               06
+
+
+
+
+                                                                                                               16
+                                                                                                             20
+
+
+                                                                                                             20
+                                                                                                             20
+                                                                                                             20
+
+
+
+
+                                                                                                             20
+                                                                                                            20
+
+
+
+
+                                                                                                            20
+                                                                                                            20
+
+
+                                                                                                            20
+                                                                                                           20
+
+
+
+
+                                                                                                            20
+                                                                                                            20
+
+
+
+
+                                                                                                            20
+                                                                                                            20
+                                                                                                            20
+
+
+
+
+and year no-CL, MCL-only, and RCL variables with the                                                                                     Year
+year dispensaries were first operational.32 Second, because
+                                                                   Figure 1: Cannabis use disorder prevalence by state law status as of 2019,
+the impact of MCL-only or MCL and RCL could take time
+                                                                   among patients with and without chronic pain
+to emerge, we examined a time lag, replacing MCL-only              No-CL=no cannabis law. MCL=medical cannabis law. RCL=recreational cannabis law.
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                                                                                    881
+      Articles
+
+
+
+
+                 MCL and RCL states. Similar results were seen when                                       65–75 years), whose cannabis use disorder rates were
+                 results were assessed by age group, with the greatest                                    lowest at the beginning of the study period, but increased
+                 increases seen in the youngest patients (table 2).                                       more than 3-fold in MCL or RCL states.
+                   In patients with chronic pain by age group, prevalence                                   The DiD estimate of the cannabis use disorder
+                 of cannabis use disorders increased from 2005 to 2019 by                                 prevalence increase due to MCL enactment in patients
+                 3·64% (no-CL), 3·89% (MCL-only), and 4·12% (MCL and                                      without chronic pain was 0·037% (95% CI 0·027–0·048;
+                 RCL) in patients aged 18–34 years, 1·92% (no-CL), 2·57%                                  table 3). Relative to the absolute change in states with
+                 (MCL-only), and 2·45% (MCL and RCL) in patients aged                                     MCL-only by 2019, 5·7% of this increase was attributable
+                 35–64 years, and 0·86% (no-CL), 1·10% (MCL-only), and                                    to MCL. The DiD estimate of the pre­valence increase due
+                 1·16% (MCL and RCL) in patients aged 65–75 years.                                        to RCL enactment was 0·042% (0·023–0·060); relative to
+                   The DiD estimate of the cannabis use disorder prevalence                               the absolute change in states with RCL by 2019, 6·0% of
+                 increase due to MCL enactment in patients with chronic                                   this increase was attributable to RCL. By age, DiD
+                 pain was 0·135% (95% CI 0·118–0·153; table 3). Relative to                               estimates for MCL and RCL were non-significant among
+                 the absolute change in states with MCL-only by 2019, 8·4%                                patients aged 18–34 years. In patients aged 35–64 years,
+                 of this increase was attributable to MCL. The DiD estimate                               8·1% of the increase in cannabis use disorder prevalence
+                 of the cannabis use disorder prevalence increase due to                                  was attributable to MCL enactment, and for RCL, the
+                 RCL enactment was 0·188% (0·160–0·217); relative to the                                  result of –8·2% suggested that post-RCL enactment,
+                 absolute change in states with MCL and RCL by 2019,                                      patients aged 35–64 years without chronic pain had
+                 11·5% of this increase was attributable to RCL.                                          smaller increases in cannabis use disorder prevalence
+                   By age group of patients with chronic pain (table 3),                                  than other age groups. Among patients aged 65–75 years,
+                 among those aged 18–34 years, neither MCL nor RCL                                        6·9% of the increase in cannabis use disorder prevalence
+                 played a significant part in the increases in cannabis use                               was attributable to MCL enactment, and 16·1% was
+                 disorder prevalence. In patients aged 35–64 years, 7·9%                                  attributable to RCL.
+                 of the cannabis use disorder prevalence increase was                                       In the overall sample of patients with and without
+                 attributable to MCL and 5·8% was attributable to RCL;                                    chronic pain, a greater increase in cannabis use disorder
+                 and in patients aged 65–75 years, 9·3% was attributable                                  prevalence attributable to MCL and RCL enactment
+                 to MCL and 19·4% was attributable to RCL. Thus, in                                       occurred among patients with chronic pain than in
+                 terms of the change attributable to CL, the laws (especially                             patients without chronic pain (p<0·0001 for both MCL
+                 RCL) had greatest impact on older patients (aged                                         and RCL enactment; table 3). By age, DiD estimates for
+
+                                                     Patients with chronic pain                                     Patients without chronic pain                               p value†
+                                                     Model-based DiD law             Percentage of absolute         Model-based DiD law             Percentage of absolute
+                                                     effect, % (95% CI)‡             change attributable to         effect, % (95% CI)‡             change attributable to
+                                                                                     law‡                                                           law‡
+                   Full sample, age ≥18 years
+                   No-CL to MCL-only§                  0·135% (0·118 to 0·153)        8·4%                           0·037% (0·027 to 0·048)         5·7%                       p<0·0001
+                   MCL-only to RCL and MCL§            0·188% (0·160 to 0·217)       11·5%                           0·042% (0·023 to 0·060)         6·0%                       p<0·0001
+                   Age 18–34 years
+                   No-CL to MCL-only§                  0·133% (0·029 to 0·238)        3·4%                           0·028% (–0·035 to 0·091)         1·4%                      p=0·0138
+                   MCL-only to RCL and MCL§           –0·053% (–0·192 to 0·085)      –1·3%                           0·033% (–0·052 to 0·118)         1·4%                      p=0·1297
+                   Age 35–64 years
+                   No-CL to MCL-only§                  0·203% (0·170 to 0·236)        7·9%                           0·076% (0·053 to 0·100)         8·1%                       p<0·0001
+                   MCL-only to RCL and MCL§            0·142% (0·093 to 0·192)        5·8%                          –0·072% (–0·107 to –0·037) –8·2%                            p<0·0001
+                   Age 65–75 years
+                   No-CL to MCL-only§                  0·102% (0·084 to 0·121)        9·3%                           0·029% (0·017 to 0·041)         6·9%                       p<0·0001
+                   MCL-only to RCL and MCL§            0·224% (0·191 to 0·258)       19·4%                           0·075% (0·055 to 0·096)        16·1%                       p<0·0001
+
+                  DC=District of Columbia. DiD=difference-in-difference. MCL=medical cannabis law. No-CL=no cannabis law. RCL=recreational cannabis law. *Staggered-Adoption DiD
+                  regression model,35 adjusted for categorical age, sex, race or ethnicity, all age, race or ethnicity, and sex interactions, state-level median income and percentages (male,
+                  Hispanic, non-Hispanic White, non-Hispanic Black, poverty, aged 18 years or older, unemployed). Model estimated effects represent absolute increase (positive values) or
+                  decrease (negative values) in cannabis use disorder prevalence due to law enactment. The DiD model compares the years after enactment (up to 2019 or until the next law
+                  change) in each state to the years before enactment (since 2005 or the previous law change) in the same state, and controls for contemporaneous trends in other states that
+                  have not yet passed the respective law. †Comparison of DiD effect between patients with chronic pain and without chronic pain based on non-overlapping CIs of the
+                  two DiD effects. ‡22 states and DC made a change from no-CL to MCL-only during the period from 2005 to 2019; 11 states and DC made a change from MCL-only to RCL
+                  and MCL during the period. Note, three of these states and DC made both changes between 2005 and 2019 (ie, from no-CL to MCL-only and then later to RCL and MCL),
+                  hence contributing information to both effects. There were 20 states (three with MCL-only and 17 with no-CL in 2019) that made no law changes between 2005 and 2019;
+                  in the DiD model, they contribute to background secular trends. §DiD estimate divided by absolute change across period as shown in table 2.
+
+                  Table 3: MCL and RCL enactment and changes in cannabis use disorder prevalence in patients with and without pain using DiD* estimates across 2005–19
+
+
+
+
+882                                                                                                                             www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                                                                         Articles
+
+
+
+
+                                               A Patients with chronic pain                                B Patients without chronic pain
+                   Rhode Island (January, 2006)
+                        New Mexico (July, 2007)
+                     New Jersey (October, 2010)
+                      Arizona (December, 2010)
+                            Delaware (July, 2011)
+                   Connecticut (October, 2012)
+                 Washington (December, 2012)
+                     Colorado (December, 2012)
+                    New Hampshire (July, 2013)
+                         Minnesota (May, 2014)
+                           New York (July, 2014)
+         District of Columbia (Februrary, 2015)
+                         Alaska (February, 2015)
+                            Oregon (June, 2015)
+                      Pennsylvania (May, 2016)
+                       Louisiana (August, 2016)
+ State
+
+
+
+
+                        Ohio (September, 2016)
+                   California (November, 2016)
+                   Arkansas (November, 2016)
+              North Dakota (December, 2016)
+              Massachusetts (December, 2016)
+                         Nevada (January, 2017)
+                           Maine (January, 2017)
+                          Florida (January, 2017)
+                       West Virginia (July, 2017)
+                            Vermont (July, 2018)
+                      Oklahoma (August, 2018)
+                    Michigan (November, 2018)
+                         Utah (December, 2018)                                        MCL-only vs no-CL
+                     Missouri (December, 2018)                                        MCL and RCL vs
+                                                                                      MCL-only*
+                             Illinois (June, 2019)
+                                                 –1·0    –0·5      0          0·5   1·0     1·5      2·0   –1·0    –0·5      0       0·5       1·0      1·5      2·0
+
+Figure 2: Difference-in-difference estimates of change in cannabis use disorder prevalence, by change in state law status, in patients with chronic pain (A) and
+without chronic pain (B)
+MCL=medical cannabis law. No-CL=no cannabis law. RCL=recreational cannabis law. *Adjusted for categorical age, sex, race or ethnicity, all age, race or ethnicity, and
+sex interactions, state-level median income and percentages: (male, Hispanic, non-Hispanic White, non-Hispanic Black, poverty, aged 18 years or older, unemployed).
+In states that changed to MCL and RCL during the period, the MCL and RCL effect plotted is compared with No-CL for comparison with the MCL vs No-CL effect.
+
+
+MCL and RCL did not differ between those with and                                          disorder prevalence. We also saw no patterning of larger
+without chronic pain in patients aged 18–34 years.                                         or smaller results in states enacting laws in earlier or
+However, non-overlapping CIs for the DiD estimates of                                      later years.
+MCL and RCL showed differences between patients with                                         Substituting legally permitted operational dispensary
+and without pain in patients aged 35–64 (p<0·0001 for                                      dates for law enactment dates (appendix pp 3–4), fewer
+both MCL and RCL enactment) and 65–75 years (p<0·0001                                      states were analysed because four MCL-only and four
+for both MCL and RCL enactment), with greater impact                                       MCL and RCL states had not authorised operational
+of MCL and RCL on patients with chronic pain (table 3).                                    dispensaries by 2019. Using the dates dispensaries were
+   Among patients with pain, 15 states that enacted MCL-                                   legally permitted among patients with chronic pain, the
+only between 2005 and 2019 showed an increase in                                           DiD estimate was significant for MCL (0·040% [95% CI
+cannabis use disorder prevalence attributable to MCL,                                      0·021 to 0·059) although smaller than the corresponding
+two a decrease, and five no change attributable to MCL;                                    result for MCL enactment. The DiD estimate for RCL
+eight states that enacted RCL by 2019 showed an increase,                                  (0·149% [0·115 to 0·182]) was similar to the estimate for
+one a decrease, and three no change attributable to RCL                                    the RCL enactment date. Among patients without
+(figure 2A). Among patients without pain, 11 states that                                   chronic pain, the DiD estimate was small and negative in
+enacted MCL-only showed an increase in cannabis use                                        MCL-only states (–0·013 [–0·023 to 0·002]). Using 1-year
+disorder prevalence attributable to MCL enactment, eight                                   lags in place of the dates for MCL and RCL enactment
+a decrease, and three no change attributable to MCL; five                                  (appendix pp 5–6), DiD estimates in patients with and
+states that enacted RCL showed an increase, two a                                          without chronic pain did not change substantially.
+decrease, and four had no change attributable to RCL
+(figure 2B). Thus, patients with pain had a greater                                        Discussion
+number of state-specific increases attributable to MCL or                                  To our knowledge, this is the first study to examine
+RCL enactment than patients without pain. However, no                                      differences in the relationship of MCL and RCL to
+state reached a 1% absolute increase in cannabis use                                       changes in cannabis use disorder prevalence by chronic
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                                                                   883
+      Articles
+
+
+
+
+                 pain status. The study also added to sparse information            leading to cannabis use.24 Pharmaco­     kinetic parameters
+                 on an important group, older patients.                             influenced by age might increase tetrahydrocannabinol
+                   Using repeated cross-sectional yearly datasets from              (THC) bioavailability in older individuals, possibly
+                 2005 to 2019, we found that in VHA patients aged                   increasing their risk for cannabis use disorder. In addition,
+                 35–64 years and 65–75 years, DiD estimates of the                  older patients might be more concerned about the legality
+                 relationship of MCL and RCL to cannabis use disorder               of cannabis than younger patients, and therefore more
+                 prevalence were significantly larger among patients with           willing to use it only after it becomes legal. This could
+                 chronic pain than in patients without chronic pain. In a           contribute to the impact of MCL and RCL among older
+                 previous study that did not differentiate patients in the          patients. Taken together, these findings suggest that
+                 VHA by pain, MCL and RCL accounted for 4·7% and                    clinicians should monitor potential cannabis use among
+                 9·8% of the increase in prevalence of cannabis use                 older patients with chronic pain, discussing the risks of
+                 disorder between 2005 and 2019, respectively.18 The                cannabis use disorder and potential treatment alternatives.
+                 present study found that among patients with chronic                 Although we showed that MCL and RCL played a
+                 pain, MCL and RCL enactment accounted for 8·4% and                 significant role in the increasing trends in cannabis use
+                 11·5% of the increase in such prevalence, respectively. The        disorder prevalence in patients with chronic pain, a
+                 relationship of RCL to cannabis use disorder prevalence            substantial proportion of the increases remains
+                 was particularly pronounced among patients aged                    unexplained, leaving important questions unanswered.
+                 65–75 years with chronic pain, in whom 19·4% of the                For example, among patients with chronic pain, are
+                 increase in cannabis use disorder prevalence was                   increases in cannabis use disorder prevalence also
+                 attributable to RCL enactment, although these associations         influenced by state-level opioid policies or other changing
+                 do not account for unmeasured time-varying confounders.            state characteristics? At an individual level, is the
+                   MCL and RCL are likely to influence the prevalence of            prevalence of cannabis use disorder growing faster
+                 cannabis use disorder by decreasing perception of                  among patients with chronic pain who also have specific
+                 cannabis risk10,36 and by increasing access to more potent         psychiatric or other substance use disorders, or who were
+                 cannabis products. Commercialisation that increases                previously prescribed opioids but no longer have a
+                 access to cannabis once commercial markets are opened,             prescription, or who now have a lower dose? In 2019, the
+                 and advertising and online information that portrays               two most common chronic pain clusters were back pain
+                 cannabis use as normal and safe, are also likely to be             (22%) and a category for non-inflammatory arthritic pain
+                 involved, leading to positive expectancies regarding               (32%). Their rates are increasing, as is the use of cannabis
+                 cannabis use that have been demonstrated in the high               in adults with these conditions.24,42 Do one or both of
+                 rates of placebo response in randomised clinical trials.37 In      these pain clusters account for most of the increases in
+                 patients with chronic pain, the decline in prescribed              cannabis use disorder prevalence, or for differences in
+                 opioids could also have contributed to our findings on             the relationship of MCL and RCL to cannabis use
+                 MCL, RCL, and cannabis use disorder by leading to                  disorder between those with and without chronic pain?
+                 substitution of cannabis use that led to cannabis use              Would the total number of painful conditions (a proxy for
+                 disorder. The VHA offers evidence-based non-opioid pain            severity24) better account for the increases? These
+                 treatment programmes,38 including psychological                    questions should be addressed in future research.
+                 therapies, physical rehabilitation, and complementary and            Study limitations are noted. First, patients in the VHA
+                 integrative health interventions (eg, massage or                   differ from the general population in that a large majority
+                 acupuncture). However, positive media accounts of                  of them are White and male and many are in the older
+                 cannabis trials (regardless of their results27), positive online   age group (65–75 years). As such, they are not
+                 promotional efforts (eg, The Empowered Pain Patient39),            representative of all veterans or of the US general adult
+                 and increasing beliefs that cannabis is a useful prevention        population. Second, cannabis use disorder diagnoses
+                 and treatment agent26 might increase patient interest in           were made by clinicians, who are most likely to diagnose
+                 cannabis more than the evidence-based treatments offered           severe disorders43 and miss mild cases found using
+                 by the VHA. That this could increase the risk for cannabis         structured assessments.4,11 Third, no subjective pain
+                 use disorder is supported by a trial showing that obtaining        measure (ie, perceived pain intensity) was available,
+                 a medical cannabis card was associated with a rapid                which future studies should employ. Fourth, cannabis
+                 increase in risk for cannabis use disorder,40 and also by a        laws are heterogeneous. We examined whether states
+                 meta-analysis of randomised trials of cannabinoids for             permitted dispensaries, but other differences (eg, price
+                 pain showing substantial placebo response.27                       and taxation) should be addressed in future studies.
+                   Our finding of the largest DiD estimates for RCL among           Fifth, the impact of state law changes might be delayed.
+                 patients with pain aged 65–75 years adds to evidence about         We analysed 1-year lags to include as many RCL states as
+                 important changes among older adults, among whom the               possible, but longer lags should be analysed when more
+                 prevalence of cannabis use is growing.41 Many non-opioid           recent data become available. Sixth, additional sources of
+                 pain medications are contraindicated among older                   cannabis availability (eg, black market dispensaries) need
+                 individuals, limiting pain treatment options and potentially       to be taken into consideration when assessing legal
+
+
+884                                                                                                 www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                                                Articles
+
+
+
+
+dispensaries as the determinant of cannabis availability.       should monitor harms related to increasing cannabis use
+Seventh, a cannabis use measure was not available, so           disorder, particularly in those with chronic pain, and
+cannabis use disorder within those endorsing use and            clearly communicate this knowledge to policy makers,
+specific use patterns (eg, frequency) was not examined.         clinicians, patients, and the public in the USA and in
+  Additional limitations include the following: many            other countries. Educational messages regarding the risk
+time-varying state-level covariates and confounders were        for cannabis use disorder among those with pain who are
+controlled, but others (eg, state opioid policies) should be    using cannabis are warranted, both to the general public
+addressed in future studies; the DiD method estimates           and to heath-care providers. Finally, clinicians should
+law effects in states that enact them, but not spillover        monitor patients with chronic pain who use cannabis for
+effects in adjacent states. If patients in no-CL states are     signs of cannabis use disorder, particularly patients in
+influenced by MCL or RCL laws in nearby states, findings        settings where cannabis use has been legalised—for
+will be biased towards the null. For example, patients in       example, in all of Canada and in the majority of US states.
+no-CL states living near an MCL-only or MCL and RCL             Contributors
+state might border-cross to buy cannabis, elevating             DSH contributed to the conceptualisation, methodology, software,
+cannabis use disorder rates in no-CL states and mitigating      validation, formal analysis, investigation, resources, data curation, writing
+                                                                of the original draft, writing–review and editing of the revised manuscript,
+MCL or RCL effects; interaction tests require large             visualisation, supervision, project administration, and funding acquisition.
+amounts of statistical power and are model-dependent.           MMW contributed to the conceptualisation, methodology, validation,
+Although lack of statistical power was not an issue in our      formal analysis, writing of the original draft, writing–review and editing of
+study, we note that our model was on the additive, not          the revised manuscript, visualisation, and supervision. DMA contributed
+                                                                to the formal analysis, software, and visualisation. ZLM contributed to the
+multiplicative scale, as the additive scale is often seen as    methodology and writing–review and editing of the revised manuscript.
+the more relevant public health measure. Finally, no            CM contributed to the formal analysis, software, visualisation, and data
+observational study is unequivocal about causality.             curation. MO, KMK, JLG, and MC contributed to the conceptualisation,
+  Cannabis does not have the same serious overdose and          methodology, and writing–review and editing of the revised manuscript.
+                                                                CCM, SK, SSM, DSF, OL, and YM contributed to the methodology, and
+mortality risk as opioids. However, cannabis use disorder,      writing–review and editing of the revised manuscript. SS contributed to
+a disorder with many associated problems,3,44,45 occurs         the writing–review and editing of the revised manuscript and project
+more often among cannabis users than commonly                   administration. AJS contributed to the conceptualisation, resources,
+assumed.5 The national increases in cannabis use disorder       writing–review and editing of the revised manuscript, supervision, and
+                                                                project administration. MMW, DMA, CM, and DSF had access to the raw
+prevalence, including the disproportionate increase among       data. MMW, DMA, and CM directly accessed and verified the data.
+those with chronic pain, underscore a growing need in the       DSH had final responsibility for the decision to submit for publication.
+VHA and elsewhere to screen for cannabis use and offer          Declaration of interests
+evidence-based treatments for cannabis use disorder.            DSH receives support from Syneos Health for an unrelated project.
+  The multibillion-dollar US cannabis industry46 requires       JLG reports consulting fees from Hoffman-La Roche, a patent pending
+                                                                (use of glecaprevir and pibrentasvir for the treatment of post-traumatic
+new customers or greater use among existing customers
+                                                                stress disorder), and participation on a data safety monitoring board or
+to increase demand.47 Websites of medical cannabis              advisory board for National Institute of Mental Health (using machine
+companies often make unconfirmed claims about                   learning to optimise user engagement and clinical response to digital
+product safety and efficacy, potentially leading to             mental health interventions). SSM serves on the Board of Directors for the
+                                                                College on Problems of Drug Dependence. AJS has received consulting
+increasingly positive public beliefs about cannabis use.48,49
+                                                                fees from Indivior, travel support from Alkermes, research support from
+Cannabis industry social responsibility programmes,             MedicaSafe, and royalties from UpTo-Date. KMK has served as an expert
+ostensibly designed to mitigate harms, mirror tobacco           witness in litigation. All other authors declare no competing interests.
+industry programmes that actually serve to recruit              Data sharing
+customers, encourage consumption, expand markets,               The data were taken from VHA electronic medical records which must
+and legitimise products.30 Such activities could change         be kept behind the VHA firewall at all times, and only VHA-authorised
+                                                                users are permitted to access them.
+attitudes within and across US state boundaries,
+increasing cannabis use and cannabis use disorder,              References
+                                                                1    American Psychiatric Association. Diagnostic and statistical manual
+including among those with pain.27                                   of mental disorders, 5th edn. Arlington, VA, USA: American
+  In the USA, public health concerns regarding alcohol,              Psychiatric Association, 2013.
+tobacco, and prescription opioids have long competed            2    Hasin DS, O’Brien CP, Auriacombe M, et al. DSM-5 criteria for
+                                                                     substance use disorders: recommendations and rationale.
+with commercial interests. With cannabis increasingly                Am J Psychiatry 2013; 170: 834–51.
+legalised across US states, similar competing public            3    Gutkind S, Fink DS, Shmulewitz D, Stohl M, Hasin D. Psychosocial
+health and commercial interests are emerging,9 with state            and health problems associated with alcohol use disorder and
+                                                                     cannabis use disorder in U.S. adults. Drug Alcohol Depend 2021;
+cannabis laws largely industry-friendly rather than                  229: 109137.
+protective of public health.9 In this study, RCL was            4    Hasin DS, Kerridge BT, Saha TD, et al. Prevalence and correlates of
+associated with the greatest increases in cannabis use               DSM-5 cannabis use disorder, 2012-2013: findings from the National
+                                                                     Epidemiologic Survey on Alcohol and Related Conditions-III.
+disorder prevalence in the oldest patients with chronic              Am J Psychiatry 2016; 173: 588–99.
+pain, who had lower prevalence of the disorder at the           5    Leung J, Chan GCK, Hides L, Hall WD. What is the prevalence and
+beginning of the study period but greater relative increases         risk of cannabis use disorders among people who use cannabis?
+                                                                     A systematic review and meta-analysis. Addict Behav 2020; 109: 106479.
+by the end. To inform health and policy efforts, researchers
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                                          885
+      Articles
+
+
+
+
+                 6    Substance Abuse and Mental Health Services Administration. 2021       27   Gedin F, Blomé S, Pontén M, et al. Placebo response and media
+                      NSDUH detailed tables. 2023. https://www.samhsa.gov/data/                  attention in randomized clinical trials assessing cannabis-based
+                      report/2021-nsduh-detailed-tables (accessed July 24, 2023).                therapies for pain: a systematic review and meta-analysis.
+                 7    Martinovic J, Benzinga. European cannabis news: these countries            JAMA Netw Open 2022; 5: e2243848.
+                      prep for legalization, UK official calls pot as harmful as heroin.    28   Boehnke KF, Dean O, Haffajee RL, Hosanagar A. U.S. trends in
+                      Jan 25, 2023. https://www.benzinga.com/markets/                            registration for medical cannabis and reasons for use from
+                      cannabis/23/01/30568247/european-cannabis-news-these-countries-            2016 to 2020: an observational study. Ann Intern Med 2022; 175: 945–51.
+                      prep-for-legalization-uk-official-calls-pot-as-harmful-as (accessed   29   Mayhew M, DeBar LL, Deyo RA, et al. Development and assessment
+                      April 28, 2023).                                                           of a crosswalk between ICD-9-CM and ICD-10-CM to identify patients
+                 8    Government of Canada. Cannabis act S.C. 2018. https://laws-lois.           with common pain conditions. J Pain 2019; 20: 1429–45.
+                      justice.gc.ca/eng/annualstatutes/2018_16/page-1.html (accessed        30   Wakefield T, Glantz SA, Apollonio DE. Content analysis of the
+                      April 28, 2023).                                                           corporate social responsibility practices of 9 major cannabis
+                 9    Young-Wolff KC, Pacula RL, Silver LD. California cannabis markets-         companies in Canada and the US. JAMA Netw Open 2022;
+                      why industry-friendly regulation is not good public health.                5: e2228088.
+                      JAMA Health Forum 2022; 3: e222018.                                   31   GitHub. PainCondition_ICD9CM_ICD10CM_Crosswalk. https://
+                 10   Han BH, Funk-White M, Ko R, Al-Rousan T, Palamar JJ. Decreasing            github.com/PainResearch/PainCondition_ICD9CM_ICD10CM_
+                      perceived risk associated with regular cannabis use among older            Crosswalk (accessed Jan 30, 2023).
+                      adults in the United States from 2015 to 2019. J Am Geriatr Soc       32   RAND Corporation. OPTIC-Vetted Policy Data Sets. https://www.
+                      2021; 69: 2591–97.                                                         rand.org/health-care/centers/optic/resources/datasets.html (accessed
+                 11   Compton WM, Han B, Jones CM, Blanco C. Cannabis use disorders              June 24, 2022).
+                      among adults in the United States during a time of increasing use     33   Dahlhamer J, Lucas J, Zelaya C, et al. Prevalence of chronic pain and
+                      of cannabis. Drug Alcohol Depend 2019; 204: 107468.                        high-impact chronic pain among adults - United States, 2016.
+                 12   Hasin DS, Saha TD, Kerridge BT, et al. Prevalence of marijuana use         MMWR Morb Mortal Wkly Rep 2018; 67: 1001–06.
+                      disorders in the United States between 2001-2002 and 2012-2013.       34   Naimi AI, Whitcomb BW. Estimating risk ratios and risk differences
+                      JAMA Psychiatry 2015; 72: 1235–42.                                         using regression. Am J Epidemiol 2020; 189: 508–10.
+                 13   Hasin DS, Saxon AJ, Malte C, et al. Trends in cannabis use disorder   35   Athey S, Imbens GW. Design-based analysis in Difference-In-
+                      diagnoses in the U.S. Veterans Health Administration, 2005-2019.           Differences settings with staggered adoption. J Econom 2022;
+                      Am J Psychiatry 2022; 179: 748–57.                                         226: 62–79.
+                 14   Substance Abuse and Mental Health Services Administration.            36   Compton WM, Han B, Jones CM, Blanco C, Hughes A. Marijuana
+                      Center for Behavioral Health Statistics and Quality (CBHSQ).               use and use disorders in adults in the USA, 2002–14: analysis of
+                      Results from the 2019 National Survey on Drug Use and Health:              annual cross-sectional surveys. Lancet Psychiatry 2016; 3: 954–64.
+                      detailed tables (Table 5·1B). August, 2020. https://www.samhsa.       37   Wolfgang AS, Hoge CW. Cannabis and cannabinoids for pain and
+                      gov/data/sites/default/files/reports/rpt29394/                             posttraumatic stress disorder in military personnel and veterans.
+                      NSDUHDetailedTabs2019/NSDUHDetailedTabs2019.pdf (accessed                  JAMA Psychiatry 2023; published online July 12. http://doi.
+                      June 24, 2022).                                                            org/10.1001/jamapsychiatry.2023.1685
+                 15   Martins SS, Mauro CM, Santaella-Tenorio J, et al. State-level         38   Sandbrink F, Murphy JL, Johansson M, et al. The use of opioids in
+                      medical marijuana laws, marijuana use and perceived availability of        the management of chronic pain: synopsis of the 2022 updated U.S.
+                      marijuana among the general U.S. population. Drug Alcohol Depend           Department of Veterans Affairs and U.S. Department of Defense
+                      2016; 169: 26–32.                                                          Clinical Practice Guideline. Ann Intern Med 2023; 176: 388–97.
+                 16   Cerdá M, Mauro C, Hamilton A, et al. Association between              39   Lutz J. The empowered pain patient’s guide to medical marijuana.
+                      recreational marijuana legalization in the United States and               June 22, 2021. https://patient.practicalpainmanagement.com/
+                      changes in marijuana use and cannabis use disorder from                    treatments/medical-marijuana-pain-what-use-for (accessed
+                      2008 to 2016. JAMA Psychiatry 2020; 77: 165–71.                            Jan 30, 2023).
+                 17   Wen H, Hockenberry JM, Cummings JR. The effect of medical             40   Gilman JM, Schuster RM, Potter KW, et al. Effect of medical
+                      marijuana laws on adolescent and adult use of marijuana, alcohol,          marijuana card ownership on pain, insomnia, and affective disorder
+                      and other substances. J Health Econ 2015; 42: 64–80.                       symptoms in adults: a randomized clinical trial. JAMA Netw Open
+                 18   Hasin DS, Wall MM, Choi CJ, et al. State cannabis legalization and         2022; 5: e222106.
+                      cannabis use disorder in the US Veterans Health Administration,       41   Han BH, Palamar JJ. Trends in cannabis use among older adults in
+                      2005 to 2019. JAMA Psychiatry 2023; 80: 380–88.                            the United States, 2015-2018. JAMA Intern Med 2020; 180: 609–11.
+                 19   Hasin DS, Sarvet AL, Cerdá M, et al. US adult illicit cannabis use,   42   Wipfler K, Simon TA, Katz P, Wolfe F, Michaud K. Increase in
+                      cannabis use disorder, and medical marijuana laws: 1991–1992 to            cannabis use among adults with rheumatic diseases: results from a
+                      2012–2013. JAMA Psychiatry 2017; 74: 579–88.                               2014-2019 United States observational study.
+                 20   Treede RD, Rief W, Barke A, et al. Chronic pain as a symptom or a          Arthritis Care Res (Hoboken) 2022; 74: 2091–99.
+                      disease: the IASP Classification of Chronic Pain for the              43   Casey JA, Schwartz BS, Stewart WF, Adler NE. Using electronic
+                      International Classification of Diseases (ICD-11). Pain 2019;              health records for population health research: a review of methods
+                      160: 19–27.                                                                and applications. Annu Rev Public Health 2016; 37: 61–81.
+                 21   Yong RJ, Mullins PM, Bhattacharyya N. Prevalence of chronic pain      44   Jain S, Cloud GW, Gordon AM, et al. Cannabis use disorder is
+                      among adults in the United States. Pain 2022; 163: e328–32.                associated with longer in-hospital lengths of stay, higher rates of
+                 22   Nahin RL. Severe pain in veterans: the effect of age and sex, and          medical complications, and costs of care following primary 1- to
+                      comparisons with the general population. J Pain 2017; 18: 247–54.          2-level lumbar fusion. Global Spine J 2022; 21925682221093965.
+                 23   Hasin DS, Shmulewitz D, Cerdá M, et al. U.S. adults with pain,        45   Sorensen CJ, DeSanto K, Borgelt L, Phillips KT, Monte AA.
+                      a group increasingly vulnerable to nonmedical cannabis use and             Cannabinoid Hyperemesis syndrome: diagnosis, pathophysiology,
+                      cannabis use disorder: 2001-2002 and 2012-2013. Am J Psychiatry            and treatment-a systematic review. J Med Toxicol 2017; 13: 71–87.
+                      2020; 177: 611–18.                                                    46   Klein H, Bentivegna MC. Cannabis industry trends for 2022.
+                 24   Mannes ZL, Malte CA, Olfson M, et al. Increasing risk of cannabis          April 19, 2022. https://www.eisneramper.com/cannabis-trends-0422/
+                      use disorder among U.S. veterans with chronic pain: 2005–2019.             (accessed June 24, 2022).
+                      Pain 2023; published online May 8. https://doi.org/10.1097/j.         47   Carlini BH. Potency increase, product development and marijuana
+                      pain.0000000000002920.                                                     marketing in times of legalization. Addiction 2017; 112: 2178–79.
+                 25   Bicket MC, Stone EM, McGinty EE. Use of cannabis and other pain       48   Incze MA, Kelley AT, Singer PM. Heterogeneous state cannabis
+                      treatments among adults with chronic pain in US states with                policies: potential implications for patients and health care
+                      medical cannabis programs. JAMA Netw Open 2023; 6: e2249797.               professionals. JAMA 2021; 326: 2363–64.
+                 26   Steigerwald S, Cohen BE, Vali M, Hasin D, Cerda M, Keyhani S.         49   Moreno MA, Jenkins M, Binger K, et al. A content analysis of
+                      Differences in opinions about marijuana use and prevalence of use          cannabis company adherence to marketing requirements in
+                      by state legalization status. J Addict Med 2020; 14: 337–44.               four states. J Stud Alcohol Drugs 2022; 83: 27–36.
+
+
+
+886                                                                                                            www.thelancet.com/psychiatry Vol 10 November 2023
+

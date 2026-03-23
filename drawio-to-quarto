@@ -1,0 +1,219 @@
+#!/usr/bin/env python3
+
+from __future__ import annotations
+
+import argparse
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Export a .drawio diagram to cropped SVG/PDF and print a Quarto snippet "
+            "for HTML and PDF outputs."
+        )
+    )
+    parser.add_argument("input", help="Path to the .drawio file")
+    parser.add_argument(
+        "--kind",
+        choices=("figure", "table"),
+        help="Whether the exported object should be inserted as a figure or a table",
+    )
+    parser.add_argument(
+        "--caption",
+        help="Full caption text. If omitted, the script prompts for it.",
+    )
+    parser.add_argument(
+        "--id",
+        help="Optional Quarto/LaTeX identifier without prefix. Default: file stem",
+    )
+    parser.add_argument(
+        "--html-width",
+        default="100%",
+        help="Width used in the HTML <object> block. Default: 100%%",
+    )
+    parser.add_argument(
+        "--pdf-width",
+        default="\\linewidth",
+        help=r"Width used in LaTeX \includegraphics. Default: \linewidth",
+    )
+    parser.add_argument(
+        "--drawio-bin",
+        help="Path to the draw.io executable. Defaults to auto-detection.",
+    )
+    parser.add_argument(
+        "--snippet-out",
+        help="Optional output file for the generated Quarto snippet",
+    )
+    return parser.parse_args()
+
+
+def find_drawio(explicit: str | None) -> str:
+    candidates = []
+    if explicit:
+        candidates.append(explicit)
+    candidates.extend(
+        [
+            shutil.which("draw.io"),
+            shutil.which("drawio"),
+            "/Applications/draw.io.app/Contents/MacOS/draw.io",
+        ]
+    )
+    for candidate in candidates:
+        if candidate and Path(candidate).exists():
+            return candidate
+    raise SystemExit(
+        "draw.io executable not found. Use --drawio-bin to specify it explicitly."
+    )
+
+
+def prompt_kind(kind: str | None) -> str:
+    if kind:
+        return kind
+    while True:
+        answer = input("Type of object (`figure` or `table`): ").strip().lower()
+        if answer in {"figure", "table"}:
+            return answer
+        print("Please enter `figure` or `table`.", file=sys.stderr)
+
+
+def prompt_caption(caption: str | None) -> str:
+    if caption:
+        return caption.strip()
+    while True:
+        answer = input("Caption (full text): ").strip()
+        if answer:
+            return answer
+        print("Caption cannot be empty.", file=sys.stderr)
+
+
+def slugify(value: str) -> str:
+    cleaned = []
+    previous_dash = False
+    for char in value.lower():
+        if char.isalnum():
+            cleaned.append(char)
+            previous_dash = False
+        elif not previous_dash:
+            cleaned.append("-")
+            previous_dash = True
+    slug = "".join(cleaned).strip("-")
+    return slug or "diagram"
+
+
+def run_export(drawio_bin: str, source: Path, out_path: Path, fmt: str) -> None:
+    command = [
+        drawio_bin,
+        "--export",
+        "--format",
+        fmt,
+        "--crop",
+        "--output",
+        str(out_path),
+        str(source),
+    ]
+    subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def copy_to_clipboard(text: str) -> bool:
+    pbcopy = shutil.which("pbcopy")
+    if not pbcopy:
+        return False
+    try:
+        subprocess.run([pbcopy], input=text, text=True, check=True)
+        return True
+    except subprocess.SubprocessError:
+        return False
+
+
+def build_snippet(
+    *,
+    stem: str,
+    caption: str,
+    kind: str,
+    html_width: str,
+    pdf_width: str,
+    object_id: str,
+) -> str:
+    if kind == "figure":
+        html_open = f'::: {{#fig-{object_id}-html fig-cap="{caption}" .content-visible when-format="html"}}'
+        latex_env = "figure"
+        latex_label = f"fig:{object_id}"
+    else:
+        html_open = f'::: {{#tbl-{object_id}-html tbl-cap="{caption}" .content-visible when-format="html"}}'
+        latex_env = "table"
+        latex_label = f"tbl:{object_id}"
+
+    return f"""\
+{html_open}
+<object data="{stem}.svg" type="image/svg+xml" style="display: block; width: {html_width}; margin: 0 auto;">
+  <img src="{stem}.svg" alt="{caption}" style="width: 100%;" />
+</object>
+:::
+
+::: {{.content-visible when-format="pdf"}}
+```{{=latex}}
+\\begin{{{latex_env}}}[H]
+\\centering
+\\includegraphics[width={pdf_width}]{{{stem}.pdf}}
+\\caption{{{caption}}}
+\\label{{{latex_label}}}
+\\end{{{latex_env}}}
+```
+:::
+"""
+
+
+def main() -> int:
+    args = parse_args()
+    source = Path(args.input).expanduser().resolve()
+    if not source.exists():
+        raise SystemExit(f"Input file not found: {source}")
+    if source.suffix.lower() != ".drawio":
+        raise SystemExit("Input file must have a .drawio extension.")
+
+    drawio_bin = find_drawio(args.drawio_bin)
+    kind = prompt_kind(args.kind)
+    caption = prompt_caption(args.caption)
+
+    stem = source.stem
+    object_id = slugify(args.id or stem)
+    svg_path = source.with_suffix(".svg")
+    pdf_path = source.with_suffix(".pdf")
+
+    run_export(drawio_bin, source, svg_path, "svg")
+    run_export(drawio_bin, source, pdf_path, "pdf")
+
+    snippet = build_snippet(
+        stem=stem,
+        caption=caption,
+        kind=kind,
+        html_width=args.html_width,
+        pdf_width=args.pdf_width,
+        object_id=object_id,
+    )
+
+    if args.snippet_out:
+        snippet_out = Path(args.snippet_out).expanduser().resolve()
+        snippet_out.write_text(snippet)
+
+    print(f"Exported SVG: {svg_path}")
+    print(f"Exported PDF: {pdf_path}")
+    if args.snippet_out:
+        print(f"Saved snippet: {snippet_out}")
+    copied = copy_to_clipboard(snippet)
+    if copied:
+        print("Copied snippet to clipboard.")
+    print()
+    print("Paste this into your .qmd:")
+    print("```markdown")
+    print(snippet.rstrip())
+    print("```")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

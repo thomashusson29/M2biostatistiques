@@ -1,0 +1,74 @@
+M2 méthodologie et statistique en recherche biomédicale 2021/2022
+1/04/2022
+À propos de l’article :
+Association of Logic’s hip hop song “1-800-273-8255” with Lifeline
+calls and suicides in the United States: interrupted time series analysis
+
+
+1/ Expliquez brièvement ce qu’est un “Seasonal autoregressive integrated moving average models”
+Un SARIMA c’est :
+	•	Un ARMA (la valeur au temps t est regressée linéairement sur un certain nombre de valeurs avant + idems sur les résidus sur une certaine prodondeur)
+	•	Un I (dérive systématique)
+	•	Un S pour prendre en compte la saisonnalité
+	•	Et des covariables si on veut
+
+2/ Une section de l’article est intitulée « Possible confounding exogenous events ». Les facteurs discutés dans cette section sont-ils des facteurs de confusion ?
+En fait il y a une petite ambiguité sur ce qu’est un facteur de confusion. Stricto sensu le FC doit avoir un impact sur l’outcome et sur le facteur de risque. Dans le cas de l’article c’est très discutable. Pour certains le FC doit agir sur l’outcome mais peut être simplement corrélé au facteur de risque (sans être un facteur médiateur cependant). Avec des séries chronologiques, le temps peut faire corréler artificiellement des variables, ce qui est un peu le cas ici. Et en plus, tout est encore plus compliqué quand ce sont des données agrégées dites « écologiques ».
+
+3/ Dans la partie supérieure de la figure 1 il y a de petites flèches noires. A quoi correspondent-elles ? Comment ont-elles été déterminées ?
+Ce sont les ruptures dans la distribution des tweets, déterminées visuellement et par « change point » (algorithme PELT)
+
+4/ Dans la discussion, les auteurs indiquent que « The observational nature
+of this research does not allow us to establish causality ». Qu’en pensez-vous ?
+Big question… Certains vont dire qu’en épidémiologie il n’y a pas de causalité… Je crois que c’est faux (cf tabac et cancer du poumon). Ici bien sûr on est dans un design écologique alors ça complique, même si le rationnel (plausibilité psychologique) est intéressant. Ce qui est surtout étonnant c’est que les auteurs l’écrivent (parce que c’est évident). On a dû leur pousser la main pour freiner leur enthousiasme…
+
+5/ A propos de la baisse numérique du nombre de suicides, discutez la façon dont les auteurs présentent leurs résultats.
+Il y a effectivement une baisse numérique, avec un tout petit début de robustesse (ajustement ou pas, différents critères). Bien sûr les IC sont larges et les « p » au dessus de 5% Mais est-ce si grave ? C’est d’ailleurs un peu dérangeant de voir les auteurs s’acharner à exhiber un p<5% (même si tout cela semblait bien prévu dans le plan d’analyse). Bon, OK c’est pas du solide. Mais c’est pas tellement le problème ici. Si une chanson peut faire baisser le nombre de suicides, même un peu et même si c’est pas complètement sûr, ça coute pas cher et ça fait beaucoup de bien pour plein de raisons.
+
+
+
+M2 méthodologie et statistique en recherche biomédicale 2021/2022
+1/04/2022
+À propos de l’article :
+Dupilumab in Children with Uncontrolled Moderate-to-Severe Asthma
+
+
+1/ Quel est le critère principal d’efficacité ? Quelles sont ses force(s) et faiblesses(s) ?
+Un critère composite d’exacerbation.
+Forces :
+	•	Très largement utilisé
+	•	Assez pertinent cliniquement, en tous cas plus que beaucoup d’autres
+Faiblesses
+	•	Peut traduire des situations différentes d’un endroit à l’autre
+	•	Ne traduit pas forcément l’impact global de la maladie sur la vie des patients
+	•	Peu sensible au changement
+	•	Composite donc toujours un peu délicat à interpréter
+	
+
+2/ Quel autre ou quels autres critère(s) d’efficacité aurai(en)t-pu être envisagé(s) ?
+	•	La qualité de vie des patients, mais pas facile pour des enfants
+	•	La qualité de vie des parents (caregiver burden), mais pas classique ici
+	•	Le nombre de jours d’école manqué
+	•	Le nombre de jours « asthma-free »
+	•	Les mesures plus physio (VEMS, etc.) ne sont plus utilisées que marginalement, pour confirmer l’efficacité
+
+3/ Expliquez les modalités de calcul du nombre de sujets nécessaires
+Pas facile avec un modèle binomial négatif. Les auteurs d’ailleurs ne disent pas dans le papier lui-même comment ils ont fait, d’où une difficulté à reproduire leur calcul.
+Sinon comme d’habitude il faut alpha, beta, une différence « à côté de laquelle on ne veut pas passer », une variance. Ici il y a en plus une surdispersion (non indépendance de survenue de chaque évènement) à parier. 
+
+4/ Les auteurs évoquent une stratégie de contrôle du risque de première espèce pour gérer les comparaisons multiples, mais les intervalles de confiance sont donnés à 95%. Est-ce que cela vous choque ?
+En fait, de façon générale doit-ton adapter les intervalles de confiance aux risques pris pour les différents outcomes ? Rien n’est moins sûr. Le risque c’est Neyman et Pearson. Les intervalles de confiance c’est autre chose…
+Certains auteurs font cette adaptation. Mais alors ici comment ferait-on ? Il faudrait présenter les IC en fonction d’une hiérarchie ? Cela n’a pas de sens et montre bien que les deux perspectives sont complètement différentes. 
+
+5/ Il s’agit d’un essai en population pédiatrique d’un médicament qui a déjà été évalué, dans la même maladie, dans des populations adulte et adolescente. Pour des raisons éthiques et économiques, il pourrait être souhaitable d’utiliser ces résultats déjà obtenus dans le but d’alléger l’étude du médicament chez l’enfant. Quel type de design serait envisageable pour cela ? expliquez brièvement.
+Vous pouviez donner cours à votre imagination, en justifiant quand même.
+Une approche bayesienne serait pertinente potentiellement, il faudrait partir de la distribution observée chez les adultes, que l’on bruiterait avec un indice de moindre plausibilité obtenu à partir de dires d’experts. Puis on ferait un petit essai. Puis, enfin, il y aurait un intégration des deux…
+Une AMM conditionnelle pourrait être donnée suivi d’une étude pharmaco-épi (suivi de registre).
+Une étude en cross-over ? Pas facile en pratique sûrement…
+De la pharmaco-dynamie : un peu limité quand même
+Etc.
+On peut dire aussi que la seule façon d’être éthique c’est de faire un essai classique comme là. Ca se discute… 
+
+
+
+

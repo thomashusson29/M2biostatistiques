@@ -1,0 +1,692 @@
+                                                                                                                                            Articles
+
+
+
+
+Maternal perinatal depressive symptoms and offspring
+psychotic experiences at 18 years of age: a longitudinal
+study
+Ramya Srinivasan, Rebecca M Pearson, Sonia Johnson, Gemma Lewis, Glyn Lewis
+
+Summary
+Background Evidence exists that maternal depression in the perinatal period has an adverse effect on a range of early              Lancet Psychiatry 2020;
+childhood outcomes and increases the risk of offspring depression during adolescence. However, the association                     7: 431–40
+
+between maternal depression during the perinatal period and offspring psychotic experiences has not been                           See Comment page 377
+investigated. We aimed to investigate whether there is an association between maternal antenatal or postnatal                      Division of Psychiatry, Faculty
+                                                                                                                                   of Brain Sciences, University
+depression and offspring psychotic experiences at 18 years of age.
+                                                                                                                                   College London, London, UK
+                                                                                                                                   (R Srinivasan BMBCh,
+Methods This longitudinal study used data from the Avon Longitudinal Study of Parents and Children (ALSPAC), a                     Prof S Johnson PhD,
+prospective birth cohort, which recruited 14 541 pregnant women with an estimated delivery date between April 1, 1991,             Ge Lewis PhD, Prof Gl Lewis PhD);
+                                                                                                                                   and Population Health
+and Dec 31, 1992. Perinatal depression was measured using the Edinburgh Postnatal Depression Scale (EPDS);
+                                                                                                                                   Sciences, University of Bristol,
+offspring psychotic experiences at 18 years of age were measured using the Psychosis-Like Symptom Interview.                       Bristol, UK (R M Pearson PhD)
+Offspring of mothers with complete data on maternal perinatal depression measures, and complete data on outcome                    Correspondence to:
+(psychotic experiences) and confounding variables were included in the main analysis. For the main analysis, we used               Dr Ramya Srinivasan, Division of
+logistic regression to examine the associations between maternal depression (antenatal and postnatal) and offspring                Psychiatry, Faculty of Brain
+                                                                                                                                   Sciences, University College
+psychotic experiences at the age of 18 years. We used biprobit regression to model the association between maternal
+                                                                                                                                   London, London W1T 7NF, UK
+antenatal depression and the two offspring outcomes (psychotic experiences and depression) at 18 years of age jointly.             ramya.srinivasan.12@ucl.ac.uk
+
+Findings 3067 offspring for whom data were available on maternal perinatal depression and offspring psychotic
+experiences aged 18 years were included in analyses. Maternal antenatal depressive symptoms were associated with
+offspring psychotic experiences at 18 years of age, with an unadjusted odds ratio (OR) of 1·38 (95% CI 1·18–1·61,
+p=0·0001) and after adjustment for confounders, an OR of 1·26 (1·06–1·49, p=0·0074). Maternal antenatal depressive
+symptoms were associated with both offspring psychotic experiences at the age of 18 years (n=2830, OR for a 5-point
+increase in EPDS score: 1·32 [95% CI 1·16–1·51], p<0·0001) and offspring depression at 18 years (OR for a 5-point
+increase in EPDS score: 1·18 [1·03–1·34], p=0·016). From joint modelling, there was no evidence that the association
+between maternal antenatal depression and offspring psychotic experiences differed in strength compared with
+offspring depression (p=0·19).
+
+Interpretation The offspring of mothers who experience depression in the perinatal period are more likely to report
+psychotic experiences at 18 years of age. If the association is found to be causal, it would strengthen the case for
+identifying and treating maternal depression during and after pregnancy.
+
+Funding UK Medical Research Council and the Wellcome Trust.
+
+Copyright © 2020 The Author(s). Published by Elsevier Ltd. This is an Open Access article under the CC BY
+4.0 license.
+
+Introduction                                                         common mental health disorders such as anxiety and
+Increasing evidence suggests that psychosis is best                  depression.2 Thus, the study of psychotic experiences is
+viewed as a continuum and that psychotic experiences                 relevant to both the early phases of development of
+not meeting criteria for psychotic disorder are much                 psychotic disorders1 and the more severe presentations of
+more common in both the adolescent and adult                         common mental health disorders.
+populations than previously realised.1 Psychotic                       Maternal perinatal depression is known to have an
+experiences could represent the milder end of the                    adverse effect on several aspects of child development,
+psychosis continuum. Children and adults who report                  including social, emotional, and cognitive function,3,4 and
+psychotic experiences during childhood are at higher risk            is associated with offspring depressive symptoms in
+of developing a psychotic disorder such as schizophrenia             adolescence5 and adulthood.6 The neurodevelopmental
+during adulthood.1 There is also evidence that psychotic             hypothesis of schizophrenia proposes that abnormal brain
+experiences are not just related to psychotic disorders but          development might contribute to the development of the
+are also associated with more severe presentations of                disorder.7 Maternal perinatal depression is a form of
+
+
+www.thelancet.com/psychiatry Vol 7 May 2020                                                                                                                   431
+        Articles
+
+
+
+
+                                     Research in context
+                                     Evidence before this study                                         cohort. No previous study had investigated the association
+                                     Maternal depression during pregnancy and the postnatal period      between maternal perinatal depression and offspring psychotic
+                                     are known to be associated with adverse effects on a range of      experiences during adolescence.
+                                     early childhood outcomes and to increase the risk of offspring
+                                                                                                        Added value of this study
+                                     depression. We searched PubMed for population-based cohort
+                                                                                                        In this analysis of a prospective birth cohort, we found that
+                                     studies published in English before Nov 1, 2019, using the
+                                                                                                        maternal depression during pregnancy and the postnatal period
+                                     search terms (“antenatal” OR “prenatal” OR “pregnan*” OR
+                                                                                                        is associated with offspring psychotic experiences during
+                                     “postnatal” OR “perinatal”) AND “depress*” AND (“mother”
+                                                                                                        adolescence. This association is independent of the association
+                                     OR “maternal” OR “women”) AND (“offspring” OR “child” OR
+                                                                                                        with offspring depression. These findings represent an
+                                     “adolesc*”) AND (“psycho*” OR “schiz*”). We found one study
+                                                                                                        important addition to the scientific literature; the findings
+                                     that reported an association between maternal antenatal
+                                                                                                        expand the range of offspring outcomes associated with
+                                     depression and schizophrenia in adult offspring at
+                                                                                                        perinatal depression and suggest that common mechanisms
+                                     approximately 30 years of age, but only in those with a parental
+                                                                                                        might underlie the risk of many psychiatric disorders.
+                                     history of psychotic disorder. Similar results were found in
+                                     subsequent analyses of the same cohort, when offspring were        Implications of all the available evidence
+                                     approximately 43 years of age. Another study found no              Maternal perinatal depression affects a range of offspring
+                                     association between maternal antenatal depression and              outcomes beyond early childhood. This emphasises the
+                                     depressive and schizotypal traits in adult offspring. These        importance of identification and treatment of maternal
+                                     studies were limited by the quality of the assessment of           depression during this crucial period.
+                                     maternal antenatal depression and were all based on the same
+
+
+                                   psychological distress and might reflect chronic maternal            schizotypal traits during adulthood;12 surprisingly, this
+                                   stress, which could affect neurodevelopment of offspring,3           study also found no association between familial risk of
+                                   increasing offspring risk of psychotic experiences.                  psychosis and offspring schizotypal traits. These studies
+                                   Antenatal depression might affect fetal neurodevelopment             are, however, limited by the fact that maternal antenatal
+                                   in utero and have epigenetic effects on the fetus.3 In               depression was based on a single self-report question and
+                                   addition, antenatal depression might have effects on                 the measures of affective and schizotypal traits were based
+                                   postnatal bonding and parenting. Maternal postnatal                  on self-report questionnaires; there is some evidence that
+                                   depression might negatively affect bonding and parenting             semi-structured interviews are better at finding schizotypal
+                                   during infancy, which might affect offspring attachment              traits than self-report questionnaires.13
+                                   style4 and increase the risk of psychotic experiences.8 If a           We aimed to investigate whether there is an association
+                                   causal association were to be found between maternal                 between maternal antenatal or postnatal depression and
+                                   perinatal depression and offspring psychotic experiences,            offspring psychotic experiences at 18 years of age.
+                                   there is the potential for intervention during this crucial          Maternal perinatal depression is associated with
+                                   period to reduce not only maternal distress but also                 depressive symptoms in offspring during adolescence,
+                                   offspring risk in the future.                                        and there is evidence that psychotic experiences are often
+                                     To our knowledge, no previous studies have examined                comorbid with depressive symptoms.14 Therefore, we
+                                   the association between maternal perinatal depression and            also aimed to examine the extent to which there is a
+                                   offspring psychotic experiences. One study has investigated          differential association between maternal depression and
+                                   maternal perinatal depression and offspring schizophrenia            offspring psychotic experiences and depression.
+                                   in a Finnish cohort.9 Initial findings reported that maternal
+                                   depression during pregnancy was associated with                      Methods
+                                   schizophrenia in adult offspring,9 but subsequent analyses           Study design and participants
+                                   suggested that this association was observed only in those           In this longitudinal study, we used a sample of participants
+                                   with a family history of psychotic disorder.10 However,              from the Avon Longitudinal Study of Parents and
+        For more on ALSPAC see     maternal antenatal depression did seem to have a                     Children (ALSPAC) cohort. All pregnant women living in
+ http://www.bristol.ac.uk/alspac   potentiating effect on the genetic risk for schizophrenia,           the former Avon Health Authority of southwest England
+                                   whereby the risk for schizophrenia was much higher in                with an estimated delivery date between April 1, 1991, and
+                                   the offspring of mothers with antenatal depression and a             Dec 31, 1992, were invited to participate in ALSPAC. The
+                                   family history of psychosis than in the offspring with only          parents and children of 14 541 pregnancies were initially
+          For ALSPAC data see      a family history of psychosis.10 Similar findings have been          recruited.15,16 Detailed data about the cohort have been
+http://www.bristol.ac.uk/alspac/   found in a subsequent follow-up study.11 Another study in            collected since early pregnancy, including self-reported
+          researchers/our-data
+                                   the same cohort found no association between maternal                information from mothers and children, and face-to-face
+                                   antenatal depression and offspring affective and                     assessment in research clinics.
+
+
+432                                                                                                                            www.thelancet.com/psychiatry Vol 7 May 2020
+                                                                                                                                       Articles
+
+
+
+
+  The starting sample for this study comprised all mothers     fully standardised and reliable whether done by a trained
+with singleton pregnancies with complete data on all four      interviewer or self-administered on the computerised
+maternal antenatal and postnatal depression measures           version.18,19 The CIS-R is designed for, and has been widely
+(two antenatal and two postnatal). From this starting          used in, community samples, including the National
+sample, adolescents with complete data across all exposure     Surveys of Psychiatric Morbidity.20 A binary variable
+(four maternal depression measures), outcome (psychotic        indicating a primary diagnosis of major depression on
+experiences), and confounding variables were included in       the CIS-R was used to examine the associations between
+this study.                                                    offspring depression and psychotic experiences at 18 years
+  Ethical approval for the study was obtained from the         of age.
+ALSPAC Law and Ethics Committee and the Local                     Symptoms of maternal perinatal depression were
+Research Ethics Committee. Consent for biological              measured with the Edinburgh Postnatal Depression Scale
+samples has been collected in accordance with the              (EPDS). The EPDS is a ten-item self-report depression
+Human Tissue Act (2004). Participants gave written             questionnaire validated for use in the perinatal periods.21
+informed consent.                                              It is also validated for use outside the perinatal period and
+                                                               in men.5,22 Scores of more than 12 have a high sensitivity
+Procedures                                                     and specificity for major depressive disorder.5,21 This study
+The Psychosis-Like Symptom Interview (PLIKSi) is a             primarily used the continuous scores to make full use of
+semi-structured interview based on the principles of the       the variation in symptoms, although the threshold of
+Schedule for Clinical Assessment in Neuropsychiatry.17         more than 12 was used to confirm the results of the main
+The PLIKSi covers key core psychotic experiences,              analyses. For the purposes of this study, the antenatal
+including hallucinations, delusions, and experiences of        period was considered as being during pregnancy and the
+thought interference and passivity phenomena. Questions        postnatal period was considered the first year postnatally.
+about each experience started with a structured stem              Postal questionnaires, including the EPDS, were
+asking whether, from the age of 12 years, the participant      admini­stered to mothers at approximately 18 and 32 weeks
+had ever had the experience. Participants who responded        antenatally, and at 8 weeks and 8 months postnatally.
+“yes” or “maybe” were then asked further questions to          EPDS was also administered to mothers to assess for
+establish whether the experience was psychotic. Coding of      depression during their child’s life on six occasions
+psychotic experiences followed glossary definitions and        between the ages of 1 year and 12 years.
+rating rules for the Schedule for Clinical Assessment in          To obtain the antenatal depression measure, the mean
+Neuropsychiatry. Interviewers rated experiences as being       EPDS score was calculated by combining those from the
+not present, suspected, or definitely psychotic. Experiences   two antenatal periods as used previously.5,23 The maternal
+were rated as being definitely psychotic only when a clear     postnatal depression score was the mean of the 8 weeks
+example was provided, and unclear responses were always        and 8 months postnatal EPDS scores, as used previously.5,23
+down rated. Interviews were administered by trained            Results for the association between antenatal and postnatal
+psychology graduates who were masked to previous               depression and offspring outcomes are presented for a
+assessments. A psychiatrist rated samples of recorded          5-point increase in EPDS score (ie, approximately 1 SD)
+interviews to ensure that ratings were correct. Inter-rater    throughout.
+reliability of the PLIKSi in ALSPAC at the age of 18 years        To account for repeated exposure throughout a child’s
+was high (κ=0·83).17 Test–retest reliability was assessed      life, a count of subsequent maternal depressive episodes
+using 162 individuals who were reassessed after 47 days        was derived (ie, the numbers of times a mother scores >12
+(κ=0·76), 46 of whom were assessed by the same                 on any of the six EPDS measures from the age of 1 year to
+interviewer (κ=0·86).17                                        12 years). This measure is valid only if all timepoints are
+  Total scores from the PLIKSi were recoded into a binary      included, and most women missed one or two EPDS
+variable indicating absence, or suspected or definite          questionnaires; therefore, this measure was not included
+presence of psychotic symptoms that were not attributable      in the complete case analysis because it restricted the
+to sleep or fever. This approach is consistent with previous   sample size.
+investigations of psychotic experiences in ALSPAC14,17 and        We adjusted the main analysis for maternal age at
+is due to the positive skew (with most participants scoring    delivery, maternal social class, maternal education,
+0, indicating no psychotic experiences). We did a              maternal parity, whether the pregnancy was intentional or
+sensitivity analysis using a binary variable indicating the    not, maternal smoking in the first trimester of pregnancy,
+absence or presence of psychotic symptoms that would           maternal cannabis use in the first trimester, maternal
+meet the criteria for a clinical disorder based on previous    infection during pregnancy, maternal family history of
+work in ALSPAC (appendix pp 1, 3).17                           schizophrenia, maternal family history of depression, and       See Online for appendix
+  Depression in offspring at 18 years of age was measured      offspring sex. Covariates were selected on the basis of
+with the computerised version of the Clinical Interview        previous reports of their association with maternal
+Schedule-Revised (CIS-R),18 which derives a diagnosis of       perinatal depression and with psychosis.5,14,24 Factors that
+depression according to ICD-10 criteria.18 The interview is    might be on the causal pathway (ie, occurring after birth
+
+
+www.thelancet.com/psychiatry Vol 7 May 2020                                                                                                              433
+      Articles
+
+
+
+
+                                                                                                  and each of the two postnatal EPDS measures separately.
+                    14 541 pregnancies recruited to core sample                                   Secondary analyses included analyses of effect modification
+                                                                                                  by later maternal depression, and the investigation of
+                                       5337 excluded because of missing data on
+                                                                                                  relationship between paternal perinatal depression and
+                                            antenatal and postnatal EPDS scores                   offspring psychotic experiences. Several post-hoc
+                                                                                                  sensitivity analyses examined the effect of family history of
+                                                                                                  mental disorder as a confounder of the association between
+                      9204 women with complete data on antenatal and postnatal EPDS scores
+                           (exposure)                                                             maternal perinatal depression and offspring psychotic
+                                                                                                  experiences. See the appendix (pp 1–2, 5–6) for details.
+                                                                                                     To explore the association between maternal antenatal
+                                       5618 excluded because of missing data on
+                                                                                                  and postnatal depression, we first assessed the correlation
+                                            offspring psychotic experiences
+                                                                                                  between them, and did a principal components analysis,
+                                                                                                  the results of which are presented in the appendix (pp 2, 4).
+                      3586 offspring with complete exposure and outcome (psychotic experiences)   We also examined the effects of persistent depression
+                           data
+                                                                                                  during the perinatal period; the details of this analysis are
+                                                                                                  presented in the appendix (pp 1, 4).
+                                        519 excluded because of missing data on                      To investigate whether later episodes of maternal
+                                            confounding variables                                 depression occurring during the child’s life are an effect
+                                                                                                  modifier of the association between maternal antenatal
+                      3067 offspring with complete data on exposure, outcome, and confounding     depression and offspring psychotic experiences by
+                           variables                                                              18 years of age, models testing the association between
+                                                                                                  antenatal depression scores and offspring psychotic
+                 Figure: Study profile                                                            experiences were adjusted for the number of later
+                 EPDS=Edinburgh Postnatal Depression Scale.
+                                                                                                  episodes of maternal depression and then tested for an
+                                                                                                  interaction between maternal antenatal depression and
+                 and during childhood, such as offspring experience of                            later maternal depression. We did a sensitivity analysis to
+                 abuse or bullying) were not included. Maternal education                         test the association between maternal antenatal depressive
+                 was coded 1 to 5 ranging from minimal education to                               symptoms and offspring psychotic experiences adjusting
+                 university level education, and was dichotomised to create                       for the most recent measurement of maternal depression
+                 a binary variable with education up to the age of 16 years                       (when offspring were 12 years of age) and then tested for
+                 categorised as low education and education beyond                                an interaction between maternal antenatal depressive
+                 16 years categorised as high. Social class was measured                          symptoms and maternal depression when offspring were
+                 using five categories from the 1991 classification of the UK                     aged 12 years. These analyses were repeated with maternal
+                 Office of Population Censuses and Surveys, and was                               postnatal depressive symptoms as the exposure and are
+                 dichotomised into manual and non-manual.                                         reported in the appendix (pp 4–5).
+                   Supplementary analyses adjusting for family history                               We used logistic regression to investigate the association
+                 and adjusting for offspring schizophrenia polygenic risk                         between paternal antenatal and postnatal depression
+                 score were also done (appendix pp 1–2, 5–6).                                     scores and offspring psychotic experiences at 18 years of
+                   Fathers also completed the EPDS at 18 weeks of                                 age. Because of the limited availability of data on paternal
+                 pregnancy (paternal antenatal depression) and 8 months                           depression in the perinatal period, this analysis was only
+                 postnatally (paternal postnatal depression). Paternal                            adjusted for paternal education based on previous
+                 education was coded 1 to 5, ranging from minimal                                 literature on the effects of paternal perinatal depression
+                 education to university level. Therefore, the association                        and offspring depression at the age of 18 years.5
+                 between paternal antenatal and postnatal depression                                 To investigate the association between offspring
+                 scores with offspring psychotic experiences was also                             psychotic experiences by the age of 18 years, offspring
+                 investigated.                                                                    depression at the age of 18 years, and maternal antenatal
+                                                                                                  depression, we first assessed the correlation between
+                 Statistical analysis                                                             offspring psychotic experiences and offspring depression,
+                 In the main analysis, we investigated the association                            and then used biprobit regression. The biprobit method
+                 between antenatal depression and psychotic experiences                           allows joint modelling of psychotic experiences and
+                 in offspring by 18 years of age and between postnatal                            depression at 18 years of age and testing of equality of
+                 depression and psychotic experiences using logistic                              regression parameters that express the effect of the
+                 regression. We then repeated analyses, adjusting for                             respective exposure (ie, antenatal depression) on each
+                 confounding variables. As sensitivity analyses, the main                         outcome (ie, psychotic experiences and depression) using
+                 analyses were repeated with the antenatal and postnatal                          a likelihood ratio test. To enable easier interpretation, we
+                 EPDS scores recoded as a binary exposure, and looking at                         converted probit estimates into odds ratios (ORs) by
+                 the effects of each of the two antenatal EPDS measures                           obtaining approximations of the logit parameters by
+
+
+434                                                                                                                     www.thelancet.com/psychiatry Vol 7 May 2020
+                                                                                                                                                                       Articles
+
+
+
+
+                                                  Mothers with complete            Offspring with all exposure,      Offspring with missing        p value*
+                                                  exposure measures                outcome, and confounding          data (n=6137)
+                                                  (n=9204)                         variables (n=3067)
+  Maternal antenatal EPDS scores                      6·7 (4·4; 0–29)                  6·1 (4·1; 0–23)                    7·0 (4·5; 0–29)          <0·0001
+    Score >12                                     1079 (12%)                        257 (8%)                           822 (13%)                   <0·0001
+  Maternal postnatal EPDS scores                      5·6 (4·2; 0–27)                  5·2 (3·9; 0–25)                    5·8 (4·3; 0–27)          <0·0001
+    Score >12                                      691 (8%)                         170 (6%)                           521 (8%)                    <0·0001
+  Maternal age at delivery, years                    28·7 (4·64; 15–44)              29·6 (4·39; 16–44)                 28·3 (4·70; 15–44)         <0·0001
+  Maternal parity                                     0·81 (0·93; 0–8)                 0·66 (0·81; 0–5)                  0·89 (0·98; 0–8)          <0·0001
+  Maternal ethnicity                                       ··                               ··                                 ··                    0·21
+    White                                         8963/9132 (98%)                  3015/3064 (98%)                   5948 (98%)                       ··
+    Ethnic minority                                169/9132 (2%)                     49/3064 (2%)                      120 (2%)                       ··
+  Maternal social class                               ··                               ··                                 ··                       <0·0001
+    Non-manual                                    6484/7923 (82%)                  2629 (86%)                        3855/4856 (79%)                  ··
+    Manual                                        1439/7923 (18%)                   438 (14%)                         1001/4856 (21%)                 ··
+  Maternal education                                  ··                               ··                                 ··                       <0·0001
+    Non-compulsory                                3475/9164 (38%)                  1560 (51%)                         1915/3067 (31%)                 ··
+    Compulsory only                               5689/9164 (62%)                  1507 (49%)                        4182/3067 (69%)                  ··
+  Pregnancy intentional or not                        ··                               ··                                 ··                       <0·0001
+    No                                            2445/9169 (27%)                   664 (22%)                         1781/6102 (29%)                 ··
+    Yes                                           6724/9169 (73%)                  2403 (78%)                         4321/6102 (71%)                 ··
+  Maternal smoking in the first trimester             ··                               ··                                 ··                       <0·0001
+    No                                            7263 (79%)                       2631 (86%)                        4632 (75%)                       ··
+    Yes                                           1941 (21%)                        436 (14%)                         1505 (25%)                      ··
+  Maternal cannabis use in the first trimester        ··                               ··                                 ··                         0·091
+    No                                            8645/8819 (98%)                  3017 (98%)                        5628/5752 (98%)                  ··
+    Yes                                             174/8819 (2%)                     50 (2%)                          124/5752 (2%)                  ··
+  Maternal infection during pregnancy                 ··                               ··                                 ··                         0·40
+    No                                            6886/9201 (75%)                  2321 (75%)                        4547/6134 (75%)                  ··
+    Yes                                           2315/9201 (25%)                   755 (25%)                        1560/6134 (25%)                  ··
+  Maternal family history of schizophrenia            ··                               ··                                 ··                         0·36
+    No                                            9014/9071 (99%)                  3051 (99%)                        5963/6004 (99%)                  ··
+    Yes                                              57/9014 (1%)                     16 (1%)                           41/6004 (1%)                  ··
+  Maternal family history of depression               ··                               ··                                 ··                         0·010
+    No                                            6778/9071 (75%)                  2342 (76%)                        4436/6004 (74%)                  ··
+    Yes                                           2293/9071 (25%)                   725 (24%)                        1568/6004 (26%)                  ··
+  Maternal history of depression                      ··                               ··                                 ··                       <0·0001
+    No                                            8331/9071 (92%)                  2891 (94%)                        5440/6004 (91%)                  ··
+    Yes                                             740/9071 (8%)                   176 (6%)                           564/6004 (9%)                  ··
+  Maternal history of schizophrenia                   ··                               ··                                 ··                         0·68
+    No                                            9073/9083 (100%)                 3063 (100%)                       6010/6016 (100%)                 ··
+    Yes                                              10/9083 (<1%)                     4 (<1%)                           6/6016 (<1%)                 ··
+  Offspring sex                                       ··                               ··                                 ··                       <0·0001
+    Male                                          4736 (51·5)                      1361 (44%)                        3375 (55%)                       ··
+    Female                                        4468 (48·5)                      1706 (56%)                        2762 (45%)                       ··
+  Offspring depression aged 18 years                  ··                               ··                                 ··                         0·048
+    No                                            3196/3460 (92%)                  2626/2830 (93%)                     570/630 (90·5)                 ··
+    Yes                                            264/3460 (8%)                    204/2830 (7%)                       60/630 (9·5)                  ··
+  Offspring psychotic experiences aged                ··                               ··                                 ··                         0·89
+  18 years
+    None                                          3322/3586 (93%)                  2842 (93%)                          480/519 (92%)                  ··
+    Suspected or definite                          264/3586 (7%)                    225 (7%)                            39/519 (8%)                   ··
+ Data are mean (SD; range), n (%), or n/N (%). EPDS=Edinburgh Postnatal Depression Scale. *Comparison between participants with complete data and those with missing
+ data.
+
+ Table 1: General characteristics of the study population
+
+
+
+
+www.thelancet.com/psychiatry Vol 7 May 2020                                                                                                                                       435
+       Articles
+
+
+
+
+                                           Mothers with      Offspring with                      Offspring with            Model 1                                       Model 2
+                                           complete exposure complete exposure,                  psychotic
+                                           data (n=9204)     outcome, and                        experiences aged
+                                                             confounding variable                18 years (n=3067)
+                                                             data (n=3067)
+                                                                                                                           Odds ratio (95% CI)      p value              Odds ratio (95% CI)       p value
+  Low maternal antenatal depressive        4336 (47%)              1596 (52%)                      92 (3%)                  1 (ref)                    ··                 1 (ref)                     ··
+  symptoms score (0–5·5)
+  Moderate maternal antenatal              3789 (41%)               1214 (40%)                   102 (3%)                   1·49 (1·12–2·00)          0·0066              1·37 (1·01–1·84)           0·041
+  depressive symptoms score (6–12)
+  High maternal antenatal depressive        1079 (12%)               257 (8%)                      31 (1%)                  2·24 (1·46–3·45)          0·0002              1·77 (1·12–2·79)           0·015
+  symptoms score (>12)
+  Antenatal maternal depression                 ··                      ··                          ··                      1·38 (1·18–1·61)          0·0001              1·26 (1·06–1·49)           0·0074
+  score (5-point increase in EPDS
+  score)
+ Model 1 shows univariable associations between each timing of maternal perinatal depression and offspring psychotic experiences at the age of 18 years. Model 2 is model 1 including confounding variables:
+ maternal age at delivery, maternal social class, maternal education, maternal parity, whether the pregnancy was intentional or not, maternal smoking in the first trimester, maternal cannabis use in the first
+ trimester, maternal infection during pregnancy, maternal family history of schizophrenia, maternal family history of depression, maternal history of depression before pregnancy, and offspring sex.
+ EPDS=Edinburgh Postnatal Depression Scale.
+
+ Table 2: Association between maternal antenatal depression and offspring psychotic experiences by the age of 18 years in a sample with complete exposure, outcome, and confounding
+ variables
+
+
+
+
+                                   multiplying the probit parameters by a factor of 1·6.14                                     Results
+                                   p values of less than 0·05 were considered to be significant.                               Complete exposure measures (two antenatal and
+                                     We did our main analyses using a sample with                                              two postnatal EPDS score) were available for 9204 mothers
+                                   complete data on exposure, outcome, and confounding                                         (figure; table 1). Data on maternal depression during
+                                   variables. The characteristics of mothers and offspring in                                  pregnancy and the postnatal period and data on
+                                   the sample with complete data and of those with missing                                     confounding variables were available for 3067 adolescents
+                                   data were compared using Student’s t test and the χ² test.                                  who had completed the PLIKSi. Participants with missing
+                                   Missing data were assumed to be associated with                                             data were more likely to be mothers with higher antenatal
+                                   observed data (ie, missing at random).25 When data are                                      EPDS scores, higher postnatal EPDS scores, of manual
+                                   missing at random, analyses based on complete cases                                         social class, with less education, who had smoked during
+                                   might be biased.25 We therefore did sensitivity analyses                                    the first trimester of pregnancy, who had an infection
+                                   using multiple imputation with chained equations in                                         during pregnancy, and who had male offspring.
+                                   two ways. First, we replaced missing data in the outcome                                       The mean maternal depression score was 6·7 (SD 4·4;
+                                   and confounder variables for all participants who had                                       range 0–29) during the antenatal period and 5·6 (4·2;
+                                   complete data on the outcome at 12 years of age. Second,                                    0–27) during the postnatal period (table 1). Measures of
+                                   we replaced missing data in the outcome and confounder                                      maternal depression were highly correlated with each
+                                   variables for all participants with complete exposure                                       other. The correlation between depressive symptoms
+                                   data. We imputed 100 datasets. To predict missing data,                                     across the two antenatal measurements at 18 and
+                                   all variables included in the analysis models, and a                                        32 weeks of pregnancy was 0·64, across the two postnatal
+                                   number of auxiliary variables, were included across                                         measurements at 8 weeks and 8 months postnatally was
+                                   100 imputed datasets. Analyses were then run across                                         0·61, and between the antenatal mean and postnatal
+                                   imputed datasets using the mi estimate command,                                             mean was 0·66. 1079 (12%) of 9204 mothers exceeded
+                                   which fits a model to each of the imputed datasets and                                      thresholds for depression antenatally (means scores of
+                                   pools individual results to obtain a pooled estimate                                        >12 across the two antenatal timepoints), and 691 (8%)
+                                   derived using Rubin’s combination rules. All analyses                                       mothers exceeded these thresholds postnatally.
+                                   were done in StataSE (version 15).                                                             At 18 years of age, 4248 adolescents completed the CIS-R.
+                                                                                                                               Of these adolescents, 334 (8%) met criteria for ICD-10
+                                   Role of the funding source                                                                  depression. Data on PLIKSi and depression at the age of
+                                   The funders of the study had no role in the study design;                                   18 years were available for 4051 adolescents, with 71 (2%)
+                                   in the collection, analysis, and interpretation of data; in                                 meeting criteria for depression and being identified as
+                                   the writing of the report; or in the decision to submit the                                 having experienced suspected or definite psychotic
+                                   Article for publication. All authors declare independence                                   experiences. Data on maternal antenatal and postnatal
+                                   from the funding sources. The corresponding author had                                      depression scores were available for 3302 adolescents with
+                                   full access to all the data in the study and had final                                      data on CIS-R and PLIKSi at the age of 18 years, of whom
+                                   responsibility for the decision to submit for publication.                                  51 (2%) met criteria for depression and suspected or
+
+
+436                                                                                                                                                            www.thelancet.com/psychiatry Vol 7 May 2020
+                                                                                                                                                                                  Articles
+
+
+
+
+                                   Mothers with                 Mothers with                Model 1                                     Model 2
+                                   complete exposure            complete exposure
+                                   data (n=9204)                data in imputed
+                                                                sample (n=5577)
+                                                                                            Odds ratio (95% CI)      p value            Odds ratio (95% CI)      p value
+  Low maternal antenatal           4336 (47%)                   2779 (50%)                   1 (ref)                     ··             1 (ref)                   ··
+  depressive symptoms score
+  (0–5·5)
+  Moderate maternal                3789 (41%)                   2227 (40%)                   1·45 (1·12–1·89)          0·0052           1·31 (1·00–1·71)         0·052
+  antenatal depressive
+  symptoms score (6–12)
+  High maternal antenatal           1079 (12%)                    571 (10%)                  2·2 (1·55–3·26)          <0·0001           1·69 (1·13–2·52)         0·011
+  depressive symptoms score
+  (>12)
+  Antenatal maternal                    ··                           ··                      1·37 (1·19–1·58)         <0·0001           1·22 (1·05–1·43)         0·0094
+  depression (5-point increase
+  in EPDS score)
+ Model 1 is univariable associations between each timing of maternal perinatal depression and offspring psychotic experiences at the age of 18 years. Model 2 is model 1
+ adjusted for confounding variables: maternal age at delivery, maternal social class, maternal education, maternal parity, whether the pregnancy was intentional or not,
+ maternal smoking in the first trimester, maternal cannabis use in the first trimester, maternal infection during pregnancy, maternal family history of schizophrenia, maternal
+ family history of depression, maternal history of depression before pregnancy, and offspring sex. EPDS=Edinburgh Postnatal Depression Scale.
+
+ Table 3: Association between maternal antenatal depression and offspring psychotic experiences by the age of 18 years in a sample with imputed data
+
+
+definite psychotic experiences. Offspring depression at the                               maternal postnatal depression measured at 8 weeks, but
+age of 18 years was positively but weakly correlated with                                 no evidence of an association was found for maternal
+offspring psychotic experiences at the age of 18 years                                    depression at 8 months postnatally (appendix p 3).
+(r=0·16, p<0·0001).                                                                       Sensitivity analyses adjusting for a range of family history
+  We found evidence that the offspring of mothers with                                    variables (including family history of bipolar disorder,
+higher antenatal EPDS score were more likely to have                                      family history of mental health admission, paternal family
+had psychotic experiences at the age of 18 years (OR for                                  history of psychosis, and schizophrenia polygenic risk
+a 5-point increase in EPDS score: 1·38 [95% CI                                            score) as confounders showed no effect (appendix pp 4–5).
+1·18–1·61], p=0·0001; table 2). The evidence for this                                       When considering the effect of maternal depression
+association remained after adjustment for covariates                                      later in the child’s life, there was evidence of an association
+(OR for a 5-point increase in EPDS score: 1·26 [95% CI                                    between maternal antenatal depressive symptoms and
+1·06–1·49], p=0·0074). These results were similar,                                        offspring psychotic experiences by the age of 18 years in
+although the strength of the association was attenuated,                                  the sample with complete data on maternal perinatal
+when using binary antenatal depression variable derived                                   depressive symptoms and maternal depression when
+using the clinical threshold of EPDS scores of more                                       offspring were 12 years of age (n=2663, OR for a 5-point
+than 12, both in the univariable model (OR 1·85 [95% CI                                   increase in EPDS score: 1·32 [95% CI 1·11–1·58],
+1·24–2·77], p=0·0028) and after adjustment for                                            p=0·0016). The association between antenatal depression
+covariates (1·49 [0·98–2·28], p=0·065). Antenatal EPDS                                    score and offspring psychotic experiences was inde­
+scores for each timepoint had similar effects to those                                    pendent of the most recent measurement of maternal
+reported for averaged antenatal depression scores                                         depression when offspring were 12 years of age (OR for a
+(appendix p 3).                                                                           5-point increase in EPDS score: 1·27 [1·02–1·52],
+  There was evidence of an association between maternal                                   p=0·013). There was no evidence that the association
+postnatal depression score and offspring psychotic                                        between maternal antenatal depressive symptoms differed
+experiences at the age of 18 years (OR for a 5-point increase                             according to maternal depression when offspring were
+in EPDS score: 1·25 [95% CI 1·06–1·47], p=0·0067). The                                    12 years of age (pinteraction=0·83).
+evidence for this association remained but was attenuated                                   There was evidence of an association between maternal
+after adjusting for covariates (OR for a 5-point increase in                              antenatal depressive symptoms and offspring psychotic
+EPDS score: 1·17 [0·99–1·39], p=0·065). These results                                     symptoms by the age of 18 years in the sample with
+were replicated using the binary postnatal depression                                     complete data on maternal perinatal depressive symptoms
+variable derived using the clinical threshold of EPDS                                     and later maternal depressive episodes (n=2126, OR for a
+scores or more than 12, in the univariable model (OR 2·09                                 5-point increase in EPDS score: 1·32 [95% CI 1·09–1·61],
+[95% 1·31–3·31], p=0·0018) and evidence of an association                                 p=0·0052). The association between antenatal depression
+remained after adjusting for covariates (1·81 [95% CI                                     and offspring psychotic experiences was independent of
+1·12–2·93], p=0·016). The results of analyses using the                                   the number of later maternal depressive episodes (OR for
+postnatal EPDS scores for each timepoint were similar for                                 a 5-point increase in EPDS score: 1·32 [95% CI 1·02–1·71],
+
+
+www.thelancet.com/psychiatry Vol 7 May 2020                                                                                                                                                  437
+      Articles
+
+
+
+
+                                                                          Mothers with                Model 1                                        Model 2
+                                                                          complete exposure
+                                                                          data (n=9204)
+                                                                                                      Odds ratio (95% CI)       p value              Odds ratio (95% CI)       p value
+                   Low maternal antenatal depressive symptoms               4336 (47%)                1 (ref)                      ··                1 (ref)                     ··
+                   score (0–5·5)
+                   Moderate maternal antenatal depressive                   3789 (41%)                1·42 (1·14–1·79)            0·0023             1·24 (0·98–1·57)           0·076
+                   symptoms score (6–12)
+                   High maternal antenatal depressive symptoms              1079 (12%)                2·19 (1·55–3·09)          <0·0001              1·60 (1·10–2·33)           0·014
+                   score (>12)
+                   Antenatal maternal depression (5-point                       ··                    1·36 (1·19–1·56)          <0·0001              1·20 (1·03–1·40)           0·019
+                   increase in EPDS score)
+                  Model 1 shows univariable associations between each timing of maternal perinatal depression and offspring psychotic experiences at the age of 18 years. Model 2 is model 1
+                  adjusted for confounding variables: maternal age at delivery, maternal social class, maternal education, maternal parity, whether the pregnancy was intentional or not,
+                  maternal smoking in the first trimester, maternal cannabis use in the first trimester, maternal infection during pregnancy, maternal family history of schizophrenia, maternal
+                  family history of depression, maternal history of depression before pregnancy, and offspring sex. EPDS=Edinburgh Postnatal Depression Scale.
+
+                  Table 4: Association between maternal antenatal depression and offspring psychotic experiences by the age of 18 years in a sample with imputed data
+
+
+                 p=0·033). There was no evidence that the association                                      Discussion
+                 between maternal antenatal depressive symptoms differed                                   To our knowledge, this study is the first to examine the
+                 according to the number of later maternal depressive                                      association between maternal depressive symptoms
+                 episodes (pinteraction=0·61).                                                             during the perinatal period and offspring psychotic
+                   With regard to paternal antenatal and postnatal                                         experiences at 18 years of age. We found evidence that
+                 depression, in univariable and adjusted models, a                                         the offspring of mothers with higher perinatal depressive
+                 5-point increase in paternal antenatal EPDS score                                         symptom scores were more likely to report psychotic
+                 (unadjusted: n=2404, OR 1·17 [95% CI 0·95–1·44],                                          experiences than the offspring of mothers with lower
+                 p=0·15; adjusted: n=2404, 1·08 [0·87–1·35], p=0·47) or                                    depressive scores. This finding is consistent with the
+                 paternal postnatal EPDS score (unadjusted: n= 404, 1·08                                   hypothesis that maternal depression during the perinatal
+                 [0·86–1·35], p=0·52; adjusted: n=2404, 1·06 [0·84–1·34],                                  period might be a risk factor for offspring psychotic
+                 p=0·61) was not associated with offspring psychotic                                       experiences. The association between maternal antenatal
+                 experiences at the age of 18 years. These analyses were                                   depression score and offspring psychotic experiences
+                 also done using paternal EPDS scores as a binary                                          was similar in size to that between maternal antenatal
+                 variable derived using the clinical threshold of more                                     depression score and offspring depression at 18 years
+                 than 12; the results from these analyses are presented in                                 of age.
+                 the appendix (p 5).                                                                          The strengths of this study include the longitudinal
+                   Results of the biprobit analyses found evidence for an                                  design, large sample size, long-term follow-up period,
+                 association between maternal antenatal depressive                                         and the availability of data on a broad range of
+                 symptoms and both offspring psychotic experiences at                                      confounders. Maternal depression was assessed several
+                 the age of 18 years (n=2830, OR for a 5-point increase in                                 times during pregnancy and the postnatal period, and a
+                 EPDS score: 1·32 [95% CI 1·16–1·51], p<0·0001) and                                        reliable semi-structured interview was used to assess
+                 offspring depression at 18 years (OR for a 5-point increase                               offspring psychotic experiences. Attrition is a limitation
+                 in EPDS score: 1·18 [1·03–1·34], p=0·016). When the                                       of this study, as with all cohort studies, and can introduce
+                 sizes of the associations were compared, there was no                                     selection bias; however, multiple imputation was used to
+                 evidence that the strength of association differed for                                    investigate the likely impact of attrition and did not alter
+                 psychotic experiences or depression (p=0·19).                                             our conclusions. Previous work in ALSPAC has shown
+                   Results for the association between maternal antenatal                                  that within-cohort associations tend to be valid even
+                 depression scores and offspring psychotic experiences at                                  when there are differences between the study sample
+                 18 years of age based on multiple imputation are shown                                    and the target population,26 and, when investigating risk
+                 in tables 3 and 4. A similar pattern of associations                                      factors, a representative sample is not so important as
+                 between maternal antenatal and postnatal depression                                       long as the effects of attrition are minimised.27 Although
+                 scores and offspring psychotic experiences at the age of                                  this study was of only one national population, we hope
+                 18 years was observed in both of the imputation analyses                                  that it will generate future research including cross-
+                 in comparison to the complete case sample. There                                          cultural comparisons. Genetic confounding must be
+                 remained evidence for an association between antenatal                                    considered because there is evidence of shared genetic
+                 depression and offspring psychotic experiences at the                                     liability between psychotic experiences and a range of
+                 age of 18 years in the univariable model and after                                        other psychiatric disorders.28 However, adjusting for
+                 adjustment for covariates.                                                                maternal family history of psychosis in the main analyses
+
+
+438                                                                                                                                        www.thelancet.com/psychiatry Vol 7 May 2020
+                                                                                                                                               Articles
+
+
+
+
+and for paternal family history of psychosis in sensitivity     adolescence. Our study extends the growing list of
+analyses showed no effect. Sensitivity analyses for family      childhood and adolescent outcomes associated with
+history of bipolar disorder and history of mental health        perinatal depression. It suggests that common develop­
+admission also showed no effect. Maternal depression            mental mechanisms might underlie the risk of many
+measure­ment was by self-report questionnaire; however,         psychiatric disorders and adds weight to the importance
+EPDS has been validated against longer assessments and          of identifying and treating maternal mental health
+any random measurement error would tend to reduce               problems during pregnancy and the postnatal period,
+the size of association rather than lead to spurious            especially in view of evidence that they might be
+associations. In keeping with the vast majority of studies      increasing in the current generation of young women.22
+using the PLIKSi, this study used the measure as a binary       Contributors
+variable. Although it is more statistically appropriate to      RS conceived and designed the study under the supervision of GlL and SJ.
+model data from the PLIKSi as a binary outcome,                 RS analysed the data and drafted the manuscript. All authors interpreted
+                                                                the data and criticised the manuscript for important intellectual content.
+psychotic experiences are in reality continuous in the          All authors have approved the final version of the manuscript. This Article
+general population.                                             is the work of the authors. All authors, external and internal, had full
+  This study was not able to examine the differential           access to all of the data (including statistical reports and tables) in the
+effects of maternal antenatal and postnatal depression          study and take responsibility for the integrity of the data and the accuracy
+                                                                of the data analysis. RS is guarantor for this study.
+due to the correlation between them. Antenatal
+depression might exert an effect through biological             Declaration of interests
+                                                                We declare no competing interests.
+mechanisms acting in utero or after birth through effects
+on parenting. During pregnancy, maternal depression,            Data sharing
+                                                                Avon Longitudinal Study of Parents and Children data are available to
+which might be a reflection of chronic maternal stress,         researchers on a confidential and anonymised basis (http://www.bristol.
+could affect glucocorticoids, which might have effects on       ac.uk/alspac/researchers/access/). STATA code for the analyses is freely
+placental function, fetal development, epigenetics, and         available from the corresponding author.
+immune function, all of which have been implicated in           Acknowledgments
+the aetiology of psychotic disorders.4,29 To investigate        The UK Medical Research Council and Wellcome (grant reference
+                                                                102215/2/13/2) and the University of Bristol (Bristol, UK) provide core
+such potential mechanisms future research could use
+                                                                support for the Avon Longitudinal Study of Parents and Children
+measures of hypothalamopituitary axis activation, such          (ALSPAC). A comprehensive list of grant funding is available on the
+as cortisol concentration antenatally. Recent findings in       ALSPAC website. The age 18 Psychosis-Like Symptom Interview
+the FinnBrain cohort show changes in maternal cortisol          assessments were funded by the MRC (grant reference
+                                                                G0701503/85179) and the age 18 depression assessments were funded
+concentration30 and cytokine profiles31 associated with
+                                                                by the Wellcome Trust (grant refererence 084268/Z/07/Z). RS is
+antenatal depressive symptom trajectories. A mechanism          supported by a grant from the Wellcome Trust (grant reference
+involving immune function would be consistent with              211163/Z/18/Z). This work was part supported by the University
+findings that maternal infection during pregnancy is a          College London Hospital National Institute for Health Research
+                                                                Biomedical Research Centre (London, UK). This study was also
+potential risk factor for schizo­phrenia, particularly in the
+                                                                supported by the National Institute for Health Research Biomedical
+offspring of parents with a psychiatric disorder.32             Research Centre at the University Hospitals Bristol National Health
+Maternal depression during pregnancy has also been              Service Foundation Trust and the University of Bristol, the US
+linked to an increased risk of pregnancy and delivery           National Institutes of Health (grant R01 DK10324), and the European
+                                                                Research Council under the EU’s Seventh Framework Programme
+complications,4 which have been linked to psychotic             (grant FP/2007-2013)/European Research Council Grant Agreements
+experiences at the age of 12 years in this cohort.24            (grants 758813; MHINT and 669545; and DevelopObese). We are
+Maternal antenatal depression might also interfere with         extremely grateful to all the families who took part in this study, the
+maternal postnatal bonding with the infant33 as well as         midwives for their help in recruiting them, and the whole ALSPAC
+                                                                team, which includes interviewers, computer and laboratory
+with maternal representations of the unborn child that          technicians, clerical workers, research scientists, volunteers,
+are associated with mother–infant interactions34 in the         managers, receptionists, and nurses.
+early postnatal period.                                         References
+  By contrast, postnatal depression could affect environ­       1    Kelleher I, Cannon M. Psychotic-like experiences in the general
+mental factors such as parenting and wider social                    population: characterizing a high-risk group for psychosis.
+                                                                     Psychol Med 2011; 41: 1–6.
+engage­ment.4 Infancy is a period of extreme dependency         2    van Os J, Reininghaus U. Psychosis as a transdiagnostic and
+on the caregiver as well as rapid development and is a               extended phenotype in the general population. World Psychiatry
+vulnerable period during development. Psychotic                      2016; 15: 118–24.
+experiences are an important area of interest because           3    Van den Bergh BRH, van den Heuvel MI, Lahti M, et al.
+                                                                     Prenatal developmental origins of behavior and mental health:
+they not only represent the milder end of the psychosis              the influence of maternal stress in pregnancy. Neurosci Biobehav Rev
+continuum and thereby psychotic disorders1 but are also              2017; published online July 28. DOI:10.1016/j.neubiorev.2017.07.003.
+associated with more severe presentations of depression         4    Stein A, Pearson RM, Goodman SH, et al. Effects of perinatal mental
+                                                                     disorders on the fetus and child. Lancet 2014; 384: 1800–19.
+and anxiety.2                                                   5    Pearson RM, Evans J, Kounali D, et al. Maternal depression during
+  Our evidence suggests that mothers with depression                 pregnancy and the postnatal period: risks and possible mechanisms
+during the perinatal period are more likely to have                  for offspring depression at age 18 years. JAMA Psychiatry 2013;
+                                                                     70: 1312–19.
+offspring with psychotic experiences during their
+
+
+www.thelancet.com/psychiatry Vol 7 May 2020                                                                                                               439
+      Articles
+
+
+
+
+                 6    Plant DT, Pariante CM, Sharp D, Pawlby S. Maternal depression            20   Brugha TS, Morgan Z, Bebbington P, et al. Social support networks
+                      during pregnancy and offspring depression in adulthood: role of               and type of neurotic symptom among adults in British households.
+                      child maltreatment. Br J Psychiatry 2015; 207: 213–20.                        Psychol Med 2003; 33: 307–18.
+                 7    Howes OD, Murray RM. Schizophrenia: an integrated                        21   Cox JL, Holden JM, Sagovsky R. Detection of postnatal depression.
+                      sociodevelopmental-cognitive model. Lancet 2014; 383: 1677–87.                Development of the 10-item Edinburgh Postnatal Depression Scale.
+                 8    Blair MA, Nitzburg G, DeRosse P, Karlsgodt KH.                                Br J Psychiatry 1987; 150: 782–86.
+                      Relationship between executive function, attachment style,               22   Pearson RM, Carnegie RE, Cree C, et al. Prevalence of prenatal
+                      and psychotic like experiences in typically developing youth.                 depression symptoms among 2 generations of pregnant mothers:
+                      Schizophr Res 2018; 197: 428–33.                                              the Avon Longitudinal Study of Parents and Children.
+                 9    Jones PB, Rantakallio P, Hartikainen AL, Isohanni M, Sipila P.                JAMA Netw Open 2018; 1: e180725.
+                      Schizophrenia as a long-term outcome of pregnancy, delivery,             23   Bland JM, Altman DG. Regression towards the mean. BMJ 1994;
+                      and perinatal complications: a 28-year follow-up of the 1966 north            308: 1499.
+                      Finland general population birth cohort. Am J Psychiatry 1998;           24   Niarchou M, Zammit S, Lewis G. The Avon Longitudinal Study of
+                      155: 355–64.                                                                  Parents and Children (ALSPAC) birth cohort as a resource for
+                 10   Mäki P, Riekki T, Miettunen J, et al. Schizophrenia in the offspring          studying psychopathology in childhood and adolescence:
+                      of antenatally depressed mothers in the northern Finland 1966 birth           a summary of findings for depression and psychosis.
+                      cohort: relationship to family history of psychosis. Am J Psychiatry          Soc Psychiatry Psychiatr Epidemiol 2015; 50: 1017–27.
+                      2010; 167: 70–77.                                                        25   Sterne JA, White IR, Carlin JB, Spratt M, Royston P, Kenward MG,
+                 11   Taka-Eilola T, Veijola J, Murray GK, Koskela J, Mäki P. Severe mood           et al. Multiple imputation for missing data in epidemiological and
+                      disorders and schizophrenia in the adult offspring of antenatally             clinical research: potential and pitfalls. BMJ 2009; 338: b2393.
+                      depressed mothers in the Northern Finland 1966 Birth Cohort:             26   Wolke D, Waylen A, Samara M, et al. Selective drop-out in
+                      relationship to parental severe mental disorder. J Affect Disord 2019;        longitudinal studies and non-biased prediction of behaviour
+                      249: 63–72.                                                                   disorders. Br J Psychiatry 2009; 195: 249–56.
+                 12   Taka-Eilola T, Miettunen J, Mäki P. Schizotypal and affective traits     27   Rothman KJ, Gallacher JEJ, Hatch EE. Why representativeness
+                      in the offspring of antenatally depressed mothers—relationship to             should be avoided. Int J Epidemiol 2013; 42: 1012–14.
+                      family history of psychosis in the Northern Finland 1966 Birth           28   Legge SE, Jones HJ, Kendall KM, et al. Association of genetic liability
+                      Cohort. Eur Psychiatry 2017; 42: 36–43.                                       to psychotic experiences with neuropsychotic disorders and traits.
+                 13   Kendler KS, Thacker L, Walsh D. Self-report measures of schizotypy            JAMA Psychiatry 2019; 76: 1256–65.
+                      as indices of familial vulnerability to schizophrenia. Schizophr Bull    29   Markham JA, Koenig JI. Prenatal stress: role in psychotic and
+                      1996; 22: 511–20.                                                             depressive diseases. Psychopharmacology 2011; 214: 89–106.
+                 14   Kounali D, Zammit S, Wiles N, et al. Common versus                       30   Mustonen P, Karlsson L, Kataja E-L, et al. Maternal prenatal hair
+                      psychopathology-specific risk factors for psychotic experiences and           cortisol is associated with prenatal depressive symptom trajectories.
+                      depression during adolescence. Psychol Med 2014; 44: 2557–66.                 Psychoneuroendocrinology 2019; 109: 104383.
+                 15   Fraser A, Macdonald-Wallis C, Tilling K, et al. Cohort profile:          31   Karlsson L, Nousiainen N, Scheinin NM, et al. Cytokine profile and
+                      the Avon Longitudinal Study of Parents and Children: ALSPAC                   maternal depression and anxiety symptoms in mid-pregnancy—
+                      mothers cohort. Int J Epidemiol 2013; 42: 97–110.                             the FinnBrain Birth Cohort Study. Arch Women Ment Health 2017;
+                 16   Boyd A, Golding J, Macleod J, et al. Cohort profile: the ‘children of         20: 39–48.
+                      the 90s’—the index offspring of the Avon Longitudinal Study of           32   Blomström Å, Karlsson H, Gardner R, Jörgensen L, Magnusson C,
+                      Parents and Children. Int J Epidemiol 2013; 42: 111–27.                       Dalman C. Associations between maternal infection during
+                 17   Zammit S, Kounali D, Cannon M, et al. Psychotic experiences and               pregnancy, childhood infections, and the risk of subsequent
+                      psychotic disorders at age 18 in relation to psychotic experiences at         psychotic disorder—a Swedish Cohort study of nearly 2 million
+                      age 12 in a longitudinal population-based cohort study.                       individuals. Schizophr Bull 2016; 42: 125–33.
+                      Am J Psychiatry 2013; 170: 742–50.                                       33   Dubber S, Reck C, Müller M, Gawlik S. Postpartum bonding:
+                 18   Lewis G, Pelosi AJ, Araya R, Dunn G. Measuring psychiatric                    the role of perinatal depression, anxiety and maternal–fetal bonding
+                      disorder in the community: a standardized assessment for use by               during pregnancy. Arch Women Ment Health 2015; 18: 187–95.
+                      lay interviewers. Psychol Med 1992; 22: 465–86.                          34   Thun-Hohenstein L, Wienerroither C, Schreuer M, Seim G,
+                 19   Patton GC, Coffey C, Posterino M, Carlin JB, Wolfe R, Bowes G.                Wienerroither H. Antenatal mental representations about the child
+                      A computerised screening instrument for adolescent depression:                and mother–infant interaction at three months post partum.
+                      population-based validation and application to a two-phase case-              Eur Child Adolesc Psychiatry 2008; 17: 9–19.
+                      control study. Soc Psychiatry Psychiatr Epidemiol 1999; 34: 166–72.
+
+
+
+
+440                                                                                                                       www.thelancet.com/psychiatry Vol 7 May 2020
+

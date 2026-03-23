@@ -1,0 +1,224 @@
+---
+title: "Analyses de l'essai Modafinil (Données Fictives)"
+author: "Thomas Husson - Groupe 52"
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    geometry: margin=2.5cm
+    keep-tex: true
+    header-includes:
+      - \usepackage{booktabs}
+---
+
+# Introduction
+Ce document présente les résultats statistiques basés sur les données fictives pour l'essai croisé comparant le Modafinil et un Placebo chez des patients atteints du syndrome post-polio.
+
+Le jeu de données fictif de `r 38` patients a été utilisé pour illustrer la méthodologie proposée.
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lmerTest)
+library(lme4)
+library(pwr)
+library(reshape2)
+library(gtsummary)
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Puissance statistique
+
+Voici le calcul de puissance effectué sur le principe d'un essai croisé :
+
+```{r}
+#| label: pwr-paired
+#| echo: true
+pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "paired")
+```
+
+**Interprétation détaillée de l'output de l'analyse de puissance :**
+L'output de la fonction `pwr.t.test` fournit les éléments de dimensionnement suivants :
+- **`n = 9.936`** : Dans le contexte d'un modèle de test de comparaison apparié (`type = "paired"`), cette valeur `n` correspond de fait au nombre de *paires* nécessaires. Il faudrait inclure un seuil minimal de 10 patients (qui reçoivent tous les deux traitements dans le cadre du plan croisé) pour atteindre l'objectif.
+- **`d = 1`** : Il s'agit de la taille de l'effet standardisée stipulée (Taille d'effet de Cohen). Un $d=1$ correspond cliniquement à un effet particulièrement "fort" (une différence moyenne d'exactement 1 écart type entier séparant les deux groupes).
+- **`power = 0.8`** : Cette valeur a été fixée a priori; il s'agit de la puissance probabiliste statistique d'écarter l'hypothèse nulle $H_0$ (ne pas rater une vraie différence).
+- **`sig.level = 0.05`** : Le test s'effectue avec un risque alpha d'erreur de première espèce de 5%.
+- **Conclusion globale :** Notre base de données fictive comportant un effectif de $N = 38$ individus pour une exigence de base de 10 patients, l'étude s'avère manifestement expérimentalement sur-dimensionnée pour des effets forts. Sa très bonne puissance assurera l'absence d'erreurs de type 2.
+
+# Préparation et description des données
+
+```{r}
+#| label: chargement-donnees
+#| echo: true
+csv_path <- "df_large_fictif_38.csv"
+df_large_simplifie <- read.csv(csv_path, stringsAsFactors = FALSE) %>%
+    mutate(
+        centre = factor(centre, levels = c("NIH", "NRH", "WRAMC")),
+        sequence_randomisation = factor(sequence_randomisation, levels = c("MP", "PM")),
+        sexe = factor(sexe, levels = c("Homme", "Femme"))
+    )
+
+id_vars <- names(df_large_simplifie)[!grepl("_(S0|S3|S6|S8|S11|S14)$", names(df_large_simplifie))]
+
+df_long_simplifie <- reshape2::melt(
+    df_large_simplifie,
+    id.vars = id_vars,
+    variable.name = "variable_visite",
+    value.name = "valeur"
+) %>%
+    mutate(
+        variable = sub("_(S0|S3|S6|S8|S11|S14)$", "", variable_visite),
+        visite = sub("^.*_(S0|S3|S6|S8|S11|S14)$", "\\1", variable_visite)
+    ) %>%
+    reshape2::dcast(
+        formula = as.formula(paste(paste(c(id_vars, "visite"), collapse = " + "), "~ variable")),
+        value.var = "valeur",
+        fun.aggregate = function(x) x[1]
+    ) %>%
+    mutate(
+        visite = factor(visite, levels = c("S0", "S3", "S6", "S8", "S11", "S14"), ordered = TRUE),
+        periode = case_when(visite %in% c("S0", "S3", "S6") ~ 1L, visite %in% c("S8", "S11", "S14") ~ 2L),
+        traitement = case_when(
+            sequence_randomisation == "MP" & periode == 1L ~ "Modafinil",
+            sequence_randomisation == "MP" & periode == 2L ~ "Placebo",
+            sequence_randomisation == "PM" & periode == 1L ~ "Placebo",
+            sequence_randomisation == "PM" & periode == 2L ~ "Modafinil"
+        ),
+        traitement = factor(traitement, levels = c("Placebo", "Modafinil"))
+    )
+
+cols_num <- c("fss", "vasf", "fis", "sf36_pcs", "sf36_mcs")
+df_long_simplifie[cols_num] <- lapply(df_long_simplifie[cols_num], as.numeric)
+```
+
+## Caractéristiques initiales des patients
+
+```{r}
+#| label: table-descriptive
+#| echo: false
+df_large_simplifie %>%
+  select(age_annees, sexe, centre, sequence_randomisation) %>%
+  tbl_summary(
+    by = sequence_randomisation,
+    label = list(
+      age_annees ~ "Âge (années)",
+      sexe ~ "Sexe",
+      centre ~ "Centre d'inclusion"
+    )
+  ) %>%
+  add_p() %>%
+  add_overall() %>%
+  modify_caption("Caractéristiques des patients selon la séquence de randomisation")
+```
+
+**Interprétation détaillée du tableau généré par `gtsummary` :**
+L'output fournit l'état des lieux biométriques initial de notre échantillon stratifié selon la `séquence de randomisation`.
+- **Statistiques descriptives ("PM" et "MP") :** Le tableau reporte les effectifs (N=19 pour chaque groupe, prouvant la balance du tirage), la médiane avec l'écart inter-quartile [IQR] (ex: âge médian de 50-51 ans) pour les variables continues, et la proportion pour les variables nominales.
+- **La colonne "p-value" (`add_p()`) :** Elle teste de façon non paramétrique (Wilcoxon pour l'âge, exact de Fisher pour sexe et centres) l'hypothèse nulle $H_0$ de parfaite indépendance entre le caractère individuel et sa séquence d'inclusion.
+- **Conclusion globale :** Puisqu'aucune de ces p-values n'est inférieure au seuil strict $\alpha$ de 0.05, on en tire le postulat crucial affirmant l'absence de biais. Les groupes de départ sont considérés fondamentalement identiques pour l'induction. Le protocole de randomisation a fonctionné avec succès.
+
+# Analyses du critère principal : FSS (Fatigue Severity Scale)
+
+L'analyse de l'effet du traitement sur la fatigue est réalisée à l'aide d'un modèle mixte tenant compte de l'effet aléatoire du patient, ainsi que des effets fixes période, traitement, et séquence de randomisation.
+Cette analyse s'effectue sur les données des visites en temps S6 et S14 (fin de chaque période de traitement de 6 semaines).
+
+```{r}
+#| label: analyse-fss
+#| echo: true
+modele_principal <- lme4::lmer(
+  fss ~ traitement + periode + sequence_randomisation + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S6", "S14"))
+)
+summary(modele_principal)
+```
+
+**Interprétation détaillée des outputs du Modèle Mixte (FSS) :**
+Le retour d'un objet `lmerTest` comporte trois noyaux cruciaux :
+- **Random Effects (Variabilité individuelle) :** La valeur de variance d'`(Intercept) | id_patient` prouve l'existence d'une hétérogénéité intrinsèque large dès l'entrée en essai, justifiant le recours au modèle mixte.
+- **Fixed Effects (Le cœur de l'analyse) :** 
+  - **`(Intercept)` ($4.97$) :** Le Score FSS fondamental (Placebo, Période 1).
+  - **`traitementModafinil` ($-0.989$) :** C'est le résultat majeur. Toutes dimensions fixées, le passage au Modafinil octroie une réduction de pratiquement **$-0.99$ point** à l'échelle de gravité de la fatigue. La $t-value (-19.48)$ mène impérativement à une p-value minuscule ($Pr(>|t|) < 0.001$). Cette découverte rend irréfutable un impact curatif statistique de premier plan de l'agent Modafinil par rapport au Placebo.
+  - **`periode` ($+0.142$, $p = 0.008$) :** Confirme très subtilement un léger gradient de sur-fatigue chronologique au fil du temps.
+  - **`sequence_randomisationPM` ($p = 0.017$) :** Confirme la présence d'un "effet carry-over", validant son insertion dans le modèle de correction.
+
+# Analyses des critères secondaires
+
+## Évolution de la Visual Analog Scale for Fatigue (VASF)
+
+```{r}
+#| label: analyse-vasf
+#| echo: true
+modele_vasf <- lme4::lmer(
+  vasf ~ traitement + periode + visite + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+)
+summary(modele_vasf)
+```
+
+**Interprétation détaillée de l'output (VASF) :**
+- **Effet du Traitement :** Analysons la ligne `traitementModafinil` au sein du panel *Fixed effects*. Son paramètre `Estimate` affiche une baisse de **$-8.968$** avec un test `t-value` extrêmement fort ($-9.01$). 
+- **Significativité :** La p-value associée ($7.08 \times 10^{-15}$) valide très rigoureusement l'hypothèse d'une dissemblance marquée. En résumé, le Modafinil diminue l'échelle VASF perçue par le patient d'environ **9 points complets**, consolidant l'efficacité montrée par le FSS.
+
+## Évolution de la Fatigue Impact Scale (FIS)
+
+```{r}
+#| label: analyse-fis
+#| echo: true
+modele_fis <- lme4::lmer(
+  fis ~ traitement + periode + visite + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+)
+summary(modele_fis)
+```
+
+**Interprétation détaillée de l'output (FIS - Impact au quotidien) :**
+- **`traitementModafinil` :** La limitation incombée à la fatigue (le score FIS) est formellement amoindrie de **$-15.568$ points** sous Modafinil ($p < 0.001$). Réduire l'impact de 15.5 points dans un questionnaire évaluant les limitations quotidiennes atteste d'un bénéfice prononcé et très pragmatique pour l'autonomie des patients.
+- **L'effet visite :** Notons aussi la tendance `visite.L` ($-11.45$, $p=0.002$) dénotant une baisse générale de la pénibilité au fil des mesures.
+
+## Qualité de Vie (SF-36)
+
+```{r}
+#| label: analyse-sf36-pcs
+#| echo: true
+modele_sf36_pcs <- lme4::lmer(
+  sf36_pcs ~ traitement + periode + visite + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+)
+summary(modele_sf36_pcs)
+```
+
+**Interprétation détaillée de l'output (SF-36 Composante Physique) :**
+*(À l'inverse des échelles de fatigue, viser une valeur SF-36 grandissante est corrélée à une MEILLEURE fonctionnalité).*
+- **Effet du Traitement :** L'estimation est ici **POSITIVE ($+7.652$)** avec une `t-value` poussée à $7.69$ conduisant à un $p < 0.001$.
+- **Conclusion détaillée :** Sous traitement par Modafinil, la note de la composante corporelle de qualité de vie remonte de 7.6 points. Cela prouve que le soulagement induit sur la fatigue se traduit concrètement par un regain net d'état de santé physique global.
+
+# Tolérance au traitement et Sécurité
+
+Nous étudions l'occurrence d'événements indésirables (modélisés en régression logistique à effets mixtes).
+
+```{r}
+#| label: analyse-ei
+#| echo: true
+df_long_simplifie$ei_num <- as.numeric(df_long_simplifie$ei)
+modele_ei <- lme4::glmer(
+  ei_num ~ traitement + periode + visite + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14")),
+  family = binomial()
+)
+summary(modele_ei)
+```
+
+**Interprétation détaillée de l'output (Tolérance / EI) Modèle `glmer` :**
+La variable des Évènements Indésirables étant binaire (Oui=1 / Non=0), l'analyse recourt à un modèle de régression logistique Mixte (famille `binomial`).
+- **`Estimate` (Log-Odds) :** La lecture des effets fixes indique des Log-Odds (des transformations de rapports de cotes).
+- **`traitementModafinil` ($+0.937$) :** Le modafinil accroît la variable Log-Odds de $0.937$. 
+- **Calcul de l'Odds Ratio :** La conversion exponentielle donne l'Odds Ratio : $OR = \exp(0.937) \approx 2.55$. Sous Modafinil, le risque relatif d'EI est donc multiplié par environ 2.55.
+- **Test de Significativité :** Toutefois, sa `p-value` (`Pr(>|z|)` = $0.0647$) plafonne **légèrement au-dessus du seuil strict $\alpha=0.05$**.
+- **Conclusion clinique :** Il existe une *tendance* à observer plus d'événements indésirables avec le Modafinil. Bien que ce ne soit pas formellement significatif au seuil de 5%, le signal $p=0.065$ inciterait le prescripteur à appliquer une pharmacovigilance attentive face aux bénéfices physiques constatés.
+

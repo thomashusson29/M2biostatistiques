@@ -2,11 +2,17 @@
     "github.copilot.enable": {
         "quarto": true
     },
+    "python.terminal.activateEnvironment": false,
+    "python.terminal.activateEnvInCurrentTerminal": false,
+    "terminal.integrated.enablePersistentSessions": false,
     "chat.mcp.serverSampling": {
         "M2biostatistiques/.vscode/mcp.json: perplexity": {
             "allowedModels": [
                 "copilot/auto"
             ]
         }
+    },
+    "chat.tools.terminal.autoApprove": {
+        "quarto": true
     }
 }

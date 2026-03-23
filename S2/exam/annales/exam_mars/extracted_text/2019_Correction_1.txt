@@ -1,0 +1,40 @@
+M2 méthodologie et statistique en recherche biomédicale 2018/2019
+22/03/2019
+
+
+À propos de l’article (avec le supplément) :
+Radiotherapy to the primary tumour for newly diagnosed, metastatic prostate cancer (STAMPEDE): a randomised controlled phase 3 trial
+
+
+	•	Petites questions techniques :
+	•	Une randomisation par minimisation est utilisée, à quoi cela correspond-il ?
+	•	Equilibrer les caractéristiques pronostiques entre les bras (un sujet est affecté avec une probabilité de 80% au bras qu’il va rendre le plus proche de l’autre)
+	•	L’essai n’est pas en aveugle, est-ce un problème ?
+	•	De toutes façons on n’a pas le choix… Ici c’est pas un problème majeur (OS), mais bon, ça peut toujours à la marge en être un quand même.
+	•	Pourquoi les auteurs utilisent-ils des « flexible parametric models »
+	•	Pour avoir une estimation plus robuste de la médiane et surtout de la moyenne de survie. En fait la principale raison c’est que ce modèle a été publié par le statisticien de l’étude (Parmar) ;)
+	•	Le protocole relève de l’approche MAMS. A quoi correspond cette approche, qu’en pensez-vous ?
+	•	Multi Arms Multi Stage, c’est un design dit adaptatif. Plusieurs bras de traitement sont constitués au cours du temps. Il n’y a qu’un bras contrôle (attention ça n’est pas le même pour tous les bras actifs (parce que c’est randomisé, c’est pas une cohorte…)). Plusieurs « stages » (sécurité, activité (FFS), efficacité (OS)) et des analyses intermédiaires. Ca peut être intéressant comme design car efficace, mais quel bazar… 
+	•	Dans l’article les auteurs mentionnent « three intermediate analyses of failure free survival ». Qu’elle est la logique de ces analyses ? 
+	•	Pas si facile que ça d’en être sûr. Ce sont des analyses de futilité sur le critère d’activité. Ca permet de s’arrêter vite si c’est mal parti et d’engager les patients dans d’autres bras.
+	•	Que pensez-vous du critère « Failure free survival » ?
+	•	Comme critère d’efficacité c’est mauvais (pas pertinent pour le patient). Mais comme critère d’activité pour éliminer un produit pas intéressant c’est pas mal (puissance statistique et rapidité d’obtention).
+	•	La conclusion de l’étude repose avant tout sur une analyse en sous-groupe. Qu’en pensez-vous ?
+	•	Ils poussent un peu franchement. Stricto sensu ils peuvent pas. Mais ils décident de s’affranchir de l’induction comportementale que l’on connaît bien (N&P). Ils sont allés chercher un papier (Sun) qui explique qu’on devrait faire des stats un peu plus cool dans les essais, surtout si ces derniers ont une perspective pragmatique, comme ici. Pourquoi pas. Mais le problème c’est qu’au bout du compte on n’achète pas leur conclusion… On n’achète d’ailleurs pas trop leur design non plus. Pas facile d’être innovant !
+
+
+À propos de l’article (avec le supplément) :
+Rotating night shift work and adherence to unhealthy lifestyle
+in predicting risk of type 2 diabetes: results from two large US
+cohorts of female nurses
+
+	•	Dans une cohorte, l’attrition est un problème essentiel. Comment sont gérés ici les perdus de vue ?
+	•	Bizarrement pas très bien compte tenu de la qualité de l’étude. Le Cox considère que les perdus de vue sont des censures, encore faut-il qu’elles soient non informatives… Par ailleurs le nombre de sujets analysé est très largement inférieur au nombre de sujet potentiellement inclus dans l’étude. C’est pas si grave bien sûr, mais ils auraient pu au moins en discuter.
+	•	L’article étudie l’interaction entre deux expositions et ce sous deux aspects : interaction multiplicative, interaction additive. A quoi correspondent ces deux types d’interactions ? 
+	•	Une interaction multiplicative c’est celle qu’on a dans une régression logistique ou dans un Cox ici (les OR ou les HR se multiplient et quand il y a interaction c’est encore plus). Une interaction additive c’est quand on modélise le risque lui-même et pas le log du risque. Du coup dans ces modèles les coefficients testés correspondant aux risques, ces derniers s’additionnent et ne se multiplient plus, l’interaction correspond à la situation où on a plus qu’une addition. On peut avoir une situation ou un modèle multiplicatif (comme la régression logistique) conduit à une absence d’interaction alors que le modèle additif en trouvera une (ce qui est le cas dans le papier). Les épidémiologistes de qualité considèrent souvent que les interactions additives sont plus sensées. Je ne suis pas sûr de comprendre pourquoi.
+	•	Dans une analyse de sensibilité, il y a un ajustement sur l’hypertension et l’hyperlipidémie. Quels sont les avantages et inconvénients d’un tel ajustement ?
+	•	Gros piège, ici hypertension et hyperlipidémie sont-ils des facteurs de médiation ou des facteurs de confusion (ça discute, mais il y a peut-être plus de chance que le mode de vie influence la tension plutôt que la tension influence le mode de vie). D’où le problème : faut-il ajuster sur des facteurs de médiation en épidémiologie, vaste débat car ça peut faire chuter la puissance et rendre les résultats peu interprétables… C’est pour cela qu’ici c’est juste une étude de sensibilité et que ces deux variables ne sont pas mises dans la première version du modèle.
+	•	Interprétez la taille d’effet des résultats trouvés.
+	•	Pour le travail de nuit les HR sont faibles, ils commencent à faire sens pour des expositions très longues. Pour l’hygiène de vie on retrouve par contre des HR forts, comme prévu. Mais un HR n’est pas forcément facile à interpréter car tout dépend aussi de la fréquence de l’exposition, d’où aussi le calcul de fractions attribuables. Mais ici les deux expositions sont fréquentes et on retrouve la même chose. Enfin, on est un peu inquiet de voir les HR associés au travail de nuit diminuer avec le niveau d’ajustement, si jamais il y a de la confusion non mesurée alors que restera-t-il ? Bref au final on reste un peu sur ça faim en ce qui concerne les implications pratiques (à part de faire du sport et de bien manger, comme d’habitude)
+	•	Dans une cohorte de cette taille, comment se discute la question de la puissance statistique ?
+	•	Vu la taille et vu la fréquence élevée des expositions d’intérêt et de la maladie (même si là on s’intéresse aux cas incidents), aucun pb de puissance. En fait on se fiche des « p » et on devrait juste regarder les IC95%. Pour des cohortes de ce type et pour un objectif pareil, les tests n’ont pas beaucoup de sens ce sont les tailles d’effet qui compte et la précision de l’estimation de ces effets.

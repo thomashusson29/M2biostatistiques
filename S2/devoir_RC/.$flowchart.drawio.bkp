@@ -1,0 +1,120 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.0 Safari/537.36" version="29.6.1">
+  <diagram name="Page-1" id="SJS8IfK-s560Wt-GjCDx">
+    <mxGraphModel dx="848" dy="651" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-28" edge="1" parent="1" source="SXy5rt-PXSoAQnBOp1d1-6" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;spacingLeft=1;spacingRight=1;" target="SXy5rt-PXSoAQnBOp1d1-9" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="450" y="330" as="sourcePoint" />
+            <mxPoint x="500" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-26" edge="1" parent="1" source="SXy5rt-PXSoAQnBOp1d1-5" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;spacingLeft=1;spacingRight=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="340" />
+              <mxPoint x="330" y="360" />
+            </Array>
+            <mxPoint x="560" y="270" as="sourcePoint" />
+            <mxPoint x="330" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="Patients éligibles&lt;div&gt;n = ...&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="240" x="340" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="Patients randomisés&lt;div&gt;n = ...&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="240" x="340" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=1;spacingRight=1;" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Patients exclus / non-inclus (n= ...)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- Hors critère d&#39;inclusion (n =...)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- Contre-indication (n= ...)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- Refus (n= ...)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- Autre (n = ...)&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="230" x="597" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="Groupe A - Modafinil&lt;div&gt;n = ...&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="240" x="210" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="Groupe B - Placebo&lt;div&gt;n = ...&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="240" x="489" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="Groupe A - Placebo&lt;div&gt;n = ...&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="240" x="210" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-8" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;spacingLeft=1;spacingRight=1;" value="&lt;i&gt;WASH-OUT&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="530" x="210" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-34" edge="1" parent="1" source="SXy5rt-PXSoAQnBOp1d1-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;spacingLeft=1;spacingRight=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="609" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="Groupe B - Modafinil&lt;div&gt;n = ...&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="240" x="489" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="&lt;i&gt;Perdus de vue (n= ...)&lt;/i&gt;" vertex="1">
+          <mxGeometry height="20" width="150" x="50" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="&lt;i&gt;Perdus de vue (n= ...)&lt;/i&gt;" vertex="1">
+          <mxGeometry height="20" width="150" x="50" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="&lt;i&gt;Perdus de vue (n= ...)&lt;/i&gt;" vertex="1">
+          <mxGeometry height="20" width="150" x="50" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="&lt;i&gt;Perdus de vue (n= ...)&lt;/i&gt;" vertex="1">
+          <mxGeometry height="20" width="150" x="741" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="&lt;i&gt;Perdus de vue (n= ...)&lt;/i&gt;" vertex="1">
+          <mxGeometry height="20" width="150" x="741" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;spacingLeft=1;spacingRight=1;" value="&lt;i&gt;Perdus de vue (n= ...)&lt;/i&gt;" vertex="1">
+          <mxGeometry height="20" width="150" x="741" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=1;spacingRight=1;" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;Patients analysés (n= ..)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- En ITT (n = ...)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- En per-protocol (n = ...)&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="55" width="240" x="210" y="445" as="geometry" />
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-21" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;spacingLeft=1;spacingRight=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="459.73" y="170" as="sourcePoint" />
+            <mxPoint x="459.73" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-22" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;spacingLeft=1;spacingRight=1;" target="SXy5rt-PXSoAQnBOp1d1-5" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="280" />
+              <mxPoint x="390" y="280" />
+              <mxPoint x="330" y="280" />
+            </Array>
+            <mxPoint x="460" y="270" as="sourcePoint" />
+            <mxPoint x="470" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-23" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;spacingLeft=1;spacingRight=1;" target="SXy5rt-PXSoAQnBOp1d1-6" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="270" />
+              <mxPoint x="460" y="280" />
+              <mxPoint x="530" y="280" />
+              <mxPoint x="609" y="280" />
+            </Array>
+            <mxPoint x="460" y="270" as="sourcePoint" />
+            <mxPoint x="470" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-24" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;spacingLeft=1;spacingRight=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="SXy5rt-PXSoAQnBOp1d1-4" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="460" y="200" as="sourcePoint" />
+            <mxPoint x="580" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-33" edge="1" parent="1" source="SXy5rt-PXSoAQnBOp1d1-7" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;spacingLeft=1;spacingRight=1;" target="SXy5rt-PXSoAQnBOp1d1-17" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="390" y="440" as="sourcePoint" />
+            <mxPoint x="440" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SXy5rt-PXSoAQnBOp1d1-36" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=1;spacingRight=1;" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;Patients analysés (n= ..)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- En ITT (n = ...)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- En per-protocol (n = ...)&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="55" width="240" x="489" y="445" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

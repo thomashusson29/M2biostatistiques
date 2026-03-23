@@ -1,0 +1,861 @@
+         Articles
+
+
+
+
+                                      Antipsychotic dose reduction and discontinuation versus
+                                      maintenance treatment in people with schizophrenia and
+                                      other recurrent psychotic disorders in England (the RADAR
+                                      trial): an open, parallel-group, randomised controlled trial
+                                      Joanna Moncrieff, Nadia Crellin, Jacki Stansfeld, Ruth Cooper, Louise Marston, Nick Freemantle, Glyn Lewis, Rachael Hunter, Sonia Johnson,
+                                      Thomas Barnes, Nicola Morant, Vanessa Pinfold, Ruth Smith, Lyn Kent, Katherine Darton, Maria Long, Mark Horowitz, Robert Horne,
+                                      Victoria Vickerstaff, Mithilesh Jha, Stefan Priebe
+
+                                      Summary
+         Lancet Psychiatry 2023;      Background Maintenance antipsychotic medication is recommended for people with schizophrenia or recurrent
+                    10: 848–59        psychosis, but the adverse effects are burdensome, and evidence on long-term outcomes is sparse. We aimed to
+                Published Online      assess the benefits and harms of a gradual process of antipsychotic reduction compared with maintenance treatment.
+            September 28, 2023
+                                      Our hypothesis was that antipsychotic reduction would improve social functioning with a short-term increase in
+        https://doi.org/10.1016/
+       S2215-0366(23)00258-4          relapse.
+    This online publication has
+                been corrected.       Methods RADAR was an open, parallel-group, randomised trial done in 19 National Health Service Trusts in England.
+     The corrected version first      Participants were aged 18 years and older, had a diagnosis of recurrent, non-affective psychotic disorder, and were
+   appeared at thelancet.com/         prescribed an antipsychotic. Exclusion criteria included people who had a mental health crisis or hospital admission
+psychiatry on October 18, 2023
+                                      in the past month, were considered to pose a serious risk to themselves or others by a treating clinician, or were
+         See Comment page 819
+                                      mandated to take antipsychotic medication under the Mental Health Act. Through an independent, internet-based
+            Division of Psychiatry
+                                      system, participants were randomly assigned (1:1) to gradual, flexible antipsychotic reduction, overseen by treating
+             (Prof J Moncrieff MD,
+                   J Stansfeld PhD,   clinicians, or to maintenance. Participants and clinicians were aware of treatment allocations, but assessors were
+                 Prof G Lewis PhD,    masked to them. Follow-up was for 2 years. Social functioning, assessed by the Social Functioning Scale, was the
+               Prof S Johnson PhD,    primary outcome. The principal secondary outcome was severe relapse, defined as requiring admission to hospital.
+     N Morant PhD, M Long MSc,
+      M Horowitz PhD), Research
+                                      Analysis was done blind to group identity using intention-to-treat data. The trial is completed and has been registered
+   Department of Primary Care         with ISRCTN registry (ISRCTN90298520) and with ClinicalTrials.gov (NCT03559426).
+           and Population Health
+                  (L Marston, PhD;    Findings 4157 people were screened, of whom 253 were randomly allocated, including 168 (66%) men, 82 (32%)
+                Prof R Hunter PhD;
+    V Vickerstaff PhD), PRIMENT
+                                      women, and 3 (1%) transgender people, with a mean age of 46 years (SD 12, range 22–79). 171 (67%) participants
+  Clinical trials unit (L Marston,    were White, 52 (21%) were Black, 16 (6%) were Asian, and 12 (5%) were of other ethnicity. The median dose reduction
+     Prof R Hunter, V Vickerstaff),   at any point during the trial was 67% in the reduction group and zero in the maintenance group; at 24 months it was
+  Comprehensive Clinical Trials       33% versus zero. At the 24-month follow-up, we assessed 90 of 126 people assigned to the antipsychotic dose
+ Unit, Institute of Clinical Trials
+                and Methodology
+                                      reduction group and 94 of 127 assigned to the maintenance group, finding no difference in the Social Functioning
+   (Prof N Freemantle PhD), and       Scale (β 0·19, 95% CI –1·94 to 2·33; p=0·86). There were 93 serious adverse events in the reduction group affecting
+              School of Pharmacy      49 individuals, mainly comprising admission for a mental health relapse, and 64 in the maintenance group, relating
+ (Prof R Horne PhD), University       to 29 individuals.
+  College London, London, UK;
+North East London Foundation
+          NHS Trust, London, UK       Interpretation At 2-year follow-up, a gradual, supported process of antipsychotic dose reduction had no effect on social
+  (Prof J Moncrieff, M Horowitz,      functioning. Our data can help to inform decisions about the use of long-term antipsychotic medication.
+      J Stansfeld); Nuffield Trust,
+     London, UK (N Crellin PhD);
+     NIHR Mental Health Policy        Funding National Institute for Health Research.
+      Research Unit, Institute of
+        Psychiatry, Psychology &      Copyright: © 2023 The Author(s). Published by Elsevier Ltd. This is an Open Access article under the CC BY
+   Neuroscience, King’s College
+                                      4.0 license.
+             London, London, UK
+   (R Cooper PhD); East London
+          NHS Foundation Trust,       Introduction                                                              continuous, maintenance antipsychotic treatment to
+    Newham Centre for Mental          Schizophrenia and psychotic disorders are common,                         be more effective at preventing relapse than the
+Health, London, UK (R Cooper);
+                                      worldwide problems that cause considerable suffering                      discontinuation of antipsychotic medication and
+Division of Psychiatry, Imperial
+             College, London, UK      and disability.1 Antipsychotic drugs are the principal                    replacement by placebo.2–4 However, there are limitations
+               (Prof T Barnes DSc);   form of treatment. They are used to reduce acute                          to this evidence. Antipsychotic medication is usually
+Department of Health Services         symptoms and are recommended to be taken long term                        discontinued abruptly in people allocated to placebo,
+    Research and Management,
+                                      for relapse prevention. Long-term treatment recom­                        which can produce withdrawal effects that mimic or
+    City University, London, UK
+                         (M Long);    mendations are based on trials that have found                            precipitate relapse.5 Moreover, there is little consistent
+
+
+848                                                                                                                               www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                                                      Articles
+
+
+
+
+                                                                                                                                             The McPin Foundation,
+  Research in context                                                                                                                        London, UK (V Pinfold PhD);
+                                                                                                                                             Sheffield, UK (R Smith BA);
+  Evidence before this study                                           people with a diagnosis of schizophrenia or recurrent psychotic       Brentwood, UK (L Kent);
+  Meta-analyses of clinical trials have found increased rates of       conditions.                                                           London, UK (K Darton PhD);
+  relapse in people who reduce or discontinue maintenance                                                                                    Lincolnshire Partnership NHS
+                                                                       Added value of this study                                             Foundation Trust, Lincoln, UK
+  antipsychotic medication compared with people who continue.
+                                                                       In people with recurrent psychosis or schizophrenia, we found         (M Jha MD); Unit for Social and
+  However, few such trials have assessed the effects of gradual                                                                              Community Psychiatry, WHO
+                                                                       no evidence to support our hypothesis that a gradual reduction
+  dose reduction or long-term follow-up, or have measured                                                                                    Collaborating Centre for
+                                                                       of antipsychotic medication improved social functioning at            Mental Health Services
+  outcomes other than relapse. Furthermore, the findings of a
+                                                                       2-year follow-up. Antipsychotic reduction increased the risk of       Development, Queen Mary
+  trial in people with first-episode psychosis and some naturalistic
+                                                                       relapse compared with continuing maintenance treatment,               University of London, London,
+  evidence suggest that gradual dose reduction and                                                                                           UK (Prof S Priebe PhD)
+                                                                       although most people did not relapse; 32 (25%) people from
+  discontinuation of antipsychotic medication might be                                                                                       Correspondence to:
+                                                                       the reduction group had a severe relapse compared with
+  associated with improved social functioning in the long term.                                                                              Prof Joanna Moncrieff, Division
+                                                                       17 (13%) from the maintenance group, which was greater than           of Psychiatry, University College
+  We used PubMed to update the search of a meta-analysis
+                                                                       our prespecified 10% non-inferiority boundary to indicate a           London, London WC1E 6AE, UK
+  published in 2022, by searching from Nov 1, 2021, to
+                                                                       potentially acceptable level of increase. Time to relapse was         j.moncrieff@ucl.ac.uk
+  Jan 18, 2023, using the original search terms without language
+                                                                       shorter among those in the reduction group, but other
+  restriction and new ones designed to identify trials using
+                                                                       outcomes were not affected. This is the first full trial to explore
+  gradual or supported methods of antipsychotic reduction:
+                                                                       the outcomes of a gradual strategy of antipsychotic reduction
+  (schizophreni* OR schizoaffective OR delusional OR psychotic)
+                                                                       and discontinuation in this population.
+  AND (stabil* OR chronic* OR long-term OR maintenance) AND
+  (“antipsychotic*” OR “atypical antipsychotic*” OR                    Implications of all the available evidence
+  “neuroleptic*” OR “major tranquiliser*” OR “psychotropic*” OR        Compared to continuing with maintenance treatment, gradual,
+  “depot injection*” OR “psychiatric medication*”) AND                 monitored, reduction of antipsychotic medication over a period
+  (continu* OR stay OR reduc* OR lower* OR stop* OR                    of months does not improve social functioning in the medium
+  discontinu* OR withdraw*) AND (gradual OR supported OR               term and increases the risk of relapse in people with recurrent
+  step* OR phase* OR slow). The review and our updated search,         psychotic disorders or a first episode of psychosis. These data
+  which retrieved 25 records, did not identify any trials of gradual   help to inform decision making about the use of long-term
+  reduction and discontinuation of antipsychotic medication in         antipsychotic treatment.
+
+
+evidence about outcomes other than relapse, and follow-                discontinuation showed a higher level of social
+up is usually short; in one meta-analysis,3 only four of               functioning.9
+48 placebo-controlled trials had followed up participants                Data from naturalistic studies are contradictory.
+for more than a year. Therefore, conclusions about the                 Although uncontrolled confounding is likely to affect all
+risks and benefits of long-term maintenance treatment                  such studies, some long-term prospective studies found
+might not be robust.                                                   that people with psychotic disorders who did not take
+  Antipsychotic medication is recognised to result in a                continuous antipsychotic medication showed lower
+range of severe and disabling adverse effects, including               positive and negative symptom levels and better social
+diabetes, heart disease, tardive dyskinesia, sedation,                 functioning or recovery rates than those who did.10
+akathisia, emotional blunting, and sexual dysfunction,                 However, other studies have reported worse outcomes in
+and many patients find antipsychotics aversive.                        those who had stopped or not taken antipsychotic
+Therefore, interventions that reduce an individual’s                   medication.11
+exposure to antipsychotics have been explored. Trials of                 Research on antipsychotic reduction has mostly focused
+intermittent treatment have found it to be associated                  on people with first-episode psychosis, but people who
+with a greater risk of relapse than maintenance                        have had recurrent episodes of psychosis or schizophrenia
+treatment,6 although the discontinuation of anti­                      might also want more treatment options and many
+psychotic medication was relatively abrupt. Meta-                      wish to try reducing or stopping their antipsychotic
+analyses of dose reduction studies have also reported                  medication.12 The current trial aimed to provide evidence
+higher rates of relapse compared with remaining on the                 about the potential risks and benefits of a gradual,
+same dose, but again reduction was frequently abrupt.4,7               supported process of antipsychotic dose reduction and
+A randomised trial testing a gradual process of                        discontin­uation compared with maintenance treatment
+dose reduction and discontinuation of anti­    psychotic               in people with recurrent psychotic disorders, in order to
+medication over 18 months in people with a first episode               inform the collaborative treatment decisions of patients
+of psychosis found a higher rate of relapse compared                   and clinicians. The hypotheses were that antipsychotic
+with continuing treatment,8 but at follow-up 7 years                   reduction might improve social functioning at follow-up
+later, relapse rates were similar, and people                          compared with maintenance treatment, with a maximum
+originally randomly allocated to dose reduction and                    increase in serious relapses of 10% in the reduction group.
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                                                        849
+          Articles
+
+
+
+
+                                      Methods                                                       Procedures
+                                      Study design and participants                                 We developed the antipsychotic reduction protocol after
+                                      We have described the methods of this study in detail in      consultation with clinicians, academics, and our lived
+      For the protocol see https://   a protocol paper,13 and the protocol is available online.     experience advisory group. Several meetings were
+            discovery.ucl.ac.uk/id/   This was an open, parallel-group, randomised trial that       organised for the advisory group members to discuss the
+                 eprint/10171081/
+                                      lasted for 2 years, with follow-up assessments at 6, 12,      protocol aims and methods with the core research team
+                                      and 24 months after randomisation. A lived experience         and to review drafts of the reduction protocol. The aim
+                                      advisory group advised on the design and conduct of the       of the protocol was for participants to reduce their
+                                      trial.                                                        antipsychotic medication gradually and to discontinue it
+                                        Participants were recruited from 19 National Health         altogether if possible and if they agreed to do so. The
+                                      Service Trust mental health organisations across              antipsychotic dose reduction and maintenance protocols
+                                      England. Potential participants were identified initially     were admin­      istered by treating psychiatrists. For
+                                      by clinical staff or recruited through advertisements         participants allocated to the reduction group, the research
+                                      placed in clinical settings and social media; those           team devised an individualised dose reduction schedule
+                                      patients who expressed an interest in participating were      for each participant based on their initial antipsychotic
+                                      sent further information. Participant eligibility criteria    regimen. The dose was reduced incrementally every
+                                      consisted of being age 18 years or older, having a clinical   2 months, focusing on one antipsychotic at a time if
+                                      or ICD-10 diagnosis of schizophrenia or other non-            participants were prescribed more than one. The rate of
+                                      affective psychotic disorder with multiple episodes, and      reduction varied according to the dose at baseline, with
+                                      being prescribed an antipsychotic. Exclusion criteria         most schedules aiming for discontinuation within
+                                      included being considered by a clinician to pose a            12 to 18 months, although some took longer when the
+                                      serious risk of harm to self or others were the indi­         baseline dose was high, and some were quicker when it
+                                      vidual to reduce their antipsychotic medication, being        was low. Participants were offered the option to
+                                      mandated to take anti­    psychotic medication under a        discontinue antipsychotic medication completely if the
+                                      section of the Mental Health Act, having been admitted        reduction progressed well, or to reduce to a very low
+                                      to hospital or treated by a crisis service for a mental       dose, defined as the equivalent of 2 mg of haloperidol a
+                                      disorder within the last month, lacking capacity to           day or less. Guidance on the antipsychotic dose reduction
+                                      consent, having insufficient spoken English, pregnancy,       strategy stressed the need for flexibility to accommodate
+                                      breastfeeding, and being involved in another trial of an      patient preferences and included a suggested protocol
+                                      investigational medical product; eligibility was assessed     for the treatment of emergent symptoms and withdrawal
+                                      by researchers and confirmed by the Principal                 effects. Participants randomly assigned to maintenance
+          See Online for appendix     Investigator for the site (appendix p 2). The OPCRIT          treatment were requested not to make major reductions
+                                      programme,14 which produces operationally defined             in the dose of their antipsychotic medication during the
+                                      diagnoses on the bases of symptom checklists, was             trial period, but minor reductions to address adverse
+                                      used to verify diagnoses for all 70 participants at           effects were permitted.
+                                      one site.                                                       Participants were monitored by their treating
+                                        Written informed consent was obtained for each              psychiatrist and care team according to usual practice.
+                                      eligible patient, following a formal assessment of their      Clinical records were scrutinised by unblinded members
+                                      capacity conducted by a research assistant. Consent was       of the research team every 2 months to monitor the
+                                      an ongoing process and researchers asked participants         progress of the antipsychotic dose reduction and
+                                      for verbal consent at each assessment.                        adherence to the maintenance protocol; deviations were
+                                        The trial received ethical approval from Brent Research     discussed with the treating clinician. All participants
+                                      Ethics Committee (reference 16/LO/1507).                      could receive other pharmacological treatment and
+                                                                                                    interventions such as psychological therapies throughout
+                                      Randomisation and masking                                     the trial, as clinically indicated.
+For Sealed Envelope see https://      Randomisation was conducted through Sealed
+     www.sealedenvelope.com/          Envelope—an independent, internet-based system                Outcomes
+        randomisation/internet/
+                                      linked with the trial database—with 1:1 allocation, using     The primary outcome was social functioning at
+                                      random permuted block sizes of 4, 6, and 8. The               24 months’ follow-up, measured using the self-report
+                                      sequence was generated by members of the clinical trials      Social Functioning Scale (SFS).15 The principal secondary
+                                      unit who also assigned participants to groups. Each           outcome was severe relapse, which was defined as
+                                      participant and their clinicians were aware of the            hospital admission for psychiatric inpatient treatment.
+                                      treatment allocation, but the researchers who conducted       An expert endpoint committee was convened to assess
+                                      assessments were masked to allocation as far as possible      the presence or absence of relapse more broadly, based
+                                      and analysis was also conducted masked to group identity.     on masked information from clinical case notes, using
+                                      Researchers were instructed to record incidences when         predefined criteria and guidance (appendix pp 3–5).
+                                      they suspected they might have been unmasked.                 Other secondary outcomes were mental state, measured
+
+
+850                                                                                                                www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                                                                                      Articles
+
+
+
+
+by the researcher-rated Positive and Negative Syndrome
+Scale (PANSS),16 quality of life, measured by the self-
+report Manchester Short Assessment of quality of life                                                         4109 individuals put forward by clinicians and
+                                                                                                                   screened for participation
+(MANSA),17 and the Objective Social Outcomes Index
+(SIX), which is derived from it.18 Adverse effects of
+antipsychotics were measured using a modified version                                                              48 self-referred
+of the self-report Glasgow Antipsychotic Side-effect
+Scale (GASS),19 bodyweight, and sexual dysfunction
+                                                                                                              4157 screened for eligibility
+using the self-report Arizona Sexual Experiences Scale                                                                                                               2984 excluded
+(ASEX).20 Other assessments included the self-report                                                                                                                      2488 ineligible
+                                                                                                                                                                           496 could not take part due
+Questionnaire about the Process of Recovery (QPR),21                                                                                                                            to current circumstances
+the self-report Client Satisfaction Questionnaire                                                             1173 gave consent to be contacted by the
+                                                                                                                   research team
+(CSQ)-8,22 and the self-report Medication Adherence
+                                                                                                                                                                      215 excluded
+Rating Scale (MARS)-5.23 All of these primary and                                                                                                                          192 declined to be contacted
+secondary outcomes were measured at each of the                                                                                                                                by research team
+                                                                                                                                                                             2 could not take part due to
+assessments at 6, 12, and 24 months after randomisation.                                                                                                                       current circumstances
+Cognitive function was measured at 12 and 24 months                                                                                                                         21 could not be contacted
+using a brief battery of tests selected designed for this                                                      958 contacted by research team
+trial (appendix p 6). Health economics outcome
+                                                                                                                                                                       698 excluded
+measures will be reported separately.                                                                                                                                      562 declined participation
+  Data on antipsychotic use and adverse events (including                                                                                                                  136 ineligible
+
+hospitalisation) were collected on an ongoing basis from                                                       257 gave informed consent
+clinical records. These data were collected until the end
+                                                                                                                                                                         2 withdrew before baseline
+of the trial, thus for participants who entered the trial                                                                                                                 assessment
+early, there were data on severe relapse for longer than
+24 months                                                                                                      255 completed baseline assessment
+
+
+                                                                                                                                                                         2 withdrew before randomisation
+Choice of primary outcome
+Social functioning was chosen as the primary outcome to                                                           253 randomly assigned
+reflect outcomes that are important to patients and
+society. The Social Functioning Scale was developed in
+1990 and has good reliability.15 It is a 79-item scale made
+up of seven sub-scales. It is easy and quick to administer                          126 assigned to supported reduction                         127 assigned to maintenance treatment
+
+and has been widely used.24 Scores range from 55 to 145,
+and people with schizophrenia typically score between                                                      20 not assessed at 6 months                                    11 not assessed at 6 months
+100 and 110, which is 10–20 points lower than healthy                                                         10 withdrew                                                    5 withdrew
+                                                                                                               1 deceased                                                    6 uncontactable, in hospital,
+volunteers15 and 5 points lower than people with bipolar                                                       9 uncontactable, in hospital,                                  or declined this assessment
+disorder.25 The scale is freely available and has been                                                           or declined this assessment
+translated into several languages.
+                                                                                    106 interviewed at 6 months                                  116 interviewed at 6 months
+Statistical analysis
+Our hypothesis was that antipsychotic reduction would
+improve social functioning with only a small increase in                                                    10 not assessed at 12 months*                                 24 not assessed at 12 months*
+                                                                                                               2 deceased                                                     3 withdrew
+relapse rate. Sample size calculations, detailed in the                                                        8 uncontactable, in hospital,                                  1 deceased
+protocol paper,13 showed that a total sample size of 206                                                         or declined this assessment                                 20 uncontactable, in hospital,
+                                                                                                                                                                                or declined this assessment
+was required to identify a minimally clinically important
+difference of 4 points on the SFS with 90% power for the
+primary outcome. Using a non-inferiority calculation, a                             95 interviewed at 12 months*                                  98 interviewed at 12 months*
+sample size of 372 was required for 90% power to exclude
+a difference of 10% between groups using a non-
+                                                                                                            22 not assessed at 24 months*                                 19 not assessed at 24 months*
+inferiority boundary of 10% event rates for severe relapse,                                                     1 withdrew                                                    2 withdrew
+                                                                                                                5 deceased                                                    3 deceased
+                                                                                                               16 uncontactable, in hospital,                                14 uncontactable, in hospital,
+                                                                                                                  or declined this assessment                                   or declined this assessment
+
+                                                     Figure 1: CONSORT diagram
+*Continued attempts were made to follow up participants, including those who
+                                                                                    91 interviewed at 24 months*                                  99 interviewed at 24 months*
+  did not participate in earlier follow-up data collection, therefore numbers are
+                                                                  not cumulative.
+
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                                                                                            851
+      Articles
+
+
+
+
+                                                  Antipsychotic dose Antipsychotic                                              Antipsychotic dose Antipsychotic
+                                                  reduction (n=126) maintenance                                                 reduction (n=126) maintenance
+                                                                     treatment (n=127)                                                             treatment (n=127)
+                   Sex                                                                           (Continued from previous column)
+                     Male                          85 (67%)                83 (65%)              Number of previous mental         3 (1–5)                 3 (1–5)
+                     Female                        40 (32%)                42 (33%)              health admissions
+                     Transgender                    1 (1%)                   2 (2%)              Recreational drugs used in       11 (9%)                14/126 (11%)
+                                                                                                 the past month
+                   Age, years                      46·6 ( 12·2)            46·0 (11·5)
+                                                                                                 Alcohol use over the past month
+                   Marital status
+                                                                                                   Once a month or less          80 (64%)                82/126 (65%)
+                     Single, separated,           106 (84%)                110 (87%)
+                     divorced, or widowed                                                          Two to four times a            24 (19%)               20/126 (16%)
+                                                                                                   month
+                     Married, cohabiting, or in    20 (16%)                 17 (13%)
+                     civil partnership                                                             Two or more times a            22 (18%)               19/126 (19%)
+                                                                                                   week
+                   Ethnicity
+                                                                                                 Antipsychotic medication       300 (200–450)           300 (200–400)
+                     White                         89 (71%)                82/125 (66%)          dose in chlorpromazine
+                     Black                         25 (20%)                 27/125 (22%)         equivalents, mg
+                     Asian                          8 (6%)                   8/125 (6%)          Outcome measures at baseline
+                     Other                          4 (3%)                   8/125 (6%)            SFS overall                  107·7 (8·6, n=123)      108·2 (10·2)
+                   First language English         107 (85%)                114 (90%)               PANSS positive symptom         10 (8–14, n=124)        11 (8–16)
+                   Highest educational achievement                                                 subscale
+                     Primary and secondary         49/125 (39%)            36/126 (29%)            PANSS negative                 11 (9–15, n=124)        11 (8–15, n=124)
+                     education to age 16 years                                                     symptom subscale
+                     Primary and secondary         22/125 (18%)             27/126 (21%)           PANSS total                   48 (41–59, n=122)       48 (40–61, n=123)
+                     education to age 18 years                                                     MANSA                           4·7 (0·82)              4·6 (0·83)
+                     Tertiary or further           40/125 (32%)            56/126 (44%)            SIX                             3·4 (1·3, n=125)        3·4 (1·3)
+                     education                                                                     Modified GASS                  27·6 (15·2, n=105)     29·0 (17·1, n=104)
+                     Other general education       14/125 (11%)              7/126 (6%)            Bodyweight, kg                90·9 (20·2, n=114)      89·7 (19·1, n=116)
+                   Years of completed              14 (3·3, n=121)          14 (3·9, n=125)        CSQ-8                          20 (20–21, n=125)      20 (19–21, n=122)
+                   education
+                                                                                                   MARS-5                         24 (22–25, n=124)      25 (23–25, n=124)
+                   Employment
+                                                                                                   QPR-15                         55·7 (9·9, n=123)      56·6 (10·0, n=122)
+                     Employed, voluntary           38 (30%)                36/125 (29%)
+                     work,or in education                                                          ASEX                           16·3 (6·1, n=42)       15·5 (5·0, n=39)
+                     Not working or in             88 (70%)                89/125 (71%)          Cognitive tests
+                     education                                                                     Digit span                     14·8 (4·5, n=124)      14·7 (4·7, n=126)
+                   Diagnosis                                                                       Digit symbol substitution      47·2 (17·4, n=117)     47·3 (18·2, n=121)
+                     Schizophrenia                 87 (69%)                87 (69%)                Rey Auditory Verbal            35·7 (12·0, n=121)     36·1 (12·4, n=120)
+                     Other psychotic disorder      39 (31%)                40 (32%)                Learning
+                   Length of time in contact with mental health services                           Trail making                   45 (35–62, n=121)      50 (36–64, n=121)
+                     0–3 years                     11 (9%)                   6 (5%)                Verbal fluency                 16·5 (4·9, n=124)      16·6 (5·2, n=126)
+                     4–10 years                    34 (27%)                28 (22%)             Data are n (%), mean (SD), or median (IQR). ASEX=Arizona Sexual Experience
+                     11–15 years                   20 (16%)                 23 (18%)            Scale. CSQ=Client Satisfaction Questionnaire. GASS=Glasgow Antipsychotic Side
+                     16–20 years                   20 (16%)                 22 (17%)            effects Scale. MANSA=Manchester Short Assessment of quality of life.
+                                                                                                MARS=Medication Adherence report Scale. PANSS=Positive and Negative
+                     >20 years                     41 (33%)                48 (38%)             Syndrome Scale. QPR Questionnaire about the Process of Recovery. SFS=Social
+                   Age when first referred to mental health services                            Functioning Scale. SIX=Objective Social Outcomes Index.
+                     <20 years                     26 (21%)                 27 (21%)
+                                                                                                Table 1: Baseline demographic and clinical characteristics of the study
+                     20–30 years                   57 (45%)                 67 (53%)            participants
+                     31–40 years                   25 (20%)                 22 (17%)
+                     ≥41 years                     18 (14%)                 11 (9%)
+                                                          (Table 1 continues in next column)   (appendix pp 18–30). The plan for the primary outcome
+                                                                                               was to use a mixed-effect linear model with the
+                                                                                               randomisation variable and the outcome at 24 months
+                 which was considered to be a small and potentially                            and baseline as fixed effects and the National Health
+                 acceptable level of increase. We did not manage to recruit                    Service Trust as a random effect. However, the model did
+                 this number, but the protocol acknowledged that the                           not fit well because some Trusts did not have many
+                 objective was to provide informative estimates of the                         participants, and we therefore reverted to multiple linear
+                 relative hazard of severe relapse with narrow CIs.                            regression with robust SEs, as specified in the statistical
+                   A full statistical analysis plan was completed before                       analysis plan. Robust SEs were used to increase the SEs
+                 database lock (May 27, 2022) and analysis of the data                         (and therefore 95% CIs) due to potential clustering by
+
+
+852                                                                                                                 www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                             Articles
+
+
+
+
+Trust, which would make the data non-independent.               transgender people (table 1). 171 (67%) were White, 52
+Data from follow-up points before 24 months were not            (21%) were Black, 16 (6%) were Asian, and 12 (5%) were
+included. The model included the randomisation variable         of other ethnicity. Mean age was 46 years (SD 12, range
+and baseline score as explanatory variables. The principal      22–79). 174 (69%) were diagnosed with schizophrenia
+analysis was an intention-to-treat analysis using all           and 79 (31%) with another psychotic disorder. In the
+available data at 24 months. The effect of missing data         more detailed diagnostic breakdown provided by the
+was explored by conducting sensitivity analyses including       OPCRIT programme on a sub-sample of 70 participants
+predictors of missingness of the outcome, using a               across both groups, 56 were diagnosed with
+threshold of p<0·05. Sensitivity analyses were done,            schizophrenia, ten with schizoaffective disorder, and
+including a variable reflecting the degree of COVID-19-         four with other non-organic psychotic disorder.
+related lockdown and a longitudinal analysis with data            190 participants were interviewed at the 24-month
+from 6, 12, and 24 months in the outcome, fixed effects         follow-up. Assessors guessed or were inadvertently
+for time, randomised group, and baseline SFS with a             unmasked to group allocation in 13 cases. There was no
+random effect for participant.                                  significant difference between the groups on the primary
+  Time to severe relapse was analysed with survival             outcome, the Social Functioning Scale (β 0·19, –1·94 to
+analysis using a Cox proportional hazards model with            2·33; table 2). The sensitivity analyses, including a
+robust SEs. The extent to which there was a departure           longitudinal analysis using data from all follow-up
+from constant proportional hazards was assessed                 points, an analysis including the degree of COVID-19
+statistically using Schoenfeld residuals. Logistic models       lockdown, and one including predictors of missingness,
+with robust SEs on the occurrence of severe relapse             did not change this finding (appendix pp 7–14).
+within 24 months and the combination of severe and less           Time to severe relapse was shorter in the reduction
+severe relapse were conducted as supportive analyses.           group compared with the maintenance group (hazard
+  Other secondary outcomes were analysed in the same            ratio 2·2; 95% CI 1·2–4·0; p=0·007; figure 2). There was
+way as the primary outcome, using multiple linear               no evidence that the assumption of proportional hazards
+regression models with robust SEs, with the score at            was violated using Schoenfeld residuals (p=0·59;
+24 months as the outcome and using all available data at        appendix p 15).
+24 months. The number of psychiatric inpatient days was           By 24 months, 32 participants (25%) in the reduction
+analysed using zero inflated negative binomial regression       group had at least one severe relapse compared with
+with robust SEs, controlling for number of psychiatric          17 (13%) in the maintenance group (odds ratio 2·20;
+inpatient days in the 6 months to baseline, and the             95% CI 1·15–4·22; table 2). This was larger than the 10%
+natural log of the number of days of follow-up as an            non-inferiority boundary. By the end of data collection
+offset. Employment status was analysed using logistic           from clinical notes (maximum duration being
+regression with robust SEs. All analyses were conducted         36 months), 34 participants (27%) in the reduction group
+using Stata (version 17.0).                                     had at least one severe relapse compared with 17 (13%) in
+  The trial was registered with the International Standard      the maintenance group. At 24 months, 20 (16%) people
+Randomised Controlled Trials register, (registration            in the reduction group and 11 (9%) in the maintenance
+number: ISRCTN90298520) and with ClinicalTrials.gov,            group had a non-severe relapse, and the total who had
+NCT03559426.                                                    any sort of relapse within 24 months was 52 (41%) in the
+                                                                reduction group and 28 (22%) in the maintenance group
+Role of the funding source                                      (table 2). There was no difference in median psychiatric
+The funder of the study had no role in study design, data       bed days between groups. Mean bed days were higher for
+collection, data analysis, data interpretation, or writing of   those in the reduction group, but the data were highly
+the report.                                                     skewed.
+                                                                  Other secondary outcomes showed no difference
+Results                                                         between the groups at 24 months, including measures of
+4157 people were screened by the research team, of              symptoms, quality of life, adverse effects scales,
+whom 253 were randomly assigned, 126 to the reduction           bodyweight and employment (table 2).
+group and 127 to the maintenance group (figure 1).                Participants allocated to antipsychotic dose reduction
+Reasons for non-participation could not be collected            reached a median of 67% reduction (IQR –100% to –40%)
+since non-participants had not provided consent.                of their baseline dose at some point during the trial. The
+Recruitment lasted from April 5, 2017, to March 16, 2020.       median dose for the group at 24 months was 33% less
+The last follow-up assessment was conducted on                  than at baseline (IQR –67% to 0; table 3). The median
+March 10, 2022. Data were collected from clinical               change among maintenance participants was zero.
+notes beyond 24 months up until 36 months for                   34 (27%) individuals randomised to reduction stopped
+180 participants (80 in the reduction group, 100 in the         their antipsychotic medication completely at some time
+maintenance group). Overall, the sample included                during the 24-month follow-up period, and 13 (10%) of
+168 (66%) men, 82 (32%) women, and three (1%)                   those allocated to maintenance treatment did so.
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                       853
+         Articles
+
+
+
+
+                                        6-month outcomes                              12-month outcomes                             24-month outcomes
+                                        Antipsychotic dose Antipsychotic              Antipsychotic dose Antipsychotic              Antipsychotic dose        Antipsychotic           Treatment effect
+                                        reduction (n=126) maintenance                 reduction (n=126) maintenance                 reduction (n=126)         maintenance             (95% CI)
+                                                           treatment (n=127)                             treatment (n=127)                                    treatment (n=127)
+  SFS (overall score)                   107·2 (9·5, n=98)     107·4 (10·1,             106·1 (8·8, n=92)     106·8 (10·3,            105·7 (10·5, n=90)       106·7 (9·7, n=94)       β 0·19 (–1·94 to 2·33)*
+                                                              n=112)                                         n=95)
+  Time to severe relapse                   ∙∙                    ∙∙                       ∙∙                    ∙∙                      ∙∙                       ∙∙                   HR 2·23 (1·24 to 3·99)†
+  Severe relapse at any time during        ∙∙                    ∙∙                       ∙∙                    ∙∙                    32 (25%)                  17 (13%)              OR 2·20 (1·15 to 4·22)
+  24 months
+  Severe relapse at any time to the        ∙∙                    ∙∙                       ∙∙                    ∙∙                    34 (27%)                  17 (13%)              OR 2·39 (1·25 to 4·56)
+  end of the trial
+  Non-severe relapse at any time           ∙∙                    ∙∙                       ∙∙                    ∙∙                    20 (16%)                  11 (9%)               OR 1·99 (0·91 to 4·35)
+  during 24 months
+  Any relapse at any time during           ∙∙                    ∙∙                       ∙∙                    ∙∙                    52 (41%)                 28 (22%)               OR 2·48 (1·43 to 4·30)
+  24 months
+  Psychiatric bed days during              ∙∙                    ∙∙                       ∙∙                    ∙∙                    0 (0 to 31, 27 [56];   0 (0 to 0, 11 [47]; IRR 0·95 (0·53 to 1·70)
+  24 months                                                                                                                         n=117)                 n=121)
+  PANSS positive symptoms                10 (8 to 13,          10 (8 to 15,             9 (8 to 13,           10 (8 to 14,            10 (8 to 14,             10 (8 to 14,           β 0·33 (–0·91 to 1·56)
+  subscale                              n=102)                n=114)                  n=89)                  n=96)                   n=82)                    n=91)
+  PANSS negative symptoms                11 (8 to 16,          10 (8 to 13,            11 (8 to 13,            9 (8 to 14,             9 (8 to 13,             10 (8 to 14,           β –0·82 (–1·95 to 0·32)
+  subscale                              n= 98)                n=108)                  n=86)                  n=93)                   n=77)                    n=88)
+  PANSS total score                      43 (37 to 57,         44 (38 to 58,           42 (36 to 53,          46 (36 to 55,           43 (36 to 54,            48 (38 to 63,          β –2·10 (–6·18 to 1·97)
+                                        n=81)                 n=88)                   n=65)                  n=69)                   n=52)                    n=59)
+  MANSA                                   4·7 (0·8,             4·6 (1·0,               4·8 (0·9,              4·7 (0·8,               4·6 (1·0,                4·7 (0·7,             β –0·05 (–0·24 to 0·14)
+                                        n=100)                n=115)                  n=88)                  n=95)                   n=86)                    n=89)
+  SIX                                      3·5 (1·9, n=99)       3·3 (1·2, n=115)        3·3 (1·3, n=89)        3·4 (1·2, n=95)         3·3 (1·2, n=86)          3·3 (1·1, n=90)      β 0·01 (–0·25 to 0·26)
+  GASS                                   22·7 (15·2,           30·0 (18·4,             19·7 (13·9,            24·1 (15·7,             21·9 (15·5,              25·3 (16·0,            β –3·98 (–8·77 to 0·81)
+                                        n=73)                 n=89)                   n=67)                  n=65)                   n=70)                    n=68)
+  CSQ-8                                  20 (19 to 21,         20 (20 to 21,           26 (24 to 29,          25 (24 to 29,           25 (19 to 28,            25 (22 to 29,          β –1·31 (–3·46 to 0·85)
+                                        n=98)                 n=108)                  n=84)                  n=91)                   n=83)                    n=84)
+  MARS-5                                24·5 (23 to 25,        24 (22 to 25,           24 (23 to 25,          24 (23 to 25,          25 (23 to 25,             25 (23 to 25,          β 0·47 (–0·26 to 1·21)
+                                        n=98)                 n=111)                  n=86)                  n=90)                  n=81)                     n=85)
+  QPR-15                                 56·1 (9·7,            54·7 (10·7,             41·3 (10·6,            39·3 (10·3,             41·5 (9·5,               41·1 (9·5,             β –0·04 (–2·39 to 2·32)
+                                        n=98)                 n=110)                  n=83)                  n=89)                   n=78)                    n=83)
+  ASEX                                   13·0 (5·2, n=23)       16·4 (4·9, n=31)        19 (6·3, n=11)         14·7 (4·9, n=24)       14·6 (4·2, n=10)          17·4 (6·7, n=18)      β –0·02 (–3·06 to 3·02)
+  Bodyweight (kg)                        93·2 (23·4,           88·9 (18·5,             93·6 (22·0,            88·2 (18·3,             89·6 (25·0,              85·5 (18·4,            β 2·77 (–2·29 to 7·83)
+                                        n=83)                 n=88)                   n=66)                  n=74)                   n=63)                    n=71)
+  Cognitive tests‡
+      Digit span                           ∙∙                    ∙∙                     15·1 (5·2, n=85)       15·1 (4·5, n=93)       14·7 (4·9, n=83)          15·4 (4·7, n=88)      β –0·89 (–2·12 to 0·34)
+      Digit symbol substitution            ∙∙                    ∙∙                    47·2 (19·5,             47·5 (16·4,            47·2 (20·8, n=62)        47·7 (20·9,            β –1·88 (–6·10 to 2·33)
+                                                                                      n=65)                   n=70)                                           n=66)
+      Rey Auditory Verbal Learning         ∙∙                    ∙∙                    34·7 (14·1,            37·6 (14·0,             37·0 (16·1,              38·2 (12·6,            β –0·91 (–4·37 to 2·55)
+                                                                                      n=81)                  n=90)                   n=76)                    n=85)
+      Trail making                         ∙∙                    ∙∙                    46 (31 to 67,          43 (33 to 59,          48 (35 to 61,             44 (34 to 67,          β 2·89 (–4·71 to 10·49)
+                                                                                      n=64)                  n=71)                  n=63)                     n=69)
+      Verbal fluency                       ∙∙                    ∙∙                     17·1 (6·0, n=82)       16·9 (5·7, n=89)       17·4 ( 6·8, n=82)         17·3 (5·5, n=83)      β –0·06 (–1·73 to 1·60)
+  Employment
+      Employed, voluntary work or in     29 (27%, n=106)        23 (20%, n=116)         21 (22%, n=95)         24 (25%, n=98)         18 (20%, n=91)            20 (20%, n=99)        Ref (1)
+      education
+      Not working or in education        77 (73%, n=106)        93 (80%; n=116)         74 (78%, n=95)         74 (76% n=98)          73 (80%, n=91)            79 (80%, n=99)        OR 1·03 (0·50 to 2·10)
+
+ Data are n (%), mean (SD), or median (IQR), unless otherwise indicated. Number of people for whom data were available at each time point are given where different from the total for the group. ASEX=Arizona
+ Sexual Experience Scale. CSQ=Client Satisfaction Questionnaire. GASS=Glasgow Antipsychotic Side effects Scale. MANSA=Manchester Short Assessment of quality of life. MARS=Medication Adherence report
+ Scale. PANSS=Positive and Negative Syndrome Scale. QPR Questionnaire about the Process of Recovery. SFS=Social Functioning Scale. SIX=Objective Social Outcomes Index. *Two-sided p=0·859. †Two sided
+ p=0·007. ‡Cognitive tests were not conducted at 6 months.
+
+ Table 2: 24-month outcomes
+
+
+
+                                    88 (70%) participants in the reduction group reduced                                        Nine (26%) of the 34 participants in the antipsychotic
+                                    their antipsychotic dose by 50% or more, compared with                                    reduction group who stopped their antipsychotics had a
+                                    21 (17%) of the maintenance participants.                                                 severe relapse requiring hospital admission, compared
+
+
+854                                                                                                                                                  www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                                                                                                        Articles
+
+
+
+
+with four (31%) of the 13 who stopped in the maintenance
+                                                                                                                             111 11
+group (appendix p 16). 25 (28%) of 88 participants in the                                                         1·00              1 1 1
+                                                                                                                                      11 1 11 1 1           1111111111111211 111
+
+
+
+
+                                                                            Probability of freedom from relapse
+antipsychotic reduction group who reduced their                                                                                                                                        1
+
+antipsychotic dose by at least 50% during the course of                                                                                                    111111111111111
+                                                                                                                  0·75                                                   11
+the trial had a severe relapse, compared with seven (33%)                                                                                                                  1111 1       1
+of the 21 participants in the maintenance group (appendix
+p 17). By 24 months, 13 participants from the reduction                                                           0·50
+                                                                                                                               Reduction
+group and eight from the maintenance group were not                                                                            Maintenance
+taking antipsychotics.                                                                                            0·25         95% CI
+                                                                                                                               95% CI      HR 2·2 (95% CI 1·2–4·0); p=0·007
+  Serious adverse events were more common in the                                                                    0
+reduction group, largely due to a higher number of                                                                       0    183       365                730                         1110
+hospital admissions for relapse (table 4). There were             Number at risk
+                                                                                                                                    Time since randomisation (days)
+eight deaths in the reduction group during the study and         Reduction group 126                                          118       100                 80                          1
+                                                               Maintenance group 127                                          120       114                100                          0
+four in the maintenance group. In the reduction group,
+five deaths were due to natural causes, one was an            Figure 2: Kaplan Meier plot for severe relapse
+accidental drug overdose, one was attributed to the
+effects of antipsychotic medication, and the cause of                                                                                                                  Antipsychotic dose             Antipsychotic
+another remains unknown at the time of writing, but                                                                                                                    reduction* (n=126)             maintenance
+there were no suspicious circumstances. In the                                                                                                                                                        treatment* (n=127)
+maintenance group, two deaths were due to natural               Medication dose at baseline: chlorpromazine                                                              300 (200 to 450)             300 (200 to 400)
+causes, one was an accidental overdose, and one was a           equivalents†, mg
+suicide (as determined by the coroner’s investigation).         Medication dose at 24 months: chlorpromazine                                                             200 (75 to 400)              300 (150 to 425)
+                                                                equivalents, mg
+Non-serious adverse events were more common in the
+                                                                Maximum change in dose during the course of the study:                                                 –200 (–300 to –100)              0 (–67 to 0)
+reduction group, but the number of people experiencing          chlorpromazine equivalents, mg
+one was lower in the reduction than the maintenance
+                                                                Change in dose by 24-month follow-up: chlorpromazine                                                   –100 (–200 to 0)                 0 (–25 to 0)
+group.                                                          equivalents, mg
+                                                                Maximum change in dose during the course of the study:                                                    –67% (–100% to –40%)          0 (–22% to 0)
+Discussion                                                      percentage of baseline dose
+The RADAR trial found that a gradual reduction over             Change in dose at 24 months: percentage of baseline dose                                                  –33% (–67% to 0)              0 (–15% to 0)
+several months in the dose of maintenance antipsychotics        Antipsychotic medication stopped at some point during                                                       34 (27%)                   13 (10%)
+in people diagnosed with schizophrenia and related              24-month follow-up
+psychotic disorders did not lead to benefits in social          Antipsychotic dose reduced by more than 50% at some                                                         88 (70%)                   21 (17%)
+                                                                point during 24-month follow-up
+functioning and was more likely to lead to relapse than
+continuing on maintenance treatment. The difference in         Data are median (IQR) or n (%). *Median doses and percentage change in dose relate to the total sample of people for
+relapse rates was slightly above the 10% non-inferiority       whom data were available. †The chlorpromazine equivalents used are provided in the appendix (pp 27–28).
+boundary used to indicate a potentially acceptable level of    Table 3: Antipsychotic medication changes during the trial
+increase.
+  To our knowledge, this is the first full trial conducted
+with people with multiple episodes or recurrent                                                                                         Antipsychotic dose reduction                        Antipsychotic maintenance
+psychotic conditions in which antipsychotic medication                                                                                  (n=126)                                             treatment (n=127)
+was reduced gradually over a period of months in a                                                                                      Male        Female                Trans             Male      Female      Trans
+flexible way, with the aim of discontinuing medication          Number of serious adverse events                                          60          33                           0          56        8           0
+when possible. In placebo-controlled trials of anti­              Death                                                                       6        2                           0          4         0           0
+psychotic maintenance treatment, antipsychotic medi­              Life threatening                                                            1        0                           0           1        0           0
+cation has been reduced over days or at most a few                Mental health admission                                                 28          21                           0          21        6           0
+weeks.2 Our trial also measured social functioning, an            Physical health admission                                                   8        8                           0          15        2           0
+outcome that has been neglected in most trials3 but is            Other                                                                   17           2                           0          15        0           0
+valued by service users. The results show that despite          Participants experiencing a serious                                       32          17                           0          23        6           0
+the reduction of antipsychotic medication being                 adverse event
+conducted gradually over a period of months, the risk           Number of non-serious adverse                                            430         254                           7        305       163           8
+of relapse over 24 months was still increased, compared         events
+with continuing maintenance treatment. However,                 Participants experiencing any non-                                        58          29                           1          61       34           2
+                                                                serious adverse event
+most of those randomised, and more than two thirds
+of those who actually discontinued antipsychotic               Table 4: Adverse events
+treatment or reduced it by at least 50%, did not relapse,
+although the numbers of the last two groups were
+small.
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                                                                                                         855
+      Articles
+
+
+
+
+                   The results are similar to those in the trial by             particular, we defined 4 points as the minimal clinically
+                 Wunderink and colleagues8 of gradual antipsychotic             significant difference on the SFS, and the 95% CI
+                 dose reduction and discontinuation in people with a first      excluded this difference in either direction. Symptom
+                 episode of psychosis. In that trial, at the 18-month           scores at follow-up were also not higher in the reduction
+                 follow-up, there was an increased rate of relapse in           group, and the 95% CI excluded a difference of
+                 participants allocated to antipsychotic reduction, with no     10–15 points corresponding to a minimal level of change
+                 difference in social functioning.8 However, the 7-year         on the Clinical Global Impressions scale.30 Given the
+                 follow-up of this cohort found higher levels of social         higher rate of relapse in the reduction group, this
+                 functioning in people originally allocated to antipsychotic    suggests that symptoms returned to baseline following
+                 dose reduction and an equivalent risk of relapse between       relapse.
+                 the groups.9 In contrast, the long-term follow-up of a           Our findings provide information for people with
+                 placebo-controlled trial of quetiapine found poorer            schizophrenia and related conditions about the probable
+                 composite outcomes for patients initially allocated to         medium-term impact of reducing the dose of their
+                 discontinuation and placebo substitution, compared             antipsychotic medication, and they highlight the need for
+                 with those allocated to continuing treatment, but there        collaborative decision making based on the sharing and
+                 was no difference between groups on social functioning.26      careful consideration of all the evidence. The qualitative
+                 However, the original trial involved stopping medication       analysis associated with this trial provides evidence of the
+                 over 6 weeks and only involved short periods of placebo        personal experiences of people undergoing guided
+                 treatment.                                                     antipsychotic reduction.31
+                   The rates of hospitalisation in our trial are similar to       Consistent with previous research studies, our findings
+                 those found in a meta-analysis of placebo-controlled           suggest that antipsychotic reduction carries an increased
+                 trials,2 which found that 26% of those transferred to          risk of relapse compared with continuing treatment,
+                 placebo were readmitted, compared with 10% of those            even when this is done gradually over months, although
+                 receiving maintenance treatment, over a median                 this does not mean that relapse is the inevitable result of
+                 duration of 26 weeks (IQR 1·75–156). Overall relapse           such a process. Our findings do not provide evidence
+                 rates at 1 year were higher in the meta-analysis than in       about the benefits and harms of starting maintenance
+                 our trial: 64% of participants randomised to placebo and       treatment, since discontinuing antipsychotics is not
+                 27% of those on maintenance treatment. This discrepancy        equivalent to not starting long-term treatment in the first
+                 is likely to be because few participants stopped their         place. It has been suggested that antipsychotic discontin­
+                 antipsychotic medication completely in our trial, but it       uation might itself be a risk factor for relapse.5 Although
+                 might also reflect the relatively gradual nature of            some evidence suggests that gradual reduction might
+                 reduction and the efforts made to identify relapse in a        reduce this risk,32 our findings do not support this.
+                 rigorous and reproducible way, compared with the broad         Whether an even more gradual dose reduction, taking
+                 definitions of relapse employed in most other trials.27        years rather than months, would mitigate the increased
+                   Other studies of dose reduction not involving                risk of relapse requires further research. It has been
+                 discontinuation also show higher rates of relapse among        suggested that it might take years for the brain to adapt
+                 people allocated to dose reduction compared with               slowly to lower levels of a drug that has been taken for a
+                 maintenance treatment,4,7 although not in trials involving     long period.33 Future studies could also explore whether
+                 more modest and gradual reductions.7,28 Previous               additional psychological and social support could reduce
+                 evidence suggests that dose reduction might be                 the excess risk of relapse associated with antipsychotic
+                 associated with benefits in terms of improved                  dose reduction and discontinuation.
+                 neurocognitive function,7,29 but such an effect was not          Our trial does not show any benefits to people from
+                 apparent in our trial.                                         reducing antipsychotic medication in terms of improving
+                   Although relapse was more common among those                 social functioning or reducing adverse effects, including
+                 allocated to antipsychotic dose reduction in the current       bodyweight, in the short to medium term. The lack of
+                 trial, across both groups around two-thirds of those who       alleviation of adverse effects is surprising in view of the
+                 reduced their antipsychotic dose by at least 50%, and of       lower dose reached in the reduction group and the
+                 the smaller number who discontinued their medication           findings of the qualitative analysis.31 It is possible such
+                 completely at some point, did not experience a severe          benefits take time to appear or it might be that the dose
+                 relapse requiring admission to hospital. The duration of       reduction was not substantial enough to make an overall
+                 hospitalisation was also not greater among those               difference. We did not find an association between
+                 allocated to reduction despite the greater frequency of        antipsychotic dose reduction and other negative clinical
+                 relapse.                                                       outcomes.
+                   Although this trial was not set up as a non-inferiority        Our trial has various limitations. The generalisability
+                 trial (except for the severe relapse outcome), it is notable   of results is a concern with randomised trials in mental
+                 that there were no differences between the groups at           health populations. A comparison at one site showed
+                 24 months on any measures except for relapse. In               that trial participants were similar to patients who had
+
+
+856                                                                                            www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                                           Articles
+
+
+
+
+the same diagnoses but were not included in the trial        follow-up data will provide information about longer-
+with regard to clinical characteristics, such as the         term outcomes.
+number of previous admissions and having been                Contributors
+subject to compulsory admission under mental health          JM is the Chief Investigator on this study and JM and SP conceived the
+legislation.34 This suggests that the results might be       study design. NC, JM, NF, and RHu wrote the protocol with advice from
+                                                             other authors. JM, NC, JS, RC, and ML were responsible for
+applicable to people with psychotic disorders in             implementation and general project management. NC, JS, RC, and ML
+secondary care more generally. However, our results          were responsible for study recruitment and follow-up. NF, LM, VV, and
+might not apply to people with a longer duration of          JM drafted the statistical analysis plan. LM conducted the analysis.
+stability preceding dose reduction who might be less         GL and TB advised on trial design and implementation. RHu advised on
+                                                             health economics and quality of life. SJ and TB contributed clinical and
+likely to be engaged in secondary psychiatric care. The      psychopharmacology expertise to the design and implementation.
+median baseline antipsychotic dose was relatively low in     VP contributed to the design and recruited and coordinated Patient and
+both groups, and the difference in median dose               Public Involvement volunteers. LK contributed a patient perspective and
+reduction was small in absolute terms (200 mg                RS a carer perspective to the design and implementation. KD contributed
+                                                             a statutory sector perspective and helped develop participant and public
+chlorpromazine equivalent), although the changes             information. RHo advised on adherence measures and contributed a
+relative to baseline dose at some point during the trial     behavioural medicine perspective. VV and LM had access to all the data
+were substantially different between the groups. The         in the study and verified the underlying data. MJ recruited patients and
+median dose reduction was lower at the end of follow-up      oversaw a trial site. JM wrote the original manuscript and all authors
+                                                             contributed to the interpretation of the data and re-drafting. All authors
+than the maximum change at some point during the             approved the final draft and had responsibility for the decision to submit
+trial due to some people increasing their dose following     for publication. JM is guarantor of the study.
+relapse or deterioration. The trial could not be conducted   Declaration of interests
+double blind due to patients being on multiple treatment     JM has grants from National Institute for Health Research (NIHR) and
+regimes. The initially planned sample size was not           is a co-applicant on grants from the Medical Research Future Fund
+                                                             (MRFF) in Australia. She receives royalties from six books about
+achieved, but the current sample size was adequate to
+                                                             psychiatric drugs, she has received lecture fees from Alberta Psychiatric
+provide reasonably precise estimates of the main             Association, British Psychological Association, Universite de
+outcomes. Inevitably with a group of people with severe      Sherbrooke, Case Western Reserve University, and University of Basal.
+disorders, there was a loss to follow-up. Due to the         She is co-chair person of the Critical Psychiatry Network and a board
+                                                             member of the Council for Evidence-based Psychiatry (both unpaid
+COVID-19 pandemic, which started just after
+                                                             roles). RC is an unpaid Board Member of the International Institute for
+recruitment finished, many follow-up assessments were        Psychiatric Drug Withdrawal (IIPDW), has undertaken paid work for the
+conducted via telephone and online platforms, which          All Party Parliamentary Group for Prescribed Drug Dependence, and is a
+might have resulted in more missing data than expected.      member of the Advisory Board for the PARTANE Study (a paid role).
+                                                             NF has grants from NIHR, Medical Research Council, Cure Parkinson’s
+Missing data were high for some secondary outcomes,
+                                                             Trust, and the EU. He has received consulting fees from ALK, Sanofi
+particularly the ASEX, which people mostly preferred         Avantis, Gedeo Richter, Abbott, Galderma, Astra Zeneca, Ipsen, Vertex,
+not to answer. Moreover, lockdowns might have                Thea, Novo Nordisk, and Aimmune, speaker fees from Abbott
+impacted social functioning scores and curtailed             Singapore, and been paid to sit on a data safety monitoring or advisory
+                                                             board by Orion. GL is chair of an NIHR-funded trial steering committee.
+potential improvements, since the SFS includes ratings       SJ has grants from NIHR and UK Research and Innovation. She is chair
+of participation in many social activities that were         of programme advisory committees for two studies funded through
+unavailable or restricted. We did not conduct sex or         NIHR Programme Grants and has acted as a paid reviewer of grant
+gender specific analyses.                                    applications for programmes on social interventions for Austrian
+                                                             foundation–Wiener Wissenschafts-, Forschungs- und Technologiefonds
+  Although the follow-up period was 24 months, it is         (Vienna Science and Technology Fund). TB is joint head of the
+possible that it did not capture the ultimate effects of     Prescribing Observatory for Mental Health, Royal College of
+antipsychotic dose reduction and discontinuation, since      Psychiatrists. MH is co-applicant on grants from the MRFF in Australia,
+other research points to an equalising of relapse rates      he has received consulting fees from Outro Health, a digital clinic aimed
+                                                             to support people to stop unnecessary antidepressants, lecture fees from
+and possible improvements in functioning 7 years after       National Health Service Trusts for grand rounds presentations,
+reduction is implemented.9 A follow-up is currently          Salomon’s University and University of Washington. He sits on the data
+underway involving masked assessments and data               safety monitoring board of the RELEASE trial in Australia, and is a
+collection from clinical notes, which will take place        co-founder of Outro Health. He is a member of the Critical Psychiatry
+                                                             Network and IIPDW (both unpaid roles). SP has grants from NIHR.
+between 4 and 7 years from randomisation.                    All other authors declare no competing interests.
+  The current trial provides data that can help people to
+                                                             Data sharing
+make more informed decisions about long-term                 The study investigators own and have complete control of the research
+antipsychotic treatment. The findings show that a            data, which can be accessed at any time. For statistical analysis, the data
+strategy of reducing and stopping antipsychotic              will be downloaded and safely stored on a computing system maintained
+medication over several months increases the risk of         by University College London (UCL), London, UK. Deidentified
+                                                             participant data and a data dictionary will be made publicly available
+relapse compared with maintenance treatment, although        after publication through UCL’s data repository (https://www.ucl.ac.uk/
+most people did not have a severe relapse requiring          library/open-science-research-support/research-data-management/ucl-
+hospital admission. The reduction strategy did not           research-data-repository) according to NIHR policy. The study protocol
+                                                             has been published and the statistical analysis plan is provided in the
+measurably improve social functioning or affect other
+                                                             appendix (pp 18–30).
+clinical and social outcomes after 2 years. Further
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                                     857
+      Articles
+
+
+
+
+                 Acknowledgments                                                              12   Crellin NE, Priebe S, Morant N, et al. An analysis of views about
+                 The trial was funded by the National Institute for Health Research                supported reduction or discontinuation of antipsychotic treatment
+                 (NIHR; RP-PG-0514-20004). The views expressed are those of the                    among people with schizophrenia and other psychotic disorders.
+                 authors and not necessarily those of the NIHR or the UK Department                BMC Psychiatry 2022; 22: 185.
+                 of Health and Social Care. We would like to thank all the research staff     13   Moncrieff J, Lewis G, Freemantle N, et al. Randomised controlled
+                 who worked on the project in every site, including the following                  trial of gradual antipsychotic reduction and discontinuation in
+                 members of the core team: Johura Akther-Robertson, Maev Conneely,                 people with schizophrenia and related disorders: the RADAR trial
+                                                                                                   (Research into Antipsychotic Discontinuation and Reduction).
+                 Lisa Grünwald, Zoe Haime, Nadia Haynes, Georgina Ramsey,
+                                                                                                   BMJ Open 2019; 9: e030912.
+                 Jemima Thompson, and all the Principal Investigators, including
+                                                                                              14   McGuffin P, Farmer A, Harvey I. A polydiagnostic application of
+                 Saeed Alam, Olabakola Awdiya, Graham Behr,
+                                                                                                   operational criteria in studies of psychotic illness. Development and
+                 Nicholas Bescoby-Chambers, Tim Calton, Brian Douglas,                             reliability of the OPCRIT system. Arch Gen Psychiatry 1991;
+                 Simon Downer, James Fallon, Robert Freudenthal, James George,                     48: 764–70.
+                 Domenico Giacco, Lars Hanson, Justin Izekor, Prem Jayapaul,                  15   Birchwood M, Smith J, Cochrane R, Wetton S, Copestake S.
+                 Shayda Khoshnaw, Alison Lenox, Alexander Macauley, Barnaby Major,                 The Social Functioning Scale. The development and validation of a
+                 Simon Marlow, Anand Mishra, Santvana Pandey, Rikaby,                              new scale of social adjustment for use in family intervention
+                 Rosa Ritunnano, Mukul Sharma, Vishal Sharma, Tom Stockmann,                       programmes with schizophrenic patients. BrJPsychiatry 1990;
+                 Aleksandra Szpak, Lisa Taylor, and Philip Van Driel. We would also like           157: 853–9.
+                 to thank Anne Marie Downey, Irwin Nazareth, and all staff from               16   Kay SR, Fiszbein A, Opler LA. The positive and negative syndrome
+                 PRIMENT Clinical Trials Unit at UCL who supported the trial,                      scale (PANSS) for schizophrenia. SchizophrBull 1987; 13: 261–76.
+                 Lynis Lewis and all staff from NoClor, the NIHR, other academic and          17   Priebe S, Huxley P, Knight S, Evans S. Application and results of
+                 clinical advisors and all the NHS staff who contributed to and supported          the Manchester Short Assessment of Quality of Life (MANSA).
+                 the trial. We would also like to thank members of our Lived Experience            IntJSocPsychiatry 1999; 45: 7–12.
+                 Advisory Panel coordinated by the McPin Foundation, members of the           18   Priebe S, Watzke S, Hansson L, Burns T. Objective social outcomes
+                 steering group, Tom Craig, Nils Mulder, Richard Emsley, and                       index (SIX): a method to summarise objective indicators of social
+                 Maurice Arbuthnot, and members of the Data Safety Monitoring Board:               outcomes in mental health care. Acta Psychiatr Scand 2008;
+                 Victoria Cornelius, and Derek Tracy, and a person with lived experience.          118: 57–63.
+                 We would like to thank Eileen Joyce of UCL Queen Square Institute of         19   Waddell L, Taylor M. A new self-rating scale for detecting atypical or
+                 Neurology for advice on cognitive testing. We are grateful for support            second-generation antipsychotic side effects. J Psychopharmacol
+                 from UCLH Biomedical Research Centre. We are also grateful to all our             2008; 22: 238–43.
+                 research participants for taking part.                                       20   McGahuey CA, Gelenberg AJ, Laukes CA, et al. The Arizona Sexual
+                                                                                                   Experience Scale (ASEX): reliability and validity. JSex Marital Ther
+                 References                                                                        2000; 26: 25–40.
+                 1    GBD Diseases and Injuries Collaborators. Global burden of               21   Law H, Neil ST, Dunn G, Morrison AP. Psychometric properties of
+                      369 diseases and injuries in 204 countries and territories,                  the questionnaire about the process of recovery (QPR).
+                      1990–2019: a systematic analysis for the Global Burden of Disease            Schizophr Res 2014; 156:184–9.
+                      Study 2019. Lancet 2020; 396: 1204–22.                                  22   Atkisson CC, Zwick R. The Client Satisfaction Questionnaire:
+                 2    Leucht S, Tardy M, Komossa K, et al. Antipsychotic drugs versus              psychometric properties and correlations with service utilisation
+                      placebo for relapse prevention in schizophrenia: a systematic review         and psychotherapy outcome. Evaluation and Program Planning 1982;
+                      and meta-analysis. Lancet 2012; 379: 2063–71.                                5: 233–7.
+                 3    Schneider-Thoma J, Chalkou K, Dorries C, et al. Comparative             23   Mahler C, Hermann K, Horne R, et al. Assessing reported
+                      efficacy and tolerability of 32 oral and long-acting injectable              adherence to pharmacological treatment recommendations.
+                      antipsychotics for the maintenance treatment of adults with                  Translation and evaluation of the Medication Adherence Report
+                      schizophrenia: a systematic review and network meta-analysis.                Scale (MARS) in Germany. J Eval Clin Pract 2010; 16: 574–9.
+                      Lancet 2022; 399: 824–36.                                               24   Long M, Stansfeld JL, Davies N, Crellin NE, Moncrieff J.
+                 4    Ostuzzi G, Vita G, Bertolini F, et al. Continuing, reducing,                 A systematic review of social functioning outcome measures in
+                      switching, or stopping antipsychotics in individuals with                    schizophrenia with a focus on suitability for intervention research.
+                      schizophrenia-spectrum disorders who are clinically stable:                  Schizophr Res 2022; 241: 275–91.
+                      a systematic review and network meta-analysis. Lancet Psychiatry        25   Hellvin T, Sundet K, Vaskinn A, et al. Validation of the Norwegian
+                      2022; 9: 614–24.                                                             version of the Social Functioning Scale (SFS) for schizophrenia and
+                 5    Tondo L, Baldessarini RJ. Discontinuing psychotropic drug                    bipolar disorder. Scand J Psychol 2010; 51: 525–33.
+                      treatment. B J Psych Open 2020; 6: e24.                                 26   Hui CLM, Honer WG, Lee EHM, et al. Long-term effects of
+                 6    Sampson S, Joshi K, Mansour M, Adams CE. Intermittent drug                   discontinuation from antipsychotic maintenance following first-
+                      techniques for schizophrenia. Schizophr Bull 2013; 39: 960–61.               episode schizophrenia and related disorders: a 10 year follow-up of
+                 7    Tani H, Takasu S, Uchida H, Suzuki T, Mimura M, Takeuchi H.                  a randomised, double-blind trial. Lancet Psychiatry 2018; 5: 432–42.
+                      Factors associated with successful antipsychotic dose reduction in      27   Moncrieff J, Crellin NE, Long MA, Cooper RE, Stockmann T.
+                      schizophrenia: a systematic review of prospective clinical trials and        Definitions of relapse in trials comparing antipsychotic
+                      meta-analysis of randomized controlled trials.                               maintenance with discontinuation or reduction for schizophrenia
+                      Neuropsychopharmacology 2020; 45: 887–901.                                   spectrum disorders: a systematic review. Schizophr Res 2020;
+                 8    Wunderink L, Nienhuis FJ, Sytema S, Slooff CJ, Knegtering R,                 225: 47–54.
+                      Wiersma D. Guided discontinuation versus maintenance treatment          28   Huhn M, Leucht C, Rothe P, et al. Reducing antipsychotic drugs in
+                      in remitted first-episode psychosis: relapse rates and functional            stable patients with chronic schizophrenia or schizoaffective
+                      outcome. JClinPsychiatry 2007; 68: 654–61.                                   disorder: a randomized controlled pilot trial. Eur Arch Psychiatry
+                 9    Wunderink L, Nieboer RM, Wiersma D, Sytema S, Nienhuis FJ.                   Clin Neurosci 2021; 271: 293–302.
+                      Recovery in remitted first-episode psychosis at 7 years of follow-up    29   Faber G, Smid HG, Van Gool AR, Wunderink L, Wiersma D,
+                      of an early dose reduction/discontinuation or maintenance                    van den Bosch RJ. Neurocognition and recovery in first episode
+                      treatment strategy: long-term follow-up of a 2-year randomized               psychosis. Psychiatry Res 2011; 188: 1–6.
+                      clinical trial. JAMA Psychiatry 2013; 70: 913–20.                       30   Leucht S, Kane JM, Etschel E, Kissling W, Hamann J, Engel RR.
+                 10 Harrow M, Jobe TH, Faull RN. Do all schizophrenia patients need                Linking the PANSS, BPRS, and CGI: clinical implications.
+                      antipsychotic treatment continuously throughout their lifetime?              Neuropsychopharmacology 2006; 31: 2318–25.
+                      A 20-year longitudinal study. PsycholMed 2012: 1–11.                    31   Morant N, Long M, Jayacodi S, et al. Experiences of reduction and
+                 11 Tiihonen J, Tanskanen A, Taipale H. 20-year nationwide follow-up               discontinuation of antipsychotics: a qualitative investigation within
+                      study on discontinuation of antipsychotic treatment in first-episode         the ‘RADAR’ trial. Eclinmed 2023; published online Sept 28.
+                      schizophrenia. Am J Psychiatry 2018: appiajp201817091001.                    https://doi.org/10.1016/j.eclinm.2023.102135
+
+
+
+858                                                                                                              www.thelancet.com/psychiatry Vol 10 November 2023
+                                                                                                                                                   Articles
+
+
+
+
+32   Viguera AC, Baldessarini RJ, Hegarty JD, van Kammen DP,             34   Freudenthal R, Marston L, Stansfeld JL, Priebe S, Moncrieff J.
+     Tohen M. Clinical risk following abrupt and gradual withdrawal of        How do participants in clinical trials compare with other patients
+     maintenance neuroleptic treatment. Arch Gen Psychiatry 1997;             with schizophrenia? Contemp Clin Trials Commun 2021; 22: 100803.
+     54: 49–55.
+33   Horowitz MA, Jauhar S, Natesan S, Murray RM, Taylor D.
+     A method for tapering antipsychotic treatment that may minimize
+     the risk of relapse. Schizophr Bull 2021; 47: 1116–29.
+
+
+
+
+www.thelancet.com/psychiatry Vol 10 November 2023                                                                                                             859
+

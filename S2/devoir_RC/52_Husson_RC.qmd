@@ -1,0 +1,1259 @@
+---
+title: "Devoir RC"
+author: "Thomas Husson, Groupe 52"
+bibliography: /Users/thomashusson/Documents/Projets/M2biostatistiques/Biblio/biblio-zotero-RC.bib
+prefer-pdf: true
+format:
+    html:
+        toc: true
+        toc-depth: 5
+        toc-title: "Table of contents"
+        toc-location: left
+        toc-sticky: true
+        number-sections: true
+        theme: default
+        css: styles.css
+
+    docx:
+        toc: true
+        toc-depth: 5
+
+    pdf:
+        toc: true
+        toc-depth: 2
+        toc-title: "Table des matières"
+        pdf-engine: xelatex
+        cite-method: natbib
+        biblio-style: unsrturl
+        natbiboptions: "super,sort,compress"
+        pdf-engine-opts:
+        - -interaction=nonstopmode
+        - -halt-on-error
+        - -shell-escape
+        number-sections: true
+        code-block-bg: false
+        header-includes: |
+            % Force la police Computer Modern pour le titre principal
+            \usepackage{fontspec}
+            \makeatletter
+            \renewcommand{\maketitle}{
+            \begin{center}
+                {\Large\bfseries\rmfamily \@title \par}
+                \vskip 1.5em
+                {\large\rmfamily \@author \par}
+                \vskip 1em
+            \end{center}
+            }
+            \makeatother
+            % Titres KOMA-Script en police roman par défaut
+            \setkomafont{disposition}{\rmfamily}
+            \definecolor{sectionblue}{HTML}{1D4E89}
+            \definecolor{subsectionblue}{HTML}{8B1E3F}
+            \definecolor{subsubsectiongreen}{HTML}{1F6B4F}
+            \definecolor{paragraphslate}{HTML}{5A2E8A}
+            \definecolor{subparagraphgray}{HTML}{2F2F2F}
+            \setkomafont{section}{\rmfamily\color{sectionblue}\bfseries}
+            \setkomafont{subsection}{\rmfamily\color{subsectionblue}\bfseries}
+            \setkomafont{subsubsection}{\rmfamily\color{subsubsectiongreen}\bfseries}
+            \setkomafont{paragraph}{\rmfamily\color{paragraphslate}\bfseries}
+            \setkomafont{subparagraph}{\rmfamily\color{subparagraphgray}\bfseries\itshape}
+            \definecolor{linkblue}{HTML}{163A63}
+            \RedeclareSectionCommand[runin=false,afterskip=0.4\baselineskip]{paragraph}
+            \RedeclareSectionCommand[runin=false,afterskip=0.3\baselineskip]{subparagraph}
+            % Hyphenation française
+            \usepackage[french]{babel}
+            \usepackage{newunicodechar}
+            \newunicodechar{β}{\ensuremath{\beta}}
+            % Style des commentaires dans les blocs de code
+            \usepackage{xcolor}
+            \definecolor{commentgray}{HTML}{7A7A7A}
+            \providecommand{\CommentTok}[1]{#1}
+            \AtBeginDocument{
+            \renewcommand{\CommentTok}[1]{\textcolor{commentgray}{\textit{#1}}}
+            }
+            % Police "universelle" pour le code (XeLaTeX)
+            \usepackage{fontspec}
+            \IfFontExistsTF{Ubuntu Mono}{
+            \setmonofont{Ubuntu Mono}[Scale=MatchLowercase]
+            }{
+            \IfFontExistsTF{DejaVu Sans Mono}{
+                \setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]
+            }{
+                % fallback macOS (souvent dispo)
+                \IfFontExistsTF{Menlo}{
+                \setmonofont{Menlo}[Scale=MatchLowercase]
+                }{
+                \IfFontExistsTF{Monaco}{
+                    \setmonofont{Monaco}[Scale=MatchLowercase]
+                }{
+                    % sinon on garde la police mono par défaut
+                }
+                }
+            }
+            }
+            % Bloc de code R pour l'annexe (évite Shaded trop grand)
+            \usepackage{listings}
+            \lstset{
+            language=R,
+            basicstyle=\ttfamily\footnotesize\linespread{0.6}\selectfont\color{black},
+            commentstyle=\itshape\color{commentgray},
+            keywordstyle=\color{blue!60!black},
+            stringstyle=\color{brown!60!black},
+            showstringspaces=false,
+            showspaces=false,
+            showtabs=false,
+            breaklines=true,
+            breakatwhitespace=false,
+            columns=fullflexible,
+            xleftmargin=0.5em,
+            xrightmargin=0.5em
+            }
+
+            \usepackage{etoolbox}
+            \renewcommand{\contentsname}{}
+            \renewcommand{\tablename}{Tableau}
+            \addto\captionsfrench{\renewcommand{\tablename}{Tableau}}
+            \usepackage{caption}
+            \captionsetup[table]{name=Tableau}
+            \AtBeginDocument{
+                \addtocontents{toc}{\protect\smallskip}
+                \let\oldtableofcontents\tableofcontents
+                \renewcommand{\tableofcontents}{
+                \begingroup
+                    \footnotesize
+                    \setlength{\parskip}{2pt}
+                    \oldtableofcontents
+                \endgroup
+                }
+            }
+            \setcounter{tocdepth}{5}
+            \makeatletter
+            \renewcommand{\@tocrmarg}{0pt}
+            \makeatother
+
+            \usepackage{fvextra}
+            \usepackage[section]{placeins}
+            \AtBeginDocument{
+                \urlstyle{same}
+                \renewcommand{\UrlFont}{\rmfamily}
+                \DeclareRobustCommand{\path}[1]{{\rmfamily\detokenize{#1}}}
+                \let\oldhref\href
+                \renewcommand{\href}[2]{\oldhref{#1}{{\rmfamily #2}}}
+                \hypersetup{
+                    colorlinks=true,
+                    linkcolor=linkblue,
+                    citecolor=linkblue,
+                    urlcolor=linkblue
+                }
+            }
+
+            % Gestion des chunks de code
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+            \usepackage{needspace}
+            \usepackage{float}
+            \usepackage{svg}
+            \svgsetup{
+                inkscapeexe=/usr/local/bin/inkscape,
+                inkscapearea=drawing
+            }
+            \floatplacement{figure}{H}
+            \floatplacement{table}{H}
+            % \usepackage{rotating} % (désactivé)
+
+            \newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+            \setlength{\parindent}{0pt}
+            \setlength{\parskip}{3pt}
+            \hfuzz=100pt
+            \vfuzz=100pt
+            \hbadness=10000
+            \usepackage{enumitem}
+            \setlist[itemize]{itemsep=3pt, parsep=3pt, topsep=3pt}
+            \setlist[enumerate]{itemsep=3pt, parsep=3pt, topsep=3pt}
+            \setlist[description]{itemsep=3pt, parsep=3pt, topsep=3pt}
+
+            \usepackage[most]{tcolorbox}
+            \usepackage{color}
+            \definecolor{lightgray}{gray}{0.95}
+            \newtcolorbox{graybox}{colback=gray!10!white,colframe=black,boxrule=0.6pt,arc=1mm,left=6pt,right=6pt,top=4pt,bottom=4pt}
+            \newtcolorbox{codebox}{breakable,colback=blue!5!white,colframe=blue!50!black,boxrule=0.5pt,arc=1mm,left=4pt,right=4pt,top=3pt,bottom=3pt}
+            \DefineVerbatimEnvironment{CodeBoxContent}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+            \renewcommand{\thesection}{\arabic{section}}
+            \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+            \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+geometry: margin=2.5cm
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| echo: false
+library(forecast)
+library(cobalt)
+library(plotrix)
+library(randomForest)
+library(dplyr)
+library(tidyr)
+library(epiR)
+library(viridisLite)
+library(ggplot2)
+library(binom)
+library(survminer)
+library(MatchThem)
+library(pROC)
+library(treemap)
+library(psy)
+library(MASS)
+library(rpart)
+library(rpart.plot)
+library(plotly)
+library(lmerTest)
+library(psych)
+library(lme4)
+library(prettyR)
+library(zoo)
+library(kableExtra)
+library(gtsummary)
+library(lattice)
+library(survey)
+library(corrplot)
+library(mice)
+library(paletteer)
+library(skimr)
+library(nord)
+library(wesanderson)
+library(lubridate)
+library(qgraph)
+library(nlme)
+library(pwr)
+library(ape)
+library(survival)
+library(gmodels)
+library(httpgd)
+library(e1071)
+library(psy)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newpage
+# Introduction
+
+-   Le syndrome post-polio (PPS) est une complication tardive de la poliomyélite, survenant plusieurs années, voire plusieurs décennies après la phase aiguë de la maladie. Il se caractérise par l’apparition progressive de nouveaux symptômes, notamment une faiblesse musculaire, une fatigabilité, des douleurs musculaires et une perte d'autonomie fonctionnelle. Parmi ces manifestations, la fatigue constitue l’un des symptômes les plus fréquents et les plus invalidants, avec un impact majeur sur la qualité de vie des patients.
+
+-   La physiopathologie du PPS n'est pas entièrement comprise. Plusieurs mécanismes sont évoqués, incluant une dénervation progressive des unités motrices, une surcharge fonctionnelle des motoneurones survivants et des altérations centrales de la régulation de la vigilance. À ce jour, la prise en charge repose principalement sur des mesures symptomatiques et de réadaptation, sans traitement pharmacologique clairement efficace sur la fatigue.
+
+-   Le Modafinil est un agent éveillant, initialement développé pour le traitement de la narcolepsie, et approuvé pour améliorer la vigilance chez les patients présentant une somnolence diurne. Son mécanisme d’action implique une modulation de plusieurs systèmes de neurotransmission, notamment dopaminergiques et noradrénergiques, susceptibles d’influencer la vigilance et la perception de la fatigue. Le Modafinil a également été utilisé dans d’autres pathologies associées à une fatigue chronique, telles que la sclérose en plaques, avec des résultats variables.
+
+-   Dans ce contexte, l’évaluation de l’efficacité du Modafinil dans la réduction de la fatigue liée au syndrome post-polio apparaît pertinente. Le recours à un essai randomisé contrôlé, avec un schéma en cross-over, permet de comparer directement l’effet du Modafinil à celui d’un placebo chez un même individu, en limitant la variabilité interindividuelle.
+
+-   L’objectif de cet essai est donc d’évaluer si le Modafinil permet de diminuer significativement la fatigue chez des patients atteints de syndrome post-polio, comparativement à un placebo, dans le cadre d’un essai randomisé en cross-over.
+
+# Méthodologie
+
+## Design
+
+-   Il s'agit d'une étude randomisée, en cross-over, contrôlée par placebo, de phase III, visant à évaluer l'efficacité du Modafinil dans la réduction de la fatigue chez les patients atteints de syndrome post-polio.
+
+-   Design multicentrique dans 3 centres américains.
+
+-   Collecte des données : sur base unique centralisée, sécurisé, permettant la collecte pour l'analyse statistique.
+
+## Patients
+
+### Critères d’inclusion
+
+-   Âge supérieur ou égal à 18 ans
+
+-   Sexe masculin ou féminin
+
+-   Répondre aux critères cliniques du diagnostic de syndrome post-polio définies par la conférence March of Dimes [@gonzalezManagementPostpolioSyndrome2010]
+
+    -   Antécédent de poliomyélite
+
+    -   Intervalle d’au moins 15 ans entre la phase aiguë de la poliomyélite et l’apparition des symptômes
+
+    -   Présence de nouveaux symptômes progressifs, tels que fatigue, faiblesse musculaire, douleurs musculaires ou atrophie, et perte fonctionnelle
+
+    -   Absence d’autre cause pouvant expliquer les symptômes
+
+-   Fatigue comme plainte principale
+
+### Critères d’exclusion
+
+-   Contre-indication au Modafinil (hypersensibilité, allergie, réactions cutanées)
+
+-   Score inférieur à 75 au Fatigue Impact Scale (FIS) [@fiskMeasuringFunctionalImpact1994]
+
+-   Présence d'une autre affection pouvant induire une fatigue significative :
+
+    -   Anémie \< 9 g/dL
+
+    -   Troubles hydroélectrolytiques : sodium \< 130 mEq/L, potassium \< 3.0 mEq/L ou \> 5.5 mEq/L, calcémie corrigée \< 2.0 mmol/L ou \> 2.8 mmol/L
+
+    -   Hépatopathie : transaminases \> 3 fois la normale, bilirubine \> 2 mg/dL
+
+    -   Insuffisance rénale : clairance de la créatinine \< 45 mL/min/1,73m²
+
+    -   Hypothyroïdie non équilibrée : TSH \> 10 mIU/L
+
+    -   Carence vitaminique non substituée : vitamine D \< 15 ng/mL, vitamine B9 \< 4.0 ng/mL, vitamine B12 \< 148 pg/mL
+
+    -   Antécédent de maladie auto-immune ou de maladie inflammatoire chronique
+
+    -   Antécédent de sclérose en plaques ou de toute autre maladie neurodégénérative (maladie de Parkinson, maladie d’Alzheimer, etc.)
+
+    -   Antécédent d’un cancer évolutif ou d’une pathologie mettant en jeu à court terme le pronostic vital
+
+    -   Existence de troubles du sommeil pouvant expliquer l’état de fatigue (apnée du sommeil, hypersomnie idiopathique, narcolepsie)
+
+-   Prise d'un médicament susceptible d'interaction : ciclosporine, résines chélatrices, contraceptifs oraux, antifongiques azolés, topiques gastro-intestinaux, anti-épileptiques
+
+-   Trouble du sommeil ou dépression sévère pouvant compliquer l’évaluation de la fatigue
+
+-   Grossesse ou allaitement
+
+-   Fortes douleurs déclarées par le patient
+
+-   Utilisation de stimulants (Ritaline) ou de préparations à base de plantes (éphédra)
+
+-   Maladie cardiaque connue (arythmie, insuffisance cardiaque stade NYHA IV)
+
+### Screening et évaluation préliminaire
+
+-   Les patients "screenés" seront évalués avant la randomisation pour vérifier l'absence d'une condition pré-existante pouvant fausser les résultats :
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tbl-cap: "Procédure de screening et d’évaluation préliminaire"
+screening <- data.frame(
+Examen = c(
+    "Anamnèse médicale",
+    "Examen physique",
+    "Échelle d’évaluation de la fatigue",
+    "Électrocardiogramme",
+    "Biologie sanguine et urinaire",
+    "Électromyogramme (EMG)",
+    "Polysomnographie nocturne",
+    "Somnolence diurne",
+    "Ponction lombaire (optionnelle)"
+),
+Description = c(
+    "Histoire clinique complète; prises médicamenteuses; recherche d'une cause alternative de fatigue",
+    "Examen général et neurologique avant randomisation",
+    "",
+    "Dépistage d'une cardiopathie",
+    "β-hCG, NFS, ionogramme, bilan hépatique et rénal, TSH, vitamines D/B9/B12",
+    "Électrodes cutanées et aiguille intramusculaire pour enregistrer l'activité électrique",
+    "Nuit au NIH avec électrodes gorge/doigt/thorax et ceinture respiratoire; enregistrement cérébral, oculaire, respiratoire, musculaire et cardiaque",
+    "Dès 8 h: cinq siestes de 20 min pour mesurer la somnolence diurne",
+    "Analyse du LCR pour causes potentielles du syndrome post-polio sous anesthésie locale"
+),
+check.names = FALSE
+)
+
+gt::gt(screening) |>
+gt::cols_label(
+    Examen = "Examen",
+    Description = "Description"
+) |>
+gt::cols_width(
+    Examen ~ gt::pct(35),
+    Description ~ gt::pct(65)
+) |>
+gt::tab_options(
+    table.width = gt::pct(100)
+) |>
+gt::tab_caption("Procédure de screening et d’évaluation préliminaire")
+```
+
+\newpage
+
+## Objectifs
+
+### Objectif principal
+
+-   **Objectif principal** : Évaluer l'efficacité du Modafinil dans la réduction de la fatigue chez les patients atteints de syndrome post-polio, comparativement à un placebo, mesurée par le *Fatigue Severity Scale* (FSS).
+
+-   Mesure du score FSS 6 fois chez chaque patient : à l’inclusion, à 3 semaines et à 6 semaines de chaque phase de traitement (Modafinil et placebo).
+
+    -   n°1 : semaine 0
+
+    -   n°2 : semaine 3 : à 3 semaines de Modafinil ou placebo
+
+    -   n°3 : semaine 6 : à 6 semaines de Modafinil ou placebo
+
+    -   n°4 : semaine 8 : à 2 semaines de washout, avant le cross-over
+
+    -   n°5 : semaine 11 : à 3 semaines de cross-over (Modafinil ou placebo)
+
+    -   n°6 : semaine 14 : à 6 semaines de cross-over
+
+-   Concernant l'échelle de fatigue utilisée, la FSS est un choix pertinent pour plusieurs raisons :
+
+    -   Questionnaire composé de 9 questions, chaque réponse évaluée sur une échelle type Likert de 1 (désacord fort) à 7 (accord fort). Le score total est la moyenne des réponses, un score $\geq 4$ indique un niveau de fatigue modéré à élevé.
+
+    -   C'est l'échelle la plus fréquemment utilisée dans la recherche sur le syndrome post-polio [@koopmanMeasuringFatiguePolio2014].
+
+    -   Elle est simple, brève et donc pratique pour un essai avec mesures répétées.
+
+    -   Bonnes propriétés métrologiques : consistance interne élevée ($\alpha$ de Cronbach entre 0.80 et 0.90), fiabilité test-retest acceptable (0.80), plus petit changement détectable de 1,5 point, et mesure d'un construit unidimensionnel latent de sévérité de la fatigue, plutôt que son retentissement, et validité convergente [@koopmanMeasuringFatiguePolio2014; @horemansComparison4Questionnaires2004; @oncuPsychometricPropertiesFatigue2013].
+
+-   Le critère principal d’efficacité sera le score total de la FSS, mesuré à la fin de chaque période de traitement, soit à 6 semaines sous modafinil et à 6 semaines sous placebo.
+
+-   L’analyse principale sera réalisée selon le principe du plan croisé 2×2. L’effet du modafinil sur le score FSS sera estimé à l’aide d’un modèle linéaire mixte. La différence moyenne de score FSS entre modafinil et placebo sera estimée avec son intervalle de confiance à 95 %. L’effet principal d’intérêt sera la différence moyenne ajustée de score FSS entre modafinil et placebo, estimée avec son intervalle de confiance à 95 % et testée au seuil bilatéral de 5 %.
+
+#### Hypothèses
+
+-   Hypothèse nulle (H0) : Il n’y a pas de différence de score FSS entre les périodes de traitement au Modafinil et au placebo.
+
+-   Hypothèse alternative (H1) : Il existe une différence de score FSS entre les périodes de traitement au Modafinil et au placebo.
+
+### Objectifs secondaires
+
+-   Les objectifs secondaires seront :
+
+    -   Évaluer l'effet du traitement sur la fatigue, à l'aide de mesures complémentaires au FSS, telles que la *Visual Analog Scale for Fatigue* (VAS-F) et la *Fatigue Impact Scale* (FIS) [@koopmanTreatmentPostpolioSyndrome2015a; @schankeFatiguePolioSurvivors2001; @horemansComparison4Questionnaires2004]
+
+    -   évaluer l’effet du traitement sur la qualité de vie liée à la santé à l’aide du Short Form-36 (SF-36) [@wareMOS36itemShortform1992] ;
+
+    -   décrire la tolérance du traitement, notamment par le recueil des événements indésirables, des événements indésirables graves et des arrêts de traitement pour effet indésirable.
+
+-   Au total, ils comprendront :
+
+    Critères de jugement secondaires
+
+    -   le score VASF mesuré à chaque visite d’évaluation ;
+
+    -   le score total FIS mesuré à chaque visite d’évaluation ;
+
+    -   les scores du SF-36 évaluant la qualité de vie : questionnaire de 36 questions réparties en huit dimensions portant sur l'état de santé perçu par le patient au cours des quatre dernières semaines, avec calcul du Physical Composite Score (PCS) et du Mental Composite Score (MCS) ;
+
+    -   la survenue d’au moins un événement indésirable (c'est à dire un événement médical indésirable survenant pendant l’étude, qu’il soit ou non considéré comme lié au traitement) ;
+
+    -   la survenue d’au moins un événement indésirable grave (c'est à dire un événement médical indésirable entraînant la mort, mettant en jeu le pronostic vital, nécessitant une hospitalisation ou une prolongation d’hospitalisation, entraînant une invalidité ou une incapacité significative, ou constituant une anomalie congénitale) ;
+
+    -   l’arrêt du traitement pour cause d’effet indésirable.
+
+-   Les hypothèses associées à ces objectifs secondaires seront formulées de manière similaire à celles de l’objectif principal, en testant l’effet du Modafinil par rapport au placebo sur chaque critère de jugement secondaire.
+
+## Recueil des données
+
+-   Constitution d'une base de données centralisée et sécurisée, avec des champs pré-définis pour chaque variable d’intérêt, permettant une saisie standardisée et facilitant l’analyse statistique.
+
+-   À chaque visite :
+
+    -   Scores cliniques : FIS, FSS, SF36, VAS-F
+
+    -   Données démographiques et cliniques : âge, sexe, centre d'inclusion, taille, poids, médicaments actuels et antérieurs
+
+    -   Résultats biologiques et cliniques : analyses sanguines et urinaires, électrocardiogramme, électromyogramme, polysomnographie, etc.
+
+\newpage
+
+# Intervention
+
+## Randomisation
+
+-   Les patients éligibles seront randomisés selon un schéma en cross-over 2×2 en deux séquences de traitement :
+
+    -   soit modafinil puis placebo
+
+    -   soit placebo puis modafinil
+
+-   La randomisation sera réalisée de manière centralisée et informatisée, selon une procédure en blocs de taille variable non divulguée, afin d’assurer un équilibre entre les séquences tout en préservant l’aveugle.
+
+-   Le choix de ne pas stratifier la randomisation est justifié par le fait que les patients serviront de leur propre contrôle dans le design en cross-over. De plus, l'augmentation des strates peut compliquer la randomisation car augmente le nombre de listes de randomisation à gérer, ce qui peut poser des problèmes logistiques et de suivi, surtout dans une étude avec un nombre de patients limité.
+
+## Aveugle
+
+-   L’étude sera conduite en double aveugle : ni les patients, ni les investigateurs ne connaîtront le traitement administré à chaque période.
+
+-   Le modafinil et le placebo seront conditionnés sous forme de capsules strictement identiques en termes d’apparence, de goût et de conditionnement, afin d’assurer le maintien de l’aveugle.
+
+-   La gestion de l’assignation des traitements et de la liste de randomisation sera assurée par la pharmacie de recherche, qui conservera les codes de traitement de manière sécurisée.
+
+-   Les procédures de levée d’aveugle seront définies a priori et ne pourront être mises en œuvre qu’en cas de nécessité médicale, avec traçabilité de toute levée d’aveugle.
+
+\newpage
+
+## Déroulement
+
+::: {#fig-deroulement-html .content-visible fig-cap="Schéma du déroulement de l'étude." when-format="html"}
+<object data="deroulement.svg" type="image/svg+xml" style="display: block; width: 88%; margin: 0 auto;">
+
+<img src="deroulement.svg" alt="Schéma du déroulement de l&apos;étude" style="width: 100%;"/>
+
+</object>
+:::
+
+::: {.content-visible when-format="pdf"}
+```{=latex}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{deroulement_drawio.pdf}
+\caption{Schéma du déroulement de l'étude.}
+\label{fig:deroulement}
+\end{figure}
+```
+:::
+
+-   Périodes de 6 semaines séparées par un *wash-out* de 14 jours pour élimination du produit et éviter les interactions entre les périodes de traitement (demi-vie d’environ 15 heures, soit 3 jours pour réaliser 5 demi-vies, le délai de 14 jours est suffisant pour prévenir un éventuel effet carry-over) [@ModafinilSubstanceActive].
+
+-   Données collectées avant, pendant et à l'issu de chaque période (car visite d'évaluation à S0, S3 et S6 de chaque période).
+
+-   Posologie :
+
+    -   200mg deux fois par jour, soit 400 mg/jour, répartis au petit déjeuner et au déjeuner, conformément aux recommandations nationales.
+
+    -   En cas d’intolérance, possibilité de réduire la dose à 100 mg deux fois par jour (200 mg/jour) ou à 100 mg une fois par jour (100 mg/jour), selon la tolérance individuelle.
+
+-   L’observance thérapeutique sera suivie par la restitution des traitements, avec comptage des comprimés restants à chaque fin de période, et par la vérification des prises consignées par le participant. Les patients tiendront également un journal quotidien de sommeil pendant toute la durée de l’étude.
+
+-   La tolérance sera évaluée à chaque visite par un recueil systématique des événements indésirables, des événements indésirables graves et des problèmes médicaux intercurrents survenus depuis la visite précédente dans un formulaire standardisé.
+
+-   En cas d'absence d'un patient à une visite de suivi, une tentative de contact sera réaliser pour évaluer les raisons de l'absence, pour éviter les données manquantes non liées au hasard.
+
+\newpage
+
+## Visites d’évaluation
+
+::: {#tbl-tableau-suivi-html .content-visible tbl-cap="Tableau récapitulatif du suivi et des évaluations prévues par visite." when-format="html"}
+<object data="tableau_suivi.svg" type="image/svg+xml" style="display: block; width: 100%; margin: 0 auto;">
+
+<img src="tableau_suivi.svg" alt="Tableau récapitulatif du suivi et des évaluations prévues par visite" style="width: 100%;"/>
+
+</object>
+:::
+
+::: {.content-visible when-format="pdf"}
+```{=latex}
+\begin{table}[H]
+\centering
+\includegraphics[width=\linewidth]{tableau_suivi.pdf}
+\caption{Tableau récapitulatif du suivi et des évaluations prévues par visite.}
+\label{tbl:tableau-suivi}
+\end{table}
+```
+:::
+
+-   Visites prévues selon le Tableau \ref{tbl:tableau-suivi} :
+
+    -   Scores et examens cliniques à chaque visite. Recueil des événements indésirables à chaque visite.
+
+    -   Prélèvements sanguins à l’inclusion et à la fin de chaque période de traitement (S6 de chaque période)
+
+    -   Données initiales paracliniques autres (EMG, polysomnographie, etc.) collectées lors du screening avant la randomisation.
+
+\newpage
+
+# Calcul de la taille d’échantillon
+
+## Principe général
+
+-   Calcul repose sur le **critère principal d'efficacité** : le score total de la FSS à 6 semaines de traitement.
+
+-   L'analyse principale est prévue selon un plan croisé 2x2 à l'aide d'un modèle linéaire mixte, le paramètre d'intérêt étant la différence moyenne intra-individuelle de score FSS entre modafinil et placebo.
+
+-   **Il n'existe pas de formule simple pour le calcul d'effectif directement basée sur un modèle mixte complet** : le calcul repose donc sur une approximation basée sur la comparaison appariée de deux moyennes.
+
+## Hypothèses de calcul
+
+-   Reposent sur les données disponibles dans la littérature : [@oncuPsychometricPropertiesFatigue2013; @horemansComparison4Questionnaires2004]
+
+    -   FSS moyen entre 5 et 6
+
+    -   Écart type entre 0,9 et 1,1
+
+    -   Différence test-retest de 0,2 ± 0,8, suggérant une variabilité intra-individuelle de 0,8
+
+    -   Plus petit changement détectable de 1,5 point
+
+-   Il n'existe pas de différence minimale cliniquement importante consensuelle
+
+-   La variabilité du score FSS est proche de 1 point.
+
+-   En conséquence : les hypothèses retenues sont :
+
+    -   Test de supériorité bilatéral
+
+    -   Risque de première espèce ($\alpha$) : 5 %
+
+    -   Puissance (1 - $\beta$) : 80 %
+
+    -   Écart type $\sigma$ : 1
+
+    -   Différence minimale à détecter $\Delta$ : 1 point
+
+-   Le choix de $\Delta$ = 1 correspond à une hypothèse de différence minimale cliniquement importante, en l'absence de seuil validé, et se base sur :
+
+    -   la variabilité du score FSS (écart type d'environ 1 point)
+
+    -   une variation \> 10% du score total (qui correspondrait à 0,7 point sur une échelle de 1 à 7)
+
+\newpage
+
+## Calcul théorique cohérent avec le design en cross-over
+
+### Manuellement
+
+-   Dans un essai croisé avec critère continu (score FSS), la formule pour le calcul d'effectif est :
+
+$$
+n = \frac{(Z_{1-\alpha/2} + Z_{1-\beta})^2 \times \sigma^2}{\Delta^2} 
+\quad \Leftrightarrow \quad
+n = \frac{(1.96 + 0.84)^2 \times 1^2}{1^2} = 7.84
+$$
+
+où :
+
+-   $n$ = nombre de patients nécessaires
+
+-   $\sigma$ = écart type de la différence intra-individuelle (ici estimé à 1)
+
+-   $\Delta$ = différence minimale à détecter
+
+-   soit environ 8 patients à inclure
+
+### En utilisant R
+
+-   Le calcul manuel utilise une approximation par la loi normale. Il est possible d'utiliser la fonction `pwr.t.test` du package `pwr` pour un calcul plus précis reposant sur la distribution t de Student.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "paired")
+```
+
+-   La fonction `pwr.t.test` obtient un nombre arrondi de paires à `r round(pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "paired")$n)`.
+
+\newpage
+
+## Calcul conservateur sans bénéfice du cross-over
+
+### Manuellement
+
+-   Par prudence, il est préférable d'envisager qu'en présence d'effet de période ou d'effet de report (carry-over), le bénéfice du design en cross-over pourrait être réduit, et que l'analyse pourrait se rapprocher d'une comparaison de deux groupes indépendants.
+
+$$
+n = 2 \times \frac{(Z_{1-\alpha/2} + Z_{1-\beta})^2 \times \sigma^2}{\Delta^2}
+\quad \Leftrightarrow \quad
+n = 2 \times \frac{(1.96 + 0.84)^2 \times 1^2}{1^2} = 15.68
+$$
+
+soit environ 16 sujets par groupe, soit 32 sujets au total.
+
+### En utilisant R
+
+```{r}
+pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "two.sample")
+```
+
+-   La fonction `pwr.t.test` obtient un nombre de sujets par groupe à `r round(pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "two.sample")$n)`, soit un total de `r 2*(round(pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "two.sample")$n))`.
+
+## En prenant en compte une perte de suivi
+
+-   En tenant compte d'une perte de suivi de 10%, il est nécessaire d'augmenter le nombre de sujets à inclure pour maintenir la puissance de l'étude :
+
+    -   Pour le calcul théorique cohérent avec le design en cross-over : `r round(pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "paired")$n / (1 - 0.10))` sujets à inclure.
+
+    -   Pour le calcul conservateur sans bénéfice du cross-over : `r round(2 * pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "two.sample")$n / (1 - 0.10))` sujets à inclure au total.
+
+## Conclusion
+
+-   Le calcul conservateur est retenu, soit 38 patients à inclure pour nombre pair (19 par groupe)
+
+-   Ce choix est justifié par la robustesse méthodologique, la possibilité d’un effet de période ou de report, l’incertitude sur la variabilité réelle du score FSS dans cette population, et la nécessité de garantir la puissance de l’étude dans un contexte clinique réel où les conditions idéales du cross-over pourraient ne pas être parfaitement respectées.
+
+\newpage
+
+# Analyses statistiques
+
+## Types d'analyses
+
+-   Critères d'efficacité :
+
+    -   Analyse principale en **intention de traiter** : inclue tous les patients randomisés, analysés selon le traitement auquel ils ont été assignés, indépendamment de leur observance ou de leur suivi.
+
+    -   Analyse de sensibilité en **per-protocol** : inclue uniquement les patients ayant respecté le protocole de l'étude, c'est à dire ceux ayant suivi les deux périodes de traitement et ayant complété les évaluations prévues.
+
+-   Critères de sécurité : analyse descriptive de la tolérance, incluant tous les patients ayant reçu au moins une dose de traitement, selon le traitement effectivement reçu.
+
+## Flow-chart de l'étude
+
+::: {#fig-flowchart-html .content-visible fig-cap="Flow-chart de l'étude." when-format="html"}
+<object data="flowchart.svg" type="image/svg+xml" style="display: block; width: 100%; margin: 0 auto;">
+
+<img src="flowchart.svg" alt="Flow-chart de l&apos;étude" style="width: 100%;"/>
+
+</object>
+:::
+
+::: {.content-visible when-format="pdf"}
+```{=latex}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{flowchart.pdf}
+\caption{Flow-chart de l'étude.}
+\label{fig:flowchart}
+\end{figure}
+```
+:::
+
+\newpage
+
+## Variables et codage
+
+-   Les données seront collectées dans un dataframe "large" pour faciliter la lisibilité du recueil clinique et la vérification des données.
+
+-   Pour les scores, chaque composante du score (FSS, VASF, FIS, SF-36) sera collectée à chaque visite d’évaluation, avec un suffixe indiquant la visite (S0, S3, S6, S8, S11, S14). Le score total sera calculé a posteriori à partir des composantes, pour éviter les erreurs de calcul lors de la saisie.
+
+-   Les variables d’observance et de sécurité seront également collectées à chaque visite, avec un suffixe indiquant la visite.
+
+-   Pour les analyses, les données seront ensuite transformées en format "long" pour permettre l’utilisation de modèles linéaires mixtes avec des mesures répétées, en créant une variable "temps" indiquant la visite d’évaluation et une variable "traitement" indiquant le traitement reçu à chaque période.
+
+```{r}
+#| label: dataframe-large-simplifie
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "asis"
+csv_path <- c(
+    "df_large_fictif_38.csv",
+    file.path("S2", "devoir_RC", "df_large_fictif_38.csv")
+)
+csv_path <- csv_path[file.exists(csv_path)][1]
+
+df_large_simplifie <- read.csv(
+    csv_path,
+    stringsAsFactors = FALSE
+) |>
+    dplyr::mutate(
+        centre = factor(centre, levels = c("NIH", "NRH", "WRAMC")),
+        sequence_randomisation = factor(sequence_randomisation, levels = c("MP", "PM")),
+        sexe = factor(sexe, levels = c("Homme", "Femme"))
+    )
+```
+
+```{r}
+#| label: dataframe-long-simplifie
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "hide"
+library(dplyr)
+library(reshape2)
+
+csv_path <- c(
+    "df_large_fictif_38.csv",
+    file.path("S2", "devoir_RC", "df_large_fictif_38.csv")
+)
+csv_path <- csv_path[file.exists(csv_path)][1]
+
+df_large_simplifie <- read.csv(
+    csv_path,
+    stringsAsFactors = FALSE
+) |>
+    dplyr::mutate(
+        centre = factor(centre, levels = c("NIH", "NRH", "WRAMC")),
+        sequence_randomisation = factor(sequence_randomisation, levels = c("MP", "PM")),
+        sexe = factor(sexe, levels = c("Homme", "Femme"))
+    )
+
+id_vars <- names(df_large_simplifie)[
+    !grepl("_(S0|S3|S6|S8|S11|S14)$", names(df_large_simplifie))
+]
+
+df_long_simplifie <- reshape2::melt(
+    df_large_simplifie,
+    id.vars = id_vars,
+    variable.name = "variable_visite",
+    value.name = "valeur"
+) |>
+    mutate(
+        variable = sub("_(S0|S3|S6|S8|S11|S14)$", "", variable_visite),
+        visite = sub("^.*_(S0|S3|S6|S8|S11|S14)$", "\\1", variable_visite)
+    ) |>
+    reshape2::dcast(
+        formula = as.formula(
+            paste(
+                paste(c(id_vars, "visite"), collapse = " + "),
+                "~ variable"
+            )
+        ),
+        value.var = "valeur",
+        fun.aggregate = function(x) x[1]
+    ) |>
+    mutate(
+        visite = factor(
+            visite,
+            levels = c("S0", "S3", "S6", "S8", "S11", "S14"),
+            ordered = TRUE
+        ),
+        numero_visite = dplyr::case_when(
+            visite == "S0" ~ 1L,
+            visite == "S3" ~ 2L,
+            visite == "S6" ~ 3L,
+            visite == "S8" ~ 4L,
+            visite == "S11" ~ 5L,
+            visite == "S14" ~ 6L
+        ),
+        semaine = dplyr::case_when(
+            visite == "S0" ~ 0,
+            visite == "S3" ~ 3,
+            visite == "S6" ~ 6,
+            visite == "S8" ~ 8,
+            visite == "S11" ~ 11,
+            visite == "S14" ~ 14
+        ),
+        temps = semaine,
+        periode = dplyr::case_when(
+            visite %in% c("S0", "S3", "S6") ~ 1L,
+            visite %in% c("S8", "S11", "S14") ~ 2L
+        ),
+        traitement = dplyr::case_when(
+            sequence_randomisation == "MP" & periode == 1L ~ "Modafinil",
+            sequence_randomisation == "MP" & periode == 2L ~ "Placebo",
+            sequence_randomisation == "PM" & periode == 1L ~ "Placebo",
+            sequence_randomisation == "PM" & periode == 2L ~ "Modafinil"
+        )
+    ) |>
+    arrange(id_patient, visite) |>
+    relocate(id_patient, visite, numero_visite, semaine, temps, periode, traitement)
+
+dplyr::glimpse(df_long_simplifie)
+```
+
+```{r}
+#| label: dictionnaire-simplifie
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "asis"
+
+library(tibble)
+library(knitr)
+library(kableExtra)
+
+dico_simplifie <- tibble(
+Groupe_de_variables = c(
+    "Identifiants",
+    "Caractéristiques générales",
+    "Eligibilité / screening",
+    "Séquence et design",
+    "Repérage temporel",
+    "FSS",
+    "VASF",
+    "FIS",
+    "SF-36",
+    "Sommeil",
+    "Observance",
+    "Sécurité"
+),
+Variables = c(
+    "id_patient",
+    "centre, sexe, age_annees, taille_cm, poids_kg, imc",
+    "(variables binaires : pps_confirme, allaitement, etc.) et variables numériques (delai_depuis_polio_ans, fis_screening, etc.)",
+    "sequence_randomisation",
+    "Suffixes S0, S3, S6, S8, S11, S14 ; temps (format long)",
+    "fss_S0, fss_S3, ..., fss_S14",
+    "vasf_S0, vasf_S3, ..., vasf_S14",
+    "fis_S0, fis_S3, ..., fis_S14",
+    "sf36_physique_S0, sf36_mental_S0, ...",
+    "journal_sommeil_S0, heures_sommeil_S0, ...",
+    "compliance_pct_S6, nb_comprimes_pris_S6, ...",
+    "ei_S3, eig_S6, arret_traitement_pour_ei"
+),
+Type = c(
+    "Catégorielle",
+    "Mixtes",
+    "Mixtes",
+    "Catégorielle",
+    "Catégorielle ordonnée",
+    "Continues répétées",
+    "Continues répétées",
+    "Continues répétées",
+    "Continues répétées",
+    "Binaires et continues répétées",
+    "Continues répétées",
+    "Binaires répétées"
+),
+Definition = c(
+    "Identifiant unique du participant",
+    "Variables fixes recueillies à l’inclusion",
+    "Variables permettant de documenter les critères d’inclusion et d’exclusion",
+    "Ordre d’administration des traitements dans le schéma cross-over",
+    "Repérage du numéro de visite et de la temporalité des mesures",
+    "Score principal de fatigue mesuré aux 6 visites",
+    "Échelle visuelle analogique de fatigue mesurée aux 6 visites",
+    "Score d’impact de la fatigue mesuré aux 6 visites",
+    "Scores de qualité de vie physique et mentale mesurés aux 6 visites",
+    "Journal et durée de sommeil recueillis au cours du suivi",
+    "Variables de suivi de la prise du traitement",
+    "Variables de tolérance et de sécurité recueillies au cours du suivi"
+),
+Codage = c(
+    "Unique",
+    "Valeurs numériques ou facteurs",
+    "0 = Non ; 1 = Oui, ou valeurs numériques selon la variable",
+    "MP = Modafinil→Placebo ; PM = Placebo→Modafinil",
+    "Visites codées S0, S3, S6, S8, S11, S14 ; variable temps en format long",
+    "Valeurs numériques",
+    "Valeurs numériques",
+    "Valeurs numériques",
+    "Valeurs numériques",
+    "0 = Non ; 1 = Oui, ou valeurs numériques en heures",
+    "Pourcentage ou nombre",
+    "0 = Non ; 1 = Oui"
+)
+)
+
+dico_simplifie_affichage <- dico_simplifie
+dico_simplifie_affichage <- dico_simplifie_affichage |>
+    dplyr::transmute(
+        `Groupe de variables` = Groupe_de_variables,
+        Variables = Variables,
+        `Description` = dplyr::case_when(
+            Groupe_de_variables == "Identifiants" ~ "Identification unique du participant.",
+            Groupe_de_variables == "Caractéristiques générales" ~ "Catégorielles ou continues",
+            Groupe_de_variables == "Eligibilité / screening" ~ "Binaires ou continues pour critères inclusion/exclusion",
+            Groupe_de_variables == "Séquence et design" ~ "Binaire : séquence MP ou PM du schéma cross-over",
+            Groupe_de_variables == "Repérage temporel" ~ "Catégorielle ordonnée : numéro/semaine de visite codé par suffixe (S0, S3, S6, S8, S11, S14) dans le format large, puis par la variable temps dans le format long.",
+            Groupe_de_variables == "FSS" ~ "Continue : score total FSS répété, de 1 à 7 (+ détail des items)",
+            Groupe_de_variables == "VASF" ~ "Continue : échelle visuelle analogique de fatigue, de 0 à 100.",
+            Groupe_de_variables == "FIS" ~ "Continue : score total FIS, de 0 à 160.",
+            Groupe_de_variables == "SF-36" ~ "Continues : scores physique et mental du SF-36, bornés de 0 à 100.",
+            Groupe_de_variables == "Sommeil" ~ "Mixtes : journal binaire (0/1) et durée de sommeil continue en heures.",
+            Groupe_de_variables == "Observance" ~ "Continues : pourcentage d’observance ou nombre de comprimés pris.",
+            Groupe_de_variables == "Sécurité" ~ "Binaires : événements indésirables, événements graves et arrêt pour EI (0/1).",
+            TRUE ~ ""
+        )
+    )
+
+kable(
+    dico_simplifie_affichage,
+    format = "latex",
+    booktabs = TRUE,
+    longtable = TRUE,
+    escape = TRUE,
+    align = c("l", "l", "l"),
+    caption = "Présentation simplifiée des groupes de variables du dataframe large"
+) %>%
+    kable_styling(
+        latex_options = c("repeat_header"),
+        font_size = 8
+    ) %>%
+    column_spec(1, width = "3.0cm") %>%
+    column_spec(2, width = "5.8cm") %>%
+    column_spec(3, width = "6.0cm")
+```
+
+\newpage
+## Data management
+
+-   Le dataframe "large" sera utilisé pour la saisie et la vérification des données, avec des champs pré-définis pour chaque variable d’intérêt.
+
+### Transformation en format long
+
+-   Après vérification et nettoyage des données, un dataframe "long" sera créé à partir du dataframe "large", en utilisant la fonction `reshape2` pour transformer les données en format long, avec une variable "temps" indiquant la visite d’évaluation et une variable "traitement" indiquant le traitement reçu à chaque période (en conservant l'aveugle via la variable "sequence_randomisation").
+
+### Conversion et recodage des variables
+
+-   Description du jeu de données via les fonctions `summary` et `str` pour identifier les types de variables, les valeurs manquantes, les distributions, etc. La fonction `skim` du package `skimr` fournit un résumé détaillé des variables, y compris les types, les valeurs manquantes, les statistiques descriptives, etc.
+
+-   Recodage :
+
+    -   Des variables numériques : fonction `as.numeric()`
+
+    -   Des variables catégorielles : fonction `factor()`, avec définitions des `levels` et des `labels`, et éventuellement de la catégorie de référence avec `relevel(var, ref = "reference")`.
+
+    -   Des variables de temps : création d’une variable "temps" en format numérique indiquant la semaine de la visite, à partir du suffixe de la variable (S0, S3, S6, S8, S11, S14).
+
+    -   Des variables de dates : conversion en format `Date` avec `as.Date()`
+
+```{r}
+#| label: description-donnees
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "hide"
+library(dplyr)
+library(skimr)
+
+csv_path <- c(
+    "df_large_fictif_38.csv",
+    file.path("S2", "devoir_RC", "df_large_fictif_38.csv")
+)
+csv_path <- csv_path[file.exists(csv_path)][1]
+
+df_large_simplifie <- read.csv(
+    csv_path,
+    stringsAsFactors = FALSE
+) |>
+    dplyr::mutate(
+        centre = factor(centre, levels = c("NIH", "NRH", "WRAMC")),
+        sequence_randomisation = factor(sequence_randomisation, levels = c("MP", "PM")),
+        sexe = factor(sexe, levels = c("Homme", "Femme"))
+    )
+
+skim(df_large_simplifie)
+```
+
+### Données aberrantes et doublons
+
+-   Identification des données aberrantes via les résultats de `summary` et `skim` : si données incohérente, suppression et considérée comme manquante.
+
+-   Identification des doublons via la fonction `duplicated()`. Si doublons identifiés, vérification de leur nature (erreur de saisie, données réelles, etc.) et décision de les supprimer ou de les conserver selon le contexte.
+
+### Données manquantes
+
+-   Les données manquantes seront décrites de manière systématique avant toute analyse, en précisant leur fréquence globale, leur répartition par variable, par visite et par séquence de traitement. Cette étape reposera sur les fonctions `summary`, `skim` et sur des tableaux descriptifs du nombre de valeurs manquantes à chaque temps de mesure.
+
+-   L’analyse principale des critères d’efficacité répétés (FSS, VASF, FIS, SF-36) ne reposera pas sur une imputation simple. Elle sera réalisée à l’aide d’un modèle linéaire mixte pour mesures répétées, ajusté sur la visite, la période et le traitement, en utilisant toutes les données observées disponibles sous l’hypothèse de données manquantes au hasard (*Missing At Random*, MAR). Ainsi, un patient avec une ou plusieurs visites manquantes pourra rester inclus dans l’analyse principale dès lors qu’il dispose d’au moins une mesure après baseline.
+
+-   En pratique, les scores observés ne seront donc pas remplacés dans le jeu de données principal. Les observations disponibles contribueront directement à l’estimation du modèle, sans imputation ponctuelle de type remplacement par une valeur arbitraire.
+
+-   Une analyse de sensibilité pourra être conduite par méthode LOCF (*Last Observation Carried Forward*) pour le score FSS, en remplaçant une mesure manquante par la dernière valeur observée chez le même patient. Cette analyse ne sera pas considérée comme l’analyse de référence, mais comme une vérification de la robustesse des résultats. [@lachinFallaciesLastObservation2016; @laneHandlingDropoutLongitudinal2008]
+
+## Description des variables
+
+### Tableaux et graphiques descriptifs
+
+```{r}
+#| label: tbl-variables-quantitatives
+#| tbl-cap: "Résumé descriptif des variables quantitatives."
+#| echo: false
+#| message: false
+#| warning: false
+
+library(knitr)
+library(kableExtra)
+
+tableau_quanti <- data.frame(
+    `Var. quantitatives` = "..",
+    Moyenne = "..",
+    ET = "..",
+    Médiane = "..",
+    IQR = "..",
+    Min = "..",
+    Max = "..",
+    `NA (%)` = "..",
+    check.names = FALSE
+)
+
+knitr::kable(tableau_quanti, booktabs = TRUE, align = c("l", rep("c", 7))) |>
+    kableExtra::kable_styling(latex_options = "scale_down") |>
+    kableExtra::column_spec(1, width = "3.2cm") |>
+    kableExtra::column_spec(2, width = "1.5cm") |>
+    kableExtra::column_spec(3, width = "1.2cm") |>
+    kableExtra::column_spec(4, width = "1.5cm") |>
+    kableExtra::column_spec(5, width = "0.9cm") |>
+    kableExtra::column_spec(6, width = "0.9cm") |>
+    kableExtra::column_spec(7, width = "0.9cm") |>
+    kableExtra::column_spec(8, width = "1.6cm")
+```
+
+```{r}
+#| label: tbl-variables-categorielles
+#| tbl-cap: "Résumé descriptif des variables catégorielles."
+#| echo: false
+#| message: false
+#| warning: false
+
+library(knitr)
+
+tableau_categ <- data.frame(
+    `Var. catégorielles` = "..",
+    Modalités = "..",
+    `Nombre de sujets` = "..",
+    `%` = "..",
+    check.names = FALSE
+)
+
+knitr::kable(tableau_categ, booktabs = TRUE, align = c("l", "l", "c", "c"))
+```
+
+```{r}
+#| label: graphiques-descriptifs
+#| echo: false
+#| message: false
+#| warning: false
+#| tbl-cap: "Graphiques descriptifs des variables d’intérêt."
+#| results: "asis"
+library(knitr)
+library(kableExtra)
+graphiques_quantitatif <- c("Histogramme", "Courbe de densité", "Boxplot", "QQ-plot")
+fonctions_r_quantitatif <- c("hist()", "density()", "boxplot()", "qqnorm()")
+graphiques_categoriel <- c("Diagramme en barres", "Diagramme en secteurs")
+fonctions_r_categoriel <- c("barplot()", "pie()")
+tableau_graphiques <- data.frame(
+    `Variable` = c("Quantitative", "Catégorielle"),
+    `Graphiques descriptifs` = c(
+        paste(graphiques_quantitatif, collapse = ", "),
+        paste(graphiques_categoriel, collapse = ", ")
+    ),
+    `Fonctions R associées` = c(
+        paste(fonctions_r_quantitatif, collapse = ", "),
+        paste(fonctions_r_categoriel, collapse = ", ")
+    ),
+    check.names = FALSE
+)
+knitr::kable(tableau_graphiques, booktabs = TRUE, align = c("l", "l", "l"))
+```
+
+### Analyse bivariée selon le groupe
+
+-   Du fait de la randomisation, les groupes de traitement devraient être équilibrés sur les caractéristiques basales. Aucun test statistique n'est nécessaire, conformément aux recommandations CONSORT pour essais randomisés [@dwanCONSORT2010Statement2019; @moherCONSORT2010Explanation2010]
+
+-   Toutefois, il est possible de présenter un tableau et graphiques comparatifs des caractéristiques basales entre les groupes, sans test de significativité, pour illustrer l’équilibre obtenu par la randomisation.
+
+-   Les données présentées et graphiques utilisés sont les mêmes que ceux précédemment évoqués
+
+\newpage
+## Multiciplicité des tests et risque $\alpha$
+
+-   Une seule analyse confirmatoire est définie a priori, portant sur le critère principal d’efficacité, à savoir le score total de la Fatigue Severity Scale (FSS), testé au seuil bilatéral de 5 %.
+
+-   Les critères secondaires (VASF, FIS, SF-36 PCS et MCS) sont considérés comme des analyses exploratoires et aucune conclusion ne sera tirée de ces analyses, donc aucun ajustement pour multiplicité n'est nécessaire.
+
+-   Le risque de première espèce est contrôlée pour l'unique hypothèse confirmatoire testée, évitant ainsi l'inflation du risque $\alpha$ liée à la multiplicité des tests [@rothmanNoAdjustmentsAre1990; @pocockAnalysisMultipleEndpoints1987]
+
+## Analyse des critères de jugements
+
+### Critère de jugement principal
+
+-   Le critère de jugement principal est le score total de la *Fatigue Severity Scale* (FSS), évalué à la fin de chaque période de traitement, soit aux visites `S6` et `S14`. L’objectif de l’analyse principale est d’estimer la différence moyenne de score FSS entre modafinil et placebo dans le cadre du plan croisé 2×2 [@millsDesignAnalysisPresentation2009a; @puttMixedEffectsModel1999].
+
+-   Cette analyse sera menée selon le principe de l’intention de traiter, sans imputation simple des données manquantes, à l’aide d’un modèle linéaire mixte tenant compte du traitement reçu, de la période et de la séquence de randomisation. Un effet aléatoire patient sera introduit afin de modéliser la corrélation intra-individuelle entre les deux mesures de fin de période disponibles chez un même sujet.
+
+-   Ce modèle peut s’écrire, pour le patient $i$ et la période $j$ :
+
+$$
+FSS_{ij} = \beta_0 + \beta_1 \, \text{traitement}_{ij} + \beta_2 \, \text{periode}_{ij} + \beta_3 \, \text{sequence}_{i} + b_i + \varepsilon_{ij}
+$$
+
+avec :
+
+-   $b_i$ désigne l’effet aléatoire propre au patient $i$, introduit pour tenir compte du fait que deux mesures provenant d’un même patient sont corrélées. On suppose que $b_i$ suit une loi normale centrée, de variance $\sigma_b^2$.
+
+-   $\varepsilon_{ij}$ désigne l’erreur résiduelle de la mesure $j$ chez le patient $i$. On suppose que $\varepsilon_{ij}$ suit une loi normale centrée, de variance $\sigma^2$.
+
+-   En notation `R` avec `lme4` ou `lmerTest`, ce même effet aléatoire patient s’écrit simplement `(1 | id_patient)`. Cela correspond à un intercept aléatoire spécifique à chaque patient.
+
+-   En pratique, la variable `traitement` sera codée avec `Placebo` comme modalité de référence. Le coefficient associé à `traitementModafinil` représentera donc la différence moyenne ajustée de score FSS entre modafinil et placebo, c’est-à-dire :
+
+$$
+\beta_{\text{traitement}} = \mathbb{E}(FSS \mid \text{Modafinil}) - \mathbb{E}(FSS \mid \text{Placebo})
+$$
+
+-   Si ce coefficient est négatif, cela signifiera que le score FSS est plus faible sous modafinil que sous placebo, ce qui ira dans le sens d’un effet bénéfique du traitement. S’il est positif, cela indiquera au contraire un score FSS plus élevé sous modafinil.
+
+-   L’hypothèse nulle testée sera : $H_0 : \beta_{\text{traitement}} = 0$. L’hypothèse alternative sera : $H_1 : \beta_{\text{traitement}} \neq 0$. Le test sera bilatéral, au seuil de 5 %. Le résultat sera présenté par l’estimation du coefficient, son erreur standard, son intervalle de confiance à 95 % et sa valeur p.
+
+-   Formule R générique :
+
+```r
+lmerTest::lmer(
+  fss ~ traitement + periode + sequence_randomisation + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S6", "S14"))
+)
+```
+
+### Analyse multivariée
+
+-   Une analyse ajustée complémentaire pourra être réalisée à titre de sensibilité pour vérifier la robustesse des résultats après prise en compte d’un nombre limité de caractéristiques basales cliniquement pertinentes, telles que l’âge, le sexe et le centre d’inclusion.
+
+-   Cette analyse n’a pas vocation à se substituer à l’analyse principale. Compte tenu de l’effectif attendu, l’ajustement restera volontairement parcimonieux afin d’éviter un modèle trop chargé.
+
+-   L’interprétation du coefficient associé à `traitementModafinil` restera la même que dans l’analyse principale. Cette analyse permettra seulement de vérifier si l’estimation de l’effet du traitement reste proche après ajustement sur quelques covariables de base.
+
+-   Formule R générique :
+
+```r
+lmerTest::lmer(
+  fss ~ traitement + periode + sequence_randomisation +
+    age_annees + sexe + centre + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S6", "S14"))
+)
+```
+
+### Critères de jugements secondaires
+
+-   Les critères secondaires continus répétés comprendront le score VASF, le score total FIS ainsi que les scores `sf36_pcs` et `sf36_mcs`. Ces analyses seront considérées comme exploratoires et interprétées avec prudence.
+
+-   Les mesures disponibles aux visites `S3`, `S6`, `S11` et `S14` seront exploitées à l’aide de modèles linéaires mixtes analogues à celui du critère principal, en incluant le traitement, la visite, la période et la séquence de randomisation comme effets fixes, ainsi qu’un effet aléatoire patient.
+
+-   Pour chaque critère secondaire, le coefficient associé au traitement sera interprété comme une différence moyenne ajustée entre modafinil et placebo. Les résultats seront rapportés avec leur intervalle de confiance à 95 % et leur valeur p, à titre exploratoire uniquement.
+
+-   Formules R génériques :
+
+```r
+lmerTest::lmer(
+  vasf ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+)
+
+lmerTest::lmer(
+  fis ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+)
+
+lmerTest::lmer(
+  sf36_pcs ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+)
+
+lmerTest::lmer(
+  sf36_mcs ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
+  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+)
+```
+
+## Analyse de sécurité
+
+-   Compte tenu de la durée relativement courte de l’étude et du profil de sécurité connu du modafinil, aucune analyse intermédiaire d’efficacité n’est prévue.
+
+-   L’analyse de sécurité portera sur tous les patients ayant reçu au moins une dose de traitement. Les événements indésirables, événements indésirables graves et arrêts de traitement pour effet indésirable seront décrits par traitement, sous forme d’effectifs et de pourcentages.
+
+-   Compte tenu du faible effectif attendu et du nombre potentiellement limité d’événements, aucune modélisation multivariée de la sécurité ne sera retenue comme analyse principale. L’objectif sera avant tout descriptif.
+
+-   Formule R générique :
+
+```r
+df_long_simplifie |>
+  dplyr::filter(visite %in% c("S3", "S6", "S11", "S14")) |>
+  dplyr::group_by(id_patient, traitement, periode) |>
+  dplyr::summarise(
+    ei = as.integer(any(ei == 1)),
+    eig = as.integer(any(eig == 1)),
+    arret_ei = as.integer(any(arret_traitement_pour_ei == 1)),
+    .groups = "drop"
+  ) |>
+  dplyr::group_by(traitement) |>
+  dplyr::summarise(
+    patients_exposes = dplyr::n(),
+    patients_avec_ei = sum(ei),
+    pct_ei = 100 * mean(ei),
+    patients_avec_eig = sum(eig),
+    pct_eig = 100 * mean(eig),
+    patients_avec_arret = sum(arret_ei),
+    pct_arret = 100 * mean(arret_ei)
+  )
+```
+
+
+
+
+\newpage
+
+# Bibliographie
+
+::: {#refs}
+:::
+
+\newpage

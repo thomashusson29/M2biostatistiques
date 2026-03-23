@@ -24,7 +24,7 @@ format:
         toc-title: "Table des matières"
         pdf-engine: xelatex
         cite-method: natbib
-        biblio-style: unsrtnat
+        biblio-style: unsrturl
         natbiboptions: "super,sort,compress"
         pdf-engine-opts:
         - -interaction=nonstopmode
@@ -51,6 +51,7 @@ format:
             \definecolor{subsubsectiongreen}{HTML}{1F6B4F}
             \definecolor{paragraphslate}{HTML}{5A2E8A}
             \definecolor{subparagraphgray}{HTML}{2F2F2F}
+            \definecolor{linkblue}{HTML}{163A63}
             \setkomafont{section}{\rmfamily\color{sectionblue}\bfseries}
             \setkomafont{subsection}{\rmfamily\color{subsectionblue}\bfseries}
             \setkomafont{subsubsection}{\rmfamily\color{subsubsectiongreen}\bfseries}
@@ -125,6 +126,19 @@ format:
 
             \usepackage{fvextra}
             \usepackage[section]{placeins}
+            \AtBeginDocument{
+                \urlstyle{same}
+                \renewcommand{\UrlFont}{\rmfamily}
+                \DeclareRobustCommand{\path}[1]{{\rmfamily\detokenize{#1}}}
+                \let\oldhref\href
+                \renewcommand{\href}[2]{\oldhref{#1}{{\rmfamily #2}}}
+                \hypersetup{
+                    colorlinks=true,
+                    linkcolor=linkblue,
+                    citecolor=linkblue,
+                    urlcolor=linkblue
+                }
+            }
 
             % Gestion des chunks de code
             \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
@@ -3933,7 +3947,7 @@ knitr::kable(
 
 # Annexes
 
-## Tableau comparatif post-appariement
+## Annexe 1 : tableau comparatif post-appariement
 
 ```{r}
 #| label: tests-comparatifs-matched
@@ -4130,9 +4144,46 @@ baseline_comparison_table |>
 ```
 
 \newpage
-## Analyse multivariée en population totale, sans imputation (données brutes)
+## Annexe 2 : Analyse multivariée en population totale, sans imputation (données brutes)
 
 ### Sans imputation, avec toutes les variables basales (donc avec données manquantes)
+
+-   Tableau de l'effectif disponible pour le modèle de Cox multivarié si on utilise les données brutes avant imputation, en incluant toutes les variables basales (84 variables) :
+
+```{r}
+#| label: effectif-cox-multivarie-avant-imputation
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+formule_cox_multivariee <- Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
+  primary_disease_category + secondary_disease_category +
+  diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
+  diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
+  diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
+  diagnosis_orthopedic + adl_score + DASI_score + dnr_status + cancer +
+  survival_probability_2mths + apache_score + glasgow_score +
+  weight + temperature + mean_blood_pressure + respiratory_rate +
+  heart_rate + pa_fi_ratio + paco2 + ph + wbc + hematocrit +
+  sodium + potassium + creatinine + bilirubin + albumin + comorbidity_cardiovascular + comorbidity_congestive_heart +
+  comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary + comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
+  comorbidity_malignancy + comorbidity_immunosuppression + comorbidity_transfer + comorbidity_myocardial_infarction +
+  urine_output
+
+n_total_cox_multivarie <- nrow(df_avant_imputation)
+n_analyse_cox_multivarie <- nrow(stats::na.omit(model.frame(formule_cox_multivariee, data = df_avant_imputation)))
+n_exclus_cox_multivarie <- n_total_cox_multivarie - n_analyse_cox_multivarie
+
+effectif_cox_multivarie <- data.frame(
+  `Patients totaux` = n_total_cox_multivarie,
+  `Patients analyses` = n_analyse_cox_multivarie,
+  `Patients exclus` = n_exclus_cox_multivarie,
+  `% exclus` = round(100 * n_exclus_cox_multivarie / n_total_cox_multivarie, 1),
+  check.names = FALSE
+)
+
+knitr::kable(effectif_cox_multivarie, booktabs = TRUE)
+```
 
 ```{r}
 #| label: cox-multivariate
@@ -4168,6 +4219,50 @@ knitr::kable(cox_multivariate_results, booktabs = TRUE)
 -  Cependant, cette analyse n'est pas valide car elle ne respecte pas la règle de 10 événements par variable, et elle est très biaisée du fait de l'exclusion des patients avec données manquantes.
 
 ### Sans imputation, en retirant les variables basales avec des données manquantes
+
+-   L'effectif total est utilisé car les variables avec données manquantes sont retirées du modèle.
+
+```{r}
+#| label: effectif-cox-multivarie-sans-missing
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+# identification des variables avec des données manquantes
+variables_manquantes <- names(df_avant_imputation)[colSums(is.na(df_avant_imputation)) > 0]
+# ajustement du modèle de Cox multivarié sans les variables avec des données manquantes
+cox_multivariate_sans_missing_model <- coxph(
+  Surv(survival_time_180d, event_180d) ~ rhc + age + sex + race + education_years + income + insurance_class +
+    primary_disease_category + secondary_disease_category +
+    diagnosis_respiratory + diagnosis_cardiovascular + diagnosis_neurological +
+    diagnosis_gastrointestinal + diagnosis_renal + diagnosis_metabolic +
+    diagnosis_hematologic + diagnosis_sepsis + diagnosis_trauma +
+    diagnosis_orthopedic + DASI_score + dnr_status + cancer +
+    survival_probability_2mths + apache_score + glasgow_score +
+    temperature + pa_fi_ratio + paco2 + ph + hematocrit +
+    sodium + potassium + creatinine + bilirubin + albumin +
+    comorbidity_cardiovascular + comorbidity_congestive_heart +
+    comorbidity_dementia + comorbidity_psych + comorbidity_chronic_pulmonary +
+    comorbidity_renal + comorbidity_liver + comorbidity_upper_gi_bleeding +
+    comorbidity_malignancy + comorbidity_immunosuppression +
+    comorbidity_transfer + comorbidity_myocardial_infarction,
+  data = df_avant_imputation
+)
+
+n_total_cox_multivarie_sans_missing <- nrow(df_avant_imputation)
+n_analyse_cox_multivarie_sans_missing <- nrow(stats::na.omit(model.frame(cox_multivariate_sans_missing_model, data = df_avant_imputation)))
+n_exclus_cox_multivarie_sans_missing <- n_total_cox_multivarie_sans_missing - n_analyse_cox_multivarie_sans_missing
+
+effectif_cox_multivarie_sans_missing <- data.frame(
+  `Patients totaux` = n_total_cox_multivarie_sans_missing,
+  `Patients analyses` = n_analyse_cox_multivarie_sans_missing,
+  `Patients exclus` = n_exclus_cox_multivarie_sans_missing,
+  `% exclus` = round(100 * n_exclus_cox_multivarie_sans_missing / n_total_cox_multivarie_sans_missing, 1),
+  check.names = FALSE
+)
+
+knitr::kable(effectif_cox_multivarie_sans_missing, booktabs = TRUE)
+```
 
 ```{r}
 #| label: cox-multivariate-sans-missing
@@ -4206,7 +4301,9 @@ cox_multivariate_sans_missing_results <- data.frame(
   row.names = NULL
 )
 cox_multivariate_sans_missing_results <- cox_multivariate_sans_missing_results[cox_multivariate_sans_missing_results$Variable == "rhcRHC", ]
-knitr::kable(cox_multivariate_sans_missing_results, booktabs = TRUE)
+
+cox_multivariate_sans_missing_results$Variable <- "RHC vs No RHC"
+knitr::kable(cox_multivariate_sans_missing_results, booktabs = FALSE)
 ```
 
 -   Finalement, une exclusion des variables avec des données manquantes dans le modèle de Cox multivarié ne change pas significativement les résultats, avec un HR de `r cox_multivariate_sans_missing_results$HR` et un intervalle de confiance à 95% de `r cox_multivariate_sans_missing_results$IC95`.
