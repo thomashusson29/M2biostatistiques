@@ -504,7 +504,7 @@ gt::tab_caption("Procédure de screening et d’évaluation préliminaire")
 
 -   Périodes de 6 semaines séparées par un *wash-out* de 14 jours pour élimination du produit et éviter les interactions entre les périodes de traitement (demi-vie d’environ 15 heures, soit 3 jours pour réaliser 5 demi-vies, le délai de 14 jours est suffisant pour prévenir un éventuel effet carry-over) [@ModafinilSubstanceActive].
 
--   Données collectées avant, pendant et à l'issu de chaque période (car visite d'évaluation à S0, S3 et S6 de chaque période).
+-   Données collectées avant, pendant et à l'issue de chaque période, avec visites `S0`, `S3`, `S6` pour la première période, puis `S8`, `S11`, `S14` après washout et cross-over.
 
 -   Posologie :
 
@@ -646,7 +646,7 @@ n = 2 \times \frac{(Z_{1-\alpha/2} + Z_{1-\beta})^2 \times \sigma^2}{\Delta^2}
 n = 2 \times \frac{(1.96 + 0.84)^2 \times 1^2}{1^2} = 15.68
 $$
 
-soit environ 16 sujets par groupe, soit 32 sujets au total.
+soit environ 16 sujets par séquence, soit 32 sujets au total.
 
 ### En utilisant R
 
@@ -666,7 +666,7 @@ pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "two.sample")
 
 ## Conclusion
 
--   Le calcul conservateur est retenu, soit 38 patients à inclure pour nombre pair (19 par groupe)
+-   Le calcul conservateur est retenu, soit 38 patients à inclure pour nombre pair (19 par séquence)
 
 -   Ce choix est justifié par la robustesse méthodologique, la possibilité d’un effet de période ou de report, l’incertitude sur la variabilité réelle du score FSS dans cette population, et la nécessité de garantir la puissance de l’étude dans un contexte clinique réel où les conditions idéales du cross-over pourraient ne pas être parfaitement respectées.
 
@@ -678,11 +678,11 @@ pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "two.sample")
 
 -   Critères d'efficacité :
 
-    -   Analyse principale en **intention de traiter** : inclue tous les patients randomisés, analysés selon le traitement auquel ils ont été assignés, indépendamment de leur observance ou de leur suivi.
+    -   Analyse principale en **intention de traiter** : inclue tous les patients randomisés, analysés selon la séquence de traitement à laquelle ils ont été randomisés, indépendamment de leur observance ou de leur suivi.
 
     -   Analyse de sensibilité en **per-protocol** : inclue uniquement les patients ayant respecté le protocole de l'étude, c'est à dire ceux ayant suivi les deux périodes de traitement et ayant complété les évaluations prévues.
 
--   Critères de sécurité : analyse descriptive de la tolérance, incluant tous les patients ayant reçu au moins une dose de traitement, selon le traitement effectivement reçu.
+-   Critères de sécurité : analyse descriptive de la tolérance, incluant tous les patients ayant reçu au moins une dose de traitement, selon le traitement effectivement reçu à chaque période d'exposition.
 
 ## Flow-chart de l'étude
 
@@ -715,7 +715,7 @@ pwr.t.test(d = 1/1, sig.level = 0.05, power = 0.80, type = "two.sample")
 
 -   Les variables d’observance et de sécurité seront également collectées à chaque visite, avec un suffixe indiquant la visite.
 
--   Pour les analyses, les données seront ensuite transformées en format "long" pour permettre l’utilisation de modèles linéaires mixtes avec des mesures répétées, en créant une variable "temps" indiquant la visite d’évaluation et une variable "traitement" indiquant le traitement reçu à chaque période.
+-   Pour les analyses, les données seront ensuite transformées en format "long" pour permettre l’utilisation de modèles linéaires mixtes avec des mesures répétées, en créant une variable "temps" indiquant la visite d’évaluation, une variable "periode" pour les visites sous traitement et une variable "traitement" indiquant le traitement reçu aux visites d'exposition. Les visites `S0` (baseline) et `S8` (après washout, avant cross-over) seront conservées comme visites de repérage, mais ne seront pas codées comme exposées à un traitement.
 
 ```{r}
 #| label: dataframe-large-simplifie
@@ -769,7 +769,7 @@ id_vars <- names(df_large_simplifie)[
     !grepl("_(S0|S3|S6|S8|S11|S14)$", names(df_large_simplifie))
 ]
 
-df_long_simplifie <- reshape2::melt(
+df_format_long <- reshape2::melt(
     df_large_simplifie,
     id.vars = id_vars,
     variable.name = "variable_visite",
@@ -813,24 +813,28 @@ df_long_simplifie <- reshape2::melt(
         ),
         temps = semaine,
         periode = dplyr::case_when(
-            visite %in% c("S0", "S3", "S6") ~ 1L,
-            visite %in% c("S8", "S11", "S14") ~ 2L
+            visite %in% c("S3", "S6") ~ 1L,
+            visite %in% c("S11", "S14") ~ 2L,
+            TRUE ~ NA_integer_
         ),
         traitement = dplyr::case_when(
-            sequence_randomisation == "MP" & periode == 1L ~ "Modafinil",
-            sequence_randomisation == "MP" & periode == 2L ~ "Placebo",
-            sequence_randomisation == "PM" & periode == 1L ~ "Placebo",
-            sequence_randomisation == "PM" & periode == 2L ~ "Modafinil"
-        )
+            sequence_randomisation == "MP" & visite %in% c("S3", "S6") ~ "Modafinil",
+            sequence_randomisation == "MP" & visite %in% c("S11", "S14") ~ "Placebo",
+            sequence_randomisation == "PM" & visite %in% c("S3", "S6") ~ "Placebo",
+            sequence_randomisation == "PM" & visite %in% c("S11", "S14") ~ "Modafinil",
+            TRUE ~ NA_character_
+        ),
+        periode = factor(periode, levels = c(1L, 2L)),
+        traitement = factor(traitement, levels = c("Placebo", "Modafinil"))
     ) |>
     arrange(id_patient, visite) |>
     relocate(id_patient, visite, numero_visite, semaine, temps, periode, traitement)
 
-dplyr::glimpse(df_long_simplifie)
+dplyr::glimpse(df_format_long)
 ```
 
 ```{r}
-#| label: dictionnaire-simplifie
+#| label: tbl-dictionnaire-simplifie
 #| echo: false
 #| message: false
 #| warning: false
@@ -1012,13 +1016,15 @@ skim(df_large_simplifie)
 
 ### Données manquantes
 
--   Les données manquantes seront décrites de manière systématique avant toute analyse, en précisant leur fréquence globale, leur répartition par variable, par visite et par séquence de traitement. Cette étape reposera sur les fonctions `summary`, `skim` et sur des tableaux descriptifs du nombre de valeurs manquantes à chaque temps de mesure.
+-   Description des données manquantes avant toute analyse, en précisant leur fréquence globale, leur répartition par variable, par visite et par séquence de traitement. Cette étape reposera sur les fonctions `summary`, `skim` et sur des tableaux descriptifs du nombre de valeurs manquantes à chaque temps de mesure.
 
--   L’analyse principale des critères d’efficacité répétés (FSS, VASF, FIS, SF-36) ne reposera pas sur une imputation simple. Elle sera réalisée à l’aide d’un modèle linéaire mixte pour mesures répétées, ajusté sur la visite, la période et le traitement, en utilisant toutes les données observées disponibles sous l’hypothèse de données manquantes au hasard (*Missing At Random*, MAR). Ainsi, un patient avec une ou plusieurs visites manquantes pourra rester inclus dans l’analyse principale dès lors qu’il dispose d’au moins une mesure après baseline.
+-   Pour le critère principal FSS, l’analyse principale sera réalisée à l’aide d’un modèle linéaire mixte portant sur les mesures de fin de période `S6` et `S14`, en utilisant toutes les données observées disponibles sous l’hypothèse de données manquantes au hasard (*Missing At Random*, MAR). Ainsi, un patient pourra rester contributif à l’analyse principale dès lors qu’il dispose d’au moins une mesure de fin de période.
 
--   En pratique, les scores observés ne seront donc pas remplacés dans le jeu de données principal. Les observations disponibles contribueront directement à l’estimation du modèle, sans imputation ponctuelle de type remplacement par une valeur arbitraire.
+-   Pour les critères secondaires répétés (VASF, FIS, SF-36), les modèles mixtes utiliseront les mêmes informations disponibles.
 
--   Une analyse de sensibilité pourra être conduite par méthode LOCF (*Last Observation Carried Forward*) pour le score FSS, en remplaçant une mesure manquante par la dernière valeur observée chez le même patient. Cette analyse ne sera pas considérée comme l’analyse de référence, mais comme une vérification de la robustesse des résultats. [@lachinFallaciesLastObservation2016; @laneHandlingDropoutLongitudinal2008]
+-   En pratique, les scores observés ne seront  pas remplacés dans le jeu de données principal. Les observations disponibles contribueront à l’estimation du modèle.
+
+-   Analyse de sensibilité par méthode LOCF (*Last Observation Carried Forward*) pour le score FSS, en remplaçant une mesure manquante par la dernière valeur observée chez le même patient. Cette analyse ne sera pas considérée comme l’analyse de référence.[@lachinFallaciesLastObservation2016; @laneHandlingDropoutLongitudinal2008]
 
 ## Description des variables
 
@@ -1106,11 +1112,11 @@ tableau_graphiques <- data.frame(
 knitr::kable(tableau_graphiques, booktabs = TRUE, align = c("l", "l", "l"))
 ```
 
-### Analyse bivariée selon le groupe
+### Analyse bivariée selon la séquence
 
--   Du fait de la randomisation, les groupes de traitement devraient être équilibrés sur les caractéristiques basales. Aucun test statistique n'est nécessaire, conformément aux recommandations CONSORT pour essais randomisés [@dwanCONSORT2010Statement2019; @moherCONSORT2010Explanation2010]
+-   Du fait de la randomisation, les séquences de traitement devraient être équilibrées sur les caractéristiques basales. Aucun test statistique n'est nécessaire, conformément aux recommandations CONSORT pour essais randomisés [@dwanCONSORT2010Statement2019; @moherCONSORT2010Explanation2010]
 
--   Toutefois, il est possible de présenter un tableau et graphiques comparatifs des caractéristiques basales entre les groupes, sans test de significativité, pour illustrer l’équilibre obtenu par la randomisation.
+-   Toutefois, il est possible de présenter un tableau et des graphiques comparatifs des caractéristiques basales entre les deux séquences, sans test de significativité, pour illustrer l’équilibre obtenu par la randomisation.
 
 -   Les données présentées et graphiques utilisés sont les mêmes que ceux précédemment évoqués
 
@@ -1127,11 +1133,17 @@ knitr::kable(tableau_graphiques, booktabs = TRUE, align = c("l", "l", "l"))
 
 ### Critère de jugement principal
 
--   Le critère de jugement principal est le score total de la *Fatigue Severity Scale* (FSS), évalué à la fin de chaque période de traitement, soit aux visites `S6` et `S14`. L’objectif de l’analyse principale est d’estimer la différence moyenne de score FSS entre modafinil et placebo dans le cadre du plan croisé 2×2 [@millsDesignAnalysisPresentation2009a; @puttMixedEffectsModel1999].
+#### Analyse principale
 
--   Cette analyse sera menée selon le principe de l’intention de traiter, sans imputation simple des données manquantes, à l’aide d’un modèle linéaire mixte tenant compte du traitement reçu, de la période et de la séquence de randomisation. Un effet aléatoire patient sera introduit afin de modéliser la corrélation intra-individuelle entre les deux mesures de fin de période disponibles chez un même sujet.
+-   Le critère de jugement principal est le score total de la *Fatigue Severity Scale* (FSS), évalué à la fin de chaque période de traitement, soit aux visites `S6` et `S14`. L’objectif de l’analyse principale est d’estimer la différence moyenne de score FSS entre modafinil et placebo dans le cadre du plan croisé 2×2 [@millsDesignAnalysisPresentation2009; @puttMixedEffectsModel1999].
 
--   Ce modèle peut s’écrire, pour le patient $i$ et la période $j$ :
+-   Analyse menée en intention de traiter, c'est à dire sur l’ensemble des patients randomisés conservés dans la séquence à laquelle ils ont été assignés, à l’aide d’un **modèle linéaire mixte** ayant : 
+
+    -   Comme effets fixes : le traitement reçu, la période et la séquence de randomisation.
+
+    -   Comme effet aléatoire : un intercept aléatoire patient pour modéliser la corrélation intra-individuelle entre les mesures répétées de FSS chez un même sujet.
+
+-   Ce modèle peut s'écrire, pour le patient $i$ et la période $j$ :
 
 $$
 FSS_{ij} = \beta_0 + \beta_1 \, \text{traitement}_{ij} + \beta_2 \, \text{periode}_{ij} + \beta_3 \, \text{sequence}_{i} + b_i + \varepsilon_{ij}
@@ -1143,111 +1155,103 @@ avec :
 
 -   $\varepsilon_{ij}$ désigne l’erreur résiduelle de la mesure $j$ chez le patient $i$. On suppose que $\varepsilon_{ij}$ suit une loi normale centrée, de variance $\sigma^2$.
 
--   En notation `R` avec `lme4` ou `lmerTest`, ce même effet aléatoire patient s’écrit simplement `(1 | id_patient)`. Cela correspond à un intercept aléatoire spécifique à chaque patient.
+-   Sur R : on utilise `lme4` ou `lmerTest`. L'avantage d'utiliser `lmerTest` est qu'il fournit directement les tests de significativité des effets fixes.
 
--   En pratique, la variable `traitement` sera codée avec `Placebo` comme modalité de référence. Le coefficient associé à `traitementModafinil` représentera donc la différence moyenne ajustée de score FSS entre modafinil et placebo, c’est-à-dire :
+-   L'effet aléatoire s'écrit `(1 | id_patient)`. 
+
+-   La variable `traitement` sera codée avec `Placebo` comme modalité de référence. Le coefficient associé à `traitementModafinil` représentera donc la différence moyenne ajustée de score FSS entre modafinil et placebo, c'est à dire 
 
 $$
-\beta_{\text{traitement}} = \mathbb{E}(FSS \mid \text{Modafinil}) - \mathbb{E}(FSS \mid \text{Placebo})
+\beta_{\text{traitement}} = \text{Moyenne}(FSS_{\text{Modafinil}}) - \text{Moyenne}(FSS_{\text{Placebo}})
 $$
 
--   Si ce coefficient est négatif, cela signifiera que le score FSS est plus faible sous modafinil que sous placebo, ce qui ira dans le sens d’un effet bénéfique du traitement. S’il est positif, cela indiquera au contraire un score FSS plus élevé sous modafinil.
+-   Si $\beta_{\text{traitement}} < 0$ : le score FSS est plus faible sous modafinil que sous placebo, donc effet bénéfique du traitement. S’il est positif, cela indiquera au contraire un score FSS plus élevé sous modafinil.
 
 -   L’hypothèse nulle testée sera : $H_0 : \beta_{\text{traitement}} = 0$. L’hypothèse alternative sera : $H_1 : \beta_{\text{traitement}} \neq 0$. Le test sera bilatéral, au seuil de 5 %. Le résultat sera présenté par l’estimation du coefficient, son erreur standard, son intervalle de confiance à 95 % et sa valeur p.
 
--   Formule R générique :
+-   Formule R :
 
 ```r
-lmerTest::lmer(
-  fss ~ traitement + periode + sequence_randomisation + (1 | id_patient),
-  data = subset(df_long_simplifie, visite %in% c("S6", "S14"))
+modele_principal <- lmerTest::lmer(
+    fss ~ traitement + periode + sequence_randomisation + (1 | id_patient),
+    data = subset(df_format_long, visite %in% c("S6", "S14")) # filtrer les visites d’intérêt pour le critère principal
 )
 ```
 
-### Analyse multivariée
+-   Output attendu avec `summary(modele_principal)` :
 
--   Une analyse ajustée complémentaire pourra être réalisée à titre de sensibilité pour vérifier la robustesse des résultats après prise en compte d’un nombre limité de caractéristiques basales cliniquement pertinentes, telles que l’âge, le sexe et le centre d’inclusion.
+    -   Pour chaque effet fixe :  coefficient estimé, erreur standard, degrés de liberté approchés, la statistique `t` et la valeur `p` selon un test d'hypothèse nulle. (méthode de Satterthwaite pour les degrés de liberté)
 
--   Cette analyse n’a pas vocation à se substituer à l’analyse principale. Compte tenu de l’effectif attendu, l’ajustement restera volontairement parcimonieux afin d’éviter un modèle trop chargé.
+    -   Pour l'effet aléatoire : la variance de l’intercept aléatoire patient et la variance résiduelle.
 
--   L’interprétation du coefficient associé à `traitementModafinil` restera la même que dans l’analyse principale. Cette analyse permettra seulement de vérifier si l’estimation de l’effet du traitement reste proche après ajustement sur quelques covariables de base.
+#### Analyses de sensibilité en mesures répétées
 
--   Formule R générique :
+-   Analyse exploitant aussi les mesures intermédiaires du FSS aux visites `S3` et `S11`
+
+-   Dans cette approche, les visites `S0` puis `S8` seront considérées comme les valeurs de référence de chaque période de traitement. L’analyse portera ensuite sur l’évolution du score FSS à 3 semaines et à 6 semaines dans chaque période.
+
+-   Modélisation d'une variable de variation du score FSS à partir d'un modèle linéaire mixte incluant le traitement, le temps dans la période, leur interaction, la période et la séquence de randomisation, avec un effet aléatoire patient.
+
+-   Permettra d’examiner si l’amélioration sous modafinil apparaît déjà à 3 semaines, ou si elle est surtout observée à 6 semaines. L’interaction entre traitement et temps permet d’évaluer si la trajectoire d’évolution du score FSS diffère entre modafinil et placebo au cours de la période de traitement.
+
+-   Formule R :
 
 ```r
 lmerTest::lmer(
-  fss ~ traitement + periode + sequence_randomisation +
-    age_annees + sexe + centre + (1 | id_patient),
-  data = subset(df_long_simplifie, visite %in% c("S6", "S14"))
+    delta_fss ~ traitement * semaine_dans_periode + periode +
+        sequence_randomisation + (1 | id_patient),
+    data = df_fss_long
 )
 ```
 
 ### Critères de jugements secondaires
 
--   Les critères secondaires continus répétés comprendront le score VASF, le score total FIS ainsi que les scores `sf36_pcs` et `sf36_mcs`. Ces analyses seront considérées comme exploratoires et interprétées avec prudence.
+-   Les critères secondaires continus répétés comprendront le score VASF, le score total FIS ainsi que les scores `sf36_pcs` et `sf36_mcs`. Ces analyses seront considérées comme exploratoires.
 
 -   Les mesures disponibles aux visites `S3`, `S6`, `S11` et `S14` seront exploitées à l’aide de modèles linéaires mixtes analogues à celui du critère principal, en incluant le traitement, la visite, la période et la séquence de randomisation comme effets fixes, ainsi qu’un effet aléatoire patient.
 
--   Pour chaque critère secondaire, le coefficient associé au traitement sera interprété comme une différence moyenne ajustée entre modafinil et placebo. Les résultats seront rapportés avec leur intervalle de confiance à 95 % et leur valeur p, à titre exploratoire uniquement.
+-   Pour chaque critère secondaire, le coefficient associé au traitement sera interprété comme une différence moyenne ajustée entre modafinil et placebo, c'est à dire un effet moyen global du traitement sur l’ensemble des visites post-baseline retenues dans le modèle.
 
--   Formules R génériques :
+-   Formules R :
 
 ```r
+# pour VASF
 lmerTest::lmer(
-  vasf ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
-  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+    vasf ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
+    data = subset(df_format_long, visite %in% c("S3", "S6", "S11", "S14"))
 )
 
+# pour FIS
 lmerTest::lmer(
-  fis ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
-  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+    fis ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
+    data = subset(df_format_long, visite %in% c("S3", "S6", "S11", "S14"))
 )
 
+# pour SF36 PCS
 lmerTest::lmer(
-  sf36_pcs ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
-  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+    sf36_pcs ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
+    data = subset(df_format_long, visite %in% c("S3", "S6", "S11", "S14"))
 )
 
+# pour SF36 MCS
 lmerTest::lmer(
-  sf36_mcs ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
-  data = subset(df_long_simplifie, visite %in% c("S3", "S6", "S11", "S14"))
+    sf36_mcs ~ traitement + visite + periode + sequence_randomisation + (1 | id_patient),
+    data = subset(df_format_long, visite %in% c("S3", "S6", "S11", "S14"))
 )
 ```
 
+\newpage
 ## Analyse de sécurité
 
--   Compte tenu de la durée relativement courte de l’étude et du profil de sécurité connu du modafinil, aucune analyse intermédiaire d’efficacité n’est prévue.
+-   Sur tous les patients ayant reçu $\geq$ 1 dose de traitement.
 
--   L’analyse de sécurité portera sur tous les patients ayant reçu au moins une dose de traitement. Les événements indésirables, événements indésirables graves et arrêts de traitement pour effet indésirable seront décrits par traitement, sous forme d’effectifs et de pourcentages.
+-   Description des effectifs et pourcentages d’événements indésirables, d’événements indésirables graves et d’arrêts de traitement pour effet indésirable, par traitement, avec comme dénominateur le nombre de patients exposés à chaque traitement.
 
--   Compte tenu du faible effectif attendu et du nombre potentiellement limité d’événements, aucune modélisation multivariée de la sécurité ne sera retenue comme analyse principale. L’objectif sera avant tout descriptif.
+-   En pratique, le tableau de sécurité pourra être construit sur un jeu de données agrégé au niveau `patient × traitement × période`, afin d’indiquer pour chaque période de traitement la survenue ou non d’au moins un événement, sans compter deux fois un même patient au sein d’une même période de traitement.
 
--   Formule R générique :
+-   Pas de modélisation compte tenu du faible effectif et du nombre potentiellement limité d’événements.
 
-```r
-df_long_simplifie |>
-  dplyr::filter(visite %in% c("S3", "S6", "S11", "S14")) |>
-  dplyr::group_by(id_patient, traitement, periode) |>
-  dplyr::summarise(
-    ei = as.integer(any(ei == 1)),
-    eig = as.integer(any(eig == 1)),
-    arret_ei = as.integer(any(arret_traitement_pour_ei == 1)),
-    .groups = "drop"
-  ) |>
-  dplyr::group_by(traitement) |>
-  dplyr::summarise(
-    patients_exposes = dplyr::n(),
-    patients_avec_ei = sum(ei),
-    pct_ei = 100 * mean(ei),
-    patients_avec_eig = sum(eig),
-    pct_eig = 100 * mean(eig),
-    patients_avec_arret = sum(arret_ei),
-    pct_arret = 100 * mean(arret_ei)
-  )
-```
-
-
-
+-   Tableaux simples descriptifs, avec des pourcentages et des effectifs, avec de graphiques type diagramme en barres pour illustrer la répartition des événements par traitement 
 
 \newpage
 

@@ -131,7 +131,7 @@ Cette analyse s'effectue sur les données des visites en temps S6 et S14 (fin de
 ```{r}
 #| label: analyse-fss
 #| echo: true
-modele_principal <- lme4::lmer(
+modele_principal <- lmerTest::lmer(
   fss ~ traitement + periode + sequence_randomisation + (1 | id_patient),
   data = subset(df_long_simplifie, visite %in% c("S6", "S14"))
 )

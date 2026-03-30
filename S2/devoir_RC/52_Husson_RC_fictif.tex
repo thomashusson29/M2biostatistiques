@@ -390,7 +390,7 @@ Cette analyse s'effectue sur les données des visites en temps S6 et S14
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modele\_principal }\OtherTok{\textless{}{-}}\NormalTok{ lme4}\SpecialCharTok{::}\FunctionTok{lmer}\NormalTok{(}
+\NormalTok{modele\_principal }\OtherTok{\textless{}{-}}\NormalTok{ lmerTest}\SpecialCharTok{::}\FunctionTok{lmer}\NormalTok{(}
 \NormalTok{  fss }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitement }\SpecialCharTok{+}\NormalTok{ periode }\SpecialCharTok{+}\NormalTok{ sequence\_randomisation }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ id\_patient),}
   \AttributeTok{data =} \FunctionTok{subset}\NormalTok{(df\_long\_simplifie, visite }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"S6"}\NormalTok{, }\StringTok{"S14"}\NormalTok{))}
 \NormalTok{)}
@@ -399,7 +399,8 @@ Cette analyse s'effectue sur les données des visites en temps S6 et S14
 \end{Shaded}
 
 \begin{verbatim}
-Linear mixed model fit by REML ['lmerMod']
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
 Formula: fss ~ traitement + periode + sequence_randomisation + (1 | id_patient)
    Data: subset(df_long_simplifie, visite %in% c("S6", "S14"))
 
@@ -416,11 +417,13 @@ Random effects:
 Number of obs: 76, groups:  id_patient, 38
 
 Fixed effects:
-                         Estimate Std. Error t value
-(Intercept)               4.97368    0.19588  25.392
-traitementModafinil      -0.98947    0.05079 -19.483
-periode                   0.14211    0.05079   2.798
-sequence_randomisationPM  0.63158    0.25267   2.500
+                         Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept)               4.97368    0.19588 49.97448  25.392  < 2e-16 ***
+traitementModafinil      -0.98947    0.05079 36.00000 -19.483  < 2e-16 ***
+periode                   0.14211    0.05079 36.00000   2.798  0.00821 ** 
+sequence_randomisationPM  0.63158    0.25267 36.00000   2.500  0.01713 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) trtmnM period
