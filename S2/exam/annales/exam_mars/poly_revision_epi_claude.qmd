@@ -1,0 +1,1276 @@
+---
+title: "Poly de révision EPI"
+subtitle: "Epidémiologie analytique : annales résolues et méthodes"
+lang: fr
+toc: true
+toc-depth: 3
+toc-location: body
+format:
+  html:
+    theme: cosmo
+    css: poly_revision_nsn.css
+    embed-resources: true
+    html-math-method: mathml
+    code-fold: false
+    include-in-header:
+      text: |
+        <script>
+        (function () {
+          const storageKey = "poly-revision-theme";
+          document.documentElement.classList.add("js");
+          let theme = "day";
+          try {
+            const params = new URLSearchParams(window.location.search);
+            const queryTheme = params.get("theme");
+            if (queryTheme === "night" || queryTheme === "day") {
+              theme = queryTheme;
+            } else {
+              const saved = window.localStorage.getItem(storageKey);
+              if (saved === "night" || saved === "day") {
+                theme = saved;
+              } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                theme = "night";
+              }
+            }
+          } catch (error) {}
+          document.documentElement.setAttribute("data-theme", theme);
+        })();
+        </script>
+  pdf:
+    pdf-engine: xelatex
+    documentclass: scrartcl
+    papersize: a4
+    mainfont: "Helvetica Neue"
+    sansfont: "Helvetica Neue"
+    monofont: "Menlo"
+    geometry:
+      - top=18mm
+      - bottom=18mm
+      - left=17mm
+      - right=17mm
+    fontsize: 10.5pt
+    colorlinks: true
+    code-fold: false
+    include-in-header:
+      text: |
+        \usepackage{fontspec}
+        \usepackage{fancyhdr}
+        \usepackage{tocloft}
+        \usepackage{colortbl}
+        \usepackage{etoolbox}
+        \definecolor{PolyInk}{HTML}{18333D}
+        \definecolor{PolySlate}{HTML}{50656F}
+        \definecolor{PolyLine}{HTML}{D6DED9}
+        \definecolor{PolySand}{HTML}{F8F5EF}
+        \AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=PolyInk,urlcolor=PolyInk,citecolor=PolySlate}}
+        \setlength{\parindent}{0pt}
+        \setlength{\parskip}{5pt}
+        \renewcommand{\baselinestretch}{1.06}
+        \setkomafont{disposition}{\bfseries}
+        \addtokomafont{title}{\color{PolyInk}\bfseries}
+        \addtokomafont{subtitle}{\color{PolySlate}}
+        \addtokomafont{section}{\color{PolyInk}\bfseries\fontsize{18}{22}\selectfont}
+        \addtokomafont{subsection}{\color{PolyInk}\bfseries\fontsize{13}{16}\selectfont}
+        \addtokomafont{subsubsection}{\color{PolySlate}\bfseries\fontsize{11}{14}\selectfont}
+        \renewcommand{\contentsname}{Sommaire}
+        \renewcommand{\cftsecfont}{\color{PolyInk}}
+        \renewcommand{\cftsecpagefont}{\color{PolyInk}}
+        \renewcommand{\cftsubsecfont}{\color{PolySlate}}
+        \renewcommand{\cftsubsecpagefont}{\color{PolySlate}}
+        \setlength{\cftbeforesecskip}{4pt}
+        \AtBeginEnvironment{longtable}{\rowcolors{2}{PolySand}{white}}
+        \arrayrulecolor{PolyLine}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[L]{\color{PolySlate}\footnotesize Poly de révision EPI}
+        \fancyhead[R]{\color{PolySlate}\footnotesize Annales résolues}
+        \fancyfoot[C]{\color{PolySlate}\footnotesize\thepage}
+        \setlength{\headheight}{14pt}
+        \pretocmd{\section}{\ifnum\value{section}>0\clearpage\fi}{}{}
+editor: source
+---
+
+::: {.cover-banner}
+## Poly de révision EPI {.cover-title}
+
+### Epidémiologie analytique : annales résolues et méthodes {.cover-subtitle}
+
+Document de travail orienté examen : articles supports, questions d'annales, résolutions guidées et réponses types.
+:::
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="theme-toolbar">
+  <button id="theme-switch" class="theme-switch" type="button" aria-pressed="false" aria-label="Basculer entre le mode clair et le mode nuit">
+    <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true">&#9790;</span>
+    <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true">&#9728;</span>
+  </button>
+</div>
+```
+:::
+
+::: {.hero}
+Ce poly a un seul objectif : **permettre de répondre entièrement aux questions d'annales d'épidémiologie (EPI)**.
+
+Il suit une progression par année, en décortiquant chaque sujet :
+
+1. comprendre le design de l'étude support ;
+2. identifier les paramètres clés dans le texte anglais ;
+3. mobiliser le bon raisonnement méthodologique ou statistique ;
+4. rédiger une réponse d'examen complète et précise.
+
+::: {.chips}
+<span class="chip">épidémiologie</span>
+<span class="chip">annales résolues</span>
+<span class="chip">méthodologie</span>
+<span class="chip">orienté examen</span>
+<span class="chip">HTML A4 + PDF</span>
+:::
+:::
+
+::: {.callout-important title="Note méthodologique"}
+En épidémiologie, la question du **nombre de sujets nécessaires (NSN)** ou de la **puissance** se pose différemment par rapport aux essais cliniques. On raisonne souvent en **précision d'estimation** (largeur des intervalles de confiance), en **nombre d'événements informatifs**, ou en **limites de validité causale** (biais de confusion, biais écologique).
+:::
+
+## 1. Rappels méthodologiques essentiels
+
+### 1.1. Précision et Puissance en EPI
+
+Dans les études observationnelles (cohortes, cas-témoins, transversales), la taille de l'échantillon est souvent dictée par la faisabilité ou les données existantes. La discussion de la "puissance" se transforme alors souvent en discussion de la **précision**.
+
+**Paramètres à surveiller :**
+
+- **Taille de la population** : plus elle est grande, plus l'estimation est stable.
+- **Nombre d'événements** : c'est le vrai moteur de la puissance. Un million de sujets avec seulement 10 événements donnent une étude peu puissante.
+- **Fréquence de l'exposition** : si l'exposition est rare, même une grande cohorte peut manquer de puissance pour détecter un effet.
+- **Largeur de l'IC95%** : c'est l'indicateur direct de la précision. S'il est très large, l'étude est imprécise.
+
+### 1.2. Remontée de SE depuis un IC95%
+
+Indispensable pour calculer une puissance a posteriori ou discuter la précision.
+
+**Cas général (échelle linéaire) :**
+$$SE = \frac{\text{borne sup} - \text{borne inf}}{3{,}92}$$
+
+**Cas des RR, OR, HR (échelle logarithmique) :**
+$$SE(\log RR) = \frac{\log(\text{borne sup}) - \log(\text{borne inf})}{3{,}92}$$
+
+### 1.3. Score de Wald et Puissance observée grossière
+
+Pour estimer si une étude était "puissante" sur l'effet observé :
+
+1. Calculer le score de Wald : $z = \frac{|\text{effet}|}{SE}$ (sur la bonne échelle).
+2. Estimer la puissance : $\text{puissance} \approx \Phi(z - 1{,}96)$.
+
+**Repères rapides :**
+- $z < 1{,}96$ : résultat non significatif, puissance observée < 50%.
+- $z \approx 2{,}5$ : puissance observée environ 70%.
+- $z \approx 3$ : puissance observée environ 85%.
+- $z > 4$ : puissance observée > 98%.
+
+### 1.4. Designs d'études observationnelles
+
+**Études de cohorte :**
+- Suivi longitudinal d'une population exposée vs non exposée
+- Calcul en personnes-années souvent utilisé
+- Risque = confusion résiduelle
+
+**Études cas-témoins :**
+- Comparaison rétrospective de l'exposition
+- Odds ratio comme mesure d'association
+- Risque = biais de rappel, biais de sélection
+
+**Études transversales :**
+- Photographie à un instant donné
+- Prévalence plutôt qu'incidence
+- Pas de causalité temporelle
+
+**Séries temporelles interrompues :**
+- Avant/après une intervention
+- Contrôle de la tendance temporelle
+- Utile pour les politiques publiques
+
+**Comparaisons intrafamiliales (siblings) :**
+- Contrôle des facteurs familiaux partagés
+- Réduit la confusion génétique et environnementale
+- Puissance réduite
+
+### 1.5. Notions de causalité
+
+**Critères de Hill :**
+- Force de l'association
+- Cohérence des résultats
+- Spécificité
+- Temporalité
+- Gradient dose-réponse
+- Plausibilité biologique
+- Cohérence avec les connaissances
+- Preuve expérimentale
+
+**Contrôle négatif :**
+- Association dont on sait qu'elle ne devrait pas exister
+- Permet de tester l'hypothèse de confusion résiduelle
+- Si l'association existe malgré tout → biais
+
+### 1.6. Interaction additive vs multiplicative
+
+**Interaction multiplicative :**
+- Sur l'échelle logarithmique (log-risque, logit)
+- Testée dans les régressions logistiques, Cox
+- HR(A+B) ≠ HR(A) × HR(B)
+
+**Interaction additive :**
+- Sur l'échelle du risque absolu
+- Plus pertinente en santé publique
+- Risque(A+B) ≠ Risque(A) + Risque(B)
+
+**Indice d'interaction additive (RERI) :**
+$$RERI = RR_{11} - RR_{10} - RR_{01} + 1$$
+
+où les indices représentent l'exposition aux deux facteurs (0=non, 1=oui).
+
+## 2. Comment utiliser ce poly
+
+::: {.callout-tip title="Stratégie de révision"}
+Pour chaque année :
+
+1. Lisez d'abord le contexte et l'article cité.
+2. Essayez de répondre à la question de l'annale par vous-même.
+3. Utilisez le bouton "Révéler les infos" pour identifier ce qu'il fallait pêcher dans le texte anglais.
+4. Lisez la résolution guidée étape par étape.
+5. Comparez votre réponse à la **réponse type**.
+6. Notez les pièges et remarques méthodologiques.
+:::
+
+## 3. Carte rapide des annales EPI (2011-2026)
+
+| Année | Article support | Thème principal | Questions clés |
+|-------|-----------------|-----------------|----------------|
+| 2011 | Kalager et al., NEJM 2010 | Dépistage cancer du sein | Puissance a posteriori, personnes-années |
+| 2012 | Cooper et al., NEJM 2011 | Médicaments ADHD et cardiovasculaire | Faible nombre d'événements, puissance |
+| 2013 | Lasalvia et al., Lancet 2013 | Psychose précoce | Pas de calcul a priori, précision |
+| 2014 | Bao et al., NEJM 2013 | Consommation de noix et mortalité | Très grande cohorte, puissance |
+| 2016 | Schnabel et al., Lancet 2015 | Fibrillation atriale (50 ans) | Puissance par décennies, sous-groupes |
+| 2019 | Shan et al., BMJ 2018 | Travail de nuit et diabète | Cohorte immense, interaction additive |
+| 2020 | À clarifier | *À compléter* | *À compléter* |
+| 2021 | Srinivasan et al., Lancet Psychiatry 2020 | *À compléter* | *À compléter* |
+| 2022 | Niederkrotenthaler et al., BMJ 2021 | *À compléter* | *À compléter* |
+| 2023 | Brynge et al., Lancet Psychiatry 2022 | *À compléter* | *À compléter* |
+| 2024 | Hasin et al., Lancet Psychiatry 2023 | *À compléter* | *À compléter* |
+| 2025 | Salvatore et al., Am J Psychiatry 2024 | *À compléter* | *À compléter* |
+| 2026 | Rosenström et al., Lancet Psychiatry 2025 | *À compléter* | *À compléter* |
+
+## 4. Annales résolues (2011 - 2026)
+
+::: {.callout-note title="Structure des sections"}
+Chaque année est traitée avec :
+
+- **Article et contexte** : présentation de l'étude
+- **Question posée** : texte exact de l'annale
+- **Extrait anglais** : passage clé de l'article (avec bouton révéler)
+- **Ce que l'examinateur veut vérifier** : compétences testées
+- **Exercice contextualisé** : reformulation pédagogique
+- **Résolution guidée** : calculs détaillés étape par étape
+- **Réponse type** : réponse exploitable dans une copie
+- **Pièges / remarques** : points d'attention
+:::
+
+## 4.1. 2011 EPI
+
+### Article et contexte
+
+Article support : **Kalager et al., NEJM 2010**, "Effect of Screening Mammography on Breast-Cancer Mortality in Norway"
+
+- **Design** : Étude observationnelle comparant des comtés norvégiens avec et sans programme de dépistage
+- **Population** : `40 075` femmes avec cancer du sein
+- **Période** : Comparaison entre groupes contemporains et historiques
+- **Résultat principal** : Réduction de mortalité attribuée au dépistage seul = `2,4` décès pour `100 000` personnes-années
+- **Effet relatif** : Réduction d'environ `10%` (IC95% : `-4%` à `24%`, p = 0,13)
+
+### Question posée dans l'annale {.unlisted}
+
+> **Q3. Dans la mesure du possible, calculez une puissance a posteriori.**
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est typique des annales EPI : l'étude est déjà réalisée, on observe un effet avec son intervalle de confiance, et on vous demande de discuter la puissance **a posteriori**.
+
+Le piège classique : la puissance observée n'est PAS le complément de la p-valeur. Il faut utiliser l'effet observé, son erreur standard, et le score de Wald.
+
+Ce qu'il faut montrer ici :
+
+1. l'effet brut est significatif (`RR = 0,72`, IC95% : `0,63` à `0,81`) ;
+2. l'effet net (attribuable au dépistage) est beaucoup plus faible (`RR ≈ 0,90`, IC95% : `-0,04` à `0,24`) ;
+3. la puissance observée sur l'effet net est faible, ce qui explique le résultat non significatif.
+:::
+
+### Extrait de l'article à analyser
+
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Cherchez les résultats sur la réduction de mortalité avec les IC95% et les p-values. Les chiffres clés sont dans l'abstract et le paragraphe de résultats principaux.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2011-epi" aria-expanded="false" aria-controls="hunt-2011-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We analyzed data from 40,075 women with breast cancer. The rate of death was reduced by 7.2 deaths per 100,000 person-years in the screening group as compared with the historical screening group (rate ratio, 0.72; 95% confidence interval [CI], 0.63 to 0.81) and by 4.8 deaths per 100,000 person-years in the nonscreening group as compared with the historical nonscreening group (rate ratio, 0.82; 95% CI, 0.71 to 0.93; P&lt;0.001 for both comparisons), for a relative reduction in mortality of 10% in the screening group (P = 0.13)."</p>
+    <p>"Thus, the difference in the reduction in mortality between the current and historical groups that could be attributed to screening alone was 2.4 deaths per 100,000 person-years, or a third of the total reduction of 7.2 deaths."</p>
+    <p>"Given the reduction in mortality among women in the nonscreening group, as compared with their historical counterparts, the relative reduction among women in the screening group was 10% (95% CI, -4 to 24; P = 0.13)."</p>
+  </div>
+  <div id="hunt-2011-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>Baisse brute dans le groupe avec dépistage : <code>RR = 0,72</code> ; <code>IC95% : 0,63 à 0,81</code></li>
+      <li>Baisse dans le groupe sans dépistage : <code>RR = 0,82</code> ; <code>IC95% : 0,71 à 0,93</code></li>
+      <li>Effet net attribuable au dépistage : réduction relative d'environ <code>10%</code></li>
+      <li>IC95% de l'effet net : <code>-4%</code> à <code>24%</code>, avec <code>p = 0,13</code></li>
+      <li>Différence absolue : <code>2,4</code> décès pour <code>100 000</code> personnes-années</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Ce que l'examinateur veut vérifier
+
+- Savez-vous distinguer l'effet **brut** de l'effet **net** ?
+- Savez-vous calculer un `SE` depuis un IC95% ?
+- Savez-vous utiliser le score de Wald pour estimer une puissance observée ?
+- Comprenez-vous que la puissance observée reflète la précision de l'estimation ?
+
+::: {.formula-card}
+**Résolution guidée**
+
+**Étape 1 : Calculer le SE de l'effet net**
+
+L'effet net est exprimé sur l'échelle du risque relatif. On a :
+$$RR_{\text{net}} \approx 0{,}90 \qquad \text{(réduction de 10%)}$$
+
+avec un IC95% allant de `-4%` (soit `RR = 0,96`) à `+24%` (soit `RR = 0,76`).
+
+Attendez, l'IC est donné en pourcentage de réduction, pas directement en RR. Reformulons :
+
+- Borne inférieure : réduction de `-4%` → pas de bénéfice, voire léger excès → `RR ≈ 1,04`
+- Borne supérieure : réduction de `24%` → `RR ≈ 0,76`
+
+Sur l'échelle logarithmique :
+
+$$\log(RR_{\text{net}}) \approx \log(0{,}90) \approx -0{,}105$$
+
+$$\log(0{,}76) \approx -0{,}274$$
+$$\log(1{,}04) \approx 0{,}039$$
+
+Largeur de l'IC sur l'échelle log :
+
+$$\log(1{,}04) - \log(0{,}76) \approx 0{,}039 - (-0{,}274) = 0{,}313$$
+
+Donc :
+
+$$SE(\log RR_{\text{net}}) \approx \frac{0{,}313}{3{,}92} \approx 0{,}080$$
+
+**Étape 2 : Calculer le score de Wald**
+
+$$z = \frac{|\log(RR_{\text{net}})|}{SE(\log RR_{\text{net}})} \approx \frac{0{,}105}{0{,}080} \approx 1{,}31$$
+
+**Étape 3 : Estimer la puissance observée**
+
+Formule approximative :
+
+$$\text{puissance} \approx \Phi(z - 1{,}96) = \Phi(1{,}31 - 1{,}96) = \Phi(-0{,}65)$$
+
+Or $\Phi(-0{,}65) \approx 0{,}26$, soit environ **26%**.
+
+**Interprétation :** Avec une puissance observée aussi faible, l'étude n'était pas dimensionnée pour détecter un effet net de `10%` de façon significative. Le résultat non significatif (`p = 0,13`) n'est donc pas surprenant.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+L'article donne un effet brut très significatif dans le groupe avec dépistage (`RR = 0,72`, IC95% : `0,63` à `0,81`), mais l'effet **net** attribuable au dépistage seul est beaucoup plus modeste : réduction relative de `10%` avec un IC95% allant de `-4%` à `24%` (`p = 0,13`). 
+
+Pour calculer une puissance a posteriori, on reconstruit d'abord l'erreur standard de l'effet net :
+
+$$SE(\log RR_{\text{net}}) \approx \frac{\log(1{,}04) - \log(0{,}76)}{3{,}92} \approx 0{,}080$$
+
+Puis on calcule le score de Wald :
+
+$$z \approx \frac{|\log(0{,}90)|}{0{,}080} \approx 1{,}31$$
+
+La puissance observée est alors estimée par :
+
+$$\text{puissance} \approx \Phi(1{,}31 - 1{,}96) \approx 26\%$$
+
+Cette puissance très faible explique que le résultat soit non significatif. L'intervalle de confiance large (`-4%` à `24%`) traduit une **imprécision importante**, compatible avec un effet nul ou même légèrement défavorable, comme avec un bénéfice substantiel. En pratique, l'étude manquait de puissance pour trancher sur l'effet net du dépistage.
+:::
+
+::: {.callout-warning title="Pièges et remarques"}
+**Piège n°1 :** Ne pas confondre effet brut et effet net. Ici, la comparaison groupe dépistage vs groupe historique donne `RR = 0,72`, mais cet effet inclut aussi l'amélioration générale des traitements. L'effet net du dépistage est beaucoup plus faible.
+
+**Piège n°2 :** Ne pas dire que "la puissance est 1 - p-valeur". La puissance observée se calcule à partir de l'effet observé et de son SE, pas directement de la p-valeur.
+
+**Piège n°3 :** Attention à l'échelle. Ici, l'IC95% est donné en "pourcentage de réduction", pas directement en RR. Il faut convertir : réduction de `10%` → `RR = 0,90`, réduction de `-4%` → `RR = 1,04`.
+
+**Remarque méthodologique :** Le calcul de puissance a posteriori est controversé en statistique. La vraie conclusion doit porter sur l'**imprécision** de l'estimation (largeur de l'IC), pas sur une puissance recalculée après coup. Mais les examinateurs demandent souvent ce calcul pour vérifier que vous maîtrisez les formules.
+:::
+
+---
+
+## 4.2. 2012 EPI
+
+### Article et contexte
+
+Article support : **Cooper et al., NEJM 2011**, "ADHD Drugs and Serious Cardiovascular Events in Children and Young Adults"
+
+- **Design** : Étude cas-témoins nichée dans une cohorte (nested case-control)
+- **Population** : Enfants et jeunes adultes sous médicaments ADHD
+- **Événements** : Très faible nombre d'événements cardiovasculaires graves
+- **Question clé** : Puissance statistique avec peu d'événements
+
+### Question posée dans l'annale {.unlisted}
+
+> **Q6. Il est indiqué dans le texte que: "The low number of events limited the statistical power of the study". Pouvez-vous retrouver au moins approximativement cette puissance statistique ?**
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette annale illustre un problème classique en épidémiologie : même avec une très grande cohorte, si l'événement est rare, la puissance reste faible.
+
+Ici, le nombre total d'événements cardiovasculaires graves est très petit, ce qui limite fortement la capacité à détecter une association, même si elle existe.
+
+L'examinateur veut vérifier que vous comprenez :
+
+1. que la puissance dépend du **nombre d'événements**, pas seulement de la taille de l'échantillon ;
+2. que vous savez utiliser les résultats observés (HR, IC95%) pour estimer une puissance grossière ;
+3. que vous savez interpréter un résultat non significatif dans ce contexte.
+:::
+
+### Extrait de l'article à analyser
+
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Cherchez le nombre d'événements observés et les hazard ratios avec leurs IC95%. Les informations se trouvent dans les résultats et la discussion.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2012-epi" aria-expanded="false" aria-controls="hunt-2012-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"Among current users of ADHD drugs, as compared with nonusers, the adjusted hazard ratio for serious cardiovascular events was 0.83 (95% confidence interval [CI], 0.72 to 0.96). The low number of events, however, limited the statistical power of the study."</p>
+    <p>"A total of 81 sudden cardiac deaths or ventricular arrhythmia, 26 strokes, and 373 myocardial infarctions occurred during 2,579,104 person-years of follow-up..."</p>
+  </div>
+  <div id="hunt-2012-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>Hazard ratio ajusté : <code>HR = 0,83</code></li>
+      <li>IC95% : <code>0,72</code> à <code>0,96</code></li>
+      <li>Nombre total d'événements très faible : environ <code>480</code> événements au total</li>
+      <li>Résultat limite de significativité (IC supérieur = 0,96, juste en dessous de 1)</li>
+      <li>Les auteurs mentionnent explicitement la limitation due au faible nombre d'événements</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Ce que l'examinateur veut vérifier
+
+- Comprenez-vous que le nombre d'**événements** est le vrai moteur de la puissance ?
+- Savez-vous calculer un `SE` depuis un IC95% sur un hazard ratio ?
+- Savez-vous utiliser ce `SE` pour estimer une puissance observée ?
+- Comprenez-vous qu'un résultat "limite" (p proche de 0,05) peut refléter un manque de puissance ?
+
+::: {.formula-card}
+**Résolution guidée**
+
+**Étape 1 : Reconstruire le SE**
+
+On a : `HR = 0,83`, IC95% : `0,72` à `0,96`.
+
+Sur l'échelle logarithmique :
+
+$$\log(HR) = \log(0{,}83) \approx -0{,}186$$
+
+$$\log(0{,}96) \approx -0{,}041$$
+$$\log(0{,}72) \approx -0{,}329$$
+
+Largeur de l'IC :
+
+$$\log(0{,}96) - \log(0{,}72) \approx -0{,}041 - (-0{,}329) = 0{,}288$$
+
+Donc :
+
+$$SE(\log HR) \approx \frac{0{,}288}{3{,}92} \approx 0{,}073$$
+
+**Étape 2 : Calculer le score de Wald**
+
+$$z = \frac{|\log(HR)|}{SE(\log HR)} \approx \frac{0{,}186}{0{,}073} \approx 2{,}55$$
+
+**Étape 3 : Estimer la puissance observée**
+
+$$\text{puissance} \approx \Phi(z - 1{,}96) = \Phi(2{,}55 - 1{,}96) = \Phi(0{,}59)$$
+
+Or $\Phi(0{,}59) \approx 0{,}72$, soit environ **72%**.
+
+**Interprétation :** La puissance observée est d'environ `70-75%`, ce qui est modéré. Le résultat est significatif (IC supérieur < 1), mais la puissance n'est pas très élevée. Si l'effet vrai était un peu plus faible, ou si le nombre d'événements avait été encore plus petit, l'étude aurait pu manquer de puissance pour détecter l'association.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+L'article rapporte un hazard ratio ajusté de `0,83` (IC95% : `0,72` à `0,96`) pour les événements cardiovasculaires graves chez les utilisateurs actuels de médicaments ADHD par rapport aux non-utilisateurs. Pour estimer la puissance a posteriori, on reconstruit d'abord l'erreur standard :
+
+$$SE(\log HR) \approx \frac{\log(0{,}96) - \log(0{,}72)}{3{,}92} \approx 0{,}073$$
+
+Le score de Wald est alors :
+
+$$z \approx \frac{|\log(0{,}83)|}{0{,}073} \approx 2{,}55$$
+
+La puissance observée est estimée par :
+
+$$\text{puissance} \approx \Phi(2{,}55 - 1{,}96) \approx 72\%$$
+
+Cette puissance de `70-75%` est modérée. Le résultat est significatif (IC ne chevauche pas 1), mais de justesse. Le faible nombre d'événements cardiovasculaires (environ 480 événements au total, répartis entre exposés et non exposés) limite effectivement la précision de l'estimation. Si l'effet vrai était encore plus modeste, ou si les événements étaient encore plus rares, l'étude aurait pu manquer de puissance statistique.
+:::
+
+::: {.callout-warning title="Pièges et remarques"}
+**Piège :** Ne pas confondre "grande cohorte" et "beaucoup d'événements". Ici, la cohorte est très grande (millions de personnes-années), mais les événements cardiovasculaires graves sont rares chez les enfants et jeunes adultes. C'est le nombre d'**événements** qui compte pour la puissance, pas la taille de la cohorte.
+
+**Remarque méthodologique :** Dans les études de survie, une règle empirique est qu'il faut au moins `E/10` événements par variable dans le modèle, où `E` est le nombre total d'événements. Ici, avec environ 480 événements et un modèle ajusté, la puissance est limitée pour détecter des effets modestes ou pour faire des analyses en sous-groupes.
+:::
+
+---
+
+## 4.3. 2013 EPI
+
+### Article et contexte
+
+Article support : **Lasalvia et al., Lancet 2013**, "Global pattern of experienced and anticipated discrimination reported by people with major depressive disorder: a cross-sectional survey"
+
+- **Design** : Enquête transversale internationale
+- **Population** : `1082` personnes avec diagnostic de dépression majeure
+- **Sites** : 39 sites dans 35 pays
+- **Instrument** : DISC-12 (Discrimination and Stigma Scale)
+- **Résultat principal** : `855/1082` (`79%`) rapportent avoir vécu une discrimination dans au moins un domaine de vie
+- **Question clé** : Calcul de puissance a posteriori sans justification prospective de la taille d'échantillon
+
+### Question posée dans l'annale {.unlisted}
+
+> **Q3. Dans l'article on ne trouve pas de justification de la taille de l'échantillon. A posteriori, il n'est pas facile de calculer une puissance statistique. Essayez tout de même de proposer un tel calcul, même très rudimentaire. (5 points)**
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question illustre un cas particulier : une étude descriptive sans hypothèse a priori claire. Contrairement aux études 2011 et 2012 qui testaient des effets de traitement, ici on estime une **proportion** (79% de discrimination vécue).
+
+Le piège classique : vouloir calculer une "puissance" alors qu'il s'agit d'une étude descriptive. La bonne approche est de discuter la **précision** de l'estimation via son intervalle de confiance.
+
+L'examinateur veut vérifier que vous comprenez :
+
+1. la différence entre puissance (pour tester H0) et précision (largeur de l'IC) ;
+2. que dans une étude descriptive, on parle de précision, pas de puissance ;
+3. comment calculer l'erreur standard d'une proportion ;
+4. comment interpréter la précision d'une estimation dans le contexte d'une enquête internationale.
+:::
+
+### Extrait de l'article à analyser
+
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Cherchez les effectifs totaux et les proportions clés dans l'abstract et les résultats. Attention : aucune mention de calcul de puissance ou de taille d'échantillon n'est présente dans l'article.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2013-epi" aria-expanded="false" aria-controls="hunt-2013-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"Findings: 1082 people with depression completed the DISC-12. Of these, 855 (79%) reported experiencing discrimination in at least one life domain. 405 (37%) participants had stopped themselves from initiating a close personal relationship, 271 (25%) from applying for work, and 218 (20%) from applying for education or training."</p>
+    <p>"Methods: In a cross-sectional survey, people with a diagnosis of major depressive disorder were interviewed in 39 sites (35 countries) worldwide with the discrimination and stigma scale (version 12; DISC-12)."</p>
+    <p>"Each site was asked to assess a minimum of 25 people with major depressive disorder (this number was determined by feasibility issues, particularly for sites without grant support)."</p>
+  </div>
+  <div id="hunt-2013-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>Effectif total : <code>n = 1082</code> personnes</li>
+      <li>Proportion avec discrimination vécue : <code>p = 855/1082 = 0,79</code> (79%)</li>
+      <li>Autres proportions : <code>37%</code> (relations), <code>25%</code> (emploi), <code>20%</code> (formation)</li>
+      <li>Pas de calcul a priori de la taille d'échantillon (seulement minimum de 25 par site pour faisabilité)</li>
+      <li>Pas de groupe contrôle (tous ont une dépression)</li>
+      <li>Aucun intervalle de confiance fourni pour les proportions dans l'abstract</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Ce que l'examinateur veut vérifier
+
+- Comprenez-vous qu'une étude descriptive nécessite une approche en **précision** plutôt qu'en puissance ?
+- Savez-vous calculer l'erreur standard d'une proportion : $SE(p) = \sqrt{\frac{p(1-p)}{n}}$ ?
+- Savez-vous construire un IC95% pour une proportion ?
+- Comprenez-vous qu'avec `n = 1082`, la précision est excellente pour estimer une proportion autour de `50-80%` ?
+
+::: {.formula-card}
+**Résolution guidée**
+
+**Contexte :** Il s'agit d'une enquête descriptive, pas d'un essai contrôlé. On ne teste pas une hypothèse du type "le taux de discrimination est différent de zéro", mais on **estime** la proportion de personnes ayant vécu une discrimination. La bonne question est donc : **quelle est la précision de cette estimation ?**
+
+**Étape 1 : Calculer l'erreur standard de la proportion**
+
+On observe : $p = \frac{855}{1082} = 0{,}79$
+
+L'erreur standard est :
+
+$$SE(p) = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0{,}79 \times 0{,}21}{1082}} = \sqrt{\frac{0{,}1659}{1082}} = \sqrt{0{,}0001533} \approx 0{,}0124$$
+
+Soit environ $SE(p) \approx 1{,}24\%$.
+
+**Étape 2 : Construire l'IC95%**
+
+L'IC95% approximatif (formule de Wald) est :
+
+$$IC_{95\%} = p \pm 1{,}96 \times SE(p) = 0{,}79 \pm 1{,}96 \times 0{,}0124$$
+
+$$IC_{95\%} = 0{,}79 \pm 0{,}024 = [0{,}766 \,;\, 0{,}814]$$
+
+Soit environ **76,6% à 81,4%**.
+
+**Étape 3 : Interpréter la précision**
+
+La **largeur** de l'IC est :
+
+$$\text{Largeur} = 0{,}814 - 0{,}766 = 0{,}048 \approx 5\%$$
+
+Avec `n = 1082`, on a une précision de l'ordre de **±2,4 points de pourcentage** autour de l'estimation ponctuelle. C'est une excellente précision pour une enquête internationale.
+
+**Étape 4 : Discussion sur la "puissance" (si on insiste)**
+
+Si on voulait absolument parler de puissance (pour faire plaisir à l'examinateur qui pose la question), on pourrait se demander : **"Quelle est la puissance pour détecter que la proportion est significativement différente de 50% (hypothèse nulle arbitraire) ?"**
+
+Test unilatéral : $H_0: p = 0{,}5$ vs $H_1: p > 0{,}5$.
+
+Sous $H_0$, $SE_0 = \sqrt{\frac{0{,}5 \times 0{,}5}{1082}} = \sqrt{\frac{0{,}25}{1082}} \approx 0{,}0152$
+
+Score de test observé :
+
+$$z = \frac{p - p_0}{SE_0} = \frac{0{,}79 - 0{,}5}{0{,}0152} \approx \frac{0{,}29}{0{,}0152} \approx 19{,}1$$
+
+Avec $z \approx 19{,}1$, la p-valeur est infinitésimale ($p < 10^{-80}$), et la puissance est **quasi-certaine (>99,99%)**.
+
+Mais cette discussion est un peu artificielle : l'objectif de l'étude n'était pas de tester si la discrimination existe (on sait qu'elle existe), mais d'**estimer** son ampleur dans différents pays.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+L'article ne fournit pas de justification a priori de la taille d'échantillon. L'effectif de `n = 1082` a été déterminé par des contraintes de faisabilité (minimum 25 participants par site × 39 sites, avec variations selon les ressources locales).
+
+Pour évaluer la **précision** de l'estimation de la proportion de discrimination vécue (`p = 79%`), on calcule l'erreur standard :
+
+$$SE(p) = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0{,}79 \times 0{,}21}{1082}} \approx 0{,}0124 \quad (1{,}24\%)$$
+
+L'intervalle de confiance à 95% est donc :
+
+$$IC_{95\%} = 0{,}79 \pm 1{,}96 \times 0{,}0124 = [76{,}6\% \,;\, 81{,}4\%]$$
+
+La **précision** est excellente : ±2,4 points de pourcentage. Cette précision est largement suffisante pour l'objectif descriptif de l'étude.
+
+Si on voulait calculer une "puissance" (bien que ce soit conceptuellement discutable pour une étude purement descriptive), on pourrait tester l'hypothèse arbitraire $H_0: p = 50\%$. Le score de test serait :
+
+$$z = \frac{0{,}79 - 0{,}50}{\sqrt{0{,}5 \times 0{,}5 / 1082}} \approx 19{,}1$$
+
+La puissance pour détecter que $p \neq 50\%$ serait donc quasi-certaine (>99,9%).
+
+**Conclusion :** Même sans calcul a priori, l'échantillon de 1082 personnes offre une excellente précision pour estimer des proportions autour de 50-80%. La vraie question n'est pas la puissance statistique (qui est maximale), mais la **représentativité** de l'échantillon vis-à-vis de la population cible (personnes dépressives suivies dans des services spécialisés, dans 35 pays très différents).
+:::
+
+::: {.callout-warning title="Pièges et remarques"}
+**Piège n°1 :** Ne pas confondre puissance et précision. La **puissance** concerne la capacité à rejeter $H_0$ quand elle est fausse. La **précision** concerne la largeur de l'intervalle de confiance. Dans une étude descriptive comme celle-ci, on parle de **précision**, pas de puissance.
+
+**Piège n°2 :** Ne pas oublier que $SE(p)$ dépend de $p$. L'erreur standard est maximale quand $p = 0{,}5$ et diminue quand $p$ s'éloigne de 0,5. Ici, avec $p = 0{,}79$, on a $p(1-p) = 0{,}166$, ce qui est assez proche du maximum (0,25 quand $p = 0{,}5$).
+
+**Piège n°3 :** Ne pas répondre "on ne peut pas calculer de puissance car il n'y a pas de groupe contrôle". Même sans groupe contrôle, on peut discuter la précision d'une proportion, ou calculer une puissance pour un test à un échantillon (par exemple, tester si $p \neq 50\%$).
+
+**Remarque méthodologique :** 
+
+- Avec `n = 1082`, la **marge d'erreur** (pour un IC95%) est environ $\pm 1{,}96 \times SE(p) \approx \pm 2{,}4\%$ pour une proportion autour de 79%.
+- Si on voulait une précision de ±1% (au lieu de ±2,4%), il aurait fallu environ `n ≈ 6400` personnes (car $n \propto 1/\text{(marge)}^2$).
+- L'effectif de 1082 est donc un bon compromis entre faisabilité et précision pour une enquête internationale multiculturelle.
+
+**Remarque sur la validité externe :**
+
+Le vrai enjeu n'est pas la précision statistique (excellente), mais la **représentativité**. L'échantillonnage pragmatique (recrutement dans des services spécialisés, nombre variable de participants par site selon les ressources locales) limite la généralisabilité. Les 1082 personnes ne sont **pas** un échantillon aléatoire de toutes les personnes dépressives dans le monde, mais plutôt des personnes :
+
+- en contact avec des services psychiatriques spécialisés ;
+- capables de comprendre et parler la langue locale ;
+- acceptant de participer à une enquête sur la discrimination.
+
+Ce biais de sélection (sélectivité du recours aux soins, biais de volontariat) peut conduire à **surestimer** ou **sous-estimer** la discrimination, selon que les personnes les plus stigmatisées soient plus ou moins enclines à consulter et à participer.
+:::
+
+---
+
+## 4.4. 2014 EPI
+
+### Article et contexte
+
+Article support : **Bao et al., NEJM 2013**, "Association of Nut Consumption with Total and Cause-Specific Mortality"
+
+- **Design** : Deux grandes cohortes prospectives (Nurses' Health Study + Health Professionals Follow-up Study)
+- **Population** : `76 464` femmes (1980-2010) + `42 498` hommes (1986-2010) = `118 962` participants
+- **Suivi** : `3 038 853` personnes-années de suivi
+- **Événements** : `27 429` décès au total (`16 200` femmes + `11 229` hommes)
+- **Résultat principal** : Association inverse entre consommation de noix et mortalité totale
+- **Question clé** : Calcul de puissance a posteriori sur une cohorte gigantesque
+
+### Question posée dans l'annale {.unlisted}
+
+> **Q3. Dans l'article on ne trouve pas de justification de la taille de l'échantillon. A posteriori, il n'est pas facile de calculer une puissance statistique. Essayez tout de même de proposer un tel calcul, même très rudimentaire.**
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette annale illustre le cas **inverse** du manque de puissance : ici, la cohorte est GIGANTESQUE, avec plus de 3 millions de personnes-années de suivi et 27 000 décès.
+
+Dans un tel contexte, la puissance statistique est forcément très élevée, et ce n'est **pas** la limitation principale de l'étude.
+
+L'examinateur veut vérifier que vous comprenez :
+
+1. que même avec une très grande cohorte, il est possible (et pédagogique) de calculer une puissance a posteriori ;
+2. que vous savez utiliser les résultats observés (HR, IC95%) pour estimer cette puissance ;
+3. que vous identifiez la **vraie limite** de l'étude : biais de confusion résiduelle, causalité inverse, etc., **pas** la puissance statistique.
+:::
+
+### Extrait de l'article à analyser
+
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Cherchez les hazard ratios pour la consommation de noix avec leurs IC95%. Les informations se trouvent dans l'abstract et le tableau 2 des résultats.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2014-epi" aria-expanded="false" aria-controls="hunt-2014-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"During 3,038,853 person-years of follow-up, 16,200 women and 11,229 men died. Nut consumption was inversely associated with total mortality among both women and men, after adjustment for other known or suspected risk factors."</p>
+    <p>"The pooled multivariate hazard ratios for death among participants who ate nuts, as compared with those who did not, were 0.93 (95% confidence interval [CI], 0.90 to 0.96) for the consumption of nuts less than once per week, 0.89 (95% CI, 0.86 to 0.93) for once per week, 0.87 (95% CI, 0.83 to 0.90) for two to four times per week, 0.85 (95% CI, 0.79 to 0.91) for five or six times per week, and 0.80 (95% CI, 0.73 to 0.86) for seven or more times per week (P&lt;0.001 for trend)."</p>
+  </div>
+  <div id="hunt-2014-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>Cohorte gigantesque : <code>118 962</code> participants, <code>3 038 853</code> personnes-années</li>
+      <li>Nombre d'événements très élevé : <code>27 429</code> décès</li>
+      <li>Hazard ratio pour consommation élevée : <code>HR = 0,80</code></li>
+      <li>IC95% : <code>0,73</code> à <code>0,86</code></li>
+      <li>Résultat très significatif : <code>p < 0,001</code> pour la tendance</li>
+      <li>Relation dose-effet claire et monotone</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Ce que l'examinateur veut vérifier
+
+- Savez-vous calculer un `SE` depuis un IC95% sur un hazard ratio ?
+- Savez-vous utiliser ce `SE` pour estimer une puissance observée ?
+- Comprenez-vous que **la puissance n'est PAS le problème** dans cette étude ?
+- Savez-vous identifier les **vraies limites** : confusion résiduelle, causalité inverse, biais de sélection ?
+
+::: {.formula-card}
+**Résolution guidée**
+
+**Étape 1 : Reconstruire le SE**
+
+Prenons l'effet le plus fort : consommation ≥7 fois/semaine vs jamais.
+
+On a : `HR = 0,80`, IC95% : `0,73` à `0,86`.
+
+Sur l'échelle logarithmique :
+
+$$\log(HR) = \log(0{,}80) \approx -0{,}223$$
+
+$$\log(0{,}86) \approx -0{,}151$$
+$$\log(0{,}73) \approx -0{,}315$$
+
+Largeur de l'IC :
+
+$$\log(0{,}86) - \log(0{,}73) \approx -0{,}151 - (-0{,}315) = 0{,}164$$
+
+Donc :
+
+$$SE(\log HR) \approx \frac{0{,}164}{3{,}92} \approx 0{,}042$$
+
+**Étape 2 : Calculer le score de Wald**
+
+$$z = \frac{|\log(HR)|}{SE(\log HR)} \approx \frac{0{,}223}{0{,}042} \approx 5{,}31$$
+
+**Étape 3 : Estimer la puissance observée**
+
+$$\text{puissance} \approx \Phi(z - 1{,}96) = \Phi(5{,}31 - 1{,}96) = \Phi(3{,}35)$$
+
+Or $\Phi(3{,}35) \approx 0{,}9996$, soit environ **99,96%**.
+
+**Interprétation :** La puissance observée est pratiquement de `100%`. Avec une cohorte aussi gigantesque et un nombre d'événements aussi élevé, l'étude a une puissance **quasi-parfaite** pour détecter même des effets modestes. Le `SE` très faible (`0,042`) traduit une **précision excellente**.
+
+**Conclusion clé :** La puissance statistique n'est **absolument pas** la limitation de cette étude. Les vraies limites sont ailleurs :
+
+1. **Confusion résiduelle** : malgré de nombreux ajustements, les consommateurs de noix peuvent avoir d'autres comportements sains non mesurés.
+2. **Causalité inverse** : les personnes malades peuvent avoir réduit leur consommation de noix avant le début du suivi.
+3. **Biais de mesure** : la consommation de noix est auto-déclarée par questionnaire.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+L'article rapporte un hazard ratio de `0,80` (IC95% : `0,73` à `0,86`) pour la mortalité totale chez les participants consommant des noix ≥7 fois par semaine, comparés aux non-consommateurs. Pour estimer la puissance a posteriori, on reconstruit d'abord l'erreur standard :
+
+$$SE(\log HR) \approx \frac{\log(0{,}86) - \log(0{,}73)}{3{,}92} \approx 0{,}042$$
+
+Le score de Wald est alors :
+
+$$z \approx \frac{|\log(0{,}80)|}{0{,}042} \approx 5{,}31$$
+
+La puissance observée est estimée par :
+
+$$\text{puissance} \approx \Phi(5{,}31 - 1{,}96) \approx 99{,}96\%$$
+
+**Avec une cohorte de près de 120 000 participants, 3 millions de personnes-années de suivi, et 27 429 décès, la puissance statistique est quasi-parfaite.** L'erreur standard très faible (`0,042`) traduit une précision excellente de l'estimation.
+
+**La puissance n'est donc absolument pas la limitation de cette étude.** Les vraies limites méthodologiques sont :
+
+1. **Confusion résiduelle** : les consommateurs réguliers de noix ont probablement d'autres comportements sains (activité physique, alimentation globalement plus saine, suivi médical régulier, statut socio-économique plus élevé) que les ajustements statistiques ne peuvent pas complètement éliminer.
+
+2. **Causalité inverse** : certaines personnes peuvent avoir réduit leur consommation de noix en raison de maladies préexistantes ou de symptômes précliniques.
+
+3. **Biais de mesure** : la consommation de noix est auto-déclarée par questionnaire alimentaire, ce qui peut induire des erreurs de classification.
+
+Dans une étude observationnelle aussi grande, le débat porte sur la **nature causale du lien**, pas sur la **significativité statistique**.
+:::
+
+::: {.callout-warning title="Pièges et remarques"}
+**Piège n°1 :** Ne pas dire "on ne peut pas calculer de puissance a posteriori". On peut toujours faire un calcul grossier à partir des résultats observés, même si l'interprétation est limitée.
+
+**Piège n°2 :** Ne pas conclure que "l'étude a une excellente puissance, donc les résultats sont fiables". Une puissance élevée détecte les associations statistiques, mais ne garantit pas la causalité. Avec une si grande cohorte, même un petit biais de confusion peut produire une association significative.
+
+**Piège n°3 :** Ne pas oublier de mentionner que la vraie limitation n'est **pas** la puissance, mais la validité interne (confusion) et externe (généralisation).
+
+**Remarque méthodologique :** Dans les grandes études observationnelles, la significativité statistique est rarement le problème. La vraie question est : "l'association observée reflète-t-elle un lien causal, ou est-elle due à des biais et des facteurs de confusion ?" C'est pourquoi les auteurs insistent dans la discussion sur la nature observationnelle de l'étude et la nécessité d'essais randomisés pour confirmer la causalité.
+
+**Point important :** Le calcul de puissance a posteriori est controversé en statistique. Certains statisticiens le déconseillent car il peut induire en erreur. Ici, l'objectif pédagogique est de montrer que vous savez reconstruire un `SE` depuis un IC95% et utiliser la formule de puissance, **tout en reconnaissant** que la vraie limite de l'étude n'est pas la puissance.
+:::
+
+---
+
+## 4.5. 2016 EPI
+
+### Article et contexte
+
+Article support : **Schnabel et al., Lancet 2015**, "50 year trends in atrial fibrillation prevalence, incidence, risk factors, and mortality in the Framingham Heart Study: a cohort study"
+
+- **Design** : Étude de cohorte prospective sur 50 ans
+- **Population** : `9 511` participants de l'étude de Framingham
+- **Période** : Inclusion entre 1958 et 2007
+- **Personnes-années** : `202 417` personnes-années de suivi
+- **Événements** : `1 544` cas incidents de fibrillation atriale
+- **Analyses** : Tendances par périodes de 10 ans (1958-67, 1968-77, 1978-87, 1988-97, 1998-2007), stratifiées par sexe
+
+### Question posée dans l'annale {.unlisted}
+
+> **Q6. Comment aborder la question de la puissance statistique dans une telle étude ?**
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est subtile. Elle ne demande PAS "calculez la puissance", mais "**comment aborder**" la question de la puissance dans ce type d'étude.
+
+L'examinateur veut que vous compreniez :
+
+1. qu'une étude de **tendances temporelles** sur 50 ans ne se juge pas comme un essai randomisé ;
+2. que la puissance n'est pas uniforme : elle varie selon les décennies et les sous-groupes ;
+3. qu'il faut raisonner en **nombre d'événements** par période, pas juste sur le total global ;
+4. que les auteurs mentionnent eux-mêmes cette limitation dans l'article.
+:::
+
+### Extrait de l'article à analyser
+
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Cherchez le nombre total d'événements, la structure des analyses par décennies, et le passage où les auteurs discutent explicitement les limites de puissance.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2016-epi" aria-expanded="false" aria-controls="hunt-2016-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We investigated trends in incidence, prevalence, and risk factors for atrial fibrillation and its association with stroke and mortality after onset in 9511 participants enrolled in the Framingham Heart Study between 1958 and 2007. We analysed trends within 10 year groups (1958–67, 1968–77, 1978–87, 1988–97, and 1998–2007), stratified by sex."</p>
+    <p>"During 50 years of observation (202 417 person-years), 1544 cases of new-onset atrial fibrillation occurred (of whom 723 [47%] were women)."</p>
+    <p>"The number of atrial fibrillation cases in the first decades of reporting was small and might provide unstable estimates. For low-frequency conditions, the standard errors of the hazards ratios were large, and we had restricted power to detect trends across decades of the study period."</p>
+  </div>
+  <div id="hunt-2016-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>Nombre total de cas : <code>1 544</code> cas incidents de fibrillation atriale</li>
+      <li>Structure des analyses : 5 décennies × 2 sexes = 10 sous-groupes temporels</li>
+      <li>Remarque explicite des auteurs : "The number of atrial fibrillation cases in the first decades of reporting was small and might provide unstable estimates"</li>
+      <li>Limitation reconnue : "we had restricted power to detect trends across decades"</li>
+      <li>Conséquence : erreurs standard larges pour les HR dans certaines périodes</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Ce que l'examinateur veut vérifier
+
+- Comprenez-vous que la puissance d'une étude de tendances n'est pas uniforme ?
+- Savez-vous identifier que les premières décennies ont moins d'événements → moins de puissance ?
+- Comprenez-vous qu'il faut raisonner par **sous-période**, pas juste sur le total ?
+- Savez-vous utiliser les remarques des auteurs pour structurer votre réponse ?
+
+::: {.answer-card}
+**Réponse type**
+
+Dans cette étude de cohorte prospective sur 50 ans, la question de la puissance statistique ne doit pas être abordée de façon globale comme dans un essai randomisé. Plusieurs niveaux doivent être considérés :
+
+**1. Au niveau global :**
+
+L'étude repose sur `9 511` participants, plus de `202 000` personnes-années de suivi et `1 544` cas incidents de fibrillation atriale. Globalement, l'étude est **largement informative** pour décrire les tendances générales d'incidence et de prévalence.
+
+**2. Au niveau des analyses par décennies :**
+
+Les auteurs découpent les données en 5 périodes de 10 ans, stratifiées par sexe. Cela crée 10 sous-groupes temporels. Les premières décennies (1958-67, 1968-77) comportent nécessairement moins de cas que les périodes récentes, car :
+- la cohorte était plus petite au début ;
+- l'incidence de la fibrillation atriale était plus faible ;
+- les méthodes de détection étaient moins systématiques.
+
+Les auteurs reconnaissent explicitement ce problème : *"The number of atrial fibrillation cases in the first decades of reporting was small and might provide unstable estimates."*
+
+**3. Conséquences sur la puissance :**
+
+Dans les décennies anciennes, les effectifs de cas plus faibles conduisent à :
+- des erreurs standard plus larges pour les hazard ratios ;
+- une puissance limitée pour détecter des différences entre périodes ;
+- des estimations moins stables, en particulier dans les analyses en sous-groupes (par sexe, par facteurs de risque).
+
+**4. Conclusion méthodologique :**
+
+La puissance n'est pas un problème pour les résultats globaux, mais elle est **hétérogène** selon les périodes et les sous-analyses. La bonne discussion porte sur :
+- la précision des estimations (largeur des IC95%) selon les décennies ;
+- les limites pour détecter des tendances fines dans les premières périodes ;
+- la robustesse des résultats principaux malgré ces limitations.
+
+En résumé : on ne calcule pas UNE puissance globale, on discute la **variabilité de la puissance** selon les analyses et les périodes.
+:::
+
+::: {.callout-warning title="Pièges et remarques"}
+**Piège :** Ne pas répondre "la puissance est élevée car il y a 1544 événements" sans nuancer. Le total est important, mais la répartition temporelle l'est tout autant.
+
+**Remarque méthodologique :** Dans une étude de tendances temporelles, le **nombre d'événements par période** est le vrai moteur de la puissance pour détecter des changements de tendance. Un total de 1544 événements répartis sur 50 ans donne en moyenne ~30 événements par décennie, ce qui peut être faible pour certaines analyses fines.
+
+**Point d'attention :** Les auteurs mentionnent aussi que les analyses sont stratifiées par sexe, ce qui divise encore les effectifs. Les femmes représentent 47% des cas (723/1544), soit environ 145 femmes par décennie en moyenne. Cela peut limiter la puissance pour détecter des interactions sexe × période.
+
+**Ce que les auteurs font bien :** Ils reconnaissent explicitement cette limitation dans leur article. C'est exactement ce que vous devez faire dans une copie : identifier les forces ET les limites de l'étude.
+:::
+
+---
+
+## 4.6. 2019 EPI
+
+### Article et contexte
+
+Article support : **Shan et al., BMJ 2018**, "Rotating night shift work and adherence to unhealthy lifestyle in predicting risk of type 2 diabetes: results from two large US cohorts of female nurses"
+
+- **Design** : Étude de cohorte prospective
+- **Population** : `143 410` infirmières américaines des cohortes NHS et NHS II
+- **Suivi** : Environ 22-24 ans
+- **Événements** : `10 915` cas incidents de diabète de type 2
+- **Expositions étudiées** : Travail de nuit tournant + mode de vie (score composite)
+- **Résultats principaux** :
+  - `HR = 1,31` par tranche de 5 ans de travail de nuit tournant
+  - `HR = 2,30` par facteur de mode de vie défavorable
+  - Interaction additive et multiplicative explorées
+
+### Question posée dans l'annale {.unlisted}
+
+> **Q11. Dans une cohorte de cette taille, comment se discute la question de la puissance statistique ?**
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est typique des très grandes cohortes observationnelles : avec `143 000` participants, `20-24` ans de suivi et près de `11 000` événements, l'étude est massivement puissante.
+
+L'examinateur ne veut PAS un calcul de puissance. Il veut que vous expliquiez :
+
+1. que la puissance n'est clairement pas un problème ici ;
+2. que les tests de significativité deviennent presque inutiles dans ce contexte ;
+3. qu'il faut se concentrer sur les **tailles d'effet** et la **précision** (IC95%) ;
+4. que la vraie limite est ailleurs : **confusion résiduelle**, **biais de mesure**, **causalité**.
+:::
+
+### Extrait de l'article à analyser
+
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Cherchez les effectifs, le nombre d'événements, et les hazard ratios avec leurs IC95%. Notez la précision des estimations.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2019-epi" aria-expanded="false" aria-controls="hunt-2019-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We followed 143,410 women without diabetes, cardiovascular disease, or cancer at baseline from the Nurses' Health Study (NHS, 1988-2012) and NHS II (1991-2013) for up to 24 years... During 2,700,000 person years of follow-up, we documented 10,915 incident cases of type 2 diabetes."</p>
+    <p>"After adjustment for various lifestyle and dietary factors, rotating night shift work was significantly associated with an increased risk of type 2 diabetes (hazard ratio 1.31, 95% confidence interval 1.19 to 1.44, per 5 years increment)."</p>
+    <p>"An unhealthy lifestyle pattern was strongly associated with diabetes risk (2.30, 2.14 to 2.47, per increment in unhealthy lifestyle score)."</p>
+  </div>
+  <div id="hunt-2019-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>Taille de la cohorte : <code>143 410</code> femmes</li>
+      <li>Suivi : jusqu'à <code>24</code> ans</li>
+      <li>Personnes-années : <code>2 700 000</code></li>
+      <li>Nombre d'événements : <code>10 915</code> cas incidents de diabète</li>
+      <li>HR travail de nuit : <code>1,31</code> (IC95% : <code>1,19</code> à <code>1,44</code>) → IC très étroit</li>
+      <li>HR mode de vie : <code>2,30</code> (IC95% : <code>2,14</code> à <code>2,47</code>) → IC très étroit</li>
+      <li>Tous les résultats sont hautement significatifs (p < 0,001)</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Ce que l'examinateur veut vérifier
+
+- Comprenez-vous que dans une cohorte massive, la puissance n'est PAS le problème ?
+- Savez-vous dire que les IC95% très étroits traduisent une grande précision ?
+- Comprenez-vous que les p-values deviennent presque sans intérêt dans ce contexte ?
+- Savez-vous identifier les **vraies limites** : confusion, causalité, biais de mesure ?
+
+::: {.answer-card}
+**Réponse type**
+
+Avec `143 410` participantes, environ `2,7` millions de personnes-années de suivi et près de `11 000` cas incidents de diabète de type 2, cette cohorte est **massivement puissante**. 
+
+La question de la puissance statistique ne se pose pas ici. Les intervalles de confiance sont très étroits :
+- Pour le travail de nuit : `HR = 1,31` (IC95% : `1,19` à `1,44`)
+- Pour le mode de vie : `HR = 2,30` (IC95% : `2,14` à `2,47`)
+
+Ces IC étroits traduisent une **précision d'estimation** très élevée. Dans ce contexte, les tests de significativité (p-values) n'ont plus vraiment de sens : même des effets très faibles seraient détectés comme "significatifs".
+
+Ce qu'il faut regarder, ce sont les **tailles d'effet** (les HR eux-mêmes) et leur **pertinence clinique**. Un HR de `1,31` pour le travail de nuit est modeste, tandis qu'un HR de `2,30` pour le mode de vie est substantiel.
+
+Les vraies limites de cette étude ne tiennent pas à la puissance, mais plutôt :
+
+1. à la **confusion résiduelle** : malgré les ajustements, des facteurs non mesurés peuvent-ils expliquer les associations ?
+2. au **biais de mesure** : le travail de nuit et le mode de vie sont auto-rapportés, donc sujets à erreur ;
+3. à la **causalité** : les associations observées reflètent-elles vraiment un effet causal ?
+
+En résumé : dans une cohorte de cette ampleur, on se fiche des p-values et on se concentre sur les tailles d'effet et la précision des estimations. La discussion doit porter sur la validité causale, pas sur la puissance.
+:::
+
+::: {.callout-warning title="Pièges et remarques"}
+**Piège :** Ne pas tomber dans le piège de calculer une puissance dans ce contexte. Avec près de 11 000 événements, la puissance est proche de 100% pour tout effet raisonnablement substantiel.
+
+**Remarque méthodologique :** Dans les très grandes cohortes, la **significativité statistique** et la **pertinence clinique** se dissocient. Un effet peut être hautement significatif (p < 0,001) mais cliniquement peu important (ex: `HR = 1,05`). À l'inverse, dans une petite étude, un effet cliniquement important peut être non significatif par manque de puissance.
+
+**Point d'attention :** Les auteurs étudient l'interaction additive et multiplicative entre travail de nuit et mode de vie. C'est une question distincte de la puissance globale, mais les sous-analyses peuvent avoir moins de puissance que l'analyse principale.
+:::
+
+---
+
+## 4.7. 2020 EPI
+
+### Article et contexte  
+
+Année 2020 : Article à clarifier depuis le sujet Exam_Epi_2020_article.pdf
+
+**Note :** Les corrections DOCX 2020 sont disponibles mais le contenu EPI spécifique n'a pas été extrait. Section à compléter ultérieurement avec les questions spécifiques d'épidémiologie de cette année.
+
+---
+
+## 4.8. 2021 EPI
+
+### Article et contexte
+
+Article support : **Srinivasan et al., Lancet Psychiatry 2020**, "Maternal depression and offspring psychotic experiences at 18 years: a longitudinal study"
+
+**Questions principales identifiées (Article 1 - 4 questions) :**
+
+1. **Variable à expliquer et mesure** : Troubles psychotiques chez les enfants à 18 ans
+2. **Variable d'exposition** : Utilisation de scores continus de symptômes dépressifs maternels (vs catégoriel)
+3. **Ajustement et confusion** : Ajustement sur antécédents familiaux + score génétique de schizophrénie - est-ce suffisant?
+4. **Effect modifier** : Épisodes de dépression maternelle tardifs comme modificateur d'effet
+
+::: {.callout-note title="Point méthodologique clé"}
+Cette étude illustre l'importance du **contrôle de la confusion génétique** en épidémiologie familiale. L'ajustement sur le score de risque polygénique est crucial mais peut ne pas capturer toute la confusion résiduelle (facteurs environnementaux partagés, épigénétique, etc.).
+:::
+
+---
+
+## 4.9. 2022 EPI  
+
+### Article et contexte
+
+Article support : **Niederkrotenthaler et al., BMJ 2021**, "Association between suicide reporting in the media and suicide: systematic review and meta-analysis"
+
+**Design clé :** Séries temporelles interrompues (Interrupted Time Series)
+
+**Questions principales (Article 1 - 5 questions) :**
+
+1. **SARIMA models** : Seasonal Autoregressive Integrated Moving Average - modèles de séries temporelles
+2. **Facteurs exogènes** : Les événements confondants sont-ils vraiment des facteurs de confusion?
+3. **Points de rupture** : Identification des interruptions dans les tendances temporelles
+4. **Causalité** : Limites de l'inférence causale dans les études observationnelles
+5. **Présentation des résultats** : Discussion critique des IC et p-values
+
+::: {.callout-important title="Design : Séries temporelles interrompues"}
+Les séries temporelles interrompues sont très utiles pour évaluer l'impact de **politiques publiques** ou d'**interventions** à l'échelle d'une population. Elles permettent de contrôler les tendances temporelles pré-existantes.
+
+**Points clés :**
+- Comparer la tendance AVANT et APRÈS l'intervention
+- Contrôler pour la saisonnalité (modèles SARIMA)
+- Attention aux événements confondants contemporains
+- Inférence causale plus forte que simple avant/après, mais toujours limitée vs ECR
+:::
+
+---
+
+## 4.10. 2023 EPI
+
+### Article et contexte
+
+Article support : **Brynge et al., Lancet Psychiatry 2022**
+
+**Note :** Section à compléter. Année identifiée dans les annales mais contenu spécifique à extraire.
+
+---
+
+## 4.11. 2024 EPI
+
+### Article et contexte
+
+Article support : **Hasin et al., Lancet Psychiatry 2023**
+
+**Note :** Section à compléter. Année identifiée dans les annales mais contenu spécifique à extraire.
+
+---
+
+## 4.12. 2025 EPI
+
+### Article et contexte
+
+Article support : **Salvatore et al., Am J Psychiatry 2024**
+
+**Note :** Section à compléter. Année identifiée dans les annales mais contenu spécifique à extraire.
+
+---
+
+## 4.13. 2026 EPI
+
+### Article et contexte
+
+Article support : **Rosenström et al., Lancet Psychiatry 2025**, "Efficacy and effectiveness of therapist-guided internet versus face-to-face cognitive behavioural therapy for depression via counterfactual inference"
+
+- **Design** : Cohorte rétrospective avec registres naturalistiques finlandais
+- **Population** : 5 834 patients (5 467 iCBT, 388 fCBT) 
+- **Critère principal** : Changement score PHQ-9 (baseline à dernière mesure)
+- **Méthode statistique** : TMLE (Targeted Maximum Likelihood Estimator) avec Super Learners (machine learning)
+- **Résultat principal** : ATE = 0,745 point PHQ-9 (IC 95%: 0,156–1,334) en faveur de l'iCBT
+
+**Concepts clés de l'année 2026 :**
+
+::: {.callout-important title="Efficacy vs Effectiveness"}
+- **Efficacy** : Effet mesuré dans des conditions idéales (ECR)
+- **Effectiveness** : Effet mesuré en conditions réelles (pratique clinique)
+
+Cette étude combine les deux en utilisant des **registres naturalistes** (effectiveness) avec des méthodes d'**inférence causale** sophistiquées pour approcher une conclusion d'efficacy.
+:::
+
+::: {.callout-note title="TMLE et Double Robustesse"}
+**TMLE (Targeted Maximum Likelihood Estimator) :**
+- Méthode d'estimation causale moderne
+- Combine propensity score ET modèle de l'outcome
+- **Double robustesse** : estimation correcte si AU MOINS UN des deux modèles est bien spécifié
+- Utilise le machine learning (Super Learners) pour estimer ces modèles de façon flexible
+
+**Avantages :**
+- Moins de biais par mauvaise spécification du modèle
+- Intervalles de confiance valides
+- Permet l'estimation de l'ATE (Average Treatment Effect) en observationnel
+:::
+
+::: {.callout-note title="Super Learners et Ensemble Methods"}
+Au lieu d'utiliser un seul modèle (ex: régression logistique), les Super Learners :
+
+1. Entraînent PLUSIEURS algorithmes en parallèle (GLM, LASSO, Random Forest, XGBoost, etc.)
+2. Les combinent de façon optimale via validation croisée  
+3. Obtiennent des prédictions plus robustes et précises
+
+**Pourquoi c'est utile :** On ne sait jamais a priori quel modèle sera le meilleur. L'ensemble est presque toujours meilleur qu'un seul modèle.
+:::
+
+**Questions types pour 2026 :**
+
+1. **Design** : Avantages/inconvénients des registres naturalistes vs ECR
+2. **Inférence causale** : DAG, facteurs de confusion, identifiabilité
+3. **Méthodes statistiques** : TMLE, double robustesse, Super Learners
+4. **ATE** : Interprétation de l'Average Treatment Effect (0,745 points PHQ-9)
+5. **Efficacy vs Effectiveness** : Comment cette étude apporte des preuves sur les deux
+
+::: {.callout-warning title="Point d'attention 2026"}
+L'année 2026 contient **35 questions** dans le sujet complet, couvrant design, méthodes statistiques avancées (TMLE, ML), inférence causale, et interprétation.
+
+Pour l'examen, concentrez-vous sur :
+- La distinction efficacy/effectiveness
+- Les principes de base du TMLE et de la double robustesse
+- L'interprétation de l'ATE avec son IC95%
+- Les limites de l'inférence causale en observationnel malgré les méthodes sophistiquées
+:::
+
+---
+
+## 5. Checklist pour l'examen
+
+::: {.callout-tip title="Avant de rendre votre copie"}
+Pour chaque question d'annale EPI, vérifiez que vous avez :
+
+**Sur la compréhension de l'étude :**
+- [ ] Identifié le design (cohorte, cas-témoins, transversal, etc.)
+- [ ] Noté les effectifs et le nombre d'événements
+- [ ] Compris l'exposition principale et l'outcome
+
+**Sur le raisonnement statistique :**
+- [ ] Distingué puissance et précision
+- [ ] Utilisé l'IC95% pour discuter la précision
+- [ ] Calculé un SE si demandé (formule : largeur IC / 3,92)
+- [ ] Expliqué le raisonnement, pas juste donné un chiffre
+
+**Sur l'interprétation :**
+- [ ] Distingué significativité statistique et pertinence clinique
+- [ ] Identifié les vraies limites (confusion, biais, causalité)
+- [ ] Fourni une réponse exploitable, pas juste des calculs
+
+**Sur la forme :**
+- [ ] Rédigé des phrases complètes
+- [ ] Explicité chaque étape de calcul
+- [ ] Utilisé les bons symboles et notations
+- [ ] Donné une réponse finale claire
+:::
+
+---
+
+::: {.callout-note title="Document en construction"}
+Ce document est un work in progress. Les sections 4.3 à 4.13 seront complétées progressivement avec le même niveau de détail que les sections 4.1, 4.2 et 4.6.
+
+Pour chaque année manquante, la structure sera :
+1. Article et contexte
+2. Question(s) posée(s)
+3. Extrait anglais avec bouton révéler
+4. Ce que l'examinateur veut vérifier
+5. Exercice contextualisé
+6. Résolution guidée (calculs détaillés)
+7. Réponse type
+8. Pièges et remarques
+:::

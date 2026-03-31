@@ -1,0 +1,106 @@
+M2 méthodologie et statistique en recherche biomédicale 2019/2020
+27/03/2020
+
+
+Merci d’envoyer à l’adresse m2msrkb@gmail.com vos 2 copies.  Chaque copie sous forme d’un ficher pdf avec pour nom respectivement :  epi_nomdenaissance_prénom.pdf  (épreuve d’épidémiologie)
+et 
+rc_nomdenaissance_prénom.pdf (épreuve de recherche clinique)
+
+Travaillez bien !
+
+
+Recherche clinique : à propos de l’article :
+Effect of Tanezumab on Joint Pain, Physical Function, and Patient Global Assessment of Osteoarthritis Among Patients With Osteoarthritis of the Hip or Knee
+A Randomized Clinical Trial
+
+	•	Quels sont les co-critères principaux d’efficacité de l’étude ? Quels sont leurs forces et leurs faiblesses ?
+Les 3 co-critères principaux d’efficacité de l’étude sont :
+- Evolution de la sous-échelle de douleur en rapport avec l’arthrose WOMAC (Western
+Ontario and McMasters Universities Osteoarthritis Index) entre la baseline (=date
+d’inclusion du sujet) et la semaine 16 ;
+- Evolution du la sous-échelle de fonction physique en rapport avec l’arthrose WOMAC
+entre la baseline et la semaine 16 ;
+- Evolution de l’évaluation globale de l'arthrose par les patients (PGA-OA) entre la
+baseline et la semaine 16.
+Forces :
+- C’est une association de critères subjectifs et multidimensionels avec des critères
+physiques fonctionnels mais aussi de la douleur. C’est pertinent cliniquement au vu de
+la pathologie étudiée. L’importance est placée au niveau du vécu quotidien du patient.
+- Le WOMAC est une échelle très utilisée en rhumatologie et validée
+Faiblesses :
+- Le critère d’évaluation globale de l’arthrose est une échelle de 1 à 5, donc très peu
+sensible au changement.
+- Pas de critère « objectif » de type physiopathologique ou radiologique. (Même si dans
+la pathologie qu’est l’arthrose l’importance des signes radiologiques n’est pas
+forcément corrélé à la douleur des patients.)
+- Le critère principal est donc un co-critère à 3 dimensions et non un critère unique.
+
+	•	Dans l’étude il est calculé un nombre de sujets à inclure égal à 3*230. Proposez de votre côté un calcul de ce paramètre.
+Dans l’article, les auteurs nous ont précisé le delta et le SD pris en compte dans les calculs.
+
+
+
+Si ces endpoints étaient à analyser séparément, on aurait pensé qu’un nombre de 165 sujets/bras aurait pu garantir la puissance de 90% à chaque fois. Mais les auteurs ont calculé un NSN de 230/bras. Pourquoi ?
+Parce que le critère de jugement principal est en fait un critère MULTIPLE : la survenue d’un changement significatif de chacun de ces 3 co-primary endpoints est nécessaire pour coter le critère de jugement comme positif. Autrement dit, il y a un seul résultat où l’étude d’un bras sera considérée positive, c’est lorsque les 3 composantes du critère de jugement principal sont toutes les 3 positives. Avec ce risque d’inflation du risque beta et donc un risque de diminution de puissance, on s’attend que le NSN soit plus grand que celui qu’on vient de calculer.
+En fait, on doit prendre en considération la corrélation entre ces co-primary endpoints, pour corriger le NSN. Le plus « grave » (c’est-à-dire le plus couteux pour le NSN) c’est lorsque c’est critères sont indépendants. Or, dans le plan d’analyse, on voit que ces 3 co-critères ne sont pas indépendants : les auteurs nous ont donné la corrélation entre ces co-critères : r=0.93 et r=0.68
+Et en effet, le logiciel R nous propose un package très utile : «mpe » avec une commande power.known.var (Multiple Co-Primary Endpoints with Known Covariance). C’est une librairie qui calcule le NSN en prenant en considération que le critère de jugement est multiple library (mpe) power.known.var(K=3,power=0.9,rho=c(0.93,0.68,0.68),SD=c(2.73,2.58,0.92), delta=c(1,1,0.32),sig.level = 0.025)
+[K: nbr de bras, power :puissance, rho :structure de corrélation, delta : MCID]
+ce qui nous donne n=195 dans chaque bras, donc 585 sujets en total car l’étude renferme 3 bras (K=3).
+Dans l’étude, les auteurs ont inclus n=230 sujets dans chaque bras, donc 690 sujets en total, ce qui n’est pas loin du chiffre qu’on vient d’estimer, et en pus, il est plus grand, ce qui peut nous rassurer.
+
+	•	Il est dit dans l’article que “Tanezumab treatment groups were considered more effective than placebo if all 3 co–primary end points were statistically significant.”. Cette approche est-elle habituelle ? Quels sont ses intérêts et inconvénients ?
+Utiliser un co-primary end-point n’est pas forcément une démarche habituelle.
+En effet, il est plus fréquent de retrouver dans la littérature des critères de jugement
+composite. Dans le cas d’un critère composite, seul un critère significatif est nécessaire pour
+déclarer la significativité. Il est alors indispensable de contrôler l’inflation du risque alpha, en lien avec la multiplicité des tests.
+Ici, l’utilisation du co-primary end-point est intéressante pour différentes raisons dans le
+tableau ci-dessous.
+
+
+	•	Quelles sont les différences d’efficacité observées entre les bras actifs et le bras placebo pour chacun des co-critères principaux d’efficacité ? Interprétez l’importance de ces différences.
+
+Différences versus placebo :
+• Douleur : -0.6 pour tanezumab 2,5/2,5 mg et -0.73 pour 2,5/5mg
+• Fonction : - 0.66 pour tanezumab 2,5/2,5 mg et -0 ,89 pour 2,5/5mg
+• Global Assesement : - 0.22 pour tanezumab 2,5/2,5 mg et -0 ,25 pour 2,5/5mg
+Interprétation :
+Il existe une différence statistiquement significative, cependant en fonction des différences cliniquement pertinentes (MCID) les différences ne sont pas très importantes et on pourrait dire que les résultats sont significativement différents mais avec un bénéfice très discret.
+
+	•	Dans la table 4 comparant les effets indésirables présentés par les patients dans chaque groupe il n’y a pas de « p ». A votre avis pourquoi ?
+Il n’y a pas de p-value dans cette table car il s’agit d’un analyse descriptive exploratoire des
+effets indésirables.
+De plus, comme ce sont les effets indésirables qui sont ici évalués, ce qui nous intéresse c’est
+de ne pas avoir de faux négatifs, ne pas passer à côté d’effets secondaires, (et donc plutôt le
+risque béta), en suivant le principe de précaution, (il est plus dangereux de rater des effets
+secondaires que de conclure à tort à un effet secondaire).
+
+Epidémiologie : à propos de l’article :
+Ethnic density and other neighbourhood associations formortality in severe mental illness:  a retrospective cohort study with multi-level analysis from an urbanised  and ethnically diverse location in the UK
+
+
+	•	Dans la cohorte étudiée, comment les sujets ont-ils été classés en cas (malade psychiatrique) et en contrôle (non malade psychiatrique) ? Ce classement est-il fiable ?
+Dans la cohorte à proprement parler, il n’y a que des malades psychiatriques.
+Ils sont inclus sur la base d’un diagnostic ICD-10 de maladie psychiatrique sévère fait dans l’un des services du NHS trust. Pour classer ces patients, les auteurs utilisent d’une part les diagnostics codés dans la base de données par les cliniciens de ces centres, et d’autre part un logiciel qui permet d’analyser les observations et les courriers médicaux pour en extraire un diagnostic.
+Ce logiciel est peu sensible pour les maladies psychiatriques sévères, mais il possède une bonne valeur prédictive positive. Il ne permettra donc pas de détecter tous les cas (mais ce n’est pas le but ici), mais les cas identifiés seront des « vrais » cas en grande majorité. C’est donc un classement plutôt fiable, même s’il est discutable.
+
+	•	Le modèle statistique utilisé dans l’article est un « multi-level Poisson regression » à quoi correspond ce type de modèle ?
+Ce type de modèle est une régression de Poisson (modèle linéaire généralisé utilisé pour les données de comptage) particulière car elle permet de gérer des données à plusieurs « niveaux ». Ici, on a d’une part des données à l’échelle individuelle et d’autre part des données à l’échelle géographique, qui correspondent à deux niveaux différents. La prise en compte des données à l’échelle géographique est réalisée à l’aide d’un effet aléatoire de type « centre »
+
+	•	Contrairement aux résultats trouvés dans l’article, d’anciennes études ont mis en évidence la présence d’une association entre la fragmentation sociale et la mortalité. Dans la discussion les auteurs suggèrent que ces études étaient possiblement entachées d’un biais écologique. Qu’est-ce qu’un biais écologique ? 
+Les études précédents étaient des études écologiques qui étudient l'exposition et la maladie au
+niveau de la population et non pas au niveau individuel. Les résultats obtenus à partir de ces
+données aggrégées peuvent ne pas correspondrent à ce qui serait observé sur données individuelles et être biaisée par un biais dit “écologique”. Un exemple classique concerne l’association entre migration et niveau scolaire au XXème siècle aux US. Les migrants choisissent des comptés où le niveau d’éducation est globalement haut, il y a donc à ce niveau une association positive entre taux de migration et niveau scolaire alors que le contraire est vrai au niveau individuel.
+
+	•	Quel est le résultat principal de l’étude ? Comment l’interpréter ?
+Concernant la ‘densité ethnique’ des habitants par quartier, ils ont trouvé que dans les quartiers moins denses ethniquement (least ethnically dense) il n’y avait aucune différence significative dans le taux de mortalité des personnes avec maladie mentale grave entre des individus blancs et des individus appartenant à des minorités ethniques. Par contre, dans les quartiers avec une densité ethnique élevée (highest ethnic density areas) le risque relatif des individus blancs a été plus grand que pour les habitants appartenant à une autre ethnicité. Les résultats sont similaires pour tous les groupes ethniques.
+C’est-à-dire, que les personnes britanniques blanches touchés par des maladies mentales graves ont un taux de mortalité élevé quand ils habitent des quartiers cosmopolites. L’inverse n’est pas vrai). C’est un résultat très étonnant et intéressant ! Cela pourrait être parce qu’il y a une moindre notion de communauté parmi les habitants blancs d’un quartier que parmi une communauté ethnique autre (South Asian, Caribbean etc), donc un réseau de soutien important pour les personnes à maladies mentales graves qui s’absente et peut aggraver leur situation dans des quartiers moins privilégiés (lower social support, social isolation, more discrimination).
+
+	•	Une étude qualitative pourrait être réalisée pour approfondir les résultats. Quel protocole proposeriez-vous en quelques lignes ?
+Une étude qualitative selon la méthode de la théorisation ancrée pourrait être réalisée pour étudier si les personnes atteintes de troubles mentaux sévères ont accès aux soins courants.
+L’échantillonnage sera réalisé dans le centre de soin en santé mentale du South London and Maudsley NHS Trust en sélectionnant des patients avec un maximum d’’hétérogénéité. L’échantillon sera diversifié au fur et à mesure de l’avancement de la recherche. 20 à 30 entretiens individuels semi-structurés seront nécessaires, d’une durée de 45 minutes à 1h30.
+Un guide d’entretien sera réalisé pour les personnes qui feront passer l’entretien.
+L’ensemble des entretiens sera enregistré, retranscrit, analysé et interprété par deux psychologues afin de réduire les biais d’analyse et assurer la validation croisée des données.
+Le codage sera implémenté au fur et à mesure, après chaque entretien.
+Une analyse axiale sera réalisée pour regrouper les thèmes qui ressortiront des entretiens.
+
+

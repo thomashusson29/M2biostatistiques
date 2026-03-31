@@ -1,0 +1,42 @@
+M2 méthodologie et statistique en recherche biomédicale 2020/2021
+2/04/2021
+
+
+À propos de l’article (sans le supplément) :
+Maternal perinatal depressive symptoms and offspring psychotic experiences at 18 years of age: a longitudinal study
+
+	•	Dans une étude d’épidémiologie analytique il y a généralement une « variable à expliquer ». Qu’elle est-elle ici ? Comment est-elle mesurée ?
+L’outcome principal est relatif à la survenue « d’expériences psychotiques » mesurée par le PLIKSi à l’isue d’un entretien semi structuré réalisé par des psychologues avec validation sur un sous échantillon par des psychiatres. C’est remarquable (et couteux…).
+Il y a un outcome secondaire, mais moins intéressant.
+	•	Concernant la variable d’exposition d’intérêt, il est écrit dans l’article : « Symptoms of maternal perinatal depression were measured with the Edinburgh Postnatal Depression Scale (EPDS). […] This study primarily used the continuous scores to make full use of the variation in symptoms, although the threshold of more than 12 was used to confirm the results of the main analyses. » Que pensez-vous de la stratégie proposée ici par les auteurs ?
+L’EPDS est un bon instrument très connu. L’analyse est faite successivement sur le score brut et sur le score découpé. C’est une question récurrente, est-ce légitime de découper un score psychométrique. En théorie ça n’a aucun intérêt et aucune légitimité même si on calcule des sensibilités et de spécificités. En pratique les gens aiment bien et parfois ça a même une certaine pertinence (s’il y a un effet de seuil, mais c’est rare)
+	•	Concernant la construction du modèle, les auteurs indiquent que les « Covariates were selected on the basis of previous reports of their association with maternal perinatal depression and with psychosis. Factors that might be on the causal pathway (ie, occurring after birth and during childhood, such as offspring experience of abuse or bullying) were not included [in the model]. ». Justifiez cette stratégie de sélection de variables.
+C’est theory driven, avec les facteurs de confusions, mais pas les facteurs de médiation. C’est bien pour le dire vite
+	•	Discutez l’existence et la prise en compte dans l’article de possibles facteurs de confusion génétiques.
+Problème majeur. Ils ajustent sur des antécédents familiaux et sur un score de risque génétique de schizophrénie. Mais est-ce suffisant ?… C’est la principale faiblesse du papier, intéressant par ailleurs
+	•	Dans l’article il est indiqué : « To investigate whether later episodes of maternal depression occurring during the child’s life are an effect modifier of the association between maternal antenatal depression and offspring psychotic experiences by 18 years of age, ». Qu’entendent les auteurs par « effect modifier » ? Comment sont-ils recherchés statistiquement ?
+Interaction entre une covariable et un facteur de risque qui modifie l’effet de ce dernier
+
+
+
+
+
+
+
+À propos de l’article (avec le supplement) :
+Participation in adherence clubs and on-time drug pickup among HIV-infected adults in Zambia: A matched-pair cluster randomized trial
+
+
+	•	Dans un essai, la question de la pertinence clinique du critère principal d’efficacité est essentielle. Quel est ce critère ici et qu’en pensez-vous ?
+Délai jusqu’au premier retard de retrait de traitement (>7j)
+Très proche de l’objectif (observance), mais frustrant pour un clinicien (qu’est ce que ça prouve ?). L’opposition classique entre la pensée de santé publique et la pensée clinique
+	•	Si le design avait été celui d’un essai randomisé standard, combien de patients aurait-il fallu inclure pour obtenir une puissance statistique « convenable » (partant des mêmes hypothèses d’effet attendu que les auteurs) ?
+Les auteurs partent sur la base de 60% d’outcome (=P1) dans le bras contrôle et d’une réduction de 50% dans le bras intervention (P2=60%/2=30%).
+A partir de P1 et P2 et de la formule du NSN vue en cours on trouve un peu moins de 50 patients par bras
+	•	Quel est l’intérêt, ici, de faire un essai randomisé en cluster ?
+De toutes façons l’intervention est systémique alors il y a pas trop le choix. Sinon moins de contagion, moins cher, plus facile, faciliter le recrutement, etc.
+	•	Concernant l’analyse statistique du critère d’efficacité il est dit : « The adjusted effect was estimated using a Cox proportional hazards model with a random effect for center [19]. Covariate selection for the model was based on inclusion of variables that were a priori considered to be potential confounders ». Pourquoi les auteurs parlent-ils de facteurs de confusion potentiels alors que l’essai est randomisé ?
+Un RCT élimine les facteurs de confusion présent jusqu’à la randomisation c’est vrai. Mais ici ça n’est pas un RCT au sens strict du terme car on randomise des centres (et en plus il y en a peu) et on analyse des patients. Donc il peut y avoir des facteurs de confusion et donc il faut ajuster dessus…
+	•	Décrivez de façon synthétique les principales étapes de la méthodologie utilisée pour la partie qualitative de l’étude ?
+
+

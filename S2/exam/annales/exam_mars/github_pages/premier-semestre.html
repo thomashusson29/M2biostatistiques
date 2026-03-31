@@ -121,7 +121,7 @@
 
     <section class="panel">
       <h1>Premier semestre</h1>
-      <p>Cette page reprend les cours HTML déjà publiés dans <code>docs/</code>. Le poly sur le nombre de sujets nécessaires est volontairement sorti de cette liste pour avoir son entrée dédiée sur l'accueil.</p>
+      <p>Cette page reprend les cours HTML déjà publiés dans <code>docs/</code>. Les polys d'annales du second semestre ont leur entrée dédiée sur l'accueil et dans la page <code>Deuxième semestre</code>.</p>
 
       <div class="list" id="file-list"></div>
       <p class="status" id="status">Chargement de la liste…</p>
@@ -132,7 +132,14 @@
     const user = "thomashusson29";
     const repo = "M2biostatistiques";
     const folder = "docs";
-    const exclusions = new Set(["index.html", "premier-semestre.html", "poly_revision_nsn.html"]);
+    const exclusions = new Set([
+      "index.html",
+      "premier-semestre.html",
+      "deuxieme-semestre.html",
+      "poly_revision_nsn.html",
+      "poly_revision_RC_codex.html",
+      "poly_revision_epi_codex.html"
+    ]);
     const pinned = ["S0_Mindmap_globale.html"];
 
     function prettyLabel(name) {

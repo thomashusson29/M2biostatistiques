@@ -1,0 +1,313 @@
+---
+title: "Poly de révision EPI"
+subtitle: "Annales d'Épidémiologie : articles, questions et corrections détaillées"
+lang: fr
+toc: true
+toc-depth: 3
+toc-location: body
+format:
+  html:
+    theme: cosmo
+    css: poly_revision_nsn.css
+    embed-resources: true
+    html-math-method: mathml
+    code-fold: false
+    include-in-header:
+      text: |
+        <script>
+        (function () {
+          const storageKey = "poly-revision-theme";
+          document.documentElement.classList.add("js");
+          let theme = "day";
+          try {
+            const params = new URLSearchParams(window.location.search);
+            const queryTheme = params.get("theme");
+            if (queryTheme === "night" || queryTheme === "day") {
+              theme = queryTheme;
+            } else {
+              const saved = window.localStorage.getItem(storageKey);
+              if (saved === "night" || saved === "day") {
+                theme = saved;
+              } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                theme = "night";
+              }
+            }
+          } catch (error) {}
+          document.documentElement.setAttribute("data-theme", theme);
+        })();
+        </script>
+  pdf:
+    pdf-engine: xelatex
+    documentclass: scrartcl
+    papersize: a4
+    mainfont: "Helvetica Neue"
+    sansfont: "Helvetica Neue"
+    monofont: "Menlo"
+    geometry:
+      - top=18mm
+      - bottom=18mm
+      - left=17mm
+      - right=17mm
+    fontsize: 10.5pt
+    colorlinks: true
+    code-fold: false
+editor: source
+---
+
+::: {.cover-banner}
+## Poly de révision EPI {.cover-title}
+
+### Épidémiologie analytique : annales résolues et méthodes {.cover-subtitle}
+
+Document de travail ultra-complet : CHAQUE question d'annale décortiquée avec extraits, raisonnements détaillés et réponses types.
+:::
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="theme-toolbar">
+  <button id="theme-switch" class="theme-switch" type="button" aria-pressed="false" aria-label="Basculer entre le mode clair et le mode nuit">
+    <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true">&#9790;</span>
+    <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true">&#9728;</span>
+  </button>
+</div>
+```
+:::
+
+::: {.hero}
+Ce poly a un seul objectif : **permettre de répondre entièrement à TOUTES les questions d'annales d'épi**.
+
+Chaque année est traitée question par question : identification du passage clé, raisonnement détaillé, et réponse type.
+
+::: {.chips}
+<span class="chip">didactique</span>
+<span class="chip">exhaustif</span>
+<span class="chip">orienté examen</span>
+<span class="chip">HTML + PDF</span>
+:::
+:::
+
+## 1. Rappels méthodologiques indispensables
+
+### 1.1. Précision vs Puissance
+En épidémiologie observationnelle, on discute la puissance via la **précision** (largeur de l'IC95%). Un IC95% large = manque de précision. Pour RR/OR/HR, on travaille sur l'échelle **logarithmique** :
+$$SE(\log HR) = \frac{\log(	ext{borne sup}) - \log(	ext{borne inf})}{3{,}92}$$
+
+### 1.2. Puissance observée
+Le calcul de puissance a posteriori est souvent critiqué, mais s'il est demandé, la logique est la suivante :
+$$z = \frac{|\log(HR)|}{SE(\log HR)}$$
+$$	ext{Puissance} \approx \Phi(z - 1{,}96)$$
+Où $\Phi$ est la fonction de répartition de la loi Normale centrée-réduite. Un score $z$ élevé (ex: > 3) indique une puissance observée très haute. Un $z$ inférieur à 1.96 indique une puissance inférieure à 50%.
+
+---
+
+## 2. Annales résolues (2011 - 2026)
+
+## 2011 EPI : Kalager et al., NEJM 2010
+
+### Contexte de l'article {.unlisted}
+Étude quasi-expérimentale sur l'effet du dépistage mammographique en Norvège. Le déploiement progressif du programme permet de comparer des zones exposées et non exposées, en utilisant des groupes historiques pour contrôler la tendance temporelle.
+
+---
+
+#### Question 1. Quel est le schéma d'étude ? {.unlisted}
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : Votre capacité à identifier un design non standard qui n'est ni une cohorte classique ni un essai randomisé pur. Le terme "quasi-expérimental" est clé.
+:::
+::: {.answer-card}
+**Réponse type**
+Il s'agit d'une étude **quasi-expérimentale**. Elle exploite une expérience naturelle, le déploiement géographique séquentiel du programme de dépistage mammographique en Norvège, pour comparer des zones exposées au dépistage à des zones non exposées, tout en utilisant des groupes contrôles historiques pour tenter de neutraliser la tendance temporelle à l'amélioration des soins.
+:::
+
+---
+
+#### Question 2. Quels sont les facteurs de confusion potentiels ? {.unlisted}
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : Comprendre que la confusion principale dans une étude de tendance temporelle est l'amélioration générale des soins, indépendamment de l'intervention.
+:::
+::: {.answer-card}
+**Réponse type**
+Les facteurs de confusion classiques comme l'âge et le stade tumoral sont pris en compte. Cependant, le principal facteur de confusion est le **biais de tendance temporelle** : l'amélioration générale de la prise en charge du cancer du sein (diagnostics plus précoces, traitements plus efficaces) au fil des années, qui peut faussement être attribuée au dépistage. Les auteurs tentent de gérer ce biais en comparant les tendances aux groupes historiques "miroir".
+:::
+
+---
+
+#### Question 4. Calculez une puissance a posteriori sur l'effet net. {.unlisted}
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : Votre capacité à distinguer l'effet brut de l'effet net, et à appliquer la bonne formule de calcul de puissance observée sur l'effet le plus pertinent, tout en critiquant l'exercice.
+:::
+
+::: {.article-hunt-card}
+::: {.article-hunt-card__top}
+<div><p class="article-hunt-card__label">Passage exact</p></div>
+<button class="article-hunt-card__button" type="button" data-target="hunt-2011-q4">Révéler les infos</button>
+:::
+::: {.article-hunt-card__excerpt}
+"Given the reduction in mortality among women in the nonscreening group... the relative reduction among women in the screening group was 10% (95% CI, -4 to 24; P = 0.13)."
+:::
+::: {#hunt-2011-q4 .article-hunt-card__answer .article-hunt-card__answer--collapsed}
+L'effet **net** attribuable au dépistage seul est une réduction de **10%**, ce qui se traduit par un `RR = 0,90`. L'IC95% est de [-4% ; 24%], ce qui correspond à un IC pour le RR de `[0,76 ; 1,04]`.
+:::
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+**1. Calcul de l'Erreur Standard (SE) sur l'échelle log**
+La formule est : $SE = (\log(	ext{sup}) - \log(	ext{inf})) / 3.92$.
+$$
+SE = \frac{\ln(1{,}04) - \ln(0{,}76)}{3{,}92}
+$$
+$$
+SE \approx \frac{0{,}0392 - (-0{,}2744)}{3{,}92}
+$$
+$$
+SE \approx \frac{0{,}3136}{3{,}92} \approx \mathbf{0{,}080}
+$$
+
+**2. Calcul du score de Wald ($z$)**
+La formule est : $z = |\log(RR)| / SE$.
+$$
+z = \frac{|\ln(0{,}90)|}{0{,}080} \approx \frac{0{,}1054}{0{,}080} \approx \mathbf{1{,}31}
+$$
+
+**3. Estimation de la puissance observée**
+La formule est : $	ext{Puissance} \approx \Phi(z - 1.96)$.
+$$
+	ext{Puissance} \approx \Phi(1{,}31 - 1{,}96)
+$$
+$$
+	ext{Puissance} \approx \Phi(-0{,}65) \approx \mathbf{26\%}
+$$
+:::
+
+::: {.answer-card}
+**Réponse type**
+La question de la puissance doit se poser sur l'effet net attribuable au dépistage, soit une réduction de 10% (RR=0.90) avec un IC95% de [-4% à 24%]. En reconstruisant l'erreur standard à partir de cet intervalle sur l'échelle logarithmique, on obtient un score z d'environ 1,31. La puissance a posteriori correspondante est d'environ 26%, ce qui est très faible et explique pourquoi le résultat pour l'effet net n'est pas statistiquement significatif (p=0.13), bien que l'effet brut semble plus marqué.
+:::
+
+---
+
+## 2012 EPI : Cooper et al., NEJM 2011
+
+### Contexte de l'article {.unlisted}
+Cohorte rétrospective massive sur des données de santé américaines pour évaluer le risque d'événements cardiovasculaires graves chez les enfants et jeunes adultes traités par médicaments du TDAH.
+
+---
+
+#### Question 1. À quel type d'étude avez-vous affaire ? {.unlisted}
+::: {.answer-card}
+**Réponse type**
+Il s'agit d'une **étude de cohorte rétrospective (ou historique)**, construite à partir de bases de données médico-administratives de plusieurs systèmes de santé américains.
+:::
+
+---
+
+#### Question 4. Retrouvez approximativement la puissance statistique. {.unlisted}
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : Que vous comprenez que la puissance dépend du nombre d'événements, et non de la taille totale de la cohorte. L'exercice consiste à le prouver par le calcul.
+:::
+
+::: {.article-hunt-card}
+::: {.article-hunt-card__top}
+<div><p class="article-hunt-card__label">Passage exact</p></div>
+<button class="article-hunt-card__button" type="button" data-target="hunt-2012-q4">Révéler les infos</button>
+:::
+::: {.article-hunt-card__excerpt}
+"Current users of ADHD drugs were not at increased risk for serious cardiovascular events (adjusted hazard ratio, 0.75; 95% confidence interval [CI], 0.31 to 1.85)."
+:::
+::: {#hunt-2012-q4 .article-hunt-card__answer .article-hunt-card__answer--collapsed}
+Les paramètres clés sont le `HR = 0,75` et son `IC95% = [0,31 ; 1,85]`. L'article mentionne aussi seulement 81 événements au total.
+:::
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+**1. SE sur l'échelle log**
+$$
+SE = \frac{\ln(1{,}85) - \ln(0{,}31)}{3{,}92}
+$$
+$$
+SE \approx \frac{0{,}6152 - (-1{,}1712)}{3{,}92}
+$$
+$$
+SE \approx \frac{1{,}7864}{3{,}92} \approx \mathbf{0{,}456}
+$$
+
+**2. Score z**
+$$
+z = \frac{|\ln(0{,}75)|}{0{,}456} \approx \frac{0{,}2877}{0{,}456} \approx \mathbf{0{,}63}
+$$
+
+**3. Puissance observée**
+$$
+	ext{Puissance} \approx \Phi(0{,}63 - 1{,}96)
+$$
+$$
+	ext{Puissance} \approx \Phi(-1{,}33) \approx \mathbf{9\%}
+$$
+:::
+
+::: {.answer-card}
+**Réponse type**
+Bien que la cohorte soit immense, l'événement étudié est très rare (81 cas au total). La puissance statistique de l'étude est donc très limitée. En utilisant le HR ajusté de 0,75 et son IC95% [0,31 ; 1,85], on peut reconstruire une puissance a posteriori. Le calcul donne une puissance d'environ 9%, ce qui est extrêmement faible. Cela confirme l'affirmation des auteurs et explique pourquoi l'intervalle de confiance est si large, ne permettant pas d'exclure un doublement du risque.
+:::
+
+---
+
+## 2013 EPI : Lasalvia et al., Lancet 2013
+
+### Contexte de l'article {.unlisted}
+Enquête transversale internationale sur la discrimination vécue par les personnes souffrant de dépression majeure. L'objectif est descriptif.
+
+---
+
+#### Question 4. Proposez un calcul de puissance rudimentaire. {.unlisted}
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : Votre capacité à substituer un raisonnement de **précision** à un calcul de puissance quand ce dernier n'a pas de sens (étude descriptive).
+:::
+
+::: {.article-hunt-card}
+::: {.article-hunt-card__top}
+<div><p class="article-hunt-card__label">Passage exact</p></div>
+<button class="article-hunt-card__button" type="button" data-target="hunt-2013-q4">Révéler les infos</button>
+:::
+::: {.article-hunt-card__excerpt}
+"1082 people with depression completed the DISC-12. Of these, 855 (79%) reported experiencing discrimination in at least one life domain."
+:::
+::: {#hunt-2013-q4 .article-hunt-card__answer .article-hunt-card__answer--collapsed}
+La donnée centrale est une proportion : `p = 79%` sur un échantillon de `n = 1082`.
+:::
+:::
+
+::: {.formula-card}
+**Résolution guidée : Calcul de Précision**
+
+**1. Erreur Standard (SE) de la proportion**
+$$
+SE(p) = \sqrt{\frac{p(1-p)}{n}}
+$$
+$$
+SE(p) = \sqrt{\frac{0{,}79 	imes 0{,}21}{1082}} \approx \sqrt{0{,}000153} \approx \mathbf{0{,}0124}
+$$
+
+**2. Marge d'erreur et IC95%**
+La marge d'erreur est `1.96 * SE`.
+$$
+	ext{Marge} = 1{,}96 	imes 0{,}0124 \approx 0{,}0243 \approx \mathbf{\pm 2{,}4\%}
+$$
+L'intervalle de confiance à 95% pour la proportion est donc :
+$$
+IC95\% = [79\% - 2{,}4\% \,;\, 79\% + 2{,}4\%] = [76{,}6\% \,;\, 81{,}4\%]
+$$
+:::
+
+::: {.answer-card}
+**Réponse type**
+Dans le contexte d'une enquête descriptive transversale, un calcul de puissance classique n'est pas pertinent. Il faut plutôt raisonner en termes de **précision** de l'estimation. Pour la proportion principale de 79% de patients rapportant une discrimination, l'échantillon de 1082 personnes permet d'obtenir une marge d'erreur d'environ ±2,4%. L'intervalle de confiance associé, [76,6% ; 81,4%], est très étroit et garantit une excellente précision descriptive. La "puissance" de l'étude réside donc dans sa capacité à estimer les prévalences avec une faible incertitude.
+:::

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deuxième semestre</title>
+  <style>
+    :root {
+      --paper: #f7f3ea;
+      --ink: #17303d;
+      --teal: #0f5f67;
+      --gold: #c89a3c;
+      --line: rgba(23, 48, 61, 0.12);
+      --card: rgba(255, 255, 255, 0.92);
+      --shadow: 0 18px 38px rgba(23, 48, 61, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 90% 10%, rgba(207, 106, 77, 0.14), transparent 22%),
+        radial-gradient(circle at 10% 15%, rgba(200, 154, 60, 0.14), transparent 22%),
+        linear-gradient(160deg, #faf6ef 0%, #f2ecdf 100%);
+    }
+
+    .shell {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 72px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .backlink {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1;
+    }
+
+    p {
+      margin: 0;
+      color: rgba(23, 48, 61, 0.8);
+      line-height: 1.6;
+    }
+
+    .list {
+      margin-top: 26px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 140ms ease, border-color 140ms ease;
+    }
+
+    .item:hover {
+      transform: translateY(-2px);
+      border-color: rgba(15, 95, 103, 0.24);
+    }
+
+    .label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .desc {
+      display: block;
+      color: rgba(23, 48, 61, 0.7);
+      line-height: 1.5;
+    }
+
+    .hint {
+      color: rgba(23, 48, 61, 0.62);
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .status {
+      margin-top: 18px;
+      font-size: 0.92rem;
+      color: rgba(23, 48, 61, 0.62);
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <a class="backlink" href="index.html"><span aria-hidden="true">←</span> Retour à l'accueil</a>
+    </div>
+
+    <section class="panel">
+      <h1>Deuxième semestre</h1>
+      <p>Cette page regroupe les trois polys d'annales publiés automatiquement depuis le dossier <code>S2/exam/annales/exam_mars</code> lors des rendus locaux Quarto.</p>
+
+      <div class="list">
+        <a class="item" href="poly_revision_nsn.html">
+          <span>
+            <span class="label">Nombre de sujets nécessaires</span>
+            <span class="desc">Poly de révision sur le calcul du nombre de sujets nécessaires, la puissance statistique et les annales associées.</span>
+          </span>
+          <span class="hint">ouvrir →</span>
+        </a>
+
+        <a class="item" href="poly_revision_RC_codex.html">
+          <span>
+            <span class="label">Poly RC codex</span>
+            <span class="desc">Annales de recherche clinique, toutes les questions reprises depuis les sujets originaux et corrigées de manière structurée.</span>
+          </span>
+          <span class="hint">ouvrir →</span>
+        </a>
+
+        <a class="item" href="poly_revision_epi_codex.html">
+          <span>
+            <span class="label">Poly EPI codex</span>
+            <span class="desc">Annales d'épidémiologie analytique, questions exhaustives, réponses détaillées et lecture critique guidée.</span>
+          </span>
+          <span class="hint">ouvrir →</span>
+        </a>
+      </div>
+
+      <p class="status">Les fichiers HTML sont copiés automatiquement vers <code>docs/</code> après chaque rendu local.</p>
+    </section>
+  </main>
+</body>
+</html>

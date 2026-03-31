@@ -1,0 +1,73 @@
+M2 méthodologie et statistique en recherche biomédicale 2021/2022
+31/03/2023
+À propos de l’article :
+Effectiveness of an intervention for reducing sitting time and improving health in office workers: three arm cluster randomised controlled trial
+
+
+1/ Expliquez brièvement les avantages et les inconvénients d’un essai randomisé en cluster
+Avantages :
+	•	Lorsque l’on évalue des interventions de soin procédural, des démarches de santé publique il est presqu’impossible de randomiser des patients (en particulier à cause d’un possible biais de contamination). On est alors contraint de randomiser des unités de soin (soignant, service, etc.).
+	•	Ça facilite en outre la faisabilité et ça limite le coût. 
+	•	Ça permet d’inclure beaucoup de sujets (mais c’est pas si simple cf ci-dessous)
+Inconvénients  
+	•	Si l’on compare les sujets et non les clusters, ça n’est plus vraiment un essai randomisé. Il faut en particulier étudier et gérer les possibles différences de caractéristiques à baseline.
+	•	Ce qui conduit à l’usage d’un modèle pour analyser les données, avec qui plus est un effet aléatoire « cluster » pour gérer la similitude des résultats au sein d’un même cluster.
+	•	Le calcul du nombre de sujets nécessaire est complexe, pas très fiable. Et le nombre de sujets nécessaire à inclure est plus grand.
+	•	L’aveugle est difficile à obtenir, ce qui n’est pas nécessairement un problème avec ce type d’intervention.
+
+2/ Si l’essai avait randomisé des sujets et non des clusters, quel aurait été le nombre de sujets à inclure (avec les mêmes hypothèses que dans l’article) ?
+(1,96+1,645)^2 * 2 * sigma^2 / delta^2
+= 10,5 * 2 * 90^2 / 60^2 = 48 (on va dire 50)
+	•	À multiplier par 3 = 150
+	•	À augmenter  de 30% = 200 (en gros)
+	•	On ne tient pas compte des comparaisons multiples. En fait c’est négligeable : si on fait Bonferroni il faut utiliser (2,25+1,645)^2 au lieu de (1,96+1,645)^2, ça ne fait qu’augmenter de 20%...
+
+3/ L’analyse principale a été faite « on a complete case basis ». Discutez cette option.
+En principe ce sont des cas « complets » c’est-à-dire sans données manquantes pour ce qui concerne les variables impliquées dans l’analyse du critère principal. Mais ici (comme dans l’article en général) c’est pas clair. Il faut, a priori, au moins la variable à expliquer à baseline et à 12 mois. Mais même là il y a un certain flou puisque le « daily sitting time » est mesuré sur 6 jours et qu’il suffit que les données soient renseignées 1 jour pour que la mesure soit considérée comme valide. 
+Dans un essai randomisé, en principe une analyse principale en « cas complets » ça fait hurler car ça n’est pas la population randomisée (c’est pour ça que l’ITT est traditionnellement utilisée)... Mais ici comme c’est randomisé en cluster la situation est différente. 
+L’avantage est d’avoir les patients qui ont sûrement suivi un minimum l’intervention (donc on mesure vraiment l’intervention, mais alors si on pousse la logique jusqu’au bout pourquoi pas la population PP). L’inconvénient est seulement d’avoir les patients qui ont sûrement suivi un minimum l’intervention (donc on ne mesure pas ce dont les gens bénéficient quand on leur propose l’intervention, qu’ils la suivent ou non).
+
+4/ Détaillez et justifiez le modèle utilisé pour l’analyse principale du critère principal
+Modèle linéaire avec le « daily sitting time à 12 mois » comme variable à expliquer. Le groupe de traitement comme variable explicative (normal), le cluster comme effet aléatoire (classique), les variables de stratification de la randomisation comme autre effet fixe (classique), ainsi que la variable à expliquer à baseline (classique) et le « durée moyenne de port de l'activPAL au cours de la période de référence et du suivi à 12 mois » ce qui n’est pas classique. Cela peut correspondre à une variable exprimant les principales différences entre les caractéristiques des sujets dans les 3 groupes. Mais c’est pas dit. Plus généralement rien n’est dit que le fait qu’il faut possiblement gérer ces différences de caractéristiques. 
+
+5/ Dans l’abstract les auteurs concluent “Both intervention groups were associated with small improvements in stress, wellbeing, and vigour, and the SWAL plus desk group was associated with improvements in pain in the lower extremity, social norms for sitting and standing at work, and support”. Qu’en pensez-vous ?
+C’est juste incroyable d’écrire une chose comme ça. Pas de gestion d’alpha, pas de « p », des différences microscopiques, mais on dit quand même qu’il y a une différence entre les groupes en faveur de la procédure et ce dans l’abstract. OK on peut se dire qu’ils sont puristes et qu’ils minimisent l’usage des tests, mais le minimum c’est de dire que « numériquement » il y a une différence. Et encore, pas dans l’abstract…
+
+
+
+
+M2 méthodologie et statistique en recherche biomédicale 2021/2022
+31/03/2023
+À propos de l’article :
+Maternal infection during pregnancy and likelihood of autism and intellectual disability in children in Sweden: a negative control and sibling comparison cohort study
+
+
+1/ Les données de cette étude proviennent d’un registre, quels sont les avantages et les inconvénients d’un tel type de données.
+Avantages :
+	•	En général un certain niveau de représentativité et une grande taille d’échantillon
+	•	Une logistique rodée par le temps et des professionnels aguerris
+	•	Une profondeur d’analyse temporelle
+	•	La possibilité de répondre à de nombreuses questions donc un coup marginal faible
+	•	Des variables sans rapport avec la thématique ce qui peut conduire à des découvertes originales
+	•	Une disponibilité immédiate des données
+Inconvénients :
+	•	Surtout le fait que les variables recueillies n’ont pas été pensées pour répondre à la question posée… Elles sont donc souvent de qualité médiocre par rapport à ce que l’on peut avoir dans une cohorte ad-hoc. 
+	•	Et bien sûr il peut manquer des variables clés
+	•	Souvent une certaine lourdeur dans la gestion des données
+
+3/ Dans leur analyse, les auteurs utilisent une série de 3 modèles emboités. Quel est l’intérêt d’une telle stratégie ?
+C’est en effet souvent utilisé et ce dans les bons papiers alors qu’en théorie cela n’est pas utile. Un modèle plus complet est ainsi censé permettre de mieux « expliquer » le phénomène d’intérêt. 
+En pratique cependant la réalité est différente. Ces modèles emboités permettent de « raconter une histoire ». Partant d’un scénario simple à la fois en termes numériques et d’interprétation, ce scénario est progressivement affiné, mais complexifié. La mise en perspective des différents modèles permet ainsi de mieux comprendre les relations entre variable à expliquer et variables explicatives majeures, en tentant compte ou pas de certaines covariables. 
+
+
+4/ En épidémiologie les possibles facteurs de confusion non mesurés sont une hantise. Quelle stratégie les auteurs ont-ils utilisés pour contourner cette difficulté (compte double) ?
+Deux stratégies très élégantes :
+	•	Etudier une exposition proche (i.e. avec les mêmes facteurs de confusion potentiels) mais sans lien causal : ici une infection un an avant). Si la relation persiste alors c’est qu’il persiste effectivement des facteurs de confusion
+	•	En analysant la relation à l’intérieur d’une fratrie : si la relation persiste alors on peut (en principe) éliminer le rôle de facteurs liés à la famille (environementaux par exemple). A noter cependant que cela reste très théorique. En effet ils vont comparer les résultats de deux modèles : celui avec un estimateur robuste de la variance (pour tenir compte de plusieurs grossesses possibles) et celui stratifié pour travailler au sein d’une même fratrie. Donc plus ou moins à utiliser un modèle marginal d’un côté et conditionnel de l’autre. Or on sait bien ce que l’on peut penser de l’interprétabilité de respective de ces modèles…
+
+
+5/ Les auteurs construisent leur conclusion à partir d’une mise en contraste de résultats positifs (i.e. des relations sont mises en évidence, par exemple « Maternal infection during pregnancy was associated with autism ») avec des résultats négatifs (i.e. des absences de relation sont mises en évidence, par exemple : « Maternal infection in the year before pregnancy […] was not associated with intellectual disability »). Qu’en pensez-vous ?
+
+C’est une façon très élégante de présenter les choses. Il y a une belle histoire racontée (donc une volonté au moins implicite de revendiquer un certain niveau de causalité) et elle est assez convaincante malgré la faiblesse des résultats et ce du fait de la prudence et de la visible honnêteté intellectuelle des auteurs. Mais cela repose quand même sur un positionnement problématique : quand peut-on affirmer en épidémiologie qu’un résultat est négatif ?... Implicitement ils considèrent que c’est quand un résultat est non significatif. Mais alors il faudrait une puissance ! Bien sûr les intervalles de confiance aident à se faire une idée, mais ils ne sont pas fait pour dire si oui ou non la relation existe. Ou alors il faudrait proposer a priori une telle règle… C’est un détail bien sûr.
+
+
