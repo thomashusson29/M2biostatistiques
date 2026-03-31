@@ -12,6 +12,30 @@ format:
     embed-resources: true
     html-math-method: mathml
     code-fold: false
+    include-in-header:
+      text: |
+        <script>
+        (function () {
+          const storageKey = "poly-revision-theme";
+          document.documentElement.classList.add("js");
+          let theme = "day";
+          try {
+            const params = new URLSearchParams(window.location.search);
+            const queryTheme = params.get("theme");
+            if (queryTheme === "night" || queryTheme === "day") {
+              theme = queryTheme;
+            } else {
+              const saved = window.localStorage.getItem(storageKey);
+              if (saved === "night" || saved === "day") {
+                theme = saved;
+              } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                theme = "night";
+              }
+            }
+          } catch (error) {}
+          document.documentElement.setAttribute("data-theme", theme);
+        })();
+        </script>
   pdf:
     pdf-engine: xelatex
     documentclass: scrartcl
@@ -72,6 +96,17 @@ editor: source
 ### Nombre de sujets nécessaires, puissance statistique et annales résolues {.cover-subtitle}
 
 Document de travail orienté examen : méthodes, pièges, calculs détaillés et réponses exploitables directement dans les annales.
+:::
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="theme-toolbar">
+  <button id="theme-switch" class="theme-switch" type="button" aria-pressed="false" aria-label="Basculer entre le mode clair et le mode nuit">
+    <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true">&#9790;</span>
+    <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true">&#9728;</span>
+  </button>
+</div>
+```
 :::
 
 ::: {.content-visible when-format="pdf"}
@@ -218,6 +253,20 @@ Pour calculer un NSN, il faut au minimum un `alpha`, une puissance, une taille d
 | puissance 85% | `1,04` environ |
 | puissance 90% | `1,28` |
 
+Repères à citer tels quels :
+
+$$
+z_{1-\alpha/2} = 1{,}96 \quad \text{pour } \alpha = 5\% \text{ bilatéral}
+$$
+
+$$
+z_{1-\beta} = 0{,}84 \quad \text{pour une puissance de } 80\%
+$$
+
+$$
+z_{1-\beta} = 1{,}28 \quad \text{pour une puissance de } 90\%
+$$
+
 ## 3.3. Formule indispensable pour remonter d'un `IC95%` vers un `SE`
 
 Cette formule est capitale dans les **questions de puissance a posteriori**, parce que les articles donnent souvent une estimation et son `IC95%`, mais pas directement l'écart-type standard (`SE`).
@@ -253,6 +302,8 @@ $$
 
 Pour les risques relatifs, odds ratios et hazard ratios, il faut presque toujours travailler sur l'échelle **logarithmique**, car c'est sur cette échelle que l'IC est approximativement symétrique.
 
+Dans tout ce poly, $\log$ désigne le **logarithme népérien**, c'est-à-dire $\ln$.
+
 Si l'article donne :
 
 $$
@@ -280,6 +331,45 @@ Exemple : si `RR = 0,72` avec `IC95% 0,63 à 0,81`,
 $$
 SE(\log RR) \approx \frac{\log(0{,}81) - \log(0{,}63)}{3{,}92} \approx 0{,}064
 $$
+
+avec :
+
+$$
+\log(0{,}81) \approx -0{,}21,\qquad \log(0{,}63) \approx -0{,}46
+$$
+
+$$
+\log(0{,}81)-\log(0{,}63) \approx 0{,}25
+$$
+
+$$
+\frac{0{,}25}{3{,}92} \approx 0{,}064
+$$
+
+Table utile de `ln(x)` sans calculatrice :
+
+| `x` | `ln(x)` |
+|---|---:|
+| `0,1` | `-2,303` |
+| `0,2` | `-1,609` |
+| `0,3` | `-1,204` |
+| `0,4` | `-0,916` |
+| `0,5` | `-0,693` |
+| `0,6` | `-0,511` |
+| `0,7` | `-0,357` |
+| `0,8` | `-0,223` |
+| `0,9` | `-0,105` |
+| `1,0` | `0,000` |
+| `1,1` | `0,095` |
+| `1,2` | `0,182` |
+| `1,3` | `0,262` |
+| `1,4` | `0,336` |
+| `1,5` | `0,405` |
+| `1,6` | `0,470` |
+| `1,7` | `0,531` |
+| `1,8` | `0,588` |
+| `1,9` | `0,642` |
+| `2,0` | `0,693` |
 
 ### 3.3.3. Comment on s'en sert à l'examen
 
@@ -315,7 +405,7 @@ $$
 
 en bilatéral au seuil `5%`, avec toutes les précautions d'usage.
 
-Ici, `\Phi` désigne la **fonction de répartition de la loi normale centrée réduite** :
+Ici, `Φ` désigne la **fonction de répartition de la loi normale centrée réduite** :
 
 $$
 \Phi(a) = P(Z \le a) \quad \text{avec } Z \sim \mathcal N(0,1)
@@ -327,19 +417,27 @@ Concrètement, pour passer de `z - 1,96` à une puissance :
 - soit vous utilisez des **valeurs repères** ;
 - soit vous raisonnez par **ordre de grandeur**.
 
-Repères utiles à connaître :
+Table de `Φ(x)` de `-2` à `2` par pas de `0,25` :
 
-| Valeur | Ordre de grandeur |
-|---|---|
-| `\Phi(0)` | `0,50` |
-| `\Phi(0,5)` | `0,69` |
-| `\Phi(0,75)` | `0,77` |
-| `\Phi(1)` | `0,84` |
-| `\Phi(1,5)` | `0,93` |
-| `\Phi(1,64)` | `0,95` |
-| `\Phi(1,96)` | `0,975` |
-| `\Phi(2,58)` | `0,995` |
-| `\Phi(3)` | `0,9987` |
+| `x` | `Φ(x)` |
+|---|---:|
+| `-2` | `0,0228` |
+| `-1,75` | `0,0401` |
+| `-1,5` | `0,0668` |
+| `-1,25` | `0,1056` |
+| `-1` | `0,1587` |
+| `-0,75` | `0,2266` |
+| `-0,5` | `0,3085` |
+| `-0,25` | `0,4013` |
+| `0` | `0,5000` |
+| `0,25` | `0,5987` |
+| `0,5` | `0,6915` |
+| `0,75` | `0,7734` |
+| `1` | `0,8413` |
+| `1,25` | `0,8944` |
+| `1,5` | `0,9332` |
+| `1,75` | `0,9599` |
+| `2` | `0,9772` |
 
 Règle de symétrie très utile :
 
@@ -349,12 +447,20 @@ $$
 
 Par exemple :
 
-- `\Phi(-0,5) \approx 1 - 0,69 = 0,31` ;
-- `\Phi(-0,75) \approx 1 - 0,77 = 0,23` ;
-- `\Phi(-1) \approx 1 - 0,84 = 0,16`.
+$$
+\Phi(-0{,}5) \approx 1 - 0{,}69 = 0{,}31
+$$
+
+$$
+\Phi(-0{,}75) \approx 1 - 0{,}77 = 0{,}23
+$$
+
+$$
+\Phi(-1) \approx 1 - 0{,}84 = 0{,}16
+$$
 
 ::: {.callout-note title="Piège classique"}
-Dans cette partie du poly, on n'utilise **pas** directement `\Phi(z)`.  
+Dans cette partie du poly, on n'utilise **pas** directement `Φ(z)`.  
 On utilise :
 
 $$
@@ -417,6 +523,24 @@ avec $\bar p = (p_1+p_2)/2$.
 
 Ce qu'on dimensionne souvent d'abord, c'est le **nombre d'événements requis**.
 
+Pour passer d'un risque cumulé observé à un taux annuel sous hypothèse exponentielle, on utilise :
+
+$$
+\lambda \approx -\frac{\log(1-R(t))}{t}
+$$
+
+Réciproquement :
+
+$$
+R(t) = 1-e^{-\lambda t}
+$$
+
+Si le traitement agit via un hazard ratio :
+
+$$
+\lambda_1 = HR \times \lambda_0
+$$
+
 Forme de base de Schoenfeld :
 
 $$
@@ -429,12 +553,87 @@ où :
 - $p$ = proportion allouée à un groupe, souvent 0,5 ;
 - $HR$ = hazard ratio visé.
 
+Cas très fréquent d'une randomisation `1:1` :
+
+$$
+p = 0{,}5
+\qquad \Rightarrow \qquad
+p(1-p) = 0{,}5 \times 0{,}5 = 0{,}25
+$$
+
+Donc :
+
+$$
+\frac{1}{p(1-p)} = \frac{1}{0{,}25} = 4
+$$
+
+et la formule devient :
+
+$$
+D = \frac{4(z_{1-\alpha/2}+z_{1-\beta})^2}{\left[\log(HR)\right]^2}
+$$
+
+Autrement dit, le `4` ne sort pas de nulle part : il vient simplement du fait que l'on remplace `p(1-p)` par `0,25` dans le cas `1:1`.
+
+Attention aussi à la notation de `z` :
+
+- en **bilatéral** à `5%`, on écrit $z_{1-\alpha/2} = 1{,}96$ ;
+- en **unilatéral** à `2,5%`, on écrit $z_{1-\alpha} = 1{,}96$.
+
+La valeur numérique est la même, mais l'écriture correcte dépend du type de test.
+
 Ensuite seulement on convertit ce besoin en un **nombre de sujets** à partir :
 
 - du risque attendu ;
 - de la durée de recrutement ;
 - de la durée de suivi ;
 - des pertes de vue.
+
+### 3.4.4. Non-infériorité
+
+Dans les annales, la non-infériorité apparaît surtout quand on veut montrer que la stratégie test n'est pas **trop moins bonne** que le contrôle.
+
+Il faut alors toujours préciser :
+
+- le **sens** de l'hypothèse ;
+- la **marge de non-infériorité** $\Delta$ ;
+- le fait que l'alpha est en général **unilatéral**.
+
+Cas simple à deux proportions, avec un critère binaire défavorable et une marge exprimée en **différence absolue de risque** :
+
+$$
+H_0 : p_T - p_C \ge \Delta
+\qquad \text{contre} \qquad
+H_1 : p_T - p_C < \Delta
+$$
+
+Forme générale, à groupes équilibrés :
+
+$$
+n_{\text{par bras}}
+\approx
+\frac{(z_{1-\alpha}+z_{1-\beta})^2\,[p_C(1-p_C)+p_T(1-p_T)]}{\left[\Delta-(p_T-p_C)\right]^2}
+$$
+
+Dans beaucoup d'exercices de cours, on suppose que les deux groupes auront des risques proches, donc $p_T \approx p_C \approx p$.
+La formule se simplifie alors en :
+
+$$
+n_{\text{par bras}}
+\approx
+\frac{2(z_{1-\alpha}+z_{1-\beta})^2\,p(1-p)}{\Delta^2}
+$$
+
+C'est exactement l'esprit de l'annale `2024 RC` :
+
+- on prend souvent un alpha **unilatéral** à `2,5%`, donc $z_{1-\alpha} \approx 1{,}96$ ;
+- on choisit une puissance, par exemple `90%`, donc $z_{1-\beta} \approx 1{,}28$ ;
+- puis on remplit la formule avec le risque de base et la marge cliniquement acceptable.
+
+Point crucial :
+
+- plus la marge $\Delta$ est **petite**, plus le NSN explose ;
+- la non-infériorité demande souvent **plus de sujets** qu'un essai de supériorité classique.
 
 ## 4. Les ajustements qu'il ne faut pas oublier
 
@@ -537,6 +736,8 @@ Une excellente copie peut écrire :
 
 ## 6. Annales résolues avec calculs détaillés
 
+Dans chaque annale, le bloc **Extrait de l'article à analyser** montre le passage original en anglais qu'il faut lire. Essayez d'abord de repérer seul les paramètres utiles, puis utilisez le bouton pour vérifier.
+
 ::: {.callout-tip title="Mode d'emploi de cette section"}
 Pour vous en servir comme d'un vrai cahier d'exercices :
 
@@ -563,6 +764,10 @@ Article support : **Kalager et al., NEJM 2010**, sur l'effet de la **mammographi
 
 Ce point est crucial : l'article n'oppose pas simplement "dépistage" contre "pas de dépistage". Il essaie aussi de **séparer l'effet du dépistage** de l'amélioration générale de la prise en charge du cancer du sein au fil du temps.
 
+### Question posée dans l'annale {.unlisted}
+
+> Dans la mesure du possible calculez une puissance a posteriori.
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -576,18 +781,32 @@ Dans ce papier, on peut raisonner sur deux effets différents :
 Si vous ne faites pas cette distinction, vous ne répondez pas à la vraie difficulté de la question.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- baisse de mortalité dans le groupe avec dépistage par rapport à son groupe historique :
-  - `7,2` décès en moins pour `100 000` personnes-années ;
-  - `RR = 0,72`, `IC95% 0,63 à 0,81` ;
-- baisse de mortalité dans le groupe sans dépistage par rapport à son groupe historique :
-  - `4,8` décès en moins pour `100 000` personnes-années ;
-  - `RR = 0,82`, `IC95% 0,71 à 0,93` ;
-- effet attribuable au dépistage seul :
-  - différence absolue `7,2 - 4,8 = 2,4` décès pour `100 000` personnes-années ;
-  - soit environ **un tiers** de la baisse totale ;
-  - les auteurs traduisent cela par une réduction relative d'environ `10%`, avec `IC95% -4% à 24%`.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Lisez d'abord l'extrait en anglais, essayez d'identifier les paramètres utiles, puis vérifiez avec le bouton.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2011-epi" aria-expanded="false" aria-controls="hunt-2011-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We analyzed data from 40,075 women with breast cancer. The rate of death was reduced by 7.2 deaths per 100,000 person-years in the screening group as compared with the historical screening group (rate ratio, 0.72; 95% confidence interval [CI], 0.63 to 0.81) and by 4.8 deaths per 100,000 person-years in the nonscreening group as compared with the historical nonscreening group (rate ratio, 0.82; 95% CI, 0.71 to 0.93; P&lt;0.001 for both comparisons), for a relative reduction in mortality of 10% in the screening group (P = 0.13). Thus, the difference in the reduction in mortality between the current and historical groups that could be attributed to screening alone was 2.4 deaths per 100,000 person-years, or a third of the total reduction of 7.2 deaths."</p>
+    <p>"Given the reduction in mortality among women in the nonscreening group, as compared with their historical counterparts, the relative reduction among women in the screening group was 10% (95% CI, -4 to 24; P = 0.13)."</p>
+  </div>
+  <div id="hunt-2011-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>baisse de mortalité dans le groupe avec dépistage vs historique : <code>7,2</code> décès pour <code>100 000</code> personnes-années ; <code>RR = 0,72</code> ; <code>IC95% 0,63 à 0,81</code> ;</li>
+      <li>baisse de mortalité dans le groupe sans dépistage vs historique : <code>4,8</code> décès pour <code>100 000</code> personnes-années ; <code>RR = 0,82</code> ; <code>IC95% 0,71 à 0,93</code> ;</li>
+      <li>effet attribuable au dépistage seul : <code>2,4</code> décès pour <code>100 000</code> personnes-années, soit environ un tiers de la baisse totale ;</li>
+      <li>traduction relative de cet effet net : environ <code>10%</code>, avec <code>IC95% -4% à 24%</code>.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -674,6 +893,16 @@ $$
 z \approx \frac{|\log(0{,}72)|}{0{,}064} \approx \frac{0{,}329}{0{,}064} \approx 5{,}12
 $$
 
+avec :
+
+$$
+\log(0{,}72) \approx -0{,}33
+$$
+
+$$
+\frac{|\log(0{,}72)|}{0{,}064} \approx \frac{0{,}33}{0{,}064} \approx 5{,}12
+$$
+
 Si l'on veut traduire ce `z` en puissance observée grossière, on utilise :
 
 $$
@@ -686,7 +915,7 @@ $$
 \Phi(5{,}12 - 1{,}96) = \Phi(3{,}16)
 $$
 
-Comme `\Phi(3)` vaut déjà environ `0,9987`, `\Phi(3,16)` est encore un peu au-dessus et donc **très proche de 1**.
+Comme $\Phi(3)$ vaut déjà environ `0,9987`, $\Phi(3{,}16)$ est encore un peu au-dessus et donc **très proche de 1**.
 
 Interprétation :
 
@@ -759,7 +988,7 @@ $$
 \Phi(1{,}40 - 1{,}96) = \Phi(-0{,}56)
 $$
 
-Comme `\Phi(0)=0,50`, une valeur négative comme `-0,56` donne forcément quelque chose **en dessous de 0,50**.  
+Comme $\Phi(0)=0{,}50$, une valeur négative comme `-0,56` donne forcément quelque chose **en dessous de 0,50**.  
 Avec une table de la loi normale, on trouve environ `0,29`, soit **29%**, que l'on peut arrondir à **30%**.
 
 #### Étape 5. Conclure correctement
@@ -811,6 +1040,16 @@ $$
 z \approx \frac{|\log(0{,}72)|}{0{,}064} \approx 5{,}12
 $$
 
+avec :
+
+$$
+\log(0{,}72) \approx -0{,}33
+$$
+
+$$
+\frac{|\log(0{,}72)|}{0{,}064} \approx \frac{0{,}33}{0{,}064} \approx 5{,}12
+$$
+
 Pour passer de ce `z` à une puissance observée grossière, on utilise :
 
 $$
@@ -823,13 +1062,13 @@ $$
 \Phi(5{,}12 - 1{,}96) = \Phi(3{,}16)
 $$
 
-Or `\Phi(3{,}16)` signifie : probabilité qu'une variable normale standard soit inférieure à `3,16`.
+Or $\Phi(3{,}16)$ signifie : probabilité qu'une variable normale standard soit inférieure à `3,16`.
 
 En pratique :
 
 - avec une **table de la loi normale**, on trouve une valeur très proche de `1` ;
-- sans table, il suffit de savoir que `\Phi(3) \approx 0,9987` ;
-- donc `\Phi(3,16)` est encore un peu au-dessus.
+- sans table, il suffit de savoir que $\Phi(3) \approx 0{,}9987$ ;
+- donc $\Phi(3{,}16)$ est encore un peu au-dessus.
 
 Conclusion : la puissance observée est **pratiquement égale à 1**, c'est-à-dire **quasi 100%**.
 :::
@@ -901,6 +1140,10 @@ Article support : **James et al., NEJM 2010**, essai **SCOUT** sur la **sibutram
 
 L'article est donc un **essai de survie / temps jusqu'à événement**, pas un essai à critère binaire mesuré une seule fois.
 
+### Question posée dans l'annale {.unlisted}
+
+> L'analyse est réalisée en ITT et le nombre de sujets nécessaire est calculé en tenant compte d'un nombre de perdus de vue possible. Qu'en pensez-vous ?
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -916,26 +1159,33 @@ Pour répondre, vous devez lire l'article avec trois idées en tête :
 3. il faut distinguer **arrêt du traitement** et **vraie perte de suivi**.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- planification :
-  - environ `9000` sujets ;
-  - `2160` événements confirmés ;
-  - puissance `80%` ;
-  - hypothèse de taux annuel d'événements placebo de `7%` ;
-  - hypothèse de discontinuation d'environ `30%` ;
-- après randomisation :
-  - `4906` dans le bras sibutramine ;
-  - `4898` dans le bras placebo ;
-- suivi moyen du traitement : `3,4` ans ;
-- résultat principal :
-  - `11,4%` d'événements dans le bras sibutramine ;
-  - `10,0%` dans le bras placebo ;
-- pertes de vue réelles après randomisation :
-  - `47` dans le bras sibutramine ;
-  - `58` dans le bras placebo ;
-- arrêts permanents du traitement beaucoup plus fréquents :
-  - environ `4046` au total, soit un peu plus de `40%`.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Ici, les informations utiles sont dispersées entre le paragraphe de dimensionnement, le résumé des résultats et le diagramme de flux.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2011-rc" aria-expanded="false" aria-controls="hunt-2011-rc">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We estimated that we would need to enroll 9000 subjects (4500 in each group) and to continue the study until 2160 confirmed primary outcome events had occurred to have 80% power to detect an 11.4% reduction in the hazard ratio with sibutramine as compared with placebo, or vice versa, assuming a 7% annual event rate with placebo and a 30% rate of discontinuation of sibutramine, at a two-sided type I error rate of 0.05."</p>
+    <p>"The mean duration of treatment was 3.4 years ... The risk of a primary outcome event was 11.4% in the sibutramine group as compared with 10.0% in the placebo group."</p>
+    <p>"58 were lost to follow-up ... 47 were lost to follow-up ... approximately 40% of the subjects had discontinued treatment."</p>
+  </div>
+  <div id="hunt-2011-rc" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>planification : environ <code>9000</code> sujets, <code>2160</code> événements confirmés, puissance <code>80%</code>, taux annuel placebo <code>7%</code>, discontinuation <code>30%</code> ;</li>
+      <li>après randomisation : <code>4906</code> dans le bras sibutramine et <code>4898</code> dans le bras placebo ;</li>
+      <li>suivi moyen du traitement : <code>3,4</code> ans ; résultat principal : <code>11,4%</code> vs <code>10,0%</code> ;</li>
+      <li>pertes de vue réelles : <code>47</code> et <code>58</code> ; arrêts permanents du traitement beaucoup plus fréquents, environ <code>4046</code> au total.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -988,6 +1238,10 @@ Article support : **Cooper et al., NEJM 2011**, étude de cohorte rétrospective
   - AVC ;
 - seulement `81` événements au total dans toute la cohorte, soit `3,1` pour `100 000` personnes-années.
 
+### Question posée dans l'annale {.unlisted}
+
+> Il est indiqué dans le texte que: "The low number of events limited the statistical power of the study". Pouvez-vous retrouver au moins approximativement cette puissance statistique ?
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -999,17 +1253,33 @@ Le piège de cet article est classique :
 Quand l'énoncé vous demande de retrouver approximativement la puissance, il veut que vous voyiez que la taille globale de la base de données ne suffit pas. Ce qui compte ici, c'est le **nombre d'événements informatifs**.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- événements chez les utilisateurs actuels : `7` ;
-- événements chez les non-utilisateurs : `49` ;
-- `HR ajusté = 0,75` ;
-- `IC95% 0,31 à 1,85`.
-
-Il faut aussi relever la phrase importante de la conclusion :
-
-- l'étude ne montre pas de sur-risque significatif ;
-- mais **un doublement du risque ne peut pas être exclu**.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Ici, presque toute la logique de la question est déjà dans le paragraphe de résultats et dans la dernière phrase de conclusion.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2012-epi" aria-expanded="false" aria-controls="hunt-2012-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"Cohort members had 81 serious cardiovascular events (3.1 per 100,000 person-years). Current users of ADHD drugs were not at increased risk for serious cardiovascular events (adjusted hazard ratio, 0.75; 95% confidence interval [CI], 0.31 to 1.85)."</p>
+    <p>"There were 7 confirmed events among 373,667 person-years of follow-up for current users ... and 49 confirmed events among 1,597,962 person-years of follow-up for nonusers."</p>
+    <p>"This large study showed no evidence that current use of an ADHD drug was associated with an increased risk of serious cardiovascular events, although the upper limit of the 95% confidence interval indicated that a doubling of the risk could not be excluded ... The low number of events limited the statistical power of the study."</p>
+  </div>
+  <div id="hunt-2012-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>événements chez les utilisateurs actuels : <code>7</code> ;</li>
+      <li>événements chez les non-utilisateurs : <code>49</code> ;</li>
+      <li><code>HR ajusté = 0,75</code> avec <code>IC95% 0,31 à 1,85</code> ;</li>
+      <li>message clé de l'article : pas de sur-risque démontré, mais un doublement du risque ne peut pas être exclu.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1032,6 +1302,20 @@ $$
 SE(\log HR) \approx \frac{\log(1{,}85)-\log(0{,}31)}{3{,}92} \approx 0{,}456
 $$
 
+Sans sauter d'étapes :
+
+$$
+\log(1{,}85) \approx 0{,}62,\qquad \log(0{,}31) \approx -1{,}17
+$$
+
+$$
+\log(1{,}85)-\log(0{,}31) \approx 0{,}62 - (-1{,}17) = 1{,}79
+$$
+
+$$
+\frac{1{,}79}{3{,}92} \approx 0{,}456
+$$
+
 Puis, avec le score de Wald :
 
 $$
@@ -1042,6 +1326,16 @@ $$
 z \approx \frac{|\log(0{,}75)|}{0{,}456} \approx 0{,}63
 $$
 
+avec :
+
+$$
+\log(0{,}75) \approx -0{,}29
+$$
+
+$$
+\frac{|\log(0{,}75)|}{0{,}456} \approx \frac{0{,}29}{0{,}456} \approx 0{,}63
+$$
+
 Puissance observée approximative :
 
 $$
@@ -1050,6 +1344,16 @@ $$
 
 $$
 \Phi(0{,}63 - 1{,}96) \approx 0{,}09
+$$
+
+car :
+
+$$
+0{,}63 - 1{,}96 = -1{,}33
+$$
+
+$$
+\Phi(-1{,}33) \approx 0{,}09
 $$
 
 soit environ **10%**.
@@ -1086,6 +1390,10 @@ Article support : **AIM-HIGH Investigators, NEJM 2011**, essai comparant **niaci
   - `16,4%` dans le groupe niacine ;
   - `16,2%` dans le groupe placebo.
 
+### Question posée dans l'annale {.unlisted}
+
+> Essayez de retrouver approximativement le nombre de sujet nécessaire.
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1100,14 +1408,32 @@ Vous ne devez pas raisonner comme si les auteurs avaient choisi un effectif fixe
 Votre travail consiste donc à montrer que le besoin était de l'ordre de **plusieurs milliers de patients**.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- cible de dimensionnement : `800` événements primaires adjudiqués ;
-- suivi moyen prévu : `4,6` ans ;
-- puissance `85%` ;
-- alpha unilatéral `0,025` ;
-- effet visé : réduction relative de `25%` du critère principal ;
-- effectif finalement randomisé : `3414` sujets.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Le paragraphe de dimensionnement est ici très explicite : il faut le lire comme un essai piloté par le nombre d'événements.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2012-rc" aria-expanded="false" aria-controls="hunt-2012-rc">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"In this event-driven trial, we expected to observe 800 adjudicated primary events during a mean follow-up period of 4.6 years. With this number of events, we estimated that the study would have 85% power to detect a 25% reduction in the revised five-component primary end point, at a one-sided alpha level of 0.025."</p>
+    <p>"A total of 3414 patients were randomly assigned to receive niacin (1718) or placebo (1696) ... The primary end point occurred in 282 patients in the niacin group (16.4%) and in 274 patients in the placebo group (16.2%)."</p>
+  </div>
+  <div id="hunt-2012-rc" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>cible de dimensionnement : <code>800</code> événements primaires adjudiqués ;</li>
+      <li>suivi moyen prévu : <code>4,6</code> ans ; puissance <code>85%</code> ; alpha unilatéral <code>0,025</code> ;</li>
+      <li>effet visé : réduction relative de <code>25%</code> du critère principal ;</li>
+      <li>effectif finalement randomisé : <code>3414</code> sujets ; taux observés : <code>16,4%</code> vs <code>16,2%</code>.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1133,6 +1459,20 @@ $$
 \lambda_0 \approx -\frac{\log(1-0{,}162)}{3} \approx 0{,}0589 \text{ par an}
 $$
 
+En détaillant :
+
+$$
+1 - 0{,}162 = 0{,}838
+$$
+
+$$
+\log(0{,}838) \approx -0{,}177
+$$
+
+$$
+-\frac{\log(0{,}838)}{3} \approx \frac{0{,}177}{3} \approx 0{,}0589
+$$
+
 Risque placebo sur `4,6` ans :
 
 Formule de départ :
@@ -1149,10 +1489,22 @@ $$
 
 Sous un `HR = 0,75`, risque traité :
 
-Comme `\lambda_1 = HR \times \lambda_0`, on obtient :
+Formule de départ :
 
 $$
-R_1(4{,}6) \approx 1-e^{-0{,}0589\times 0{,}75 \times 4{,}6} \approx 0{,}184
+\lambda_1 = HR \times \lambda_0
+$$
+
+Application numérique :
+
+$$
+\lambda_1 \approx 0{,}75 \times 0{,}0589 \approx 0{,}0442 \text{ par an}
+$$
+
+Puis :
+
+$$
+R_1(4{,}6) \approx 1-e^{-0{,}0442 \times 4{,}6} \approx 0{,}184
 $$
 
 Risque moyen d'événement :
@@ -1208,6 +1560,10 @@ Article support : **Lasalvia et al., Lancet 2013**, enquête transversale sur la
 - résultat descriptif central :
   - `855 / 1082`, soit `79%`, rapportent une discrimination vécue dans au moins un domaine de vie.
 
+### Question posée dans l'annale {.unlisted}
+
+> Dans l'article on ne trouve pas de justification de la taille de l'échantillon. A posteriori, il n'est pas facile de calculer une puissance statistique. Essayez tout de même de proposer un tel calcul, même très rudimentaire. (5 points)
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1224,16 +1580,32 @@ Or le papier :
 La bonne réponse consiste donc à dire pourquoi un calcul de puissance classique est artificiel, puis à proposer un raisonnement de **précision**.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- type de dessin : **cross-sectional survey** ;
-- taille de l'échantillon : `1082` ;
-- résultat principal facilement exploitable :
-  - `855` participants sur `1082` ont rapporté une discrimination vécue ;
-- autres chiffres qui montrent le caractère très descriptif de l'étude :
-  - `405` (`37%`) ont renoncé à initier une relation proche ;
-  - `271` (`25%`) ont renoncé à postuler à un emploi ;
-  - `218` (`20%`) ont renoncé à une formation.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Ici, le résumé suffit presque à lui seul pour reconstruire la réponse attendue.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2013-epi" aria-expanded="false" aria-controls="hunt-2013-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"Methods In a cross-sectional survey, people with a diagnosis of major depressive disorder were interviewed in 39 sites (35 countries) worldwide with the discrimination and stigma scale (version 12; DISC-12)."</p>
+    <p>"Findings 1082 people with depression completed the DISC-12. Of these, 855 (79%) reported experiencing discrimination in at least one life domain. 405 (37%) participants had stopped themselves from initiating a close personal relationship, 271 (25%) from applying for work, and 218 (20%) from applying for education or training."</p>
+  </div>
+  <div id="hunt-2013-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>type de dessin : <strong>cross-sectional survey</strong> ;</li>
+      <li>taille de l'échantillon : <code>1082</code> ;</li>
+      <li>résultat principal facilement exploitable : <code>855 / 1082</code>, soit <code>79%</code>, rapportent une discrimination vécue ;</li>
+      <li>autres chiffres descriptifs utiles : <code>405</code> (<code>37%</code>), <code>271</code> (<code>25%</code>) et <code>218</code> (<code>20%</code>).</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1311,6 +1683,10 @@ Article support : **Bao et al., NEJM 2013**, étude de cohorte sur la **consomma
 - `3 038 853` personnes-années de suivi ;
 - `27 429` décès au total.
 
+### Question posée dans l'annale {.unlisted}
+
+> Dans l'article on ne trouve pas de justification de la taille de l'échantillon. A posteriori, il n'est pas facile de calculer une puissance statistique. Essayez tout de même de proposer un tel calcul, même très rudimentaire.
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1324,16 +1700,31 @@ Ce qu'il faut montrer dans votre copie, c'est que :
 - donc la discussion méthodologique doit porter ailleurs que sur la puissance.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- résultat principal pour la consommation la plus élevée de noix (`≥7` fois/semaine) versus jamais :
-
-$$
-HR \approx 0{,}80,\quad IC95\% 0{,}73\ \text{à}\ 0{,}86
-$$
-
-- effet dose-réponse monotone avec plusieurs catégories intermédiaires ;
-- événements très nombreux, ce qui explique la précision de l'estimation.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Le passage utile est ici le paragraphe de résultats qui combine taille de cohorte, nombre d'événements et précision des HR.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2014-epi" aria-expanded="false" aria-controls="hunt-2014-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We examined the association between nut consumption and subsequent total and cause-specific mortality among 76,464 women in the Nurses’ Health Study (1980-2010) and 42,498 men in the Health Professionals Follow-up Study (1986-2010)."</p>
+    <p>"During 3,038,853 person-years of follow-up, 16,200 women and 11,229 men died ... The pooled multivariate hazard ratios for death among participants who ate nuts, as compared with those who did not, were ... 0.80 (95% confidence interval [CI], 0.73 to 0.86) for seven or more times per week (P&lt;0.001 for trend)."</p>
+  </div>
+  <div id="hunt-2014-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>résultat principal pour la consommation la plus élevée de noix : <code>HR ≈ 0,80</code> avec <code>IC95% 0,73 à 0,86</code> ;</li>
+      <li>effet dose-réponse monotone avec plusieurs catégories intermédiaires ;</li>
+      <li>événements très nombreux : plus de <code>27 000</code> décès, ce qui explique la précision de l'estimation.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1354,6 +1745,20 @@ $$
 SE(\log HR) \approx \frac{\log(0{,}86)-\log(0{,}73)}{3{,}92} \approx 0{,}0418
 $$
 
+En détaillant :
+
+$$
+\log(0{,}86) \approx -0{,}151,\qquad \log(0{,}73) \approx -0{,}315
+$$
+
+$$
+\log(0{,}86)-\log(0{,}73) \approx -0{,}151 - (-0{,}315) = 0{,}164
+$$
+
+$$
+\frac{0{,}164}{3{,}92} \approx 0{,}0418
+$$
+
 Puis :
 
 $$
@@ -1362,6 +1767,16 @@ $$
 
 $$
 z \approx \frac{|\log(0{,}80)|}{0{,}0418} \approx 5{,}34
+$$
+
+avec :
+
+$$
+\log(0{,}80) \approx -0{,}223
+$$
+
+$$
+\frac{|\log(0{,}80)|}{0{,}0418} \approx \frac{0{,}223}{0{,}0418} \approx 5{,}34
 $$
 
 Enfin :
@@ -1376,7 +1791,7 @@ $$
 \Phi(5{,}34 - 1{,}96) = \Phi(3{,}38)
 $$
 
-Comme `\Phi(3)` vaut déjà environ `0,9987`, une telle valeur correspond à une puissance observée pratiquement égale à `1`.
+Comme $\Phi(3)$ vaut déjà environ `0,9987`, une telle valeur correspond à une puissance observée pratiquement égale à `1`.
 :::
 
 ::: {.answer-card}
@@ -1397,6 +1812,10 @@ Article support : **Schnabel et al., Lancet 2015**, analyse des **tendances sur 
 - `1544` cas incidents de fibrillation atriale ;
 - analyses par périodes de `10` ans et séparées selon le sexe.
 
+### Question posée dans l'annale {.unlisted}
+
+> Comment aborder la question de la puissance statistique dans une telle étude ?
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1414,18 +1833,31 @@ Il faut donc discuter la puissance à plusieurs niveaux :
 3. dans les analyses plus fines ou plus rares.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- ampleur globale :
-  - `1544` cas incidents ;
-  - donc beaucoup d'information pour les analyses générales ;
-- structure des analyses :
-  - comparaison sur cinq décennies ;
-  - stratification par sexe ;
-- remarque explicite des auteurs :
-  - dans les premières décennies, le nombre de cas est plus faible ;
-  - les erreurs standard sont plus grandes ;
-  - la puissance pour détecter certaines **tendances dans le temps** est donc limitée.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Pour cette annale, il faut lire à la fois le paragraphe de résultats globaux et la phrase de discussion sur la puissance limitée dans les décennies anciennes.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2016-epi" aria-expanded="false" aria-controls="hunt-2016-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"Findings During 50 years of observation (202 417 person-years), 1544 cases of new-onset atrial fibrillation occurred ... We analysed trends within 10 year groups (1958-67, 1968-77, 1978-87, 1988-97, and 1998-2007), stratified by sex."</p>
+    <p>"The number of atrial fibrillation cases in the first decades of reporting was small and might provide unstable estimates. For low-frequency conditions, the standard errors of the hazards ratios were large, and we had restricted power to detect trends across decades of the study period."</p>
+  </div>
+  <div id="hunt-2016-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>ampleur globale : <code>1544</code> cas incidents, donc beaucoup d'information pour les analyses générales ;</li>
+      <li>structure des analyses : comparaison sur cinq décennies, avec stratification par sexe ;</li>
+      <li>remarque explicite des auteurs : dans les premières décennies, les effectifs de cas sont plus faibles, les erreurs standard plus grandes et la puissance plus limitée.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1461,6 +1893,10 @@ Article support : **Shan et al., BMJ 2018**, étude de cohorte sur le **travail 
   - `HR = 1,31` par tranche de `5` ans de travail de nuit tournant ;
   - `HR = 2,30` par facteur de mode de vie défavorable.
 
+### Question posée dans l'annale {.unlisted}
+
+> Dans une cohorte de cette taille, comment se discute la question de la puissance statistique ?
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1478,12 +1914,32 @@ Le but est de montrer que, quand une cohorte cumule :
 la significativité statistique cesse d'être la question principale.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- taille de la population : `143 410` participantes ;
-- nombre de cas incidents : `10 915` ;
-- exposition d'intérêt courante dans cette population ;
-- effets estimés avec précision.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Le bon passage combine la taille finale des deux cohortes et le paragraphe de résultats sur les HR.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2019-epi" aria-expanded="false" aria-controls="hunt-2019-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"The final analysis included 55 324 participants from the NHS and 88 086 participants from the NHS II."</p>
+    <p>"During 22-24 years of follow-up, 10 915 cases of incident type 2 diabetes occurred. The multivariable adjusted hazard ratios for type 2 diabetes were 1.31 (95% confidence interval 1.19 to 1.44) per five year increment of duration of rotating night shift work and 2.30 (1.88 to 2.83) per unhealthy lifestyle factor."</p>
+  </div>
+  <div id="hunt-2019-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>taille de la population : <code>55 324 + 88 086 = 143 410</code> participantes ;</li>
+      <li>nombre de cas incidents : <code>10 915</code> ;</li>
+      <li>exposition d'intérêt courante dans cette population ;</li>
+      <li>effets estimés avec précision : <code>HR = 1,31</code> par tranche de 5 ans de travail de nuit et <code>HR = 2,30</code> par facteur de mode de vie défavorable.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1523,6 +1979,10 @@ Article support : **Schnitzer et al., JAMA 2019**, essai randomisé en double av
 
 L'article dit explicitement que l'effectif d'environ `230` patients par bras est choisi pour obtenir `90%` de puissance **across all 3 co-primary end points**.
 
+### Question posée dans l'annale {.unlisted}
+
+> Dans l'étude il est calculé un nombre de sujets à inclure égal à 3*230. Proposez de votre côté un calcul de ce paramètre.
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1535,19 +1995,32 @@ Votre travail consiste à raisonner en deux temps :
 2. expliquer pourquoi ce calcul est insuffisant dès lors que la réussite de l'essai exige que **les trois endpoints** soient positifs.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- puissance : `90%` ;
-- niveau bilatéral global : `5%` ;
-- différences attendues :
-  - `delta = 1` pour `WOMAC Pain` ;
-  - `delta = 1` pour `WOMAC Physical Function` ;
-  - `delta = 0,32` pour `PGA-OA` ;
-- écarts-types :
-  - `SD = 2,73` ;
-  - `SD = 2,58` ;
-  - `SD = 0,92` ;
-- corrélations entre co-critères : `0,93`, `0,68`, `0,68`.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Le paragraphe JAMA donne le coeur du dimensionnement. La structure de corrélation utilisée dans le corrigé vient ensuite du plan d'analyse et du support de correction.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2020-rc" aria-expanded="false" aria-controls="hunt-2020-rc">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"A sample size of approximately 230 patients per treatment group was determined to provide 90% power to achieve statistical significance at the 5% 2-sided level for comparisons of tanezumab, 2.5 mg, and tanezumab, 2.5/5 mg, vs placebo across all 3 co-primary end points."</p>
+    <p>"This was based on estimates from a combined analysis of 2 previous studies (treatment difference of -1.0 for WOMAC Pain and Physical Function subscales and -0.32 for PGA-OA, and SDs of 2.73, 2.58, and 0.92, respectively)."</p>
+  </div>
+  <div id="hunt-2020-rc" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>dans le paragraphe JAMA : puissance <code>90%</code>, niveau bilatéral global <code>5%</code>, <code>delta = 1</code>, <code>1</code>, <code>0,32</code>, et <code>SD = 2,73</code>, <code>2,58</code>, <code>0,92</code> ;</li>
+      <li>le vrai point méthodologique est la phrase "across all 3 co-primary end points" ;</li>
+      <li>corrélations utilisées dans le corrigé pour majorer le calcul : <code>0,93</code>, <code>0,68</code>, <code>0,68</code> ;</li>
+      <li>ces corrélations viennent du plan d'analyse / support de correction, pas du paragraphe principal visible ci-dessus.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1645,6 +2118,10 @@ Article support : **Roy et al., PLoS Medicine 2020**, essai **cluster randomisé
 - hypothèse des auteurs : environ `65%` des patients du groupe contrôle auront au moins un retard important, avec une réduction relative attendue de `50%` sous intervention ;
 - calcul de l'article fondé sur une formule de **matched-pair cluster randomized trial**, avec `5` paires de cliniques et `120` patients par clinique.
 
+### Question posée dans l'annale {.unlisted}
+
+> Si le design avait été celui d'un essai randomisé standard, combien de patients aurait-il fallu inclure pour obtenir une puissance statistique "convenable" (partant des mêmes hypothèses d'effet attendu que les auteurs) ?
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1662,13 +2139,31 @@ Vous devez donc volontairement **simplifier le papier** :
 - ramener le problème à un **essai individuel à deux proportions**.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- le risque de base dans le groupe contrôle est de l'ordre de `60%` à `65%` ;
-- l'effet attendu est une **réduction relative de 50%** ;
-- donc, en version simplifiée de cours, on peut prendre :
-  - `P1 = 0,60` dans le bras contrôle ;
-  - `P2 = 0,30` dans le bras intervention.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Ici, l'article donne directement la formule de cluster apparié et les hypothèses de départ. L'annale vous demande ensuite de simplifier ce design.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2021-rc" aria-expanded="false" aria-controls="hunt-2021-rc">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"Sample size was derived using formulae for matched-pair cluster randomized trials ... Existing program data suggest that 65% of patients are &gt;7 days late for a pharmacy refill visit at least once during their first year after starting ART ... We assumed a conservative matched-pair coefficient of variation of 0.10. We also assumed a 50% relative reduction in missed pharmacy visits due to AC participation. Under these assumptions, our selection of 5 pairs of clinics and 120 patients per clinic yields a power of 96%."</p>
+  </div>
+  <div id="hunt-2021-rc" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>risque de base dans le groupe contrôle : environ <code>65%</code> ;</li>
+      <li>effet attendu : réduction relative de <code>50%</code> ;</li>
+      <li>donc, pour l'exercice simplifié de cours, on peut prendre <code>P1 = 0,60</code> et <code>P2 = 0,30</code> ;</li>
+      <li>le calcul réel de l'article repose sur <code>5</code> paires de cliniques et <code>120</code> patients par clinique.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1734,6 +2229,10 @@ Article support : **Bacharier et al., NEJM 2021**, essai de phase `3`, randomis�
 - critère principal : **annualized rate of severe asthma exacerbations** ;
 - analyse des exacerbations par **modèle binomial négatif**.
 
+### Question posée dans l'annale {.unlisted}
+
+> Expliquez les modalités de calcul du nombre de sujets nécessaires.
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1747,18 +2246,31 @@ La bonne démarche est :
 3. montrer pourquoi le **binomial négatif** est utilisé à la place d'un modèle de Poisson simple.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-La section statistique du papier donne beaucoup plus d'indices que ce que laisse penser le corrigé court :
-
-- deux populations principales d'efficacité ;
-- échantillons visés d'environ `345` et `255` patients ;
-- puissance d'environ `94%` et `96%` ;
-- réductions relatives visées de `54%` et `60%` ;
-- taux annualisés d'exacerbation dans le groupe placebo de `0,7` et `0,8` ;
-- randomisation `2:1` ;
-- durée moyenne d'exposition de `0,9` an ;
-- **dispersion = 1,5** pour le modèle binomial négatif.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Le paragraphe statistique donne ici presque tous les paramètres du NSN, y compris la surdispersion du modèle binomial négatif.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2022-rc" aria-expanded="false" aria-controls="hunt-2022-rc">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We determined that a sample of approximately 345 and 255 patients would have approximately 94% and 96% power to detect a 54% and 60% relative reduction in the annualized rate of severe exacerbations in the two primary efficacy populations, respectively, assuming a randomization ratio of 2:1 and annualized rates of severe exacerbation of 0.7 and 0.8 in the placebo group, with a two-tailed significance level of 0.05. These calculations assumed an average exposure duration of 0.9 years and a dispersion measure of 1.5 for the negative binomial distribution assumed for the exacerbation count."</p>
+  </div>
+  <div id="hunt-2022-rc" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>deux populations principales d'efficacité ;</li>
+      <li>échantillons visés d'environ <code>345</code> et <code>255</code> patients ; puissances <code>94%</code> et <code>96%</code> ;</li>
+      <li>réductions relatives visées de <code>54%</code> et <code>60%</code> ; taux placebo <code>0,7</code> et <code>0,8</code> ;</li>
+      <li>randomisation <code>2:1</code>, durée moyenne d'exposition <code>0,9</code> an, dispersion <code>1,5</code> pour le binomial négatif.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1811,6 +2323,10 @@ Article support : **Edwardson et al., BMJ 2022**, essai **cluster randomisé à 
   - taille moyenne de cluster `20` ;
   - inflation supplémentaire de `30%`.
 
+### Question posée dans l'annale {.unlisted}
+
+> Si l'essai avait randomisé des sujets et non des clusters, quel aurait été le nombre de sujets à inclure (avec les mêmes hypothèses que dans l'article) ?
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1827,14 +2343,32 @@ Vous devez donc :
 - tenir compte du fait qu'il y a **3 bras** et une **majoration de 30%**.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- différence cliniquement pertinente : `60` minutes de temps assis ;
-- écart-type : `90` minutes ;
-- puissance : `>90%` ;
-- alpha bilatéral : `5%` ;
-- article à `3` bras ;
-- inflation prévue de `30%` pour pertes et non-compliance.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Le premier paragraphe donne les hypothèses initiales du protocole. Le second montre qu'un réajustement a été fait pendant le recrutement.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2023-rc" aria-expanded="false" aria-controls="hunt-2023-rc">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We determined that a sample size of 420 participants and 10 clusters in each arm would provide more than 90% power to detect a 60 minute difference in overall sitting time using multilevel models with a two tailed significance level of 5%. This calculation assumed a standard deviation of 90 minutes, an intraclass correlation coefficient of 0.05, a coefficient of variation of 0.54 (cluster range 15-45), and an average cluster size of 20, allowing for multiple comparisons with the control group. We inflated the number of clusters in each arm by 1 to allow for whole cluster drop-out, and the number of participants was inflated by 30% to allow for potential individual loss to follow-up and non-compliance with activPAL, giving a total sample size of 660 participants to be recruited, with 11 clusters in each arm."</p>
+    <p>"During the recruitment process it became clear that the observed average and variability of cluster size were different ... the inflation for loss to follow up and non-compliance ... was increased from 30% to 40%. This resulted in 690 participants from 72 clusters needed."</p>
+  </div>
+  <div id="hunt-2023-rc" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>hypothèses initiales utiles pour l'exercice : <code>delta = 60</code> minutes, <code>sigma = 90</code> minutes, <code>ICC = 0,05</code>, taille moyenne de cluster <code>20</code>, puissance <code>&gt;90%</code>, alpha <code>5%</code> ;</li>
+      <li>essai à <code>3</code> bras avec comparaisons multiples contre le contrôle ;</li>
+      <li>inflation initiale prévue de <code>30%</code> pour pertes et non-compliance ;</li>
+      <li>l'article a ensuite révisé le plan à <code>690</code> participants / <code>72</code> clusters avec inflation <code>40%</code>, mais l'annale exploite les hypothèses initiales.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
@@ -1853,10 +2387,20 @@ $$
 n_{\text{par bras}} = \frac{2(z_{1-\alpha/2}+z_{1-\beta})^2\sigma^2}{\delta^2}
 $$
 
-Comme `z_{1-\alpha/2}=1{,}96` et `z_{1-\beta}=1{,}28`, on approxime :
+On prend ici :
 
 $$
-(z_\alpha + z_\beta)^2 \approx 10{,}5
+z_{1-\alpha/2} = 1{,}96
+$$
+
+$$
+z_{1-\beta} = 1{,}28
+$$
+
+Donc :
+
+$$
+(1{,}96 + 1{,}28)^2 \approx 10{,}5
 $$
 
 Application numérique :
@@ -1929,6 +2473,10 @@ Article support : **Moncrieff et al., Lancet Psychiatry 2023**, essai randomisé
   - `206` patients pour détecter `4` points de différence sur le `SFS` ;
   - `372` patients pour un raisonnement de **non-infériorité** excluant une différence de `10%` sur les rechutes sévères.
 
+### Question posée dans l'annale {.unlisted}
+
+> Essayez, dans la mesure du possible, de retrouver le "Nombre de Sujets Nécessaires" que les auteurs calculent pour le test de l'hypothèse de non-infériorité.
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
@@ -1946,12 +2494,31 @@ L'examen vous demande :
 Il faut donc reconnaître que l'exercice vise surtout un **ordre de grandeur pédagogique** autour de la marge de non-infériorité.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-- puissance : `90%` ;
-- marge de non-infériorité : `10 points` ;
-- ordre de grandeur annoncé par l'article : `372` sujets ;
-- issue clinique concernée : **severe relapse**.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Le papier donne distinctement le calcul pour le critère principal continu et le calcul de non-infériorité sur la rechute sévère.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2024-rc" aria-expanded="false" aria-controls="hunt-2024-rc">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"Sample size calculations, detailed in the protocol paper, showed that a total sample size of 206 was required to identify a minimally clinically important difference of 4 points on the SFS with 90% power for the primary outcome. Using a non-inferiority calculation, a sample size of 372 was required for 90% power to exclude a difference of 10% between groups using a non-inferiority boundary of 10% event rates for severe relapse."</p>
+  </div>
+  <div id="hunt-2024-rc" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>puissance <code>90%</code> ;</li>
+      <li>marge / borne de non-infériorité : <code>10%</code> pour les rechutes sévères ;</li>
+      <li>ordre de grandeur annoncé par l'article : <code>372</code> sujets pour le raisonnement de non-infériorité ;</li>
+      <li>issue clinique concernée : <strong>severe relapse</strong>.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que le corrigé de l'annale fait réellement
 
@@ -1974,10 +2541,10 @@ $$
 
 Ici, le corrigé prend approximativement :
 
-- `(z_\alpha+z_\beta)^2 \approx 10` ;
+- $(z_\alpha+z_\beta)^2 \approx 10$ ;
 - `p_C = 0{,}10` ;
 - `p_T = 0{,}10` ;
-- `\Delta = 0{,}10`.
+- $\Delta = 0{,}10$.
 
 Application numérique :
 
@@ -2026,51 +2593,2074 @@ L'essai est :
 - centré sur le **temps jusqu'à la rechute** ;
 - conduit sur `18` mois de traitement/suivi, avec une vraie section **Sample size calculation** dans l'article.
 
+### Question posée dans l'annale {.unlisted}
+
+> A l'aide des données disponibles dans l'article, essayez de retrouver au moins approximativement une estimation du nombre de sujets à inclure dans l'essai.
+
 ::: {.exam-card}
 **Exercice contextualisé**
 
-Ici, la meilleure stratégie n'est pas de bricoler une formule de mémoire.  
-Le bon exercice consiste à lire la section **Sample size calculation** et à savoir la traduire proprement dans une copie.
+Ici, il ne suffit pas de recopier la section **Sample size calculation**.  
+Il faut au moins montrer comment on passe des hypothèses cliniques de l'article à un **ordre de grandeur calculé**.
 
 Autrement dit :
 
-1. repérer le type de test utilisé ;
-2. lister les hypothèses temporelles et cliniques ;
-3. donner directement le nombre de sujets obtenu par les auteurs.
+1. transformer les proportions **sans rechute** en paramètres statistiques exploitables ;
+2. faire un premier calcul simple de coin de table ;
+3. expliquer pourquoi le vrai calcul de survie/log-rank conduit à un effectif plus grand.
 :::
 
-### Ce qu'il faut aller chercher dans l'article
+### Extrait de l'article à analyser
 
-La section de calcul d'effectif donne explicitement :
-
-- un test du **log-rank bilatéral** ;
-- une durée totale d'étude de `48` mois ;
-- un recrutement pendant les `36` premiers mois ;
-- `12%` de dropouts dans chaque bras ;
-- une amélioration de la proportion de patients **sans rechute** de `50%` à `70%` pendant la première année ;
-- une puissance de `80%` ;
-- un alpha bilatéral de `5%`.
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Cette fois, la meilleure stratégie consiste vraiment à traduire le paragraphe "Sample size calculation" presque ligne par ligne.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2025-rc" aria-expanded="false" aria-controls="hunt-2025-rc">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"Sample size calculation was based on a 2-sided log-rank test under the following specifications: (1) study duration of 48 months, with patient recruitment during the first 36 months and (2) proportion of dropouts in the control group and in the treatment group of 12% each ... Under the a priori-defined condition that the proportion of relapse-free patients should improve from 50% in the control group to 70% in the treatment group during the first year of treatment, this required a sample size of 300 (n = 150 per treatment arm) for statistical significance (1 - beta = 80%; alpha = .05)."</p>
+  </div>
+  <div id="hunt-2025-rc" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>test du <strong>log-rank bilatéral</strong> ;</li>
+      <li>durée totale d'étude <code>48</code> mois ; recrutement pendant les <code>36</code> premiers mois ;</li>
+      <li><code>12%</code> de dropouts dans chaque bras ;</li>
+      <li>amélioration de la proportion de patients sans rechute de <code>50%</code> à <code>70%</code> pendant la première année ; puissance <code>80%</code> ; alpha <code>5%</code> ;</li>
+      <li>conclusion directe des auteurs : <code>300</code> sujets au total, soit <code>150</code> par bras.</li>
+    </ul>
+  </div>
+</div>
+```
 
 ### Ce que l'examinateur veut vérifier
 
 - savez-vous reconnaître une logique de **survie / temps jusqu'à événement** ;
 - savez-vous ne pas forcer inutilement une formule "deux proportions" ;
-- savez-vous exploiter correctement un paragraphe de dimensionnement déjà rédigé dans le papier.
+- savez-vous partir d'un paragraphe de dimensionnement pour reconstruire un **calcul plausible** et pas seulement recopier la conclusion.
+
+::: {.formula-card}
+**Étape 1 : traduire l'hypothèse clinique en effet statistique**
+
+L'article dit qu'au bout d'un an, la proportion de patients **sans rechute** passerait de `50%` à `70%`.
+
+Donc, en raisonnant sur le risque de rechute à un an :
+
+$$
+p_C = 1-0{,}50 = 0{,}50
+$$
+
+$$
+p_T = 1-0{,}70 = 0{,}30
+$$
+
+Si l'on prend une approximation exponentielle très simple, on peut aussi écrire :
+
+$$
+\lambda_C \approx -\log(0{,}50) \approx 0{,}693
+$$
+
+$$
+\lambda_T \approx -\log(0{,}70) \approx 0{,}357
+$$
+
+donc :
+
+$$
+HR \approx \frac{\lambda_T}{\lambda_C} \approx \frac{0{,}357}{0{,}693} \approx 0{,}51
+$$
+
+L'effet attendu est donc **important** : on passe grossièrement d'un risque de rechute de `50%` à `30%`, soit un `HR` d'environ `0,5`.
+:::
+
+::: {.formula-card}
+**Étape 2 : premier calcul très simple en ramenant le problème à deux proportions**
+
+Si l'on oublie temporairement le caractère "temps jusqu'à événement" et qu'on fait un calcul binaire naïf à `1` an :
+
+$$
+\bar p = \frac{p_C+p_T}{2} = \frac{0{,}50+0{,}30}{2} = 0{,}40
+$$
+
+Puis :
+
+$$
+n_{\text{par bras}} =
+\frac{\left[z_{1-\alpha/2}\sqrt{2\bar p(1-\bar p)}+z_{1-\beta}\sqrt{p_C(1-p_C)+p_T(1-p_T)}\right]^2}{(p_C-p_T)^2}
+$$
+
+Avec `alpha = 5%` bilatéral et puissance `80%` :
+
+$$
+n \approx
+\frac{\left[1{,}96\sqrt{2\times 0{,}40\times 0{,}60}+0{,}84\sqrt{0{,}50\times 0{,}50+0{,}30\times 0{,}70}\right]^2}{(0{,}50-0{,}30)^2}
+$$
+
+$$
+n \approx \frac{(1{,}96\times 0{,}693 + 0{,}84\times 0{,}678)^2}{0{,}20^2}
+$$
+
+$$
+n \approx \frac{(1{,}358 + 0{,}570)^2}{0{,}04}
+\approx \frac{1{,}928^2}{0{,}04}
+\approx \frac{3{,}72}{0{,}04}
+\approx 93
+$$
+
+On obtient donc environ **93 sujets par bras**.
+
+Si l'on corrige ensuite pour `12%` de dropout :
+
+$$
+n_{\text{ajusté}} \approx \frac{93}{0{,}88} \approx 106
+$$
+
+Ce calcul donne donc environ **106 sujets par bras**, soit **environ 210 à 220 au total**.
+:::
+
+::: {.formula-card}
+**Étape 3 : pourquoi l'article retient malgré tout environ 150 sujets par bras**
+
+Le calcul précédent est utile, mais il **sous-estime** le besoin réel car l'article ne raisonne pas sur un simple critère binaire à `1` an.
+
+Les auteurs utilisent :
+
+- un **test du log-rank** ;
+- une **durée totale d'étude** de `48` mois ;
+- un **recrutement étalé** sur les `36` premiers mois ;
+- des **dropouts** dans les deux groupes.
+
+Avec l'approximation exponentielle précédente, on a vu que :
+
+$$
+HR \approx 0{,}51
+$$
+
+Un calcul de Schoenfeld très grossier donnerait alors :
+
+$$
+D \approx \frac{4(1{,}96+0{,}84)^2}{[\log(0{,}51)]^2}
+$$
+
+$$
+\log(0{,}51) \approx -0{,}67
+$$
+
+$$
+D \approx \frac{4\times 2{,}80^2}{0{,}67^2}
+\approx \frac{31{,}36}{0{,}45}
+\approx 70
+$$
+
+soit environ **70 événements** nécessaires.
+
+Ensuite, pour passer des événements aux sujets, il faut savoir quelle proportion des patients fournira effectivement un événement **observable** pendant la fenêtre d'analyse, compte tenu :
+
+- du recrutement étalé ;
+- de la censure administrative ;
+- des dropouts ;
+- des hypothèses exactes du logiciel ou du protocole.
+
+Cette dernière conversion n'est **pas entièrement reconstructible** à partir du seul paragraphe publié. En revanche, elle explique très bien pourquoi le calcul complet des auteurs aboutit à un effectif **plus élevé** que notre calcul binaire simplifié.
+
+En pratique, une copie solide peut donc conclure :
+
+- le calcul naïf donne environ `100 à 110` sujets par bras ;
+- un vrai calcul de survie/log-rank, plus conservateur, conduit plausiblement à **environ 150 par bras** ;
+- la valeur publiée de `300` sujets au total est donc **cohérente**.
+:::
 
 ### Conclusion chiffrée
-
-L'article dit explicitement :
 
 $$
 N = 300 \text{ sujets au total} = 150 \text{ par bras}
 $$
 
-L'essai a ensuite effectivement randomisé `305` participants, ce qui confirme que l'ordre de grandeur est exactement le bon.
+L'essai a ensuite effectivement randomisé `305` participants, ce qui confirme que l'ordre de grandeur retenu par les auteurs est bien celui d'un essai à **environ 150 patients par bras**.
 
 ::: {.answer-card}
 **Réponse type**
 
-La bonne réponse consiste surtout à exploiter la section "Sample size calculation" de l'article. Les auteurs utilisent un **test du log-rank bilatéral**, avec une durée totale d'étude de `48` mois, un recrutement sur `36` mois, `12%` de dropouts dans chaque bras, et l'hypothèse qu'en première année la proportion de patients sans rechute passerait de `50%` à `70%`. Sous ces hypothèses, ils concluent qu'il faut **300 sujets au total**, soit **150 par bras**. C'est la valeur à rapporter en priorité.
+À partir du texte de l'article, on peut d'abord faire un calcul simplifié en ramenant le problème à un critère binaire à `1` an : `50%` de patients sans rechute dans le contrôle contre `70%` sous traitement, soit des risques de rechute de `50%` contre `30%`. La formule classique à deux proportions donne alors environ `93` sujets par bras, soit environ `106` par bras après majoration pour `12%` de dropout. Mais ce calcul reste trop optimiste, car l'article dimensionne en réalité un **essai de survie** avec **test du log-rank**, recrutement étalé sur `36` mois et durée totale d'étude de `48` mois. Le vrai calcul, plus conservateur, conduit donc logiquement à un effectif plus élevé, de l'ordre de **150 sujets par bras**, soit **300 au total**. C'est cette valeur qu'il faut rapporter, en expliquant comment on s'en approche.
+:::
+
+## 6.15. 2026 RC
+
+### Article et contexte
+
+Article support : **Fang et al., NEJM 2026**, essai de phase 3 comparant **sacituzumab tirumotecan** à une chimiothérapie standard chez des patients avec **NSCLC avancé muté EGFR** après échec d'un `EGFR-TKI`.
+
+- essai randomisé `1:1` ;
+- `376` patients randomisés (`188` par bras) ;
+- critère principal : **progression-free survival** (`PFS`) ;
+- critère secondaire clé hiérarchisé : **overall survival** (`OS`) ;
+- le paragraphe statistique donne explicitement un raisonnement de **dimensionnement par événements**.
+
+::: {.callout-note title="Statut de cette section"}
+Les **dix premières questions** ci-dessous sont **des questions proposées d'entraînement** à partir de l'article `2026 RC`. Elles ne sont pas des annales officielles, mais elles reprennent exactement le type de raisonnement demandé dans les annales précédentes. Trois questions complémentaires sur `\lambda` sont ajoutées ensuite, comme prolongement technique.
+:::
+
+### Extrait de l'article à analyser
+
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Le premier extrait donne le vrai calcul de dimensionnement. Le second donne le résultat observé pour le critère principal.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2026-rc" aria-expanded="false" aria-controls="hunt-2026-rc">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We calculated, on the basis of historical data, that approximately 356 participants would have to be enrolled for a total of 249 events (disease progression or death) to occur to give the trial 88% power to detect a hazard ratio of 0.67 for progression-free survival at a one-sided alpha level of 0.025."</p>
+    <p>"This sample size would also provide the trial with 80% power to detect the difference between the groups in overall survival with the assumption of a hazard ratio of 0.70."</p>
+    <p>"Overall, 376 patients underwent randomization, with 188 assigned to each group. After a median follow-up of 18.9 months, the median progression-free survival was 8.3 months in the sac-TMT group and 4.3 months in the chemotherapy group (hazard ratio for disease progression or death, 0.49; 95% confidence interval [CI], 0.39 to 0.62)."</p>
+    <p>"Overall survival was significantly longer with sac-TMT than with chemotherapy (hazard ratio for death, 0.60; 95% CI, 0.44 to 0.82)."</p>
+  </div>
+  <div id="hunt-2026-rc" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>hypothèse de dimensionnement : <code>HR = 0,67</code> pour la <strong>PFS</strong> ;</li>
+      <li>puissance visée : <code>88%</code> ; alpha <strong>unilatéral</strong> <code>0,025</code> ;</li>
+      <li>nombre d'événements requis annoncé : <code>249</code> ;</li>
+      <li>nombre de sujets annoncé : environ <code>356</code> ;</li>
+      <li>pour l'OS, l'article dit aussi que cet effectif donnerait <code>80%</code> de puissance pour un <code>HR = 0,70</code> ;</li>
+      <li>résultat observé finalement sur la PFS : <code>HR = 0,49</code> avec <code>IC95% 0,39 à 0,62</code> ;</li>
+      <li>résultat observé sur l'OS : <code>HR = 0,60</code> avec <code>IC95% 0,44 à 0,82</code>.</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Question 1 proposée {.unlisted}
+
+> A l'aide des données disponibles dans l'article, essayez de retrouver approximativement le **nombre d'événements** nécessaires pour le critère principal de PFS.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Ici, on est dans le cas classique d'un essai de survie **piloté par le nombre d'événements**.
+
+La bonne stratégie est donc :
+
+1. identifier le `HR` visé ;
+2. convertir la puissance en $z_{1-\beta}$ ;
+3. appliquer la formule de Schoenfeld.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On part de la formule générale :
+
+$$
+D = \frac{(z_{1-\alpha}+z_{1-\beta})^2}{p(1-p)[\log(HR)]^2}
+$$
+
+Comme l'essai est randomisé `1:1` :
+
+$$
+p = 0{,}5
+\qquad \Rightarrow \qquad
+p(1-p) = 0{,}25
+$$
+
+donc :
+
+$$
+D = \frac{4(z_{1-\alpha}+z_{1-\beta})^2}{[\log(HR)]^2}
+$$
+
+Ici :
+
+$$
+z_{1-\alpha} = 1{,}96
+\qquad \text{car } \alpha = 0{,}025 \text{ unilatéral}
+$$
+
+Pour une puissance de `88%`, on prend :
+
+$$
+z_{1-\beta} \approx 1{,}18
+$$
+
+car `Φ(1,18)` est proche de `0,88`.
+
+Ensuite :
+
+$$
+\log(0{,}67) \approx -0{,}40
+$$
+
+donc :
+
+$$
+[\log(0{,}67)]^2 \approx 0{,}16
+$$
+
+Application numérique :
+
+$$
+D \approx \frac{4(1{,}96+1{,}18)^2}{0{,}16}
+$$
+
+$$
+1{,}96+1{,}18 = 3{,}14
+$$
+
+$$
+3{,}14^2 \approx 9{,}86
+$$
+
+$$
+4 \times 9{,}86 \approx 39{,}4
+$$
+
+$$
+D \approx \frac{39{,}4}{0{,}16} \approx 246
+$$
+
+On tombe donc sur **environ 246 à 249 événements**, ce qui est cohérent avec les `249` donnés par l'article.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Le calcul de l'article correspond à un dimensionnement de survie de type Schoenfeld. Avec un `HR` visé de `0,67`, un alpha unilatéral de `2,5%` (`z = 1,96`) et une puissance de `88%` (`z ≈ 1,18`), on obtient :
+
+$$
+D \approx \frac{4(1{,}96+1{,}18)^2}{[\log(0{,}67)]^2} \approx 246
+$$
+
+soit **environ 250 événements**, ce qui retrouve correctement les `249` événements annoncés par les auteurs.
+:::
+
+### Question 2 proposée {.unlisted}
+
+> A l'aide des données disponibles dans l'article, essayez de retrouver approximativement le **nombre total de sujets** à inclure.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Une fois `D` obtenu, il faut passer des **événements** aux **patients**.
+
+Dans un essai de survie, cette étape dépend :
+
+- du recrutement étalé ;
+- de la durée de suivi ;
+- de la censure ;
+- du taux de pertes de vue.
+
+Ici, on vous donne directement une hypothèse simplifiée : environ `70%` des participants devraient fournir un événement analysable.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Formule de départ :
+
+$$
+N \approx \frac{D}{p_{\text{event}}}
+$$
+
+Avec :
+
+$$
+D \approx 249
+\qquad \text{et} \qquad
+p_{\text{event}} \approx 0{,}70
+$$
+
+Application numérique :
+
+$$
+N \approx \frac{249}{0{,}70}
+$$
+
+$$
+N \approx 355{,}7
+$$
+
+Donc :
+
+$$
+N \approx 356 \text{ sujets au total}
+$$
+
+ce qui redonne exactement l'ordre de grandeur du papier.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Si l'on admet qu'environ `70%` des patients randomisés contribueront à un événement analysable, alors le passage des `249` événements requis au nombre de sujets se fait simplement par `N ≈ D / p_event`. On obtient :
+
+$$
+N \approx 249 / 0{,}70 \approx 356
+$$
+
+soit **environ 356 sujets au total**, valeur parfaitement cohérente avec le paragraphe de dimensionnement de l'article.
+:::
+
+### Question 3 proposée {.unlisted}
+
+> Si l'effet attendu avait été plus modeste, par exemple `HR = 0,80` au lieu de `0,67`, quel aurait été l'ordre de grandeur du besoin en **événements**, puis en **sujets**, toutes choses égales par ailleurs ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est très utile pour comprendre une idée fondamentale :
+
+- plus le `HR` attendu est proche de `1`,
+- plus il faut d'événements,
+- donc plus le nombre de sujets nécessaires augmente fortement.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On garde les mêmes valeurs de `alpha` et de puissance :
+
+$$
+z_{1-\alpha} = 1{,}96
+\qquad ; \qquad
+z_{1-\beta} \approx 1{,}18
+$$
+
+Formule de départ :
+
+$$
+D = \frac{4(z_{1-\alpha}+z_{1-\beta})^2}{[\log(HR)]^2}
+$$
+
+Cette fois :
+
+$$
+\log(0{,}80) \approx -0{,}223
+$$
+
+donc :
+
+$$
+[\log(0{,}80)]^2 \approx 0{,}050
+$$
+
+Le numérateur ne change pas :
+
+$$
+4(1{,}96+1{,}18)^2 \approx 39{,}4
+$$
+
+Donc :
+
+$$
+D \approx \frac{39{,}4}{0{,}050} \approx 788
+$$
+
+soit environ **790 événements**.
+
+Si l'on garde la même hypothèse de `70%` d'événements observables :
+
+$$
+N \approx \frac{788}{0{,}70} \approx 1126
+$$
+
+On arrive donc à **un peu plus de 1100 sujets au total**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Avec un effet attendu plus modeste, par exemple $HR = 0{,}80$, le besoin en événements augmente fortement car $\log(HR)$ se rapproche de zéro. Le calcul de Schoenfeld donne alors environ **790 événements** au lieu de `249`. En supposant toujours qu'environ `70%` des sujets fournissent un événement analysable, il faudrait alors :
+
+$$
+N \approx 790 / 0{,}70 \approx 1130
+$$
+
+soit **de l'ordre de 1100 à 1150 sujets au total**. Cette question montre bien à quel point le NSN dépend de l'effet attendu.
+:::
+
+### Question 4 proposée {.unlisted}
+
+> Dans la mesure du possible, calculez une **puissance a posteriori grossière** sur l'effet observé pour la PFS.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette formulation ressemble aux annales d'épidémiologie, mais on peut très bien l'utiliser ici sur le résultat principal observé.
+
+Le but n'est pas d'obtenir un chiffre parfait. Il faut surtout montrer que :
+
+1. l'effet observé est beaucoup plus fort que l'effet anticipé ;
+2. l'intervalle de confiance est étroit ;
+3. la puissance observée sera donc très élevée.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+L'article donne :
+
+$$
+HR = 0{,}49 \qquad \text{avec } IC95\% [0{,}39 ; 0{,}62]
+$$
+
+On commence par reconstruire :
+
+$$
+SE(\log HR) \approx \frac{\log(0{,}62)-\log(0{,}39)}{3{,}92}
+$$
+
+Décomposition :
+
+$$
+\log(0{,}62) \approx -0{,}48
+$$
+
+$$
+\log(0{,}39) \approx -0{,}94
+$$
+
+$$
+\log(0{,}62)-\log(0{,}39) \approx 0{,}46
+$$
+
+Donc :
+
+$$
+SE(\log HR) \approx \frac{0{,}46}{3{,}92} \approx 0{,}118
+$$
+
+Puis :
+
+$$
+z \approx \frac{|\log(0{,}49)|}{0{,}118}
+$$
+
+Or :
+
+$$
+\log(0{,}49) \approx -0{,}71
+$$
+
+donc :
+
+$$
+z \approx \frac{0{,}71}{0{,}118} \approx 6{,}0
+$$
+
+Enfin :
+
+$$
+\text{puissance} \approx \Phi(z-1{,}96) = \Phi(6{,}0-1{,}96) = \Phi(4{,}04)
+$$
+
+Une valeur de `4,04` est très au-dessus de `3`, donc :
+
+$$
+\Phi(4{,}04) \approx 1
+$$
+
+La puissance observée grossière est donc **pratiquement égale à 1**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Si l'on force un calcul de puissance a posteriori à partir du résultat observé `HR = 0,49 [0,39 ; 0,62]`, on reconstruit d'abord `SE(log HR) ≈ 0,118`, puis un score de Wald d'environ `z ≈ 6,0`. Cela donne une puissance observée très proche de `100%`. La bonne interprétation est surtout que l'effet observé est **très nettement plus fort** que l'effet de dimensionnement (`HR = 0,67`) et qu'il a été estimé avec un intervalle de confiance étroit.
+:::
+
+### Question 5 proposée {.unlisted}
+
+> Si les auteurs avaient voulu une puissance de `90%` au lieu de `88%`, avec les mêmes autres hypothèses, combien aurait-il fallu prévoir d'**événements**, puis de **sujets** ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question ressemble beaucoup aux annales où l'on vous demande :
+
+- soit de refaire le NSN ;
+- soit d'expliquer comment il changerait si la puissance exigée était plus élevée.
+
+Ici, on garde :
+
+- le même `HR = 0,67` ;
+- le même alpha unilatéral `0,025` ;
+- la même hypothèse d'environ `70%` d'événements observables.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On reprend la formule de Schoenfeld :
+
+$$
+D = \frac{4(z_{1-\alpha}+z_{1-\beta})^2}{[\log(HR)]^2}
+$$
+
+Cette fois :
+
+$$
+z_{1-\beta} = 1{,}28
+\qquad \text{pour une puissance de } 90\%
+$$
+
+On garde :
+
+$$
+z_{1-\alpha} = 1{,}96
+\qquad ; \qquad
+\log(0{,}67) \approx -0{,}40
+$$
+
+Donc :
+
+$$
+D \approx \frac{4(1{,}96+1{,}28)^2}{0{,}16}
+$$
+
+$$
+1{,}96+1{,}28 = 3{,}24
+$$
+
+$$
+3{,}24^2 \approx 10{,}50
+$$
+
+$$
+4 \times 10{,}50 \approx 42{,}0
+$$
+
+$$
+D \approx \frac{42{,}0}{0{,}16} \approx 262{,}5
+$$
+
+soit environ **263 événements**.
+
+Puis :
+
+$$
+N \approx \frac{263}{0{,}70} \approx 376
+$$
+
+On retient donc **environ 376 sujets au total**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+En passant d'une puissance de `88%` à `90%`, le besoin en événements augmente légèrement. Avec `HR = 0,67`, `alpha = 0,025` unilatéral et la formule de Schoenfeld, on obtient environ **263 événements** au lieu de `249`. Si l'on suppose toujours qu'environ `70%` des sujets fourniront un événement analysable, cela conduit à :
+
+$$
+N \approx 263 / 0{,}70 \approx 376
+$$
+
+soit **environ 376 sujets au total**. C'est intéressant, car cela est très proche de l'effectif effectivement randomisé dans l'essai.
+:::
+
+### Question 6 proposée {.unlisted}
+
+> A l'aide des données disponibles dans l'article, essayez de retrouver approximativement le **nombre d'événements** qu'il aurait fallu pour l'OS si l'on recycle l'hypothèse `HR = 0,70` avec une puissance de `80%`.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question ressemble beaucoup à ce qui est déjà demandé dans certaines annales :
+
+- prendre une hypothèse de l'article ;
+- la remettre dans une formule simple ;
+- vérifier qu'on retrouve un ordre de grandeur cohérent.
+
+Ici, on reprend la logique de Schoenfeld, mais sur l'`OS` au lieu de la `PFS`.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Formule générale :
+
+$$
+D = \frac{4(z_{1-\alpha}+z_{1-\beta})^2}{[\log(HR)]^2}
+$$
+
+Si l'on recycle la même approximation d'alpha :
+
+$$
+z_{1-\alpha} = 1{,}96
+$$
+
+Pour une puissance de `80%` :
+
+$$
+z_{1-\beta} = 0{,}84
+$$
+
+Avec :
+
+$$
+\log(0{,}70) \approx -0{,}357
+$$
+
+donc :
+
+$$
+[\log(0{,}70)]^2 \approx 0{,}127
+$$
+
+Application numérique :
+
+$$
+D \approx \frac{4(1{,}96+0{,}84)^2}{0{,}127}
+$$
+
+$$
+1{,}96+0{,}84 = 2{,}80
+$$
+
+$$
+2{,}80^2 = 7{,}84
+$$
+
+$$
+4 \times 7{,}84 = 31{,}36
+$$
+
+$$
+D \approx \frac{31{,}36}{0{,}127} \approx 247
+$$
+
+Il faudrait donc environ **247 événements de décès**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+En reprenant la formule de Schoenfeld avec `HR = 0,70`, `alpha ≈ 2,5%` unilatéral et une puissance de `80%`, on obtient environ **247 événements** requis pour l'OS. Cela aide à comprendre pourquoi les auteurs disent que l'effectif prévu pour la PFS pouvait aussi couvrir l'OS, à condition d'avoir assez de décès observables pendant le suivi.
+:::
+
+### Question 7 proposée {.unlisted}
+
+> Si seulement `60%` des sujets randomisés devaient finalement contribuer à un événement de PFS analysable, combien de sujets faudrait-il inclure ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question reprend exactement une logique très fréquente dans les annales :
+
+- on a un besoin en événements ;
+- puis on vous demande de convertir ce besoin en nombre de sujets sous une autre hypothèse de rendement.
+
+La formule reste la même, seule la proportion de sujets "utiles" change.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On garde :
+
+$$
+D \approx 249
+$$
+
+mais cette fois :
+
+$$
+p_{\text{event}} \approx 0{,}60
+$$
+
+Donc :
+
+$$
+N \approx \frac{249}{0{,}60}
+$$
+
+$$
+N \approx 415
+$$
+
+Il faudrait donc **environ 415 sujets au total**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Si seulement `60%` des sujets randomisés devaient fournir un événement de PFS analysable, alors il faudrait :
+
+$$
+N \approx 249 / 0{,}60 \approx 415
+$$
+
+soit **environ 415 patients au total**. Cette question montre qu'à besoin en événements fixé, le NSN dépend fortement de la proportion attendue de sujets qui contribueront effectivement à l'analyse.
+:::
+
+### Question 8 proposée {.unlisted}
+
+> Si l'essai avait été randomisé en `2:1` au lieu de `1:1`, quel aurait été l'ordre de grandeur du besoin en **événements**, puis en **sujets**, pour la PFS ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Dans les annales, on oublie souvent que l'allocation intervient directement dans les formules de survie.
+
+Quand l'allocation n'est plus `1:1`, on ne peut plus utiliser la forme simplifiée avec le facteur `4` ; il faut revenir à la formule générale avec :
+
+$$
+p(1-p)
+$$
+
+où `p` est la proportion allouée à un groupe.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Formule générale :
+
+$$
+D = \frac{(z_{1-\alpha}+z_{1-\beta})^2}{p(1-p)[\log(HR)]^2}
+$$
+
+Ici :
+
+$$
+p = \frac{2}{3}
+\qquad \Rightarrow \qquad
+p(1-p) = \frac{2}{3}\times\frac{1}{3} = \frac{2}{9} \approx 0{,}222
+$$
+
+On garde :
+
+$$
+(z_{1-\alpha}+z_{1-\beta})^2 \approx 9{,}86
+$$
+
+et :
+
+$$
+[\log(0{,}67)]^2 \approx 0{,}16
+$$
+
+Donc :
+
+$$
+D \approx \frac{9{,}86}{0{,}222 \times 0{,}16}
+$$
+
+$$
+0{,}222 \times 0{,}16 \approx 0{,}0355
+$$
+
+$$
+D \approx \frac{9{,}86}{0{,}0355} \approx 278
+$$
+
+Il faudrait donc environ **278 événements**.
+
+Si l'on garde l'hypothèse de `70%` d'événements observables :
+
+$$
+N \approx \frac{278}{0{,}70} \approx 397
+$$
+
+On retient donc **environ 400 sujets au total**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Avec une allocation `2:1`, l'information statistique est un peu moins bonne qu'en `1:1`. En reprenant la formule générale de Schoenfeld avec `p = 2/3`, on obtient environ **278 événements** au lieu de `249`. Sous l'hypothèse que `70%` des sujets fournissent un événement analysable, cela conduit à **environ 400 sujets au total**. L'allocation déséquilibrée augmente donc légèrement le besoin en effectif.
+:::
+
+### Question 9 proposée {.unlisted}
+
+> Dans la mesure du possible, calculez une **puissance a posteriori grossière** sur l'effet observé pour l'OS.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est volontairement parallèle à celle faite sur la `PFS`, pour vous entraîner à refaire exactement la même chaîne :
+
+- `IC95%` vers `SE(log HR)` ;
+- puis `SE` vers `z` ;
+- puis `z` vers une puissance observée grossière.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+L'article donne :
+
+$$
+HR = 0{,}60 \qquad \text{avec } IC95\% [0{,}44 ; 0{,}82]
+$$
+
+On reconstruit :
+
+$$
+SE(\log HR) \approx \frac{\log(0{,}82)-\log(0{,}44)}{3{,}92}
+$$
+
+Avec :
+
+$$
+\log(0{,}82) \approx -0{,}20
+$$
+
+$$
+\log(0{,}44) \approx -0{,}82
+$$
+
+donc :
+
+$$
+\log(0{,}82)-\log(0{,}44) \approx 0{,}62
+$$
+
+Puis :
+
+$$
+SE(\log HR) \approx \frac{0{,}62}{3{,}92} \approx 0{,}159
+$$
+
+Le score de Wald vaut alors :
+
+$$
+z \approx \frac{|\log(0{,}60)|}{0{,}159}
+$$
+
+or :
+
+$$
+\log(0{,}60) \approx -0{,}51
+$$
+
+donc :
+
+$$
+z \approx \frac{0{,}51}{0{,}159} \approx 3{,}21
+$$
+
+Enfin :
+
+$$
+\text{puissance} \approx \Phi(3{,}21-1{,}96) = \Phi(1{,}25)
+$$
+
+Or :
+
+$$
+\Phi(1{,}25) \approx 0{,}89
+$$
+
+La puissance observée grossière est donc d'environ **89%**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+En forçant le calcul sur l'OS observée (`HR = 0,60 [0,44 ; 0,82]`), on trouve `SE(log HR) ≈ 0,159`, puis `z ≈ 3,21`, soit une puissance observée grossière d'environ **89%**. Ce résultat est cohérent avec le fait que l'effet sur l'OS est estimé de manière assez précise et reste statistiquement convaincant.
+:::
+
+### Question 10 proposée {.unlisted}
+
+> Si les auteurs avaient anticipé dès le départ l'effet réellement observé sur la PFS (`HR ≈ 0,49`) au lieu de `HR = 0,67`, quel aurait été l'ordre de grandeur du besoin en **événements**, puis en **sujets** ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est très proche de l'esprit des annales où l'on vous demande de discuter si les hypothèses de départ étaient conservatrices.
+
+Ici, l'idée est simple :
+
+- plus l'effet attendu est fort ;
+- moins il faut d'événements ;
+- donc moins il faut de sujets.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On garde :
+
+$$
+z_{1-\alpha} = 1{,}96
+\qquad ; \qquad
+z_{1-\beta} \approx 1{,}18
+$$
+
+Donc le numérateur reste :
+
+$$
+4(1{,}96+1{,}18)^2 \approx 39{,}4
+$$
+
+Mais cette fois :
+
+$$
+\log(0{,}49) \approx -0{,}71
+$$
+
+donc :
+
+$$
+[\log(0{,}49)]^2 \approx 0{,}50
+$$
+
+Ainsi :
+
+$$
+D \approx \frac{39{,}4}{0{,}50} \approx 79
+$$
+
+Il faudrait donc seulement **environ 80 événements**.
+
+Si l'on suppose encore `70%` d'événements observables :
+
+$$
+N \approx \frac{79}{0{,}70} \approx 113
+$$
+
+On retient donc **environ 110 à 115 sujets au total**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Si les auteurs avaient anticipé un effet aussi fort que celui finalement observé sur la PFS (`HR ≈ 0,49`), alors le besoin en événements aurait été bien plus faible : environ **80 événements** au lieu de `249`. Sous l'hypothèse qu'environ `70%` des sujets fournissent un événement analysable, cela donnerait seulement **110 à 115 sujets au total**. Cela montre que l'hypothèse de dimensionnement initiale (`HR = 0,67`) était nettement plus prudente que ce qui a été observé.
+:::
+
+::: {.callout-note title="Questions complémentaires sur λ"}
+Les trois questions suivantes sont **supplémentaires** aux 10 questions d'annales ci-dessus. Elles servent à travailler explicitement les liens :
+
+$$
+m = \frac{\log 2}{\lambda}
+\qquad ; \qquad
+R(t) = 1-e^{-\lambda t}
+\qquad ; \qquad
+HR \approx \frac{\lambda_T}{\lambda_C}
+$$
+
+sous une hypothèse exponentielle simplificatrice.
+:::
+
+### Question 11 proposée {.unlisted}
+
+> A l'aide des données disponibles dans l'article, retrouvez approximativement les **taux instantanés** `\lambda_C` et `\lambda_T` de PFS dans les deux groupes, en supposant une loi exponentielle.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Dans les annales, ce type de question sert à vérifier que vous savez passer :
+
+- d'une **médiane de survie** ;
+- à un **taux instantané** ;
+- puis à une lecture plus concrète du phénomène.
+
+Ici, les médianes observées sont :
+
+- `4,3` mois dans le groupe chimiothérapie ;
+- `8,3` mois dans le groupe sac-TMT.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Sous hypothèse exponentielle, le lien entre médiane `m` et taux `\lambda` est :
+
+$$
+m = \frac{\log 2}{\lambda}
+\qquad \Longleftrightarrow \qquad
+\lambda = \frac{\log 2}{m}
+$$
+
+On prend :
+
+$$
+\log 2 \approx 0{,}693
+$$
+
+Pour le bras contrôle :
+
+$$
+\lambda_C \approx \frac{0{,}693}{4{,}3}
+$$
+
+$$
+\lambda_C \approx 0{,}161 \text{ par mois}
+$$
+
+Pour le bras traité :
+
+$$
+\lambda_T \approx \frac{0{,}693}{8{,}3}
+$$
+
+$$
+\lambda_T \approx 0{,}084 \text{ par mois}
+$$
+
+Cela signifie, de manière très simplifiée, que le rythme de progression ou de décès est presque **deux fois plus faible** dans le bras sac-TMT que dans le bras chimiothérapie.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+On part de la relation :
+
+$$
+\lambda = \frac{\log 2}{m}
+$$
+
+Pour le groupe contrôle :
+
+$$
+\lambda_C \approx \frac{0{,}693}{4{,}3} \approx 0{,}161 \text{ par mois}
+$$
+
+Pour le groupe traité :
+
+$$
+\lambda_T \approx \frac{0{,}693}{8{,}3} \approx 0{,}084 \text{ par mois}
+$$
+
+Le taux instantané d'événement est donc approximativement deux fois plus faible dans le bras traité.
+:::
+
+### Question 12 proposée {.unlisted}
+
+> A l'aide des données disponibles dans l'article, retrouvez approximativement le **hazard ratio** à partir des médianes observées de PFS.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question ressemble aux annales où l'on vous demande de faire parler les chiffres de l'article, même quand la quantité demandée n'est pas écrite telle quelle dans le paragraphe de méthode.
+
+L'idée est ici de montrer que, sous hypothèse exponentielle :
+
+- le `HR` peut se lire comme un **rapport de taux** ;
+- les médianes observées donnent déjà une bonne intuition de l'effet.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Sous hypothèse exponentielle :
+
+$$
+HR \approx \frac{\lambda_T}{\lambda_C}
+$$
+
+Or :
+
+$$
+\lambda_C \approx 0{,}161
+\qquad ; \qquad
+\lambda_T \approx 0{,}084
+$$
+
+Donc :
+
+$$
+HR \approx \frac{0{,}084}{0{,}161}
+$$
+
+$$
+HR \approx 0{,}52
+$$
+
+L'article rapporte :
+
+$$
+HR = 0{,}49
+$$
+
+Le résultat n'est pas exactement identique, ce qui est normal :
+
+- la loi exponentielle n'est qu'une approximation ;
+- les médianes sont arrondies ;
+- le `HR` publié vient d'une vraie analyse de survie sur toutes les données, pas d'un simple calcul à partir des médianes.
+
+Mais l'ordre de grandeur est **très cohérent**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+On utilise :
+
+$$
+HR \approx \frac{\lambda_T}{\lambda_C}
+$$
+
+En remplaçant :
+
+$$
+HR \approx \frac{0{,}084}{0{,}161} \approx 0{,}52
+$$
+
+Cette valeur est très proche du `HR` publié de `0,49`. Les médianes observées sont donc cohérentes avec un effet important du traitement sur la PFS.
+:::
+
+### Question 13 proposée {.unlisted}
+
+> En supposant une loi exponentielle et un suivi fixe de `12` mois sans perte de vue, quelle **proportion de patients avec événement de PFS** attendrait-on approximativement dans chaque groupe ? En quoi cela aide-t-il à comprendre que l'article parle d'environ `70%` de patients fournissant un événement analysable ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question fait le lien entre deux étages du raisonnement :
+
+- les **taux instantanés** `\lambda` ;
+- la **proportion de patients** qui auront un événement pendant une certaine fenêtre de suivi.
+
+C'est précisément ce type de pont qui permet de passer, dans un essai de survie, du besoin en événements au besoin en sujets.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Sous hypothèse exponentielle :
+
+$$
+R(t) = 1-e^{-\lambda t}
+$$
+
+où `R(t)` est ici le risque cumulé d'avoir progressé ou d'être décédé avant le temps `t`.
+
+Pour le groupe contrôle à `12` mois :
+
+$$
+R_C(12) \approx 1-e^{-0{,}161 \times 12}
+$$
+
+$$
+0{,}161 \times 12 = 1{,}932
+$$
+
+$$
+e^{-1{,}932} \approx 0{,}145
+$$
+
+Donc :
+
+$$
+R_C(12) \approx 1-0{,}145 = 0{,}855
+$$
+
+soit environ **86%** d'événements à `12` mois.
+
+Pour le groupe traité :
+
+$$
+R_T(12) \approx 1-e^{-0{,}084 \times 12}
+$$
+
+$$
+0{,}084 \times 12 = 1{,}008
+$$
+
+$$
+e^{-1{,}008} \approx 0{,}365
+$$
+
+Donc :
+
+$$
+R_T(12) \approx 1-0{,}365 = 0{,}635
+$$
+
+soit environ **64%** d'événements à `12` mois.
+
+En allocation `1:1`, une moyenne grossière donne :
+
+$$
+\frac{0{,}855+0{,}635}{2} \approx 0{,}745
+$$
+
+soit environ **75%** de patients avec événement si tous étaient suivis `12` mois complets sans censure.
+
+Cela aide à comprendre pourquoi une hypothèse pratique d'environ `70%` de sujets contribuant à un événement analysable est très plausible dès qu'on tient compte de la censure administrative, du recrutement étalé et des arrondis.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+On utilise :
+
+$$
+R(t) = 1-e^{-\lambda t}
+$$
+
+Pour le groupe contrôle :
+
+$$
+R_C(12) \approx 1-e^{-0{,}161 \times 12} \approx 0{,}855
+$$
+
+Pour le groupe traité :
+
+$$
+R_T(12) \approx 1-e^{-0{,}084 \times 12} \approx 0{,}635
+$$
+
+En moyenne `1:1`, cela donne environ :
+
+$$
+\frac{0{,}855+0{,}635}{2} \approx 0{,}745
+$$
+
+soit environ **75%** de patients avec événement. Cela rend très plausible l'hypothèse pratique d'environ `70%` de sujets contribuant à un événement analysable.
+:::
+
+## 6.16. 2026 EPI
+
+### Article et contexte
+
+Article support : **Rosenström et al., Lancet Psychiatry 2025**, cohorte rétrospective comparant **therapist-guided internet CBT** (`iCBT`) à la **face-to-face CBT** (`fCBT`) pour la dépression en Finlande.
+
+- étude observationnelle sur registres ;
+- objectif principal : estimer un **ATE** sur le changement de score `PHQ-9` ;
+- effectif analysé : `5834` patients (`5446` iCBT et `388` fCBT) ;
+- l'article ne présente **pas** un vrai NSN d'essai randomisé, mais un **objectif de précision**.
+
+::: {.callout-note title="Statut de cette section"}
+Les dix questions ci-dessous sont **des questions proposées d'entraînement** à partir de l'article `2026 EPI`. Ici, le thème "nombre de sujets" doit être compris comme un travail sur la **précision**, puis sur ce que donnerait un faux NSN si l'on transformait artificiellement l'article en essai simple.
+:::
+
+### Extrait de l'article à analyser
+
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Passage exact de l'article</p>
+      <p class="article-hunt-card__hint">Le premier extrait précise la cible de précision. Les suivants donnent l'estimation finale et un ordre de grandeur de la variabilité.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2026-epi" aria-expanded="false" aria-controls="hunt-2026-epi">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"We arrived at our sample size by taking all eligible patients from the register. Our aim was to estimate the ATE between fCBT and guided iCBT. An estimate with a 95% CI no wider than 1.7 PHQ-9 points can be considered accurate ..."</p>
+    <p>"Observed difference in means (change in PHQ-9 [fCBT]) − (change in PHQ-9 [iCBT]) = 1.120; SE = 0.312; 95% CI 0.509 to 1.731."</p>
+    <p>"Estimated ATE (change in PHQ-9 [fCBT]) − (change in PHQ-9 [iCBT]) = 0.745; SE of the estimate = 0.300; 95% CI 0.156 to 1.334."</p>
+    <p>"Uusimaa region only: estimated ATE = 0.636; SE = 0.326; 95% CI −0.002 to 1.276."</p>
+    <p>"The mean PHQ-9 decline defined via change in PHQ-9 in the full sample was 3.6 points (5.0) ... The full-data change in PHQ-9 was 2.4 points (4.8) [in fCBT]."</p>
+  </div>
+  <div id="hunt-2026-epi" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos à repérer</p>
+    <ul>
+      <li>cible de précision : <code>IC95% ≤ 1,7</code> point de PHQ-9 ;</li>
+      <li>différence brute observée : <code>1,120</code> avec <code>SE = 0,312</code> et <code>IC95% 0,509 à 1,731</code> ;</li>
+      <li>estimateur final : <code>ATE = 0,745</code>, <code>SE = 0,300</code>, <code>IC95% 0,156 à 1,334</code> ;</li>
+      <li>dans la région d'Uusimaa uniquement : <code>ATE = 0,636</code>, <code>SE = 0,326</code>, <code>IC95% -0,002 à 1,276</code> ;</li>
+      <li>ordre de grandeur de l'écart-type du changement de PHQ-9 : environ <code>5,0</code> en iCBT et <code>4,8</code> en fCBT ;</li>
+      <li>effectif effectivement analysé : <code>5834</code> patients au total.</li>
+    </ul>
+  </div>
+</div>
+```
+
+::: {.callout-note title="Pourquoi pas de λ ici ?"}
+Pour cette annale `2026 EPI`, `\lambda` n'est **pas** le bon outil de départ.
+
+Pourquoi ?
+
+- le critère principal n'est pas un **temps jusqu'à événement** ;
+- on n'analyse pas une survie, une rechute ou un délai ;
+- on analyse une **différence moyenne de score** (`PHQ-9`).
+
+Ici, les bons outils sont donc :
+
+- `\sigma` pour la variabilité ;
+- `SE` pour la précision ;
+- la largeur de l'`IC95%` ;
+- et la taille d'effet sur une échelle continue.
+:::
+
+### Question 1 proposée {.unlisted}
+
+> Montrez que l'objectif annoncé est un **objectif de précision** et non un vrai NSN de supériorité. Quel `SE` maximal cela impose-t-il, et ce critère a-t-il été atteint ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Ici, la première chose à comprendre est que l'article ne dit pas :
+
+- "nous voulions détecter une différence de `x`",
+
+mais :
+
+- "nous voulions une estimation avec un `IC95%` assez étroit".
+
+Il faut donc partir de la **largeur cible** de l'intervalle de confiance.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Rappel de formule :
+
+$$
+\text{largeur}(IC95\%) \approx 3{,}92 \times SE
+$$
+
+Donc, si l'on veut une largeur maximale de `1,7` :
+
+$$
+SE_{\text{cible}} \approx \frac{1{,}7}{3{,}92} \approx 0{,}434
+$$
+
+Maintenant, on regarde le résultat observé dans l'article :
+
+$$
+IC95\% = [0{,}156 ; 1{,}334]
+$$
+
+Sa largeur vaut :
+
+$$
+1{,}334 - 0{,}156 = 1{,}178
+$$
+
+donc :
+
+$$
+SE_{\text{observé}} \approx \frac{1{,}178}{3{,}92} \approx 0{,}301
+$$
+
+ce qui est cohérent avec le `SE = 0,300` donné dans le tableau.
+
+Comme :
+
+$$
+0{,}301 < 0{,}434
+$$
+
+la précision visée a bien été atteinte, et même dépassée.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+L'article ne formule pas un NSN de supériorité classique ; il fixe une **cible de précision** : obtenir un `IC95%` de largeur au plus `1,7` point de PHQ-9. Cela correspond à un `SE` maximal d'environ `1,7 / 3,92 = 0,434`. Or l'estimation finale a un `SE` d'environ `0,300`, retrouvé soit directement dans le tableau, soit à partir de l'intervalle `[0,156 ; 1,334]`. L'objectif réel était donc bien un **objectif de précision**, et la précision observée est meilleure que celle visée.
+:::
+
+### Question 2 proposée {.unlisted}
+
+> A l'aide des données disponibles dans l'article, essayez de retrouver approximativement le **nombre de sujets** qui aurait suffi dans une étude équilibrée à deux groupes pour garantir une largeur d'`IC95%` de `1,7` point, en prenant $\sigma \approx 4{,}9$.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question transforme l'objectif de précision de l'article en un calcul de coin de table beaucoup plus classique.
+
+On utilise ici l'ordre de grandeur de la variabilité observée dans l'article :
+
+- `SD ≈ 5,0` dans le groupe iCBT ;
+- `SD ≈ 4,8` dans le groupe fCBT ;
+
+donc un écart-type commun raisonnable :
+
+$$
+\sigma \approx 4{,}9
+$$
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Dans une étude équilibrée à deux groupes, l'erreur standard d'une différence de moyennes vaut :
+
+$$
+SE \approx \sigma \sqrt{\frac{2}{n}}
+$$
+
+La largeur de l'`IC95%` vaut donc :
+
+$$
+\text{largeur}(IC95\%) \approx 3{,}92 \times \sigma \sqrt{\frac{2}{n}}
+$$
+
+On veut une largeur égale à `1,7`, donc :
+
+$$
+1{,}7 \approx 3{,}92 \times 4{,}9 \times \sqrt{\frac{2}{n}}
+$$
+
+Ce qui donne :
+
+$$
+n \approx 2\left(\frac{3{,}92 \times 4{,}9}{1{,}7}\right)^2
+$$
+
+Application numérique :
+
+$$
+3{,}92 \times 4{,}9 \approx 19{,}2
+$$
+
+$$
+\frac{19{,}2}{1{,}7} \approx 11{,}3
+$$
+
+$$
+11{,}3^2 \approx 127{,}7
+$$
+
+$$
+n \approx 2 \times 127{,}7 \approx 255
+$$
+
+Il faudrait donc environ **255 sujets par bras**, soit **environ 510 au total**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+En ramenant le problème à une étude simple et équilibrée à deux groupes, avec un écart-type commun d'environ `4,9`, la contrainte de précision `IC95% ≤ 1,7` conduit à :
+
+$$
+n \approx 2\left(\frac{3{,}92 \times 4{,}9}{1{,}7}\right)^2 \approx 255
+$$
+
+Il aurait donc fallu **de l'ordre de 250 à 260 patients par bras**, soit environ **500 à 520 sujets au total**, pour garantir une telle précision dans un cadre simplifié.
+:::
+
+### Question 3 proposée {.unlisted}
+
+> Si l'on transformait artificiellement cette question en un essai de supériorité classique visant à détecter une différence cliniquement perceptible de `1,7` point sur le `PHQ-9`, avec `alpha = 5%` et puissance `80%`, quel serait le NSN approximatif **par bras** ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question n'est **pas** celle du papier, mais elle est très formatrice.
+
+Elle permet de comparer deux logiques différentes :
+
+- **logique de précision** ;
+- **logique de détection d'une différence cliniquement pertinente**.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On utilise la formule classique à deux moyennes :
+
+$$
+n_{\text{par bras}} = \frac{2(z_{1-\alpha/2}+z_{1-\beta})^2\sigma^2}{\delta^2}
+$$
+
+Avec :
+
+$$
+z_{1-\alpha/2} = 1{,}96
+\qquad ; \qquad
+z_{1-\beta} = 0{,}84
+$$
+
+$$
+\sigma \approx 4{,}9
+\qquad ; \qquad
+\delta = 1{,}7
+$$
+
+Application numérique :
+
+$$
+n \approx \frac{2(1{,}96+0{,}84)^2 \times 4{,}9^2}{1{,}7^2}
+$$
+
+$$
+1{,}96+0{,}84 = 2{,}80
+$$
+
+$$
+2{,}80^2 = 7{,}84
+$$
+
+$$
+4{,}9^2 \approx 24{,}0
+$$
+
+$$
+1{,}7^2 = 2{,}89
+$$
+
+Donc :
+
+$$
+n \approx \frac{2 \times 7{,}84 \times 24{,}0}{2{,}89}
+\approx \frac{376{,}3}{2{,}89}
+\approx 130
+$$
+
+On retient donc environ **130 sujets par bras**, soit **260 au total**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Si l'on faisait comme s'il s'agissait d'un essai à deux groupes cherchant à détecter une différence cliniquement pertinente de `1,7` point sur le `PHQ-9`, avec `alpha = 5%`, puissance `80%` et $\sigma \approx 4{,}9$, on obtiendrait environ :
+
+$$
+n \approx 130 \text{ par bras}
+$$
+
+soit **environ 260 sujets au total**. Ce chiffre est plus petit que celui obtenu avec la logique de précision, ce qui rappelle qu'un objectif "avoir un IC étroit" est souvent plus exigeant qu'un simple objectif "détecter une différence".
+:::
+
+### Question 4 proposée {.unlisted}
+
+> Dans la mesure du possible, calculez une **puissance a posteriori grossière** pour l'ATE observé dans l'article.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question reprend presque mot pour mot un type de question déjà rencontré dans les annales.
+
+Ici, il faut toutefois bien rappeler que dans une étude observationnelle complexe, la puissance a posteriori n'est pas l'outil idéal. Mais, si on la force, on peut au moins faire le calcul de base à partir de l'estimation et de son `SE`.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+L'article donne :
+
+$$
+\widehat\theta = 0{,}745
+\qquad ; \qquad
+SE = 0{,}300
+$$
+
+Le score de Wald vaut :
+
+$$
+z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
+$$
+
+Puis :
+
+$$
+\text{puissance} \approx \Phi(z-1{,}96)
+$$
+
+Donc :
+
+$$
+\Phi(2{,}48-1{,}96) = \Phi(0{,}52)
+$$
+
+Or :
+
+$$
+\Phi(0{,}5) \approx 0{,}69
+$$
+
+donc :
+
+$$
+\Phi(0{,}52) \approx 0{,}70
+$$
+
+La puissance observée grossière est donc d'environ **70%**.
+
+Ce chiffre n'est pas à surinterpréter. Ce qui compte surtout est que :
+
+- l'`IC95%` exclut `0` ;
+- mais l'effet observé reste **petit** au regard du seuil clinique de `1,7`.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Si l'on force un calcul de puissance a posteriori à partir de l'ATE observé `0,745` avec `SE = 0,300`, on obtient `z ≈ 2,48`, puis une puissance grossière d'environ `Φ(0,52) ≈ 0,70`, soit **70%**. Cela dit, la bonne lecture de l'article n'est pas vraiment “puissance suffisante ou non”, mais plutôt “précision correcte, effet statistiquement significatif, mais taille d'effet modeste sur le plan clinique”.
+:::
+
+### Question 5 proposée {.unlisted}
+
+> Si l'on voulait non pas détecter `1,7` point, mais seulement détecter l'**effet observé** de `0,745` point dans un essai simple à deux groupes, avec `alpha = 5%`, puissance `80%` et $\sigma \approx 4{,}9$, quel serait le NSN approximatif **par bras** ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est très pédagogique parce qu'elle permet de comparer :
+
+- une différence **cliniquement pertinente** de `1,7` point ;
+- une différence **effectivement observée** de `0,745` point.
+
+Comme `0,745` est beaucoup plus petit que `1,7`, on doit s'attendre à un NSN beaucoup plus grand.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On reprend la formule à deux moyennes :
+
+$$
+n_{\text{par bras}} = \frac{2(z_{1-\alpha/2}+z_{1-\beta})^2\sigma^2}{\delta^2}
+$$
+
+Avec :
+
+$$
+z_{1-\alpha/2} = 1{,}96
+\qquad ; \qquad
+z_{1-\beta} = 0{,}84
+$$
+
+$$
+\sigma \approx 4{,}9
+\qquad ; \qquad
+\delta = 0{,}745
+$$
+
+Le numérateur est le même que tout à l'heure :
+
+$$
+2(1{,}96+0{,}84)^2 \times 4{,}9^2 \approx 376{,}3
+$$
+
+Mais le dénominateur devient :
+
+$$
+0{,}745^2 \approx 0{,}555
+$$
+
+Donc :
+
+$$
+n \approx \frac{376{,}3}{0{,}555} \approx 678
+$$
+
+On retient donc environ **680 sujets par bras**, soit **environ 1360 au total**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Si l'on voulait détecter dans un essai simple la petite différence observée dans l'article (`0,745` point sur le `PHQ-9`), alors le NSN deviendrait beaucoup plus grand. En reprenant `alpha = 5%`, puissance `80%` et $\sigma \approx 4{,}9$, on obtient environ :
+
+$$
+n \approx 678 \text{ par bras}
+$$
+
+soit **de l'ordre de 680 sujets par bras**, donc **environ 1360 au total**. Cette question montre bien qu'un effet statistiquement significatif peut rester assez petit et coûter très cher à démontrer dans un essai prospectif classique.
+:::
+
+### Question 6 proposée {.unlisted}
+
+> A partir de l'`IC95%` de la **différence brute observée** (`1,120 [0,509 ; 1,731]`), retrouvez son `SE`, puis comparez sa précision à celle de l'ATE ajusté.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est utile pour bien distinguer :
+
+- la **différence brute** ;
+- l'**ATE ajusté**.
+
+Dans cet article, les deux donnent des estimations proches, mais il est intéressant de voir si l'ajustement a coûté ou gagné en précision.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Rappel :
+
+$$
+SE \approx \frac{\text{largeur}(IC95\%)}{3{,}92}
+$$
+
+Pour la différence brute :
+
+$$
+\text{largeur} = 1{,}731 - 0{,}509 = 1{,}222
+$$
+
+Donc :
+
+$$
+SE_{\text{brut}} \approx \frac{1{,}222}{3{,}92} \approx 0{,}312
+$$
+
+Ce résultat retombe exactement sur le `SE = 0,312` donné dans le tableau.
+
+Pour l'ATE ajusté, on a déjà :
+
+$$
+SE_{\text{ATE}} \approx 0{,}300
+$$
+
+Comparaison :
+
+$$
+0{,}300 < 0{,}312
+$$
+
+L'ATE ajusté est donc **légèrement plus précis** que la différence brute.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+À partir de l'intervalle `0,509 à 1,731`, on obtient une largeur de `1,222`, donc un `SE` d'environ `1,222 / 3,92 = 0,312`. Ce `SE` est très proche de celui de l'ATE ajusté (`0,300`), qui est même légèrement plus petit. Dans cet article, l'ajustement causal n'a donc pas dégradé la précision ; il l'a même un peu améliorée.
+:::
+
+### Question 7 proposée {.unlisted}
+
+> Dans la mesure du possible, calculez une **puissance a posteriori grossière** pour la **différence brute observée** de `1,120`.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est parallèle à celle posée sur l'ATE ajusté, mais cette fois on travaille sur l'estimateur brut.
+
+Elle permet de voir qu'une différence brute apparemment assez modeste en valeur absolue peut néanmoins être estimée avec une bonne puissance observée, simplement parce que son `SE` est petit.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On prend :
+
+$$
+\widehat\theta = 1{,}120
+\qquad ; \qquad
+SE = 0{,}312
+$$
+
+Donc :
+
+$$
+z \approx \frac{1{,}120}{0{,}312} \approx 3{,}59
+$$
+
+Puis :
+
+$$
+\text{puissance} \approx \Phi(3{,}59-1{,}96) = \Phi(1{,}63)
+$$
+
+Or :
+
+$$
+\Phi(1{,}64) \approx 0{,}95
+$$
+
+donc :
+
+$$
+\Phi(1{,}63) \approx 0{,}95
+$$
+
+La puissance observée grossière est donc d'environ **95%**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Pour la différence brute observée `1,120` avec `SE = 0,312`, on trouve un score de Wald d'environ `3,59`, puis une puissance observée grossière de l'ordre de **95%**. Cela montre que la différence brute est estimée avec une bonne précision statistique, même si sa lecture causale est moins satisfaisante que celle de l'ATE ajusté.
+:::
+
+### Question 8 proposée {.unlisted}
+
+> Dans la mesure du possible, calculez une **puissance a posteriori grossière** pour l'ATE estimé dans la **région d'Uusimaa** uniquement.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est très proche d'un vrai piège d'annale :
+
+- le résultat global est significatif ;
+- mais un sous-ensemble de données l'est beaucoup moins.
+
+Cela permet d'illustrer l'effet d'un effectif plus petit sur la précision.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+Dans la région d'Uusimaa, l'article donne :
+
+$$
+\widehat\theta = 0{,}636
+\qquad ; \qquad
+SE = 0{,}326
+$$
+
+Donc :
+
+$$
+z \approx \frac{0{,}636}{0{,}326} \approx 1{,}95
+$$
+
+Puis :
+
+$$
+\text{puissance} \approx \Phi(1{,}95-1{,}96) = \Phi(-0{,}01)
+$$
+
+Or :
+
+$$
+\Phi(0) = 0{,}50
+$$
+
+donc :
+
+$$
+\Phi(-0{,}01) \approx 0{,}50
+$$
+
+La puissance observée grossière est donc **environ 50%**.
+
+C'est cohérent avec le fait que l'`IC95%` `[-0,002 ; 1,276]` touche pratiquement `0`.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Dans l'analyse restreinte à Uusimaa, l'ATE est `0,636` avec `SE = 0,326`, soit `z ≈ 1,95`. Cela conduit à une puissance observée grossière d'environ **50%**, ce qui est cohérent avec un intervalle de confiance qui frôle `0` et donc avec un résultat beaucoup moins convaincant que dans l'analyse principale.
+:::
+
+### Question 9 proposée {.unlisted}
+
+> Si l'on voulait une largeur d'`IC95%` non plus de `1,7` point mais de **`1,0` point**, quel effectif approximatif faudrait-il dans une étude équilibrée à deux groupes avec $\sigma \approx 4{,}9$ ?
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question prolonge directement la logique de précision de l'article :
+
+- on garde la même variabilité ;
+- mais on exige une estimation **encore plus précise**.
+
+Comme la largeur visée diminue, l'effectif nécessaire doit augmenter nettement.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On repart de :
+
+$$
+\text{largeur}(IC95\%) \approx 3{,}92 \times \sigma \sqrt{\frac{2}{n}}
+$$
+
+On veut maintenant :
+
+$$
+1{,}0 \approx 3{,}92 \times 4{,}9 \times \sqrt{\frac{2}{n}}
+$$
+
+Donc :
+
+$$
+n \approx 2\left(\frac{3{,}92 \times 4{,}9}{1{,}0}\right)^2
+$$
+
+Or :
+
+$$
+3{,}92 \times 4{,}9 \approx 19{,}2
+$$
+
+Donc :
+
+$$
+n \approx 2 \times 19{,}2^2
+$$
+
+$$
+19{,}2^2 \approx 368{,}6
+$$
+
+$$
+n \approx 2 \times 368{,}6 \approx 737
+$$
+
+Il faudrait donc environ **740 sujets par bras**, soit **environ 1480 au total**.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Avec un objectif de précision plus exigeant, `IC95% ≤ 1,0` point, le besoin en effectif augmente fortement. En reprenant $\sigma \approx 4{,}9$, on obtient environ **740 sujets par bras**, soit **près de 1500 sujets au total**. Cela montre à quel point les objectifs de précision étroite sont coûteux en effectif.
+:::
+
+### Question 10 proposée {.unlisted}
+
+> Si l'on dimensionnait un essai simple non pas sur l'ATE ajusté (`0,745`) mais sur la **différence brute observée** (`1,120`), quel serait le NSN approximatif **par bras** ? Comparez au calcul basé sur `0,745`.
+
+::: {.exam-card}
+**Exercice contextualisé**
+
+Cette question est très utile pédagogiquement car elle montre qu'un NSN dépend énormément de la **taille d'effet choisie**.
+
+On compare ici deux scénarios :
+
+- dimensionner sur l'effet ajusté `0,745` ;
+- dimensionner sur la différence brute `1,120`.
+:::
+
+::: {.formula-card}
+**Résolution guidée**
+
+On garde :
+
+$$
+n_{\text{par bras}} = \frac{2(z_{1-\alpha/2}+z_{1-\beta})^2\sigma^2}{\delta^2}
+$$
+
+Avec :
+
+$$
+z_{1-\alpha/2} = 1{,}96
+\qquad ; \qquad
+z_{1-\beta} = 0{,}84
+\qquad ; \qquad
+\sigma \approx 4{,}9
+$$
+
+Le numérateur est toujours :
+
+$$
+2(1{,}96+0{,}84)^2 \times 4{,}9^2 \approx 376{,}3
+$$
+
+Si cette fois :
+
+$$
+\delta = 1{,}120
+$$
+
+alors :
+
+$$
+1{,}120^2 \approx 1{,}254
+$$
+
+et :
+
+$$
+n \approx \frac{376{,}3}{1{,}254} \approx 300
+$$
+
+On retient donc environ **300 sujets par bras**, soit **600 au total**.
+
+Comparaison :
+
+- avec $\delta = 0{,}745$, on trouvait environ `680` par bras ;
+- avec $\delta = 1{,}120$, on tombe à environ `300` par bras.
+:::
+
+::: {.answer-card}
+**Réponse type**
+
+Si l'on dimensionne un essai simple sur la différence brute observée `1,120` plutôt que sur l'ATE ajusté `0,745`, le NSN devient beaucoup plus petit, car l'effet supposé est plus grand. Le calcul donne environ **300 sujets par bras**, soit **600 au total**. À comparer aux **680 sujets par bras** obtenus quand on dimensionne sur `0,745`. Cette question rappelle qu'un petit changement dans la taille d'effet retenue peut modifier massivement le NSN.
 :::
 
 ## 7. Réponses prêtes à l'emploi par grand type de question
@@ -2081,7 +4671,21 @@ La bonne réponse consiste surtout à exploiter la section "Sample size calculat
 
 ## 7.2. Si l'on vous demande une puissance a posteriori
 
-> Une puissance a posteriori n'est pas l'outil le plus satisfaisant car l'intervalle de confiance contient déjà l'information de précision. Si on force néanmoins un calcul grossier, on remonte d'abord au `SE` par `SE \approx \text{largeur}(IC95\%) / 3,92` ou, pour un `RR` / `OR` / `HR`, par `SE(\log \theta) \approx [\log(\text{borne sup})-\log(\text{borne inf})]/3,92`. On en déduit ensuite un `z` et une puissance observée approximative. L'important est surtout que l'IC95% [n'exclut pas / exclut] un effet cliniquement important.
+> Une puissance a posteriori n'est pas l'outil le plus satisfaisant car l'intervalle de confiance contient déjà l'information de précision.
+>
+> Si on force néanmoins un calcul grossier, on remonte d'abord au `SE` par :
+>
+> $$
+> SE \approx \frac{\text{largeur}(IC95\%)}{3{,}92}
+> $$
+>
+> ou, pour un `RR`, un `OR` ou un `HR` :
+>
+> $$
+> SE(\log \theta) \approx \frac{\log(\text{borne sup})-\log(\text{borne inf})}{3{,}92}
+> $$
+>
+> On en déduit ensuite un `z`, puis une puissance observée approximative. L'important est surtout de dire si l'`IC95%` exclut ou non un effet cliniquement important.
 
 ## 7.3. Si l'article ne donne pas assez d'éléments
 
@@ -2116,3 +4720,62 @@ Pour traiter correctement toutes les questions du dossier sur ce thème, il faut
    En examen, cela rapporte des points parce que cela montre que vous avez compris la logique statistique réelle de la question.
 
 Ce poly couvre ainsi l'ensemble des variantes rencontrées dans les annales du dossier, avec une progression allant des formules générales vers les cas d'examen réellement posés.
+
+::: {.content-visible when-format="html"}
+```{=html}
+<script>
+(() => {
+  const storageKey = "poly-revision-theme";
+  const root = document.documentElement;
+  const button = document.getElementById("theme-switch");
+  const themeButton = document.getElementById("theme-switch");
+
+  const setTheme = (theme, persist = true) => {
+    const safeTheme = theme === "night" ? "night" : "day";
+    root.setAttribute("data-theme", safeTheme);
+    if (themeButton) {
+      themeButton.setAttribute("aria-pressed", String(safeTheme === "night"));
+      themeButton.title = safeTheme === "night" ? "Revenir au mode clair" : "Passer en mode nuit";
+      themeButton.setAttribute(
+        "aria-label",
+        safeTheme === "night" ? "Revenir au mode clair" : "Passer en mode nuit"
+      );
+    }
+    if (persist) {
+      try {
+        window.localStorage.setItem(storageKey, safeTheme);
+      } catch (error) {}
+    }
+  };
+
+  setTheme(root.getAttribute("data-theme"), false);
+
+  if (themeButton) {
+    themeButton.addEventListener("click", () => {
+      const nextTheme = root.getAttribute("data-theme") === "night" ? "day" : "night";
+      setTheme(nextTheme, true);
+    });
+  }
+
+  document.querySelectorAll(".article-hunt-card__button[data-target]").forEach((toggle) => {
+    const targetId = toggle.getAttribute("data-target");
+    const panel = document.getElementById(targetId);
+    if (!panel) return;
+
+    const syncToggle = () => {
+      const expanded = !panel.classList.contains("article-hunt-card__answer--collapsed");
+      toggle.setAttribute("aria-expanded", String(expanded));
+      toggle.textContent = expanded ? "Masquer les infos" : "Révéler les infos";
+    };
+
+    syncToggle();
+
+    toggle.addEventListener("click", () => {
+      panel.classList.toggle("article-hunt-card__answer--collapsed");
+      syncToggle();
+    });
+  });
+})();
+</script>
+```
+:::
