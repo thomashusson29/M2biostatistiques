@@ -1,0 +1,438 @@
+:root {
+  --ink: #19333a;
+  --teal: #0f5f67;
+  --teal-soft: #e5f2f2;
+  --coral: #cf6a4d;
+  --coral-soft: #fbeae4;
+  --gold: #c89a3c;
+  --gold-soft: #fbf3df;
+  --sage: #6e8d7b;
+  --paper: #fffdf8;
+  --sand: #f5efe4;
+  --line: #d9d3c7;
+  --shadow: 0 20px 45px rgba(25, 51, 58, 0.10);
+}
+
+html {
+  font-size: 15px;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(200, 154, 60, 0.10), transparent 24rem),
+    radial-gradient(circle at top right, rgba(15, 95, 103, 0.10), transparent 20rem),
+    linear-gradient(180deg, #f8f4ea 0%, #f2ede2 100%);
+  color: var(--ink);
+  font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+
+main.content {
+  max-width: 210mm;
+  margin: 1.2rem auto 2.4rem auto;
+  background: var(--paper);
+  padding: 14mm 14mm 18mm 14mm;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+#title-block-header {
+  display: none;
+}
+
+.cover-banner {
+  background:
+    radial-gradient(circle at top right, rgba(255,255,255,0.14), transparent 28%),
+    linear-gradient(135deg, #0f5f67 0%, #1c7b86 58%, #d28e53 100%);
+  color: white;
+  padding: 1.65rem 1.9rem 1.45rem 1.9rem;
+  border-radius: 22px;
+  margin-bottom: 1.55rem;
+  box-shadow: 0 18px 36px rgba(15, 95, 103, 0.16);
+}
+
+.cover-title {
+  color: #fff !important;
+  font-size: 2.25rem;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  margin: 0 0 0.3rem 0;
+  color: #ffffff !important;
+  font-weight: 800;
+}
+
+.cover-subtitle {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.05rem;
+  margin: 0 0 0.55rem 0;
+}
+
+.cover-banner p,
+.cover-banner a,
+.cover-banner h2,
+.cover-banner h3 {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+#title-block-header .quarto-title-meta {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+nav#TOC,
+.table-of-contents {
+  background: linear-gradient(180deg, var(--teal-soft), #f7fbfb);
+  border: 1px solid rgba(15, 95, 103, 0.16);
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.6rem;
+}
+
+nav#TOC a {
+  color: var(--teal);
+}
+
+h1, h2, h3, h4 {
+  font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  color: var(--teal);
+}
+
+h2 {
+  color: var(--teal);
+  margin-top: 2.1rem;
+  padding: 0.5rem 0.75rem;
+  border-left: 7px solid var(--gold);
+  background: linear-gradient(90deg, rgba(200, 154, 60, 0.12), transparent);
+  border-radius: 0 12px 12px 0;
+}
+
+h3 {
+  color: var(--coral);
+  margin-top: 1.55rem;
+}
+
+h4 {
+  color: var(--sage);
+  margin-top: 1.2rem;
+}
+
+p {
+  margin-bottom: 0.7rem;
+}
+
+a {
+  color: var(--teal);
+}
+
+blockquote {
+  border-left: 5px solid var(--coral);
+  background: var(--coral-soft);
+  padding: 0.8rem 1rem;
+  border-radius: 0 12px 12px 0;
+  color: #5f372c;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 1rem 0 1.25rem 0;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+thead {
+  background: var(--teal);
+  color: white;
+}
+
+th, td {
+  border: 1px solid var(--line);
+  padding: 0.55rem 0.65rem;
+  vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+  background: #fcfaf4;
+}
+
+code {
+  color: #854323;
+  background: #f8eee6;
+  border-radius: 6px;
+  padding: 0.1rem 0.3rem;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+pre {
+  background: #f8fafb;
+  border: 1px solid #d8e4e6;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+}
+
+.hero {
+  background:
+    linear-gradient(135deg, rgba(15, 95, 103, 0.08), rgba(200, 154, 60, 0.14)),
+    var(--paper);
+  border: 1px solid rgba(15, 95, 103, 0.15);
+  border-radius: 20px;
+  padding: 1.1rem 1.2rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.hero p:last-child {
+  margin-bottom: 0;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+}
+
+.chip {
+  display: inline-block;
+  background: white;
+  color: var(--teal);
+  border: 1px solid rgba(15, 95, 103, 0.18);
+  border-radius: 999px;
+  padding: 0.28rem 0.65rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.formula-card,
+.exam-card,
+.answer-card {
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+  margin: 0.9rem 0 1rem 0;
+  border: 1px solid rgba(15, 95, 103, 0.12);
+}
+
+.formula-card {
+  background: linear-gradient(180deg, #f7fbfb, #eef6f6);
+}
+
+.exam-card {
+  background: linear-gradient(180deg, #fff8ee, #fcf1df);
+  border-color: rgba(200, 154, 60, 0.28);
+}
+
+.answer-card {
+  background: linear-gradient(180deg, #fbefea, #f9e4dc);
+  border-color: rgba(207, 106, 77, 0.24);
+}
+
+.small-note {
+  font-size: 0.92rem;
+  color: #576a70;
+}
+
+.page-break {
+  break-before: page;
+  page-break-before: always;
+}
+
+.callout {
+  border-radius: 16px;
+  border-width: 1px;
+}
+
+.callout.callout-note {
+  border-color: rgba(15, 95, 103, 0.24);
+}
+
+.callout.callout-note .callout-header,
+.callout.callout-note .callout-icon-container {
+  background: rgba(15, 95, 103, 0.10);
+}
+
+.callout.callout-tip {
+  border-color: rgba(110, 141, 123, 0.24);
+}
+
+.callout.callout-tip .callout-header,
+.callout.callout-tip .callout-icon-container {
+  background: rgba(110, 141, 123, 0.12);
+}
+
+.callout.callout-warning {
+  border-color: rgba(200, 154, 60, 0.30);
+}
+
+.callout.callout-warning .callout-header,
+.callout.callout-warning .callout-icon-container {
+  background: rgba(200, 154, 60, 0.16);
+}
+
+.callout.callout-important {
+  border-color: rgba(207, 106, 77, 0.28);
+}
+
+.callout.callout-important .callout-header,
+.callout.callout-important .callout-icon-container {
+  background: rgba(207, 106, 77, 0.12);
+}
+
+ul li,
+ol li {
+  margin-bottom: 0.22rem;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 1.8rem 0;
+}
+
+@page {
+  size: A4;
+  margin: 12mm 12mm 16mm 12mm;
+  @bottom-left {
+    content: "Poly de révision · NSN et puissance";
+    color: rgba(25, 51, 58, 0.62);
+    font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+    font-size: 8.5pt;
+  }
+  @bottom-right {
+    content: counter(page);
+    color: rgba(15, 95, 103, 0.90);
+    font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+    font-size: 9pt;
+    font-weight: 700;
+  }
+}
+
+@page :first {
+  @bottom-left {
+    content: "";
+  }
+  @bottom-right {
+    content: "";
+  }
+}
+
+@media print {
+  html,
+  body {
+    font-size: 10.5pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(200, 154, 60, 0.10), transparent 24rem),
+      radial-gradient(circle at top right, rgba(15, 95, 103, 0.10), transparent 20rem),
+      linear-gradient(180deg, #f8f4ea 0%, #f2ede2 100%) !important;
+  }
+
+  main.content {
+    max-width: none;
+    margin: 0;
+    padding: 0 1mm;
+    box-shadow: none;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .cover-banner {
+    margin-top: 2mm;
+    margin-bottom: 6mm;
+    padding: 8mm 9mm 7mm 9mm;
+    border-radius: 7mm;
+    box-shadow: 0 8px 18px rgba(15, 95, 103, 0.10);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .cover-title {
+    font-size: 22pt;
+    line-height: 1.08;
+  }
+
+  .cover-subtitle {
+    font-size: 11pt;
+    line-height: 1.35;
+  }
+
+  .hero {
+    margin: 0 0 5mm 0;
+    padding: 6mm 6mm;
+    border-radius: 6mm;
+    box-shadow: 0 8px 18px rgba(15, 95, 103, 0.08);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  nav#TOC,
+  .table-of-contents {
+    background: linear-gradient(180deg, #e5f2f2, #f7fbfb) !important;
+    border: 1px solid rgba(15, 95, 103, 0.16);
+    border-radius: 6mm;
+    padding: 5mm 5mm;
+    margin-bottom: 6mm;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1 {
+    font-size: 18pt;
+  }
+
+  h2 {
+    margin-top: 7mm;
+    margin-bottom: 3mm;
+    padding: 3mm 4mm;
+    border-left-width: 2.2mm;
+    border-radius: 0 4mm 4mm 0;
+  }
+
+  h3 {
+    margin-top: 5mm;
+    margin-bottom: 2mm;
+  }
+
+  h2, h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  h2 + p,
+  h3 + p {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+
+  blockquote,
+  .formula-card,
+  .exam-card,
+  .answer-card,
+  .callout {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: 0 5px 12px rgba(25, 51, 58, 0.05);
+  }
+
+  table {
+    font-size: 9.5pt;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+}

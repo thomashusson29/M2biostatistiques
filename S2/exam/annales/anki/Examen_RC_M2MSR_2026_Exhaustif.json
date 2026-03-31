@@ -1,0 +1,492 @@
+[
+  {
+    "number": 1,
+    "theme": "DESIGN",
+    "question": "Décrivez le design de l'essai OptiTROP-Lung04. Justifiez chaque choix méthodologique (phase, randomisation, ouverture, contrôle).",
+    "approach": "Décrire phase 3, multicentriques, randomisé, ouvert, contrôlé actif",
+    "reference": "Annale récurrente (2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018)",
+    "answer": "Type d'essai : Phase 3, multicentrique (66 sites), ouvert, randomisé contrôlé\nPhase 3 : confirmatory trial après signal positif en phase 2 (OptiTROP-Lung03 vs docétaxel).\nMulticentriques : 66 sites chinois → externe validity + recrutement rapide.\nRandomisation 1:1 stratifiée par blocs centralisée :\n• Facteurs de stratification : traitement antérieur par EGFR-TKI de 3e génération (1re ligne / 2e ligne / aucun) ET métastases cérébrales (oui/non).\n• Justification : contrôle des déséquilibres pronostiques majeurs dans un essai à 188 patients/bras — évite un biais de sélection.\nOuvert (open-label) :\n• Pas d'aveugle car les traitements diffèrent fondamentalement (IV en monothérapie vs perfusion multi-agents en cycle 21j) — double insu impossible.\n• Limite : connaissance du traitement peut influencer la décision de continuer/arrêter. Mitigation :\nBICR (Blinded Independent Central Review) pour le critère principal.\nComparateur actif (et non placebo) :\n• Pémétrexed + platine est le standard of care pour cette population → essai éthique.\n• Pas de cross-over autorisé VERS le bras chimio mais cross-over possible de chimio → sac-TMT après progression (sac-TMT commercialisé en Chine) — dilue l'effet OS.\nSynthèse : Design approprié pour un essai de phase 3 dans une population avec TKI-résistance.\nL'absence d'aveugle est justifiée mais la BICR atténue le biais de performance sur le critère principal.\nLe cross-over post-progression dilue probablement l'effet OS.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_design",
+      "q01"
+    ]
+  },
+  {
+    "number": 2,
+    "theme": "DESIGN",
+    "question": "Quelles sont les populations d'analyse utilisées dans l'essai ? Distinguez ITT, PP, et population de sécurité. Discutez leur pertinence.",
+    "approach": "Distinguer ITT vs PP vs safety population",
+    "reference": "Question récurrente (2024, 2023, 2022)",
+    "answer": "1. Population ITT (Intention-To-Treat) — Efficacité :\n• Définition : tous les patients randomisés (n=376 : 188+188), qu'ils aient reçu ou non le traitement.\n• Utilisée pour SSP, SG, ORR → analyse principale. Conservatrice : dilue l'effet (6 patients non traités inclus).\n2. Population de sécurité (Safety Population) :\n• Définition : patients ayant reçu au moins une dose et avec données de sécurité. N=188 sac-TMT, N=182 chimio (6 exclus bras chimio — randomisés mais non traités).\n• Analysée pour EI, EI grade ≥ 3, EI sévères.\n3. Population per-protocole (PP) — non mentionnée explicitement :\n• Non reportée dans l'article principal. Habituelle dans les essais non-infériorité (non applicable ici :\nessai de supériorité).\nPertinence de l'ITT :\n• L'ITT est le gold standard pour les essais de supériorité — elle conserve l'équilibre de la randomisation (prognostic factors balanced).\n• Limite : ici, 6 patients ont été randomisés mais n'ont pas reçu de traitement — tous dans le bras chimio → légère asymétrie de la safety population (188 vs 182). Cela ne biaise pas l'ITT car inclus dans les 188 pour l'efficacité.\nSynthèse : ITT appropriée pour cet essai de supériorité. La différence ITT/safety est mineure (6 patients). L'absence de population PP est logique pour un essai de supériorité.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_design",
+      "q02"
+    ]
+  },
+  {
+    "number": 3,
+    "theme": "DESIGN",
+    "question": "Les patients atteints de métastases cérébrales sont inclus dans l'essai. Discutez les implications méthodologiques et cliniques de ce choix.",
+    "approach": "Populations spéciales, hétérogénéité, analyse de sous-groupe",
+    "reference": "Annale 2025, 2024 (sous-groupes, populations spéciales)",
+    "answer": "Prévalence dans l'essai : 17,6% sac-TMT / 19,1% chimio\n• Critère d'éligibilité : métastases cérébrales traitées ET stables. Exclusion des métastases actives non contrôlées.\nImplications méthodologiques :\n• Facteur de stratification à la randomisation → équilibre entre groupes (17,6% vs 19,1%) — bon équilibre obtenu.\n• Analyse de sous-groupe prédéfinie dans le SAP — interprétation possible sans ajustement de multiplicité (descriptive).\n• Utilisation de RECIST 1.1 : évalue les lésions mesurables systémiques, les métastases cérébrales stables post-traitement peuvent ne pas être prises en compte si non mesurables.\nImplications cliniques :\n• NSCLC EGFR-muté : les métastases cérébrales sont fréquentes (≈30%). Population à pronostic très défavorable, options limitées.\n• Résultats sous-groupes : bénéfice SSP et SG cohérent chez les patients avec métastases cérébrales → pertinence clinique importante.\n• Pénétration du sac-TMT dans le SNC non étudiée — limitation.\nLimite :\n• Définition de 'stables' non précisée dans l'article principal (critères dans le protocole).\nHétérogénéité possible.\nSynthèse : L'inclusion des métastases cérébrales stables élargit la généralisabilité et répond à un besoin clinique réel. L'analyse de sous-groupe est rassurante mais descriptive.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_design",
+      "q03"
+    ]
+  },
+  {
+    "number": 4,
+    "theme": "DESIGN",
+    "question": "Cet essai est conduit uniquement en Chine avec une population 100% asiatique. Quelles sont les conséquences pour la généralisabilité des résultats ?",
+    "approach": "Validité externe, généralisabilité, biais ethnique",
+    "reference": "Question de critique — nouvelle 2026 (limitation principale mentionnée par les auteurs)",
+    "answer": "Limitation explicitement mentionnée par les auteurs :\n'A limitation is that although this trial used a multicenter design, it was conducted in one region and enrolled only Asian persons, which raises a question regarding the ability to extrapolate these outcomes to other patient groups.'\nPourquoi cela pose problème :\n• Différences biologiques dans la fréquence des mutations EGFR : ≈40% dans les populations asiatiques vs ≈15% dans les populations caucasiennes. La proportion ex19del/L858R peut varier.\n• Différences pharmacogénomiques (métabolisme CYP, transporteurs) pouvant modifier la PK du sac-TMT dans d'autres ethnies.\n• Expression de Trop-2 dans les cellules NSCLC EGFR-mutées peut varier selon le fond génétique.\n• Pratiques de soin différentes : utilisation des EGFR-TKI de 1re vs 2e vs 3e génération varie selon les pays (en Chine, les TKI de 1re/2e génération restent recommandés selon guidelines chinoises).\nArguments pour une généralisabilité raisonnable :\n• La biologie moléculaire du NSCLC EGFR-muté est relativement conservée indépendamment de l'ethnie — le mécanisme d'action du sac-TMT cible Trop-2, qui est surexprimé dans les résistances TKI toutes ethnies confondues.\n• Les résultats intra-groupes (phase 2 OptiTROP-Lung03, phase 1/2 KL264-01) sont cohérents avec les résultats de phase 3.\n• Les essais comparateurs (HARMONi-A, ORIENT-31) également conduits en Asie ont montré résultats extrapolables.\nCe qui serait nécessaire :\n• Essai en population internationale (Europe, USA) ou analyse de sous-groupes ethniques dans un essai global.\nSynthèse : La population exclusivement asiatique est la limite principale de cet essai. Elle réduit la validité externe mais ne rend pas les résultats non fiables pour la population asiatique. Des données complémentaires sont nécessaires pour les populations non-asiatiques.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_design",
+      "q04"
+    ]
+  },
+  {
+    "number": 5,
+    "theme": "DESIGN",
+    "question": "Expliquez le rôle du BICR (Blinded Independent Central Review) dans cet essai ouvert. En quoi est-il indispensable ?",
+    "approach": "Évaluation en aveugle, biais d'évaluation, RECIST",
+    "reference": "Question technique design (2023, 2022, 2018 — aveugle)",
+    "answer": "Définition du BICR :\nComité d'experts radiologues indépendants évaluant les images de façon centralisée, sans connaissance du bras de traitement ni des données cliniques, selon RECIST 1.1.\nPourquoi indispensable dans un essai ouvert :\n• Dans cet essai open-label, les investigateurs savent quel traitement le patient reçoit → biais d'évaluation potentiel (conscient ou inconscient).\n• Les investigateurs pourraient être plus 'indulgents' pour évaluer la progression dans le bras traitement actif → SSP artificiellement allongée.\n• Le BICR supprime ce biais pour le critère principal (SSP par BICR).\nDans OptiTROP-Lung04 :\n• Critère principal = SSP par BICR → analyse primaire non biaisée.\n• SSP par investigateurs = critère secondaire (confirmation de cohérence).\n• Si SSP BICR > SSP investigateurs → anomalie signalant un biais d'évaluation (ici cohérent entre BICR et investigateurs → rassurant).\nLimite du BICR :\n• Ne blinde pas les décisions cliniques (dose, arrêt, changement de traitement).\n• Délai potentiel entre l'évaluation clinique et la revue centrale.\n• Pas d'aveugle sur les EI → les décisions d'arrêt liées à la toxicité restent non aveuglées → peut influencer la SSP (censure informative si les arrêts sont liés au traitement).\nSynthèse : Le BICR est indispensable dans tout essai ouvert pour que le critère principal de survie soit crédible. Son utilisation ici est une force méthodologique majeure de l'essai.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_design",
+      "q05"
+    ]
+  },
+  {
+    "number": 6,
+    "theme": "STATISTIQUES",
+    "question": "Retrouvez et justifiez le calcul du Nombre de Sujets Nécessaires (NSN) présenté dans l'article. Vérifiez si les hypothèses sont cohérentes.",
+    "approach": "NSN = calcul de puissance, HR, alpha, beta",
+    "reference": "Question OBLIGATOIRE chaque année (2025, 2024, 2023, 2022, 2021, 2020, 2019)",
+    "answer": "Données de l'article :\n• N = ≈356 patients pour 249 événements (progression ou décès)\n• Puissance : 88% pour SSP\n• HR hypothétique pour SSP : 0,67\n• α unilatéral : 0,025 (= α bilatéral 0,05 / 2)\n• Référence comparative : HR tiré de données historiques (osimertinib post-TKI: SSP chimio ≈4,3 mois)\nLogique du calcul (méthode de Schoenfeld) :\nPour un test log-rank avec HR = 0,67, puissance = 88%, α = 0,025 unilatéral :\n• Nombre d'événements requis D = [(Z_α + Z_β)² × 4] / [ln(HR)]²\n• Z₀.₀₂₅ = 1,96 ; Z_β(88%) ≈ 1,18\n• D = [(1,96 + 1,18)² × 4] / [ln(0,67)]² = [9,86 × 4] / [0,173] ≈ 228 → arrondi à 249 avec ajustement pour stratification + taux d'événements attendu.\n• N total = D / p(event) = 249 / (estimé ≈70%) ≈ 356 → enrollé 376 avec marge.\nPour la SG (critère secondaire hiérarchique) :\n• Même approche : HR_OS = 0,70, puissance 80%, 188 décès requis. Sample size SSP (356) couvrira aussi OS si suivi suffisant.\nCohérence :\n• HR observé SSP = 0,49 — bien meilleur que les 0,67 supposés → surpuissance sur SSP.\n• HR observé SG = 0,60 — meilleur que les 0,70 supposés → bénéfice OS atteint dès l'analyse intermédiaire (168/188 décès).\nSynthèse : Calcul cohérent avec les standards. L'efficacité observée (HR=0,49) est nettement supérieure aux hypothèses (HR=0,67), ce qui témoigne d'une sous-estimation de l'effet lors de la planification — essai largement surpuissant en pratique.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_statistiques",
+      "q06"
+    ]
+  },
+  {
+    "number": 7,
+    "theme": "STATISTIQUES",
+    "question": "Expliquez la stratégie de dépense du risque de 1ère espèce (alpha-spending) utilisée dans cet essai. Justifiez les seuils α retenus.",
+    "approach": "O'Brien-Fleming, Lan-DeMets, analyses intermédiaires, FWER",
+    "reference": "Question OBLIGATOIRE 2018, récurrente 2022, 2021",
+    "answer": "Contexte : deux analyses intermédiaires planifiées\n• Analyse 1 (SSP, intermédiaire) : après ≥174 événements SSP. Cutoff 11/07/2024. α dépensé = 0,0337 (bilatéral).\n• Analyse 2 (SSP finale + SG intermédiaire) : après 168 décès ou 24 mois. Cutoff 06/07/2025.\nFrontière SG = 0,0124 (bilatéral).\nFonction de dépense : Lan-DeMets avec frontière O'Brien-Fleming :\n• Principe : alloue l'α total (0,05 bilatéral) progressivement aux analyses intermédiaires selon la proportion d'information accumulée.\n• O'Brien-Fleming : très conservateur en début d'essai (grande rigueur pour l'arrêt précoce), libère plus d'α à l'analyse finale. Approprié quand on veut protéger contre les arrêts prématurés sur effet observé.\n• Lan-DeMets : approximation continue de O'Brien-Fleming, permet d'ajuster si le nombre d'événements diffère du prévu.\nHiérarchie des tests :\n• 1. SSP testée en premier (critère principal).\n• 2. SG testée seulement si SSP significative (hierarchically tested) — contrôle le FWER sans méthode de correction supplémentaire type Bonferroni.\nRésultats obtenus :\n• SSP analyse 1 : P < 0,0001 >> 0,0337 → significatif, mais essai continue pour l'analyse finale SSP + SG intermédiaire.\n• SG analyse intermédiaire : P = 0,001 < 0,0124 → significatif → seuil prédéfini atteint, bénéfice OS démontré.\nSynthèse : La dépense du risque α avec frontière O'Brien-Fleming protège contre les faux positifs tout en permettant un arrêt éthique si l'efficacité est évidente. La hiérarchisation SSP→SG est la bonne approche pour contrôler le risque global de première espèce sur plusieurs critères.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_statistiques",
+      "q07"
+    ]
+  },
+  {
+    "number": 8,
+    "theme": "STATISTIQUES",
+    "question": "Les résultats de la SSP sont présentés par la méthode de Kaplan-Meier et le modèle de Cox. Expliquez ce que chacun apporte et leurs hypothèses.",
+    "approach": "Kaplan-Meier vs Cox, proportionnalité des risques, HR",
+    "reference": "Question récurrente statistique survie (2020, 2019)",
+    "answer": "1. Courbes de Kaplan-Meier :\n• Méthode non paramétrique d'estimation de la fonction de survie S(t).\n• Représentation visuelle du temps jusqu'à l'événement (progression/décès).\n• Permet de lire : SSP médiane (croisement avec S(t)=0,5), SSP à temps fixe (ex: 12 mois), différence visuelle des courbes.\n• Ne nécessite aucune hypothèse sur la distribution du temps de survie.\n• Test log-rank stratifié pour comparer les deux courbes (facteurs de stratification utilisés à la randomisation inclus).\n2. Modèle de Cox (proportional hazards) :\n• Modèle semi-paramétrique calculant le Hazard Ratio (HR) — rapport des fonctions de risque instantané entre les deux bras.\n• Hypothèse principale : proportionnalité des risques (PH) — HR constant dans le temps. Si les courbes KM se croisent, l'hypothèse PH est violée.\n• HR = 0,49 : le risque instantané de progression ou décès est 51% plus faible dans le bras sac-TMT que dans le bras chimio, à tout moment.\n• IC 95% (0,39–0,62) : n'inclut pas 1,0 → significatif.\nHypothèse de proportionnalité ici :\n• Les courbes KM montrent une séparation précoce et maintenue → PH vraisemblablement respectée. Aucun test de Schoenfeld rapporté → limité.\nCensure :\n• Hypothèse de censure non informative (patients censurés au dernier contact vivant ou sortie d'essai) — règles de censure dans Table S1.\nSynthèse : KM = visualisation, Cox = quantification. Ensemble, ils décrivent le bénéfice de sac-TMT de façon complémentaire. L'hypothèse PH semble respectée ici mais devrait être formellement testée.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_statistiques",
+      "q08"
+    ]
+  },
+  {
+    "number": 9,
+    "theme": "STATISTIQUES",
+    "question": "Pour le taux de réponse objective (ORR), les auteurs utilisent un intervalle de confiance de Clopper-Pearson et le test de Cochran-Mantel-Haenszel (CMH). Expliquez ces choix.",
+    "approach": "IC exact binomial, CMH, ajustement pour stratification",
+    "reference": "Question technique statistique — nouveau 2026",
+    "answer": "1. Intervalle de confiance de Clopper-Pearson (IC exact) :\n• Méthode exacte pour un proportion binomiale — ne dépend d'aucune approximation normale (contrairement à l'IC de Wilson ou Agresti-Coull).\n• Approprié pour des proportions éloignées de 50% ou petits effectifs — ici 55,9% sur n=188 :\nWilson aurait été aussi valide, mais Clopper-Pearson est plus conservateur (IC légèrement plus large).\n• Standard réglementaire (FDA/EMA) pour les essais de phase 3 — préféré par les agences d'enregistrement.\n2. Test de Cochran-Mantel-Haenszel (CMH) :\n• Test de tableau 2×2 stratifié — compare les proportions entre les deux groupes en ajustant pour les facteurs de stratification de la randomisation (EGFR-TKI antérieur + métastases cérébrales).\n• Équivalent au test de Mantel-Haenszel. Préférable au test du chi-2 simple car il tient compte de la stratification — cohérent avec l'analyse primaire de survie (Cox stratifié).\n• Résultat : P < 0,0001 pour la comparaison ORR (55,9% vs 30,9%, différence 25 pts).\nGestion des données manquantes pour l'ORR :\n• Patients sans évaluation post-baseline ou avec imagerie non évaluable = conservativement imputés comme non-répondeurs → analyse conservatrice.\nSynthèse : Clopper-Pearson + CMH sont les méthodes standard réglementaires pour les essais oncologiques. Leur utilisation cohérente avec la stratification de la randomisation garantit l'intégrité de l'analyse.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_statistiques",
+      "q09"
+    ]
+  },
+  {
+    "number": 10,
+    "theme": "STATISTIQUES",
+    "question": "Les données manquantes pour les critères de survie sont gérées sous l'hypothèse de 'censure non informative'. Discutez cette hypothèse dans le contexte de cet essai.",
+    "approach": "Censure informative, missing not at random, biais potentiel",
+    "reference": "Annale 2023 (données manquantes), 2021 (complete case)",
+    "answer": "Définition de la censure non informative (MCAR/MAR) :\nHypothèse que la raison de la censure (sortie d'essai, refus, perte de vue) est indépendante du risque futur de progression/décès. = le patient censuré a le même pronostic que le patient resté dans l'essai.\nSources potentielles de censure informative dans cet essai :\n• Arrêt pour toxicité (EI graves) : si un patient sort pour EI sévère, son état de santé est probablement différent des patients restants. Or, 8,0% arrêts sac-TMT vs 13,2% chimio → asymétrie.\n• Passage à une autre thérapie (post-essai) : dans le bras chimio, les patients peuvent recevoir sac-TMT après progression (commercialisé) → la censure à la progression influence l'OS différemment entre les bras.\n• Cross-over chimio → sac-TMT : dilue potentiellement l'effet OS mesuré.\nRisques :\n• Si la censure est informative et asymétrique entre les bras → biais sur la SSP et/ou SG, probablement vers la dilution de l'effet.\n• Ici : HR OS = 0,60 malgré le cross-over potentiel → bénéfice réel probablement sous-estimé.\nAtténuation du biais :\n• Règles de censure détaillées dans Table S1 (censure à la date du dernier contact vivant ou à la date de début d'une nouvelle thérapie antitumorale).\n• Aucune analyse de sensibilité sur la censure rapportée dans l'article principal → limitation.\nSynthèse : L'hypothèse de censure non informative est standard mais questionnable dans un essai ouvert avec cross-over possible. L'absence d'analyse de sensibilité sur la censure est une limitation.\nMalgré cela, les résultats robustes (HR=0,49 et HR=0,60) suggèrent un bénéfice réel.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_statistiques",
+      "q10"
+    ]
+  },
+  {
+    "number": 11,
+    "theme": "EFFICACITÉ",
+    "question": "Quel est le critère principal d'efficacité ? Quelles sont ses forces et faiblesses dans le contexte d'un essai oncologique de phase 3 ?",
+    "approach": "SSP : pertinence clinique, surrogate endpoint, RECIST",
+    "reference": "Question OBLIGATOIRE chaque année (2025, 2024, 2022, 2021, 2020, 2019)",
+    "answer": "Critère principal : SSP (Survie Sans Progression) par BICR selon RECIST 1.1\nDéfinition : délai entre randomisation et première progression radiologique (ou décès de toute cause), évalué par revue indépendante centrale en aveugle.\nForces :\n• Objectif et standardisé (RECIST 1.1 — critères internationaux validés par l'EORTC et utilisés par FDA/EMA).\n• Évalué par BICR → non biaisé par la connaissance du traitement.\n• Permet un recrutement et une réponse rapides (moins d'événements nécessaires que pour l'OS dans les délais d'essai raisonnables).\n• Reconnu par les agences réglementaires comme critère d'approbation accélérée en oncologie.\nFaiblesses :\n• Critère surrogate (intermédiaire) : la corrélation SSP→OS n'est pas universelle et doit être démontrée. Une amélioration de la SSP peut ne pas se traduire en bénéfice OS (ex:\nanti-angiogéniques en cancer colorectal).\n• Sensible à la fréquence d'évaluation tumorale (évaluations toutes les 6-8 semaines) — artefact potentiel si les évaluations sont plus fréquentes dans un bras.\n• Ne capture pas la qualité de vie ni le fonctionnement.\n• RECIST 1.1 : mesure les lésions cibles solides — peut manquer les progressions symptomatiques sans modification radiologique (progression clinique sans progression RECIST).\nValidation ici :\n• Dans cet essai, la SG confirme la SSP (HR OS = 0,60, P=0,001) → la SSP est ici un bon surrogate de l'OS.\nSynthèse : La SSP par BICR est le critère de référence pour les essais oncologiques de phase 3. Sa validation par la SG dans cet essai renforce sa pertinence. L'absence de bénéfice OS aurait été une limitation majeure.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_efficacite",
+      "q11"
+    ]
+  },
+  {
+    "number": 12,
+    "theme": "EFFICACITÉ",
+    "question": "Auriez-vous préféré un autre critère principal ? Discutez notamment la survie globale (OS) comme critère principal alternatif.",
+    "approach": "OS vs SSP, éthique des critères de substitution",
+    "reference": "Annale 2024 (RADAR trial — critère principal), 2022 (Dupilumab)",
+    "answer": "Arguments POUR l'OS comme critère principal :\n• Critère ultime et cliniquement indiscutable — seul critère qui reflète directement le bénéfice pour le patient.\n• Pas de problème de surrogation : si OS améliorée, le bénéfice est sans ambiguïté.\n• Évite la question : 'La SSP prédit-elle vraiment l'OS dans ce contexte ?'\nArguments CONTRE l'OS comme critère principal :\n• Nécessite beaucoup plus d'événements (décès) → essai plus long et plus coûteux.\n• Dans cet essai : 188 décès requis pour OS vs 249 événements pour SSP — délai supplémentaire important.\n• Dilution de l'effet OS par les thérapies post-progression (cross-over chimio → sac-TMT commercialisé) — difficile d'éviter.\n• Approbation réglementaire possible avec SSP seule pour les cancers avancés en oncologie — pratique standard.\nAlternative possible — ORR comme critère principal :\n• Taux de réponse objective est objectif et rapide — mais moins pertinent cliniquement (une réponse partielle transitoire ne garantit pas le bénéfice patient).\nConclusion :\n• La SSP est le choix standard et acceptable. Le fait que la SG soit atteinte à l'analyse intermédiaire (critère secondaire hiérarchique) valide a posteriori ce choix.\nSynthèse : La SSP est le critère principal approprié pour une phase 3 en oncologie thoracique en 2025–2026. L'OS comme critère co-principal aurait été idéal mais difficile à réaliser dans ce contexte réglementaire et éthique.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_efficacite",
+      "q12"
+    ]
+  },
+  {
+    "number": 13,
+    "theme": "EFFICACITÉ",
+    "question": "Commentez la significativité statistique versus la pertinence clinique des résultats de SSP et SG obtenus dans cet essai.",
+    "approach": "P-value, taille d'effet clinique, minimum clinically important difference",
+    "reference": "Annale 2025, 2024, 2023, 2022 — conclusion et interprétation",
+    "answer": "1. SSP — significativité statistique :\n• HR = 0,49, P < 0,0001 → très fortement significatif.\n• Seuil prédéfini α = 0,0337 (analyse intermédiaire) → largement dépassé.\n1. SSP — pertinence clinique :\n• Gain médian : 8,3 – 4,3 = 4,0 mois. Dans ce contexte (NSCLC 2e ligne post-EGFR-TKI), un gain de 4 mois de SSP est cliniquement significatif.\n• SSP à 12 mois : 32,3% vs 7,9% — 4× plus de patients sans progression à 1 an dans le bras sac-TMT.\n• NNT (Number Needed to Treat) approximatif à 12 mois : 1/(0,323 – 0,079) ≈ 4,1 — 4 patients traités pour 1 bénéficiant à 12 mois.\n2. SG — significativité statistique :\n• HR = 0,60, P = 0,001 < 0,0124 (frontière prédéfinie) → significatif.\n2. SG — pertinence clinique :\n• SG à 18 mois : 65,8% vs 48,0% — différence absolue de 17,8 pts.\n• SG médiane non atteinte vs 17,8 mois — impossible de calculer le gain médian absolu (suivi insuffisant), mais la courbe montre une séparation nette et maintenue.\n3. ORR — pertinence clinique :\n• 55,9% vs 30,9% — la moitié des patients sous sac-TMT répondent, vs seulement 1/3 sous chimio.\nImportant pour les patients avec symptômes nécessitant une réponse rapide.\nSynthèse : Les résultats sont à la fois statistiquement significatifs ET cliniquement pertinents. Un gain de 4 mois de SSP, un HR OS = 0,60 et +25 pts d'ORR constituent un bénéfice clinique substantiel dans une population de NSCLC avancé post-TKI, historiquement difficile à traiter.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_efficacite",
+      "q13"
+    ]
+  },
+  {
+    "number": 14,
+    "theme": "EFFICACITÉ",
+    "question": "Qu'est-ce que le critère de réponse RECIST 1.1 ? Détaillez les catégories de réponse et comment l'ORR est calculé.",
+    "approach": "RECIST 1.1, CR, PR, SD, PD, ORR, DCR",
+    "reference": "Question technique oncologie — pertinente pour 2026",
+    "answer": "RECIST 1.1 (Response Evaluation Criteria in Solid Tumors v1.1) :\nCritères standardisés internationaux d'évaluation de la réponse tumorale, basés sur mesures unidimensionnelles des lésions cibles.\nCatégories de réponse :\n• CR (Complete Response / Réponse complète) : disparition de toutes les lésions cibles + lésions non-cibles. Ganglions cibles < 10 mm.\n• PR (Partial Response / Réponse partielle) : réduction ≥ 30% de la somme des diamètres des lésions cibles vs baseline.\n• SD (Stable Disease / Maladie stable) : ni PR ni PD — entre -30% et +20%.\n• PD (Progressive Disease / Progression) : augmentation ≥ 20% ET augmentation absolue ≥ 5 mm de la somme des diamètres, OU apparition de nouvelles lésions.\nORR (Objective Response Rate) = CR + PR :\n• Dans cet essai : sac-TMT 55,9%, chimio 30,9%.\n• Requiert confirmation par une 2e évaluation (≥4 semaines après).\nDCR (Disease Control Rate) = CR + PR + SD :\n• Sac-TMT : 87,8% vs chimio : 73,4% — patients avec bénéfice clinique.\nDurée de réponse (DoR) :\n• Délai entre la première réponse et la progression/décès chez les répondeurs.\n• Sac-TMT : médiane 7,1 mois vs chimio : 4,4 mois.\nGestion des données manquantes pour ORR :\n• Patients non traités, sans évaluation post-baseline, ou imagerie non évaluable → imputés non-répondeurs (approche conservatrice).\nSynthèse : RECIST 1.1 est le standard international. L'ORR de 55,9% avec sac-TMT est remarquable dans une 2e ligne post-TKI, comparable aux meilleures thérapies ciblées en première ligne.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_efficacite",
+      "q14"
+    ]
+  },
+  {
+    "number": 15,
+    "theme": "EFFICACITÉ",
+    "question": "Analysez les résultats des sous-groupes prédéfinis de SSP et SG. Comment interpréter un forest plot de sous-groupes ?",
+    "approach": "Forest plot, sous-groupes, interaction, hypothèse nulle",
+    "reference": "Annale 2018 (sous-groupes STAMPEDE), récurrent",
+    "answer": "Sous-groupes prédéfinis dans OptiTROP-Lung04 :\n• Âge (< 65 vs ≥ 65 ans) ; Sexe (H/F) ; Statut fumeur ; Score ECOG (0 vs 1) ; Mutation EGFR (ex19del vs L858R) ; Métastases cérébrales (oui/non) ; Traitement EGFR-TKI antérieur (1re vs 2e ligne) ; Statut T790M.\nInterprétation du forest plot :\n• Chaque ligne = un sous-groupe. Le carré = HR ponctuel, la barre horizontale = IC 95%.\n• Si l'IC inclut 1,0 → non significatif dans ce sous-groupe.\n• 'Patterns favoring sac-TMT' = tous les HR < 1 → cohérence globale du bénéfice indépendamment des sous-groupes.\nRésultats clés par sous-groupe (selon article) :\n• Métastases cérébrales : bénéfice SSP et SG cohérent — important car population à pronostic défavorable.\n• Ex19del vs L858R : bénéfice maintenu dans les deux mutations — pas de signe d'interaction biologique.\n• EGFR-TKI de 3e génération en 1re vs 2e ligne : cohérent.\nPrécautions d'interprétation :\n• Analyses de sous-groupes = exploratoires, non ajustées pour multiplicité. IC larges (faible puissance par sous-groupe) → 'patterns favoring' ne signifie pas 'significatif dans chaque sous-groupe'.\n• Ne pas tirer de conclusions définitives des sous-groupes sans test d'interaction formellement significatif.\nSynthèse : Les résultats des sous-groupes sont cohérents et rassurantes — ils renforcent la robustesse du bénéfice global. Le bénéfice chez les patients avec métastases cérébrales est particulièrement important cliniquement.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_efficacite",
+      "q15"
+    ]
+  },
+  {
+    "number": 16,
+    "theme": "EFFICACITÉ",
+    "question": "Les résultats d'OS sont présentés à une analyse intermédiaire. Que pensez-vous de rapporter des résultats d'OS à une analyse intermédiaire plutôt qu'à l'analyse finale ?",
+    "approach": "Analyse intermédiaire, maturité des données OS, arrêt précoce éthique",
+    "reference": "Annale 2024 (analyses intermédiaires RADAR), 2023",
+    "answer": "Situation dans OptiTROP-Lung04 :\n• OS finale planifiée après 188 décès OU 24 mois de suivi.\n• Analyse intermédiaire OS présentée après 168 décès (89% de maturité = 168/188). Résultat : HR = 0,60, P = 0,001 < frontière 0,0124 → critère prédéfini atteint.\nArguments POUR rapporter à l'analyse intermédiaire :\n• Le critère prédéfini (frontière alpha 0,0124) est ATTEINT → décision statistiquement validée.\n• Maturité élevée (168/188 décès = 89%) → données proches de l'analyse finale. Risque de renversement minimal.\n• Impératif éthique : si le bénéfice est démontré, continuer l'essai expose le groupe contrôle à un traitement inférieur.\n• Rapidité de communication aux patients et cliniciens.\nArguments CONTRE (limitations) :\n• Suivi médian de 18,9 mois — OS médiane non atteinte dans le bras sac-TMT. L'estimation à long terme (5 ans) est incertaine.\n• Cross-over possible (chimio → sac-TMT post-progression) — l'effet OS est probablement sous-estimé mais la magnitude réelle reste inconnue.\n• Durabilité du bénéfice à 3–5 ans non connue.\n• Données moins matures que l'analyse finale → IC plus large, estimation du gain médian incomplète.\nPratique réglementaire :\n• FDA et EMA acceptent les demandes d'approbation sur des données OS intermédiaires si le critère prédéfini est atteint — pratique courante en oncologie.\nSynthèse : Rapporter des résultats OS à une analyse intermédiaire est éthiquement justifié ET statistiquement valide lorsque la frontière prédéfinie est atteinte. La maturité élevée (89%) renforce la fiabilité. L'absence d'estimation médiane OS dans le bras sac-TMT est une limitation informative.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_efficacite",
+      "q16"
+    ]
+  },
+  {
+    "number": 17,
+    "theme": "RÉSULTATS",
+    "question": "Interprétez le Hazard Ratio de 0,49 (IC 95% : 0,39–0,62) pour la SSP. Qu'est-ce qu'un Hazard Ratio ? Quelles sont ses limites d'interprétation ?",
+    "approach": "HR, risque instantané, proportionnalité, interprétation clinique",
+    "reference": "Question récurrente (2020, 2019) — résultats principaux",
+    "answer": "Définition du Hazard Ratio (HR) :\nLe HR = rapport des fonctions de risque instantané entre deux groupes. HR = h(t, sac-TMT) / h(t, chimio) = risque de progression/décès à l'instant t pour sac-TMT / risque pour chimio (à t donné).\nHR = 0,49 signifie :\n• À tout moment t, le risque instantané de progression ou de décès est 51% (= 1 – 0,49) plus faible sous sac-TMT que sous chimio.\n• Ou : le taux d'événements est divisé par 2 dans le bras sac-TMT.\nIC 95% (0,39–0,62) :\n• N'inclut pas 1,0 → significatif au seuil α = 0,05.\n• Borne inférieure 0,39 : dans le scénario le plus pessimiste pour sac-TMT, le risque est encore réduit de 61%.\n• Borne supérieure 0,62 : dans le scénario le plus optimiste pour chimio, le risque est réduit de 38%.\nLimites d'interprétation :\n• Le HR ne donne pas directement le gain médian en mois.\n• Hypothèse PH : si les risques ne sont pas proportionnels dans le temps (croisement de courbes), le HR moyen n'est pas informatif.\n• Ne dit rien sur la durabilité à long terme.\n• Ne reflète pas l'hétérogénéité entre patients (average treatment effect).\nContexte comparatif :\n• HERTHENA-Lung02 (patritumab deruxtecan) : HR SSP ≈ 0,64.\n• HARMONi-A (ivonescimab + chimio) : HR PFS ≈ 0,46 (mais combinaison, pas monothérapie).\n• HR = 0,49 est l'un des meilleurs résultats en monothérapie dans cette population.\nSynthèse : HR = 0,49 avec IC bien au-dessous de 1 = bénéfice fort et précis. L'hypothèse de proportionnalité semble respectée ici (séparation précoce et maintenue des courbes KM). C'est un résultat cliniquement très significatif.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_resultats",
+      "q17"
+    ]
+  },
+  {
+    "number": 18,
+    "theme": "RÉSULTATS",
+    "question": "Commentez les données du tableau des caractéristiques initiales (Table 1). Y a-t-il des déséquilibres entre les deux groupes ?",
+    "approach": "Équilibre baseline, prognostic factors, randomisation réussie",
+    "reference": "Annale 2019, 2020 — analyse des tableaux de base",
+    "answer": "Évaluation des déséquilibres dans Table 1 :\nL'objectif est de vérifier que la randomisation a correctement équilibré les facteurs pronostiques entre les deux bras.\nFacteurs BIEN équilibrés :\n• Âge médian : 60 (31-75) sac-TMT vs 59 (33-75) chimio → équivalent.\n• ECOG PS 0/1 : 18,6%/81,4% vs 22,9%/77,1% → proche.\n• Stade IV : 96,8% vs 98,4% → proche.\n• Métastases cérébrales : 17,6% vs 19,1% → facteur de stratification bien équilibré.\n• EGFR-TKI 3e génération préalable : 94,7% vs 94,7% → identique.\n• Ex19del/L858R : 56,4%/44,7% vs 62,8%/37,8% → légère différence, non significative (facteur de stratification non inclus explicitement).\nDéséquilibre notable :\n• Sexe masculin : 35,1% sac-TMT vs 44,1% chimio → différence de 9 pts. Potentiellement pronostique (les femmes ont un pronostic légèrement meilleur dans le NSCLC EGFR-muté).\n• Ce déséquilibre n'est pas ajusté dans les facteurs de stratification → légèrement favorable au bras sac-TMT (plus de femmes).\n• Mais : ajustement dans les modèles de Cox et test CMH → atténué.\nRemarque générale :\n• Avec n=188/bras, des déséquilibres résiduels sont attendus par hasard. C'est pourquoi les analyses sont stratifiées.\nSynthèse : L'équilibre global est bon pour un essai de 376 patients. Le déséquilibre en proportion de femmes (35% vs 44%) est le plus notable mais ne remet pas en cause les conclusions — l'ajustement dans les modèles le corrige.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_resultats",
+      "q18"
+    ]
+  },
+  {
+    "number": 19,
+    "theme": "RÉSULTATS",
+    "question": "Interprétez les résultats de survie globale (OS). Pourquoi la SG médiane n'est-elle pas atteinte dans le bras sac-TMT ?",
+    "approach": "OS médiane, maturité, suivi médian, non atteinte",
+    "reference": "Question interprétation OS — applicable 2026",
+    "answer": "Données SG :\n• HR = 0,60 (IC95% : 0,44–0,82), P = 0,001.\n• SG à 18 mois : 65,8% sac-TMT vs 48,0% chimio (Δ = +17,8 pts).\n• SG médiane chimio = 17,8 mois.\n• SG médiane sac-TMT = non atteinte (NR).\nPourquoi la médiane OS n'est-elle pas atteinte ?\n• La SG médiane est atteinte lorsque 50% des patients sont décédés dans le groupe considéré.\n• Suivi médian = 18,9 mois. À ce stade, dans le bras sac-TMT, moins de 50% des patients sont décédés → la médiane n'est pas encore franchie sur la courbe KM.\n• Cela signifie que plus de 50% des patients sous sac-TMT sont encore vivants après un suivi médian de ~19 mois → excellent pronostique.\nImplications :\n• L'incertitude sur la SG médiane sac-TMT est une limitation — on ne peut pas calculer le gain médian précis.\n• Le HR = 0,60 et la SG à 18 mois fournissent une quantification robuste du bénéfice sans nécessiter la médiane.\nCross-over et SG :\n• Les patients du bras chimio peuvent recevoir sac-TMT après progression (sac-TMT commercialisé en Chine) → dilution du bénéfice OS mesuré.\n• En l'absence de cross-over, le HR OS serait probablement inférieur à 0,60.\nSynthèse : La SG médiane non atteinte dans le bras sac-TMT est un signe très favorable — indique une survie globale exceptionnelle dans cette population. Le cross-over post-progression dilue l'effet OS, ce qui rend le bénéfice observé (HR=0,60) d'autant plus remarquable.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_resultats",
+      "q19"
+    ]
+  },
+  {
+    "number": 20,
+    "theme": "RÉSULTATS",
+    "question": "Analysez les résultats de qualité de vie (PRO). Leur intégration est-elle satisfaisante dans cet essai ?",
+    "approach": "PRO, EORTC QLQ-C30, QoL, pertinence clinique",
+    "reference": "Question PRO — récurrente (2023, 2022)",
+    "answer": "Instruments utilisés :\n• EORTC QLQ-C30 (30 items) : questionnaire générique de QoL en oncologie — domaines fonctionnels (physique, cognitif, émotionnel, rôle, social) + symptômes + état de santé global (EHG).\n• EORTC QLQ-LC13 (13 items) : module spécifique cancer du poumon — dyspnée, toux, douleur thoracique, hémoptysie, dysphagie.\nRésultats rapportés :\n• 97,3% sac-TMT vs 89,9% chimio évaluables pour QoL.\n• Délai de dégradation de l'EHG + symptômes clés (dyspnée, toux, douleur thoracique) : plus long avec sac-TMT.\n• Superposition initiale (3 premiers mois), séparation nette ensuite.\nPoints forts :\n• Instruments validés et internationalement reconnus.\n• Taux d'évaluation élevé (97,3%) dans le bras sac-TMT.\n• Cohérence avec le bénéfice SSP/OS.\nLimitations :\n• Essai ouvert : les patients savent quel traitement ils reçoivent → biais de désirabilité sociale possible (rapport amélioré par connaissance du traitement actif).\n• Les données PRO sont présentées comme descriptives (Table S10, Fig. S6) et non testées statistiquement dans la hiérarchie principale.\n• Pas de seuil de différence cliniquement significative (MCID) mentionné pour l'EORTC QLQ-C30 (conventionnellement 10 pts sur 100 pour l'EHG).\n• Superposition initiale à 3 mois — peut refléter la toxicité de phase initiale du sac-TMT (stomatite, neutropénie) avant bénéfice clair.\nSynthèse : Les données PRO renforcent les conclusions d'efficacité — les patients sous sac-TMT maintiennent leur QoL plus longtemps. La limitation principale est l'absence d'insu qui peut surestimer le bénéfice PRO rapporté.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_resultats",
+      "q20"
+    ]
+  },
+  {
+    "number": 21,
+    "theme": "RÉSULTATS",
+    "question": "Dans la conclusion, les auteurs déclarent que 'sac-TMT could be considered a favorable treatment option before pemetrexed plus platinum-based chemotherapy'. Qu'en pensez-vous ?",
+    "approach": "Critique de la conclusion, biais, généralisabilité",
+    "reference": "Question OBLIGATOIRE chaque année (2025, 2024, 2023, 2022 — critique conclusion)",
+    "answer": "Argumentaires EN FAVEUR de cette conclusion :\n• Résultats robustes sur les deux critères clés : SSP (HR=0,49, P<0,0001) et SG (HR=0,60, P=0,001). Taille d'effet cliniquement pertinente.\n• ORR supérieur : 55,9% vs 30,9% — sac-TMT plus actif.\n• Profil de sécurité favorable : moins d'EI sévères (9% vs 17,6%), moins d'anémie et thrombocytopénie.\n• QoL maintenue plus longtemps.\n• Monothérapie (plus simple en pratique clinique).\nArguments DE PRUDENCE / Limitations :\n• Population exclusivement asiatique/chinoise — généralisabilité limitée aux patients non-asiatiques.\n• Financement par le fabricant (Sichuan Kelun-Biotech) — conflit d'intérêts potentiel, rédaction partiellement par des employés du sponsor.\n• Cross-over post-progression (chimio → sac-TMT) dilue l'effet OS mais n'invalide pas la conclusion.\n• Pas de comparaison directe avec d'autres ADC (datopotamab deruxtecan, patritumab deruxtecan) ou combinaisons récentes.\n• SG médiane non atteinte dans le bras sac-TMT → durabilité à long terme inconnue.\n• Coût économique du sac-TMT vs chimio standard non discuté.\nContexte réglementaire :\n• Sac-TMT déjà approuvé en Chine — la conclusion soutient l'extension d'indication en 2e ligne post-TKI (avant chimio).\nSynthèse : La conclusion est justifiée par des données solides dans la population étudiée. La nuance principale est la restriction ethnique/géographique. Pour la pratique clinique internationale, des données confirmatives dans des populations non-asiatiques seraient nécessaires.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_resultats",
+      "q21"
+    ]
+  },
+  {
+    "number": 22,
+    "theme": "SÉCURITÉ",
+    "question": "Analysez le profil de sécurité du sac-TMT. Y a-t-il des différences qualitatives importantes avec la chimiothérapie ?",
+    "approach": "EI grade ≥3, profil toxicité, spécificité ADC",
+    "reference": "Question sécurité récurrente (2022, 2020, 2019)",
+    "answer": "EI grade ≥ 3 — comparaison globale :\n• Sac-TMT : 58,0% vs chimio : 53,8% — comparable. Pas de différence majeure.\nDifférences qualitatives importantes :\nEI PLUS FRÉQUENTS avec sac-TMT :\n• Stomatite (mucite) : spécifique aux ADC avec inhibiteurs de topoisomérase I. 10,1% dose-réductions pour stomatite (tous grade 3, pas grade 4-5). Résolution en médiane 10 jours avec interventions.\n• Effets oculaires (kératite, œil sec, larmoiement) : 9,6% vs 0,5% chimio. Tous grade ≤ 2. Liés au mécanisme ADC (dépôt dans les tissus épithéliaux).\n• Neutropénie grade ≥ 3 : 39,9% sac-TMT vs 33,0% chimio — légèrement plus fréquente mais comparable.\nEI PLUS FRÉQUENTS avec chimio :\n• EI sévères (grade ≥ 3 nécessitant hospitalisation) : 17,6% vs 9,0% → AVANTAGE sac-TMT important.\n• Anémie et thrombocytopénie grade ≥ 3 : moins fréquentes avec sac-TMT.\n• Arrêts pour toxicité : 13,2% chimio vs 8,0% sac-TMT.\nEffets d'intérêt spécial :\n• Pneumopathie interstitielle (ILD) : 0 cas sac-TMT (RASSURANT — ILD fréquent avec certains ADC dont T-DXd).\n• Réaction perfusion : 1 seul cas grade 2 sac-TMT.\n• Alopécie : plus fréquente avec sac-TMT (non quantifiée mais classique ADC).\nSignal de sécurité connu vs nouveau :\n• Aucun nouveau signal identifié — cohérent avec phases 1/2 antérieures.\nSynthèse : Sac-TMT présente moins d'EI sévères que la chimio (9% vs 17,6%) — avantage sécurité net. Les toxicités spécifiques (stomatite, effets oculaires) sont gérables et réversibles. L'absence d'ILD est une information rassurante par rapport à d'autres ADC.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_securite",
+      "q22"
+    ]
+  },
+  {
+    "number": 23,
+    "theme": "SÉCURITÉ",
+    "question": "Pourquoi n'y a-t-il pas de valeur p dans les tableaux comparant les effets indésirables entre les groupes ?",
+    "approach": "EI non testés, multiplicité, Tanezumab (annale 2019)",
+    "reference": "Annale 2019 (OBLIGATOIRE — Tanezumab), 2022",
+    "answer": "Raison principale : pas de test statistique planifié sur les EI La comparaison des effets indésirables entre groupes n'est généralement PAS pré-spécifiée dans le plan d'analyse statistique (SAP) pour les essais d'efficacité. Ce n'est pas l'objectif primaire de l'essai.\nProblème de multiplicité :\n• Des dizaines à centaines d'EI différents sont mesurés. Si on testait chacun statistiquement avec α = 0,05 → par chance seule, 5% seraient faux positifs → inflation massive du risque de 1ère espèce.\n• Sans correction de multiplicité (Bonferroni, Benjamini-Hochberg), les p-values sur les EI individuels seraient non interprétables.\nLes données de sécurité sont présentées de manière descriptive :\n• Pourcentages, IC 95%, et descriptions cliniques.\n• L'essai est PUISSANT pour l'efficacité mais pas calculé pour détecter des différences d'EI individuels (pas de NSN pour chaque EI).\nException : EI d'intérêt spécial prédéfinis :\n• Certains EI de classe (ex: ILD, neutropénie) peuvent être pré-spécifiés avec un test formel — mais ce n'est pas le cas dans cet article.\nInterprétation pragmatique :\n• La comparaison reste informative de manière descriptive : 9% vs 17,6% d'EI sévères → différence cliniquement importante même sans p-value.\nSynthèse : L'absence de p-values sur les EI est VOLONTAIRE et méthodologiquement CORRECTE dans un essai d'efficacité. Les données de sécurité sont présentées à titre descriptif. Tester statistiquement chaque EI sans correction de multiplicité serait méthodologiquement incorrect.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_securite",
+      "q23"
+    ]
+  },
+  {
+    "number": 24,
+    "theme": "SÉCURITÉ",
+    "question": "Comment les auteurs gèrent-ils la stomatite liée au sac-TMT ? Discutez l'impact des réductions de doses sur l'interprétation des résultats.",
+    "approach": "Dose modification, tolérance, ITT vs PP",
+    "reference": "Question gestion toxicité — applicable 2026",
+    "answer": "Profil de stomatite :\n• Stomatite tous grades : non quantifiée précisément (rapportée comme 'most cases being mild').\n• Grade 3 (sévère) : 4,8% sac-TMT (tous grade 3, pas de grade 4-5).\n• Grade 3+ : aucun arrêt de traitement pour stomatite. Résolution en médiane 10 jours avec interventions appropriées.\nGestion pratique :\n• 10,1% des patients ont eu des réductions de dose pour stomatite.\n• Les 9 cas de grade 3 se sont tous améliorés à grade ≤ 2 avec traitement approprié et réductions de doses.\n• Interventions : traitements locaux (anesthésiques, antiseptiques), soins de bouche, hydratation.\nImpact sur l'interprétation des résultats :\n• Réductions de dose = intention de traiter maintenue (patients restent dans l'essai en ITT) mais dose reçue < dose prévue → potentielle sous-estimation de l'efficacité réelle.\n• Si 10,1% des patients reçoivent une dose réduite et que l'efficacité reste HR = 0,49 — le bénéfice est probablement encore meilleur à pleine dose.\n• Données d'exposition (dose intensity moyenne) non rapportées dans l'article principal — limitation pour comprendre la relation dose-effet.\nImplication pour la pratique :\n• La stomatite est un effet de classe des ADC avec inhibiteurs de topo I. Protocoles de prévention et traitement précoce essentiels.\nSynthèse : La gestion proactive de la stomatite (réductions de dose sans arrêt) est une stratégie efficace. Les 4,8% de grade 3 sont acceptables dans un essai oncologique. Le fait qu'aucun arrêt n'ait été nécessaire est une information pratique positive.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_securite",
+      "q24"
+    ]
+  },
+  {
+    "number": 25,
+    "theme": "SÉCURITÉ",
+    "question": "Comment comparer le profil de sécurité de sac-TMT avec celui d'autres anticorps-médicament conjugués (ADC) dans le NSCLC ?",
+    "approach": "Classe ADC, ILD, toxicité comparative, T-DXd",
+    "reference": "Question de contexte pharmacologique 2026",
+    "answer": "Mécanisme commun des ADC :\nAnticorps + linker + payload cytotoxique. Libération intracellulaire après endocytose. Le 'bystander effect' (libération extracellulaire du payload) explique certaines toxicités systémiques.\nComparaison avec T-DXd (trastuzumab deruxtecan, ADC HER2) :\n• T-DXd : ILD/pneumopathie fréquente et parfois fatale (5-15%) → limitation majeure. Sac-TMT : 0 cas d'ILD → AVANTAGE IMPORTANT.\n• T-DXd : payload DXd (topo I inhibiteur) similaire mais linker différent.\nComparaison avec sacituzumab govitecan (SG, Trodelvy, ADC Trop-2 de Gilead) :\n• SG : diarrhée sévère très fréquente (grade 3+ ~10-15%). Sac-TMT : pas de diarrhée sévère significative rapportée.\n• SG : approuvé dans le TNBC et le cancer urothélial. Sac-TMT : différent par le payload (bélotécane-dérivé vs irinotecan-dérivé).\nComparaison avec datopotamab deruxtecan (Dato-DXd, ADC Trop-2) :\n• Dato-DXd : stomatite très fréquente mais aussi ILD possible.\n• TROPION-Lung01 : pas de bénéfice OS significatif dans NSCLC non sélectionné.\nSpécificités sac-TMT :\n• Effets oculaires (9,6%) — liés au bélotécane → suivi ophtalmologique recommandé.\n• Pas d'ILD → profil plus sûr que T-DXd.\n• Moins de diarrhée que SG → profil plus tolérable digestivement.\nSynthèse : Sac-TMT se distingue des autres ADC oncologiques par l'absence d'ILD (contrairement à T-DXd) et la rareté de la diarrhée sévère (contrairement à SG). La stomatite et les effets oculaires sont ses toxicités spécifiques mais gérables.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_securite",
+      "q25"
+    ]
+  },
+  {
+    "number": 26,
+    "theme": "PHARMACOLOGIE",
+    "question": "Décrivez le mécanisme d'action du sacituzumab tirumotecan en tant qu'ADC. Pourquoi cible-t-il spécifiquement les cellules NSCLC EGFR-mutées résistantes ?",
+    "approach": "ADC, Trop-2, topoisomérase I, bélotécane, EGFR-résistance",
+    "reference": "Question pharmacologie — pertinente pour l'examen 2026",
+    "answer": "Structure du sac-TMT (anticorps-médicament conjugué) :\n• Anticorps : dirigé contre Trop-2 (TACSTD2 — Trophoblast Cell-Surface Antigen 2).\n• Linker : clivable par les enzymes lysosomales intracellulaires.\n• Payload (médicament) : dérivé de la bélotécane — inhibiteur de topoisomérase I (topo I).\nMécanisme d'action :\n• 1. L'anticorps se lie à Trop-2 surexprimé à la surface des cellules tumorales NSCLC EGFR-mutées.\n• 2. Endocytose du complexe Trop-2/sac-TMT dans le lysosome.\n• 3. Clivage du linker par les enzymes lysosomales → libération du payload.\n• 4. L'inhibiteur de topo I inhibe la religation de l'ADN après coupure simple brin → cassures double brin → apoptose.\n• 5. Bystander effect : libération extracellulaire partielle du payload → cytotoxicité sur cellules voisines Trop-2 négatif.\nPourquoi efficace dans NSCLC EGFR-muté résistant aux TKI ?\n• Trop-2 est fortement surexprimé dans les cellules NSCLC EGFR-mutées résistantes aux TKI (données BALDACCI et al., 2025).\n• La résistance EGFR-TKI augmente l'expression de Trop-2 via mécanismes de signalisation IGF2R/TROP2.\n• EGFR mutations → AUGMENTATION de l'internalisation et de l'uptake lysosomal du sac-TMT par rapport aux cellules wild-type (données in vitro).\n• Les cellules EGFR-mutées résistantes aux TKI montrent encore plus d'uptake que les cellules naïves aux TKI — mécanisme de 'smart targeting'.\nExplication de la sélectivité dans NSCLC vs autres cancers :\n• EVOKE-01 et TROPION-Lung01 (Trop-2 ADC non sélectionnés) : pas de bénéfice OS dans NSCLC non sélectionné → la sélection EGFR-muté est CLEF.\nSynthèse : La biologie du sac-TMT est particulièrement adaptée aux NSCLC EGFR-mutés résistants :\nTrop-2 surexprimé + internalisation augmentée + payload topo I efficace = synergie biologique. C'est ce qui explique le HR = 0,49 vs HR ≈ 0,64 pour les ADC non sélectionnés.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_pharmacologie",
+      "q26"
+    ]
+  },
+  {
+    "number": 27,
+    "theme": "PHARMACOLOGIE",
+    "question": "Expliquez le rationnel des mutations EGFR dans le NSCLC. Quelles mutations sont incluses et pourquoi ?",
+    "approach": "Exon 19 délétion, L858R, T790M, résistance TKI",
+    "reference": "Contexte biologique — pertinent 2026",
+    "answer": "Mutations EGFR sensibilisantes (sensitizing mutations) :\n• Exon 19 délétion (ex19del) : délétion en cadre de 18-24 pb dans l'exon 19 (domaine kinase).\nReprésente ~45% des mutations EGFR dans NSCLC.\n• L858R (exon 21) : substitution leucine→arginine en position 858. ~40% des mutations EGFR.\nActivatrice constitutive du domaine kinase.\n• Dans cet essai : ex19del 59,6%, L858R 41,2%, autres 3,5%.\nMécanisme de résistance aux EGFR-TKI :\n• T790M (exon 20) : 'gatekeeper mutation' — substitution thréonine→méthionine. Représente ~50% des résistances aux TKI de 1re/2e génération. Bloque la liaison des TKI de 1re génération.\n• Osimertinib (TKI 3e génération) : actif sur T790M + ex19del/L858R. Résistances à l'osimertinib :\nC797S, amplification MET, transformation histologique (SCLC), amplification EGFR.\nCritères d'éligibilité de l'essai :\n• Progression après TKI 1e/2e génération avec T790M NÉGATIF.\n• OU progression après TKI 3e génération QUEL QUE SOIT le statut T790M.\n• 94,7% des patients avaient reçu un TKI 3e génération (osimertinib).\nStatut T790M dans l'essai :\n• 25,5%/21,3% négatif, 15,4%/19,1% positif, 59,0%/59,6% inconnu.\n• Le pourcentage élevé d'inconnus reflète le critère d'éligibilité (post-TKI 3e génération = T790M non obligatoire).\nSynthèse : Les mutations ex19del et L858R sont les plus fréquentes et les plus sensibles aux TKI. La résistance inévitable justifie l'essai de 2e ligne. L'efficacité cohérente entre ex19del et L858R suggère que sac-TMT fonctionne indépendamment du type de mutation sensibilisante initiale.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_pharmacologie",
+      "q27"
+    ]
+  },
+  {
+    "number": 28,
+    "theme": "PHARMACOLOGIE",
+    "question": "Comparez sac-TMT avec les autres traitements de 2e ligne disponibles pour les NSCLC EGFR-mutés résistants aux TKI (HARMONi-A, ORIENT-31, MARIPOSA-2).",
+    "approach": "Positionnement thérapeutique, comparaison indirecte, OS",
+    "reference": "Question de contexte scientifique — applicable 2026",
+    "answer": "Standard actuel (avant sac-TMT) :\n• Pémétrexed + platine ± bevacizumab : SSP ≈ 4-5 mois, bénéfice OS limité.\nEssais récents de combinaison :\n• HARMONi-A (ivonescimab + chimio) : HR PFS ≈ 0,46, mais OS non significatif.\n• ORIENT-31 (sintilimab + bevacizumab biosim + chimio) : SSP améliorée, OS non démontré.\n• MARIPOSA-2 (amivantamab ± lazertinib + chimio) : SSP améliorée (HR ≈ 0,48), mais OS non significatif. Toxicités importantes.\n• HERTHENA-Lung02 (HER3-DXd = patritumab deruxtecan) : HR SSP ≈ 0,64, OS non significatif.\nPosition de sac-TMT vs ces essais :\n• SEUL à avoir démontré un bénéfice OS SIGNIFICATIF (HR=0,60, P=0,001).\n• Monothérapie vs combinaison — simplicité, moins de toxicités cumulées.\n• HR SSP = 0,49 : comparable à MARIPOSA-2 (0,48) mais supérieur à HERTHENA-Lung02 (0,64).\nLimite des comparaisons indirectes :\n• Populations différentes (Asie uniquement pour sac-TMT vs international).\n• Pas d'essai tête-à-tête direct — impossible de conclure à la supériorité de sac-TMT sur les combinaisons.\n• Des essais de phase 3 internationaux seraient nécessaires pour confirmer.\nImplications pratiques (Chine) :\n• Sac-TMT déjà commercialisé. La question est : avant ou après chimio platine?\n• Les auteurs proposent sac-TMT avant chimio — 1er rang dans la séquence post-TKI.\nSynthèse : Sac-TMT se distingue par être le SEUL traitement de 2e ligne avec bénéfice OS significatif dans le NSCLC EGFR-muté résistant. C'est son avantage compétitif principal vs les combinaisons en cours d'évaluation.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_pharmacologie",
+      "q28"
+    ]
+  },
+  {
+    "number": 29,
+    "theme": "ÉTHIQUE",
+    "question": "Discutez les aspects éthiques de cet essai : consentement, comité indépendant, Déclaration de Helsinki.",
+    "approach": "Éthique de la recherche clinique, IDMC, IRB",
+    "reference": "Question éthique récurrente (2020, 2021, 2022)",
+    "answer": "1. Consentement éclairé :\n• Consentement écrit obtenu de tous les participants avant l'inclusion (explicitement mentionné dans l'article).\n• Essai ouvert → les patients sont informés du traitement reçu dès l'inclusion — consentement pleinement informé.\n2. Approbation éthique :\n• Protocole approuvé par l'IRB (Institutional Review Board) de chaque site participant (66 sites en Chine).\n• Conformité à la Déclaration de Helsinki et aux réglementations locales.\n3. Comité indépendant de surveillance des données (IDMC) :\n• Rôle : surveiller la conduite de l'essai, la sécurité, et les critères d'efficacité intermédiaires. Peut recommander l'arrêt précoce.\n• Dans cet essai : l'IDMC a examiné les résultats de l'analyse intermédiaire de SSP et confirmé le critère de significativité atteint (P<0,0001).\n• Composition : experts indépendants des investigateurs et du sponsor.\n4. Choix du comparateur actif — éthique du placebo :\n• La pémétrexed + platine est le standard de soin → l'utilisation d'un bras placebo serait non éthique (critère d'équipoise non respecté).\n• Cross-over autorisé (chimio → sac-TMT après progression) : éthiquement justifié car sac-TMT disponible commercialement.\n5. Conflits d'intérêts :\n• Financement par Sichuan Kelun-Biotech (fabricant du sac-TMT).\n• Rédaction initiale par des auteurs non-employés du sponsor + support de rédaction médicale financé par le sponsor.\n• Sponsor impliqué dans la collecte, l'analyse et l'interprétation des données — risque de biais d'industrie.\nSynthèse : L'essai respecte les standards éthiques internationaux. L'IDMC assure la protection des participants. Le financement industriel est la limitation éthique principale — atténuée par le fait que les auteurs principaux sont indépendants du sponsor.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_ethique",
+      "q29"
+    ]
+  },
+  {
+    "number": 30,
+    "theme": "ÉTHIQUE",
+    "question": "L'essai est financé par le fabricant (Sichuan Kelun-Biotech). Quels sont les risques et les mécanismes de contrôle ?",
+    "approach": "Biais d'industrie, conflit d'intérêts, transparence",
+    "reference": "Question financement/biais — annale 2025",
+    "answer": "Risques liés au financement industriel :\n• Publication bias : résultats positifs plus souvent publiés. Ici publié dans NEJM → revue d'impact maximum, résultats positifs.\n• Selective reporting : choix des critères secondaires à rapporter, suppression de données défavorables. Non détectable dans l'article.\n• Sponsor involvement : décision de design, analyse, interprétation — risque de biais dans les choix méthodologiques.\n• Medical writing funding : le soutien de rédaction est financé par le sponsor — risque de présentation favorable.\nMécanismes de contrôle dans cet essai :\n• Auteurs principaux non-employés du sponsor : Fang W. et al. sont affiliés à des institutions universitaires (Sun Yat-sen University Cancer Center, etc.).\n• IDMC indépendant : surveille la conduite et la sécurité.\n• Protocole enregistré publiquement : NCT05870319 (ClinicalTrials.gov) — permet de comparer les hypothèses initiales avec les rapports publiés.\n• Peer-review NEJM : révision par des experts indépendants.\n• Data sharing statement disponible — transparence des données.\nRecommandations de vigilance :\n• Vérifier que les critères d'analyse sont conformes au protocole enregistré (analyse secondaire des critères pré-spécifiés).\n• Les résultats sont cohérents avec les données de phase 1/2 (KL264-01, OptiTROP-Lung03) — renforce la crédibilité.\nSynthèse : Le financement industriel est une limitation à déclarer mais ne disqualifie pas les résultats.\nLes mécanismes de contrôle (auteurs indépendants, IDMC, protocole enregistré, NEJM peer-review) atténuent significativement le risque de biais.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_ethique",
+      "q30"
+    ]
+  },
+  {
+    "number": 31,
+    "theme": "ÉTHIQUE",
+    "question": "Discutez la question de la généralisation éthique des résultats : est-il éthique d'utiliser sac-TMT pour des patients non-asiatiques sur la base de cet essai ?",
+    "approach": "Généralisabilité, éthique thérapeutique, équité d'accès",
+    "reference": "Question éthique de généralisabilité — nouveau 2026",
+    "answer": "Contexte :\nSac-TMT déjà approuvé en Chine pour d'autres indications (TNBC post-traitement).\nOptiTROP-Lung04 est conduit uniquement en Chine avec 376 Asiatiques.\nArguments pour une utilisation compassionnelle hors-Asie :\n• Mécanisme d'action universel (Trop-2 ubiquitaire) — pas de raison biologique évidente pour un effet différent selon l'ethnie.\n• Résultats cohérents dans tous les sous-groupes intra-étude.\n• Données de phases 1/2 (KL264-01) incluaient des patients non-asiatiques.\n• Bénéfice clinique substantiel (HR=0,49 SSP, HR=0,60 OS) avec profil de sécurité favorable.\nArguments pour la prudence avant utilisation hors-Asie :\n• Absence de données dans les populations caucasiennes, africaines, hispanophones.\n• Différences pharmacogénomiques potentielles (UGT, CYP3A4) pouvant modifier l'exposition au payload.\n• Fréquence des mutations EGFR ≈ 15% dans les cancers du poumon caucasiens (vs ≈40% asiatiques) — population cible plus petite.\n• Réglementation : FDA et EMA n'ont pas encore approuvé sac-TMT dans cette indication → utilisation hors-AMM.\nRecommandation éthique :\n• Des essais internationaux (Europe, Amérique) avec populations mixtes sont nécessaires avant généralisation mondiale.\n• En attendant, utilisation compassionnelle possible au cas par cas avec consentement éclairé informant le patient de l'absence de données dans sa population.\nSynthèse : Il n'est pas actuellement éthique d'extrapoler les résultats comme standard de soin pour les populations non-asiatiques sans données confirmatives. Des essais internationaux sont nécessaires. L'utilisation individuelle compassionnelle peut être justifiée.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_ethique",
+      "q31"
+    ]
+  },
+  {
+    "number": 32,
+    "theme": "SANTÉ PUBLIQUE",
+    "question": "Quelles sont les implications de ces résultats pour la politique de santé publique en oncologie pulmonaire ?",
+    "approach": "Remboursement, coût-efficacité, accès aux soins",
+    "reference": "Question santé publique — annale 2020, 2022",
+    "answer": "Fardeau épidémiologique :\n• Cancer du poumon = 1ère cause de mortalité par cancer mondiale. NSCLC = 85% des cas.\nMutations EGFR : ≈40% en Asie, ≈15% en Europe.\n• Population cible OptiTROP-Lung04 : NSCLC EGFR-muté avancé post-TKI — des dizaines de milliers de patients par an en Chine.\nImplications pour les recommandations de traitement :\n• Si approuvé, sac-TMT devient l'option préférentielle avant la chimio platine en 2e ligne post-EGFR-TKI → modification des guidelines oncologiques (NCCN, ESMO, guidelines chinoises).\n• Séquence thérapeutique : EGFR-TKI 3e génération (1re ligne) → sac-TMT (2e ligne) → chimio platine (3e ligne).\nImplications économiques :\n• Sac-TMT = thérapie ciblée/biologique → coût très élevé (ADC en général ≥ 100k€/an en Europe).\n• Nécessité d'analyses coût-efficacité (ICER, ratio coût/QALY) pour les décisions de remboursement.\n• Non discuté dans l'article — limitation importante pour les décideurs de santé publique.\nAccès aux soins — équité :\n• En Chine : sac-TMT commercialisé, disponible pour les patients avec ressources. Question d'équité d'accès.\n• Pour les pays à faibles/moyens revenus : chimio platine reste le traitement accessible.\nBiomarqueurs et médecine de précision :\n• L'essai ne préspécifie pas de seuil d'expression Trop-2 pour sélectionner les patients → tout patient NSCLC EGFR-muté post-TKI éligible, sans biomarqueur additionnel.\n• Exploration de biomarqueurs Trop-2 pour optimiser la sélection (mentionnée comme perspective de recherche future).\nSynthèse : Sac-TMT représente une avancée thérapeutique majeure pour les NSCLC EGFR-mutés résistants aux TKI, mais son impact sur la santé publique dépendra du coût, de l'accès, et de la généralisation des données à des populations non-asiatiques.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_sante_publique",
+      "q32"
+    ]
+  },
+  {
+    "number": 33,
+    "theme": "SANTÉ PUBLIQUE",
+    "question": "Discutez la place du sac-TMT dans l'algorithme décisionnel de traitement du NSCLC EGFR-muté. Comment s'intègre-t-il dans le parcours patient ?",
+    "approach": "Algorithme thérapeutique, séquence, lignes de traitement",
+    "reference": "Question parcours patient — applicable 2026",
+    "answer": "Parcours actuel pré-sac-TMT (2024) :\n• 1ère ligne : EGFR-TKI 3e génération (osimertinib, aumolertinib, furmonertinib) ± bevacizumab selon guideline.\n• 2e ligne (post-osimertinib) : pémétrexed + platine ± anti-angiogénique ou immunothérapie. SSP ≈ 4-5 mois.\n• 3e ligne et au-delà : docétaxel, autres options limitées.\nPlace proposée de sac-TMT (post-OptiTROP-Lung04) :\n• 2e ligne (avant chimio platine) : sac-TMT en monothérapie.\n• Critères d'éligibilité stricts : EGFR ex19del ou L858R, progression post-EGFR-TKI (surtout 3e génération), stade IIIB/C ou IV, ECOG 0-1.\nSituations particulières :\n• Métastases cérébrales stables : sac-TMT efficace (données sous-groupe) mais pénétration SNC non prouvée.\n• Résistance T790M : sac-TMT efficace quelle que soit la mutation T790M.\n• ECOG 2+ : non étudié dans cet essai → données manquantes.\nQuestions sans réponse pour l'algorithme :\n• Sac-TMT avant ou après d'autres nouvelles thérapies (amivantamab, ivonescimab + chimio) ? Pas d'essai head-to-head.\n• Durée optimale de traitement ? Critères d'arrêt ?\n• Efficacité après chimio platine en 2e ligne ? (Données de phase 2 OptiTROP-Lung03 le suggèrent mais en 3e ligne).\nSynthèse : Sac-TMT s'intègre en 2e ligne post-EGFR-TKI avant la chimio platine, modifiant significativement l'algorithme de traitement. C'est la première thérapie de 2e ligne avec bénéfice OS démontré dans cette population.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_sante_publique",
+      "q33"
+    ]
+  },
+  {
+    "number": 34,
+    "theme": "CRITIQUE",
+    "question": "Quelles sont les principales forces et limites méthodologiques de l'essai OptiTROP-Lung04 ?",
+    "approach": "Analyse critique globale, force/limite, fiabilité",
+    "reference": "Question OBLIGATOIRE chaque année — synthèse critique",
+    "answer": "FORCES :\n• Design : phase 3 randomisée contrôlée — gold standard de la preuve en recherche clinique.\n• BICR : évaluation aveugle du critère principal → non biaisée.\n• Deux critères de jugement clés atteints : SSP ET SG (rare en oncologie).\n• Deux analyses intermédiaires planifiées avec contrôle du risque alpha via O'Brien-Fleming → rigueur statistique.\n• Population bien caractérisée : 94,7% post-TKI 3e génération → population cliniquement homogène.\n• Taille d'effet importante : HR SSP = 0,49, HR OS = 0,60 — bénéfice clinique et statistique solide.\n• Inclusion des métastases cérébrales → population réelle, pas restrictive.\n• PRO intégrés (EORTC QLQ-C30 + LC13) → perspective patient.\n• Protocole public (NCT05870319) → transparence et vérifiabilité.\nLIMITES :\n• Population exclusivement asiatique/chinoise → validité externe limitée.\n• Essai ouvert (open-label) → biais de performance et de détection, mitigé par BICR mais pas pour l'OS.\n• Financement industriel (Sichuan Kelun-Biotech) → biais potentiel.\n• Cross-over chimio → sac-TMT post-progression → dilution OS.\n• SG médiane non atteinte dans bras sac-TMT → durabilité incertaine.\n• Absence d'analyse de sensibilité sur la censure.\n• Pas de sous-groupe par expression Trop-2 → sélection biomarqueur non explorée.\n• Données coût-efficacité absentes.\n• Patients ECOG 2+ exclus → généralisabilité aux patients fragiles limitée.\nSynthèse : Essai bien conçu, résultats convaincants, mais la population exclusivement asiatique reste la limitation centrale pour une application mondiale. La démonstration du bénéfice OS est la force majeure différenciante.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_critique",
+      "q34"
+    ]
+  },
+  {
+    "number": 35,
+    "theme": "CRITIQUE",
+    "question": "Si vous deviez améliorer la conception de cet essai, quelles modifications proposeriez-vous ? Quelles études futures seraient nécessaires ?",
+    "approach": "Améliorations design, perspectives recherche, double blind",
+    "reference": "Question ouverte critique — annale 2025, 2024",
+    "answer": "Améliorations du design actuel :\n• Population internationale : inclusion de sites européens, nord-américains, latino-américains → validité externe mondiale.\n• Double aveugle : techniquement difficile (chimiothérapie vs ADC IV) mais un design factice (placebo IV dans le bras chimio + sac-TMT simulé) aurait supprimé tout biais d'évaluation non couvert par la BICR.\n• Biomarqueur Trop-2 : stratification/sélection par l'expression Trop-2 (IHC ou ARNm) pour identifier les meilleurs répondeurs.\n• Analyse de sensibilité sur la censure : inclure des scénarios de censure informative pour tester la robustesse des résultats OS.\n• ECOG 2 : inclure les patients avec PS=2 dans un sous-groupe dédié — population cliniquement importante.\n• Crossover contrôlé : autoriser le cross-over chimio→sac-TMT mais ajuster l'analyse OS (méthode RPSFT ou IPW) pour estimer l'effet 'sans cross-over'.\nÉtudes futures nécessaires :\n• Essai international phase 3 : confirmer dans des populations non-asiatiques.\n• Essai head-to-head : sac-TMT vs HARMONi-A (ivonescimab + chimio) vs MARIPOSA-2 (amivantamab + chimio) → comparaison directe.\n• Essai 1ère ligne : sac-TMT vs osimertinib en 1ère ligne (hypothèse basée sur la biologie EGFR-muté).\n• Études de biomarqueurs : association Trop-2 expression / efficacité sac-TMT.\n• Combinaisons : sac-TMT + osimertinib pour les résistances EGFR-TKI.\n• Analyses pharmacoéconomiques : ICER, coût/QALY pour les décisions de remboursement des agences nationales.\nPerspectives réglementaires :\n• Dossier de soumission FDA/EMA sur la base de OptiTROP-Lung04 + données de phase 2 (OptiTROP-Lung03, KL264-01).\n• Possible approbation accélérée (accelerated approval FDA) sur base SSP.\nSynthèse : L'essai est solide mais ses résultats doivent être confirmés dans des populations non-asiatiques avant de devenir un standard mondial. Les études comparatives directes et les analyses de biomarqueurs sont les priorités de recherche les plus urgentes.\nPOPULATION\n• N total : 376 patients (188 sac-TMT + 188 chimio)\n• Âge médian : 60 ans (31–75). 39,6% hommes. 100% asiatiques.\n• Stade IV : 97,6%. ECOG 0/1 : 20,7%/79,3%. Non-fumeurs : 74,5%.\n• Ex19del : 59,6%. L858R : 41,2%. TKI 3e gén. antérieur : 94,7%.\n• Métastases cérébrales : 17,6% (sac-TMT) / 19,1% (chimio).\nDESIGN\n• Phase 3, multicentrique (66 sites), ouvert, randomisé 1:1.\n• Stratification : TKI 3e gén. (1re/2e/aucune) × métastases cérébrales.\n• Suivi médian : 18,9 mois. Cutoff final : 6 juillet 2025.\nCALCUL NSN\n• NSN = ≈356 patients (376 enrollés) pour 249 événements SSP.\n• Puissance : 88% pour HR SSP = 0,67. α unilatéral = 0,025.\n• SG : 80% pour HR OS = 0,70. 188 décès requis.\nANALYSE STATISTIQUE\n• ITT pour l'efficacité. Safety population : 188 vs 182.\n• Kaplan-Meier + Cox stratifié + log-rank stratifié.\n• Dépense α : Lan-DeMets / O'Brien-Fleming.\n• Analyse intermédiaire SSP : 11/07/2024, α = 0,0337 bilatéral, P<0,0001.\n• Analyse intermédiaire SG : 06/07/2025, α = 0,0124 bilatéral, P=0,001.\nRÉSULTATS SSP (critère principal)\n• SSP médiane sac-TMT : 8,3 mois (IC95% : 6,7–9,9).\n• SSP médiane chimio : 4,3 mois (IC95% : 4,2–5,5).\n• HR = 0,49 (IC95% : 0,39–0,62). Réduction risque = 51%. P < 0,0001.\n• SSP à 12 mois : 32,3% sac-TMT vs 7,9% chimio.\nRÉSULTATS SG (critère secondaire hiérarchique)\n• SG médiane sac-TMT : NON ATTEINTE.\n• SG médiane chimio : 17,8 mois.\n• HR = 0,60 (IC95% : 0,44–0,82). P = 0,001.\n• SG à 18 mois : 65,8% sac-TMT vs 48,0% chimio (Δ = +17,8 pts).\nRÉSULTATS ORR & DURÉE RÉPONSE\n• ORR sac-TMT : 55,9%. ORR chimio : 30,9%. Δ = +25,0 pts. P < 0,0001.\n• DCR : 87,8% sac-TMT vs 73,4% chimio.\n• Durée médiane de réponse : 7,1 mois vs 4,4 mois.\nSÉCURITÉ\n• EI grade ≥ 3 : 58,0% sac-TMT vs 53,8% chimio.\n• EI sévères : 9,0% sac-TMT vs 17,6% chimio (AVANTAGE sac-TMT).\n• Neutropénie grade ≥ 3 : 39,9% vs 33,0%.\n• Stomatite grade 3 : 4,8% sac-TMT (tous grade 3, pas de grade 4-5).\n• Effets oculaires : 9,6% sac-TMT vs 0,5% chimio (tous grade ≤ 2).\n• ILD/pneumopathie interstitielle : 0 cas sac-TMT.\n• Arrêts pour toxicité : 8,0% sac-TMT vs 13,2% chimio.\nMÉCANISME SAC-TMT\n• ADC ciblant Trop-2 (anticorps + linker + payload bélotécane-dérivé, inhibiteur topo I).\n• Trop-2 surexprimé dans NSCLC EGFR-muté résistant aux TKI.\n• Mutations EGFR → augmentation internalisation et uptake lysosomal du sac-TMT.\n• Bystander effect : cytotoxicité sur cellules voisines Trop-2 négatif.\nANNEXE — GLOSSAIRE ONCOLOGIE & RECHERCHE CLINIQUE (25 TERMES CLÉS) ADC (Antibody-Drug Conjugate)\nAnticorps conjugué à un médicament cytotoxique via un linker clivable.\nCombine la spécificité de l'anticorps et la puissance du payload. Ici :\nsac-TMT = anticorps anti-Trop-2 + bélotécane-dérivé (topo I inhibiteur).\nTrop-2 (TACSTD2)\nTrophoblast Cell-Surface Antigen 2 — glycoprotéine surexprimée dans de nombreux cancers épithéliaux dont le NSCLC EGFR-muté. Cible de sac-TMT.\nEGFR-TKI\nInhibiteur de la tyrosine kinase du récepteur EGFR. Générations : 1ère (gefitinib, erlotinib), 2ème (afatinib), 3ème (osimertinib). Résistance inévitable → 2e ligne nécessaire.\nSSP / PFS (Progression-Free Survival)\nSurvie sans progression = délai entre randomisation et progression (RECIST 1.1) ou décès. Critère surrogate oncologique standard.\nSG / OS (Overall Survival)\nSurvie globale = délai entre randomisation et décès toute cause. Seul critère clinique ultime reflétant directement le bénéfice patient.\nRECIST 1.1\nResponse Evaluation Criteria in Solid Tumors v1.1 — critères standardisés d'évaluation tumorale. CR (+PR+SD+PD). ORR = CR+PR. Baseline + évaluations toutes 6-8 semaines.\nHR (Hazard Ratio)\nRapport des fonctions de risque instantané entre deux groupes. HR < 1 = avantage pour le traitement actif. HR = 0,49 = 51% de réduction du risque d'événement à tout moment.\nBICR (Blinded Independent Central Review)\nComité indépendant évaluant les images radiologiques sans connaissance du bras de traitement. Élimine le biais d'évaluation dans les essais ouverts.\nITT (Intention-To-Treat)\nAnalyse incluant tous les patients randomisés, quelle que soit leur adherence au traitement. Conservatrice, gold standard pour les essais de supériorité.\nLan-DeMets / O'Brien-Fleming\nMéthode de dépense du risque alpha pour les analyses intermédiaires.\nO'Brien-Fleming : conservateur au début, libère plus d'α à la fin. Contrôle le FWER sur l'ensemble des analyses.\nNSN (Nombre de Sujets Nécessaires)\nCalcul de la taille d'échantillon basé sur puissance (1-β), alpha, taille d'effet attendue (HR). Méthode de Schoenfeld pour les critères de survie.\nIDMC / DSMB\nIndependent Data Monitoring Committee / Data Safety Monitoring Board.\nComité indépendant supervisant la sécurité et les analyses intermédiaires.\nPeut recommander l'arrêt de l'essai.\nORR (Objective Response Rate)\nTaux de réponse objective = proportion de patients avec CR ou PR (RECIST). Dans cet essai : 55,9% sac-TMT vs 30,9% chimio (Δ = +25 pts).\nTopoisomérase I\nEnzyme régulant la topologie de l'ADN en créant/refermant des coupures simple brin. Cible du payload de sac-TMT. Inhibition → apoptose cellulaire.\nNSCLC non squameux\nNon-small cell lung cancer (cancer bronchique non à petites cellules) histologie non squameuse = adénocarcinome principalement. EGFR muté quasi exclusivement dans l'adénocarcinome.\nAnalyse en sous-groupes\nAnalyses exploratoires d'efficacité dans des sous-populations prédéfinies.\nNon ajustées pour multiplicité → interprétation descriptive uniquement.\nValeur dans la cohérence et non dans la significativité individuelle.\nCensure non informative\nHypothèse que les patients censurés (perdus de vue, arrêt) ont le même pronostic que ceux restant dans l'essai. Critère de validité de l'analyse KM/Cox.\nILD (Interstitial Lung Disease)\nPneumopathie interstitielle — toxicité grave de certains ADC (T-DXd).\nAbsente dans sac-TMT (0 cas) → avantage de sécurité important.\nEI grade 3-4-5 (NCI-CTCAE v5.0)\nGrade 3 : sévère, limitant les activités. Grade 4 : menaçant le pronostic vital. Grade 5 : décès lié au traitement. Standards NCI pour la gradation des toxicités.\nClopper-Pearson IC\nIntervalle de confiance exact pour une proportion binomiale. Standard réglementaire (FDA/EMA) pour les essais oncologiques de phase 3.\nCMH (Cochran-Mantel-Ha enszel)\nTest de tableau 2×2 stratifié — compare les proportions entre groupes en ajustant pour les facteurs de stratification. Équivalent du chi-2 stratifié.\nBystander effect\nLibération extracellulaire du payload d'un ADC après clivage intracellulaire → cytotoxicité sur cellules voisines même Trop-2 négatif. Mécanisme propre aux ADC.\nPhase 3 confirmatory trial\nEssai de confirmation : phase 3 conçue pour confirmer les résultats d'une phase 2 prometteuse avec puissance statistique suffisante pour les décisions réglementaires (FDA/EMA).\nEORTC QLQ-C30 / LC13\nEuropean Organization for Research and Treatment of Cancer Quality of\nLife Questionnaire. C30 : 30 items générique oncologie. LC13 : module spécifique poumon (13 items). Instruments validés pour les PRO en oncologie.\nT790M\nMutation de résistance 'gatekeeper' de l'EGFR (exon 20, substitution Thr→Met en position 790). Principale mécanisme de résistance aux TKI 1re/2e génération (~50% des cas). Surpassée par les TKI 3e génération.\nSource : Fang W. et al. N Engl J Med 2026; 394: 13–197. doi.org/10.1056/NEJMoa2512071 · Annales M2 MSR 2018–2025 (Prof. Bruno Falissard). Document préparé avec Perplexity Computer.",
+    "tags": [
+      "rc_m2msr_2026",
+      "exhaustif",
+      "theme_critique",
+      "q35"
+    ]
+  }
+]

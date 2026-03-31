@@ -1,0 +1,1075 @@
+---
+title: "Poly de révision"
+subtitle: "Nombre de sujets nécessaires, puissance statistique et annales résolues"
+lang: fr
+toc: true
+toc-depth: 3
+toc-location: body
+format:
+  html:
+    theme: cosmo
+    css: poly_revision_nsn.css
+    embed-resources: true
+    html-math-method: katex
+    code-fold: false
+  pdf:
+    pdf-engine: xelatex
+    documentclass: scrartcl
+    papersize: a4
+    mainfont: "Avenir Next"
+    sansfont: "Avenir Next"
+    monofont: "Menlo"
+    geometry:
+      - top=14mm
+      - bottom=14mm
+      - left=14mm
+      - right=14mm
+    fontsize: 10pt
+    colorlinks: true
+    code-fold: false
+    include-in-header:
+      text: |
+        \usepackage[most]{tcolorbox}
+        \usepackage{fontspec}
+        \usepackage{fancyhdr}
+        \usepackage{titlesec}
+        \usepackage{titling}
+        \usepackage{tocloft}
+        \usepackage{colortbl}
+        \usepackage{etoolbox}
+        \definecolor{PolyTeal}{HTML}{0F5F67}
+        \definecolor{PolyCoral}{HTML}{CF6A4D}
+        \definecolor{PolyGold}{HTML}{C89A3C}
+        \definecolor{PolySage}{HTML}{6E8D7B}
+        \definecolor{PolySand}{HTML}{FBF6EA}
+        \definecolor{PolySoft}{HTML}{EEF5F5}
+        \definecolor{shadecolor}{HTML}{F7FAFB}
+        \AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=PolyTeal,urlcolor=PolyCoral,citecolor=PolySage}}
+        \setlength{\parindent}{0pt}
+        \setlength{\parskip}{4pt}
+        \renewcommand{\baselinestretch}{1.05}
+        \setkomafont{disposition}{\bfseries}
+        \addtokomafont{section}{\color{PolyTeal}\Huge}
+        \addtokomafont{subsection}{\color{PolyCoral}\Large}
+        \addtokomafont{subsubsection}{\color{PolySage}\large}
+        \titleformat{\section}{\color{PolyTeal}\bfseries\fontsize{18}{21}\selectfont}{}{0pt}{}
+        \titleformat{\subsection}{\color{PolyCoral}\bfseries\fontsize{14}{17}\selectfont}{}{0pt}{}
+        \titleformat{\subsubsection}{\color{PolySage}\bfseries\fontsize{12}{15}\selectfont}{}{0pt}{}
+        \titlespacing*{\section}{0pt}{1.2em}{0.5em}
+        \titlespacing*{\subsection}{0pt}{1em}{0.35em}
+        \titlespacing*{\subsubsection}{0pt}{0.8em}{0.25em}
+        \pretitle{\begin{center}\begin{tcolorbox}[enhanced,breakable=false,colback=PolyTeal,colframe=PolyTeal,boxrule=0pt,arc=4mm,left=7mm,right=7mm,top=5mm,bottom=5mm,width=\textwidth]\centering\color{white}\bfseries\fontsize{24}{28}\selectfont}
+        \posttitle{\end{tcolorbox}\end{center}\vspace{-0.5em}}
+        \preauthor{\begin{center}\color{PolySage}\large}
+        \postauthor{\end{center}}
+        \predate{\begin{center}\color{PolyCoral}\normalsize}
+        \postdate{\end{center}\vspace{-1em}}
+        \setkomafont{subtitle}{\Large\color{PolyGold}}
+        \renewcommand{\contentsname}{Sommaire}
+        \renewcommand{\cftsecfont}{\color{PolyTeal}}
+        \renewcommand{\cftsecpagefont}{\color{PolyTeal}}
+        \renewcommand{\cftsubsecfont}{\color{PolyCoral}}
+        \renewcommand{\cftsubsecpagefont}{\color{PolyCoral}}
+        \setlength{\cftbeforesecskip}{3pt}
+        \AtBeginEnvironment{longtable}{\rowcolors{2}{PolySand}{white}}
+        \arrayrulecolor{PolyTeal}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[L]{\color{PolySage}\footnotesize Poly de révision}
+        \fancyhead[R]{\color{PolySage}\footnotesize NSN et puissance}
+        \fancyfoot[C]{\color{PolyTeal}\footnotesize\thepage}
+        \setlength{\headheight}{14pt}
+editor: source
+---
+
+::: {.content-visible when-format="pdf"}
+```{=latex}
+\begin{tcolorbox}[enhanced, breakable, colback=PolySoft, colframe=PolyTeal, boxrule=0.6pt, arc=3mm, left=4mm, right=4mm, top=3mm, bottom=3mm]
+\textbf{\color{PolyTeal}Objectif du poly.} Ce document doit permettre de répondre entièrement aux questions d'annales portant sur le nombre de sujets nécessaires, la puissance statistique et les cas méthodologiques voisins. Il progresse des principes généraux vers les annales résolues, avec des calculs détaillés dès que les données de l'article le permettent.
+\end{tcolorbox}
+```
+:::
+
+::: {.hero}
+Ce poly a un seul objectif : **permettre de répondre entièrement aux questions d'annales portant sur le calcul du nombre de sujets nécessaires, la puissance, et les cas voisins**.
+
+Il suit une progression volontairement simple :
+
+1. reconnaître immédiatement le type de question ;
+2. mobiliser la bonne formule ou le bon raisonnement ;
+3. écrire une réponse d'examen complète, même si le calcul exact n'est pas reconstructible ;
+4. retrouver année par année ce qu'il fallait faire.
+
+::: {.chips}
+<span class="chip">didactique</span>
+<span class="chip">progressif</span>
+<span class="chip">détaillé</span>
+<span class="chip">orienté annales</span>
+<span class="chip">HTML A4 + PDF</span>
+:::
+:::
+
+::: {.callout-important title="Idée directrice"}
+Le mot **NSN** ne signifie pas toujours la même chose selon le design.  
+Dans un essai randomisé, on peut souvent faire un vrai calcul prospectif.  
+Dans une cohorte ou une étude transversale, il faut souvent raisonner plutôt en **nombre d'événements**, en **précision**, ou en **interprétation des intervalles de confiance**.
+:::
+
+## Comment utiliser ce poly
+
+Lecture conseillée :
+
+1. lire les sections 1 à 4 pour acquérir la mécanique générale ;
+2. passer ensuite directement à la section "Annales résolues" ;
+3. revenir à la fin sur les réponses-type et la checklist.
+
+Si vous êtes en révision rapide, les éléments à mémoriser en priorité sont :
+
+- les paramètres indispensables d'un NSN ;
+- les trois grandes formules de base ;
+- les ajustements majeurs : dropout, cluster, multiplicité, surdispersion, co-primary endpoints, non-infériorité ;
+- la façon de répondre quand le calcul exact est impossible.
+
+## 1. Carte rapide des questions couvertes
+
+| Année | Épreuve | Nature de la question | Mouvement attendu |
+|---|---|---|---|
+| 2011 | EPI | puissance a posteriori | discuter l'effet brut vs l'effet net et la précision |
+| 2011 | RC | ITT, perdus de vue, inflation du NSN | distinguer arrêt de traitement et vraie perte de suivi |
+| 2012 | EPI | faible nombre d'événements, puissance | montrer que peu d'événements = faible puissance |
+| 2012 | RC | retrouver le NSN | raisonner "event-driven" à partir du nombre d'événements |
+| 2013 | EPI | pas de calcul a priori, puissance rudimentaire | remplacer le NSN par un raisonnement de précision |
+| 2014 | EPI | même situation, très grande cohorte | conclure à une puissance très élevée, limite = biais |
+| 2016 | EPI | comment discuter la puissance d'une cohorte | raisonner par événements, sous-groupes, IC |
+| 2019 | EPI | cohorte immense | dire que la puissance n'est pas le vrai problème |
+| 2020 | RC | co-primary endpoints | partir d'un calcul simple puis ajouter la corrélation |
+| 2021 | RC | essai individuel au lieu de cluster | faire un NSN standard à deux proportions |
+| 2022 | RC | modèle binomial négatif | énumérer les paramètres et expliquer ce qui manque |
+| 2023 | RC | essai individuel, trois bras, majoration | calcul continu simple puis inflation |
+| 2024 | RC | non-infériorité | retrouver le calcul simplifié du corrigé |
+| 2025 | RC | log-rank, hypothèses explicites | reprendre directement les hypothèses de l'article |
+
+## 2. Réflexe n°1 : identifier le bon type de question
+
+### 2.1. Vrai NSN prospectif
+
+Vous êtes dans ce cas si l'énoncé demande :
+
+- "combien de sujets faut-il inclure ?"
+- "retrouvez le nombre de sujets nécessaires"
+- "si l'essai avait randomisé des sujets et non des clusters"
+- "essai de non-infériorité"
+- "test du log-rank"
+
+Le bon réflexe est alors :
+
+- identifier le type de critère principal ;
+- récupérer `alpha`, `beta`, l'effet attendu, et la variabilité ;
+- appliquer la formule ou la logique pertinente ;
+- corriger pour les éléments de design.
+
+### 2.2. Puissance a posteriori
+
+Vous êtes dans ce cas si l'étude est déjà réalisée et que la question dit :
+
+- "calculez une puissance a posteriori"
+- "le faible nombre d'événements a limité la puissance"
+- "comment discuter la puissance dans une telle étude ?"
+
+Le bon réflexe est alors :
+
+- dire d'abord que la puissance observée est un raisonnement secondaire ;
+- utiliser plutôt l'estimation d'effet et l'IC95% ;
+- si on vous force à chiffrer, proposer un calcul grossier et l'interpréter avec prudence.
+
+### 2.3. Critique méthodologique autour du NSN
+
+Vous êtes dans ce cas si l'énoncé mêle NSN et :
+
+- ITT ;
+- perdus de vue ;
+- cluster ;
+- co-primary endpoints ;
+- multiplicité ;
+- surdispersion.
+
+Le bon réflexe est alors :
+
+- ne pas foncer sur une formule ;
+- commencer par expliquer **pourquoi** le calcul simple est insuffisant ;
+- expliciter l'ajustement qui manque.
+
+## 3. Les briques de base à connaître
+
+## 3.1. Les paramètres indispensables
+
+| Paramètre | Symbole | Ce qu'il faut dire |
+|---|---|---|
+| risque de première espèce | `alpha` | probabilité de faux positif acceptée |
+| risque de deuxième espèce | `beta` | probabilité de faux négatif acceptée |
+| puissance | `1 - beta` | probabilité de détecter l'effet s'il existe |
+| effet minimal pertinent | `delta`, `HR`, `p1-p2` | effet qu'on ne veut pas manquer |
+| variabilité / risque de base | `sigma`, `p`, taux d'événements | composante indispensable du calcul |
+| allocation | `r`, `p` | 1:1, 2:1, trois bras, cluster |
+| suivi / recrutement | durée | crucial en survie et en event-driven |
+| pertes prévues | dropout | inflation éventuelle de l'effectif |
+| design complexe | `ICC`, `rho`, surdispersion | cluster, co-primary, comptages |
+
+::: {.callout-note title="Phrase à écrire presque à chaque fois"}
+Pour calculer un NSN, il faut au minimum un `alpha`, une puissance, une taille d'effet cliniquement pertinente, et une mesure de la variabilité ou du risque de base. Ensuite on ajuste si nécessaire pour les pertes, le cluster, la multiplicité ou d'autres contraintes du design.
+:::
+
+## 3.2. Les valeurs de `z` à mémoriser
+
+| Hypothèse | Valeur utile |
+|---|---|
+| `alpha = 0,05` bilatéral | `1,96` |
+| `alpha = 0,05` unilatéral | `1,645` |
+| `alpha = 0,025` unilatéral | `1,96` |
+| puissance 80% | `0,84` |
+| puissance 85% | `1,04` environ |
+| puissance 90% | `1,28` |
+
+## 3.3. Les trois grandes formules
+
+### 3.3.1. Deux moyennes
+
+$$
+n_{\text{par bras}} = \frac{2(z_{1-\alpha/2}+z_{1-\beta})^2\sigma^2}{\delta^2}
+$$
+
+À utiliser quand le critère principal est continu et qu'on compare deux groupes indépendants.
+
+### 3.3.2. Deux proportions
+
+$$
+n_{\text{par bras}} =
+\frac{\left[z_{1-\alpha/2}\sqrt{2\bar p(1-\bar p)}+z_{1-\beta}\sqrt{p_1(1-p_1)+p_2(1-p_2)}\right]^2}{(p_1-p_2)^2}
+$$
+
+avec $\bar p = (p_1+p_2)/2$.
+
+À utiliser quand le critère principal est binaire.
+
+### 3.3.3. Essais de survie / log-rank
+
+Ce qu'on dimensionne souvent d'abord, c'est le **nombre d'événements requis**.
+
+Forme de base de Schoenfeld :
+
+$$
+D = \frac{(z_{1-\alpha/2}+z_{1-\beta})^2}{p(1-p)\left[\log(HR)\right]^2}
+$$
+
+où :
+
+- $D$ = nombre d'événements nécessaires ;
+- $p$ = proportion allouée à un groupe, souvent 0,5 ;
+- $HR$ = hazard ratio visé.
+
+Ensuite seulement on convertit ce besoin en un **nombre de sujets** à partir :
+
+- du risque attendu ;
+- de la durée de recrutement ;
+- de la durée de suivi ;
+- des pertes de vue.
+
+## 4. Les ajustements qu'il ne faut pas oublier
+
+## 4.1. Dropout et perdus de vue
+
+Si l'on prévoit un taux de perte $q$ :
+
+$$
+n_{\text{ajusté}} = \frac{n_{\text{calculé}}}{1-q}
+$$
+
+Exemple :
+
+- si `n = 100` par bras et `q = 15%`, alors `100/0,85 = 117,6`, donc `118` par bras.
+
+::: {.callout-warning title="Piège majeur"}
+Un **arrêt du traitement** n'est pas forcément une **perte de suivi**.  
+En ITT, un patient qui arrête le traitement reste analysable si l'on continue à recueillir le critère principal.
+:::
+
+## 4.2. Essai en cluster
+
+Effet de design :
+
+$$
+DE = 1 + (m-1)\times ICC
+$$
+
+Puis :
+
+$$
+n_{\text{cluster-ajusté}} = n_{\text{individuel}} \times DE
+$$
+
+où :
+
+- $m$ = taille moyenne des clusters ;
+- $ICC$ = corrélation intra-cluster.
+
+## 4.3. Multiplicité
+
+Correction la plus simple :
+
+$$
+\alpha_{\text{ajusté}} = \frac{\alpha}{m}
+$$
+
+si l'on fait `m` comparaisons indépendantes et que l'on veut un contrôle global simple de l'erreur de type I.
+
+## 4.4. Co-primary endpoints
+
+Quand le critère principal comporte plusieurs composantes qui doivent toutes être positives :
+
+- le NSN augmente ;
+- la corrélation entre critères devient importante ;
+- une simple formule "deux moyennes" ou "deux proportions" n'est plus suffisante.
+
+## 4.5. Surdispersion
+
+Pour les comptages, si la variance dépasse la moyenne :
+
+- un modèle de Poisson simple devient trop optimiste ;
+- il faut un modèle binomial négatif ou une correction équivalente ;
+- le NSN est plus grand que dans un calcul naïf.
+
+## 4.6. Non-infériorité
+
+Toujours vérifier :
+
+- la **marge de non-infériorité** ;
+- le sens de l'hypothèse ;
+- le caractère souvent **unilatéral** du test ;
+- la justification clinique de la marge.
+
+## 5. Comment écrire une bonne réponse d'examen
+
+### 5.1. Trame universelle
+
+1. identifier le design ;
+2. identifier le type de critère principal ;
+3. lister les paramètres nécessaires ;
+4. préciser lesquels sont présents dans l'article ;
+5. faire le calcul ou le raisonnement détaillé ;
+6. conclure par un chiffre ou une interprétation claire.
+
+### 5.2. Si le calcul exact est impossible
+
+Une excellente copie peut écrire :
+
+> Le calcul exact n'est pas reconstructible car il manque [paramètre], mais la logique du dimensionnement est claire : il faut [liste des paramètres], et l'ordre de grandeur attendu est de [chiffre ou intervalle plausible].
+
+### 5.3. Si l'étude est observationnelle
+
+Une excellente copie peut écrire :
+
+> Ici, la bonne discussion n'est pas vraiment celle d'un NSN a priori. Il faut plutôt raisonner en nombre d'événements, en largeur des IC95%, et en limites de validité causale.
+
+::: {.page-break}
+:::
+
+## 6. Annales résolues avec calculs détaillés
+
+## 6.1. 2011 EPI
+
+### Question
+
+> Dans la mesure du possible calculez une puissance a posteriori.
+
+### Type de question
+
+Étude quasi-expérimentale de dépistage.  
+La vraie difficulté n'est pas de faire un NSN mais de comprendre **sur quel effet** on discute la puissance.
+
+### Données utiles
+
+- comparaison "screening" vs historique : `RR = 0,72`, `IC95% 0,63 à 0,81` ;
+- effet net attribuable spécifiquement au dépistage : réduction relative d'environ `10%`, `IC95% -4% à 24%`.
+
+::: {.formula-card}
+**Calcul grossier si l'on force une puissance observée sur le résultat brut**
+
+$$
+SE(\log RR) \approx \frac{\log(0{,}81)-\log(0{,}63)}{3{,}92} \approx 0{,}064
+$$
+
+$$
+z \approx \frac{|\log(0{,}72)|}{0{,}064} \approx 5{,}12
+$$
+
+Avec un seuil bilatéral à 5%, cela correspond à une puissance observée pratiquement égale à 1.
+:::
+
+::: {.formula-card}
+**Calcul grossier sur l'effet net de 10%**
+
+$$
+SE \approx \frac{0{,}24-(-0{,}04)}{3{,}92} \approx 0{,}071
+$$
+
+$$
+z \approx \frac{0{,}10}{0{,}071} \approx 1{,}40
+$$
+
+Puissance observée approximative :
+
+$$
+\Phi(1{,}40 - 1{,}96) \approx 0{,}29
+$$
+
+soit environ **30%**.
+:::
+
+### Ce qu'il faut comprendre
+
+- si l'on regarde seulement l'effet brut, la puissance est énorme ;
+- si l'on regarde l'effet spécifique du dépistage après prise en compte des progrès généraux de prise en charge, la puissance est beaucoup plus faible ;
+- en pratique, la meilleure discussion repose sur l'IC95% plus que sur une post hoc power.
+
+::: {.answer-card}
+**Réponse type**
+
+Une puissance a posteriori n'est pas l'outil le plus élégant ici, car l'intervalle de confiance renseigne déjà sur la précision. Si l'on prend la comparaison brute, l'effet est très net (`RR=0,72`, `IC95% 0,63-0,81`) et la puissance observée est très élevée. En revanche, si l'on s'intéresse au bénéfice propre du dépistage, estimé à environ 10% avec un IC95% de `-4% à 24%`, la puissance devient faible, de l'ordre de 30%. La conclusion raisonnable est donc que l'étude est grande, mais qu'elle isole imparfaitement l'effet spécifique du dépistage.
+:::
+
+## 6.2. 2011 RC
+
+### Question
+
+> L'analyse est réalisée en ITT et le nombre de sujets nécessaire est calculé en tenant compte d'un nombre de perdus de vue possible. Qu'en pensez-vous ?
+
+### Données utiles
+
+- planification : `9000` sujets, `2160` événements, puissance `80%`, alpha bilatéral `5%` ;
+- hypothèse : taux annuel d'événements placebo `7%` ;
+- hypothèse de discontinuation du traitement : `30%` ;
+- après randomisation : `47` perdus de vue dans le bras sibutramine, `58` dans le bras placebo ;
+- discontinuations du traitement : `1973 + 2073 = 4046`, soit environ `41,3%`.
+
+### Raisonnement détaillé
+
+Il faut distinguer :
+
+- les **arrêts de traitement** ;
+- les **vraies pertes d'information** sur le critère principal.
+
+En ITT, un arrêt de traitement n'exclut pas le patient de l'analyse si l'événement continue d'être recueilli. Or dans cet essai, le critère principal est un temps jusqu'à événement cardiovasculaire, et le suivi a été maintenu.
+
+Le fait marquant est donc le suivant :
+
+- les pertes de vue réelles sont très faibles : `105 / 9804 ≈ 1,1%` ;
+- les arrêts de traitement sont beaucoup plus fréquents : `4046 / 9804 ≈ 41,3%`.
+
+### Ce qu'il faut écrire
+
+- oui, il est légitime de gonfler un peu l'effectif si l'on anticipe des **données manquantes** ;
+- non, il ne faut pas confondre cela avec la non-observance ;
+- dans un essai ITT bien suivi, l'inflation pour "perdus de vue" doit rester liée à la perte réelle d'information, pas aux seuls arrêts de traitement.
+
+::: {.answer-card}
+**Réponse type**
+
+Le raisonnement est acceptable seulement si l'on parle de vraies pertes de suivi. En ITT, un patient qui arrête le traitement reste analysable tant que le critère principal continue à être observé. Ici, les arrêts de traitement sont nombreux, mais les pertes de vue réelles sont faibles. Il fallait donc distinguer clairement discontinuation et données manquantes. La majoration du NSN peut être défendable si elle vise des pertes d'information, mais pas si elle compense simplement les arrêts de traitement.
+:::
+
+## 6.3. 2012 EPI
+
+### Question
+
+> “The low number of events limited the statistical power of the study”. Pouvez-vous retrouver au moins approximativement cette puissance statistique ?
+
+### Données utiles
+
+- current users : `7` événements pour `373 667` personnes-années ;
+- non-users : `49` événements pour `1 597 962` personnes-années ;
+- `HR ajusté = 0,75`, `IC95% 0,31 à 1,85`.
+
+::: {.formula-card}
+**Approximation par l'intervalle de confiance**
+
+$$
+SE(\log HR) \approx \frac{\log(1{,}85)-\log(0{,}31)}{3{,}92} \approx 0{,}456
+$$
+
+$$
+z \approx \frac{|\log(0{,}75)|}{0{,}456} \approx 0{,}63
+$$
+
+Puissance observée approximative :
+
+$$
+\Phi(0{,}63 - 1{,}96) \approx 0{,}09
+$$
+
+soit environ **10%**.
+:::
+
+### Ce qu'il faut comprendre
+
+- l'étude est très grande en apparence ;
+- mais le nombre d'événements informatifs dans le groupe pertinent est très faible ;
+- l'IC95% est très large et reste compatible avec un sur-risque important.
+
+::: {.answer-card}
+**Réponse type**
+
+La puissance est faible. Même si la cohorte est grande, le nombre d'événements chez les utilisateurs actuels est très petit. À partir du `HR=0,75` et de son `IC95% 0,31-1,85`, on obtient une puissance a posteriori très grossière d'environ 10%. Le message principal est que l'étude n'exclut pas proprement un effet modéré ou important, d'où la largeur de l'intervalle de confiance.
+:::
+
+## 6.4. 2012 RC
+
+### Question
+
+> Essayez de retrouver approximativement le nombre de sujet nécessaire.
+
+### Type de question
+
+Essai **event-driven**.  
+L'article dimensionne d'abord le **nombre d'événements**, puis le nombre de sujets.
+
+### Données utiles
+
+- objectif : `800` événements primaires adjudiqués ;
+- puissance `85%` ;
+- alpha unilatéral `0,025` ;
+- effet visé : réduction de `25%` du critère principal révisé ;
+- suivi moyen prévu : `4,6 ans` ;
+- essai finalement randomisé : `3414` sujets.
+
+::: {.formula-card}
+**Raisonnement de coin de table**
+
+L'article observé donne environ `16,2%` d'événements à 3 ans dans le groupe placebo.  
+On transforme cela en un taux annuel sous hypothèse exponentielle :
+
+$$
+\lambda_0 \approx -\frac{\log(1-0{,}162)}{3} \approx 0{,}0589 \text{ par an}
+$$
+
+Risque placebo sur `4,6` ans :
+
+$$
+R_0(4{,}6) = 1-e^{-0{,}0589\times 4{,}6} \approx 0{,}237
+$$
+
+Sous un `HR = 0,75`, risque traité :
+
+$$
+R_1(4{,}6) \approx 1-e^{-0{,}0589\times 0{,}75 \times 4{,}6} \approx 0{,}184
+$$
+
+Risque moyen d'événement :
+
+$$
+\bar R \approx \frac{0{,}237+0{,}184}{2} \approx 0{,}211
+$$
+
+Pour obtenir `800` événements :
+
+$$
+N \approx \frac{800}{0{,}211} \approx 3798
+$$
+
+soit **environ 3800 sujets au total**, donc **autour de 1900 par bras**.
+:::
+
+### Interprétation
+
+Le calcul exact n'est pas reconstructible sans hypothèses plus fines de recrutement, de censure et de changement de critère. En revanche, l'ordre de grandeur est clair : **quelques milliers de sujets**, et certainement pas quelques centaines.
+
+::: {.answer-card}
+**Réponse type**
+
+Il s'agit d'un essai event-driven. L'article cible 800 événements pour 85% de puissance et un alpha unilatéral à 2,5%, avec une réduction relative de 25% attendue. En repartant d'un risque de l'ordre de 20% sur la durée de suivi, on retrouve un besoin d'environ 3500 à 3800 sujets randomisés, soit environ 1700 à 1900 par bras. L'essai ayant inclus 3414 patients, on est bien dans le bon ordre de grandeur.
+:::
+
+## 6.5. 2013 EPI
+
+### Question
+
+> Dans l'article on ne trouve pas de justification de la taille de l'échantillon. A posteriori, il n'est pas facile de calculer une puissance statistique. Essayez tout de même de proposer un tel calcul, même très rudimentaire.
+
+### Données utiles
+
+- étude transversale ;
+- au moins `25` sujets demandés par site pour des raisons de faisabilité ;
+- `1082` participants au total ;
+- `855 / 1082` ont rapporté une discrimination vécue.
+
+::: {.formula-card}
+**Calcul de précision simple**
+
+$$
+p = \frac{855}{1082} \approx 0{,}790
+$$
+
+$$
+SE(p) = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{0{,}79\times 0{,}21}{1082}} \approx 0{,}0124
+$$
+
+$$
+IC95\% \approx 0{,}79 \pm 1{,}96\times 0{,}0124
+$$
+
+soit environ :
+
+$$
+[0{,}766 ; 0{,}814]
+$$
+
+c'est-à-dire **76,6% à 81,4%**.
+:::
+
+### Ce qu'il faut comprendre
+
+- il n'y a pas ici de vrai NSN prospectif centré sur une hypothèse unique ;
+- le bon raisonnement est un raisonnement de **précision** ;
+- l'effectif est suffisant pour estimer la proportion principale avec une bonne précision et pour stabiliser un modèle multivarié raisonnable.
+
+::: {.answer-card}
+**Réponse type**
+
+Un calcul de puissance standard est assez artificiel ici, car l'étude est transversale et ne repose pas sur une hypothèse principale unique. En revanche, on peut raisonner en précision : avec 1082 sujets, la proportion principale observée (`855/1082 ≈ 79%`) est estimée avec un IC95% étroit, environ `76,6% à 81,4%`. On peut donc dire que l'effectif est globalement confortable, même si le papier n'explicite pas un vrai calcul a priori.
+:::
+
+## 6.6. 2014 EPI
+
+### Question
+
+> Dans l'article on ne trouve pas de justification de la taille de l'échantillon. A posteriori, il n'est pas facile de calculer une puissance statistique. Essayez tout de même de proposer un tel calcul, même très rudimentaire.
+
+### Données utiles
+
+- `76 464` femmes et `42 498` hommes ;
+- plus de `3 038 853` personnes-années ;
+- `27 429` décès ;
+- pour la consommation la plus élevée de noix vs jamais : `HR ≈ 0,80`, `IC95% 0,73 à 0,86`.
+
+::: {.formula-card}
+**Approximation par l'IC95%**
+
+$$
+SE(\log HR) \approx \frac{\log(0{,}86)-\log(0{,}73)}{3{,}92} \approx 0{,}0418
+$$
+
+$$
+z \approx \frac{|\log(0{,}80)|}{0{,}0418} \approx 5{,}34
+$$
+
+Une telle valeur correspond à une puissance observée pratiquement égale à 1.
+:::
+
+### Ce qu'il faut surtout dire
+
+- la cohorte est immense ;
+- le nombre d'événements est immense ;
+- l'association principale est estimée avec un intervalle étroit ;
+- la limite de l'étude n'est pas la puissance mais la confusion résiduelle et l'interprétation causale.
+
+::: {.answer-card}
+**Réponse type**
+
+Même si un calcul de puissance a posteriori n'est pas le plus pertinent, il est clair que cette étude n'a pas de problème de puissance pour son analyse principale : plus de 3 millions de personnes-années, plus de 27 000 décès, et un `HR` principal estimé avec un `IC95%` étroit. Si l'on forçait un calcul observé, la puissance serait quasi 100%. La vraie discussion doit porter sur les biais et la confusion, pas sur un manque de puissance.
+:::
+
+## 6.7. 2016 EPI
+
+### Question
+
+> Comment aborder la question de la puissance statistique dans une telle étude ?
+
+### Données utiles
+
+- `9511` participants ;
+- `202 417` personnes-années ;
+- `1544` cas incidents de fibrillation atriale ;
+- les auteurs disent eux-mêmes que certaines périodes anciennes avaient peu de cas et une puissance restreinte pour détecter des tendances.
+
+### Raisonnement détaillé
+
+Ici, il ne faut pas chercher un NSN prospectif classique.  
+La bonne discussion se fait à trois niveaux :
+
+1. **niveau global** : `1544` cas incidents, donc bonne information globale ;
+2. **niveau des sous-périodes** : les premières décennies ont peu de cas, donc erreurs standard plus larges ;
+3. **niveau des sous-groupes ou complications rares** : la puissance devient plus incertaine.
+
+### Ce qu'il faut écrire
+
+- globalement, l'étude est informative ;
+- mais la puissance n'est pas homogène selon les décennies ;
+- il faut regarder le nombre d'événements et la largeur des IC, pas chercher un NSN a priori imaginaire.
+
+::: {.answer-card}
+**Réponse type**
+
+Dans cette cohorte, la puissance ne se discute pas comme dans un essai randomisé. Avec 9511 participants et 1544 cas incidents, l'information globale est importante. En revanche, certaines comparaisons temporelles fines, surtout dans les premières décennies, reposent sur peu d'événements et sont donc moins puissantes. Il faut ici raisonner surtout en nombre d'événements et en précision des estimations.
+:::
+
+## 6.8. 2019 EPI
+
+### Question
+
+> Dans une cohorte de cette taille, comment se discute la question de la puissance statistique ?
+
+### Données utiles
+
+- cohorte prospective très grande ;
+- total d'environ `143 410` femmes ;
+- exposition et issue suffisamment fréquentes ;
+- corrigé officiel : pas de vrai problème de puissance, intérêt des IC95% plus que des `p`.
+
+### Ce qu'il faut comprendre
+
+Dans une cohorte immense :
+
+- la significativité statistique devient presque triviale ;
+- le vrai enjeu est la **taille d'effet** ;
+- les `IC95%` sont plus parlants que les `p-values`.
+
+::: {.answer-card}
+**Réponse type**
+
+Dans une cohorte de cette taille, la puissance n'est pas le problème principal. Avec un effectif très élevé et une fréquence non négligeable de l'exposition et de l'événement, l'étude est largement capable de détecter des effets modestes. La bonne lecture porte donc surtout sur la taille des `HR`, leurs `IC95%`, et leur interprétation clinique ou de santé publique.
+:::
+
+## 6.9. 2020 RC
+
+### Question
+
+> Dans l'étude il est calculé un nombre de sujets à inclure égal à `3 × 230`. Proposez de votre côté un calcul de ce paramètre.
+
+### Type de question
+
+Essai à **trois bras** avec **trois co-primary endpoints** continus corrélés.
+
+### Données utiles
+
+- puissance visée : `90%` ;
+- niveau de test dans la correction : `sig.level = 0,025` ;
+- trois critères avec :
+  - `SD = 2,73`, `delta = 1` ;
+  - `SD = 2,58`, `delta = 1` ;
+  - `SD = 0,92`, `delta = 0,32` ;
+- corrélations entre co-critères : `0,93`, `0,68`, `0,68`.
+
+::: {.formula-card}
+**Si les trois critères étaient analysés séparément**
+
+On applique la formule "deux moyennes" avec `z_alpha = 1,96` et `z_beta = 1,28`.
+
+Critère 1 :
+
+$$
+n \approx \frac{2(1{,}96+1{,}28)^2 \times 2{,}73^2}{1^2} \approx 156
+$$
+
+Critère 2 :
+
+$$
+n \approx \frac{2(1{,}96+1{,}28)^2 \times 2{,}58^2}{1^2} \approx 140
+$$
+
+Critère 3 :
+
+$$
+n \approx \frac{2(1{,}96+1{,}28)^2 \times 0{,}92^2}{0{,}32^2} \approx 174
+$$
+
+Donc, si l'on raisonne critère par critère, on tombe sur un besoin de l'ordre de **140 à 174 sujets par bras**, soit **en gros 165 par bras**.
+:::
+
+### Pourquoi ce n'est pas suffisant
+
+Ce n'est pas un essai à critère unique.  
+Le succès exige que **les trois co-primary endpoints** soient significatifs. Cela augmente le coût en sujets.
+
+Le corrigé officiel passe alors par une méthode dédiée prenant en compte :
+
+- le nombre de co-critères ;
+- leur corrélation ;
+- leur écart-type ;
+- leur différence cliniquement pertinente.
+
+Cette approche donne environ **195 sujets par bras**, soit :
+
+$$
+195 \times 3 = 585 \text{ sujets au total}
+$$
+
+Les auteurs ont finalement choisi **230 sujets par bras**, donc :
+
+$$
+230 \times 3 = 690 \text{ sujets}
+$$
+
+ce qui est plus conservateur.
+
+::: {.answer-card}
+**Réponse type**
+
+Si chaque endpoint était analysé séparément comme un critère continu classique, on obtiendrait un besoin d'environ 165 sujets par bras. Mais ici il s'agit de trois co-primary endpoints qui doivent tous être positifs, ce qui réduit la puissance si l'on ne corrige pas le calcul. Il faut donc intégrer la structure de corrélation entre critères. Le corrigé retrouve alors environ 195 sujets par bras, soit 585 au total pour les trois bras. Le choix final de 230 sujets par bras par les auteurs est donc cohérent et conservateur.
+:::
+
+## 6.10. 2021 RC
+
+### Question
+
+> Si le design avait été celui d'un essai randomisé standard, combien de patients aurait-il fallu inclure pour obtenir une puissance statistique "convenable" ?
+
+### Données utiles
+
+- proportion d'outcome dans le bras contrôle : `P1 = 60%` ;
+- réduction attendue de 50% dans le bras intervention ;
+- donc `P2 = 30%`.
+
+::: {.formula-card}
+**Calcul à deux proportions**
+
+Avec une allocation 1:1, un alpha bilatéral à 5% et une puissance de 80% :
+
+$$
+\bar p = \frac{0{,}60+0{,}30}{2} = 0{,}45
+$$
+
+$$
+n \approx
+\frac{\left[1{,}96\sqrt{2\times 0{,}45\times 0{,}55}+0{,}84\sqrt{0{,}60\times 0{,}40+0{,}30\times 0{,}70}\right]^2}{(0{,}60-0{,}30)^2}
+$$
+
+$$
+n \approx 41{,}9
+$$
+
+Donc il faut environ **42 sujets par bras**, puis arrondir prudemment à **45 à 50 par bras**.
+:::
+
+### Ce qu'il faut écrire
+
+- c'est un calcul d'essai individuel standard ;
+- on ne corrige pas ici pour le cluster car la question demande justement ce qu'aurait été l'essai **sans** cluster ;
+- la valeur "un peu moins de 50 par bras" du corrigé est cohérente.
+
+::: {.answer-card}
+**Réponse type**
+
+En reprenant `P1 = 60%` et `P2 = 30%`, un calcul classique à deux proportions donne un besoin d'environ 42 patients par bras pour un alpha bilatéral de 5% et une puissance de 80%. En pratique on arrondit vers le haut, ce qui conduit à dire **un peu moins de 50 patients par bras**, conformément au corrigé.
+:::
+
+## 6.11. 2022 RC
+
+### Question
+
+> Expliquez les modalités de calcul du nombre de sujets nécessaires.
+
+### Type de question
+
+Ici, la bonne réponse est surtout méthodologique.  
+Le papier fait intervenir un **modèle binomial négatif**, donc un raisonnement sur des comptages avec **surdispersion**.
+
+### Ce qu'il faut lister
+
+Pour calculer le NSN, il faudrait :
+
+- un `alpha` ;
+- une puissance ;
+- une différence cliniquement pertinente ou un rate ratio minimal à détecter ;
+- un taux attendu d'événements dans le groupe contrôle ;
+- la durée de suivi ;
+- un paramètre de **surdispersion** ou une information équivalente.
+
+### Pourquoi le calcul exact est difficile
+
+Le corrigé officiel le dit explicitement :
+
+- l'article ne détaille pas suffisamment la mécanique du calcul ;
+- sans paramètre de surdispersion, un calcul exact ne peut pas être refait ;
+- un calcul Poisson simple serait sous-estimé.
+
+::: {.answer-card}
+**Réponse type**
+
+Le calcul du NSN n'est pas simple ici parce que l'outcome est un comptage modélisé en binomial négatif. Il faut donc, en plus de `alpha`, `beta`, de l'effet cliniquement pertinent et du taux de base, une information sur la surdispersion. Comme l'article ne donne pas suffisamment de détails sur ce point, on ne peut pas reconstruire proprement le calcul. En revanche, on peut dire avec certitude que le NSN doit être supérieur à celui qu'aurait donné un modèle de Poisson naïf.
+:::
+
+## 6.12. 2023 RC
+
+### Question
+
+> Si l'essai avait randomisé des sujets et non des clusters, quel aurait été le nombre de sujets à inclure ?
+
+### Données utiles
+
+- écart-type : `sigma = 90` ;
+- différence minimale pertinente : `delta = 60` ;
+- le corrigé retient un facteur $(z_\alpha + z_\beta)^2 \approx 10,5$ ;
+- trois bras ;
+- majoration supplémentaire de `30%`.
+
+::: {.formula-card}
+**Calcul du corrigé**
+
+$$
+n_{\text{individuel}} \approx \frac{10{,}5 \times 2 \times 90^2}{60^2}
+$$
+
+$$
+n_{\text{individuel}} \approx 47{,}25
+$$
+
+soit environ **48**, arrondi à **50**.
+
+Comme il y a trois bras :
+
+$$
+50 \times 3 = 150
+$$
+
+Puis majoration de `30%` :
+
+$$
+150 \times 1{,}30 = 195
+$$
+
+donc **environ 200 sujets au total**.
+:::
+
+### Multiplicité
+
+Le corrigé ajoute que si l'on applique une correction simple type Bonferroni, l'effectif n'augmente pas énormément dans cette situation, de l'ordre de 20% seulement.
+
+::: {.answer-card}
+**Réponse type**
+
+En reprenant les hypothèses du corrigé, un essai individuel aurait nécessité environ 48 sujets, donc 50 par comparaison. Comme l'essai comporte trois bras, on passe à 150, puis à environ 200 après majoration de 30%. L'idée centrale est donc qu'un essai individuel serait beaucoup plus simple à dimensionner qu'un essai en cluster, mais qu'il faut tout de même tenir compte du nombre de bras et des pertes prévues.
+:::
+
+## 6.13. 2024 RC
+
+### Question
+
+> Essayez, dans la mesure du possible, de retrouver le "Nombre de Sujets Nécessaires" que les auteurs calculent pour le test de l'hypothèse de non-infériorité.
+
+### Données utiles
+
+- calcul simplifié proposé dans le corrigé ;
+- facteur $(z_\alpha + z_\beta)^2 \approx 10` ;
+- `p1 = 10%` ;
+- différence admissible de `10 points`, donc un dénominateur au carré de `0,10^2`.
+
+::: {.formula-card}
+**Calcul simplifié du corrigé**
+
+$$
+N \approx \frac{2\times 10 \times [0{,}10(1-0{,}10)+0{,}10(1-0{,}10)]}{(0{,}10)^2}
+$$
+
+$$
+N \approx \frac{20 \times (0{,}09 + 0{,}09)}{0{,}01}
+$$
+
+$$
+N \approx \frac{20 \times 0{,}18}{0{,}01} = 360
+$$
+
+On retrouve donc **environ 360 sujets au total**.
+:::
+
+### Ce qu'il faut dire en plus
+
+- il s'agit d'un raisonnement de non-infériorité ;
+- la marge tolérée est au cœur du calcul ;
+- la valeur retrouvée est cohérente avec la correction officielle.
+
+::: {.answer-card}
+**Réponse type**
+
+En reprenant le calcul simplifié proposé dans le corrigé, avec un risque de base de 10% et une différence acceptable de 10 points, on retrouve environ **360 sujets au total**. L'idée à mettre en avant est qu'en non-infériorité, la marge cliniquement acceptable structure tout le calcul.
+:::
+
+## 6.14. 2025 RC
+
+### Question
+
+> A l'aide des données disponibles dans l'article, essayez de retrouver au moins approximativement une estimation du nombre de sujets à inclure dans l'essai.
+
+### Données utiles
+
+L'article donne directement sa section "Sample size calculation" :
+
+- test du log-rank bilatéral ;
+- durée totale d'étude : `48 mois` ;
+- recrutement pendant les `36 premiers mois` ;
+- `12%` de dropouts dans chaque bras ;
+- proportion de patients sans rechute passant de `50%` à `70%` au cours de la première année ;
+- puissance `80%` ;
+- `alpha = 0,05`.
+
+### Ce qu'il faut comprendre
+
+Ici, on n'a pas besoin d'inventer un calcul compliqué : l'article fournit lui-même la conclusion du dimensionnement.
+
+### Conclusion chiffrée
+
+L'article indique explicitement :
+
+$$
+N = 300 \text{ sujets au total} = 150 \text{ par bras}
+$$
+
+L'essai a effectivement randomisé `305` participants, ce qui colle parfaitement.
+
+::: {.answer-card}
+**Réponse type**
+
+La meilleure réponse est simplement de reprendre la section de calcul d'effectif de l'article. Sous les hypothèses d'un test du log-rank bilatéral, d'un recrutement sur 36 mois, d'une durée totale de 48 mois, de 12% de dropouts et d'une amélioration de la proportion de patients sans rechute de 50% à 70%, les auteurs concluent qu'il faut **300 sujets au total**, soit **150 par bras**.
+:::
+
+## 7. Réponses prêtes à l'emploi par grand type de question
+
+## 7.1. Si l'on vous demande un vrai NSN
+
+> Il s'agit d'un calcul de NSN [pour deux proportions / deux moyennes / un essai de survie]. Il me faut donc un alpha, une puissance, une taille d'effet cliniquement pertinente, et une mesure de la variabilité ou du risque de base. En reprenant les hypothèses de l'article, on obtient un effectif d'environ [x] par bras, à majorer si nécessaire pour [dropout / cluster / multiplicité / autres].
+
+## 7.2. Si l'on vous demande une puissance a posteriori
+
+> Une puissance a posteriori n'est pas l'outil le plus satisfaisant car l'intervalle de confiance contient déjà l'information de précision. Si on force néanmoins un calcul grossier à partir de l'estimation d'effet et de son IC95%, la puissance est [faible / modérée / très élevée]. L'important est surtout que l'IC95% [n'exclut pas / exclut] un effet cliniquement important.
+
+## 7.3. Si l'article ne donne pas assez d'éléments
+
+> Le calcul exact n'est pas reconstructible car il manque [paramètre]. En revanche, la logique du dimensionnement est claire : il faut [liste des paramètres] et le résultat attendu est de l'ordre de [ordre de grandeur].
+
+## 7.4. Si l'étude est une grande cohorte
+
+> Dans cette étude, la puissance n'est pas le vrai problème. Avec un effectif et un nombre d'événements aussi élevés, l'information est abondante. La discussion doit porter surtout sur la taille d'effet, les IC95%, et la validité causale.
+
+## 8. Checklist finale avant de rendre la copie
+
+::: {.callout-tip title="Checklist de 20 secondes"}
+- Ai-je bien identifié le design ?
+- Ai-je dit si l'on parle de NSN prospectif, de puissance observée, ou de simple précision ?
+- Ai-je cité `alpha`, `beta`, l'effet attendu, et la variabilité ?
+- Ai-je pensé aux pertes, au cluster, à la multiplicité, à la surdispersion, ou aux co-primary endpoints ?
+- Ai-je conclu par un chiffre ou par une interprétation claire ?
+- Ai-je expliqué ce qui manque si le calcul exact n'est pas refaisable ?
+:::
+
+## 9. Conclusion
+
+Pour traiter correctement toutes les questions du dossier sur ce thème, il faut retenir trois idées.
+
+1. **Le bon raisonnement dépend du design.**  
+   On ne parle pas de la même manière d'un essai randomisé, d'un essai event-driven, d'une cohorte, ou d'une étude transversale.
+
+2. **Un bon calcul de NSN repose toujours sur les mêmes briques.**  
+   `alpha`, `beta`, effet attendu, variabilité ou risque de base, puis ajustements de design.
+
+3. **Quand le calcul exact est impossible, une réponse méthodologiquement claire vaut mieux qu'un faux calcul précis.**  
+   En examen, cela rapporte des points parce que cela montre que vous avez compris la logique statistique réelle de la question.
+
+Ce poly couvre ainsi l'ensemble des variantes rencontrées dans les annales du dossier, avec une progression allant des formules générales vers les cas d'examen réellement posés.

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Premier semestre</title>
+  <style>
+    :root {
+      --paper: #f7f3ea;
+      --ink: #17303d;
+      --teal: #0f5f67;
+      --gold: #c89a3c;
+      --line: rgba(23, 48, 61, 0.12);
+      --card: rgba(255, 255, 255, 0.92);
+      --shadow: 0 18px 38px rgba(23, 48, 61, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(200, 154, 60, 0.16), transparent 22%),
+        linear-gradient(160deg, #faf6ef 0%, #f2ecdf 100%);
+    }
+
+    .shell {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 72px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .backlink {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1;
+    }
+
+    p {
+      margin: 0;
+      color: rgba(23, 48, 61, 0.8);
+      line-height: 1.6;
+    }
+
+    .list {
+      margin-top: 26px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 140ms ease, border-color 140ms ease;
+    }
+
+    .item:hover {
+      transform: translateY(-2px);
+      border-color: rgba(15, 95, 103, 0.24);
+    }
+
+    .label {
+      font-weight: 700;
+    }
+
+    .hint {
+      color: rgba(23, 48, 61, 0.62);
+      font-size: 0.92rem;
+    }
+
+    .status {
+      margin-top: 18px;
+      font-size: 0.92rem;
+      color: rgba(23, 48, 61, 0.62);
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <a class="backlink" href="index.html"><span aria-hidden="true">←</span> Retour à l'accueil</a>
+    </div>
+
+    <section class="panel">
+      <h1>Premier semestre</h1>
+      <p>Cette page reprend les cours HTML déjà publiés dans <code>docs/</code>. Le poly sur le nombre de sujets nécessaires est volontairement sorti de cette liste pour avoir son entrée dédiée sur l'accueil.</p>
+
+      <div class="list" id="file-list"></div>
+      <p class="status" id="status">Chargement de la liste…</p>
+    </section>
+  </main>
+
+  <script>
+    const user = "thomashusson29";
+    const repo = "M2biostatistiques";
+    const folder = "docs";
+    const exclusions = new Set(["index.html", "premier-semestre.html", "poly_revision_nsn.html"]);
+    const pinned = ["S0_Mindmap_globale.html"];
+
+    function prettyLabel(name) {
+      return name
+        .replace(/\.html$/, "")
+        .replaceAll("_", " ");
+    }
+
+    async function loadFiles() {
+      const status = document.getElementById("status");
+      const list = document.getElementById("file-list");
+
+      try {
+        const url = `https://api.github.com/repos/${user}/${repo}/contents/${folder}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`GitHub API: ${response.status}`);
+        }
+
+        const files = await response.json();
+
+        files
+          .filter(file => file.name.endsWith(".html") && !exclusions.has(file.name))
+          .sort((a, b) => {
+            const rankA = pinned.includes(a.name) ? pinned.indexOf(a.name) : Number.POSITIVE_INFINITY;
+            const rankB = pinned.includes(b.name) ? pinned.indexOf(b.name) : Number.POSITIVE_INFINITY;
+            if (rankA !== rankB) return rankA - rankB;
+            return a.name.localeCompare(b.name, "fr");
+          })
+          .forEach(file => {
+            const item = document.createElement("a");
+            item.className = "item";
+            item.href = file.name;
+            item.innerHTML = `
+              <span>
+                <span class="label">${prettyLabel(file.name)}</span>
+              </span>
+              <span class="hint">ouvrir →</span>
+            `;
+            list.appendChild(item);
+          });
+
+        status.textContent = `${list.children.length} page(s) trouvée(s).`;
+      } catch (error) {
+        status.textContent = `Impossible de charger la liste automatiquement (${error.message}).`;
+      }
+    }
+
+    loadFiles();
+  </script>
+</body>
+</html>

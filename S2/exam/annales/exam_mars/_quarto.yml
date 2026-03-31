@@ -1,0 +1,6 @@
+project:
+  type: default
+  render:
+    - poly_revision_nsn.qmd
+  post-render:
+    - ./publish_to_docs.sh
