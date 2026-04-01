@@ -1,0 +1,1686 @@
+---
+title: "Poly de révision RC 2026"
+subtitle: "Fang et al., NEJM 2026 : essai OptiTROP-Lung04, questions, corrections détaillées et raisonnement d'examen"
+lang: fr
+toc: true
+toc-depth: 3
+toc-location: body
+format:
+  html:
+    theme: cosmo
+    css: poly_revision_nsn.css
+    embed-resources: true
+    html-math-method: mathml
+    code-fold: false
+    include-in-header:
+      text: |
+        <script>
+        (function () {
+          const storageKey = "poly-revision-theme";
+          document.documentElement.classList.add("js");
+          let theme = "day";
+          try {
+            const params = new URLSearchParams(window.location.search);
+            const queryTheme = params.get("theme");
+            if (queryTheme === "night" || queryTheme === "day") {
+              theme = queryTheme;
+            } else {
+              const saved = window.localStorage.getItem(storageKey);
+              if (saved === "night" || saved === "day") {
+                theme = saved;
+              } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                theme = "night";
+              }
+            }
+          } catch (error) {}
+          document.documentElement.setAttribute("data-theme", theme);
+        })();
+        </script>
+  pdf:
+    pdf-engine: xelatex
+    documentclass: scrartcl
+    papersize: a4
+    mainfont: "Helvetica Neue"
+    sansfont: "Helvetica Neue"
+    monofont: "Menlo"
+    geometry:
+      - top=18mm
+      - bottom=18mm
+      - left=17mm
+      - right=17mm
+    fontsize: 10.5pt
+    colorlinks: true
+    code-fold: false
+    include-in-header:
+      text: |
+        \usepackage{fontspec}
+        \usepackage{fancyhdr}
+        \usepackage{tocloft}
+        \usepackage{colortbl}
+        \usepackage{etoolbox}
+        \definecolor{PolyInk}{HTML}{18333D}
+        \definecolor{PolySlate}{HTML}{50656F}
+        \definecolor{PolyLine}{HTML}{D6DED9}
+        \definecolor{PolySand}{HTML}{F8F5EF}
+        \AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=PolyInk,urlcolor=PolyInk,citecolor=PolySlate}}
+        \setlength{\parindent}{0pt}
+        \setlength{\parskip}{5pt}
+        \renewcommand{\baselinestretch}{1.06}
+        \setkomafont{disposition}{\bfseries}
+        \addtokomafont{title}{\color{PolyInk}\bfseries}
+        \addtokomafont{subtitle}{\color{PolySlate}}
+        \addtokomafont{section}{\color{PolyInk}\bfseries\fontsize{18}{22}\selectfont}
+        \addtokomafont{subsection}{\color{PolyInk}\bfseries\fontsize{13}{16}\selectfont}
+        \addtokomafont{subsubsection}{\color{PolySlate}\bfseries\fontsize{11}{14}\selectfont}
+        \renewcommand{\contentsname}{Sommaire}
+        \renewcommand{\cftsecfont}{\color{PolyInk}}
+        \renewcommand{\cftsecpagefont}{\color{PolyInk}}
+        \renewcommand{\cftsubsecfont}{\color{PolySlate}}
+        \renewcommand{\cftsubsecpagefont}{\color{PolySlate}}
+        \setlength{\cftbeforesecskip}{4pt}
+        \AtBeginEnvironment{longtable}{\rowcolors{2}{PolySand}{white}}
+        \arrayrulecolor{PolyLine}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[L]{\color{PolySlate}\footnotesize Poly de révision RC 2026}
+        \fancyhead[R]{\color{PolySlate}\footnotesize Annales résolues}
+        \fancyfoot[C]{\color{PolySlate}\footnotesize\thepage}
+        \setlength{\headheight}{14pt}
+        \pretocmd{\section}{\ifnum\value{section}>0\clearpage\fi}{}{}
+editor: source
+---
+
+::: {.cover-banner}
+## Poly de révision RC 2026 {.cover-title}
+
+### Fang et al., NEJM 2026 : essai OptiTROP-Lung04, article, questions, méthodes et réponses détaillées {.cover-subtitle}
+
+Document de travail orienté examen : les **35 questions 2026 RC** reprises dans un poly autonome, avec explications pédagogiques, citations ciblées de l'article et calculs pas à pas.
+:::
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="theme-toolbar">
+  <button id="theme-switch" class="theme-switch" type="button" aria-pressed="false" aria-label="Basculer entre le mode clair et le mode nuit">
+    <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true">&#9790;</span>
+    <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true">&#9728;</span>
+  </button>
+</div>
+```
+:::
+
+::: {.hero}
+Ce poly a un seul objectif : **permettre de répondre entièrement au sujet RC 2026 a partir de l'essai OptiTROP-Lung04.**
+
+La logique est simple :
+
+1. comprendre le design de l'essai et ses choix statistiques ;
+2. repérer les chiffres-clés dans l'article ;
+3. relier chaque réponse a un passage précis du papier ;
+4. produire une copie d'examen claire, clinique et méthodologiquement propre.
+
+::: {.chips}
+<span class="chip">RC 2026</span>
+<span class="chip">PFS / OS</span>
+<span class="chip">Schoenfeld</span>
+<span class="chip">Lan-DeMets</span>
+<span class="chip">HTML + PDF</span>
+:::
+:::
+
+::: {.callout-important title="Point central"}
+Le piège principal de `RC 2026` est de répondre en pur jargon d'oncologie ou en pur jargon statistique.
+
+Le bon niveau d'examen consiste a articuler ensemble :
+
+- le **design** de l'essai ;
+- la **logique statistique** du dimensionnement et des analyses intermédiaires ;
+- la **pertinence clinique** de `PFS`, `OS` et de la sécurité ;
+- la **validité externe** et la place thérapeutique réelle du traitement.
+:::
+
+## Comment utiliser ce poly
+
+1. Lire d'abord les briques méthodologiques de la section 2.
+2. Revenir ensuite a la section `2026 RC` et travailler les questions dans l'ordre.
+3. Pour chaque question, repérer :
+   - ce qui vient directement de l'article ;
+   - ce qui relève de la reconstruction méthodologique ;
+   - ce qu'il faut vraiment écrire dans une copie.
+4. Utiliser la section 4 comme banque de formulations prêtes a l'emploi.
+
+## 1. Carte rapide des grands thèmes 2026 RC
+
+| Theme | Ce que l'examinateur veut voir |
+|---|---|
+| design d'essai | phase 3 ouverte, randomisation, comparateur actif |
+| populations d'analyse | `ITT`, sécurité, pertinence d'une `PP` |
+| critere principal | `PFS` par `BICR`, forces et limites |
+| dimensionnement | logique par événements, formule de Schoenfeld |
+| analyses intermédiaires | `Lan-DeMets`, `O'Brien-Fleming`, rôle du `IDMC` |
+| résultats | distinguer significativité, taille d'effet et maturité des données |
+| sécurité | lecture clinique des EI, sans sur-interpréter les tableaux |
+| éthique / santé publique | généralisabilité, financement industriel, place thérapeutique |
+
+## 2. Briques méthodologiques spécifiques a l'article
+
+### 2.1. Design : phase 3 ouvert avec comparateur actif
+
+L'essai `OptiTROP-Lung04` est un **phase 3**, multicentrique, randomisé `1:1`, ouvert, comparant `sac-TMT` a `pemetrexed + platinum-based chemotherapy`.
+
+Chaque choix a une logique :
+
+- **phase 3** : confirmer un signal d'efficacité et de sécurité dans une population cible claire ;
+- **randomisation 1:1** : équilibrer les facteurs pronostiques majeurs et maximiser l'information comparative ;
+- **comparateur actif** : la chimiothérapie reste ici un standard crédible après échec d'`EGFR-TKI` ;
+- **ouvert** : les schémas de traitement sont trop différents pour qu'un aveugle classique soit réaliste.
+
+Dans une copie, il faut écrire :
+
+> L'essai est ouvert, mais cela ne le rend pas automatiquement faible ; il faut alors regarder quels garde-fous compensent ce manque d'aveugle, en particulier le `BICR` pour le critère principal.
+
+### 2.2. Pourquoi le `BICR` est indispensable
+
+Le critère principal est la `progression-free survival` (`PFS`) évaluée par `BICR` (*Blinded Independent Central Review*).
+
+Le point crucial est le suivant :
+
+- dans un essai ouvert, les cliniciens savent quel traitement le patient reçoit ;
+- l'évaluation d'une progression tumorale dépend d'une lecture d'imagerie ;
+- sans lecture centrale indépendante et en aveugle, un biais d'évaluation serait plausible.
+
+Le `BICR` réduit donc le principal biais de mesure du critère principal. Il ne corrige pas tous les biais d'un essai ouvert, mais il protège très efficacement le jugement radiologique de progression.
+
+### 2.3. `PFS` versus `OS`
+
+La `PFS` mesure le temps entre la randomisation et la progression ou le décès.  
+L'`OS` mesure le temps entre la randomisation et le décès toutes causes.
+
+Forces de la `PFS` :
+
+- plus rapide a observer ;
+- demande moins d'événements que l'`OS` ;
+- bon critère d'activité antitumorale ;
+- très utilisé en phase 3 oncologique.
+
+Limites de la `PFS` :
+
+- critère de substitution ;
+- dépend de la fréquence des évaluations ;
+- moins parlante cliniquement que l'`OS`.
+
+Forces de l'`OS` :
+
+- critère "dur" ;
+- très robuste cliniquement ;
+- facile a interpréter.
+
+Limites de l'`OS` :
+
+- plus lente ;
+- nécessite plus de décès ;
+- peut être diluée par les traitements ultérieurs.
+
+Dans cet essai, la combinaison retenue est cohérente :
+
+- `PFS` comme critère principal ;
+- `OS` comme critère clé secondaire hiérarchisé.
+
+### 2.4. Kaplan-Meier, Cox et hazard ratio
+
+Les courbes de `Kaplan-Meier` permettent :
+
+- de visualiser la séparation des courbes ;
+- d'estimer les médianes ;
+- de lire les probabilités de survie sans événement a différents temps.
+
+Le modèle de `Cox` résume l'effet par un `hazard ratio` (`HR`).
+
+Rappel d'interprétation :
+
+$$
+HR < 1 \Rightarrow \text{risque instantane plus faible dans le bras experimental}
+$$
+
+Ici, pour la `PFS` :
+
+$$
+HR = 0{,}49
+$$
+
+Cela signifie qu'a chaque instant, le risque de progression ou décès est approximativement réduit de moitié dans le bras `sac-TMT`, sous l'hypothèse de proportionnalité des risques.
+
+Ce que le `HR` **n'est pas** :
+
+- ce n'est pas un ratio de médianes ;
+- ce n'est pas une réduction absolue de risque ;
+- ce n'est pas une garantie que l'effet soit strictement constant dans le temps.
+
+### 2.5. Dimensionnement par événements : formule de Schoenfeld
+
+Dans un essai de survie `1:1`, le nombre d'événements nécessaires peut se retrouver par la logique de Schoenfeld :
+
+$$
+D = \frac{(z_{1-\alpha} + z_{1-\beta})^2}{p(1-p)\,[\log(HR)]^2}
+$$
+
+avec :
+
+- `D` = nombre d'événements requis ;
+- `p` = proportion randomisée dans un bras ;
+- ici `p = 0,5`, donc `p(1-p) = 0,25`.
+
+On obtient alors la forme simplifiée :
+
+$$
+D = \frac{4\,(z_{1-\alpha} + z_{1-\beta})^2}{[\log(HR)]^2}
+$$
+
+Dans cet article :
+
+- `HR` cible = `0,67` ;
+- alpha **unilatéral** `0,025`, donc :
+
+$$
+z_{1-\alpha} = z_{0{,}975} \approx 1{,}96
+$$
+
+- puissance `88%`, donc `\beta = 0,12` et :
+
+$$
+z_{1-\beta} \approx z_{0{,}88} \approx 1{,}18
+$$
+
+Ensuite :
+
+$$
+\log(0{,}67) \approx -0{,}40
+$$
+
+donc
+
+$$
+[\log(0{,}67)]^2 \approx 0{,}16
+$$
+
+et
+
+$$
+D \approx \frac{4\,(1{,}96 + 1{,}18)^2}{0{,}16}
+= \frac{4\,(3{,}14)^2}{0{,}16}
+= \frac{4 \times 9{,}86}{0{,}16}
+= \frac{39{,}4}{0{,}16}
+\approx 246
+$$
+
+On retrouve donc très bien l'ordre de grandeur annoncé de `249` événements.
+
+Pour passer des événements aux sujets :
+
+$$
+\frac{249}{356} \approx 0{,}70
+$$
+
+Cela signifie qu'avec le suivi et les hypothèses de l'essai, les auteurs s'attendaient a ce qu'environ `70%` des patients contribuent finalement a l'événement requis pour le calcul principal.
+
+### 2.6. Calcul grossier de puissance a posteriori sur la `PFS`
+
+On peut aussi, de façon pédagogique, forcer un calcul grossier de puissance observée a partir du résultat publié :
+
+$$
+HR = 0{,}49 \quad \text{avec} \quad IC95\% = [0{,}39 ; 0{,}62]
+$$
+
+On travaille sur l'échelle logarithmique :
+
+$$
+SE(\log HR) \approx \frac{\log(0{,}62) - \log(0{,}39)}{3{,}92}
+$$
+
+Approximations utiles :
+
+$$
+\log(0{,}62) \approx -0{,}48
+$$
+
+$$
+\log(0{,}39) \approx -0{,}94
+$$
+
+Donc :
+
+$$
+\log(0{,}62) - \log(0{,}39) \approx -0{,}48 - (-0{,}94) = 0{,}46
+$$
+
+Puis :
+
+$$
+SE(\log HR) \approx \frac{0{,}46}{3{,}92} \approx 0{,}12
+$$
+
+Le score de Wald devient :
+
+$$
+z \approx \frac{|\log(0{,}49)|}{0{,}12}
+$$
+
+or
+
+$$
+\log(0{,}49) \approx -0{,}71
+$$
+
+donc
+
+$$
+z \approx \frac{0{,}71}{0{,}12} \approx 5{,}9
+$$
+
+Si l'on force une lecture bilatérale classique :
+
+$$
+\text{puissance observée} \approx \Phi(5{,}9 - 1{,}96) = \Phi(3{,}94)
+$$
+
+ce qui est pratiquement égal a `1`.
+
+Cette démonstration est utile a l'examen pour montrer que le signal est extrêmement fort. Mais la bonne copie ajoute tout de suite :
+
+> Une puissance a posteriori très élevée n'est pas le point principal ; la vraie discussion porte sur l'ampleur clinique de l'effet, la maturité de l'OS, la sécurité et la généralisabilité.
+
+### 2.7. Analyses intermédiaires et alpha-spending
+
+L'article prévoit :
+
+- une analyse intermédiaire de `PFS` après au moins `174` événements ;
+- une analyse intermédiaire planifiée d'`OS` ;
+- une dépense alpha de type `Lan-DeMets` avec frontière `O'Brien-Fleming`.
+
+Logique a retenir :
+
+- plus on regarde tôt, plus le seuil de significativité doit être strict ;
+- cela évite d'augmenter artificiellement le risque global de première espèce ;
+- la méthode `Lan-DeMets` permet une mise en oeuvre flexible, tout en gardant l'esprit d'`O'Brien-Fleming`.
+
+Ici :
+
+- borne effective `PFS` interim : `two-sided 0.0337` ;
+- borne effective `OS` interim : `two-sided 0.0124`.
+
+Le rôle du `IDMC` (*independent data monitoring committee*) est central :
+
+- surveiller sécurité et efficacité ;
+- vérifier le franchissement des bornes ;
+- protéger l'intégrité de l'essai.
+
+### 2.8. `Clopper-Pearson`, `CMH`, censure et tableaux de sécurité
+
+Pour l'`ORR`, l'article utilise :
+
+- un `IC` exact de `Clopper-Pearson` pour la proportion ;
+- un test de `Cochran-Mantel-Haenszel` (`CMH`) pour comparer les bras en tenant compte de la stratification.
+
+Ces choix sont classiques et cohérents.
+
+Pour les analyses de survie, la censure repose sur l'hypothèse de **censure non informative** :
+
+> conditionnellement aux informations connues, être censuré ne doit pas annoncer un risque futur systématiquement différent.
+
+Dans un essai ouvert, cette hypothèse n'est pas absurde, mais elle mérite toujours d'être rappelée.
+
+Enfin, les tableaux d'effets indésirables n'ont souvent **pas de p-values** parce que :
+
+- ils comportent un très grand nombre de comparaisons ;
+- la sécurité est d'abord décrite cliniquement ;
+- multiplier les tests créerait beaucoup de faux positifs peu utiles.
+
+## 3. 2026 RC résolu question par question
+
+### Article et contexte
+
+Article support : **Fang et al., NEJM 2026**, essai de phase 3 `OptiTROP-Lung04` comparant **sacituzumab tirumotecan** a une chimiothérapie standard chez des patients ayant un `NSCLC` avance ou métastatique muté `EGFR` résistant aux `TKI`.
+
+- phase `3`, multicentrique, randomisé `1:1`, ouvert ;
+- `376` patients randomisés (`188` par bras) ;
+- critère principal : `PFS` évaluée par `BICR` ;
+- critère clé secondaire hiérarchisé : `OS` ;
+- dimensionnement pour `249` événements de `PFS` ;
+- analyse intermédiaire planifiée de `PFS`, puis analyse intermédiaire planifiée de `OS` ;
+- profil de sécurité typique d'un `ADC`, avec toxicités qualitativement différentes de la chimiothérapie.
+
+### Extrait de l'article a analyser
+
+```{=html}
+<div class="article-hunt-card">
+  <div class="article-hunt-card__top">
+    <div>
+      <p class="article-hunt-card__label">Ce qu'il fallait aller chercher dans l'article</p>
+      <p class="article-hunt-card__hint">Le coeur du sujet 2026 RC est dans les méthodes statistiques, les résultats de survie et le profil de sécurité.</p>
+    </div>
+    <button class="article-hunt-card__button" type="button" data-target="hunt-2026-rc-standalone" aria-expanded="false" aria-controls="hunt-2026-rc-standalone">Révéler les infos</button>
+  </div>
+  <div class="article-hunt-card__excerpt">
+    <p>"356 participants ... 249 events ... 88% power ... hazard ratio of 0.67 for progression-free survival at a one-sided alpha level of 0.025."</p>
+    <p>"An interim analysis of progression-free survival was planned to be performed after at least 174 events had been observed. A Lan-DeMets alpha-spending function was used to estimate the O'Brien-Fleming boundary."</p>
+    <p>"Overall, 376 patients underwent randomization, with 188 assigned to each group."</p>
+    <p>"The median progression-free survival was 8.3 months ... and 4.3 months ... hazard ratio 0.49."</p>
+  </div>
+  <div id="hunt-2026-rc-standalone" class="article-hunt-card__answer article-hunt-card__answer--collapsed">
+    <p class="article-hunt-card__answer-title">Infos a repérer</p>
+    <ul>
+      <li>`376` patients randomisés, `188` par bras ;</li>
+      <li>`249` événements prévus pour la `PFS` ;</li>
+      <li>`HR` cible du dimensionnement `0,67` ;</li>
+      <li>alpha unilatéral `0,025`, puissance `88%` ;</li>
+      <li>analyse intermédiaire de `PFS` après `174` événements ;</li>
+      <li>`Lan-DeMets` et frontière `O'Brien-Fleming` ;</li>
+      <li>`HR PFS = 0,49 [0,39 ; 0,62]` ;</li>
+      <li>`HR OS = 0,60 [0,44 ; 0,82]` ;</li>
+      <li>EI grade `3+` : `58,0%` vs `53,8%` ;</li>
+      <li>EI graves liés au traitement : `9,0%` vs `17,6%`.</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Ce que l'examinateur veut vérifier
+
+- lecture critique d'un essai de phase 3 oncologique complet ;
+- capacité a articuler statistiques de survie, multiplicité et sécurité ;
+- aptitude a commenter a la fois la méthode, la clinique, l'éthique et la généralisabilité ;
+- capacité a partir du texte de l'article plutôt que de répondre en phrases génériques.
+
+### Theme 1. Design et populations d'analyse
+
+#### Question 1 {.unlisted}
+
+> Décrivez le design de l'essai OptiTROP-Lung04. Justifiez chaque choix méthodologique (phase, randomisation, ouverture, contrôle).
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : savez-vous décrire un essai de façon complète, sans oublier pourquoi chaque choix est cohérent avec la question clinique ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "In this phase 3 trial ... patients were randomly assigned, in a 1:1 ratio, to receive sac-TMT monotherapy or pemetrexed plus platinum-based chemotherapy."</p>
+    <p><strong>A relier a la réponse</strong> : la phrase du résumé suffit presque a décrire le design, mais il faut encore expliquer pourquoi ce design est pertinent.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+L'essai `OptiTROP-Lung04` est un **essai de phase 3**, multicentrique, randomisé `1:1`, ouvert, a comparateur actif. Cela signifie qu'il ne cherche plus seulement un signal exploratoire, mais une confirmation robuste d'efficacité et de sécurité dans une population clairement définie : des patients ayant un `NSCLC` muté `EGFR` après échec d'`EGFR-TKI`.
+
+Le choix d'un **comparateur actif** est particulièrement important. Les auteurs ne comparent pas `sac-TMT` a rien du tout ; ils le comparent a une chimiothérapie encore pertinente dans cette situation clinique. Cela renforce la valeur pratique des résultats. La **randomisation `1:1`** a pour but d'équilibrer les facteurs pronostiques majeurs et de produire une comparaison interne solide. Le caractère **ouvert** n'est pas idéal, mais il est compréhensible : la logistique, le schéma d'administration et la toxicité de `sac-TMT` et de la chimiothérapie sont trop différents pour rendre un double aveugle réaliste.
+
+Une bonne copie doit enfin préciser qu'un essai ouvert n'est pas nécessairement un mauvais essai. Il faut alors regarder quels mécanismes compensent cette faiblesse, en particulier la lecture centralisée en aveugle du critère principal. La bonne conclusion est donc : **design classique, réaliste et méthodologiquement cohérent pour une phase 3 oncologique confirmatoire**.
+
+**Réponse type courte**
+
+`OptiTROP-Lung04` est un essai de phase 3, multicentrique, randomisé `1:1`, ouvert, a comparateur actif. Ce design est cohérent avec une question confirmatoire en seconde ligne oncologique : randomisation pour la validité interne, comparateur standard pour la pertinence clinique, et ouverture acceptable car compensée par une évaluation centrale indépendante du critère principal.
+:::
+
+#### Question 2 {.unlisted}
+
+> Quelles sont les populations d'analyse utilisées dans l'essai ? Distinguez ITT, PP, et population de sécurité. Discutez leur pertinence.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The efficacy analyses included all the patients who underwent randomization. The safety analysis included all the patients who received at least one dose of trial treatment and had safety assessment data."</p>
+    <p><strong>A relier a la réponse</strong> : l'article distingue explicitement population d'efficacité et population de sécurité.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+La population d'efficacité principale est ici l'**intention de traiter** (`ITT`) : tous les patients randomisés sont conservés dans l'analyse du bras qui leur a été attribué. C'est le bon choix dans un essai confirmatoire, car il respecte la randomisation et évite de fabriquer artificiellement un essai "plus propre" mais moins représentatif de ce qui se passe vraiment.
+
+La **population de sécurité** est différente : elle comprend les patients ayant reçu au moins une dose et disposant de données de sécurité. C'est logique, car on ne peut pas attribuer une toxicité de traitement a un patient qui n'a jamais reçu le traitement. Le papier mentionne d'ailleurs `188` patients dans le bras `sac-TMT` et `182` dans le bras chimiothérapie pour la sécurité, ce qui illustre cette différence.
+
+Une **population per-protocol** (`PP`) pourrait théoriquement être décrite, mais elle n'est pas centrale ici. En oncologie de phase 3, l'`ITT` est la référence pour l'efficacité, parce qu'elle reflète la réalité des interruptions, réductions et aléas thérapeutiques. La bonne copie doit donc dire que la `PP` peut être informative secondairement, mais ne doit pas remplacer l'`ITT` comme base confirmatoire.
+
+**Réponse type courte**
+
+L'efficacité est analysée en `ITT`, ce qui est la référence en essai confirmatoire. La sécurité est analysée chez les patients ayant effectivement reçu le traitement. Une éventuelle population `PP` peut être utile secondairement, mais n'a pas ici la même valeur que l'`ITT`.
+:::
+
+#### Question 3 {.unlisted}
+
+> Les patients atteints de métastases cérébrales sont inclus dans l'essai. Discutez les implications méthodologiques et cliniques de ce choix.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : les analyses de sous-groupes rapportent explicitement des résultats chez les patients avec métastases cérébrales.</p>
+    <p><strong>A relier a la réponse</strong> : l'inclusion de cette population augmente la pertinence clinique, mais ajoute aussi de l'hétérogénéité pronostique.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+L'inclusion de patients avec métastases cérébrales est un bon point de **validité externe**. En pratique, beaucoup de patients ayant un `NSCLC` muté `EGFR` évolutif présentent ce type d'atteinte ; les exclure aurait produit un essai plus artificiel et moins utile pour la pratique.
+
+Méthodologiquement, cela ajoute néanmoins de l'hétérogénéité. Les patients avec atteinte cérébrale ont souvent un pronostic différent, des symptômes spécifiques, des traitements locaux associés et parfois une réponse thérapeutique différente. Il faut donc que la randomisation ou la stratification gèrent correctement cette dimension, puis que les sous-groupes soient interprétés avec prudence.
+
+La bonne copie doit articuler les deux idées : **population plus représentative** mais **comparaison potentiellement plus complexe**. Le bon ton n'est ni "c'est forcément bien", ni "cela fragilise l'essai", mais : cela rend l'essai plus pertinent cliniquement tout en demandant plus de rigueur interprétative.
+
+**Réponse type courte**
+
+Inclure les patients avec métastases cérébrales améliore la représentativité clinique de l'essai. En contrepartie, cela augmente l'hétérogénéité pronostique et impose une lecture prudente des sous-groupes et de l'équilibre initial.
+:::
+
+#### Question 4 {.unlisted}
+
+> Cet essai est conduit uniquement en Chine avec une population 100% asiatique. Quelles sont les conséquences pour la généralisabilité des résultats ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "This trial was conducted in China" ; "the characteristics of the patients were largely representative of the broad population of Chinese patients with EGFR-mutated NSCLC."</p>
+    <p><strong>A relier a la réponse</strong> : l'article lui-même cadre la représentativité comme d'abord chinoise, pas universelle.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+La validité interne n'est pas remise en cause par le fait que l'essai soit conduit en Chine. Si la randomisation, le suivi et les analyses sont bons, la comparaison interne reste solide. En revanche, la **validité externe** demande une vraie discussion. Les profils moléculaires, les séquences thérapeutiques antérieures, l'accès aux traitements, l'organisation des soins et parfois certains déterminants biologiques peuvent différer hors de Chine.
+
+Ce point est particulièrement important ici parce que l'article vise ensuite a positionner `sac-TMT` dans la stratégie thérapeutique globale. Or la place du traitement dépend aussi des alternatives déjà disponibles localement, des coûts, du remboursement et des standards de deuxième ligne, qui ne sont pas identiques partout.
+
+La bonne réponse consiste donc a dire : **résultats très utiles et probablement transposables en partie, mais pas généralisables sans discussion a toutes les populations non asiatiques**.
+
+**Réponse type courte**
+
+L'essai a une bonne validité interne, mais sa généralisabilité doit être discutée car il ne porte que sur une population chinoise asiatique. Les résultats peuvent inspirer la pratique ailleurs, mais pas être transposés sans prudence.
+:::
+
+#### Question 5 {.unlisted}
+
+> Expliquez le rôle du BICR (Blinded Independent Central Review) dans cet essai ouvert. En quoi est-il indispensable ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : savez-vous identifier le vrai garde-fou méthodologique d'un essai ouvert dont le critère principal dépend de l'imagerie ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The primary end point was progression-free survival as assessed by blinded independent review."</p>
+    <p><strong>A relier a la réponse</strong> : l'article fait de la lecture indépendante et en aveugle une condition centrale de crédibilité du critère principal.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Le `BICR` sert a protéger le critère principal contre le biais d'évaluation. Dans un essai ouvert, l'investigateur sait quel traitement le patient reçoit. Or la progression tumorale n'est pas un événement entièrement "automatique" : elle dépend d'une interprétation d'imagerie, même si cette interprétation suit `RECIST 1.1`.
+
+Une lecture centralisée, indépendante et en aveugle limite donc le risque qu'un investigateur soit inconsciemment plus prompt a déclarer une progression dans un bras plutôt que dans l'autre. C'est particulièrement important quand la `PFS` est le critère principal, car un biais de lecture radiologique pourrait modifier directement l'estimation de l'effet.
+
+La bonne réponse doit dire que le `BICR` n'est pas un détail technique. Dans cet essai, c'est l'un des principaux dispositifs qui rendent le choix d'un design ouvert encore acceptable sur le plan méthodologique.
+
+**Réponse type courte**
+
+Dans cet essai ouvert, le `BICR` est indispensable car il réduit le biais d'évaluation de la `PFS`, critère principal fondé sur l'imagerie. Il protège donc la crédibilité du résultat principal.
+:::
+
+### Theme 2. Statistique principale, dimensionnement et analyses intermédiaires
+
+#### Question 6 {.unlisted}
+
+> Retrouvez et justifiez le calcul du Nombre de Sujets Nécessaires (NSN) présenté dans l'article. Vérifiez si les hypothèses sont cohérentes.
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : savez-vous reconstruire un dimensionnement de survie a partir des hypothèses du papier et l'expliquer proprement dans une copie ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "249 events ... 88% power ... hazard ratio of 0.67 for progression-free survival at a one-sided alpha level of 0.025."</p>
+    <p><strong>A relier a la réponse</strong> : toutes les briques du calcul de Schoenfeld sont données directement dans le paragraphe statistique.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+La logique n'est pas ici celle d'un simple calcul "deux proportions" ; c'est un **dimensionnement par événements** pour un critère de survie. La formule utile est celle de Schoenfeld :
+
+$$
+D = \frac{(z_{1-\alpha} + z_{1-\beta})^2}{p(1-p)\,[\log(HR)]^2}
+$$
+
+Avec randomisation `1:1`, on a :
+
+$$
+p = 0{,}5 \quad \Rightarrow \quad p(1-p)=0{,}25
+$$
+
+Donc :
+
+$$
+D = \frac{4\,(z_{1-\alpha} + z_{1-\beta})^2}{[\log(HR)]^2}
+$$
+
+L'article donne :
+
+- `HR = 0,67`
+- alpha **unilatéral** `0,025`, donc
+
+$$
+z_{1-\alpha} = 1{,}96
+$$
+
+- puissance `88%`, donc
+
+$$
+z_{1-\beta} \approx 1{,}18
+$$
+
+Ensuite :
+
+$$
+\log(0{,}67) \approx -0{,}40
+$$
+
+donc
+
+$$
+[\log(0{,}67)]^2 \approx 0{,}16
+$$
+
+Puis :
+
+$$
+D \approx \frac{4\,(1{,}96 + 1{,}18)^2}{0{,}16}
+= \frac{4 \times 9{,}86}{0{,}16}
+\approx 246
+$$
+
+Ce résultat est extrêmement proche des `249` événements annoncés. Il y a donc une très bonne cohérence entre la formule et l'article. Pour passer du nombre d'événements au nombre de sujets, il faut une hypothèse de rendement d'événements sur la durée d'étude. Comme l'article vise environ `356` patients :
+
+$$
+\frac{249}{356} \approx 0{,}70
+$$
+
+ce qui revient a supposer qu'environ `70%` des sujets contribueront a l'événement principal pendant l'horizon pertinent de l'essai. C'est tout a fait plausible dans cette pathologie et cette ligne thérapeutique.
+
+**Réponse type courte**
+
+Le calcul se fait par la formule de Schoenfeld pour un critère de survie. En utilisant `HR = 0,67`, alpha unilatéral `0,025`, puissance `88%` et allocation `1:1`, on retrouve environ `246` a `249` événements, ce qui est cohérent avec l'article. Le passage a environ `356` sujets suppose un rendement d'événements d'environ `70%`, plausible dans ce contexte.
+:::
+
+#### Question 7 {.unlisted}
+
+> Expliquez la stratégie de dépense du risque de 1ère espèce (alpha-spending) utilisée dans cet essai. Justifiez les seuils α retenus.
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : savez-vous expliquer `Lan-DeMets / O'Brien-Fleming` sans réciter des mots-clés vides ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "A Lan-DeMets alpha-spending function was used to estimate the O'Brien-Fleming boundary."</p>
+    <p><strong>A relier a la réponse</strong> : l'essai a un vrai plan de dépense alpha, pas une analyse intermédiaire improvisée après coup.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Quand on regarde les données plusieurs fois avant la fin d'un essai, on risque d'augmenter artificiellement le risque global de faux positif. La solution consiste a **dépenser progressivement l'alpha** au fil des looks, au lieu de le consommer d'un seul coup a la fin.
+
+La méthode `Lan-DeMets` est une version flexible de cette logique. Elle permet de reproduire l'esprit d'une frontière d'`O'Brien-Fleming` même si le calendrier exact des analyses dépend du rythme réel des événements. La frontière `O'Brien-Fleming` est très conservatrice au début, puis devient moins stricte plus tard. C'est logique : si l'on veut déclarer un succès très tôt, il faut une preuve très forte.
+
+Dans cet essai, ce choix est particulièrement pertinent parce qu'il y a une analyse intermédiaire planifiée de `PFS`, puis une analyse intermédiaire d'`OS`. Les seuils effectifs rapportés (`0,0337` pour la `PFS` et `0,0124` pour l'`OS`) matérialisent cette dépense alpha contrôlée. Une bonne copie doit dire clairement que ces seuils ne sont pas arbitraires : ils sont le prix méthodologique a payer pour avoir regardé les données avant l'analyse finale classique.
+
+**Réponse type courte**
+
+L'essai utilise une dépense alpha de type `Lan-DeMets` avec frontière `O'Brien-Fleming`. Cette stratégie permet de contrôler le risque global de première espèce malgré les analyses intermédiaires, en imposant des seuils plus stricts lors des looks précoces.
+:::
+
+#### Question 8 {.unlisted}
+
+> Les résultats de la SSP sont présentés par la méthode de Kaplan-Meier et le modèle de Cox. Expliquez ce que chacun apporte et leurs hypothèses.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The Kaplan-Meier method was used to estimate median survival. Stratified Cox proportional-hazards models were used to calculate hazard ratios and corresponding 95% confidence intervals."</p>
+    <p><strong>A relier a la réponse</strong> : l'article répartit clairement les rôles entre description des courbes et estimation synthétique par `HR`.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+`Kaplan-Meier` est l'outil descriptif. Il permet de tracer les courbes de `PFS`, de lire les médianes, de voir quand les courbes se séparent, et de calculer des proportions survivantes a certains temps. C'est indispensable pour garder une lecture clinique du temps jusqu'a événement.
+
+Le modèle de `Cox`, lui, fournit une estimation plus synthétique : le `hazard ratio`. Ici, il résume la différence globale de risque instantané entre les bras. Il est très utile pour une conclusion statistique concise, mais il repose sur une hypothèse importante : la **proportionnalité des risques**.
+
+La bonne réponse doit insister sur leur complémentarité. `Kaplan-Meier` montre la forme des courbes ; `Cox` résume l'effet. On ne remplace pas l'un par l'autre. Une copie solide ajoutera que si les courbes se croisaient ou si la proportionnalité était douteuse, l'interprétation du `HR` deviendrait plus délicate.
+
+**Réponse type courte**
+
+`Kaplan-Meier` décrit l'évolution temporelle de la `PFS` et permet de lire les médianes. Le modèle de `Cox` résume l'effet par un `HR`, sous hypothèse de proportionnalité des risques. Les deux sont donc complémentaires.
+:::
+
+#### Question 9 {.unlisted}
+
+> Pour le taux de réponse objective (ORR), les auteurs utilisent un intervalle de confiance de Clopper-Pearson et le test de Cochran-Mantel-Haenszel (CMH). Expliquez ces choix.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The percentage of patients with an objective response ... exact (Clopper-Pearson) confidence intervals ... Between-group comparisons were made with stratified Cochran-Mantel-Haenszel tests."</p>
+    <p><strong>A relier a la réponse</strong> : l'article justifie un traitement de l'`ORR` comme proportion binaire avec comparaison stratifiée.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+L'`ORR` est une **proportion binaire** : chaque patient est répondeur ou non. L'intervalle de `Clopper-Pearson` est un intervalle exact classique pour ce type de proportion. Il évite certaines approximations moins fiables quand l'effectif n'est pas immense ou quand la proportion n'est pas proche de `50%`.
+
+Le test `CMH` est cohérent si l'on veut comparer deux proportions tout en tenant compte des facteurs de stratification utilisés a la randomisation. Autrement dit, on ne compare pas seulement "brutement" les pourcentages ; on garde une cohérence avec la structure du plan expérimental.
+
+La bonne réponse n'est pas seulement technique. Elle doit dire que ces choix montrent une volonté de traiter chaque critère selon sa nature statistique propre : survie pour `PFS/OS`, proportion binaire pour `ORR`.
+
+**Réponse type courte**
+
+`Clopper-Pearson` est adapté a une proportion binaire comme l'`ORR`, car il fournit un intervalle exact. Le test `CMH` est cohérent pour comparer les bras en tenant compte de la stratification de l'essai.
+:::
+
+#### Question 10 {.unlisted}
+
+> Les données manquantes pour les critères de survie sont gérées sous l'hypothèse de “censure non informative”. Discutez cette hypothèse dans le contexte de cet essai.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article applique des méthodes standard de survie avec censure et décrit aussi les patients sans évaluation tumorale post-baseline.</p>
+    <p><strong>A relier a la réponse</strong> : la question ne demande pas une formule, mais une discussion sur la plausibilité de la censure non informative.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+La censure non informative signifie qu'une fois prises en compte les informations connues, le fait d'être censuré n'annonce pas un risque futur systématiquement différent d'événement. C'est une hypothèse standard des analyses de survie, mais elle n'est jamais parfaitement vérifiable.
+
+Dans cet essai, elle est plausible dans de nombreux cas, notamment si la censure vient d'une fin administrative de suivi. En revanche, elle devient plus discutable si des patients sortent du suivi, changent de prise en charge, ou interrompent le protocole pour des raisons liées a leur état clinique réel. Dans un essai ouvert, cette question mérite d'autant plus d'être discutée.
+
+Une bonne réponse doit montrer qu'on connaît le statut de cette hypothèse : **nécessaire au modèle**, **plausible mais non démontrable**, et toujours a examiner a la lumière du contexte clinique.
+
+**Réponse type courte**
+
+La censure non informative est l'hypothèse standard des analyses de survie, mais elle n'est jamais garantie. Dans cet essai, elle est probablement raisonnable dans l'ensemble, mais doit être discutée si des sorties de suivi sont liées a l'évolution clinique ou a la tolérance.
+:::
+
+### Theme 3. Critères, résultats et interprétation
+
+#### Question 11 {.unlisted}
+
+> Quel est le critère principal d'efficacité ? Quelles sont ses forces et faiblesses dans le contexte d'un essai oncologique de phase 3 ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The primary end point was progression-free survival as assessed by blinded independent review."</p>
+    <p><strong>A relier a la réponse</strong> : toute l'analyse principale repose sur cette définition précise du critère.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Le critère principal est la `PFS` évaluée par `BICR`. Ses forces sont claires : elle est plus rapide a observer que l'`OS`, sensible a l'activité antitumorale, et souvent bien adaptée aux essais de deuxième ligne où l'on veut détecter un bénéfice avant que les traitements ultérieurs ne brouillent trop la comparaison.
+
+Mais il faut aussi dire ce qu'elle ne fait pas. La `PFS` n'est pas l'`OS`. Elle est un critère de substitution, même si c'est un substitut fréquent et respectable en oncologie. Elle peut dépendre de la fréquence des évaluations radiologiques et de la qualité de la lecture des images, d'où l'importance du `BICR`.
+
+La bonne copie doit être équilibrée : **critère pertinent et défendable**, mais moins fort cliniquement qu'une survie globale comme critère principal.
+
+**Réponse type courte**
+
+Le critère principal est la `PFS` évaluée par `BICR`. C'est un choix solide pour un essai de phase 3 en oncologie, car il est rapide et sensible, mais il reste moins directement clinique et moins robuste qu'une `OS`.
+:::
+
+#### Question 12 {.unlisted}
+
+> Auriez-vous préféré un autre critère principal ? Discutez notamment la survie globale (OS) comme critère principal alternatif.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "Overall survival was a hierarchically tested key secondary end point."</p>
+    <p><strong>A relier a la réponse</strong> : le papier n'ignore pas l'`OS`, mais choisit de ne pas la mettre en premier dans la hiérarchie.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+On peut toujours défendre l'`OS` comme critère principal alternatif, parce qu'elle est plus parlante pour le clinicien et le patient. Un gain d'`OS` est plus facile a interpréter qu'un gain de `PFS`, surtout en termes de bénéfice réel.
+
+Cependant, faire de l'`OS` le critère principal aurait probablement demandé plus de temps, plus de décès et une plus grande maturité des données. En plus, l'`OS` peut être affectée par les traitements administrés après progression, ce qui dilue parfois l'effet du traitement étudié. Dans cette ligne thérapeutique, choisir la `PFS` comme premier critère est donc un compromis méthodologiquement crédible.
+
+La bonne réponse d'examen ne tranche pas de manière dogmatique. Elle explique pourquoi l'`OS` serait plus "dure", mais aussi pourquoi la `PFS` est un choix réaliste et défendable ici.
+
+**Réponse type courte**
+
+L'`OS` serait un critère principal plus directement clinique, mais plus long et plus sensible aux traitements ultérieurs. Dans cet essai, le choix de la `PFS` comme critère principal, avec `OS` hiérarchisée, est donc un compromis raisonnable.
+:::
+
+#### Question 13 {.unlisted}
+
+> Commentez la significativité statistique versus la pertinence clinique des résultats de SSP et SG obtenus dans cet essai.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : `HR PFS = 0,49 [0,39 ; 0,62]` ; `HR OS = 0,60 [0,44 ; 0,82]` ; `P < 0,0001` pour la `PFS` et `P = 0,001` pour l'`OS` avec borne franchie.</p>
+    <p><strong>A relier a la réponse</strong> : l'essai n'est pas seulement "significatif" ; les tailles d'effet elles-mêmes sont fortes.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Statistiquement, les résultats sont très solides. La `PFS` franchit largement la borne prévue, avec un `HR` de `0,49`, et l'`OS` franchit aussi sa borne intermédiaire avec un `HR` de `0,60`. On est donc loin d'un essai "juste positif" au bord du seuil.
+
+Cliniquement, le message est aussi important. Passer d'une médiane de `PFS` d'environ `4,3` mois a `8,3` mois n'est pas un simple frémissement. De même, un signal favorable sur l'`OS` dans cette situation est très notable, même s'il faut garder en tête la maturité encore intermédiaire de cette analyse.
+
+La bonne copie doit dire les deux choses ensemble : **très forte significativité** et **bénéfice cliniquement crédible et substantiel**. Elle peut aussi ajouter que la sécurité et la généralisation restent nécessaires a la décision thérapeutique finale.
+
+**Réponse type courte**
+
+Les résultats sont a la fois statistiquement très significatifs et cliniquement importants. Il ne s'agit pas d'un effet minime rendu positif par un grand effectif, mais d'un bénéfice de taille notable sur `PFS` et probablement aussi sur `OS`.
+:::
+
+#### Question 14 {.unlisted}
+
+> Qu'est-ce que le critère de réponse RECIST 1.1 ? Détaillez les catégories de réponse et comment l'ORR est calculé.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "according to Response Evaluation Criteria in Solid Tumors (RECIST), version 1.1."</p>
+    <p><strong>A relier a la réponse</strong> : la question attend une explication méthodologique standard, appliquée au papier.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+`RECIST 1.1` est le cadre standardisé d'évaluation de la réponse tumorale sur l'imagerie. Il distingue classiquement :
+
+- `CR` : réponse complète ;
+- `PR` : réponse partielle ;
+- `SD` : maladie stable ;
+- `PD` : progression.
+
+L'`ORR` (*objective response rate*) correspond a la proportion de patients ayant obtenu une `CR` ou une `PR`. On peut l'écrire :
+
+$$
+ORR = \frac{\text{CR} + \text{PR}}{\text{patients evaluables}}
+$$
+
+Cette mesure est utile pour l'activité antitumorale, mais elle n'épuise pas la valeur clinique d'un traitement. Un traitement peut avoir un bon `ORR` sans nécessairement améliorer durablement la survie. C'est pourquoi l'`ORR` reste ici un critère secondaire, pas le critère principal.
+
+**Réponse type courte**
+
+`RECIST 1.1` classe les patients en `CR`, `PR`, `SD` et `PD`. L'`ORR` est la proportion de `CR + PR` parmi les patients évaluables. C'est un bon critère d'activité tumorale, mais moins robuste qu'un critère de survie.
+:::
+
+#### Question 15 {.unlisted}
+
+> Analysez les résultats des sous-groupes prédéfinis de SSP et SG. Comment interpréter un forest plot de sous-groupes ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The progression-free survival benefit ... appeared to be consistent across most of the prespecified subgroups; however, the confidence intervals crossing 1.00 ... reflected, in part, the small numbers of patients."</p>
+    <p><strong>A relier a la réponse</strong> : le papier donne presque la bonne conclusion a écrire sur les sous-groupes.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Un forest plot de sous-groupes s'interprète d'abord globalement : regarde-t-on un signal cohérent dans la majorité des sous-groupes, ou au contraire des résultats franchement discordants ? Ici, le papier suggère une cohérence générale, ce qui est rassurant.
+
+Ensuite, il faut regarder la **largeur des intervalles de confiance**. Dans les sous-groupes de petite taille, notamment certaines localisations métastatiques, les intervalles deviennent larges et peuvent croiser `1`. Cela ne prouve pas l'absence d'effet ; cela reflète souvent un manque de précision.
+
+La règle d'or a l'examen est de ne pas sur-interpréter un sous-groupe isolé sans test d'interaction convaincant et sans plausibilité biologique claire. Le résultat global de l'essai reste la référence.
+
+**Réponse type courte**
+
+Le forest plot doit être lu en termes de cohérence d'ensemble, pas comme une chasse aux sous-groupes "positifs" ou "négatifs". Ici, le signal semble globalement cohérent, et les intervalles larges de certains sous-groupes reflètent surtout leur petite taille.
+:::
+
+#### Question 16 {.unlisted}
+
+> Les résultats d'OS sont présentés à une analyse intermédiaire. Que pensez-vous de rapporter des résultats d'OS à une analyse intermédiaire plutôt qu'à l'analyse finale ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "At the preplanned interim analysis of overall survival ... the two-sided P value of 0.001 crossed the prespecified significance boundary (two-sided alpha of 0.0124)."</p>
+    <p><strong>A relier a la réponse</strong> : l'analyse intermédiaire d'`OS` était prévue, encadrée et alpha-contrôlée.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Rapporter une `OS` a une analyse intermédiaire est acceptable si, et seulement si, cette analyse a été **préspécifiée** et si la multiplicité a été correctement contrôlée. Ici, c'est bien le cas : il existe une borne intermédiaire explicite et l'`OS` franchit cette borne.
+
+L'avantage est évident : si le bénéfice est important, il est utile de l'apprendre tôt pour les cliniciens, les patients et potentiellement les autorités. La limite est tout aussi claire : une analyse intermédiaire est par définition moins mature qu'une analyse finale, donc plus vulnérable a une surestimation ou a une modification ultérieure de l'effet.
+
+La bonne réponse doit dire que ce rapport intermédiaire est **méthodologiquement légitime**, mais qu'il faut garder en tête la nécessité d'un suivi plus long pour stabiliser complètement l'ampleur de l'effet sur l'`OS`.
+
+**Réponse type courte**
+
+Rapporter une `OS` intermédiaire est légitime ici car cela était prévu et alpha-contrôlé. En revanche, il faut rappeler qu'une analyse intermédiaire est moins mature qu'une analyse finale et peut encore évoluer.
+:::
+
+#### Question 17 {.unlisted}
+
+> Interprétez le Hazard Ratio de 0,49 (IC 95% : 0,39–0,62) pour la SSP. Qu'est-ce qu'un Hazard Ratio ? Quelles sont ses limites d'interprétation ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut vérifier** : savez-vous interpréter un `HR` correctement, sans le confondre avec un risque relatif cumulé ou un ratio de médianes ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "hazard ratio for disease progression or death, 0.49; 95% confidence interval, 0.39 to 0.62."</p>
+    <p><strong>A relier a la réponse</strong> : ce passage résume l'effet principal mais ne dispense pas d'en expliquer le sens précis.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Un `HR = 0,49` signifie qu'a chaque instant du suivi, le risque instantané de progression ou de décès est environ deux fois plus faible dans le bras `sac-TMT` que dans le bras chimiothérapie. L'intervalle `0,39-0,62` est étroit et reste très nettement inférieur a `1`, ce qui indique un signal robuste et précis.
+
+Mais il faut faire attention au vocabulaire. Ce `HR` ne veut pas dire que la médiane de `PFS` est "divisée par 0,49", ni que `51%` des progressions sont évitées au sens absolu. C'est un résumé du rapport de risques instantanés, construit dans le cadre du modèle de `Cox`.
+
+La bonne copie ajoute donc deux limites : le `HR` peut devenir moins intuitif que les médianes pour le clinicien, et son interprétation repose sur une hypothèse de proportionnalité des risques qu'il faut toujours garder a l'esprit.
+
+**Réponse type courte**
+
+Le `HR = 0,49` indique une forte réduction du risque instantané de progression ou de décès avec `sac-TMT`. Ce n'est ni un ratio de médianes ni une réduction absolue de risque, mais un résumé de l'effet dans un modèle de survie.
+:::
+
+#### Question 18 {.unlisted}
+
+> Commentez les données du tableau des caractéristiques initiales (Table 1). Y a-t-il des déséquilibres entre les deux groupes ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "baseline characteristics of the patients were generally balanced between the two groups."</p>
+    <p><strong>A relier a la réponse</strong> : l'article signale un bon équilibre global, ce que l'on attend d'une randomisation réussie.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Le tableau 1 doit se lire **descriptivement**. L'objectif n'est pas de chercher des `p-values` de comparaison baseline, mais de vérifier qu'aucun déséquilibre cliniquement majeur ne saute aux yeux. Ici, les auteurs indiquent que les caractéristiques initiales sont globalement équilibrées, ce qui est cohérent avec une randomisation bien conduite.
+
+Une bonne copie peut mentionner le profil général de la population : âge médian autour de `60` ans, majorité de patients jamais fumeurs, très forte proportion de stade IV, et statut de performance `ECOG` `0-1`. Ce sont des éléments utiles pour comprendre a qui s'applique réellement l'essai.
+
+L'idée a faire passer est simple : **pas de déséquilibre majeur visible**, donc pas d'alerte méthodologique forte sur la comparabilité initiale.
+
+**Réponse type courte**
+
+Le tableau 1 ne montre pas de déséquilibre clinique majeur entre les deux bras. C'est ce qu'on attend d'une randomisation réussie, et cela renforce la crédibilité de la comparaison.
+:::
+
+#### Question 19 {.unlisted}
+
+> Interprétez les résultats de survie globale (OS). Pourquoi la SG médiane n'est-elle pas atteinte dans le bras sac-TMT ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "`HR` for death, 0.60; 95% CI, 0.44 to 0.82" ; "median, could not be estimated vs. 17.4 months".</p>
+    <p><strong>A relier a la réponse</strong> : la médiane non atteinte traduit a la fois un bénéfice possible et une maturité encore incomplète.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+L'`OS` est favorable a `sac-TMT`, avec un `HR` de `0,60`, ce qui suggère une réduction substantielle du risque de décès. L'intervalle de confiance reste entièrement en dessous de `1`, ce qui renforce la crédibilité du signal.
+
+La médiane d'`OS` n'est pas atteinte dans le bras `sac-TMT` parce qu'au moment de l'analyse intermédiaire, moins de `50%` des patients de ce bras étaient décédés. En d'autres termes, la courbe n'avait pas encore suffisamment chuté pour que l'on puisse lire une médiane. Cela peut être interprété comme un signe favorable, mais aussi comme un marqueur d'**immaturité relative** des données.
+
+La bonne réponse doit donc éviter deux excès : ne pas banaliser le résultat, mais ne pas faire comme si l'`OS` était déjà définitivement figée.
+
+**Réponse type courte**
+
+L'`OS` est significativement meilleure sous `sac-TMT`. La médiane non atteinte dans ce bras reflète probablement un bénéfice réel, mais aussi le fait que l'analyse reste intermédiaire et encore incomplètement mature.
+:::
+
+#### Question 20 {.unlisted}
+
+> Analysez les résultats de qualité de vie (PRO). Leur intégration est-elle satisfaisante dans cet essai ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : la discussion indique que les événements indésirables n'ont pas compromis la qualité de vie globale ; les `PRO` restent secondaires.</p>
+    <p><strong>A relier a la réponse</strong> : le papier inclut les `PRO`, mais leur place n'est pas aussi forte que celle des critères d'efficacité principaux.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+L'intégration des `PRO` est plutôt positive : elle montre que les auteurs ne réduisent pas l'évaluation du traitement a la seule survie ou au seul taux de réponse. C'est important, surtout avec un `ADC`, car le bénéfice antitumoral doit être mis en regard du vécu du patient.
+
+En même temps, les `PRO` ne structurent pas le papier comme les critères d'efficacité principaux. Ils restent secondaires, ce qui est fréquent, mais limite parfois leur force décisionnelle. Dans un essai ouvert, il faut aussi rester conscient que les résultats rapportés par les patients peuvent être plus sensibles au contexte et aux attentes.
+
+La bonne réponse est donc nuancée : **oui, leur présence est une force ; non, leur intégration ne renverse pas la hiérarchie méthodologique de l'essai**.
+
+**Réponse type courte**
+
+Les `PRO` sont une bonne addition car ils enrichissent la lecture clinique du traitement. Leur intégration est satisfaisante, mais ils restent secondaires et plus vulnérables aux biais qu'un critère de survie.
+:::
+
+### Theme 4. Sécurité et tolérance
+
+#### Question 21 {.unlisted}
+
+> Dans la conclusion, les auteurs déclarent que “sac-TMT could be considered a favorable treatment option before pemetrexed plus platinum-based chemotherapy”. Qu'en pensez-vous ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : la conclusion du résumé et de la discussion positionne `sac-TMT` comme option favorable avant la chimiothérapie standard.</p>
+    <p><strong>A relier a la réponse</strong> : il faut juger si cette phrase est proportionnée aux données d'efficacité, de sécurité et de généralisabilité.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+La formule des auteurs est globalement défendable. L'essai montre un bénéfice net sur la `PFS`, un signal positif sur l'`OS`, et un profil de sécurité qui n'est pas plus inquiétant de manière simple que celui de la chimiothérapie. On comprend donc qu'ils proposent `sac-TMT` comme option favorable.
+
+Mais la bonne copie doit introduire des nuances. D'abord, l'essai est conduit exclusivement en Chine. Ensuite, il est ouvert. Enfin, la place exacte du traitement dans l'algorithme global dépend aussi des autres stratégies disponibles localement et des comparaisons indirectes avec d'autres combinaisons plus récentes.
+
+La meilleure réponse est donc : **conclusion raisonnable, mais a lire comme une proposition forte et crédible, pas comme une vérité universelle définitivement établie**.
+
+**Réponse type courte**
+
+La conclusion des auteurs est globalement cohérente avec les résultats. En revanche, elle doit être tempérée par les limites de généralisabilité, le caractère ouvert de l'essai et l'absence de comparaison directe avec toutes les alternatives actuelles.
+:::
+
+#### Question 22 {.unlisted}
+
+> Analysez le profil de sécurité du sac-TMT. Y a-t-il des différences qualitatives importantes avec la chimiothérapie ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : EI grade `3+` `58,0%` vs `53,8%` ; EI graves liés au traitement `9,0%` vs `17,6%` ; stomatite et toxicités oculaires décrites dans le bras `sac-TMT`.</p>
+    <p><strong>A relier a la réponse</strong> : la lecture correcte n'est pas "plus toxique" ou "moins toxique", mais "toxicité qualitativement différente".</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Le profil de sécurité de `sac-TMT` ne se résume pas a une hiérarchie simple sur le nombre total d'effets indésirables. Les EI de grade `3+` sont proches entre les bras (`58,0%` vs `53,8%`), mais les EI graves liés au traitement sont moins fréquents sous `sac-TMT` (`9,0%` vs `17,6%`), ce qui nuance fortement le jugement global.
+
+Sur le plan qualitatif, `sac-TMT` a un profil d'`ADC` avec toxicités muqueuses et oculaires notables, notamment la stomatite. En face, la chimiothérapie expose davantage a certains profils hématologiques et a des toxicités classiques de cytotoxiques. Ce n'est donc pas seulement une question de fréquence brute : c'est une question de **nature de la toxicité**, de faisabilité et de tolérance clinique.
+
+Une bonne copie doit montrer qu'elle sait lire un tableau de sécurité en clinicien, pas seulement en statisticien. Il faut décrire le profil, pas seulement réciter les pourcentages.
+
+**Réponse type courte**
+
+Le profil de sécurité de `sac-TMT` est différent plutôt que simplement meilleur ou pire. Certains EI sont plus fréquents, mais les EI graves liés au traitement sont moins nombreux qu'avec la chimiothérapie, ce qui impose une lecture qualitative du profil de tolérance.
+:::
+
+#### Question 23 {.unlisted}
+
+> Pourquoi n'y a-t-il pas de valeur p dans les tableaux comparant les effets indésirables entre les groupes ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : la section sécurité est essentiellement descriptive, avec fréquences, grades et événements d'intérêt particulier.</p>
+    <p><strong>A relier a la réponse</strong> : l'absence de `p` est cohérente avec une lecture exploratoire et clinique de la sécurité.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Il n'y a pas de `p-value` parce que les tableaux de sécurité sont habituellement **descriptifs**. Leur but n'est pas de démontrer statistiquement qu'un bras a "plus d'effets indésirables" sur chaque ligne du tableau, mais de décrire le profil global de toxicité.
+
+Si l'on testait chaque EI séparément, on créerait un énorme problème de multiplicité. On obtiendrait beaucoup de signaux aléatoires, sans grand sens clinique. La sécurité se lit donc d'abord par la fréquence, la gravité, la cohérence physiopathologique et les événements d'intérêt particulier.
+
+La bonne copie doit dire que l'absence de `p` n'est pas une faiblesse. C'est souvent le signe qu'on traite la sécurité de manière cliniquement raisonnable.
+
+**Réponse type courte**
+
+Les tableaux de sécurité sont généralement descriptifs. L'absence de `p-value` évite de multiplier des comparaisons peu informatives et permet de garder une lecture clinique des toxicités.
+:::
+
+#### Question 24 {.unlisted}
+
+> Comment les auteurs gèrent-ils la stomatite liée au sac-TMT ? Discutez l'impact des réductions de doses sur l'interprétation des résultats.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : la discussion décrit la stomatite comme le principal effet d'intérêt particulier sous `sac-TMT`, avec majoritairement des grades faibles a modérés et quelques grades `3`.</p>
+    <p><strong>A relier a la réponse</strong> : il faut relier gestion de toxicité, faisabilité du traitement et interprétation en `ITT`.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+La stomatite est un effet indésirable important sous `sac-TMT`. Les auteurs montrent qu'elle existe réellement, mais que les formes sévères restent minoritaires. Sa gestion passe par les mesures de support et, si nécessaire, par des adaptations de dose.
+
+Du point de vue méthodologique, les réductions de dose ne détruisent pas la validité de l'essai. Elles font partie de la réalité clinique du traitement. En `ITT`, elles sont intégrées dans l'évaluation pragmatique : on juge le traitement tel qu'il peut réellement être administré, avec ses ajustements de tolérance.
+
+La bonne réponse doit donc éviter un faux raisonnement du type "si la dose est réduite, le résultat n'est plus interprétable". Au contraire, cela informe sur la **faisabilité réelle** du traitement.
+
+**Réponse type courte**
+
+La stomatite est gérée par soutien symptomatique et adaptations de dose. Ces réductions compliquent une lecture purement pharmacologique, mais elles restent pleinement compatibles avec une interprétation `ITT` pragmatique de l'essai.
+:::
+
+#### Question 25 {.unlisted}
+
+> Comment comparer le profil de sécurité de sac-TMT avec celui d'autres anticorps-médicament conjugués (ADC) dans le NSCLC ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : la discussion compare implicitement `sac-TMT` a d'autres stratégies récentes et souligne certains effets d'intérêt particulier propres a la molécule.</p>
+    <p><strong>A relier a la réponse</strong> : la comparaison avec d'autres `ADC` doit rester indirecte et qualitative.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Comparer `sac-TMT` a d'autres `ADC` est utile, mais il faut rester méthodologiquement prudent : on compare alors des essais différents, des populations différentes et parfois des lignes thérapeutiques différentes. On ne peut donc pas produire une hiérarchie définitive sur des comparaisons indirectes.
+
+Ce qu'on peut faire, en revanche, c'est comparer les **profils de classe**. Certains `ADC` exposent davantage a des toxicités pulmonaires, d'autres a des toxicités hématologiques, digestives ou muqueuses. Ici, le signal sur la stomatite et certaines toxicités oculaires est particulièrement important a commenter.
+
+Une bonne copie dira donc : **comparaison utile pour situer le traitement, mais non probante sans tête-a-tête direct**.
+
+**Réponse type courte**
+
+La comparaison avec d'autres `ADC` doit rester prudente car elle est indirecte. Elle est utile pour situer le profil de sécurité de `sac-TMT`, mais ne permet pas a elle seule d'établir une hiérarchie formelle entre molécules.
+:::
+
+### Theme 5. Pharmacologie et comparateurs
+
+#### Question 26 {.unlisted}
+
+> Décrivez le mécanisme d'action du sacituzumab tirumotecan en tant qu'ADC. Pourquoi cible-t-il spécifiquement les cellules NSCLC EGFR-mutées résistantes ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : le résumé présente `sac-TMT` comme un `antibody-drug conjugate` ciblant `Trop-2`, porteur d'un inhibiteur de topoisomérase I.</p>
+    <p><strong>A relier a la réponse</strong> : la question est a la fois pharmacologique et stratégique, pas simplement descriptive.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+`Sacituzumab tirumotecan` est un **anticorps-médicament conjugué** (`ADC`). Il associe :
+
+- un anticorps dirigé contre `Trop-2` ;
+- un linker ;
+- un agent cytotoxique, ici un dérivé de topoisomérase I.
+
+L'idée est de cibler préférentiellement les cellules tumorales exprimant `Trop-2`, puis de délivrer le cytotoxique après internalisation. Cela permet d'espérer une activité antitumorale importante avec un profil de toxicité différent de celui d'une chimiothérapie standard diffusée sans ciblage.
+
+La question mentionne spécifiquement les `NSCLC EGFR-mutés résistants` parce que c'est la population clinique de l'essai. Le traitement ne cible pas directement `EGFR` comme un `TKI`, mais il s'insère stratégiquement après l'échec de ces traitements. La bonne réponse doit donc distinguer **cible moléculaire du médicament** (`Trop-2`) et **sous-groupe clinique visé** (résistance après `EGFR-TKI`).
+
+**Réponse type courte**
+
+`Sac-TMT` est un `ADC` anti-`Trop-2` qui délivre un inhibiteur de topoisomérase I a la cellule tumorale après ciblage et internalisation. Il ne cible pas directement `EGFR`, mais se positionne comme option thérapeutique dans le `NSCLC EGFR-muté` après résistance aux `TKI`.
+:::
+
+#### Question 27 {.unlisted}
+
+> Expliquez le rationnel des mutations EGFR dans le NSCLC. Quelles mutations sont incluses et pourquoi ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article décrit les patients comme ayant un `NSCLC` muté `EGFR`, déjà traités par `EGFR-TKI`, avec tableau de base détaillant les altérations dominantes.</p>
+    <p><strong>A relier a la réponse</strong> : il faut expliquer pourquoi ce sous-groupe forme une entité clinique et thérapeutique cohérente.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Les mutations activatrices de `EGFR`, surtout `exon 19 deletion` et `L858R`, définissent un sous-groupe majeur de `NSCLC` particulièrement sensible aux `EGFR-TKI`. C'est pourquoi ces patients suivent souvent une trajectoire thérapeutique spécifique, très différente de celle des patients sans mutation cible.
+
+Le problème clinique apparaît au moment de la résistance. Après progression sous `EGFR-TKI`, il faut repositionner la stratégie thérapeutique. L'essai s'inscrit précisément a ce moment de l'histoire naturelle de la maladie.
+
+Une bonne copie doit donc rappeler que le rationnel n'est pas seulement biologique ; il est aussi clinique et organisationnel : ces mutations définissent une population pour laquelle la séquence thérapeutique est particulière.
+
+**Réponse type courte**
+
+Les mutations sensibilisantes de `EGFR`, surtout `exon 19 deletion` et `L858R`, définissent un sous-groupe de `NSCLC` traité en première intention par `EGFR-TKI`. L'essai cible donc logiquement les patients en situation de résistance secondaire après cette séquence.
+:::
+
+#### Question 28 {.unlisted}
+
+> Comparez sac-TMT avec les autres traitements de 2e ligne disponibles pour les NSCLC EGFR-mutés résistants aux TKI (HARMONi-A, ORIENT-31, MARIPOSA-2).
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : la discussion met `OptiTROP-Lung04` en perspective avec d'autres essais récents et rappelle que les comparaisons restent indirectes.</p>
+    <p><strong>A relier a la réponse</strong> : l'article lui-même place `sac-TMT` dans un paysage thérapeutique en évolution.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+`Sac-TMT` apparaît ici comme une option de deuxième ligne potentiellement forte après échec d'`EGFR-TKI`. Mais la comparaison avec `HARMONi-A`, `ORIENT-31` ou `MARIPOSA-2` doit rester prudente, car ces essais ne sont pas superposables en termes de populations, lignes thérapeutiques, combinaisons et standards de contrôle.
+
+Ce qu'on peut dire, c'est que `sac-TMT` entre dans un espace thérapeutique déjà très disputé. Son intérêt dépendra donc non seulement de ses résultats intrinsèques, mais aussi de sa tolérance, de son accessibilité, et de la façon dont il se compare indirectement a ces autres stratégies.
+
+La bonne copie doit éviter les hiérarchies trop affirmatives. Elle doit parler de **positionnement plausible** plutôt que de classement définitif.
+
+**Réponse type courte**
+
+`Sac-TMT` semble être une option prometteuse après échec des `EGFR-TKI`, mais sa comparaison avec `HARMONi-A`, `ORIENT-31` ou `MARIPOSA-2` reste indirecte. On peut discuter son positionnement, pas affirmer une supériorité globale sans comparaison directe.
+:::
+
+### Theme 6. Ethique, financement et généralisabilité
+
+#### Question 29 {.unlisted}
+
+> Discutez les aspects éthiques de cet essai : consentement, comité indépendant, Déclaration de Helsinki.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article mentionne le respect des principes éthiques, le consentement et l'`independent data monitoring committee`.</p>
+    <p><strong>A relier a la réponse</strong> : la dimension éthique ne se résume pas a une formalité ; elle structure la légitimité de l'essai.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Sur le plan éthique, l'essai semble correctement encadré : consentement, approbations institutionnelles, respect des principes internationaux, et présence d'un `IDMC`. Le comparateur actif est particulièrement important : on n'expose pas les patients a un bras manifestement sous-standard.
+
+Le `IDMC` joue ici un rôle éthique autant que méthodologique. Il surveille non seulement la sécurité, mais aussi l'intégrité des analyses intermédiaires. C'est une protection essentielle des participants et de la crédibilité scientifique.
+
+La bonne réponse doit donc rappeler que l'éthique d'un essai ne se réduit pas au formulaire de consentement. Elle inclut aussi la qualité du comparateur, la surveillance indépendante et la proportionnalité du risque.
+
+**Réponse type courte**
+
+Les principaux garde-fous éthiques sont présents : consentement, supervision indépendante, respect des standards internationaux et comparateur actif. Cela rend l'essai globalement éthiquement défendable.
+:::
+
+#### Question 30 {.unlisted}
+
+> L'essai est financé par le fabricant (Sichuan Kelun-Biotech). Quels sont les risques et les mécanismes de contrôle ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : la section financement et le fait que sponsor et auteurs "vouch for" les données sont explicitement mentionnés.</p>
+    <p><strong>A relier a la réponse</strong> : la présence d'un financement industriel impose une lecture critique renforcée, mais pas un rejet automatique.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Le financement industriel expose a plusieurs risques potentiels : choix des comparateurs, sélection des analyses mises en avant, formulation optimiste de la conclusion, contrôle plus ou moins étroit des données ou de leur diffusion. Cela ne signifie pas que l'essai est biaisé, mais qu'il doit être lu avec un niveau d'exigence accru.
+
+Les mécanismes de contrôle sont précisément ceux qu'une bonne copie doit citer : protocole explicite, hiérarchie statistique claire, comité indépendant de monitoring, lecture critique des résultats et cohérence entre texte et données. Plus ces garde-fous sont solides, plus le risque de dérive interprétative diminue.
+
+La bonne réponse doit donc être nuancée : **risque réel de conflit d'intérêts, mais existence de dispositifs concrets pour le contenir**.
+
+**Réponse type courte**
+
+Le financement industriel crée un risque de biais de conception, d'analyse ou de communication. Ce risque n'est pas nié, mais il est partiellement contrôlé par le protocole, la hiérarchie statistique et la surveillance indépendante.
+:::
+
+#### Question 31 {.unlisted}
+
+> Discutez la question de la généralisation éthique des résultats : est-il éthique d'utiliser sac-TMT pour des patients non-asiatiques sur la base de cet essai ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : le papier précise que les patients sont représentatifs de la population chinoise mutée `EGFR`, pas nécessairement de toutes les populations mondiales.</p>
+    <p><strong>A relier a la réponse</strong> : la question porte sur la prudence de transposition, pas sur une interdiction absolue.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Il ne serait pas rigoureux d'affirmer que ces résultats valent automatiquement a l'identique pour toutes les populations non asiatiques. Cela ne signifie pas qu'il serait contraire a l'éthique d'utiliser `sac-TMT` ailleurs, mais que cette utilisation devrait s'accompagner d'une réflexion prudente sur la transférabilité des données.
+
+L'éthique de la généralisation tient justement a cette prudence. Utiliser des données chinoises pour guider la pratique ailleurs peut être acceptable si l'on reconnaît leurs limites, si l'on cherche des confirmations complémentaires, et si l'on ne transforme pas un essai localement très pertinent en vérité universelle indiscutable.
+
+La bonne réponse doit donc éviter deux excès : ni rejet total, ni généralisation aveugle.
+
+**Réponse type courte**
+
+Il n'est pas contraire a l'éthique de considérer ces résultats chez des patients non asiatiques, mais il serait excessif de les généraliser sans discussion. Une transposition prudente et critique est la position la plus défendable.
+:::
+
+### Theme 7. Santé publique, synthèse critique et perspectives
+
+#### Question 32 {.unlisted}
+
+> Quelles sont les implications de ces résultats pour la politique de santé publique en oncologie pulmonaire ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : les gains sur `PFS` et `OS` sont cliniquement notables et la discussion positionne le traitement dans le paysage thérapeutique.</p>
+    <p><strong>A relier a la réponse</strong> : la santé publique ne dépend pas seulement de l'efficacité, mais aussi de l'accès, du coût et de l'organisation de la séquence de soins.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Les implications de santé publique sont potentiellement importantes, car un traitement qui améliore a la fois `PFS` et `OS` peut modifier les référentiels de prise en charge. Cela touche le remboursement, les recommandations, l'organisation des lignes thérapeutiques et potentiellement la planification des ressources.
+
+Mais la décision publique ne repose jamais uniquement sur l'efficacité. Il faut aussi intégrer le coût, la capacité du système a délivrer le traitement, la gestion des toxicités et la place des alternatives déjà disponibles. En pratique, `sac-TMT` pourrait peser sur les stratégies de deuxième ligne, mais son impact réel dépendra de ces paramètres.
+
+La bonne copie doit donc relier les données de l'essai a une logique de politique de santé, pas seulement a une logique de résultat individuel.
+
+**Réponse type courte**
+
+Si ces résultats sont confirmés, ils peuvent influencer les recommandations et le remboursement en deuxième ligne du `NSCLC EGFR-muté`. Mais leur traduction en politique publique dépendra aussi du coût, de l'accès et de la comparaison avec les autres stratégies disponibles.
+:::
+
+#### Question 33 {.unlisted}
+
+> Discutez la place du sac-TMT dans l'algorithme décisionnel de traitement du NSCLC EGFR-muté. Comment s'intègre-t-il dans le parcours patient ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'essai vise explicitement des patients après échec d'`EGFR-TKI`, dans une situation où la séquence thérapeutique reste discutée.</p>
+    <p><strong>A relier a la réponse</strong> : la question demande un positionnement thérapeutique, pas seulement un résumé du papier.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+`Sac-TMT` se place ici comme une option potentiellement forte **après** les `EGFR-TKI`, c'est-a-dire a un moment charnière où le choix du traitement suivant est décisif. Son intérêt vient de son double signal sur `PFS` et `OS`, ce qui le rend plus attractif qu'une simple molécule active sur la réponse tumorale sans impact sur la survie.
+
+Cependant, sa place exacte dépendra du contexte thérapeutique réel. Certains patients auront d'autres options ciblées ou combinées selon leurs mécanismes de résistance, leur tolérance antérieure et leurs comorbidités. La bonne réponse doit donc parler d'**intégration dans une séquence**, pas de substitution automatique.
+
+**Réponse type courte**
+
+`Sac-TMT` semble pouvoir s'insérer comme option importante après échec des `EGFR-TKI`. Sa place exacte dépendra toutefois des autres options disponibles, du profil du patient et des standards locaux de séquence thérapeutique.
+:::
+
+#### Question 34 {.unlisted}
+
+> Quelles sont les principales forces et limites méthodologiques de l'essai OptiTROP-Lung04 ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : randomisation `1:1`, `BICR`, hiérarchie statistique claire, `IDMC`, mais essai ouvert et population exclusivement chinoise.</p>
+    <p><strong>A relier a la réponse</strong> : les forces et limites sont très visibles dans la structure même du protocole.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Les forces principales sont nettes :
+
+- randomisation `1:1` ;
+- comparateur actif ;
+- critère principal évalué par `BICR` ;
+- hiérarchie statistique claire ;
+- véritable stratégie de contrôle de la multiplicité ;
+- cohérence entre efficacité et sécurité.
+
+Les limites principales sont tout aussi importantes :
+
+- essai ouvert ;
+- population exclusivement chinoise ;
+- comparaisons indirectes avec d'autres stratégies contemporaines seulement ;
+- `OS` encore en analyse intermédiaire au moment du papier ;
+- lecture des `PRO` moins centrale que celle des critères d'efficacité.
+
+La meilleure réponse d'examen ne choisit pas un seul camp. Elle dit que l'essai est **méthodologiquement solide**, tout en gardant des limites bien identifiables qui restreignent la portée absolue de ses conclusions.
+
+**Réponse type courte**
+
+L'essai a de vraies forces confirmatoires : randomisation, comparateur actif, `BICR`, hiérarchie statistique et signal robuste. Ses principales limites sont l'ouverture, la population exclusivement chinoise et l'absence de comparaison directe avec toutes les alternatives modernes.
+:::
+
+#### Question 35 {.unlisted}
+
+> Si vous deviez améliorer la conception de cet essai, quelles modifications proposeriez-vous ? Quelles études futures seraient nécessaires ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : les limites visibles du papier concernent surtout la généralisabilité, la maturité de certaines données et le positionnement par rapport aux stratégies concurrentes.</p>
+    <p><strong>A relier a la réponse</strong> : les améliorations proposées doivent prolonger ces limites réelles, pas inventer des critiques abstraites.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Trois améliorations paraissent particulièrement utiles. D'abord, une **extension internationale** améliorerait fortement la validité externe. Ensuite, un suivi plus long consoliderait l'`OS`, la sécurité tardive et les données rapportées par les patients. Enfin, des comparaisons plus directes avec d'autres stratégies contemporaines aideraient a mieux situer `sac-TMT` dans l'algorithme thérapeutique réel.
+
+On pourrait aussi souhaiter des données plus détaillées sur la qualité de vie et des analyses supplémentaires de coût-efficacité, surtout si le traitement vise a entrer rapidement dans les recommandations.
+
+La bonne copie doit faire des propositions réalistes, directement dérivées des limites de l'essai, et pas demander un essai impossible.
+
+**Réponse type courte**
+
+Les améliorations les plus utiles seraient une validation internationale, un suivi plus long de l'`OS` et de la sécurité, et des comparaisons plus directes avec les alternatives contemporaines. Des données plus solides de qualité de vie et de coût-efficacité seraient aussi très utiles.
+:::
+
+## 4. Réponses prêtes a l'emploi
+
+### 4.1. Quand il faut critiquer un critère principal
+
+> Le critère principal est pertinent car il permet une détection plus rapide du bénéfice antitumoral, mais il reste moins directement clinique qu'une survie globale. Il faut donc en reconnaître l'intérêt méthodologique sans oublier ses limites comme critère de substitution.
+
+### 4.2. Quand il faut expliquer l'absence de `p` dans un tableau de sécurité
+
+> Les tableaux de sécurité sont le plus souvent descriptifs. L'absence de `p-value` n'est pas choquante, car la sécurité se juge d'abord sur la fréquence, la gravité, la plausibilité clinique et le profil qualitatif des événements indésirables.
+
+### 4.3. Quand il faut discuter une analyse de sous-groupes
+
+> Un sous-groupe ne doit jamais annuler a lui seul le résultat global. Il faut d'abord vérifier s'il était préspécifié, regarder la largeur de son intervalle de confiance et discuter l'existence d'une interaction biologiquement plausible.
+
+### 4.4. Quand il faut retrouver un NSN approximatif
+
+> Pour un critère de survie, il faut raisonner d'abord en nombre d'événements avec la logique de Schoenfeld, puis seulement en nombre de sujets. Le calcul exact n'est pas toujours reconstructible au détail près, mais un ordre de grandeur défendable est souvent retrouvable a partir de l'alpha, de la puissance, du `HR` attendu et du taux d'événements attendu.
+
+## 5. Checklist finale
+
+- Ai-je identifié le vrai critère principal et sa lecture correcte ?
+- Ai-je distingué `PFS`, `OS`, `ORR` et sécurité ?
+- Ai-je expliqué la logique de la randomisation et du `BICR` ?
+- Ai-je relié ma réponse a un chiffre concret de l'article ?
+- Ai-je su parler de l'alpha-spending et des analyses intermédiaires si nécessaire ?
+- Ai-je distingué significativité statistique, taille d'effet et pertinence clinique ?
+- Ai-je fini par une conclusion prudente sur la généralisabilité et la place thérapeutique ?
+
+## 6. Conclusion
+
+Le sujet `RC 2026` est un excellent sujet d'annales parce qu'il oblige a lire un essai de phase 3 comme un ensemble cohérent :
+
+1. un **design** ;
+2. une **logique statistique** ;
+3. une **interprétation clinique** ;
+4. une **discussion critique**.
+
+Trois idées doivent rester en tête :
+
+1. **Le signal sur la `PFS` est très fort et méthodologiquement bien protégé.**
+2. **Le signal sur l'`OS` est très intéressant, mais encore lié a une analyse intermédiaire.**
+3. **La vraie difficulté de l'examen est d'articuler efficacité, sécurité, généralisabilité et place thérapeutique.**
+
+::: {.content-visible when-format="html"}
+```{=html}
+<script>
+(() => {
+  const storageKey = "poly-revision-theme";
+  const root = document.documentElement;
+  const themeButton = document.getElementById("theme-switch");
+
+  const setTheme = (theme, persist = true) => {
+    const safeTheme = theme === "night" ? "night" : "day";
+    root.setAttribute("data-theme", safeTheme);
+    if (themeButton) {
+      themeButton.setAttribute("aria-pressed", String(safeTheme === "night"));
+      themeButton.title = safeTheme === "night" ? "Revenir au mode clair" : "Passer en mode nuit";
+      themeButton.setAttribute(
+        "aria-label",
+        safeTheme === "night" ? "Revenir au mode clair" : "Passer en mode nuit"
+      );
+    }
+    if (persist) {
+      try {
+        window.localStorage.setItem(storageKey, safeTheme);
+      } catch (error) {}
+    }
+  };
+
+  setTheme(root.getAttribute("data-theme"), false);
+
+  if (themeButton) {
+    themeButton.addEventListener("click", () => {
+      const nextTheme = root.getAttribute("data-theme") === "night" ? "day" : "night";
+      setTheme(nextTheme, true);
+    });
+  }
+
+  document.querySelectorAll(".article-hunt-card__button[data-target]").forEach((toggle) => {
+    const targetId = toggle.getAttribute("data-target");
+    const panel = document.getElementById(targetId);
+    if (!panel) return;
+
+    const syncToggle = () => {
+      const expanded = !panel.classList.contains("article-hunt-card__answer--collapsed");
+      toggle.setAttribute("aria-expanded", String(expanded));
+      toggle.textContent = expanded ? "Masquer les infos" : "Révéler les infos";
+    };
+
+    syncToggle();
+
+    toggle.addEventListener("click", () => {
+      panel.classList.toggle("article-hunt-card__answer--collapsed");
+      syncToggle();
+    });
+  });
+})();
+</script>
+```
+:::
