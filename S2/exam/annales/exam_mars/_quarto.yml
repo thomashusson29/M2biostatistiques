@@ -4,5 +4,6 @@ project:
     - poly_revision_nsn.qmd
     - poly_revision_RC_codex.qmd
     - poly_revision_epi_codex.qmd
+    - poly_revision_intermediaires_2026.qmd
   post-render:
     - ./publish_to_docs.sh
