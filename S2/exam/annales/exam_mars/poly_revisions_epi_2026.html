@@ -3536,11 +3536,45 @@ z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
 </details>
 <div class="answer-card">
 <p><strong>Réponse détaillée</strong></p>
-<p>Le <code>TMLE</code> est un estimateur causal ciblé vers un paramètre précis, ici l’<code>ATE</code>. Il ne se contente pas d’ajuster “comme on peut” une régression ; il combine un modèle de traitement et un modèle d’outcome, puis ajuste l’estimation finale pour optimiser le biais-variance du paramètre recherché. C’est pour cela que les auteurs le présentent comme un outil moderne de <strong>counterfactual causal inference</strong>.</p>
-<p>Par rapport à une régression multivariée classique, le <code>TMLE</code> a deux avantages pédagogiquement importants. D’abord, il est moins dépendant d’une seule spécification de modèle, surtout quand il est couplé à un <code>Super Learner</code>. Ensuite, il est explicitement construit pour viser l’<code>ATE</code>, pas seulement une association conditionnelle. Par rapport à un score de propension simple, il est également plus riche, car il ne fait pas reposer toute l’inférence sur le seul modèle d’assignation au traitement.</p>
+<p>Le plus simple est de partir de la question concrète du papier. Les auteurs ne veulent pas seulement savoir :</p>
+<blockquote class="blockquote">
+<p>les patients <code>iCBT</code> et <code>fCBT</code> ont-ils eu, en moyenne, des évolutions différentes ?</p>
+</blockquote>
+<p>Ils veulent approcher une question plus forte :</p>
+<blockquote class="blockquote">
+<p>si les <strong>mêmes types de patients</strong> avaient tous reçu <code>iCBT</code>, puis tous reçu <code>fCBT</code>, quelle aurait été la différence moyenne de résultat ?</p>
+</blockquote>
+<p>C’est cela, l’idée de <strong>raisonnement contrefactuel causal</strong>.<br>
+Le mot <em>contrefactuel</em> veut simplement dire : on essaie de comparer ce qui s’est passé avec ce qui <strong>se serait passé dans un scénario alternatif</strong>, scénario qu’on n’a pas observé directement. Ici, on n’a jamais vu le même patient recevoir simultanément <code>iCBT</code> et <code>fCBT</code>. Le travail statistique consiste donc à reconstruire au mieux cette comparaison manquante à partir des données observées.</p>
+<p>Le <code>TMLE</code> est un outil construit pour ce type de question. En pratique, il utilise deux briques :</p>
+<ul>
+<li>un <strong>modèle de traitement</strong> : quelles caractéristiques rendent plus probable d’être orienté vers <code>iCBT</code> plutôt que vers <code>fCBT</code> ?</li>
+<li>un <strong>modèle d’outcome</strong> : compte tenu des caractéristiques du patient et du traitement reçu, quelle amélioration du <code>PHQ-9</code> prédit-on ?</li>
+</ul>
+<p>Dans cet article, c’est particulièrement utile parce que les groupes sont très déséquilibrés et probablement non comparables au départ : <code>5446</code> patients en <code>iCBT</code> contre <code>388</code> en <code>fCBT</code>, avec en plus des différences d’âge, de <code>PHQ-9</code> initial, d’antécédents psychiatriques et de contexte de soins. Une simple comparaison brute des moyennes donnerait donc un résultat très mélangeant : effet du traitement <strong>plus</strong> différences initiales entre groupes.</p>
+<p>Par rapport à une <strong>régression multivariée classique</strong>, le <code>TMLE</code> est moins dépendant d’un seul modèle au sens suivant : si on fait une seule régression du type</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">changement PHQ-9</mtext><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><mo>×</mo><mtext mathvariant="normal">traitement</mtext><mo>+</mo><msub><mi>β</mi><mn>2</mn></msub><mo>×</mo><mtext mathvariant="normal">âge</mtext><mo>+</mo><msub><mi>β</mi><mn>3</mn></msub><mo>×</mo><mtext mathvariant="normal">PHQ-9 initial</mtext><mo>+</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">
+\text{changement PHQ-9} = \beta_0 + \beta_1 \times \text{traitement} + \beta_2 \times \text{âge} + \beta_3 \times \text{PHQ-9 initial} + \cdots
+</annotation></semantics></math></p>
+<p>alors toute la réponse dépend énormément de la justesse de <strong>cette seule équation</strong> : linéarité ou non, interactions oubliées, forme correcte ou non des covariables, etc. Si ce modèle est mal spécifié, l’estimation peut être biaisée. Le <code>TMLE</code>, surtout ici avec <code>Super Learner</code>, est moins prisonnier d’une unique forme imposée à l’avance, parce qu’il s’appuie sur plusieurs algorithmes pour mieux approcher les relations réelles dans les données.</p>
+<p>Par rapport à un <strong>score de propension simple</strong>, le <code>TMLE</code> est aussi plus riche. Un score de propension simple se concentre d’abord sur la question :</p>
+<blockquote class="blockquote">
+<p>quelle est la probabilité d’être traité par <code>iCBT</code> plutôt que par <code>fCBT</code> ?</p>
+</blockquote>
+<p>Puis il essaie de rééquilibrer les groupes à partir de cette probabilité. C’est utile, mais cela fait reposer une grande partie du raisonnement sur le seul modèle d’assignation au traitement. Le <code>TMLE</code>, lui, utilise à la fois l’information sur <strong>qui reçoit quoi</strong> et sur <strong>comment évolue l’outcome</strong>, ce qui est plus complet pour viser l’<code>ATE</code>.</p>
+<p>Autre façon de le dire simplement :</p>
+<ul>
+<li>la régression classique ajuste directement l’outcome ;</li>
+<li>le score de propension ajuste surtout l’exposition ;</li>
+<li>le <code>TMLE</code> essaie de combiner intelligemment les deux pour estimer un paramètre causal précis.</li>
+</ul>
+<p>Enfin, il faut dire clairement ce que le <code>TMLE</code> <strong>ne fait pas</strong>. Il n’invente pas les variables manquantes. Si des facteurs importants ne sont pas mesurés, par exemple l’affinité numérique, la motivation réelle du patient, ou les raisons fines qui ont conduit un clinicien à préférer <code>fCBT</code>, alors même un <code>TMLE</code> très sophistiqué ne peut pas supprimer cette confusion résiduelle. Donc en copie, la bonne formule est :</p>
+<blockquote class="blockquote">
+<p>le <code>TMLE</code> est un outil très puissant pour exploiter au mieux les données observées et approcher une comparaison causale contrefactuelle, mais il reste limité par la qualité et l’exhaustivité des variables mesurées.</p>
+</blockquote>
 <p>Mais il faut rester précis : “supérieur” ne signifie pas “incontestable”. Si des variables décisives ne sont pas mesurées, comme l’affinité numérique ou certains motifs fins d’orientation vers <code>fCBT</code>, le <code>TMLE</code> ne peut pas les inventer. En copie, il faut donc dire : <strong>outil très puissant pour exploiter les données observées, sans supprimer les limites liées aux données non observées</strong>.</p>
 <p><strong>Réponse type courte</strong></p>
-<p>Le <code>TMLE</code> combine un modèle de traitement et un modèle d’outcome pour estimer directement un paramètre causal comme l’<code>ATE</code>. Il est plus robuste qu’une régression unique ou qu’un score de propension isolé, mais il ne corrige pas les confondeurs non mesurés.</p>
+<p>Le <code>TMLE</code> sert à approcher une comparaison <strong>contrefactuelle</strong> : ce qui se serait passé si des patients comparables avaient reçu <code>iCBT</code> ou <code>fCBT</code>. Il combine un modèle du traitement reçu et un modèle de l’outcome, donc il dépend moins d’une seule régression ou d’un seul score de propension. En revanche, il ne corrige pas les confondeurs non mesurés.</p>
 </div>
 </section>
 <section id="question-7" class="level4 unlisted">
