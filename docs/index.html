@@ -148,6 +148,46 @@
       margin-top: 18px;
     }
 
+    .toggle-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .toggle-button {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+    }
+
+    .toggle-button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(15, 95, 103, 0.24);
+    }
+
+    .toggle-button[aria-pressed="true"] {
+      background: linear-gradient(135deg, rgba(15, 95, 103, 0.14), rgba(200, 154, 60, 0.18));
+      border-color: rgba(15, 95, 103, 0.28);
+      color: var(--teal);
+    }
+
+    .toggle-panel {
+      display: none;
+      margin-top: 14px;
+    }
+
+    .toggle-panel.is-active {
+      display: grid;
+      gap: 10px;
+    }
+
     .submenu-item {
       display: block;
       padding: 12px 14px;
@@ -206,20 +246,57 @@
           <p>Accéder aux polys d'annales <code>S2</code> publiés automatiquement depuis le dossier des annales.</p>
 
           <div class="submenu" aria-label="Sous-menu deuxième semestre">
-            <a class="submenu-item" href="poly_revision_nsn.html">Nombre de sujets nécessaires</a>
-            <a class="submenu-item" href="poly_revision_RC_codex.html">Poly RC codex</a>
-            <a class="submenu-item" href="poly_revision_epi_codex.html">Poly EPI codex</a>
-            <a class="submenu-item" href="poly_revision_intermediaires_2026.html">Analyses intermédiaires 2026</a>
-            <a class="submenu-item" href="poly_revisions_epi_2026.html">Poly EPI 2026</a>
-            <a class="submenu-item" href="poly_revisions_RC_2026.html">Poly RC 2026</a>
+            <div class="toggle-bar" role="tablist" aria-label="Catégories deuxième semestre">
+              <button class="toggle-button" type="button" role="tab" id="tab-rc" aria-controls="panel-rc" aria-selected="true" aria-pressed="true" data-target="panel-rc">RC</button>
+              <button class="toggle-button" type="button" role="tab" id="tab-epi" aria-controls="panel-epi" aria-selected="false" aria-pressed="false" data-target="panel-epi">Épi</button>
+              <button class="toggle-button" type="button" role="tab" id="tab-autres" aria-controls="panel-autres" aria-selected="false" aria-pressed="false" data-target="panel-autres">Autres</button>
+            </div>
+
+            <div class="toggle-panel is-active" id="panel-rc" role="tabpanel" aria-labelledby="tab-rc">
+              <a class="submenu-item" href="poly_revision_RC_codex.html">Poly RC codex</a>
+              <a class="submenu-item" href="poly_revisions_RC_2026.html">Poly RC 2026</a>
+              <a class="submenu-item" href="poly_phase2_article_RC_2026.html">Poly phase II a partir de l'article RC 2026</a>
+            </div>
+
+            <div class="toggle-panel" id="panel-epi" role="tabpanel" aria-labelledby="tab-epi">
+              <a class="submenu-item" href="poly_revision_epi_codex.html">Poly EPI codex</a>
+              <a class="submenu-item" href="poly_revisions_epi_2026.html">Poly EPI 2026</a>
+            </div>
+
+            <div class="toggle-panel" id="panel-autres" role="tabpanel" aria-labelledby="tab-autres">
+              <a class="submenu-item" href="poly_revision_nsn.html">Nombre de sujets nécessaires</a>
+              <a class="submenu-item" href="poly_revision_intermediaires_2026.html">Analyses intermédiaires 2026</a>
+            </div>
           </div>
 
           <a class="arrow" href="deuxieme-semestre.html">Voir toute la page S2 <span aria-hidden="true">→</span></a>
         </section>
       </div>
 
-      <p class="meta">Les polys du second semestre, dont <code>poly_revisions_epi_2026.html</code> et <code>poly_revisions_RC_2026.html</code>, sont copiés automatiquement vers <code>docs/</code> après chaque rendu local.</p>
+      <p class="meta">Les polys du second semestre, dont <code>poly_revisions_epi_2026.html</code>, <code>poly_revisions_RC_2026.html</code> et <code>poly_phase2_article_RC_2026.html</code>, sont copiés automatiquement vers <code>docs/</code> après chaque rendu local.</p>
     </section>
   </main>
+  <script>
+    (function () {
+      const buttons = document.querySelectorAll(".toggle-button");
+      const panels = document.querySelectorAll(".toggle-panel");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.getAttribute("data-target");
+
+          buttons.forEach((item) => {
+            const isActive = item === button;
+            item.setAttribute("aria-pressed", String(isActive));
+            item.setAttribute("aria-selected", String(isActive));
+          });
+
+          panels.forEach((panel) => {
+            panel.classList.toggle("is-active", panel.id === targetId);
+          });
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
