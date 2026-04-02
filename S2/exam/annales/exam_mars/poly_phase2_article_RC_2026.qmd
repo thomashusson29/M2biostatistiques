@@ -1,0 +1,1271 @@
+---
+title: "Poly phase II a partir de l'article RC 2026"
+subtitle: "Fang et al., NEJM 2026 : transposer un essai de phase 3 en raisonnement de phase II, question par question"
+lang: fr
+toc: true
+toc-depth: 3
+toc-location: body
+format:
+  html:
+    theme: cosmo
+    css: poly_revision_nsn.css
+    embed-resources: true
+    html-math-method: mathml
+    code-fold: false
+    include-in-header:
+      text: |
+        <script>
+        (function () {
+          const storageKey = "poly-revision-theme";
+          document.documentElement.classList.add("js");
+          let theme = "day";
+          try {
+            const params = new URLSearchParams(window.location.search);
+            const queryTheme = params.get("theme");
+            if (queryTheme === "night" || queryTheme === "day") {
+              theme = queryTheme;
+            } else {
+              const saved = window.localStorage.getItem(storageKey);
+              if (saved === "night" || saved === "day") {
+                theme = saved;
+              } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                theme = "night";
+              }
+            }
+          } catch (error) {}
+          document.documentElement.setAttribute("data-theme", theme);
+        })();
+        </script>
+  pdf:
+    pdf-engine: xelatex
+    documentclass: scrartcl
+    papersize: a4
+    mainfont: "Helvetica Neue"
+    sansfont: "Helvetica Neue"
+    monofont: "Menlo"
+    geometry:
+      - top=18mm
+      - bottom=18mm
+      - left=17mm
+      - right=17mm
+    fontsize: 10.5pt
+    colorlinks: true
+    code-fold: false
+    include-in-header:
+      text: |
+        \usepackage{fontspec}
+        \usepackage{fancyhdr}
+        \usepackage{tocloft}
+        \usepackage{colortbl}
+        \usepackage{etoolbox}
+        \definecolor{PolyInk}{HTML}{18333D}
+        \definecolor{PolySlate}{HTML}{50656F}
+        \definecolor{PolyLine}{HTML}{D6DED9}
+        \definecolor{PolySand}{HTML}{F8F5EF}
+        \AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=PolyInk,urlcolor=PolyInk,citecolor=PolySlate}}
+        \setlength{\parindent}{0pt}
+        \setlength{\parskip}{5pt}
+        \renewcommand{\baselinestretch}{1.06}
+        \setkomafont{disposition}{\bfseries}
+        \addtokomafont{title}{\color{PolyInk}\bfseries}
+        \addtokomafont{subtitle}{\color{PolySlate}}
+        \addtokomafont{section}{\color{PolyInk}\bfseries\fontsize{18}{22}\selectfont}
+        \addtokomafont{subsection}{\color{PolyInk}\bfseries\fontsize{13}{16}\selectfont}
+        \addtokomafont{subsubsection}{\color{PolySlate}\bfseries\fontsize{11}{14}\selectfont}
+        \renewcommand{\contentsname}{Sommaire}
+        \renewcommand{\cftsecfont}{\color{PolyInk}}
+        \renewcommand{\cftsecpagefont}{\color{PolyInk}}
+        \renewcommand{\cftsubsecfont}{\color{PolySlate}}
+        \renewcommand{\cftsubsecpagefont}{\color{PolySlate}}
+        \setlength{\cftbeforesecskip}{4pt}
+        \AtBeginEnvironment{longtable}{\rowcolors{2}{PolySand}{white}}
+        \arrayrulecolor{PolyLine}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[L]{\color{PolySlate}\footnotesize Poly phase II RC 2026}
+        \fancyhead[R]{\color{PolySlate}\footnotesize Transposition pedagogique}
+        \fancyfoot[C]{\color{PolySlate}\footnotesize\thepage}
+        \setlength{\headheight}{14pt}
+        \pretocmd{\section}{\ifnum\value{section}>0\clearpage\fi}{}{}
+editor: source
+---
+
+::: {.cover-banner}
+## Poly phase II a partir de l'article RC 2026 {.cover-title}
+
+### Fang et al., NEJM 2026 : comment raisonner "comme en phase II" a partir d'un article reel de phase 3 {.cover-subtitle}
+
+Document de travail oriente examen : **28 questions pedagogiques**, construites a partir de l'article `OptiTROP-Lung04`, pour **balayer tout le cours sur les essais cliniques de phase II** sans perdre le lien avec le papier.
+:::
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="theme-toolbar">
+  <button id="theme-switch" class="theme-switch" type="button" aria-pressed="false" aria-label="Basculer entre le mode clair et le mode nuit">
+    <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true">&#9790;</span>
+    <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true">&#9728;</span>
+  </button>
+</div>
+```
+:::
+
+::: {.hero}
+Ce poly a un seul objectif : **utiliser l'article `article_RC_2026.pdf` pour raisonner comme si le developpement du medicament etait encore au stade phase II**.
+
+La logique est la suivante :
+
+1. partir des donnees reelles de l'article ;
+2. rappeler ce que dit le cours sur les essais de phase II ;
+3. reconstruire le raisonnement "go / no go" qu'on aurait tenu avant une phase 3 ;
+4. produire des reponses de copie tres claires, argumentees et directement reutilisables.
+
+::: {.chips}
+<span class="chip">Phase II</span>
+<span class="chip">ORR / OS / PFS</span>
+<span class="chip">Fleming</span>
+<span class="chip">Simon</span>
+<span class="chip">Bayesien</span>
+<span class="chip">HTML + PDF</span>
+:::
+:::
+
+::: {.callout-important title="Note methodologique centrale"}
+L'article support est un **vrai essai de phase 3**. Ce poly ne pretend donc jamais que `OptiTROP-Lung04` est un essai de phase II.
+
+Pour chaque question, il faut toujours distinguer :
+
+- **ce que l'article dit vraiment** : chiffres, citations, design, resultats ;
+- **ce que l'on reconstruit pedagogiquement** a partir du cours de phase II ;
+- **ce qu'il faudrait ecrire en copie** si l'examinateur demandait un raisonnement de developpement precoce.
+
+Autrement dit : on ne falsifie pas l'article ; on l'utilise comme **support d'entrainement** pour couvrir tout le cours.
+:::
+
+## Comment utiliser ce poly
+
+1. Lire d'abord la matrice de couverture pour voir comment le cours est entierement balaye.
+2. Travailler ensuite les questions dans l'ordre, qui suit volontairement l'ordre du cours.
+3. Pour chaque reponse, reperer le triptyque :
+   - **appui direct dans l'article** ;
+   - **transposition phase II** ;
+   - **reponse type courte**.
+4. Revenir a la fin sur les trois questions de synthese, qui montrent ce qu'une phase II peut et ne peut pas conclure.
+
+## Matrice de couverture : cours -> questions
+
+| Sous-partie du cours de phase II | Questions du poly |
+|---|---|
+| Nombre de participants des essais de phase II | Q1 |
+| Objectifs des essais de phase II | Q2 |
+| Principe des essais de phase II | Q3 |
+| Essai de phase 2 en oncologie : objectifs specifiques | Q4 |
+| Transition vers un programme pre-phase III | Q5 |
+| Particularites des criteres de jugement en phase II | Q6 |
+| Choix des criteres de substitution en phase II | Q7 |
+| `ORR` en phase II en oncologie | Q8 |
+| `OS` en phase II en oncologie | Q9 |
+| Hierarchie des criteres et articulation `ORR` / `PFS` / `OS` | Q10 |
+| Choix du meilleur critere principal pour ce dossier | Q11 |
+| Logique `go / no go` a partir d'un critere intermediaire | Q12 |
+| Nombre de sujets et familles de schemas | Q13 |
+| Fleming a une etape | Q14 |
+| Exemple chiffre de Fleming | Q15 |
+| Plans a plusieurs etapes | Q16 |
+| Methode de Gehan a 2 etapes | Q17 |
+| Variation Fleming a plusieurs etapes | Q18 |
+| Plan a 2 etapes de Simon | Q19 |
+| Plan de Ensign | Q20 |
+| Test triangulaire | Q21 |
+| Plan bayesien : principe | Q22 |
+| Plan bayesien : application concrete a l'article | Q23 |
+| Phase II randomisee avec groupe temoin | Q24 |
+| Phase II "pick the winner" | Q25 |
+| Choix du schema de phase II le plus pertinent | Q26 |
+| Ce qu'une phase II n'aurait pas permis de conclure | Q27 |
+| Synthese examen de la phase II hypothetique vers la phase III | Q28 |
+
+## Article et contexte
+
+L'article support est **Fang et al., NEJM 2026**, essai `OptiTROP-Lung04`, comparant `sacituzumab tirumotecan` (`sac-TMT`) a `pemetrexed + platinum-based chemotherapy` chez des patients avec `NSCLC` non squameux mute `EGFR`, localement avance ou metastatique, apres echec d'`EGFR-TKI`.
+
+Les faits bruts a garder en tete sont les suivants :
+
+- essai de **phase 3**, multicentrique, randomise `1:1`, ouvert ;
+- `376` patients randomises, `188` par bras ;
+- critere principal : `PFS` evaluee par revue independante en aveugle ;
+- `ORR` : `60.6%` vs `43.1%` ;
+- `DCR` : `87.2%` vs `80.3%` ;
+- mediane de duree de reponse : `8.3` vs `4.2` mois ;
+- `OS` : `HR 0.60`, `P = 0.001`, survie a 18 mois `65.8%` vs `48.0%` ;
+- effets indesirables grades `3+` : `58.0%` vs `53.8%` ;
+- effets indesirables graves lies au traitement : `9.0%` vs `17.6%`.
+
+## 1. Principes et objectifs de la phase II
+
+### Theme 1. Du developpement precoce a la logique "go / no go"
+
+#### Question 1 {.unlisted}
+
+> L'article rapporte `376` patients randomises dans un essai de phase 3. Si l'on raisonne en phase II a partir du cours, comment discuter le **nombre habituel de participants** et pourquoi ce point change completement la lecture du papier ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous distinguer ce qu'on attend d'un effectif de phase II et d'un effectif de phase III, puis en tirer une consequence methodologique claire ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "Overall, 376 patients underwent randomization, with 188 assigned to each group."</p>
+    <p><strong>A relier a la reponse</strong> : ce chiffre place d'emblee l'article dans une logique confirmatoire, tres loin des effectifs habituels de phase II rappeles dans le cours.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le cours rappelle qu'un essai de phase II inclut en general un **effectif plus limite**, souvent **jusqu'a environ 120 patients**, alors qu'une phase III inclut plutot **plusieurs centaines** voire davantage de participants. Le papier dit explicitement : `"376 patients underwent randomization"`. Ce seul chiffre suffit deja a montrer qu'on est dans un monde de **confirmation** et non de simple depistage d'activite.
+
+En phase II, on cherche surtout a savoir si un traitement est **suffisamment prometteur** pour meriter une phase III. On accepte donc des effectifs plus modestes, tant qu'ils permettent de repondre a une question pratique du type : "voit-on un signal antitumoral compatible avec un developpement ulterieur ?". A l'inverse, ici, l'effectif est dimensionne pour une comparaison robuste de survie sans progression et pour soutenir ensuite une analyse d'`OS`.
+
+La bonne idee de copie est de dire que **le nombre de sujets traduit l'objectif de l'essai**. Un effectif large indique une ambition confirmatoire, alors qu'un effectif de phase II est volontairement plus restreint pour des raisons a la fois **scientifiques**, **ethiques** et **economiques** : il faut eviter d'exposer trop de patients a un traitement dont l'interet n'est pas encore solidement etabli.
+
+**Exemple concret**
+
+Si l'on partait de l'`ORR` observe dans l'article (`60.6%`), une phase II pourrait chercher a verifier ce signal sur quelques dizaines de patients. On n'aurait pas besoin de `376` sujets pour conclure qu'il existe une activite antitumorale nette ; on aurait besoin d'un effectif beaucoup plus petit pour trancher un `go / no go`.
+
+**Reponse type courte**
+
+Le chiffre de `376` patients est typique d'un essai confirmatoire de phase III et non d'une phase II. En phase II, l'effectif est volontairement plus limite, car l'objectif est de detecter un signal d'activite et de decider si une evaluation plus large est justifiee.
+:::
+
+#### Question 2 {.unlisted}
+
+> Quels seraient les **objectifs generaux d'un essai de phase II** si l'on replacait `sac-TMT` plus tot dans son developpement clinique ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous restituer les objectifs du cours sans les reciter abstraitement, en les appliquant a un dossier concret ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "In the phase 1-2 KL264-01 study, sac-TMT showed encouraging antitumor activity..."</p>
+    <p><strong>A relier a la reponse</strong> : l'article rappelle lui-meme qu'un developpement precoce a deja servi a montrer un signal d'activite avant la phase 3.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le cours attribue a la phase II plusieurs objectifs majeurs : **etudier l'effet therapeutique**, **approcher la dose optimale**, **poursuivre l'evaluation de la securite** et guider la decision de poursuite du developpement. Applique a `sac-TMT`, cela veut dire qu'une phase II aurait eu pour role de verifier qu'apres l'echec des `EGFR-TKI`, ce traitement produit un signal d'efficacite suffisamment convaincant pour justifier une phase III.
+
+L'article donne un argument direct pour cette lecture : il rappelle que le programme precoce `KL264-01` a montre une `"encouraging antitumor activity"`. C'est exactement l'esprit de la phase II : pas encore demontrer definitivement un benefice clinique majeur sur la survie globale, mais montrer que le medicament **fait assez bien pour meriter un test confirmatoire**.
+
+Il faut aussi ajouter que la phase II sert a mieux cerner la **tolerance**. Le papier final rapporte par exemple beaucoup de toxicite hematologique et de stomatite, ce qui montre qu'avant la phase III il etait essentiel de comprendre la frequence et la gerabilite de ces evenements, ainsi que la faisabilite de la dose retenue.
+
+**Exemple concret**
+
+Un objectif de phase II aurait pu etre : estimer l'`ORR`, la `DOR`, la toxicite de grade `3+`, puis decider si l'association "activite interessante + toxicite acceptable" autorise le passage en phase III.
+
+**Reponse type courte**
+
+En phase II, `sac-TMT` aurait d'abord ete evalue pour son signal d'efficacite, sa tolérance et la pertinence de sa dose. Le but n'aurait pas ete de prouver definitivement un benefice de survie, mais de decider s'il fallait passer a une phase III.
+:::
+
+#### Question 3 {.unlisted}
+
+> Rappelez le **principe general** d'un essai de phase II. Comment l'appliquer a cet article si l'on adopte une logique "go / no go" ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous formuler la philosophie des phases precoces et la relier a une regle de decision ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The primary end point was progression-free survival..."</p>
+    <p><strong>A relier a la reponse</strong> : le papier vise une preuve comparative sur la survie ; la phase II, elle, vise plutot une decision de poursuite a partir d'un signal plus precoce.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le principe general d'une phase II, tel qu'il est rappele dans le cours, est simple : ce sont les **premieres etudes d'efficacite chez le malade**, avec une logique de **selection**. On ne demande pas encore au traitement de battre de facon definitive un standard sur un critere dur. On lui demande d'etre **suffisamment prometteur** pour justifier la suite.
+
+Si l'on transpose cette logique a l'article, on dirait qu'avant de lancer `OptiTROP-Lung04`, il fallait etablir une regle du type : "si `sac-TMT` atteint un niveau d'`ORR` ou de `DOR` superieur a un seuil juge cliniquement pertinent, alors on garde le produit ; sinon on l'abandonne". Le papier, lui, est deja au stade suivant : il ne cherche plus un simple signal, il teste un vrai benefice comparatif de `PFS` et d'`OS`.
+
+La bonne copie doit insister sur le contraste : **phase II = logique de tri**, **phase III = logique de confirmation**. C'est ce contraste qui permet ensuite de comprendre pourquoi tant de plans de phase II s'appuient sur des seuils de succes plutot que sur une comparaison complete de survie.
+
+**Exemple concret**
+
+Une regle `go / no go` tres simple aurait pu etre : "si l'`ORR` verifiee par un plan predefini est suffisamment elevee et si la toxicite reste gerable, alors on lance la phase III".
+
+**Reponse type courte**
+
+Le principe d'une phase II est de detecter rapidement un signal d'efficacite chez des patients pour prendre une decision `go / no go`. Dans ce dossier, cela reviendrait a juger si `sac-TMT` montre une activite suffisante avant de passer a un essai confirmatoire comme celui publie dans le NEJM.
+:::
+
+#### Question 4 {.unlisted}
+
+> En oncologie, quels sont les **objectifs specifiques** d'une phase II, et comment cet article permet-il de les illustrer ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous passer des objectifs generaux aux objectifs specifiquement oncologiques ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The percentage of patients with an objective response... was 60.6%... and 43.1%..."</p>
+    <p><strong>A relier a la reponse</strong> : l'activite antitumorale objective est typiquement l'un des premiers signaux qu'une phase II oncologique cherche a capter.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le cours rappelle qu'en oncologie, l'objectif principal d'une phase II est souvent la **premiere estimation de l'activite antitumorale** d'un nouveau traitement. Les objectifs secondaires portent sur la **tolerance**, parfois la **pharmacocinetique**, et la preparation de la phase III.
+
+L'article illustre tres bien cela, meme s'il est de phase III. Quand on lit que l'`ORR` est de `60.6%` avec `sac-TMT`, on voit exactement le type de signal qu'une phase II aurait cherche a identifier tres tot : le medicament fait-il regresser les tumeurs ? La `DOR` de `8.3` mois et le `DCR` de `87.2%` donnent ensuite une profondeur et une durabilite a ce signal.
+
+En pratique, une phase II oncologique dans ce dossier aurait probablement vise a documenter trois choses : **la reponse tumorale**, **la duree de cette reponse**, et **la toxicite reellement observee en population cible**. Ce triptyque aurait ensuite servi a construire l'hypothese et le comparateur de la phase III.
+
+**Exemple concret**
+
+Avec `ORR 60.6%` et une duree mediane de reponse de `8.3` mois, on aurait pu dire : "le traitement ne provoque pas seulement une reponse radiologique, il produit aussi des reponses prolonges, ce qui soutient un developpement ulterieur".
+
+**Reponse type courte**
+
+En oncologie, la phase II cherche surtout a mesurer l'activite antitumorale initiale d'un traitement, puis sa tolerance. L'article illustre bien ce point avec l'`ORR`, le `DCR` et la duree de reponse, qui sont justement les signaux precoces qu'une phase II aurait cherches.
+:::
+
+#### Question 5 {.unlisted}
+
+> En quoi ce dossier est-il **coherent avec un enchainement developpemental phase I / phase II / phase III** ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous replacer l'article dans un continuum de developpement du medicament ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "In the phase 1-2 KL264-01 study..." puis "the phase 2, randomized OptiTROP-Lung03 trial..."</p>
+    <p><strong>A relier a la reponse</strong> : l'article raconte deja le cheminement classique d'un candidat medicament avant une phase 3 confirmatoire.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le papier est tres utile pedagogiquement parce qu'il mentionne explicitement les etapes anterieures du developpement. D'abord, une phase `1-2` a montre une `"encouraging antitumor activity"`. Ensuite, le papier rappelle l'essai `OptiTROP-Lung03`, deja randomise, qui soutenait le signal clinique. Enfin vient `OptiTROP-Lung04`, essai de phase 3 confirmatoire.
+
+Cet enchainement est exactement ce qu'on attend d'un developpement rationnel en oncologie : **tolerance et dose**, puis **signal d'activite**, puis **confirmation comparative**. Cela permet de dire qu'une phase III robuste n'arrive pas "de nulle part" ; elle est normalement nourrie par des donnees precoces qui ont deja diminue l'incertitude.
+
+En copie, il faut montrer que la phase II sert de **pont** entre la phase I et la phase III. Elle ne remplace pas la phase III, mais elle la rend defendable. C'est pourquoi un bon dossier de phase III s'appuie souvent sur des donnees de phase II deja positives sur l'activite antitumorale.
+
+**Exemple concret**
+
+Dans ce dossier, la phase `1-2` aurait permis de retenir la dose et d'observer les premieres reponses ; la phase II randomisee aurait consolide le signal ; la phase III vient ensuite verifier si ce signal se traduit par un vrai benefice clinique.
+
+**Reponse type courte**
+
+Le dossier suit une logique classique de developpement : premiers signaux d'activite en phase precoce, consolidation en phase II, puis confirmation comparative en phase III. L'article lui-meme rappelle cette progression avec `KL264-01`, `OptiTROP-Lung03`, puis `OptiTROP-Lung04`.
+:::
+
+## 2. Criteres de jugement en phase II
+
+### Theme 2. Que mesurer quand on n'est pas encore en phase III
+
+#### Question 6 {.unlisted}
+
+> Quelles sont les **particularites des criteres de jugement en phase II** et pourquoi la lecture de cet article aide-t-elle a les comprendre ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous expliquer pourquoi les criteres de phase II ne sont pas toujours ceux de phase III ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The primary end point was progression-free survival..." et "Overall survival was a hierarchically tested key secondary end point."</p>
+    <p><strong>A relier a la reponse</strong> : l'article montre un schema confirmatoire ; le cours explique qu'en phase II, on utilise souvent des criteres plus precoces.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le cours insiste sur le fait qu'en phase II, le critere principal est **rarement le futur critere principal de phase III**. Pourquoi ? Parce qu'en phase II il faut une information **plus rapide**, disponible pour chaque patient et exploitable assez tot a l'echelle de l'etude. On utilise donc souvent des **criteres intermediaires**.
+
+L'article, lui, est deja dans une logique confirmatoire. Il choisit la `PFS` comme critere principal et reserve l'`OS` comme critere secondaire cle hierarchise. Cette architecture est adaptee a une phase III oncologique. Mais justement, cela fait ressortir le contraste : si l'on etait encore en phase II, on aurait probablement privilegie un critere **encore plus precoce**, comme l'`ORR`, la `DOR`, ou une combinaison de reponse et de tolerance.
+
+La bonne copie doit donc dire que les criteres de phase II doivent etre **rapides, sensibles au signal antitumoral et operables sur de petits effectifs**. Ils ne sont pas moins interessants ; ils repondent simplement a une autre question.
+
+**Exemple concret**
+
+Dans le papier, l'`OS` est positive, mais elle demande `18.9` mois de suivi median. Une vraie phase II n'aurait pas attendu aussi longtemps comme critere principal de decision.
+
+**Reponse type courte**
+
+En phase II, on choisit souvent des criteres plus precoces que ceux de la phase III, car l'objectif est de detecter rapidement un signal d'activite. L'article illustre ce contraste : il est deja dimensionne pour `PFS` et `OS`, alors qu'une phase II aurait probablement privilegie un critere intermediaire.
+:::
+
+#### Question 7 {.unlisted}
+
+> Comment discuter le **choix d'un critere de substitution** dans ce dossier, en particulier entre `ORR`, `PFS` et `OS` ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous expliquer ce qu'est un surrogate endpoint et ses limites ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "The primary end point was progression-free survival..."</p>
+    <p><strong>A relier a la reponse</strong> : l'article lui-meme utilise un critere qui n'est pas l'`OS`, ce qui ouvre naturellement la discussion sur les criteres de substitution.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le cours rappelle qu'un critere de substitution est un critere intermediaire suppose capter tout ou partie de l'effet du traitement sur un critere plus dur, comme le deces. En oncologie, `ORR` et `PFS` sont les candidats les plus frequents. Dans ce dossier, `PFS` est choisie comme critere principal de phase III, ce qui montre qu'elle est ici jugee suffisamment informative pour une comparaison confirmatoire.
+
+Si l'on se replacait en phase II, le choix du surrogate devrait etre plus strictement pragmatique. `ORR` est tres rapide et simple a obtenir. `PFS` est plus riche mais plus lente et plus couteuse en suivi. `OS` reste le critere ultime, mais il est trop tardif pour la plupart des decisions de phase II.
+
+La bonne facon de raisonner est la suivante : un surrogate doit etre **mesurable rapidement**, **sensible a l'activite du traitement** et **cliniquement interpretable**. Il ne doit pas etre traite comme une verite absolue. Une phase II peut donc s'appuyer sur `ORR` ou `PFS`, mais la copie doit rappeler qu'il s'agit d'un **compromis** entre rapidite et pertinence clinique.
+
+**Exemple concret**
+
+Avec `ORR 60.6%`, `DOR 8.3 mois` et `PFS` tres favorable, le dossier montre que plusieurs surrogate endpoints pointent dans la meme direction. C'est rassurant pour un developpement, mais cela ne supprime pas le besoin d'une phase III.
+
+**Reponse type courte**
+
+Dans ce dossier, `ORR` et `PFS` sont des criteres de substitution plausibles pour une phase II, car ils donnent une information plus rapide que l'`OS`. Il faut cependant rappeler qu'ils restent des criteres intermediaires et qu'ils ne remplacent pas la confirmation ulterieure sur des criteres plus cliniques.
+:::
+
+#### Question 8 {.unlisted}
+
+> Pourquoi l'`ORR` est-elle un **bon candidat de critere principal** en phase II oncologique dans ce dossier ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous exposer les avantages et les limites de l'`ORR` de facon appliquee ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "Objective response... 114 (60.6%)... 81 (43.1%)."</p>
+    <p><strong>A relier a la reponse</strong> : le papier donne une mesure nette, precoce et radiologique de l'activite antitumorale, exactement le type de signal souvent recherche en phase II.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+L'`ORR` est classiquement tres attractive en phase II oncologique parce qu'elle mesure directement une **reponse tumorale objective**, selon des criteres d'imagerie standardises. Dans ce dossier, le signal est fort : `60.6%` de reponses avec `sac-TMT`. Pour un developpement precoce, c'est une information tres puissante car elle montre que le medicament ne se contente pas de stabiliser ; il provoque une regression tumorale chez un grand nombre de patients.
+
+Le cours rappelle les avantages de l'`ORR` : c'est un critere relativement **rapide**, **facile a comprendre**, **comparable entre etudes**, et bien adapte au repérage d'activite en oncologie. Ce sont exactement les qualites qu'on cherche en phase II.
+
+Il faut toutefois signaler ses limites : l'`ORR` reduit l'information a une variable binaire repondeur / non repondeur ; elle depend de la qualite de l'evaluation radiologique ; et elle n'est pas parfaitement corrigee a l'`OS`. En copie, il faut donc dire qu'elle est **tres utile pour lancer un developpement**, mais insuffisante a elle seule pour clore la discussion.
+
+**Exemple concret**
+
+Si une phase II avait predefini un seuil d'`ORR` minimal acceptable a `40%`, l'`ORR` observee de `60.6%` serait clairement compatible avec une decision `go`.
+
+**Reponse type courte**
+
+L'`ORR` est un bon critere de phase II ici parce qu'elle donne une mesure rapide et objective de l'activite antitumorale. Avec `60.6%` de reponses sous `sac-TMT`, elle aurait fourni un signal tres fort pour justifier la poursuite du developpement.
+:::
+
+#### Question 9 {.unlisted}
+
+> Pourquoi l'`OS` est-elle **moins adaptee comme critere principal de phase II**, meme si l'article montre un resultat positif sur ce critere ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous ne pas survaloriser l'`OS` quand la question porte sur une phase II ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "After a median follow-up of 18.9 months..." puis "Overall survival... hazard ratio for death, 0.60."</p>
+    <p><strong>A relier a la reponse</strong> : l'`OS` est informative mais longue a maturer, ce qui limite son utilite comme critere principal en phase II.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+L'`OS` est le critere le plus robuste cliniquement, mais le cours rappelle qu'elle est **peu pratique en phase II**. Elle necessite un suivi long, un plus grand nombre d'evenements et elle peut etre brouillee par les traitements recus apres la progression. Tout cela est visible ici : l'article a besoin d'un suivi median de `18.9` mois pour produire un signal d'`OS`.
+
+Autrement dit, l'`OS` est excellente pour confirmer, moins bonne pour trier rapidement. Une phase II a besoin d'un critere qui permette une decision precoce ; sinon elle perd sa fonction de filtre developpemental.
+
+La bonne copie doit donc tenir un discours nuance : l'`OS` reste le critere le plus parlant pour le patient, mais ce n'est pas pour cela qu'il doit devenir automatiquement le critere principal de phase II. Il faut choisir un critere adapte a la **temporalite de la decision**.
+
+**Exemple concret**
+
+Ici, l'`OS` a 18 mois est `65.8%` vs `48.0%`. C'est un resultat fort, mais il arrive trop tard pour etre l'outil principal d'un `go / no go` precoce.
+
+**Reponse type courte**
+
+L'`OS` est cliniquement tres pertinente mais trop lente pour la plupart des essais de phase II. Meme si l'article montre un beau resultat sur l'`OS`, une vraie phase II aurait plus probablement utilise un critere plus precoce comme l'`ORR` ou la `PFS`.
+:::
+
+#### Question 10 {.unlisted}
+
+> Comment hierarchiser `ORR`, `PFS` et `OS` dans une **strategie de developpement** pour `sac-TMT` ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous articuler les criteres entre eux plutot que les opposer brutalement ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article donne `ORR 60.6%`, `DOR 8.3 mois`, `PFS` favorable et `OS` favorable.</p>
+    <p><strong>A relier a la reponse</strong> : l'interet pedagogique est justement que tous les niveaux de signal vont dans le meme sens.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+La bonne hierarchie n'est pas de dire qu'un critere "vaut" et les autres non. Elle est de dire que **chaque critere repond a une etape differente du developpement**. En phase II, `ORR` est souvent le plus utile pour depister rapidement une activite. `PFS` devient tres interessante quand on veut aller vers une comparaison plus robuste ou documenter la duree du benefice. `OS` sert surtout a la confirmation finale.
+
+Dans ce dossier, cette hierarchie fonctionne tres bien. L'`ORR` donne le signal precoce. La `DOR` et la `PFS` montrent que la reponse n'est pas purement cosmetique ou trop courte. L'`OS` vient ensuite verifier que le benefice se traduit par un effet clinique plus dur.
+
+Une copie de bon niveau dira donc : **`ORR` pour detecter, `PFS` pour consolider, `OS` pour confirmer**. C'est une phrase simple, mais tres structurante.
+
+**Exemple concret**
+
+On peut resumer le dossier ainsi : `ORR 60.6%` -> activite ; `DOR 8.3 mois` et `PFS` amelioree -> durabilite ; `HR OS 0.60` -> confirmation clinique.
+
+**Reponse type courte**
+
+Dans une strategie de developpement, `ORR` sert a depister rapidement l'activite, `PFS` a consolider la duree du benefice, et `OS` a confirmer l'interet clinique final. L'article est pedagogique parce qu'il aligne favorablement ces trois niveaux.
+:::
+
+#### Question 11 {.unlisted}
+
+> Si vous deviez choisir **un seul critere principal de phase II** pour ce dossier, lequel retiendriez-vous et pourquoi ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous choisir et justifier, pas seulement enumerer des options ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "Objective response... 60.6%" et "The primary end point was progression-free survival..."</p>
+    <p><strong>A relier a la reponse</strong> : l'article autorise une vraie discussion entre le critere rapide `ORR` et le critere plus riche mais plus lent `PFS`.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Dans ce dossier, le meilleur choix de critere principal de phase II serait le plus probablement **l'`ORR`**, eventuellement completee par la `DOR` comme element cle secondaire. Pourquoi ? Parce qu'il s'agit d'un traitement antitumoral cible, dans une situation de resistance therapeutique, et que l'on cherche d'abord a savoir si le medicament provoque une reponse suffisamment nette pour justifier une phase III.
+
+La `PFS` serait defendable, mais elle demande plus de suivi et davantage d'evenements. Elle est donc moins economique en temps et en information. L'`OS`, comme on l'a vu, arrive encore plus tard. La `DOR` ne suffit pas seule comme critere principal, car elle ne concerne que les repondeurs.
+
+Le bon arbitrage est donc pragmatique : **`ORR` comme moteur principal de decision**, `DOR` pour qualifier la solidite du signal, et toxicite pour juger de la faisabilite.
+
+**Exemple concret**
+
+Un protocole de phase II aurait pu retenir : critere principal `ORR` selon `RECIST 1.1`, criteres secondaires `DOR`, `DCR`, toxicite grade `3+`, puis `PFS` exploratoire.
+
+**Reponse type courte**
+
+Je retiendrais l'`ORR` comme critere principal de phase II, car elle est rapide, objective et tres adaptee au depistage d'activite antitumorale. La `DOR` et la toxicite viendraient ensuite dire si ce signal est suffisamment solide pour meriter une phase III.
+:::
+
+#### Question 12 {.unlisted}
+
+> Comment raisonner en **`go / no go`** a partir d'un critere intermediaire dans ce dossier ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous transformer un resultat d'activite en decision de developpement ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "Objective response... 60.6%" ; "Median response duration... 8.3 months."</p>
+    <p><strong>A relier a la reponse</strong> : le dossier fournit precisement les ingredients qu'une phase II utiliserait pour argumenter un passage en phase III.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+La logique `go / no go` consiste a predefinir un **niveau minimal d'activite acceptable**, puis a regarder si les resultats l'atteignent sans toxicite prohibitive. Dans ce dossier, si une phase II avait fixe un seuil minimal d'`ORR`, le resultat observe (`60.6%`) aurait tres probablement soutenu une decision `go`.
+
+Mais la bonne pratique n'est pas de s'arreter a un seul chiffre. Il faut aussi regarder la **duree des reponses** (`8.3` mois), la **disease control** (`87.2%`) et la **gerabilite de la toxicite**. C'est l'ensemble de ces elements qui transforme un signal de reponse en projet credible de phase III.
+
+La copie doit donc montrer qu'une decision `go / no go` est a la fois **statistique** et **clinique**. Un traitement peut passer un seuil mathematique tout en restant peu interessant si la toxicite est excessive ou si les reponses sont trop breves.
+
+**Exemple concret**
+
+Si le seuil minimal acceptable etait une `ORR` de `40%` avec une toxicite gerable, le couple `ORR 60.6% + DOR 8.3 mois` irait clairement dans le sens d'un `go`.
+
+**Reponse type courte**
+
+Une logique `go / no go` impose un seuil predefini d'activite puis verifie si le traitement l'atteint sans toxicite inacceptable. Dans ce dossier, l'`ORR` elevee et la duree de reponse prolongée auraient fortement plaide pour un passage en phase III.
+:::
+
+## 3. Schemas d'etude des essais cliniques de phase II
+
+### Theme 3. Quel plan aurait-on pu choisir avant `OptiTROP-Lung04` ?
+
+#### Question 13 {.unlisted}
+
+> En phase II, comment discuter a la fois le **nombre de sujets** et les **grandes familles de schemas** possibles pour ce dossier ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous passer des objectifs au choix pratique du design ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article decrit un essai randomise `1:1` de `376` patients.</p>
+    <p><strong>A relier a la reponse</strong> : une phase II pourrait etre beaucoup plus petite et reposer soit sur un bras unique, soit sur un schema randomise selon la question posee.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le cours rappelle que le nombre de sujets en phase II doit rester **limite**, pour des raisons de cout, de rapidite, mais aussi d'ethique : il faut minimiser l'exposition de patients a un traitement encore incertain. Cela conduit a choisir des schemas sobres et une question simple.
+
+Les grandes familles possibles sont ensuite celles du cours : **bras unique**, **phase II randomisee non comparative**, **phase II randomisee comparative**, et schemas de **selection** de type `pick the winner`. Le choix depend surtout de la question : veut-on simplement savoir si `sac-TMT` montre une activite suffisante ? ou deja le comparer a un standard ?
+
+Dans ce dossier, un bras unique aurait pu suffire tres tot si l'objectif etait seulement de depister une activite. Mais dans un contexte d'oncologie avancee avec traitements de reference existants, un schema randomise de phase II aurait aussi ete defendable pour limiter certains biais de selection et mieux situer la reponse observee.
+
+**Exemple concret**
+
+Avant la phase III, on aurait pu imaginer :
+
+- un essai a bras unique si l'objectif etait de verifier rapidement une `ORR` prometteuse ;
+- une phase II randomisee si l'objectif etait deja de comparer `sac-TMT` a un controle pertinent.
+
+**Reponse type courte**
+
+En phase II, l'effectif doit rester limite et le choix du design depend de la question : simple depistage d'activite, comparaison exploratoire, ou selection entre options. Dans ce dossier, un bras unique ou une phase II randomisee auraient ete les deux grandes options realistes.
+:::
+
+#### Question 14 {.unlisted}
+
+> Rappelez le principe d'un **essai de phase II a une etape selon Fleming**. En quoi ce plan pourrait-il convenir a `sac-TMT` ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous exposer proprement un plan de Fleming sans vous perdre dans le formalisme ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "Objective response... 60.6%."</p>
+    <p><strong>A relier a la reponse</strong> : un plan de Fleming a un seul bras pourrait justement tester si une telle reponse depasse un niveau minimal acceptable.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Dans un plan de Fleming a une etape, on inclut `N` patients, on observe un nombre de succes `x`, puis on compare ce nombre a un seuil `r`. Si `x` est superieur ou egal a ce seuil, on rejette l'hypothese d'inefficacite et on considere le traitement comme suffisamment prometteur.
+
+Le cours formalise cela avec deux niveaux : `p0`, taux de succes juge insuffisant, et `p1`, taux de succes juge suffisamment interessant. On fixe ensuite `alpha`, `beta` et la taille `N`. C'est un plan tres adapte a une phase II a bras unique quand la question est simplement : "le traitement est-il assez actif pour etre garde ?"
+
+Pour `sac-TMT`, un plan de Fleming aurait du sens si l'on voulait tester l'`ORR` dans une population EGFR mutee en echec de `TKI`, sans comparer d'emblee a un bras controle. Il aurait fourni une premiere decision simple et rapide.
+
+**Exemple concret**
+
+On pourrait poser : `p0 = 20%` comme niveau insuffisant et `p1 = 40%` comme niveau interessant. Si l'`ORR` observee se rapproche de ce que rapporte l'article (`60.6%`), le traitement franchirait tres probablement la barre attendue.
+
+**Reponse type courte**
+
+Le plan de Fleming a une etape teste, sur un seul bras, si le taux de succes observe depasse un seuil predefini. Il conviendrait ici si l'on voulait verifier rapidement que l'`ORR` de `sac-TMT` est suffisamment elevee pour justifier une phase III.
+:::
+
+#### Question 15 {.unlisted}
+
+> A partir de l'**exemple chiffre** du cours sur Fleming, comment montrer concretement que `sac-TMT` aurait probablement franchi une etape de selection precoce ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous utiliser un exemple de cours pour eclairer un article ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "Objective response... 114 (60.6%)."</p>
+    <p><strong>A relier a la reponse</strong> : l'`ORR` observee est bien au-dessus des seuils pedagogiques classiques utilises dans le cours pour illustrer Fleming.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le cours donne un exemple pedagogique : `p0 = 20%`, `p1 = 40%`, avec une conclusion d'efficacite si le nombre de succes depasse un certain seuil. L'interet de cet exemple n'est pas de reproduire exactement le protocole de l'article, mais de comprendre la logique. Si l'on observe une reponse d'environ `60.6%`, on est nettement au-dessus des niveaux classiquement consideres comme "minimum cliniquement interessant" dans l'exemple de cours.
+
+Autrement dit, meme sans recalculer un plan exact, on peut dire que l'article fournit un signal qui aurait ete tres favorable dans un cadre de selection simple. Une phase II de type Fleming aurait probablement ete positive, car le taux de reponse observe n'est pas seulement un peu au-dessus du seuil ; il est **largement** au-dessus.
+
+La bonne copie doit insister sur le mot **ordre de grandeur**. On n'a pas a faire semblant que le protocole NEJM a ete construit comme un Fleming. On dit simplement que, pedagogiquement, les chiffres du papier rendent credible une telle decision.
+
+**Exemple concret**
+
+Si l'exemple de cours attendait au moins `40%` de reponses pour juger le traitement interessant, une `ORR` de `60.6%` indique un excedent absolu de `20.6` points. C'est tres au-dessus d'un simple frisson statistique.
+
+**Reponse type courte**
+
+En reprenant l'exemple du cours, l'`ORR` de `60.6%` de `sac-TMT` est bien superieure a un seuil pedagogique d'activite du type `40%`. Cela suggere qu'un plan simple de type Fleming aurait probablement conclu a un signal suffisant pour poursuivre le developpement.
+:::
+
+#### Question 16 {.unlisted}
+
+> Quel est l'interet general d'un **plan a plusieurs etapes** en phase II, et pourquoi cette logique serait-elle defendable pour `sac-TMT` ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous expliquer le gain ethique et scientifique des arrets precoces ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : le traitement expose a des toxicites frequentes, notamment hematologiques et stomatite.</p>
+    <p><strong>A relier a la reponse</strong> : quand un traitement est actif mais non trivial en termes de toxicite, l'idee d'un arret precoce pour inefficacite prend tout son sens.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Un plan a plusieurs etapes permet d'inclure un premier groupe de patients, puis de realiser une analyse intermediaire pour decider soit d'**arreter pour inefficacite**, soit de **poursuivre**. Le but est double : ne pas continuer inutilement un programme mediocre, et reduire le nombre de patients exposes.
+
+Dans ce dossier, cette logique est defendable car `sac-TMT` n'est pas un traitement neutre. L'article rapporte `58.0%` d'evenements grades `3+` et une toxicite specifique comme la stomatite. Cela ne veut pas dire que le produit est trop toxique, mais cela suffit a rappeler qu'en phase II, on a interet a disposer d'une possibilite d'arret precoce si le signal d'efficacite ne suit pas.
+
+Il faut aussi rappeler que les plans multi-etapes ne servent pas seulement a economiser des sujets ; ils servent a **proteger la logique du developpement**. Un mauvais signal precoce peut conduire a fermer rapidement un programme, tandis qu'un bon signal autorise la continuation avec une meilleure legitimite.
+
+**Exemple concret**
+
+On pourrait imaginer une premiere etape de `15` a `20` patients avec evaluation de l'`ORR`. Si aucune activite convaincante n'apparait, le programme s'arrete sans aller jusqu'a une phase III.
+
+**Reponse type courte**
+
+Les plans a plusieurs etapes permettent un arret precoce, surtout pour inefficacite, afin de limiter l'exposition des patients et les couts. Cette logique serait pertinente ici, car `sac-TMT` a une vraie toxicite et devrait donc prouver rapidement une activite suffisante pour continuer son developpement.
+:::
+
+#### Question 17 {.unlisted}
+
+> Comment presenter la **methode de Gehan a 2 etapes** dans ce dossier ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous distinguer Gehan des autres plans multi-etapes ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article montre une activite objective importante avec `sac-TMT`.</p>
+    <p><strong>A relier a la reponse</strong> : la methode de Gehan cherche justement a detecter tres tot s'il existe au moins des succes initiaux qui justifient d'aller plus loin.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+La methode de Gehan a 2 etapes repose sur une idee tres pragmatique : commencer par un petit nombre de patients, puis regarder s'il existe **au moins un signal de succes**. S'il n'y a aucun succes, on arrete. S'il existe un debut d'activite, on passe a la deuxieme etape pour mieux estimer le taux de reponse.
+
+Ce plan est donc plus proche d'une logique de **depistage initial** que d'un test comparatif formalise. Il convient particulierement quand on ne veut pas manquer un traitement potentiellement actif, tout en evitant de poursuivre un candidat manifestement inerte.
+
+Applique a `sac-TMT`, ce plan aurait eu du sens tres tot dans le developpement, avant meme une phase II randomisee, surtout si l'on voulait verifier rapidement l'existence d'une activite dans la population EGFR mutee apres `TKI`.
+
+**Exemple concret**
+
+Premiere etape : quelques patients. Si l'on n'observe aucune reponse objective, on arrete. Si l'on observe plusieurs reponses rapides, on poursuit pour mieux quantifier l'activite. Les chiffres finaux du NEJM montrent qu'en pratique le produit etait loin d'un scenario sans succes.
+
+**Reponse type courte**
+
+La methode de Gehan sert a detecter rapidement s'il existe au moins un signal d'efficacite. Dans ce dossier, elle aurait pu etre utilisee tres tot pour verifier que `sac-TMT` produit bien des reponses avant de passer a un plan plus structure.
+:::
+
+#### Question 18 {.unlisted}
+
+> Qu'apporte une **variation de Fleming a plusieurs etapes** par rapport a un Fleming a une etape, et comment l'appliquer ici ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous expliquer l'interet pratique d'ajouter des bornes intermediaires ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : le papier montre un signal tres favorable d'`ORR` et de `DOR`.</p>
+    <p><strong>A relier a la reponse</strong> : un Fleming multi-etapes aurait permis d'arriver plus vite a la conclusion que le signal etait suffisant, ou au contraire de stopper precocement si ce n'avait pas ete le cas.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le Fleming a plusieurs etapes conserve la logique de seuils d'activite, mais au lieu d'attendre la fin complete de l'etude, il introduit des **bornes intermediaires** permettant de conclure plus tot pour inefficacite, et parfois pour efficacite suffisamment marquee.
+
+Par rapport au Fleming a une etape, le gain principal est d'ordre **ethique et logistique** : on evite d'aller jusqu'au bout si le traitement est d'evidence peu interessant. On peut aussi, selon le plan, reconnaitre precocement un signal exceptionnel.
+
+Dans le cas de `sac-TMT`, un tel plan aurait ete defendable si l'on voulait encadrer rigoureusement un developpement en bras unique, tout en gardant une possibilite d'arret precoce. C'est typiquement le genre de compromis utile quand on a un candidat prometteur mais une incertitude encore importante.
+
+**Exemple concret**
+
+Apres une premiere vague de patients, si le nombre de reponses est trop faible, on arrete. S'il est tres eleve, on peut presque verrouiller la poursuite. Sinon on continue jusqu'a l'etape suivante.
+
+**Reponse type courte**
+
+Le Fleming a plusieurs etapes reprend la logique de seuils d'efficacite mais permet de regarder les donnees en cours d'essai. Il serait pertinent ici pour accelerer la decision de poursuite tout en limitant l'exposition inutile si `sac-TMT` n'etait pas assez actif.
+:::
+
+#### Question 19 {.unlisted}
+
+> Comment expliquer le **plan a 2 etapes de Simon** et en quoi serait-il particulierement pertinent dans ce dossier ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous identifier le plan de phase II le plus classique en oncologie ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : le dossier montre une activite forte mais dans une situation de resistance et avec toxicite non nulle.</p>
+    <p><strong>A relier a la reponse</strong> : c'est justement le contexte ideal ou un plan de Simon est souvent discute en phase II oncologique.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le plan de Simon a 2 etapes est probablement le grand classique des phases II oncologiques a bras unique. Il prevoit une premiere etape avec possibilite d'**arret pour inefficacite**, puis une deuxieme etape qui permet la conclusion finale. Contrairement a certains autres plans, il n'organise pas forcement un arret precoce pour efficacite a la premiere etape ; il est surtout optimise pour ne pas exposer trop de patients a un traitement inefficace.
+
+Sa force est donc de concilier trois choses : **simplicite**, **maitrise de l'erreur**, et **economie de sujets**. Dans un dossier comme `sac-TMT`, ou l'on espere un bon taux de reponse mais ou l'on doit rester prudent avant d'engager un grand programme confirmatoire, ce plan serait tres pertinent.
+
+La bonne copie peut meme dire que, parmi les plans a bras unique du cours, Simon est souvent celui que l'on citerait spontanement comme **choix pratique de reference**.
+
+**Exemple concret**
+
+Etape 1 : on traite un premier groupe. Si trop peu de reponses, on stoppe. Sinon on poursuit jusqu'au nombre total de sujets, puis on statue sur l'activite globale.
+
+**Reponse type courte**
+
+Le plan de Simon a 2 etapes est tres adapte aux phases II oncologiques car il permet un arret precoce pour inefficacite tout en limitant le nombre de patients exposes. Dans ce dossier, ce serait probablement l'un des choix les plus naturels pour tester `sac-TMT` avant une phase III.
+:::
+
+#### Question 20 {.unlisted}
+
+> Que represente le **plan de Ensign** et dans quel cas pourrait-il etre discute pour `sac-TMT` ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous citer correctement un plan moins classique sans raconter autre chose ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : le papier suggere un traitement deja prometteur, avec des reponses nombreuses et durables.</p>
+    <p><strong>A relier a la reponse</strong> : un plan de Ensign peut etre vu comme une maniere encore plus progressive de securiser la decision au fil du developpement precoce.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le cours presente le plan de Ensign comme une generalisation a **3 etapes** du plan optimum de Simon. L'idee reste de pouvoir interrompre le developpement pour inefficacite a plusieurs moments, tout en gardant une logique de decision finale sur l'efficacite.
+
+Ce type de plan est utile quand on souhaite une surveillance encore plus progressive d'un candidat. Il peut etre discute si le contexte clinique impose une forte prudence, par exemple parce que la population est fragile, que la toxicite n'est pas anodine, ou que l'incertitude initiale reste importante.
+
+Dans le dossier `sac-TMT`, un tel plan aurait pu etre defendable tres en amont, mais il serait souvent plus complexe a justifier qu'un Simon standard. En copie, il faut surtout montrer qu'on sait le situer : **plus fractionne, plus progressif, plus rare en pratique courante**.
+
+**Exemple concret**
+
+On pourrait imaginer trois jalons successifs de verification de l'`ORR`, avec possibilite d'arret pour inefficacite apres chacun des deux premiers.
+
+**Reponse type courte**
+
+Le plan de Ensign est une extension en trois etapes de la logique de Simon. Il permet une surveillance encore plus progressive de l'activite et pourrait etre discute ici, mais serait en pratique moins simple et moins standard qu'un Simon a 2 etapes.
+:::
+
+#### Question 21 {.unlisted}
+
+> Comment decrire le **test triangulaire** et pourquoi est-il moins intuitif que les autres plans de phase II ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous distinguer un plan sequentiel plus general d'un simple plan a seuils ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article montre un traitement avec un signal coherent sur plusieurs dimensions, mais rien dans le papier n'est formule comme un test triangulaire.</p>
+    <p><strong>A relier a la reponse</strong> : il faut donc bien signaler qu'on est ici dans une transposition purement pedagogique du cours.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le test triangulaire est un plan sequentiel dans lequel on peut, a plusieurs etapes, conclure soit a l'inefficacite, soit a une efficacite suffisamment forte, soit a la poursuite. Le cours insiste sur l'idee de **deux frontieres** : une basse et une haute, avec continuation si le resultat reste entre les deux.
+
+Il est moins intuitif pour les etudiants parce qu'il se comprend moins comme une simple regle "nombre de succes >= seuil". Il faut raisonner en termes de trajectoire de l'information au fil des analyses. Cela le rend elegant sur le plan statistique, mais souvent plus difficile a expliquer simplement dans une copie courte.
+
+Dans le dossier `sac-TMT`, on pourrait le citer comme une possibilite theorique, mais il ne serait probablement pas le premier choix pratique si l'objectif est surtout de proposer un schema de phase II lisible et classique.
+
+**Exemple concret**
+
+A chaque etape, si les resultats sont tres mauvais on arrete, s'ils sont tres bons on conclut, et s'ils sont intermediaries on continue. C'est cette logique "entre deux bornes" qui donne son nom intuitif au test.
+
+**Reponse type courte**
+
+Le test triangulaire est un plan sequentiel avec une borne basse d'inefficacite, une borne haute d'efficacite, et une zone intermediaire de poursuite. Il est plus sophistique et moins intuitif que Simon ou Fleming, donc plutot a citer comme option theorique que comme choix naturel ici.
+:::
+
+#### Question 22 {.unlisted}
+
+> Quel est le **principe d'un plan bayesien** en phase II, et quel serait son interet conceptuel dans ce dossier ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous donner une definition simple et correcte du raisonnement bayesien ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article rappelle des donnees de phase `1-2` et de phase `2` anterieures.</p>
+    <p><strong>A relier a la reponse</strong> : un raisonnement bayesien est justement attire par l'idee d'integrer des connaissances prealables dans l'evaluation courante.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le principe d'un plan bayesien est d'associer une **loi a priori** a l'efficacite attendue du traitement, puis de la mettre a jour au fur et a mesure des donnees observees pour obtenir une **loi a posteriori**. La decision ne repose donc plus seulement sur une p-value ou un seuil frequentiste, mais sur une probabilite actualisee que le traitement soit suffisamment efficace.
+
+Dans ce dossier, l'interet conceptuel est evident : l'article mentionne deja des donnees precoces encourageantes. Un plan bayesien aurait pu incorporer cette connaissance initiale de maniere explicite, puis actualiser la croyance sur l'activite de `sac-TMT` a mesure que les reponses tumorales etaient observees.
+
+La copie doit toutefois rester prudente : le choix de l'a priori est toujours delicat. Un a priori trop optimiste peut biaiser la lecture ; un a priori peu informatif laisse davantage parler les donnees de l'essai.
+
+**Exemple concret**
+
+On pourrait partir d'un a priori modere sur l'`ORR`, puis calculer apres chaque etape la probabilite que la vraie reponse depasse un seuil cliniquement utile. Si cette probabilite devient tres elevee, on poursuit le developpement.
+
+**Reponse type courte**
+
+Un plan bayesien part d'une croyance initiale sur l'efficacite, puis la met a jour avec les donnees observees. Il serait conceptuellement interessant ici parce que le developpement de `sac-TMT` disposait deja de donnees precoces pouvant nourrir l'a priori.
+:::
+
+#### Question 23 {.unlisted}
+
+> Donnez une **application bayesienne concrete** a partir des resultats de l'article, sans pretendre reconstruire un vrai SAP bayesien complet.
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous faire une application clinique intelligible d'un concept statistique sans surjouer la precision ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : `ORR 60.6%`, `DOR 8.3 mois`, `DCR 87.2%`.</p>
+    <p><strong>A relier a la reponse</strong> : ces chiffres nourriraient une posteriori tres favorable si l'on cherchait la probabilite que le traitement depasse un seuil minimal d'activite.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Une application bayesienne simple serait la suivante : on fixe un seuil d'interet clinique, par exemple une `ORR` minimale de `40%`. On part d'un a priori modere sur l'`ORR` de `sac-TMT` dans cette population. Puis, a mesure que les reponses s'accumulent, on met a jour cette croyance. Avec des donnees aussi favorables que celles du papier (`60.6%` de reponses, `8.3` mois de duree mediane), la probabilite posteriori que la vraie `ORR` soit > `40%` deviendrait rapidement tres elevee.
+
+L'interet pedagogique est de montrer que la decision n'est plus formulee comme "p < 0.05", mais comme "la probabilite que le traitement soit assez bon pour poursuivre est devenue tres haute". Ce langage est souvent plus intuitif pour les cliniciens.
+
+Il faut toutefois rester rigoureux : sans specification de l'a priori et sans vrai modele, on ne donne pas un chiffre exact. On explique seulement le **sens du raisonnement**.
+
+**Exemple concret**
+
+Phrase de copie possible : "Si l'on adoptait un plan bayesien avec un seuil d'`ORR` cliniquement utile de `40%`, les donnees de l'article rendraient tres probable que `sac-TMT` depasse ce seuil, soutenant ainsi une decision de poursuite."
+
+**Reponse type courte**
+
+En bayesien, on pourrait chercher la probabilite a posteriori que la vraie `ORR` de `sac-TMT` depasse un seuil utile, par exemple `40%`. Les resultats du papier seraient alors tres probablement favorables a une decision `go`, sans qu'il soit necessaire ici de reconstruire un modele complet.
+:::
+
+#### Question 24 {.unlisted}
+
+> Pourquoi une **phase II randomisee avec groupe temoin** serait-elle tres defendable dans ce dossier ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous expliquer l'interet du bras temoin meme en phase II ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article compare `sac-TMT` a "pemetrexed plus platinum-based chemotherapy".</p>
+    <p><strong>A relier a la reponse</strong> : l'existence d'un standard clinique rend tres naturelle l'idee d'un groupe temoin, y compris de facon exploratoire en phase II.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le cours rappelle qu'une phase II randomisee avec groupe temoin peut etre tres utile pour controler les biais de selection et mieux interpreter le taux de reponse observe. Dans ce dossier, cet argument est particulierement fort parce qu'il existe deja un **comparateur pertinent** : la chimiotherapie a base de pemetrexed et platine.
+
+Un bras unique pourrait surestimer ou sous-estimer l'interet du produit si la population incluse est atypique. La randomisation, meme en phase II, permet de replacer le signal dans un contexte comparatif. Elle ne transforme pas automatiquement l'etude en phase III, mais elle renforce grandement sa valeur interpretative.
+
+Dans ce dossier, on peut donc tres bien soutenir qu'une phase II randomisee aurait ete une excellente etape intermediaire : assez ambitieuse pour comparer, mais encore focalisee sur des criteres plus precoces que ceux d'une phase III confirmatoire.
+
+**Exemple concret**
+
+Une phase II randomisee aurait pu comparer `sac-TMT` a une chimiotherapie de reference sur l'`ORR` ou la `PFS`, sans necessiter d'emblee la meme puissance qu'une phase III.
+
+**Reponse type courte**
+
+Une phase II randomisee serait tres defendable ici car il existe un standard de soin credible. Le groupe temoin permettrait de mieux interpreter le signal de `sac-TMT` et de limiter les biais de selection, tout en restant dans une logique exploratoire.
+:::
+
+#### Question 25 {.unlisted}
+
+> Que serait une logique **"pick the winner"** dans le contexte de `sac-TMT`, et pourquoi serait-elle moins adaptee ici que d'autres schemas ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous expliquer ce schema de selection sans l'utiliser a contretemps ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article oppose un traitement experimental unique a un comparateur standard ; il n'evalue pas plusieurs strategies experimentales concurrentes.</p>
+    <p><strong>A relier a la reponse</strong> : cela aide a comprendre pourquoi "pick the winner" n'est pas le schema le plus naturel ici.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Le schema `pick the winner` consiste a comparer plusieurs strategies experimentales, ou plusieurs doses, pour en retenir une comme gagnante avant la phase III. Il est particulierement utile lorsqu'on n'a pas encore choisi la meilleure option parmi plusieurs candidates.
+
+Dans le dossier `sac-TMT`, ce schema serait moins naturel si le produit, la dose et le calendrier sont deja relativement stabilises. L'article rapporte d'ailleurs un schema bien fixe, avec `5 mg/kg` aux jours `1` et `15` de chaque cycle de `28` jours. On n'est donc pas, a la lecture du papier, dans une situation ou plusieurs options experimentales se disputent la suite du developpement.
+
+En revanche, ce schema aurait pu etre utile plus tot si l'on avait hesite entre plusieurs doses, plusieurs intervalles d'administration, ou plusieurs associations.
+
+**Exemple concret**
+
+Un vrai `pick the winner` aurait pu comparer, par exemple, deux doses de `sac-TMT` ou `sac-TMT` seul contre `sac-TMT` en association, avant de choisir le meilleur bras pour la phase III.
+
+**Reponse type courte**
+
+Le schema `pick the winner` sert surtout a choisir entre plusieurs strategies experimentales. Il serait moins adapte ici car le papier correspond deja a un traitement experimental unique, avec une dose et un schema d'administration deja stabilises.
+:::
+
+## 4. Synthese : de la phase II hypothetique a la phase III reelle
+
+### Theme 4. Ce qu'il faut savoir conclure a l'examen
+
+#### Question 26 {.unlisted}
+
+> Parmi tous les schemas du cours, **quel schema de phase II aurait ete le plus pertinent** pour `sac-TMT` et pourquoi ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous choisir un design et le defendre explicitement contre les alternatives ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : l'article rappelle des donnees precoces encourageantes puis publie une comparaison randomisee de phase 3.</p>
+    <p><strong>A relier a la reponse</strong> : cela suggere qu'avant la phase 3, le meilleur compromis etait probablement une phase II randomisee ou, a defaut, un Simon a 2 etapes selon la maturite du programme.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Si je devais choisir un seul schema, je proposerais en priorite une **phase II randomisee avec groupe temoin**, avec un critere principal de type `ORR` ou `PFS` courte. Pourquoi ? Parce qu'il existe ici un standard de soin bien etabli, que le contexte clinique est deja structure, et que la comparaison a un controle renforce beaucoup la credibilite du signal sans exiger encore les dimensions d'une phase III.
+
+Si l'on voulait un schema plus simple et plus precoce, le deuxieme meilleur choix serait un **plan de Simon a 2 etapes** a bras unique. Mais entre les deux, la randomisation apporte ici un gain particulierement utile, car la population EGFR mutee resistante apres `TKI` peut avoir une heterogeneite prognostique importante.
+
+La bonne copie doit donc montrer une hierarchie de choix : **phase II randomisee si l'on veut deja situer le traitement face au standard ; Simon a 2 etapes si l'on est plus en amont et que l'on cherche d'abord un filtre rapide**.
+
+**Exemple concret**
+
+Proposition defendable : phase II randomisee `1:1`, `sac-TMT` versus chimiotherapie, critere principal `ORR`, criteres secondaires `DOR`, toxicite, `PFS` exploratoire.
+
+**Reponse type courte**
+
+Le schema le plus pertinent serait probablement une phase II randomisee avec groupe temoin, car il existe deja un comparateur standard et la randomisation rend le signal plus interpretable. Si l'on voulait un plan plus simple, un Simon a 2 etapes serait l'alternative la plus naturelle.
+:::
+
+#### Question 27 {.unlisted}
+
+> Qu'est-ce qu'une **phase II n'aurait pas permis de conclure** que l'article de phase III permet ici d'affirmer ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous poser les limites d'une phase II sans la devaluer injustement ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "Overall survival was significantly longer..." avec `HR 0.60` et `P = 0.001`.</p>
+    <p><strong>A relier a la reponse</strong> : ce type de conclusion forte sur la survie globale et la place therapeutique suppose un niveau confirmatoire que la phase II n'offre pas.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+Une phase II aurait pu conclure que `sac-TMT` montre une **activite antitumorale prometteuse**, possiblement superieure au minimum attendu, avec une toxicite acceptable pour poursuivre le developpement. En revanche, elle n'aurait pas permis d'affirmer avec la meme solidite que le traitement **ameliore la survie globale** par rapport a un standard, ni qu'il doit prendre une place therapeutique de reference.
+
+L'article de phase III, lui, permet justement ce saut qualitatif. Il compare a un controle credible, sur un effectif important, avec une architecture statistique formelle, et il montre un benefice a la fois sur `PFS` et sur `OS`. C'est autre chose qu'un simple signal.
+
+La formule cle a retenir est donc : **la phase II detecte et selectionne ; la phase III confirme et positionne**. C'est probablement l'une des phrases les plus utiles de tout ce poly.
+
+**Exemple concret**
+
+Une phase II aurait pu dire : "le traitement merite une phase III". L'article reeel dit bien plus : "dans cette population, le traitement obtient un benefice comparatif significatif, y compris sur l'`OS`."
+
+**Reponse type courte**
+
+Une phase II aurait surtout permis de conclure a un signal d'activite justifiant la poursuite du developpement. L'article de phase III permet au contraire d'affirmer un benefice comparatif sur des criteres plus robustes, notamment la survie globale, et donc de discuter la vraie place therapeutique du traitement.
+:::
+
+#### Question 28 {.unlisted}
+
+> Donnez une **synthese d'examen** : comment passer, dans une copie, de la phase II hypothetique a la phase III confirmatoire de `OptiTROP-Lung04` ?
+
+::: {.exam-card}
+**Ce que l'examinateur veut verifier** : savez-vous produire une reponse de synthese, structuree, clinique et methodologique a la fois ?
+:::
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passages utiles</strong> : "phase 3 trial", `ORR 60.6%`, `DOR 8.3 months`, `HR PFS 0.49`, `HR OS 0.60`.</p>
+    <p><strong>A relier a la reponse</strong> : ces donnees permettent de raconter tout le continuum logique du developpement oncologique, depuis le signal precoce jusqu'a la confirmation clinique.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Reponse detaillee**
+
+La bonne synthese consiste a raconter un **continuum de preuve**. En amont, une phase II aurait eu pour role de montrer que `sac-TMT` produit un signal antitumoral suffisant dans une population EGFR mutee resistante aux `TKI`. Le meilleur critere aurait probablement ete l'`ORR`, eventuellement soutenue par la `DOR`, dans un plan a bras unique de type Simon ou, encore mieux ici, dans une phase II randomisee avec groupe temoin.
+
+Si ce signal etait positif, alors la phase III devenait legitime. C'est exactement ce qu'illustre l'article : on passe d'une logique de depistage d'activite a une logique de confirmation comparative. Le papier montre non seulement des reponses objectives nombreuses (`60.6%`), mais aussi un benefice sur `PFS` et `OS`, ce qu'une phase II ne pouvait pas demontrer avec le meme niveau de confiance.
+
+La phrase de conclusion ideale en copie est la suivante : **la phase II aurait servi a etablir que `sac-TMT` merite d'etre teste ; la phase III montre qu'il peut effectivement faire mieux qu'un comparateur standard sur des criteres cliniquement majeurs**.
+
+**Exemple concret**
+
+Plan de copie possible :
+
+1. rappeler que l'article est une phase III reelle ;
+2. dire quel critere de phase II aurait ete le plus pertinent ;
+3. nommer le design de phase II le plus plausible ;
+4. expliquer que l'article apporte ensuite la confirmation comparative sur `PFS` et `OS`.
+
+**Reponse type courte**
+
+Dans une copie, il faut dire que la phase II hypothetique aurait cherche un signal rapide d'activite, probablement sur l'`ORR`, pour autoriser une phase III. `OptiTROP-Lung04` correspond ensuite a l'etape confirmatoire : il ne se contente plus de depister un signal, il demontre un benefice comparatif sur `PFS` et `OS`.
+:::
+
+## 5. Formulations prêtes a l'emploi
+
+### 5.1. Quand il faut distinguer article reel et reconstruction phase II
+
+> L'article publie est un essai de phase 3. Mon raisonnement de phase II est donc une transposition pedagogique : je m'appuie sur les chiffres reels de l'article, mais j'applique les principes du cours des phases precoces pour discuter ce qu'aurait ete une etape de selection avant la phase III.
+
+### 5.2. Quand il faut choisir un critere principal de phase II
+
+> Dans ce dossier, l'`ORR` serait probablement le meilleur critere principal de phase II, car elle donne une information precoce, objective et directement interpretable sur l'activite antitumorale. La `DOR` et la toxicite permettraient ensuite de juger si ce signal justifie une phase III.
+
+### 5.3. Quand il faut justifier un schema de phase II
+
+> Le design le plus defendable serait une phase II randomisee avec groupe temoin si l'on veut situer rapidement `sac-TMT` par rapport au standard, ou un Simon a 2 etapes si l'on veut un plan a bras unique plus simple centré sur un filtre `go / no go`.
+
+### 5.4. Quand il faut dire ce que la phase II ne peut pas faire
+
+> Une phase II peut etablir qu'un traitement est prometteur ; elle ne permet pas, a elle seule, d'affirmer avec la meme robustesse qu'une phase III un benefice compare sur la survie globale et la vraie place therapeutique du traitement.
+
+## 6. Checklist finale
+
+- Ai-je bien rappele que l'article support est une **phase 3 reelle** ?
+- Ai-je identifie **ce qui vient du papier** et **ce qui vient du cours de phase II** ?
+- Ai-je choisi un **critere principal de phase II** et un **design plausible** ?
+- Ai-je explicite la logique **`go / no go`** ?
+- Ai-je explique **ce qu'une phase II permet** et **ce qu'elle ne permet pas** ?
+- Ai-je cite au moins un **chiffre ou passage** de l'article dans ma reponse ?
+
+## 7. Conclusion
+
+Ce poly montre qu'un article de phase 3 peut servir d'excellent support pour reviser tout le cours de phase II, a condition de ne jamais confondre les deux niveaux de preuve.
+
+Le fil directeur a retenir est tres simple :
+
+- la **phase II** depiste, trie, selectionne et prepare ;
+- la **phase III** compare, confirme et positionne.
+
+Dans le dossier `OptiTROP-Lung04`, l'activite observee sur l'`ORR` et la `DOR` aurait tres plausiblement justifie un developpement precoce favorable ; l'article publie montre ensuite que cette promesse peut se traduire en benefice clinique confirmatoire.

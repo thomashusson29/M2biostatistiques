@@ -3551,6 +3551,35 @@ Le mot <em>contrefactuel</em> veut simplement dire : on essaie de comparer ce qu
 <li>un <strong>modèle de traitement</strong> : quelles caractéristiques rendent plus probable d’être orienté vers <code>iCBT</code> plutôt que vers <code>fCBT</code> ?</li>
 <li>un <strong>modèle d’outcome</strong> : compte tenu des caractéristiques du patient et du traitement reçu, quelle amélioration du <code>PHQ-9</code> prédit-on ?</li>
 </ul>
+<p>Mais cela ne suffit pas encore a comprendre le nom <code>Targeted Maximum Likelihood</code>. Le mot important est <strong>targeted</strong>.<br>
+L’idée est la suivante :</p>
+<ol type="1">
+<li>on construit d’abord une <strong>première estimation</strong> avec les deux modèles ci-dessus ;</li>
+<li>puis on fait une <strong>petite correction finale</strong>, appelée étape de <code>targeting</code> ;</li>
+<li>cette correction ne cherche pas a “mieux prédire tout et n’importe quoi” ;</li>
+<li>elle cherche a améliorer l’estimation pour le <strong>paramètre précis qui nous intéresse</strong>, ici l’<code>ATE</code>.</li>
+</ol>
+<p>Autrement dit, le <code>targeting</code> ne sert pas a refaire tout le modèle depuis zéro. Il sert a <strong>recalibrer</strong> l’estimation initiale pour qu’elle soit mieux alignée sur la question causale finale. On peut l’expliquer simplement ainsi :</p>
+<blockquote class="blockquote">
+<p>on part d’une bonne prédiction générale, puis on la retouche juste ce qu’il faut pour qu’elle réponde mieux a la bonne question statistique.</p>
+</blockquote>
+<p>Une analogie simple :</p>
+<ul>
+<li>une régression classique essaie surtout de bien prédire l’outcome ;</li>
+<li>le <code>TMLE</code> essaie d’abord de bien prédire, puis il fait une correction ciblée pour mieux estimer <strong>la différence moyenne contrefactuelle entre traitements</strong>.</li>
+</ul>
+<p>Dans cet article, cela a du sens parce que les auteurs ne cherchent pas seulement a prédire le <code>PHQ-9</code> après traitement. Ils cherchent un paramètre bien particulier :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mo>=</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">[</mo><msup><mi>Y</mi><mrow><mi>i</mi><mi>C</mi><mi>B</mi><mi>T</mi></mrow></msup><mo>−</mo><msup><mi>Y</mi><mrow><mi>f</mi><mi>C</mi><mi>B</mi><mi>T</mi></mrow></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+ATE = E[Y^{iCBT} - Y^{fCBT}]
+</annotation></semantics></math></p>
+<p>Le <code>targeting</code> peut donc se comprendre comme une façon de dire :</p>
+<blockquote class="blockquote">
+<p>parmi toutes les manières raisonnables de modéliser les données, on ajuste l’estimation finale pour qu’elle soit la meilleure possible pour ce paramètre-là, et pas seulement pour la prédiction brute.</p>
+</blockquote>
+<p>Si tu veux une version encore plus courte a retenir pour l’examen :</p>
+<blockquote class="blockquote">
+<p>dans le <code>TMLE</code>, l’étape de <code>targeting</code> est la petite mise a jour finale qui corrige l’estimation initiale pour viser plus directement l’<code>ATE</code>.</p>
+</blockquote>
 <p>Dans cet article, c’est particulièrement utile parce que les groupes sont très déséquilibrés et probablement non comparables au départ : <code>5446</code> patients en <code>iCBT</code> contre <code>388</code> en <code>fCBT</code>, avec en plus des différences d’âge, de <code>PHQ-9</code> initial, d’antécédents psychiatriques et de contexte de soins. Une simple comparaison brute des moyennes donnerait donc un résultat très mélangeant : effet du traitement <strong>plus</strong> différences initiales entre groupes.</p>
 <p>Par rapport à une <strong>régression multivariée classique</strong>, le <code>TMLE</code> est moins dépendant d’un seul modèle au sens suivant : si on fait une seule régression du type</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">changement PHQ-9</mtext><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><mo>×</mo><mtext mathvariant="normal">traitement</mtext><mo>+</mo><msub><mi>β</mi><mn>2</mn></msub><mo>×</mo><mtext mathvariant="normal">âge</mtext><mo>+</mo><msub><mi>β</mi><mn>3</mn></msub><mo>×</mo><mtext mathvariant="normal">PHQ-9 initial</mtext><mo>+</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">

@@ -597,6 +597,37 @@ Le `TMLE` est un outil construit pour ce type de question. En pratique, il utili
 - un **modèle de traitement** : quelles caractéristiques rendent plus probable d'être orienté vers `iCBT` plutôt que vers `fCBT` ?
 - un **modèle d'outcome** : compte tenu des caractéristiques du patient et du traitement reçu, quelle amélioration du `PHQ-9` prédit-on ?
 
+Mais cela ne suffit pas encore a comprendre le nom `Targeted Maximum Likelihood`. Le mot important est **targeted**.  
+L'idée est la suivante :
+
+1. on construit d'abord une **première estimation** avec les deux modèles ci-dessus ;
+2. puis on fait une **petite correction finale**, appelée étape de `targeting` ;
+3. cette correction ne cherche pas a "mieux prédire tout et n'importe quoi" ;
+4. elle cherche a améliorer l'estimation pour le **paramètre précis qui nous intéresse**, ici l'`ATE`.
+
+Autrement dit, le `targeting` ne sert pas a refaire tout le modèle depuis zéro. Il sert a **recalibrer** l'estimation initiale pour qu'elle soit mieux alignée sur la question causale finale. On peut l'expliquer simplement ainsi :
+
+> on part d'une bonne prédiction générale, puis on la retouche juste ce qu'il faut pour qu'elle réponde mieux a la bonne question statistique.
+
+Une analogie simple :
+
+- une régression classique essaie surtout de bien prédire l'outcome ;
+- le `TMLE` essaie d'abord de bien prédire, puis il fait une correction ciblée pour mieux estimer **la différence moyenne contrefactuelle entre traitements**.
+
+Dans cet article, cela a du sens parce que les auteurs ne cherchent pas seulement a prédire le `PHQ-9` après traitement. Ils cherchent un paramètre bien particulier :
+
+$$
+ATE = E[Y^{iCBT} - Y^{fCBT}]
+$$
+
+Le `targeting` peut donc se comprendre comme une façon de dire :
+
+> parmi toutes les manières raisonnables de modéliser les données, on ajuste l'estimation finale pour qu'elle soit la meilleure possible pour ce paramètre-là, et pas seulement pour la prédiction brute.
+
+Si tu veux une version encore plus courte a retenir pour l'examen :
+
+> dans le `TMLE`, l'étape de `targeting` est la petite mise a jour finale qui corrige l'estimation initiale pour viser plus directement l'`ATE`.
+
 Dans cet article, c'est particulièrement utile parce que les groupes sont très déséquilibrés et probablement non comparables au départ : `5446` patients en `iCBT` contre `388` en `fCBT`, avec en plus des différences d'âge, de `PHQ-9` initial, d'antécédents psychiatriques et de contexte de soins. Une simple comparaison brute des moyennes donnerait donc un résultat très mélangeant : effet du traitement **plus** différences initiales entre groupes.
 
 Par rapport à une **régression multivariée classique**, le `TMLE` est moins dépendant d'un seul modèle au sens suivant : si on fait une seule régression du type
