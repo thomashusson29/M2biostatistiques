@@ -3664,9 +3664,36 @@ ATE = E[Y^{iCBT} - Y^{fCBT}]
 <p><strong>Réponse détaillée</strong></p>
 <p>La validation croisée imbriquée sert à éviter une forme subtile d’optimisme : celle qui consiste à choisir un modèle sur des données puis à l’évaluer sur ces mêmes données ou sur un découpage insuffisamment séparé. En séparant mieux la phase de tuning et la phase d’évaluation, on obtient une estimation plus honnête de la performance prédictive.</p>
 <p>Dans ce papier, c’est particulièrement important parce que les auteurs utilisent des méthodes de machine learning assez riches. Plus les outils sont flexibles, plus le risque d’overfitting augmente si l’on n’encadre pas bien leur apprentissage. La validation croisée imbriquée agit donc comme un garde-fou méthodologique.</p>
+<p>Mais il faut surtout dire <strong>comment ils l’ont faite</strong>. Le papier parle explicitement de <strong>nested ten-fold cross-validation</strong>. Cela veut dire qu’ils ont utilisé des découpages en <code>10</code> sous-échantillons, a <strong>deux niveaux</strong> :</p>
+<ul>
+<li>une couche <strong>interne</strong> pour comparer et pondérer les algorithmes de la bibliothèque ;</li>
+<li>une couche <strong>externe</strong> pour évaluer plus honnêtement la performance de l’ensemble de la procédure.</li>
+</ul>
+<p>En pratique, on peut résumer leur démarche ainsi :</p>
+<ol type="1">
+<li>ils divisent les données en <code>10</code> plis ;</li>
+<li>ils laissent un pli de côté comme jeu de test externe ;</li>
+<li>sur les <code>9</code> autres plis, ils refont une validation croisée pour voir quels base learners prédisent le mieux ;</li>
+<li>cette étape interne sert à construire le <code>Super Learner</code>, c’est-à-dire à choisir les poids donnés aux différents algorithmes ;</li>
+<li>une fois la combinaison fixée, ils l’appliquent au pli externe laissé de côté ;</li>
+<li>ils répètent ce processus en faisant tourner les <code>10</code> plis.</li>
+</ol>
+<p>Donc, concrètement, ils n’ont pas simplement “fait de la validation croisée”. Ils ont séparé le moment où l’on <strong>fabrique</strong> le meilleur ensemble de modèles et le moment où l’on <strong>juge</strong> sa performance. C’est précisément cette séparation qui limite l’optimisme artificiel.</p>
+<p>Dans le papier, cette logique est utilisée pour les deux briques du <code>TMLE</code> :</p>
+<ul>
+<li>le super learner qui prédit le <strong>traitement</strong> ;</li>
+<li>le super learner qui prédit l’<strong>outcome</strong>.</li>
+</ul>
+<p>Enfin, l’article précise aussi que les poids des base learners sont attribués automatiquement par une régression de type <strong>non-negative least squares</strong>. Donc la procédure complète est vraiment :</p>
+<ul>
+<li>plusieurs algorithmes candidats ;</li>
+<li>validation croisée ;</li>
+<li>pondération automatique ;</li>
+<li>évaluation sur des plis externes séparés.</li>
+</ul>
 <p>La bonne copie doit toutefois éviter de s’arrêter au mot-clé. Il faut ajouter : <strong>cela améliore la qualité prédictive de la procédure, mais ne remplace pas la discussion causale sur les variables absentes</strong>.</p>
 <p><strong>Réponse type courte</strong></p>
-<p>La validation croisée imbriquée réduit le risque d’optimisme artificiel lié au choix et à l’évaluation des modèles. Elle renforce la rigueur prédictive du <code>Super Learner</code>, sans résoudre à elle seule les problèmes de causalité.</p>
+<p>Les auteurs utilisent une validation croisée imbriquée en <code>10</code> plis : une couche interne pour choisir et pondérer les algorithmes du <code>Super Learner</code>, puis une couche externe pour évaluer la procédure sur des données non utilisées pour ce choix. Cela réduit l’optimisme, sans résoudre a lui seul les problèmes de causalité.</p>
 </div>
 </section>
 <section id="question-10" class="level4 unlisted">
@@ -3684,10 +3711,29 @@ ATE = E[Y^{iCBT} - Y^{fCBT}]
 <div class="answer-card">
 <p><strong>Réponse détaillée</strong></p>
 <p>L’article propose des analyses imputées pour tester des scénarios moins sévères que la règle principale de changement nul en cas d’unique mesure <code>PHQ-9</code>. Les auteurs utilisent <code>superMICE</code> pour générer des valeurs plausibles des mesures manquantes, puis recalculent des <code>ATE</code> dans des scénarios où tous les patients auraient complété, ou au moins disposeraient d’une seconde mesure.</p>
+<p>Mais là aussi, il faut dire <strong>comment ils ont fait en pratique</strong>. Le tableau 2 précise que les auteurs ont imputé les <code>PHQ-9</code> manquants aux sessions <code>3</code>, <code>5</code> et <code>7</code>, en utilisant <strong>toutes les données</strong> pour tous les patients, y compris ceux du groupe <code>fCBT</code>. Ensuite, ils ont construit <strong>deux analyses imputées différentes</strong>.</p>
+<p><strong>Première analyse imputée</strong></p>
+<ul>
+<li>ils imputent les valeurs manquantes de <code>PHQ-9</code> aux sessions <code>3</code>, <code>5</code> et <code>7</code> ;</li>
+<li>puis ils définissent l’outcome comme le changement entre la session <code>1</code> et la session <code>7</code> ;</li>
+<li>cette analyse revient donc a demander : <em>si tout le monde avait une trajectoire complète jusqu’à la fin prévue, quel serait l’effet moyen ?</em></li>
+</ul>
+<p><strong>Deuxième analyse imputée</strong></p>
+<ul>
+<li>ils conservent la logique de l’analyse principale, c’est-à-dire le changement entre la première mesure et la dernière mesure disponible ;</li>
+<li>mais pour les patients qui n’ont <strong>aucune mesure de suivi</strong>, ils ne mettent plus automatiquement un changement nul ;</li>
+<li>a la place, ils insèrent une valeur imputée a la session <code>3</code> ;</li>
+<li>cette analyse est donc plus proche de l’analyse principale, tout en étant moins punitive pour les patients sans suivi.</li>
+</ul>
+<p>Autrement dit, ils n’ont pas fait “une imputation multiple” au sens vague. Ils ont vraiment construit <strong>deux scénarios méthodologiques distincts</strong> :</p>
+<ul>
+<li>un scénario où tout le monde est projeté jusqu’à la session finale ;</li>
+<li>un scénario plus proche de l’analyse principale, mais où l’absence totale de suivi n’est plus traduite par un <code>0</code> automatique.</li>
+</ul>
 <p>Cette stratégie est utile parce qu’elle permet de voir si le message général dépend entièrement de la manière de gérer les manquants. Les résultats imputés sont d’ailleurs plus élevés (<code>1,277</code> et <code>1,070</code> selon le scénario), ce qui montre que la règle principale est plutôt conservatrice pour <code>iCBT</code>. C’est une information méthodologique intéressante.</p>
 <p>Mais là encore, il faut rester prudent : une imputation multiple repose sur des hypothèses implicites sur la structure des données manquantes. Si les abandons sont fortement liés à des facteurs non observés, comme une démotivation particulière ou une mauvaise adéquation avec le format de soin, aucune imputation ne “répare” complètement le problème.</p>
 <p><strong>Réponse type courte</strong></p>
-<p>L’imputation multiple sert ici à tester la sensibilité du résultat principal à d’autres hypothèses sur les données manquantes. C’est une vraie force, mais elle reste dépendante d’hypothèses sur le mécanisme de manque et ne supprime pas tout biais potentiel lié au dropout.</p>
+<p>L’imputation multiple sert ici à tester la sensibilité du résultat principal a d’autres hypothèses sur les données manquantes. En pratique, les auteurs imputent les <code>PHQ-9</code> manquants aux sessions <code>3</code>, <code>5</code> et <code>7</code>, puis comparent deux scénarios : un changement <code>session 1 -&gt; session 7</code> pour tous, et un scénario plus proche de l’analyse principale où une valeur imputée remplace le <code>0</code> chez les patients sans suivi. C’est une vraie force, mais cela reste dépendant d’hypothèses sur le mécanisme de manque.</p>
 </div>
 </section>
 </section>

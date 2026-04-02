@@ -92,7 +92,7 @@
 
 -   392 patients *fCBT* vs 5467 patients *iCBT* après sélection : ratio 1:14 !
 
-#### Article épi : pas de pré-enregistrement
+#### Article ÉPI : pas de pré-enregistrement
 
 -   Plusieurs problèmes : 
 
@@ -114,7 +114,7 @@
 
     -   Interprétation en lien avec littérature existante
 
-#### Article épi : différences iCBT vs fCBT = 2 "paquets de soins" différents
+#### Article ÉPI : différences iCBT vs fCBT = 2 "paquets de soins" différents
 
 -   Pas une comparaison simple du type "même thérapie, seul le support change"
 
@@ -126,3 +126,14 @@
 
     -   organisation du parcours, standardisation des séances, accessibilité
 
+#### Article ÉPI : analyses de sensibilité
+
+-   Incluent G-computation, AIPTW, versions simplifiées de TMLE, restriction géographique (Uusimaa)
+
+-   Objectif : améliorer la **robustesse** des résultats en vérifiant la **convergence** des différentes méthodes d'estimation de l'effet du traitement
+
+-   G-computation : modèle de résultat ajusté pour les covariables de base, puis calcul de l'effet du traitement en comparant les résultats prédits pour chaque patient s'il avait reçu iCBT vs s'il avait reçu fCBT
+
+-   AIPTW : combine un modèle de traitement (score de propension) et un modèle de résultat, et utilise une approche d'estimation robuste pour ajuster les prédictions du modèle de résultat en fonction de la distribution obtenue par le modèle de traitement
+
+    -   Différence avec TMLE : AIPTW ne fait pas de "targeting" pour ajuster les prédictions du modèle de résultat, ce qui peut conduire à une estimation moins précise de l'effet du traitement, surtout si les modèles de traitement et de résultat sont mal spécifiés.

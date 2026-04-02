@@ -148,50 +148,6 @@
       margin-top: 18px;
     }
 
-    .toggle-group {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.76);
-      overflow: hidden;
-    }
-
-    .toggle-group + .toggle-group {
-      margin-top: 10px;
-    }
-
-    .toggle-group summary {
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-
-    .toggle-group summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .toggle-group summary::after {
-      content: "+";
-      color: var(--teal);
-      font-size: 1.1rem;
-      line-height: 1;
-    }
-
-    .toggle-group[open] summary::after {
-      content: "−";
-    }
-
-    .toggle-items {
-      display: grid;
-      gap: 10px;
-      padding: 0 14px 14px;
-    }
-
     .submenu-item {
       display: block;
       padding: 12px 14px;
@@ -250,37 +206,19 @@
           <p>Accéder aux polys d'annales <code>S2</code> publiés automatiquement depuis le dossier des annales.</p>
 
           <div class="submenu" aria-label="Sous-menu deuxième semestre">
-            <details class="toggle-group" open>
-              <summary>RC</summary>
-              <div class="toggle-items">
-                <a class="submenu-item" href="poly_revision_RC_codex.html">Poly RC codex</a>
-                <a class="submenu-item" href="poly_revisions_RC_2026.html">Poly RC 2026</a>
-                <a class="submenu-item" href="poly_phase2_article_RC_2026.html">Poly phase II a partir de l'article RC 2026</a>
-              </div>
-            </details>
-
-            <details class="toggle-group">
-              <summary>Épi</summary>
-              <div class="toggle-items">
-                <a class="submenu-item" href="poly_revision_epi_codex.html">Poly EPI codex</a>
-                <a class="submenu-item" href="poly_revisions_epi_2026.html">Poly EPI 2026</a>
-              </div>
-            </details>
-
-            <details class="toggle-group">
-              <summary>Autres</summary>
-              <div class="toggle-items">
-                <a class="submenu-item" href="poly_revision_nsn.html">Nombre de sujets nécessaires</a>
-                <a class="submenu-item" href="poly_revision_intermediaires_2026.html">Analyses intermédiaires 2026</a>
-              </div>
-            </details>
+            <a class="submenu-item" href="poly_revision_nsn.html">Nombre de sujets nécessaires</a>
+            <a class="submenu-item" href="poly_revision_RC_codex.html">Poly RC codex</a>
+            <a class="submenu-item" href="poly_revision_epi_codex.html">Poly EPI codex</a>
+            <a class="submenu-item" href="poly_revision_intermediaires_2026.html">Analyses intermédiaires 2026</a>
+            <a class="submenu-item" href="poly_revisions_epi_2026.html">Poly EPI 2026</a>
+            <a class="submenu-item" href="poly_revisions_RC_2026.html">Poly RC 2026</a>
           </div>
 
           <a class="arrow" href="deuxieme-semestre.html">Voir toute la page S2 <span aria-hidden="true">→</span></a>
         </section>
       </div>
 
-      <p class="meta">Les polys du second semestre, dont <code>poly_revisions_epi_2026.html</code>, <code>poly_revisions_RC_2026.html</code> et <code>poly_phase2_article_RC_2026.html</code>, sont copiés automatiquement vers <code>docs/</code> après chaque rendu local.</p>
+      <p class="meta">Les polys du second semestre, dont <code>poly_revisions_epi_2026.html</code> et <code>poly_revisions_RC_2026.html</code>, sont copiés automatiquement vers <code>docs/</code> après chaque rendu local.</p>
     </section>
   </main>
 </body>
