@@ -1584,7 +1584,299 @@ La bonne copie doit faire des propositions réalistes, directement dérivées de
 Les améliorations les plus utiles seraient une validation internationale, un suivi plus long de l'`OS` et de la sécurité, et des comparaisons plus directes avec les alternatives contemporaines. Des données plus solides de qualité de vie et de coût-efficacité seraient aussi très utiles.
 :::
 
-## 4. Réponses prêtes a l'emploi
+## 4. Questions formules
+
+Cette section regroupe des **questions d'application directe des formules du cours** à partir du matériau de l'article `RC 2026`.  
+Certaines sont très naturelles, surtout pour les proportions de sécurité ; d'autres sont plus artificielles car l'essai réel a été dimensionné sur un critère de survie (`PFS`) avec la logique de Schoenfeld. Quand c'est le cas, cela est annoncé explicitement.
+
+::: {.formula-card}
+**Mini-boîte méthodologique**
+
+Les quatre familles de formules à exercer ici sont :
+
+$$
+\Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
+$$
+
+$$
+sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
+$$
+
+$$
+n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
+$$
+
+$$
+n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
+$$
+
+Dans `RC 2026`, la logique réellement publiée reste celle de la **survie** et du **nombre d'événements**. Les questions ci-dessous servent donc à entraîner les formules de cours sur des variables binaires ou continues issues du même article.
+:::
+
+### Formule A {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> En prenant comme issue binaire les événements indésirables graves liés au traitement (`17,6%` sous chimiothérapie versus `9,0%` sous `sac-TMT`), combien de patients par bras faudrait-il approximativement pour détecter une telle différence avec `alpha = 5%` et puissance `80%` ?
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+La formule “deux proportions” donne un **effectif par bras** pour comparer deux risques binaires.
+
+**Données à utiliser**
+
+- `p_1 = 0,176`
+- `p_2 = 0,090`
+- `z_\alpha \approx 1,96`
+- `z_\beta \approx 0,84`
+
+**Formule générale**
+
+$$
+n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
+$$
+
+**Application numérique**
+
+$$
+n = (1,96 + 0,84)^2 \times \frac{0,176(0,824)+0,090(0,910)}{(0,176-0,090)^2}
+$$
+
+$$
+n = 2,8^2 \times \frac{0,1450+0,0819}{0,086^2}
+$$
+
+$$
+n = 7,84 \times \frac{0,2269}{0,007396}
+$$
+
+$$
+n \approx 240,5
+$$
+
+On retrouve donc environ :
+
+$$
+n \approx 241 \text{ patients par bras}
+$$
+
+**Interprétation**
+
+Ce calcul est intéressant parce qu'il montre qu'une différence de sécurité de cette ampleur aurait demandé un effectif du même ordre que celui de l'essai réel (`188` par bras), mais légèrement supérieur. Cela rappelle surtout que l'essai n'a **pas** été dimensionné prioritairement pour la sécurité binaire ; il a été dimensionné pour la `PFS`.
+
+**Réponse type**
+
+Avec la formule des deux proportions appliquée aux EI graves liés au traitement (`17,6%` versus `9,0%`), on trouve environ `241` patients par bras. Cet exercice est pédagogique : l'essai réel n'était pas dimensionné sur cette issue, mais sur la `PFS`.
+:::
+
+### Formule B {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> Calculez la précision de la proportion d'événements indésirables de grade `3+` dans le bras `sac-TMT`, rapportée à `58,0%` chez `188` patients.
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Ici, on applique la formule descriptive de **précision d'une proportion**.
+
+**Données à utiliser**
+
+$$
+p = 0,58 \quad ; \quad n = 188
+$$
+
+**Formule générale**
+
+$$
+\Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
+$$
+
+**Application numérique**
+
+$$
+\Delta = \pm 1,96 \sqrt{\frac{0,58 \times 0,42}{188}}
+$$
+
+$$
+\Delta = \pm 1,96 \sqrt{0,001296}
+$$
+
+$$
+\Delta = \pm 1,96 \times 0,0360
+$$
+
+$$
+\Delta \approx \pm 0,0706
+$$
+
+Soit environ :
+
+$$
+\Delta \approx \pm 7,1\%
+$$
+
+**Interprétation**
+
+La fréquence des EI de grade `3+` sous `sac-TMT` est donc estimée autour de `58%`, avec une marge d'erreur d'environ `7 points`. Cela rappelle qu'un pourcentage de sécurité isolé reste toujours à lire avec son **imprécision**. Même dans un essai assez solide, un tableau de sécurité n'est pas une vérité parfaitement figée.
+
+**Réponse type**
+
+Pour `p = 0,58` et `n = 188`, la formule descriptive donne une marge d'erreur d'environ `\pm 7,1%`. La fréquence des EI de grade `3+` sous `sac-TMT` est donc approximativement de `58%`, avec un intervalle descriptif grossier autour de `[51% ; 65%]`.
+:::
+
+### Formule C {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> À partir des EI graves liés au traitement (`17/188` sous `sac-TMT` et `32/182` sous chimiothérapie, valeurs approchées déduites des pourcentages publiés), calculez un `OR`, puis sa précision avec `sd(log OR)`.
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cet exercice sert à travailler la **précision d'un odds ratio** sur un vrai tableau `2 x 2` de sécurité.
+
+**Données à utiliser**
+
+|                              | EI grave lié au traitement | Pas d'EI grave lié au traitement |
+|------------------------------|---------------------------:|---------------------------------:|
+| `sac-TMT`                    | `17`                       | `171`                            |
+| chimiothérapie               | `32`                       | `150`                            |
+
+**Formule générale**
+
+$$
+OR = \frac{a \times d}{b \times c}
+$$
+
+$$
+sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
+$$
+
+**Application numérique**
+
+$$
+OR = \frac{17 \times 150}{171 \times 32}
+$$
+
+$$
+OR = \frac{2550}{5472} \approx 0,47
+$$
+
+Donc :
+
+$$
+\log(OR) \approx \log(0,47) \approx -0,76
+$$
+
+Puis :
+
+$$
+sd[\log(OR)] = \sqrt{\frac{1}{17}+\frac{1}{171}+\frac{1}{32}+\frac{1}{150}}
+$$
+
+$$
+sd[\log(OR)] = \sqrt{0,0588+0,00585+0,03125+0,00667}
+$$
+
+$$
+sd[\log(OR)] = \sqrt{0,10257} \approx 0,32
+$$
+
+IC95% approximatif sur l'échelle log :
+
+$$
+-0,76 \pm 1,96 \times 0,32
+$$
+
+$$
+-0,76 \pm 0,63
+$$
+
+soit :
+
+$$
+[-1,39 ; -0,14]
+$$
+
+Après exponentiation :
+
+$$
+IC95\%(OR) \approx [0,25 ; 0,87]
+$$
+
+**Interprétation**
+
+L'`OR` est ici inférieur à `1`, ce qui suggère moins d'EI graves liés au traitement sous `sac-TMT` que sous chimiothérapie. C'est cohérent avec la lecture narrative du papier. Mais cet exercice a surtout une vertu pédagogique : il montre comment passer d'un tableau binaire de sécurité à un estimateur d'association et à sa précision.
+
+**Réponse type**
+
+Avec les effectifs approchés `17/188` versus `32/182`, on trouve un `OR` d'environ `0,47`. L'écart-type de `log(OR)` est d'environ `0,32`, ce qui conduit à un `IC95%` approximatif autour de `[0,25 ; 0,87]`. Cet exercice reformule un résultat de sécurité du papier avec la grammaire classique de l'épidémiologie analytique.
+:::
+
+### Formule D {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> Imaginez un essai alternatif où le critère principal aurait été une variation moyenne de score de qualité de vie, avec un écart-type `\sigma = 15` points et une différence cliniquement importante `\Delta = 5` points. Combien de patients par bras faudrait-il avec `alpha = 5%` et puissance `80%` ?
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cette formule sert à retrouver un **NSN par bras pour une variable continue**.
+
+**Données à utiliser**
+
+- `\sigma = 15`
+- `\Delta = 5`
+- `z_\alpha \approx 1,96`
+- `z_\beta \approx 0,84`
+
+**Formule générale**
+
+$$
+n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
+$$
+
+**Application numérique**
+
+$$
+n = (1,96 + 0,84)^2 \times \frac{2 \times 15^2}{5^2}
+$$
+
+$$
+n = 2,8^2 \times \frac{450}{25}
+$$
+
+$$
+n = 7,84 \times 18 \approx 141,1
+$$
+
+Donc :
+
+$$
+n \approx 142 \text{ patients par bras}
+$$
+
+**Interprétation**
+
+Cet exercice n'est pas celui de l'article réel, qui raisonne en survie sur la `PFS`. Il sert à montrer qu'une formule “deux moyennes” peut donner un effectif du même ordre de grandeur que l'essai réel dès qu'on choisit un outcome continu relativement informatif. C'est une bonne façon de comparer la logique des différents plans statistiques.
+
+**Réponse type**
+
+Avec `\sigma = 15`, `\Delta = 5`, `alpha = 5%` et puissance `80%`, la formule des deux moyennes donne environ `142` patients par bras. C'est un exercice alternatif, car l'essai réel était dimensionné sur la `PFS`, pas sur une moyenne continue.
+:::
+
+## 5. Réponses prêtes a l'emploi
 
 ### 4.1. Quand il faut critiquer un critère principal
 
@@ -1602,7 +1894,7 @@ Les améliorations les plus utiles seraient une validation internationale, un su
 
 > Pour un critère de survie, il faut raisonner d'abord en nombre d'événements avec la logique de Schoenfeld, puis seulement en nombre de sujets. Le calcul exact n'est pas toujours reconstructible au détail près, mais un ordre de grandeur défendable est souvent retrouvable a partir de l'alpha, de la puissance, du `HR` attendu et du taux d'événements attendu.
 
-## 5. Checklist finale
+## 6. Checklist finale
 
 - Ai-je identifié le vrai critère principal et sa lecture correcte ?
 - Ai-je distingué `PFS`, `OS`, `ORR` et sécurité ?
@@ -1612,7 +1904,7 @@ Les améliorations les plus utiles seraient une validation internationale, un su
 - Ai-je distingué significativité statistique, taille d'effet et pertinence clinique ?
 - Ai-je fini par une conclusion prudente sur la généralisabilité et la place thérapeutique ?
 
-## 6. Conclusion
+## 7. Conclusion
 
 Le sujet `RC 2026` est un excellent sujet d'annales parce qu'il oblige a lire un essai de phase 3 comme un ensemble cohérent :
 

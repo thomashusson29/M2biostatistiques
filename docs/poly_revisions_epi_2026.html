@@ -2686,6 +2686,26 @@ margin: 0 0 0.42rem 0;
 .article-cite-toggle__body p:last-child {
 margin-bottom: 0;
 }
+.formula-banner {
+display: inline-flex;
+align-items: center;
+gap: 0.45rem;
+margin: 0.35rem 0 0.8rem 0;
+padding: 0.38rem 0.72rem;
+border-radius: 999px;
+border: 1px solid rgba(183, 121, 38, 0.24);
+background: linear-gradient(180deg, rgba(255, 247, 229, 0.96), rgba(255, 253, 247, 0.98));
+color: #8a5b16;
+font-size: 0.82rem;
+font-weight: 800;
+letter-spacing: 0.03em;
+text-transform: uppercase;
+}
+.formula-banner::before {
+content: "∑";
+font-size: 0.86rem;
+color: var(--gold);
+}
 html.js .article-hunt-card__answer--collapsed {
 display: none;
 }
@@ -2725,6 +2745,11 @@ color: #c6e2df;
 html[data-theme="night"] .article-cite-toggle__body {
 border-top-color: rgba(111, 154, 160, 0.16);
 color: #e7ece8;
+}
+html[data-theme="night"] .formula-banner {
+border-color: rgba(203, 168, 99, 0.24);
+background: linear-gradient(180deg, rgba(63, 49, 23, 0.94), rgba(44, 36, 22, 0.98));
+color: #f0ddaf;
 }
 .small-note {
 font-size: 0.92rem;
@@ -3050,14 +3075,15 @@ page-break-before: always;
   <li><a href="#thème-8.-santé-publique-et-clinique" id="toc-thème-8.-santé-publique-et-clinique">Thème 8. Santé publique et clinique</a></li>
   <li><a href="#thème-9.-critique-globale" id="toc-thème-9.-critique-globale">Thème 9. Critique globale</a></li>
   </ul></li>
-  <li><a href="#réponses-prêtes-à-lemploi" id="toc-réponses-prêtes-à-lemploi">4. Réponses prêtes à l’emploi</a>
+  <li><a href="#questions-formules" id="toc-questions-formules">4. Questions formules</a></li>
+  <li><a href="#réponses-prêtes-à-lemploi" id="toc-réponses-prêtes-à-lemploi">5. Réponses prêtes à l’emploi</a>
   <ul>
   <li><a href="#quand-il-faut-discuter-la-précision-plutôt-que-la-puissance" id="toc-quand-il-faut-discuter-la-précision-plutôt-que-la-puissance">4.1. Quand il faut discuter la précision plutôt que la puissance</a></li>
   <li><a href="#quand-il-faut-discuter-une-grande-cohorte-sans-se-faire-piéger" id="toc-quand-il-faut-discuter-une-grande-cohorte-sans-se-faire-piéger">4.2. Quand il faut discuter une grande cohorte sans se faire piéger</a></li>
   <li><a href="#quand-il-faut-parler-du-tmle-sans-réciter" id="toc-quand-il-faut-parler-du-tmle-sans-réciter">4.3. Quand il faut parler du <code>TMLE</code> sans réciter</a></li>
   </ul></li>
-  <li><a href="#checklist-finale" id="toc-checklist-finale">5. Checklist finale</a></li>
-  <li><a href="#conclusion" id="toc-conclusion">6. Conclusion</a></li>
+  <li><a href="#checklist-finale" id="toc-checklist-finale">6. Checklist finale</a></li>
+  <li><a href="#conclusion" id="toc-conclusion">7. Conclusion</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Autres formats</h2><ul><li><a href="poly_revisions_epi_2026.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 <section id="poly-de-révision-epi-2026" class="level2 cover-title cover-banner">
@@ -3669,15 +3695,26 @@ ATE = E[Y^{iCBT} - Y^{fCBT}]
 <li>une couche <strong>interne</strong> pour comparer et pondérer les algorithmes de la bibliothèque ;</li>
 <li>une couche <strong>externe</strong> pour évaluer plus honnêtement la performance de l’ensemble de la procédure.</li>
 </ul>
-<p>En pratique, on peut résumer leur démarche ainsi :</p>
+<p>En pratique, il faut l’imaginer <strong>en deux étages</strong>.</p>
+<p>Premier étage : on veut garder une partie des données complètement <strong>à part</strong> pour un test honnête.<br>
+Deuxième étage : sur les données restantes, on veut encore séparer ce qui sert à <strong>entraîner</strong> chaque algorithme et ce qui sert à <strong>les comparer</strong>.</p>
+<p>On peut décrire une itération comme cela :</p>
 <ol type="1">
-<li>ils divisent les données en <code>10</code> plis ;</li>
-<li>ils laissent un pli de côté comme jeu de test externe ;</li>
-<li>sur les <code>9</code> autres plis, ils refont une validation croisée pour voir quels base learners prédisent le mieux ;</li>
-<li>cette étape interne sert à construire le <code>Super Learner</code>, c’est-à-dire à choisir les poids donnés aux différents algorithmes ;</li>
-<li>une fois la combinaison fixée, ils l’appliquent au pli externe laissé de côté ;</li>
-<li>ils répètent ce processus en faisant tourner les <code>10</code> plis.</li>
+<li>on coupe d’abord tout l’échantillon en <code>10</code> morceaux de taille voisine ;</li>
+<li>on choisit par exemple le pli <code>n°1</code> comme <strong>pli externe de test</strong> ; ce pli n’intervient pas du tout à ce stade dans le choix des algorithmes ;</li>
+<li>il reste alors <code>9</code> plis ;</li>
+<li>à l’intérieur de ces <code>9</code> plis, on refait un nouveau découpage pour comparer les algorithmes de la bibliothèque ;</li>
+<li>concrètement, un algorithme est entraîné sur une partie de ces <code>9</code> plis, puis sa prédiction est évaluée sur la partie temporairement laissée de côté ;</li>
+<li>on recommence ce mécanisme interne plusieurs fois pour que chaque sous-partie serve à son tour de mini-jeu de validation ;</li>
+<li>à la fin de cette <strong>boucle interne</strong>, on sait quels algorithmes prédisent le mieux et quels poids leur donner dans le <code>Super Learner</code> ;</li>
+<li>seulement après cela, on entraîne cette combinaison retenue sur l’ensemble des <code>9</code> plis internes ;</li>
+<li>puis on l’applique une seule fois au pli externe <code>n°1</code>, qui était resté intact jusque-là ;</li>
+<li>ensuite, on recommence tout le processus en prenant comme pli externe le <code>n°2</code>, puis le <code>n°3</code>, etc., jusqu’au <code>n°10</code>.</li>
 </ol>
+<p>Autrement dit, la validation croisée <strong>interne</strong> sert à répondre à la question :<br>
+“Parmi tous les algorithmes disponibles, lesquels prédisent le mieux et avec quels poids faut-il les combiner ?”</p>
+<p>La validation croisée <strong>externe</strong> sert à répondre à une autre question :<br>
+“Une fois ce choix fait, est-ce que la procédure reste performante sur des données qui n’ont jamais servi à choisir le modèle ?”</p>
 <p>Donc, concrètement, ils n’ont pas simplement “fait de la validation croisée”. Ils ont séparé le moment où l’on <strong>fabrique</strong> le meilleur ensemble de modèles et le moment où l’on <strong>juge</strong> sa performance. C’est précisément cette séparation qui limite l’optimisme artificiel.</p>
 <p>Dans le papier, cette logique est utilisée pour les deux briques du <code>TMLE</code> :</p>
 <ul>
@@ -4349,8 +4386,253 @@ z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
 </section>
 </section>
 </section>
+<section id="questions-formules" class="level2">
+<h2 class="anchored" data-anchor-id="questions-formules">4. Questions formules</h2>
+<p>Cette section ajoute des <strong>questions d’entraînement ciblées sur les formules du cours</strong> données dans <a href="./Users/thomashusson/Documents/Projets/M2biostatistiques/S2/exam/annales/exam_mars/NSN_Stats.md">NSN_Stats.md</a>.<br>
+Certaines correspondent assez naturellement au papier <code>2026 EPI</code>, d’autres sont des <strong>reconstructions pédagogiques adossées à l’article</strong>. Le but n’est pas de prétendre que les auteurs ont fait exactement ces calculs, mais de s’entraîner à mobiliser les bonnes formules sur un matériau concret.</p>
+<div class="formula-card">
+<p><strong>Mini-boîte méthodologique</strong></p>
+<p>Les quatre familles de formules à savoir mobiliser ici sont :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1.96</mn><msqrt><mfrac><mrow><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+\Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mi>a</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>b</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>c</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>d</mi></mfrac></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><msub><mi>p</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>p</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>p</mi><mn>1</mn></msub><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><mn>2</mn><msup><mi>σ</mi><mn>2</mn></msup></mrow><msup><mi>Δ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
+</annotation></semantics></math></p>
+<p>Dans ce sujet <code>EPI 2026</code>, la formule la plus naturelle est celle des <strong>deux moyennes</strong>, puisque le critère principal est continu (<code>changement de PHQ-9</code>). Les autres formules sont utilisées ici comme <strong>questions d’application</strong> sur des données réelles ou quasi réelles du papier.</p>
+</div>
+<section id="formule-a" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="formule-a">Formule A</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>En supposant que l’on transforme l’objectif de précision de l’article en un essai pédagogique “deux moyennes”, combien de patients par bras faudrait-il approximativement pour détecter une différence de <code>1,7</code> point de <code>PHQ-9</code> avec <code>alpha = 5%</code> et puissance <code>80%</code> ? On prendra <code>\sigma = 6</code> points comme écart-type plausible.</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>La formule “deux moyennes” sert à retrouver un <strong>ordre de grandeur d’effectif par bras</strong> quand l’outcome est continu. Ici, c’est la formule du cours la plus proche du matériau réel, car l’article compare un <strong>changement moyen de <code>PHQ-9</code></strong>.</p>
+<p><strong>Données à utiliser</strong></p>
+<ul>
+<li>différence à détecter : <code>\Delta = 1,7</code></li>
+<li>écart-type pédagogique supposé : <code>\sigma = 6</code></li>
+<li><code>alpha = 5%</code>, donc <code>z_\alpha \approx 1,96</code></li>
+<li>puissance <code>80%</code>, donc <code>z_\beta \approx 0,84</code></li>
+</ul>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><mn>2</mn><msup><mi>σ</mi><mn>2</mn></msup></mrow><msup><mi>Δ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>84</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>×</mo><mfrac><mrow><mn>2</mn><mo>×</mo><msup><mn>6</mn><mn>2</mn></msup></mrow><mrow><mn>1</mn><mo>,</mo><msup><mn>7</mn><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+n = (1,96 + 0,84)^2 \times \frac{2 \times 6^2}{1,7^2}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mo>,</mo><msup><mn>8</mn><mn>2</mn></msup><mo>×</mo><mfrac><mn>72</mn><mrow><mn>2</mn><mo>,</mo><mn>89</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+n = 2,8^2 \times \frac{72}{2,89}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>7</mn><mo>,</mo><mn>84</mn><mo>×</mo><mn>24</mn><mo>,</mo><mn>91</mn><mo>≈</mo><mn>195</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">
+n = 7,84 \times 24,91 \approx 195,3
+</annotation></semantics></math></p>
+<p>On retrouve donc environ :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>196</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> patients par bras</mtext></mrow></mrow><annotation encoding="application/x-tex">
+n \approx 196 \text{ patients par bras}
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>Ce calcul n’est <strong>pas</strong> le calcul réellement publié par les auteurs. Eux raisonnent en <strong>objectif de précision sur l’ATE</strong>, pas en essai randomisé classique de supériorité. Mais cet exercice est très utile : il montre que pour un effet moyen modeste en points de <code>PHQ-9</code>, l’ordre de grandeur d’effectif reste raisonnable si l’on garde l’information continue.</p>
+<p>Le fait que l’article dispose finalement de <code>5446</code> patients <code>iCBT</code> et <code>388</code> patients <code>fCBT</code> montre que le problème principal du papier n’est pas l’absence de volume, mais la <strong>comparabilité</strong> des groupes et la validité causale.</p>
+<p><strong>Réponse type</strong></p>
+<p>Avec la formule du cours pour deux moyennes, en prenant <code>\Delta = 1,7</code>, <code>\sigma = 6</code>, <code>alpha = 5%</code> et puissance <code>80%</code>, on trouve environ <code>196</code> patients par bras. Ce n’est pas exactement le calcul des auteurs, qui visaient surtout une précision de l’ATE, mais c’est une bonne approximation pédagogique pour un outcome continu comme le <code>PHQ-9</code>.</p>
+</div>
+</section>
+<section id="formule-b" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="formule-b">Formule B</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>À partir des <code>25</code> patients exclus pour données basales manquantes sur <code>5859</code> patients initialement retenus (<code>392 + 5467</code>), calculez la précision de cette proportion d’exclusion avec la formule descriptive du cours.</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cette formule donne la <strong>marge d’erreur</strong> autour d’une proportion observée. C’est typiquement une formule d’épidémiologie descriptive.</p>
+<p><strong>Données à utiliser</strong></p>
+<p>La proportion d’exclusion vaut :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mfrac><mn>25</mn><mn>5859</mn></mfrac><mo>≈</mo><mn>0</mn><mo>,</mo><mn>00427</mn></mrow><annotation encoding="application/x-tex">
+p = \frac{25}{5859} \approx 0,00427
+</annotation></semantics></math></p>
+<p>avec :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5859</mn></mrow><annotation encoding="application/x-tex">
+n = 5859
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1.96</mn><msqrt><mfrac><mrow><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+\Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1</mn><mo>,</mo><mn>96</mn><msqrt><mfrac><mrow><mn>0</mn><mo>,</mo><mn>00427</mn><mo>×</mo><mn>0</mn><mo>,</mo><mn>99573</mn></mrow><mn>5859</mn></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+\Delta = \pm 1,96 \sqrt{\frac{0,00427 \times 0,99573}{5859}}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1</mn><mo>,</mo><mn>96</mn><msqrt><mrow><mn>0</mn><mo>,</mo><mn>000000725</mn></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+\Delta = \pm 1,96 \sqrt{0,000000725}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>≈</mo><mi>±</mi><mn>1</mn><mo>,</mo><mn>96</mn><mo>×</mo><mn>0</mn><mo>,</mo><mn>000851</mn></mrow><annotation encoding="application/x-tex">
+\Delta \approx \pm 1,96 \times 0,000851
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>≈</mo><mi>±</mi><mn>0</mn><mo>,</mo><mn>00167</mn></mrow><annotation encoding="application/x-tex">
+\Delta \approx \pm 0,00167
+</annotation></semantics></math></p>
+<p>Soit environ :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>≈</mo><mi>±</mi><mn>0</mn><mo>,</mo><mn>17</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">
+\Delta \approx \pm 0,17\%
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>La proportion d’exclusion pour données basales manquantes est très faible, autour de <code>0,43%</code>, avec une précision très serrée. Autrement dit, l’incertitude statistique sur cette proportion est minime. Cela ne veut pas dire que ces données manquantes sont sans importance méthodologique, mais simplement qu’il n’y a <strong>pas d’imprécision descriptive majeure</strong> sur leur fréquence.</p>
+<p><strong>Réponse type</strong></p>
+<p>La proportion d’exclusion est <code>25/5859</code>, soit environ <code>0,43%</code>. Avec la formule <code>\Delta = \pm 1,96 \sqrt{p(1-p)/n}</code>, on obtient une marge d’erreur d’environ <code>\pm 0,17%</code>. La fréquence des exclusions basales est donc très faible et estimée avec une bonne précision descriptive.</p>
+</div>
+</section>
+<section id="formule-c" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="formule-c">Formule C</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>En utilisant les données de données basales manquantes par groupe (<code>21</code> chez <code>iCBT</code>, <code>4</code> chez <code>fCBT</code>), calculez un <code>OR</code> d’exclusion, puis sa précision par la formule <code>sd(log OR)</code>.</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>La formule du cours permet ici de travailler la <strong>précision d’un <code>OR</code></strong> à partir d’un tableau <code>2 x 2</code>.</p>
+<p><strong>Données à utiliser</strong></p>
+<p>On construit le tableau suivant :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 37%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">Données basales manquantes</th>
+<th style="text-align: right;">Données basales présentes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>iCBT</code></td>
+<td style="text-align: right;"><code>21</code></td>
+<td style="text-align: right;"><code>5446</code></td>
+</tr>
+<tr class="even">
+<td><code>fCBT</code></td>
+<td style="text-align: right;"><code>4</code></td>
+<td style="text-align: right;"><code>388</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Formule générale</strong></p>
+<p>L’odds ratio vaut :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mi>a</mi><mo>×</mo><mi>d</mi></mrow><mrow><mi>b</mi><mo>×</mo><mi>c</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+OR = \frac{a \times d}{b \times c}
+</annotation></semantics></math></p>
+<p>et son écart-type logarithmique :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mi>a</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>b</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>c</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>d</mi></mfrac></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p>Ici :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mn>21</mn><mo>×</mo><mn>388</mn></mrow><mrow><mn>5446</mn><mo>×</mo><mn>4</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+OR = \frac{21 \times 388}{5446 \times 4}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>R</mi><mo>=</mo><mfrac><mn>8148</mn><mn>21784</mn></mfrac><mo>≈</mo><mn>0</mn><mo>,</mo><mn>37</mn></mrow><annotation encoding="application/x-tex">
+OR = \frac{8148}{21784} \approx 0,37
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>37</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mi>−</mi><mn>0</mn><mo>,</mo><mn>99</mn></mrow><annotation encoding="application/x-tex">
+\log(OR) \approx \log(0,37) \approx -0,99
+</annotation></semantics></math></p>
+<p>Puis :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mn>21</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>5446</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>388</mn></mfrac></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{\frac{1}{21}+\frac{1}{5446}+\frac{1}{4}+\frac{1}{388}}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mn>0</mn><mo>,</mo><mn>0476</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>00018</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>25</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>00258</mn></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{0,0476 + 0,00018 + 0,25 + 0,00258}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mn>0</mn><mo>,</mo><mn>30036</mn></mrow></msqrt><mo>≈</mo><mn>0</mn><mo>,</mo><mn>55</mn></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{0,30036} \approx 0,55
+</annotation></semantics></math></p>
+<p>On peut alors construire un IC95% approximatif :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>±</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo>×</mo><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+\log(OR) \pm 1,96 \times sd[\log(OR)]
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0</mn><mo>,</mo><mn>99</mn><mo>±</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo>×</mo><mn>0</mn><mo>,</mo><mn>55</mn></mrow><annotation encoding="application/x-tex">
+-0,99 \pm 1,96 \times 0,55
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0</mn><mo>,</mo><mn>99</mn><mo>±</mo><mn>1</mn><mo>,</mo><mn>08</mn></mrow><annotation encoding="application/x-tex">
+-0,99 \pm 1,08
+</annotation></semantics></math></p>
+<p>Ce qui donne environ :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mi>−</mi><mn>2</mn><mo>,</mo><mn>07</mn><mo>;</mo><mn>0</mn><mo>,</mo><mn>09</mn><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">
+[-2,07 ; 0,09]
+</annotation></semantics></math></p>
+<p>Après exponentiation :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>13</mn><mo>;</mo><mn>1</mn><mo>,</mo><mn>09</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+IC95\%(OR) \approx [0,13 ; 1,09]
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>Le signal brut suggère ici moins de données basales manquantes dans <code>iCBT</code> que dans <code>fCBT</code>, mais l’intervalle de confiance est large et recouvre <code>1</code>. Ce n’est pas une analyse causale importante du papier ; c’est surtout un bon exercice pour apprendre à passer d’un tableau <code>2 x 2</code> à un <code>OR</code> puis à sa précision.</p>
+<p><strong>Réponse type</strong></p>
+<p>En construisant le tableau <code>2 x 2</code>, on trouve un <code>OR</code> d’environ <code>0,37</code>. L’écart-type de <code>log(OR)</code> vaut environ <code>0,55</code>, ce qui conduit à un <code>IC95%</code> approximatif d’environ <code>[0,13 ; 1,09]</code>. On apprend donc surtout ici à manier la formule de précision d’un <code>OR</code> sur des données réelles du papier.</p>
+</div>
+</section>
+<section id="formule-d" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="formule-d">Formule D</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>Supposez, pour un exercice de design, que l’issue principale ait été dichotomisée en “réponse cliniquement pertinente” avec <code>35%</code> de répondeurs sous <code>fCBT</code> et <code>45%</code> sous <code>iCBT</code>. Combien de patients par bras aurait-il fallu approximativement avec <code>alpha = 5%</code> et puissance <code>80%</code> ?</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>La formule “deux proportions” donne ici un <strong>nombre de sujets par bras</strong> si l’on transforme artificiellement l’issue continue en outcome binaire.</p>
+<p><strong>Données à utiliser</strong></p>
+<ul>
+<li><code>p_1 = 0,35</code></li>
+<li><code>p_2 = 0,45</code></li>
+<li><code>z_\alpha \approx 1,96</code></li>
+<li><code>z_\beta \approx 0,84</code></li>
+</ul>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><msub><mi>p</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>p</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>p</mi><mn>1</mn></msub><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>84</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>×</mo><mfrac><mrow><mn>0</mn><mo>,</mo><mn>35</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>65</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>0</mn><mo>,</mo><mn>45</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>55</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>45</mn><mo>−</mo><mn>0</mn><mo>,</mo><mn>35</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (1,96 + 0,84)^2 \times \frac{0,35(0,65)+0,45(0,55)}{(0,45-0,35)^2}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mo>,</mo><msup><mn>8</mn><mn>2</mn></msup><mo>×</mo><mfrac><mrow><mn>0</mn><mo>,</mo><mn>2275</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>2475</mn></mrow><mrow><mn>0</mn><mo>,</mo><msup><mn>10</mn><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+n = 2,8^2 \times \frac{0,2275+0,2475}{0,10^2}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>7</mn><mo>,</mo><mn>84</mn><mo>×</mo><mfrac><mrow><mn>0</mn><mo>,</mo><mn>475</mn></mrow><mrow><mn>0</mn><mo>,</mo><mn>01</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+n = 7,84 \times \frac{0,475}{0,01}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>7</mn><mo>,</mo><mn>84</mn><mo>×</mo><mn>47</mn><mo>,</mo><mn>5</mn><mo>≈</mo><mn>372</mn><mo>,</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">
+n = 7,84 \times 47,5 \approx 372,4
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>373</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> patients par bras</mtext></mrow></mrow><annotation encoding="application/x-tex">
+n \approx 373 \text{ patients par bras}
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>Cet exercice montre très bien ce qu’on perd quand on <strong>dichotomise</strong> une variable continue comme le <code>PHQ-9</code>. Alors que la formule “deux moyennes” donnait un ordre de grandeur inférieur, la formule “deux proportions” demande ici un effectif bien plus grand. C’est exactement l’une des raisons pour lesquelles un outcome continu est souvent statistiquement plus efficace.</p>
+<p><strong>Pourquoi cette formule n’est pas exactement celle des auteurs</strong></p>
+<p>Les auteurs n’ont pas transformé le <code>PHQ-9</code> en critère binaire. Ils ont précisément choisi de garder un outcome continu et un estimand causal moyen (<code>ATE</code>). Cette question sert donc surtout à comprendre pourquoi ce choix méthodologique est statistiquement pertinent.</p>
+<p><strong>Réponse type</strong></p>
+<p>Avec <code>p_1 = 0,35</code> et <code>p_2 = 0,45</code>, la formule des deux proportions donne environ <code>373</code> patients par bras. Ce chiffre, plus élevé que dans l’exercice “deux moyennes”, illustre bien le coût statistique de la dichotomisation d’un critère continu comme le <code>PHQ-9</code>.</p>
+</div>
+</section>
+</section>
 <section id="réponses-prêtes-à-lemploi" class="level2">
-<h2 class="anchored" data-anchor-id="réponses-prêtes-à-lemploi">4. Réponses prêtes à l’emploi</h2>
+<h2 class="anchored" data-anchor-id="réponses-prêtes-à-lemploi">5. Réponses prêtes à l’emploi</h2>
 <section id="quand-il-faut-discuter-la-précision-plutôt-que-la-puissance" class="level3">
 <h3 class="anchored" data-anchor-id="quand-il-faut-discuter-la-précision-plutôt-que-la-puissance">4.1. Quand il faut discuter la précision plutôt que la puissance</h3>
 <blockquote class="blockquote">
@@ -4371,7 +4653,7 @@ z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
 </section>
 </section>
 <section id="checklist-finale" class="level2">
-<h2 class="anchored" data-anchor-id="checklist-finale">5. Checklist finale</h2>
+<h2 class="anchored" data-anchor-id="checklist-finale">6. Checklist finale</h2>
 <ul>
 <li>Ai-je bien identifié le design comme observationnel naturaliste ?</li>
 <li>Ai-je distingué différence brute et <code>ATE</code> ?</li>
@@ -4382,7 +4664,7 @@ z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
 </ul>
 </section>
 <section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">6. Conclusion</h2>
+<h2 class="anchored" data-anchor-id="conclusion">7. Conclusion</h2>
 <p>Le sujet <code>EPI 2026</code> est un très bon test d’examen parce qu’il oblige à ne pas se laisser impressionner par la sophistication technique seule.</p>
 <p>Trois idées doivent rester en tête :</p>
 <ol type="1">

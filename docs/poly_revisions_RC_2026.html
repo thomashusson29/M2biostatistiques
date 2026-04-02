@@ -2686,6 +2686,26 @@ margin: 0 0 0.42rem 0;
 .article-cite-toggle__body p:last-child {
 margin-bottom: 0;
 }
+.formula-banner {
+display: inline-flex;
+align-items: center;
+gap: 0.45rem;
+margin: 0.35rem 0 0.8rem 0;
+padding: 0.38rem 0.72rem;
+border-radius: 999px;
+border: 1px solid rgba(183, 121, 38, 0.24);
+background: linear-gradient(180deg, rgba(255, 247, 229, 0.96), rgba(255, 253, 247, 0.98));
+color: #8a5b16;
+font-size: 0.82rem;
+font-weight: 800;
+letter-spacing: 0.03em;
+text-transform: uppercase;
+}
+.formula-banner::before {
+content: "∑";
+font-size: 0.86rem;
+color: var(--gold);
+}
 html.js .article-hunt-card__answer--collapsed {
 display: none;
 }
@@ -2725,6 +2745,11 @@ color: #c6e2df;
 html[data-theme="night"] .article-cite-toggle__body {
 border-top-color: rgba(111, 154, 160, 0.16);
 color: #e7ece8;
+}
+html[data-theme="night"] .formula-banner {
+border-color: rgba(203, 168, 99, 0.24);
+background: linear-gradient(180deg, rgba(63, 49, 23, 0.94), rgba(44, 36, 22, 0.98));
+color: #f0ddaf;
 }
 .small-note {
 font-size: 0.92rem;
@@ -3048,15 +3073,16 @@ page-break-before: always;
   <li><a href="#theme-6.-ethique-financement-et-généralisabilité" id="toc-theme-6.-ethique-financement-et-généralisabilité">Theme 6. Ethique, financement et généralisabilité</a></li>
   <li><a href="#theme-7.-santé-publique-synthèse-critique-et-perspectives" id="toc-theme-7.-santé-publique-synthèse-critique-et-perspectives">Theme 7. Santé publique, synthèse critique et perspectives</a></li>
   </ul></li>
-  <li><a href="#réponses-prêtes-a-lemploi" id="toc-réponses-prêtes-a-lemploi">4. Réponses prêtes a l’emploi</a>
+  <li><a href="#questions-formules" id="toc-questions-formules">4. Questions formules</a></li>
+  <li><a href="#réponses-prêtes-a-lemploi" id="toc-réponses-prêtes-a-lemploi">5. Réponses prêtes a l’emploi</a>
   <ul>
   <li><a href="#quand-il-faut-critiquer-un-critère-principal" id="toc-quand-il-faut-critiquer-un-critère-principal">4.1. Quand il faut critiquer un critère principal</a></li>
   <li><a href="#quand-il-faut-expliquer-labsence-de-p-dans-un-tableau-de-sécurité" id="toc-quand-il-faut-expliquer-labsence-de-p-dans-un-tableau-de-sécurité">4.2. Quand il faut expliquer l’absence de <code>p</code> dans un tableau de sécurité</a></li>
   <li><a href="#quand-il-faut-discuter-une-analyse-de-sous-groupes" id="toc-quand-il-faut-discuter-une-analyse-de-sous-groupes">4.3. Quand il faut discuter une analyse de sous-groupes</a></li>
   <li><a href="#quand-il-faut-retrouver-un-nsn-approximatif" id="toc-quand-il-faut-retrouver-un-nsn-approximatif">4.4. Quand il faut retrouver un NSN approximatif</a></li>
   </ul></li>
-  <li><a href="#checklist-finale" id="toc-checklist-finale">5. Checklist finale</a></li>
-  <li><a href="#conclusion" id="toc-conclusion">6. Conclusion</a></li>
+  <li><a href="#checklist-finale" id="toc-checklist-finale">6. Checklist finale</a></li>
+  <li><a href="#conclusion" id="toc-conclusion">7. Conclusion</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Autres formats</h2><ul><li><a href="poly_revisions_RC_2026.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 <section id="poly-de-révision-rc-2026" class="level2 cover-title cover-banner">
@@ -4302,8 +4328,238 @@ ORR = \frac{\text{CR} + \text{PR}}{\text{patients evaluables}}
 </section>
 </section>
 </section>
+<section id="questions-formules" class="level2">
+<h2 class="anchored" data-anchor-id="questions-formules">4. Questions formules</h2>
+<p>Cette section regroupe des <strong>questions d’application directe des formules du cours</strong> à partir du matériau de l’article <code>RC 2026</code>.<br>
+Certaines sont très naturelles, surtout pour les proportions de sécurité ; d’autres sont plus artificielles car l’essai réel a été dimensionné sur un critère de survie (<code>PFS</code>) avec la logique de Schoenfeld. Quand c’est le cas, cela est annoncé explicitement.</p>
+<div class="formula-card">
+<p><strong>Mini-boîte méthodologique</strong></p>
+<p>Les quatre familles de formules à exercer ici sont :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1.96</mn><msqrt><mfrac><mrow><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+\Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mi>a</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>b</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>c</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>d</mi></mfrac></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><msub><mi>p</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>p</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>p</mi><mn>1</mn></msub><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><mn>2</mn><msup><mi>σ</mi><mn>2</mn></msup></mrow><msup><mi>Δ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
+</annotation></semantics></math></p>
+<p>Dans <code>RC 2026</code>, la logique réellement publiée reste celle de la <strong>survie</strong> et du <strong>nombre d’événements</strong>. Les questions ci-dessous servent donc à entraîner les formules de cours sur des variables binaires ou continues issues du même article.</p>
+</div>
+<section id="formule-a" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="formule-a">Formule A</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>En prenant comme issue binaire les événements indésirables graves liés au traitement (<code>17,6%</code> sous chimiothérapie versus <code>9,0%</code> sous <code>sac-TMT</code>), combien de patients par bras faudrait-il approximativement pour détecter une telle différence avec <code>alpha = 5%</code> et puissance <code>80%</code> ?</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>La formule “deux proportions” donne un <strong>effectif par bras</strong> pour comparer deux risques binaires.</p>
+<p><strong>Données à utiliser</strong></p>
+<ul>
+<li><code>p_1 = 0,176</code></li>
+<li><code>p_2 = 0,090</code></li>
+<li><code>z_\alpha \approx 1,96</code></li>
+<li><code>z_\beta \approx 0,84</code></li>
+</ul>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><msub><mi>p</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>p</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>p</mi><mn>1</mn></msub><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>84</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>×</mo><mfrac><mrow><mn>0</mn><mo>,</mo><mn>176</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>824</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>0</mn><mo>,</mo><mn>090</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>910</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>176</mn><mo>−</mo><mn>0</mn><mo>,</mo><mn>090</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (1,96 + 0,84)^2 \times \frac{0,176(0,824)+0,090(0,910)}{(0,176-0,090)^2}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mo>,</mo><msup><mn>8</mn><mn>2</mn></msup><mo>×</mo><mfrac><mrow><mn>0</mn><mo>,</mo><mn>1450</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>0819</mn></mrow><mrow><mn>0</mn><mo>,</mo><msup><mn>086</mn><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+n = 2,8^2 \times \frac{0,1450+0,0819}{0,086^2}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>7</mn><mo>,</mo><mn>84</mn><mo>×</mo><mfrac><mrow><mn>0</mn><mo>,</mo><mn>2269</mn></mrow><mrow><mn>0</mn><mo>,</mo><mn>007396</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+n = 7,84 \times \frac{0,2269}{0,007396}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>240</mn><mo>,</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">
+n \approx 240,5
+</annotation></semantics></math></p>
+<p>On retrouve donc environ :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>241</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> patients par bras</mtext></mrow></mrow><annotation encoding="application/x-tex">
+n \approx 241 \text{ patients par bras}
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>Ce calcul est intéressant parce qu’il montre qu’une différence de sécurité de cette ampleur aurait demandé un effectif du même ordre que celui de l’essai réel (<code>188</code> par bras), mais légèrement supérieur. Cela rappelle surtout que l’essai n’a <strong>pas</strong> été dimensionné prioritairement pour la sécurité binaire ; il a été dimensionné pour la <code>PFS</code>.</p>
+<p><strong>Réponse type</strong></p>
+<p>Avec la formule des deux proportions appliquée aux EI graves liés au traitement (<code>17,6%</code> versus <code>9,0%</code>), on trouve environ <code>241</code> patients par bras. Cet exercice est pédagogique : l’essai réel n’était pas dimensionné sur cette issue, mais sur la <code>PFS</code>.</p>
+</div>
+</section>
+<section id="formule-b" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="formule-b">Formule B</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>Calculez la précision de la proportion d’événements indésirables de grade <code>3+</code> dans le bras <code>sac-TMT</code>, rapportée à <code>58,0%</code> chez <code>188</code> patients.</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Ici, on applique la formule descriptive de <strong>précision d’une proportion</strong>.</p>
+<p><strong>Données à utiliser</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>58</mn><mspace width="1.0em"></mspace><mo>;</mo><mspace width="1.0em"></mspace><mi>n</mi><mo>=</mo><mn>188</mn></mrow><annotation encoding="application/x-tex">
+p = 0,58 \quad ; \quad n = 188
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1.96</mn><msqrt><mfrac><mrow><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+\Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1</mn><mo>,</mo><mn>96</mn><msqrt><mfrac><mrow><mn>0</mn><mo>,</mo><mn>58</mn><mo>×</mo><mn>0</mn><mo>,</mo><mn>42</mn></mrow><mn>188</mn></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+\Delta = \pm 1,96 \sqrt{\frac{0,58 \times 0,42}{188}}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1</mn><mo>,</mo><mn>96</mn><msqrt><mrow><mn>0</mn><mo>,</mo><mn>001296</mn></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+\Delta = \pm 1,96 \sqrt{0,001296}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1</mn><mo>,</mo><mn>96</mn><mo>×</mo><mn>0</mn><mo>,</mo><mn>0360</mn></mrow><annotation encoding="application/x-tex">
+\Delta = \pm 1,96 \times 0,0360
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>≈</mo><mi>±</mi><mn>0</mn><mo>,</mo><mn>0706</mn></mrow><annotation encoding="application/x-tex">
+\Delta \approx \pm 0,0706
+</annotation></semantics></math></p>
+<p>Soit environ :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>≈</mo><mi>±</mi><mn>7</mn><mo>,</mo><mn>1</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">
+\Delta \approx \pm 7,1\%
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>La fréquence des EI de grade <code>3+</code> sous <code>sac-TMT</code> est donc estimée autour de <code>58%</code>, avec une marge d’erreur d’environ <code>7 points</code>. Cela rappelle qu’un pourcentage de sécurité isolé reste toujours à lire avec son <strong>imprécision</strong>. Même dans un essai assez solide, un tableau de sécurité n’est pas une vérité parfaitement figée.</p>
+<p><strong>Réponse type</strong></p>
+<p>Pour <code>p = 0,58</code> et <code>n = 188</code>, la formule descriptive donne une marge d’erreur d’environ <code>\pm 7,1%</code>. La fréquence des EI de grade <code>3+</code> sous <code>sac-TMT</code> est donc approximativement de <code>58%</code>, avec un intervalle descriptif grossier autour de <code>[51% ; 65%]</code>.</p>
+</div>
+</section>
+<section id="formule-c" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="formule-c">Formule C</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>À partir des EI graves liés au traitement (<code>17/188</code> sous <code>sac-TMT</code> et <code>32/182</code> sous chimiothérapie, valeurs approchées déduites des pourcentages publiés), calculez un <code>OR</code>, puis sa précision avec <code>sd(log OR)</code>.</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cet exercice sert à travailler la <strong>précision d’un odds ratio</strong> sur un vrai tableau <code>2 x 2</code> de sécurité.</p>
+<p><strong>Données à utiliser</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 30%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">EI grave lié au traitement</th>
+<th style="text-align: right;">Pas d’EI grave lié au traitement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sac-TMT</code></td>
+<td style="text-align: right;"><code>17</code></td>
+<td style="text-align: right;"><code>171</code></td>
+</tr>
+<tr class="even">
+<td>chimiothérapie</td>
+<td style="text-align: right;"><code>32</code></td>
+<td style="text-align: right;"><code>150</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mi>a</mi><mo>×</mo><mi>d</mi></mrow><mrow><mi>b</mi><mo>×</mo><mi>c</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+OR = \frac{a \times d}{b \times c}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mi>a</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>b</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>c</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>d</mi></mfrac></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mn>17</mn><mo>×</mo><mn>150</mn></mrow><mrow><mn>171</mn><mo>×</mo><mn>32</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+OR = \frac{17 \times 150}{171 \times 32}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>R</mi><mo>=</mo><mfrac><mn>2550</mn><mn>5472</mn></mfrac><mo>≈</mo><mn>0</mn><mo>,</mo><mn>47</mn></mrow><annotation encoding="application/x-tex">
+OR = \frac{2550}{5472} \approx 0,47
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>47</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mi>−</mi><mn>0</mn><mo>,</mo><mn>76</mn></mrow><annotation encoding="application/x-tex">
+\log(OR) \approx \log(0,47) \approx -0,76
+</annotation></semantics></math></p>
+<p>Puis :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mn>17</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>171</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>32</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>150</mn></mfrac></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{\frac{1}{17}+\frac{1}{171}+\frac{1}{32}+\frac{1}{150}}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mn>0</mn><mo>,</mo><mn>0588</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>00585</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>03125</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>00667</mn></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{0,0588+0,00585+0,03125+0,00667}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mn>0</mn><mo>,</mo><mn>10257</mn></mrow></msqrt><mo>≈</mo><mn>0</mn><mo>,</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">
+sd[\log(OR)] = \sqrt{0,10257} \approx 0,32
+</annotation></semantics></math></p>
+<p>IC95% approximatif sur l’échelle log :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0</mn><mo>,</mo><mn>76</mn><mo>±</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo>×</mo><mn>0</mn><mo>,</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">
+-0,76 \pm 1,96 \times 0,32
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0</mn><mo>,</mo><mn>76</mn><mo>±</mo><mn>0</mn><mo>,</mo><mn>63</mn></mrow><annotation encoding="application/x-tex">
+-0,76 \pm 0,63
+</annotation></semantics></math></p>
+<p>soit :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>39</mn><mo>;</mo><mi>−</mi><mn>0</mn><mo>,</mo><mn>14</mn><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">
+[-1,39 ; -0,14]
+</annotation></semantics></math></p>
+<p>Après exponentiation :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>25</mn><mo>;</mo><mn>0</mn><mo>,</mo><mn>87</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+IC95\%(OR) \approx [0,25 ; 0,87]
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>L’<code>OR</code> est ici inférieur à <code>1</code>, ce qui suggère moins d’EI graves liés au traitement sous <code>sac-TMT</code> que sous chimiothérapie. C’est cohérent avec la lecture narrative du papier. Mais cet exercice a surtout une vertu pédagogique : il montre comment passer d’un tableau binaire de sécurité à un estimateur d’association et à sa précision.</p>
+<p><strong>Réponse type</strong></p>
+<p>Avec les effectifs approchés <code>17/188</code> versus <code>32/182</code>, on trouve un <code>OR</code> d’environ <code>0,47</code>. L’écart-type de <code>log(OR)</code> est d’environ <code>0,32</code>, ce qui conduit à un <code>IC95%</code> approximatif autour de <code>[0,25 ; 0,87]</code>. Cet exercice reformule un résultat de sécurité du papier avec la grammaire classique de l’épidémiologie analytique.</p>
+</div>
+</section>
+<section id="formule-d" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="formule-d">Formule D</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>Imaginez un essai alternatif où le critère principal aurait été une variation moyenne de score de qualité de vie, avec un écart-type <code>\sigma = 15</code> points et une différence cliniquement importante <code>\Delta = 5</code> points. Combien de patients par bras faudrait-il avec <code>alpha = 5%</code> et puissance <code>80%</code> ?</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cette formule sert à retrouver un <strong>NSN par bras pour une variable continue</strong>.</p>
+<p><strong>Données à utiliser</strong></p>
+<ul>
+<li><code>\sigma = 15</code></li>
+<li><code>\Delta = 5</code></li>
+<li><code>z_\alpha \approx 1,96</code></li>
+<li><code>z_\beta \approx 0,84</code></li>
+</ul>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><mn>2</mn><msup><mi>σ</mi><mn>2</mn></msup></mrow><msup><mi>Δ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>84</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>×</mo><mfrac><mrow><mn>2</mn><mo>×</mo><msup><mn>15</mn><mn>2</mn></msup></mrow><msup><mn>5</mn><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n = (1,96 + 0,84)^2 \times \frac{2 \times 15^2}{5^2}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mo>,</mo><msup><mn>8</mn><mn>2</mn></msup><mo>×</mo><mfrac><mn>450</mn><mn>25</mn></mfrac></mrow><annotation encoding="application/x-tex">
+n = 2,8^2 \times \frac{450}{25}
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>7</mn><mo>,</mo><mn>84</mn><mo>×</mo><mn>18</mn><mo>≈</mo><mn>141</mn><mo>,</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">
+n = 7,84 \times 18 \approx 141,1
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>142</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> patients par bras</mtext></mrow></mrow><annotation encoding="application/x-tex">
+n \approx 142 \text{ patients par bras}
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>Cet exercice n’est pas celui de l’article réel, qui raisonne en survie sur la <code>PFS</code>. Il sert à montrer qu’une formule “deux moyennes” peut donner un effectif du même ordre de grandeur que l’essai réel dès qu’on choisit un outcome continu relativement informatif. C’est une bonne façon de comparer la logique des différents plans statistiques.</p>
+<p><strong>Réponse type</strong></p>
+<p>Avec <code>\sigma = 15</code>, <code>\Delta = 5</code>, <code>alpha = 5%</code> et puissance <code>80%</code>, la formule des deux moyennes donne environ <code>142</code> patients par bras. C’est un exercice alternatif, car l’essai réel était dimensionné sur la <code>PFS</code>, pas sur une moyenne continue.</p>
+</div>
+</section>
+</section>
 <section id="réponses-prêtes-a-lemploi" class="level2">
-<h2 class="anchored" data-anchor-id="réponses-prêtes-a-lemploi">4. Réponses prêtes a l’emploi</h2>
+<h2 class="anchored" data-anchor-id="réponses-prêtes-a-lemploi">5. Réponses prêtes a l’emploi</h2>
 <section id="quand-il-faut-critiquer-un-critère-principal" class="level3">
 <h3 class="anchored" data-anchor-id="quand-il-faut-critiquer-un-critère-principal">4.1. Quand il faut critiquer un critère principal</h3>
 <blockquote class="blockquote">
@@ -4330,7 +4586,7 @@ ORR = \frac{\text{CR} + \text{PR}}{\text{patients evaluables}}
 </section>
 </section>
 <section id="checklist-finale" class="level2">
-<h2 class="anchored" data-anchor-id="checklist-finale">5. Checklist finale</h2>
+<h2 class="anchored" data-anchor-id="checklist-finale">6. Checklist finale</h2>
 <ul>
 <li>Ai-je identifié le vrai critère principal et sa lecture correcte ?</li>
 <li>Ai-je distingué <code>PFS</code>, <code>OS</code>, <code>ORR</code> et sécurité ?</li>
@@ -4342,7 +4598,7 @@ ORR = \frac{\text{CR} + \text{PR}}{\text{patients evaluables}}
 </ul>
 </section>
 <section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">6. Conclusion</h2>
+<h2 class="anchored" data-anchor-id="conclusion">7. Conclusion</h2>
 <p>Le sujet <code>RC 2026</code> est un excellent sujet d’annales parce qu’il oblige a lire un essai de phase 3 comme un ensemble cohérent :</p>
 <ol type="1">
 <li>un <strong>design</strong> ;</li>

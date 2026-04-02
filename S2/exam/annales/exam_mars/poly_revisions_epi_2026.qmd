@@ -743,14 +743,29 @@ Mais il faut surtout dire **comment ils l'ont faite**. Le papier parle explicite
 - une couche **interne** pour comparer et pondérer les algorithmes de la bibliothèque ;
 - une couche **externe** pour évaluer plus honnêtement la performance de l'ensemble de la procédure.
 
-En pratique, on peut résumer leur démarche ainsi :
+En pratique, il faut l'imaginer **en deux étages**.
 
-1. ils divisent les données en `10` plis ;
-2. ils laissent un pli de côté comme jeu de test externe ;
-3. sur les `9` autres plis, ils refont une validation croisée pour voir quels base learners prédisent le mieux ;
-4. cette étape interne sert à construire le `Super Learner`, c'est-à-dire à choisir les poids donnés aux différents algorithmes ;
-5. une fois la combinaison fixée, ils l'appliquent au pli externe laissé de côté ;
-6. ils répètent ce processus en faisant tourner les `10` plis.
+Premier étage : on veut garder une partie des données complètement **à part** pour un test honnête.  
+Deuxième étage : sur les données restantes, on veut encore séparer ce qui sert à **entraîner** chaque algorithme et ce qui sert à **les comparer**.
+
+On peut décrire une itération comme cela :
+
+1. on coupe d'abord tout l'échantillon en `10` morceaux de taille voisine ;
+2. on choisit par exemple le pli `n°1` comme **pli externe de test** ; ce pli n'intervient pas du tout à ce stade dans le choix des algorithmes ;
+3. il reste alors `9` plis ;
+4. à l'intérieur de ces `9` plis, on refait un nouveau découpage pour comparer les algorithmes de la bibliothèque ;
+5. concrètement, un algorithme est entraîné sur une partie de ces `9` plis, puis sa prédiction est évaluée sur la partie temporairement laissée de côté ;
+6. on recommence ce mécanisme interne plusieurs fois pour que chaque sous-partie serve à son tour de mini-jeu de validation ;
+7. à la fin de cette **boucle interne**, on sait quels algorithmes prédisent le mieux et quels poids leur donner dans le `Super Learner` ;
+8. seulement après cela, on entraîne cette combinaison retenue sur l'ensemble des `9` plis internes ;
+9. puis on l'applique une seule fois au pli externe `n°1`, qui était resté intact jusque-là ;
+10. ensuite, on recommence tout le processus en prenant comme pli externe le `n°2`, puis le `n°3`, etc., jusqu'au `n°10`.
+
+Autrement dit, la validation croisée **interne** sert à répondre à la question :  
+"Parmi tous les algorithmes disponibles, lesquels prédisent le mieux et avec quels poids faut-il les combiner ?"
+
+La validation croisée **externe** sert à répondre à une autre question :  
+"Une fois ce choix fait, est-ce que la procédure reste performante sur des données qui n'ont jamais servi à choisir le modèle ?"
 
 Donc, concrètement, ils n'ont pas simplement "fait de la validation croisée". Ils ont séparé le moment où l'on **fabrique** le meilleur ensemble de modèles et le moment où l'on **juge** sa performance. C'est précisément cette séparation qui limite l'optimisme artificiel.
 
@@ -1593,7 +1608,325 @@ La meilleure conclusion d'examen tient donc les deux extrêmes ensemble : **papi
 La force majeure est l'utilisation ambitieuse de données naturalistes riches avec des méthodes causalistes modernes. La limite majeure est la confusion non mesurée qui subsiste inévitablement dans une étude sans randomisation.
 :::
 
-## 4. Réponses prêtes à l'emploi
+## 4. Questions formules
+
+Cette section ajoute des **questions d'entraînement ciblées sur les formules du cours** données dans [NSN_Stats.md](/Users/thomashusson/Documents/Projets/M2biostatistiques/S2/exam/annales/exam_mars/NSN_Stats.md).  
+Certaines correspondent assez naturellement au papier `2026 EPI`, d'autres sont des **reconstructions pédagogiques adossées à l'article**. Le but n'est pas de prétendre que les auteurs ont fait exactement ces calculs, mais de s'entraîner à mobiliser les bonnes formules sur un matériau concret.
+
+::: {.formula-card}
+**Mini-boîte méthodologique**
+
+Les quatre familles de formules à savoir mobiliser ici sont :
+
+$$
+\Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
+$$
+
+$$
+sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
+$$
+
+$$
+n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
+$$
+
+$$
+n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
+$$
+
+Dans ce sujet `EPI 2026`, la formule la plus naturelle est celle des **deux moyennes**, puisque le critère principal est continu (`changement de PHQ-9`). Les autres formules sont utilisées ici comme **questions d'application** sur des données réelles ou quasi réelles du papier.
+:::
+
+### Formule A {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> En supposant que l'on transforme l'objectif de précision de l'article en un essai pédagogique “deux moyennes”, combien de patients par bras faudrait-il approximativement pour détecter une différence de `1,7` point de `PHQ-9` avec `alpha = 5%` et puissance `80%` ? On prendra `\sigma = 6` points comme écart-type plausible.
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+La formule “deux moyennes” sert à retrouver un **ordre de grandeur d'effectif par bras** quand l'outcome est continu. Ici, c'est la formule du cours la plus proche du matériau réel, car l'article compare un **changement moyen de `PHQ-9`**.
+
+**Données à utiliser**
+
+- différence à détecter : `\Delta = 1,7`
+- écart-type pédagogique supposé : `\sigma = 6`
+- `alpha = 5%`, donc `z_\alpha \approx 1,96`
+- puissance `80%`, donc `z_\beta \approx 0,84`
+
+**Formule générale**
+
+$$
+n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
+$$
+
+**Application numérique**
+
+$$
+n = (1,96 + 0,84)^2 \times \frac{2 \times 6^2}{1,7^2}
+$$
+
+$$
+n = 2,8^2 \times \frac{72}{2,89}
+$$
+
+$$
+n = 7,84 \times 24,91 \approx 195,3
+$$
+
+On retrouve donc environ :
+
+$$
+n \approx 196 \text{ patients par bras}
+$$
+
+**Interprétation**
+
+Ce calcul n'est **pas** le calcul réellement publié par les auteurs. Eux raisonnent en **objectif de précision sur l'ATE**, pas en essai randomisé classique de supériorité. Mais cet exercice est très utile : il montre que pour un effet moyen modeste en points de `PHQ-9`, l'ordre de grandeur d'effectif reste raisonnable si l'on garde l'information continue.
+
+Le fait que l'article dispose finalement de `5446` patients `iCBT` et `388` patients `fCBT` montre que le problème principal du papier n'est pas l'absence de volume, mais la **comparabilité** des groupes et la validité causale.
+
+**Réponse type**
+
+Avec la formule du cours pour deux moyennes, en prenant `\Delta = 1,7`, `\sigma = 6`, `alpha = 5%` et puissance `80%`, on trouve environ `196` patients par bras. Ce n'est pas exactement le calcul des auteurs, qui visaient surtout une précision de l'ATE, mais c'est une bonne approximation pédagogique pour un outcome continu comme le `PHQ-9`.
+:::
+
+### Formule B {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> À partir des `25` patients exclus pour données basales manquantes sur `5859` patients initialement retenus (`392 + 5467`), calculez la précision de cette proportion d'exclusion avec la formule descriptive du cours.
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cette formule donne la **marge d'erreur** autour d'une proportion observée. C'est typiquement une formule d'épidémiologie descriptive.
+
+**Données à utiliser**
+
+La proportion d'exclusion vaut :
+
+$$
+p = \frac{25}{5859} \approx 0,00427
+$$
+
+avec :
+
+$$
+n = 5859
+$$
+
+**Formule générale**
+
+$$
+\Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
+$$
+
+**Application numérique**
+
+$$
+\Delta = \pm 1,96 \sqrt{\frac{0,00427 \times 0,99573}{5859}}
+$$
+
+$$
+\Delta = \pm 1,96 \sqrt{0,000000725}
+$$
+
+$$
+\Delta \approx \pm 1,96 \times 0,000851
+$$
+
+$$
+\Delta \approx \pm 0,00167
+$$
+
+Soit environ :
+
+$$
+\Delta \approx \pm 0,17\%
+$$
+
+**Interprétation**
+
+La proportion d'exclusion pour données basales manquantes est très faible, autour de `0,43%`, avec une précision très serrée. Autrement dit, l'incertitude statistique sur cette proportion est minime. Cela ne veut pas dire que ces données manquantes sont sans importance méthodologique, mais simplement qu'il n'y a **pas d'imprécision descriptive majeure** sur leur fréquence.
+
+**Réponse type**
+
+La proportion d'exclusion est `25/5859`, soit environ `0,43%`. Avec la formule `\Delta = \pm 1,96 \sqrt{p(1-p)/n}`, on obtient une marge d'erreur d'environ `\pm 0,17%`. La fréquence des exclusions basales est donc très faible et estimée avec une bonne précision descriptive.
+:::
+
+### Formule C {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> En utilisant les données de données basales manquantes par groupe (`21` chez `iCBT`, `4` chez `fCBT`), calculez un `OR` d'exclusion, puis sa précision par la formule `sd(log OR)`.
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+La formule du cours permet ici de travailler la **précision d'un `OR`** à partir d'un tableau `2 x 2`.
+
+**Données à utiliser**
+
+On construit le tableau suivant :
+
+|                    | Données basales manquantes | Données basales présentes |
+|--------------------|---------------------------:|--------------------------:|
+| `iCBT`             | `21`                       | `5446`                    |
+| `fCBT`             | `4`                        | `388`                     |
+
+**Formule générale**
+
+L'odds ratio vaut :
+
+$$
+OR = \frac{a \times d}{b \times c}
+$$
+
+et son écart-type logarithmique :
+
+$$
+sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
+$$
+
+**Application numérique**
+
+Ici :
+
+$$
+OR = \frac{21 \times 388}{5446 \times 4}
+$$
+
+$$
+OR = \frac{8148}{21784} \approx 0,37
+$$
+
+Donc :
+
+$$
+\log(OR) \approx \log(0,37) \approx -0,99
+$$
+
+Puis :
+
+$$
+sd[\log(OR)] = \sqrt{\frac{1}{21}+\frac{1}{5446}+\frac{1}{4}+\frac{1}{388}}
+$$
+
+$$
+sd[\log(OR)] = \sqrt{0,0476 + 0,00018 + 0,25 + 0,00258}
+$$
+
+$$
+sd[\log(OR)] = \sqrt{0,30036} \approx 0,55
+$$
+
+On peut alors construire un IC95% approximatif :
+
+$$
+\log(OR) \pm 1,96 \times sd[\log(OR)]
+$$
+
+$$
+-0,99 \pm 1,96 \times 0,55
+$$
+
+$$
+-0,99 \pm 1,08
+$$
+
+Ce qui donne environ :
+
+$$
+[-2,07 ; 0,09]
+$$
+
+Après exponentiation :
+
+$$
+IC95\%(OR) \approx [0,13 ; 1,09]
+$$
+
+**Interprétation**
+
+Le signal brut suggère ici moins de données basales manquantes dans `iCBT` que dans `fCBT`, mais l'intervalle de confiance est large et recouvre `1`. Ce n'est pas une analyse causale importante du papier ; c'est surtout un bon exercice pour apprendre à passer d'un tableau `2 x 2` à un `OR` puis à sa précision.
+
+**Réponse type**
+
+En construisant le tableau `2 x 2`, on trouve un `OR` d'environ `0,37`. L'écart-type de `log(OR)` vaut environ `0,55`, ce qui conduit à un `IC95%` approximatif d'environ `[0,13 ; 1,09]`. On apprend donc surtout ici à manier la formule de précision d'un `OR` sur des données réelles du papier.
+:::
+
+### Formule D {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> Supposez, pour un exercice de design, que l'issue principale ait été dichotomisée en “réponse cliniquement pertinente” avec `35%` de répondeurs sous `fCBT` et `45%` sous `iCBT`. Combien de patients par bras aurait-il fallu approximativement avec `alpha = 5%` et puissance `80%` ?
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+La formule “deux proportions” donne ici un **nombre de sujets par bras** si l'on transforme artificiellement l'issue continue en outcome binaire.
+
+**Données à utiliser**
+
+- `p_1 = 0,35`
+- `p_2 = 0,45`
+- `z_\alpha \approx 1,96`
+- `z_\beta \approx 0,84`
+
+**Formule générale**
+
+$$
+n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
+$$
+
+**Application numérique**
+
+$$
+n = (1,96 + 0,84)^2 \times \frac{0,35(0,65)+0,45(0,55)}{(0,45-0,35)^2}
+$$
+
+$$
+n = 2,8^2 \times \frac{0,2275+0,2475}{0,10^2}
+$$
+
+$$
+n = 7,84 \times \frac{0,475}{0,01}
+$$
+
+$$
+n = 7,84 \times 47,5 \approx 372,4
+$$
+
+Donc :
+
+$$
+n \approx 373 \text{ patients par bras}
+$$
+
+**Interprétation**
+
+Cet exercice montre très bien ce qu'on perd quand on **dichotomise** une variable continue comme le `PHQ-9`. Alors que la formule “deux moyennes” donnait un ordre de grandeur inférieur, la formule “deux proportions” demande ici un effectif bien plus grand. C'est exactement l'une des raisons pour lesquelles un outcome continu est souvent statistiquement plus efficace.
+
+**Pourquoi cette formule n'est pas exactement celle des auteurs**
+
+Les auteurs n'ont pas transformé le `PHQ-9` en critère binaire. Ils ont précisément choisi de garder un outcome continu et un estimand causal moyen (`ATE`). Cette question sert donc surtout à comprendre pourquoi ce choix méthodologique est statistiquement pertinent.
+
+**Réponse type**
+
+Avec `p_1 = 0,35` et `p_2 = 0,45`, la formule des deux proportions donne environ `373` patients par bras. Ce chiffre, plus élevé que dans l'exercice “deux moyennes”, illustre bien le coût statistique de la dichotomisation d'un critère continu comme le `PHQ-9`.
+:::
+
+## 5. Réponses prêtes à l'emploi
 
 ### 4.1. Quand il faut discuter la précision plutôt que la puissance
 
@@ -1607,7 +1940,7 @@ La force majeure est l'utilisation ambitieuse de données naturalistes riches av
 
 > Le `TMLE` est un estimateur causal moderne qui combine modèle de traitement et modèle d'outcome pour cibler l'`ATE`. Il exploite mieux les données observées qu'une régression simple, mais il ne corrige pas les confondeurs non mesurés.
 
-## 5. Checklist finale
+## 6. Checklist finale
 
 - Ai-je bien identifié le design comme observationnel naturaliste ?
 - Ai-je distingué différence brute et `ATE` ?
@@ -1616,7 +1949,7 @@ La force majeure est l'utilisation ambitieuse de données naturalistes riches av
 - Ai-je distingué signal statistique et ampleur clinique ?
 - Ai-je terminé par une conclusion prudente et utilisable à l'examen ?
 
-## 6. Conclusion
+## 7. Conclusion
 
 Le sujet `EPI 2026` est un très bon test d'examen parce qu'il oblige à ne pas se laisser impressionner par la sophistication technique seule.
 

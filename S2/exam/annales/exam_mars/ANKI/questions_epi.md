@@ -137,3 +137,41 @@
 -   AIPTW : combine un modèle de traitement (score de propension) et un modèle de résultat, et utilise une approche d'estimation robuste pour ajuster les prédictions du modèle de résultat en fonction de la distribution obtenue par le modèle de traitement
 
     -   Différence avec TMLE : AIPTW ne fait pas de "targeting" pour ajuster les prédictions du modèle de résultat, ce qui peut conduire à une estimation moins précise de l'effet du traitement, surtout si les modèles de traitement et de résultat sont mal spécifiés.
+
+#### Article ÉPI : validation croisée 
+
+-   Évite de choisir un modèle sur des données et l'évaluer sur les mêmes données.
+
+-   "Nested 10 fold validation" : 10 sous-échantillons 
+
+    -   1 sous-échantillon à part pour le test final (pli externe)
+
+    -   9 sous-échantillons pour entraîner et comparer les algorithmes (pli interne)
+
+        -   Dans les 9 : nouveau découpage pour entraîner et comparer les algorithmes
+
+        -   En gros : entraîneemnt et sélection des algorithmes sur les 9 plis internes, 
+
+    -   puis évaluation finale sur le pli externe qui n'a jamais été utilisé pour choisir les algorithmes
+
+-   Autrement dit, la validation croisée **interne** sert à répondre à la question : "Parmi tous les algorithmes disponibles, lesquels prédisent le mieux et avec quels poids faut-il les combiner ?"
+
+-   La validation croisée **externe** sert à répondre à une autre question : "Une fois ce choix fait, est-ce que la procédure reste performante sur des données qui n'ont jamais servi à choisir le modèle ?"
+
+-   En résumé : 
+
+    -   Dans le papier, cette logique est utilisée pour les deux briques du TMLE :
+
+        -   le super learner qui prédit le traitement ;
+        
+        -   le super learner qui prédit l’outcome.
+
+    -   Enfin, l’article précise aussi que les poids des base learners sont attribués automatiquement par une régression de type non-negative least squares. Donc la procédure complète est vraiment :
+
+        -   plusieurs algorithmes candidats ;
+
+        -   validation croisée ;
+
+        -   pondération automatique ;
+
+        -   évaluation sur des plis externes séparés.

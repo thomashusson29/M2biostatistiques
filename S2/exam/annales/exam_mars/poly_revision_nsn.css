@@ -592,6 +592,28 @@ html[data-theme="night"] .answer-card {
   margin-bottom: 0;
 }
 
+.formula-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.35rem 0 0.8rem 0;
+  padding: 0.38rem 0.72rem;
+  border-radius: 999px;
+  border: 1px solid rgba(183, 121, 38, 0.24);
+  background: linear-gradient(180deg, rgba(255, 247, 229, 0.96), rgba(255, 253, 247, 0.98));
+  color: #8a5b16;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.formula-banner::before {
+  content: "∑";
+  font-size: 0.86rem;
+  color: var(--gold);
+}
+
 html.js .article-hunt-card__answer--collapsed {
   display: none;
 }
@@ -640,6 +662,12 @@ html[data-theme="night"] .article-cite-toggle summary {
 html[data-theme="night"] .article-cite-toggle__body {
   border-top-color: rgba(111, 154, 160, 0.16);
   color: #e7ece8;
+}
+
+html[data-theme="night"] .formula-banner {
+  border-color: rgba(203, 168, 99, 0.24);
+  background: linear-gradient(180deg, rgba(63, 49, 23, 0.94), rgba(44, 36, 22, 0.98));
+  color: #f0ddaf;
 }
 
 .small-note {
