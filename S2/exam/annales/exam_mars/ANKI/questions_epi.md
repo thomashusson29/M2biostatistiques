@@ -32,9 +32,7 @@
 
     -   compte tenu des caractéristiques de base, que serait le résultat attendu (changement de PHQ-9) pour chaque patient s'il avait reçu iCBT ou s'il avait reçu fCBT ?
 
-
-
--   Targeting : ajuste les prédictions du modèle de résultat pour correspondre à la distribution du traitement observé, afin d'obtenir une estimation non biaisée de l'effet du traitement.
+-   Targeting : ajuste les prédictions initiales du modèle de résultat pour correspondre à la distribution obtenue par le modèle de traitement, afin d'obtenir une meilleure estimation de l'effet du traitement (ici le paramètre causal ciblé = l'ATE)
 
 -   Ici utilisation de "Super Learner" pour sélectionner les meilleurs modèles prédictifs pour les deux étapes (score de propension et modèle de résultat)
 

@@ -79,6 +79,45 @@
       gap: 12px;
     }
 
+    .toggle-group {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.82);
+      overflow: hidden;
+    }
+
+    .toggle-group summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .toggle-group summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .toggle-group summary::after {
+      content: "+";
+      color: var(--teal);
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .toggle-group[open] summary::after {
+      content: "−";
+    }
+
+    .toggle-group .list {
+      margin-top: 0;
+      padding: 0 14px 14px;
+    }
+
     .item {
       display: flex;
       justify-content: space-between;
@@ -134,56 +173,79 @@
       <p>Cette page regroupe les polys d'annales publiés automatiquement depuis le dossier <code>S2/exam/annales/exam_mars</code> lors des rendus locaux Quarto.</p>
 
       <div class="list">
-        <a class="item" href="poly_revision_nsn.html">
-          <span>
-            <span class="label">Nombre de sujets nécessaires</span>
-            <span class="desc">Poly de révision sur le calcul du nombre de sujets nécessaires, la puissance statistique et les annales associées.</span>
-          </span>
-          <span class="hint">ouvrir →</span>
-        </a>
+        <details class="toggle-group" open>
+          <summary>RC</summary>
+          <div class="list">
+            <a class="item" href="poly_revision_RC_codex.html">
+              <span>
+                <span class="label">Poly RC codex</span>
+                <span class="desc">Annales de recherche clinique, toutes les questions reprises depuis les sujets originaux et corrigées de manière structurée.</span>
+              </span>
+              <span class="hint">ouvrir →</span>
+            </a>
 
-        <a class="item" href="poly_revision_RC_codex.html">
-          <span>
-            <span class="label">Poly RC codex</span>
-            <span class="desc">Annales de recherche clinique, toutes les questions reprises depuis les sujets originaux et corrigées de manière structurée.</span>
-          </span>
-          <span class="hint">ouvrir →</span>
-        </a>
+            <a class="item" href="poly_revisions_RC_2026.html">
+              <span>
+                <span class="label">Poly RC 2026</span>
+                <span class="desc">Version autonome et plus pédagogique du sujet RC 2026, avec les 35 questions officielles, citations ciblées de l'article, calcul de NSN et puissance a posteriori détaillée.</span>
+              </span>
+              <span class="hint">ouvrir →</span>
+            </a>
 
-        <a class="item" href="poly_revision_epi_codex.html">
-          <span>
-            <span class="label">Poly EPI codex</span>
-            <span class="desc">Annales d'épidémiologie analytique, questions exhaustives, réponses détaillées et lecture critique guidée.</span>
-          </span>
-          <span class="hint">ouvrir →</span>
-        </a>
+            <a class="item" href="poly_phase2_article_RC_2026.html">
+              <span>
+                <span class="label">Poly phase II a partir de l'article RC 2026</span>
+                <span class="desc">Transposition pédagogique du papier RC 2026 vers tout le cours des essais de phase II, avec 28 questions détaillées, citations ciblées de l'article et distinction explicite entre faits observés et reconstruction méthodologique.</span>
+              </span>
+              <span class="hint">ouvrir →</span>
+            </a>
+          </div>
+        </details>
 
-        <a class="item" href="poly_revision_intermediaires_2026.html">
-          <span>
-            <span class="label">Analyses intermédiaires 2026</span>
-            <span class="desc">Poly ciblé sur les analyses intermédiaires, l'alpha-spending, le rôle du DSMB et vingt questions fictives détaillées sur RC 2026 et EPI 2026.</span>
-          </span>
-          <span class="hint">ouvrir →</span>
-        </a>
+        <details class="toggle-group">
+          <summary>Épi</summary>
+          <div class="list">
+            <a class="item" href="poly_revision_epi_codex.html">
+              <span>
+                <span class="label">Poly EPI codex</span>
+                <span class="desc">Annales d'épidémiologie analytique, questions exhaustives, réponses détaillées et lecture critique guidée.</span>
+              </span>
+              <span class="hint">ouvrir →</span>
+            </a>
 
-        <a class="item" href="poly_revisions_epi_2026.html">
-          <span>
-            <span class="label">Poly EPI 2026</span>
-            <span class="desc">Version autonome et plus pédagogique du sujet EPI 2026, avec réponses détaillées, exemples concrets tirés de l'article et calcul de précision/puissance a posteriori.</span>
-          </span>
-          <span class="hint">ouvrir →</span>
-        </a>
+            <a class="item" href="poly_revisions_epi_2026.html">
+              <span>
+                <span class="label">Poly EPI 2026</span>
+                <span class="desc">Version autonome et plus pédagogique du sujet EPI 2026, avec réponses détaillées, exemples concrets tirés de l'article et calcul de précision/puissance a posteriori.</span>
+              </span>
+              <span class="hint">ouvrir →</span>
+            </a>
+          </div>
+        </details>
 
-        <a class="item" href="poly_revisions_RC_2026.html">
-          <span>
-            <span class="label">Poly RC 2026</span>
-            <span class="desc">Version autonome et plus pédagogique du sujet RC 2026, avec les 35 questions officielles, citations ciblées de l'article, calcul de NSN et puissance a posteriori détaillée.</span>
-          </span>
-          <span class="hint">ouvrir →</span>
-        </a>
+        <details class="toggle-group">
+          <summary>Autres</summary>
+          <div class="list">
+            <a class="item" href="poly_revision_nsn.html">
+              <span>
+                <span class="label">Nombre de sujets nécessaires</span>
+                <span class="desc">Poly de révision sur le calcul du nombre de sujets nécessaires, la puissance statistique et les annales associées.</span>
+              </span>
+              <span class="hint">ouvrir →</span>
+            </a>
+
+            <a class="item" href="poly_revision_intermediaires_2026.html">
+              <span>
+                <span class="label">Analyses intermédiaires 2026</span>
+                <span class="desc">Poly ciblé sur les analyses intermédiaires, l'alpha-spending, le rôle du DSMB et vingt questions fictives détaillées sur RC 2026 et EPI 2026.</span>
+              </span>
+              <span class="hint">ouvrir →</span>
+            </a>
+          </div>
+        </details>
       </div>
 
-      <p class="status">Les fichiers HTML sont copiés automatiquement vers <code>docs/</code> après chaque rendu local.</p>
+      <p class="status">Les fichiers HTML du second semestre sont copiés automatiquement vers <code>docs/</code> après chaque rendu local, y compris <code>poly_phase2_article_RC_2026.html</code>.</p>
     </section>
   </main>
 </body>
