@@ -1494,7 +1494,7 @@ $$
 HR = 0{,}67, \quad \alpha = 0{,}025 \text{ unilatéral}, \quad \text{puissance} = 88\%
 $$
 
-on obtient environ `249` événements. Sous une hypothèse de rendement d'événements d'environ `70%`, cela donne environ `356` sujets. Les chiffres de l'article sont cohérents.
+on obtient environ `249` événements. Le passage à `316` sujets se fait par un calcul du nombre d'événements attendus sous hypothèse de survie exponentielle, en tenant compte de la médiane `PFS` du bras contrôle (`4,4` mois), du `HR` cible (`0,67`), d'une inclusion uniforme sur `12` mois et d'une analyse prévue `19` mois après la randomisation du premier patient. Le protocole gonfle ensuite ce chiffre à environ `356` pour tenir compte du dropout. Les chiffres de l'article sont cohérents.
 
 #### Question 7
 

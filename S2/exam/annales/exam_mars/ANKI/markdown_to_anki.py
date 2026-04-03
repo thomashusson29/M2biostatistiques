@@ -91,6 +91,113 @@ def require_dependencies() -> None:
         raise RuntimeError(f"Dépendances manquantes. Installe-les avec: python3 -m pip install {joined}")
 
 
+def protect_latex(md_text: str) -> tuple[str, dict[str, str]]:
+    placeholder_to_math: dict[str, str] = {}
+    out: list[str] = []
+
+    in_code_fence = False
+    in_inline_code = False
+    in_math_inline = False
+    in_math_block = False
+    buffer: list[str] = []
+    placeholder_index = 0
+
+    def emit_placeholder(latex_src: str) -> None:
+        nonlocal placeholder_index
+        key = f"@@ANKIMATH{placeholder_index}@@"
+        placeholder_index += 1
+        placeholder_to_math[key] = latex_src
+        out.append(key)
+
+    i = 0
+    while i < len(md_text):
+        ch = md_text[i]
+
+        if not in_inline_code and not in_math_inline and not in_math_block and (i == 0 or md_text[i - 1] == "\n"):
+            j = i
+            while j < len(md_text) and md_text[j] == " ":
+                j += 1
+            if md_text.startswith("```", j):
+                in_code_fence = not in_code_fence
+                out.append(ch)
+                i += 1
+                continue
+
+        if in_code_fence:
+            out.append(ch)
+            i += 1
+            continue
+
+        if not in_math_inline and not in_math_block and ch == "`":
+            in_inline_code = not in_inline_code
+            out.append(ch)
+            i += 1
+            continue
+
+        if in_inline_code:
+            out.append(ch)
+            i += 1
+            continue
+
+        if not in_math_inline and md_text.startswith("$$", i):
+            if in_math_block:
+                buffer.append("$$")
+                emit_placeholder("".join(buffer))
+                buffer = []
+                in_math_block = False
+            else:
+                in_math_block = True
+                buffer = ["$$"]
+            i += 2
+            continue
+
+        if in_math_block:
+            buffer.append(ch)
+            i += 1
+            continue
+
+        if ch == "$" and not md_text.startswith("$$", i) and (i == 0 or md_text[i - 1] != "\\"):
+            if in_math_inline:
+                buffer.append("$")
+                emit_placeholder("".join(buffer))
+                buffer = []
+                in_math_inline = False
+            else:
+                in_math_inline = True
+                buffer = ["$"]
+            i += 1
+            continue
+
+        if in_math_inline:
+            buffer.append(ch)
+            i += 1
+            continue
+
+        out.append(ch)
+        i += 1
+
+    if in_math_inline or in_math_block:
+        out.extend(buffer)
+
+    return "".join(out), placeholder_to_math
+
+
+def restore_latex(html_text: str, placeholder_to_math: dict[str, str]) -> str:
+    def to_anki_mathjax_delimiters(latex_src: str) -> str:
+        if latex_src.startswith("$$") and latex_src.endswith("$$") and len(latex_src) >= 4:
+            inner = latex_src[2:-2]
+            return f"\\[{inner}\\]"
+        if latex_src.startswith("$") and latex_src.endswith("$") and len(latex_src) >= 2:
+            inner = latex_src[1:-1]
+            return f"\\({inner}\\)"
+        return latex_src
+
+    for placeholder, latex_src in placeholder_to_math.items():
+        mathjax = to_anki_mathjax_delimiters(latex_src)
+        html_text = html_text.replace(placeholder, html.escape(mathjax, quote=False))
+    return html_text
+
+
 def build_apkg(cards: Iterable[CardSpec], output_path: Path, deck_name: str) -> int:
     require_dependencies()
     assert genanki is not None
@@ -105,8 +212,8 @@ def build_apkg(cards: Iterable[CardSpec], output_path: Path, deck_name: str) -> 
         templates=[
             {
                 "name": "Carte",
-                "qfmt": "{{Front}}",
-                "afmt": "{{FrontSide}}<hr id='answer'>{{Back}}",
+                "qfmt": "<anki-mathjax>{{Front}}</anki-mathjax>",
+                "afmt": "<anki-mathjax>{{FrontSide}}<hr id='answer'>{{Back}}</anki-mathjax>",
             }
         ],
         css="""
@@ -130,8 +237,14 @@ pre, code {
 
     count = 0
     for card in cards:
-        front = html.escape(card.question, quote=False).replace("\n", "<br>")
-        back = md.markdown(card.answer_markdown, extensions=["extra"])
+        protected_front, front_placeholders = protect_latex(card.question)
+        front = html.escape(protected_front, quote=False).replace("\n", "<br>")
+        front = restore_latex(front, front_placeholders)
+
+        protected_back, back_placeholders = protect_latex(card.answer_markdown)
+        back = md.markdown(protected_back, extensions=["extra"])
+        back = restore_latex(back, back_placeholders)
+
         note = genanki.Note(
             model=model,
             fields=[front, back],

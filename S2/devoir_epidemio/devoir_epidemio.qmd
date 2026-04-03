@@ -2474,6 +2474,7 @@ print(love_plot_baseline)
 
 -   On propose d'inclure les mêmes variables que celles sélectionnées par les auteurs de l'article original (car étant identifiées par des experts).
 
+\newpage
 ## Gestion des données manquantes
 
 ### Problématique des données manquantes

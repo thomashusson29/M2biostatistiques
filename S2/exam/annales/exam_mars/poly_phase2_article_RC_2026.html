@@ -2686,6 +2686,26 @@ margin: 0 0 0.42rem 0;
 .article-cite-toggle__body p:last-child {
 margin-bottom: 0;
 }
+.formula-banner {
+display: inline-flex;
+align-items: center;
+gap: 0.45rem;
+margin: 0.35rem 0 0.8rem 0;
+padding: 0.38rem 0.72rem;
+border-radius: 999px;
+border: 1px solid rgba(183, 121, 38, 0.24);
+background: linear-gradient(180deg, rgba(255, 247, 229, 0.96), rgba(255, 253, 247, 0.98));
+color: #8a5b16;
+font-size: 0.82rem;
+font-weight: 800;
+letter-spacing: 0.03em;
+text-transform: uppercase;
+}
+.formula-banner::before {
+content: "∑";
+font-size: 0.86rem;
+color: var(--gold);
+}
 html.js .article-hunt-card__answer--collapsed {
 display: none;
 }
@@ -2725,6 +2745,11 @@ color: #c6e2df;
 html[data-theme="night"] .article-cite-toggle__body {
 border-top-color: rgba(111, 154, 160, 0.16);
 color: #e7ece8;
+}
+html[data-theme="night"] .formula-banner {
+border-color: rgba(203, 168, 99, 0.24);
+background: linear-gradient(180deg, rgba(63, 49, 23, 0.94), rgba(44, 36, 22, 0.98));
+color: #f0ddaf;
 }
 .small-note {
 font-size: 0.92rem;
@@ -2811,6 +2836,92 @@ border-color: rgba(214, 140, 116, 0.26);
 html[data-theme="night"] .callout.callout-important .callout-header,
 html[data-theme="night"] .callout.callout-important .callout-icon-container {
 background: rgba(214, 140, 116, 0.12);
+}
+.interim-flow-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+gap: 1rem;
+margin: 1rem 0 1.2rem;
+}
+.interim-flow-card {
+border: 1px solid rgba(53, 92, 125, 0.16);
+border-radius: 16px;
+background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(241, 245, 249, 0.92));
+padding: 1rem 1rem 0.9rem;
+box-shadow: 0 14px 30px rgba(25, 35, 45, 0.06);
+}
+.interim-flow-card__title {
+font-size: 0.78rem;
+font-weight: 700;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: #355c7d;
+margin-bottom: 0.8rem;
+}
+.interim-flow-stack {
+display: grid;
+gap: 0.55rem;
+}
+.interim-step,
+.interim-branch {
+display: block;
+padding: 0.65rem 0.8rem;
+border-radius: 12px;
+background: #ffffff;
+border: 1px solid rgba(53, 92, 125, 0.14);
+color: #1f2f3d;
+font-size: 0.9rem;
+line-height: 1.35;
+}
+.interim-step {
+font-weight: 700;
+}
+.interim-branch {
+margin-left: 1.2rem;
+position: relative;
+}
+.interim-branch::before {
+content: "↳";
+position: absolute;
+left: -0.95rem;
+color: #6c7a89;
+font-weight: 700;
+}
+.interim-step--success {
+background: rgba(120, 164, 108, 0.14);
+border-color: rgba(120, 164, 108, 0.28);
+color: #284030;
+}
+.interim-flow-note {
+margin: 0.8rem 0 0;
+color: #4f6170;
+font-size: 0.92rem;
+line-height: 1.45;
+}
+html[data-theme="night"] .interim-flow-card {
+border-color: rgba(129, 172, 209, 0.18);
+background: linear-gradient(180deg, rgba(24, 31, 36, 0.96), rgba(18, 24, 28, 0.94));
+box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
+}
+html[data-theme="night"] .interim-flow-card__title {
+color: #a7c2dc;
+}
+html[data-theme="night"] .interim-step,
+html[data-theme="night"] .interim-branch {
+background: rgba(255, 255, 255, 0.03);
+border-color: rgba(167, 194, 220, 0.16);
+color: #e6edf2;
+}
+html[data-theme="night"] .interim-step--success {
+background: rgba(120, 164, 108, 0.2);
+border-color: rgba(140, 188, 126, 0.34);
+color: #dbf0d8;
+}
+html[data-theme="night"] .interim-branch::before {
+color: #91a0ad;
+}
+html[data-theme="night"] .interim-flow-note {
+color: #b8c5cf;
 }
 @media (max-width: 1199px) {
 :root {
@@ -3025,6 +3136,7 @@ page-break-before: always;
   <li><a href="#comment-utiliser-ce-poly" id="toc-comment-utiliser-ce-poly">Comment utiliser ce poly</a></li>
   <li><a href="#matrice-de-couverture-cours---questions" id="toc-matrice-de-couverture-cours---questions">Matrice de couverture : cours -&gt; questions</a></li>
   <li><a href="#article-et-contexte" id="toc-article-et-contexte">Article et contexte</a></li>
+  <li><a href="#sigles-indispensables-avant-de-commencer" id="toc-sigles-indispensables-avant-de-commencer">Sigles indispensables avant de commencer</a></li>
   <li><a href="#principes-et-objectifs-de-la-phase-ii" id="toc-principes-et-objectifs-de-la-phase-ii">1. Principes et objectifs de la phase II</a>
   <ul>
   <li><a href="#theme-1.-du-developpement-precoce-a-la-logique-go-no-go" id="toc-theme-1.-du-developpement-precoce-a-la-logique-go-no-go">Theme 1. Du developpement precoce a la logique “go / no go”</a></li>
@@ -3051,7 +3163,7 @@ page-break-before: always;
   <li><a href="#checklist-finale" id="toc-checklist-finale">6. Checklist finale</a></li>
   <li><a href="#conclusion" id="toc-conclusion">7. Conclusion</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Autres formats</h2><ul><li><a href="../../../../poly_phase2_article_RC_2026.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Autres formats</h2><ul><li><a href="poly_phase2_article_RC_2026.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 <section id="poly-phase-ii-a-partir-de-larticle-rc-2026" class="level2 cover-title cover-banner">
 <h2 class="cover-title anchored" data-anchor-id="poly-phase-ii-a-partir-de-larticle-rc-2026">Poly phase II a partir de l’article RC 2026</h2>
 <section id="fang-et-al.-nejm-2026-comment-raisonner-comme-en-phase-ii-a-partir-dun-article-reel-de-phase-3" class="level3 cover-subtitle">
@@ -3239,18 +3351,31 @@ page-break-before: always;
 </section>
 <section id="article-et-contexte" class="level2">
 <h2 class="anchored" data-anchor-id="article-et-contexte">Article et contexte</h2>
-<p>L’article support est <strong>Fang et al., NEJM 2026</strong>, essai <code>OptiTROP-Lung04</code>, comparant <code>sacituzumab tirumotecan</code> (<code>sac-TMT</code>) a <code>pemetrexed + platinum-based chemotherapy</code> chez des patients avec <code>NSCLC</code> non squameux mute <code>EGFR</code>, localement avance ou metastatique, apres echec d’<code>EGFR-TKI</code>.</p>
+<p>L’article support est <strong>Fang et al., NEJM 2026</strong>, essai <code>OptiTROP-Lung04</code>, comparant <code>sacituzumab tirumotecan</code> (<code>sac-TMT</code>) a <code>pemetrexed + platinum-based chemotherapy</code> chez des patients avec un <strong>cancer bronchique non a petites cellules</strong> (<code>NSCLC</code>, pour <em>non-small-cell lung cancer</em>) non squameux, porteur d’une mutation <code>EGFR</code> (<em>epidermal growth factor receptor</em>), localement avance ou metastatique, apres echec d’un <code>EGFR-TKI</code>, c’est-a-dire d’un <strong>inhibiteur de tyrosine kinase cible sur EGFR</strong>.</p>
 <p>Les faits bruts a garder en tete sont les suivants :</p>
 <ul>
 <li>essai de <strong>phase 3</strong>, multicentrique, randomise <code>1:1</code>, ouvert ;</li>
 <li><code>376</code> patients randomises, <code>188</code> par bras ;</li>
-<li>critere principal : <code>PFS</code> evaluee par revue independante en aveugle ;</li>
-<li><code>ORR</code> : <code>60.6%</code> vs <code>43.1%</code> ;</li>
-<li><code>DCR</code> : <code>87.2%</code> vs <code>80.3%</code> ;</li>
-<li>mediane de duree de reponse : <code>8.3</code> vs <code>4.2</code> mois ;</li>
-<li><code>OS</code> : <code>HR 0.60</code>, <code>P = 0.001</code>, survie a 18 mois <code>65.8%</code> vs <code>48.0%</code> ;</li>
+<li>critere principal : <strong>survie sans progression</strong> (<code>PFS</code>, pour <em>progression-free survival</em>), evaluee par revue independante en aveugle ;</li>
+<li><strong>taux de reponse objective</strong> (<code>ORR</code>, pour <em>objective response rate</em>) : <code>60.6%</code> vs <code>43.1%</code> ;</li>
+<li><strong>taux de controle de la maladie</strong> (<code>DCR</code>, pour <em>disease control rate</em>) : <code>87.2%</code> vs <code>80.3%</code> ;</li>
+<li><strong>duree de reponse</strong> (<code>DOR</code>, pour <em>duration of response</em>) mediane : <code>8.3</code> vs <code>4.2</code> mois ;</li>
+<li><strong>survie globale</strong> (<code>OS</code>, pour <em>overall survival</em>) : <strong>hazard ratio</strong> (<code>HR</code>) <code>0.60</code>, <code>P = 0.001</code>, survie a 18 mois <code>65.8%</code> vs <code>48.0%</code> ;</li>
 <li>effets indesirables grades <code>3+</code> : <code>58.0%</code> vs <code>53.8%</code> ;</li>
 <li>effets indesirables graves lies au traitement : <code>9.0%</code> vs <code>17.6%</code>.</li>
+</ul>
+</section>
+<section id="sigles-indispensables-avant-de-commencer" class="level2">
+<h2 class="anchored" data-anchor-id="sigles-indispensables-avant-de-commencer">Sigles indispensables avant de commencer</h2>
+<ul>
+<li><code>ORR</code> : <strong>objective response rate</strong>, c’est-a-dire la proportion de patients dont la tumeur diminue assez pour etre classee en reponse objective a l’imagerie.</li>
+<li><code>DCR</code> : <strong>disease control rate</strong>, c’est-a-dire la proportion de patients en reponse ou au moins en stabilisation de la maladie.</li>
+<li><code>DOR</code> : <strong>duration of response</strong>, c’est-a-dire la duree pendant laquelle une reponse objective persiste chez les patients qui ont repondu.</li>
+<li><code>PFS</code> : <strong>progression-free survival</strong>, c’est-a-dire le temps entre la randomisation et la progression tumorale ou le deces.</li>
+<li><code>OS</code> : <strong>overall survival</strong>, c’est-a-dire le temps entre la randomisation et le deces, quelle qu’en soit la cause.</li>
+<li><code>HR</code> : <strong>hazard ratio</strong>, c’est-a-dire le rapport des risques instantanes entre deux groupes ; un <code>HR &lt; 1</code> favorise ici <code>sac-TMT</code>.</li>
+<li><code>RECIST 1.1</code> : regles standardisees d’evaluation radiologique des tumeurs ; elles servent a classer les patients en reponse, stabilisation ou progression.</li>
+<li><code>EGFR-TKI</code> : traitement cible oral dirige contre <code>EGFR</code>, recu avant l’inclusion dans cet essai.</li>
 </ul>
 </section>
 <section id="principes-et-objectifs-de-la-phase-ii" class="level2">
@@ -3300,11 +3425,11 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>Le cours attribue a la phase II plusieurs objectifs majeurs : <strong>etudier l’effet therapeutique</strong>, <strong>approcher la dose optimale</strong>, <strong>poursuivre l’evaluation de la securite</strong> et guider la decision de poursuite du developpement. Applique a <code>sac-TMT</code>, cela veut dire qu’une phase II aurait eu pour role de verifier qu’apres l’echec des <code>EGFR-TKI</code>, ce traitement produit un signal d’efficacite suffisamment convaincant pour justifier une phase III.</p>
+<p>Le cours attribue a la phase II plusieurs objectifs majeurs : <strong>etudier l’effet therapeutique</strong>, <strong>approcher la dose optimale</strong>, <strong>poursuivre l’evaluation de la securite</strong> et guider la decision de poursuite du developpement. Applique a <code>sac-TMT</code>, cela veut dire qu’une phase II aurait eu pour role de verifier qu’apres l’echec des inhibiteurs de tyrosine kinase anti-<code>EGFR</code> (<code>EGFR-TKI</code>), ce traitement produit un signal d’efficacite suffisamment convaincant pour justifier une phase III.</p>
 <p>L’article donne un argument direct pour cette lecture : il rappelle que le programme precoce <code>KL264-01</code> a montre une <code>&quot;encouraging antitumor activity&quot;</code>. C’est exactement l’esprit de la phase II : pas encore demontrer definitivement un benefice clinique majeur sur la survie globale, mais montrer que le medicament <strong>fait assez bien pour meriter un test confirmatoire</strong>.</p>
 <p>Il faut aussi ajouter que la phase II sert a mieux cerner la <strong>tolerance</strong>. Le papier final rapporte par exemple beaucoup de toxicite hematologique et de stomatite, ce qui montre qu’avant la phase III il etait essentiel de comprendre la frequence et la gerabilite de ces evenements, ainsi que la faisabilite de la dose retenue.</p>
 <p><strong>Exemple concret</strong></p>
-<p>Un objectif de phase II aurait pu etre : estimer l’<code>ORR</code>, la <code>DOR</code>, la toxicite de grade <code>3+</code>, puis decider si l’association “activite interessante + toxicite acceptable” autorise le passage en phase III.</p>
+<p>Un objectif de phase II aurait pu etre : estimer le <strong>taux de reponse objective</strong> (<code>ORR</code>), puis la <strong>duree de reponse</strong> (<code>DOR</code>) chez les repondeurs, tout en recensant la toxicite de grade <code>3+</code>, afin de decider si l’association “activite interessante + toxicite acceptable” autorise le passage en phase III.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>En phase II, <code>sac-TMT</code> aurait d’abord ete evalue pour son signal d’efficacite, sa tolérance et la pertinence de sa dose. Le but n’aurait pas ete de prouver definitivement un benefice de survie, mais de decider s’il fallait passer a une phase III.</p>
 </div>
@@ -3327,10 +3452,10 @@ page-break-before: always;
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
 <p>Le principe general d’une phase II, tel qu’il est rappele dans le cours, est simple : ce sont les <strong>premieres etudes d’efficacite chez le malade</strong>, avec une logique de <strong>selection</strong>. On ne demande pas encore au traitement de battre de facon definitive un standard sur un critere dur. On lui demande d’etre <strong>suffisamment prometteur</strong> pour justifier la suite.</p>
-<p>Si l’on transpose cette logique a l’article, on dirait qu’avant de lancer <code>OptiTROP-Lung04</code>, il fallait etablir une regle du type : “si <code>sac-TMT</code> atteint un niveau d’<code>ORR</code> ou de <code>DOR</code> superieur a un seuil juge cliniquement pertinent, alors on garde le produit ; sinon on l’abandonne”. Le papier, lui, est deja au stade suivant : il ne cherche plus un simple signal, il teste un vrai benefice comparatif de <code>PFS</code> et d’<code>OS</code>.</p>
+<p>Si l’on transpose cette logique a l’article, on dirait qu’avant de lancer <code>OptiTROP-Lung04</code>, il fallait etablir une regle du type : “si <code>sac-TMT</code> atteint un niveau de <strong>taux de reponse objective</strong> (<code>ORR</code>) ou une <strong>duree de reponse</strong> (<code>DOR</code>) superieur a un seuil juge cliniquement pertinent, alors on garde le produit ; sinon on l’abandonne”. Le papier, lui, est deja au stade suivant : il ne cherche plus un simple signal, il teste un vrai benefice comparatif de <strong>survie sans progression</strong> (<code>PFS</code>) et de <strong>survie globale</strong> (<code>OS</code>).</p>
 <p>La bonne copie doit insister sur le contraste : <strong>phase II = logique de tri</strong>, <strong>phase III = logique de confirmation</strong>. C’est ce contraste qui permet ensuite de comprendre pourquoi tant de plans de phase II s’appuient sur des seuils de succes plutot que sur une comparaison complete de survie.</p>
 <p><strong>Exemple concret</strong></p>
-<p>Une regle <code>go / no go</code> tres simple aurait pu etre : “si l’<code>ORR</code> verifiee par un plan predefini est suffisamment elevee et si la toxicite reste gerable, alors on lance la phase III”.</p>
+<p>Une regle <code>go / no go</code> tres simple aurait pu etre : “si le <strong>taux de reponse objective</strong> (<code>ORR</code>) verifie par un plan predefini est suffisamment eleve et si la toxicite reste gerable, alors on lance la phase III”.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>Le principe d’une phase II est de detecter rapidement un signal d’efficacite chez des patients pour prendre une decision <code>go / no go</code>. Dans ce dossier, cela reviendrait a juger si <code>sac-TMT</code> montre une activite suffisante avant de passer a un essai confirmatoire comme celui publie dans le NEJM.</p>
 </div>
@@ -3353,10 +3478,10 @@ page-break-before: always;
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
 <p>Le cours rappelle qu’en oncologie, l’objectif principal d’une phase II est souvent la <strong>premiere estimation de l’activite antitumorale</strong> d’un nouveau traitement. Les objectifs secondaires portent sur la <strong>tolerance</strong>, parfois la <strong>pharmacocinetique</strong>, et la preparation de la phase III.</p>
-<p>L’article illustre tres bien cela, meme s’il est de phase III. Quand on lit que l’<code>ORR</code> est de <code>60.6%</code> avec <code>sac-TMT</code>, on voit exactement le type de signal qu’une phase II aurait cherche a identifier tres tot : le medicament fait-il regresser les tumeurs ? La <code>DOR</code> de <code>8.3</code> mois et le <code>DCR</code> de <code>87.2%</code> donnent ensuite une profondeur et une durabilite a ce signal.</p>
+<p>L’article illustre tres bien cela, meme s’il est de phase III. Quand on lit que l’<code>ORR</code> est de <code>60.6%</code> avec <code>sac-TMT</code>, on voit exactement le type de signal qu’une phase II aurait cherche a identifier tres tot : le medicament fait-il regresser les tumeurs chez un nombre important de patients ? La <code>DOR</code> de <code>8.3</code> mois dit ensuite combien de temps cette reponse dure chez les repondeurs, et le <code>DCR</code> de <code>87.2%</code> ajoute l’information selon laquelle beaucoup de patients repondent ou au moins ne progressent pas immediatement.</p>
 <p>En pratique, une phase II oncologique dans ce dossier aurait probablement vise a documenter trois choses : <strong>la reponse tumorale</strong>, <strong>la duree de cette reponse</strong>, et <strong>la toxicite reellement observee en population cible</strong>. Ce triptyque aurait ensuite servi a construire l’hypothese et le comparateur de la phase III.</p>
 <p><strong>Exemple concret</strong></p>
-<p>Avec <code>ORR 60.6%</code> et une duree mediane de reponse de <code>8.3</code> mois, on aurait pu dire : “le traitement ne provoque pas seulement une reponse radiologique, il produit aussi des reponses prolonges, ce qui soutient un developpement ulterieur”.</p>
+<p>Avec <code>ORR 60.6%</code> et une duree mediane de reponse de <code>8.3</code> mois, on aurait pu dire : “le traitement ne provoque pas seulement une reponse radiologique initiale ; il produit aussi des reponses qui durent plusieurs mois, ce qui soutient un developpement ulterieur”.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>En oncologie, la phase II cherche surtout a mesurer l’activite antitumorale initiale d’un traitement, puis sa tolerance. L’article illustre bien ce point avec l’<code>ORR</code>, le <code>DCR</code> et la duree de reponse, qui sont justement les signaux precoces qu’une phase II aurait cherches.</p>
 </div>
@@ -3410,8 +3535,8 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>Le cours insiste sur le fait qu’en phase II, le critere principal est <strong>rarement le futur critere principal de phase III</strong>. Pourquoi ? Parce qu’en phase II il faut une information <strong>plus rapide</strong>, disponible pour chaque patient et exploitable assez tot a l’echelle de l’etude. On utilise donc souvent des <strong>criteres intermediaires</strong>.</p>
-<p>L’article, lui, est deja dans une logique confirmatoire. Il choisit la <code>PFS</code> comme critere principal et reserve l’<code>OS</code> comme critere secondaire cle hierarchise. Cette architecture est adaptee a une phase III oncologique. Mais justement, cela fait ressortir le contraste : si l’on etait encore en phase II, on aurait probablement privilegie un critere <strong>encore plus precoce</strong>, comme l’<code>ORR</code>, la <code>DOR</code>, ou une combinaison de reponse et de tolerance.</p>
+<p>Le cours insiste sur le fait qu’en phase II, le critere principal est <strong>rarement le futur critere principal de phase III</strong>. Pourquoi ? Parce qu’en phase II il faut une information <strong>plus rapide</strong>, disponible pour chaque patient et exploitable assez tot a l’echelle de l’etude. On utilise donc souvent des <strong>criteres intermediaires</strong>, par exemple la reponse tumorale a l’imagerie plutot qu’un critere tardif comme la survie globale.</p>
+<p>L’article, lui, est deja dans une logique confirmatoire. Il choisit la <code>PFS</code>, c’est-a-dire le temps jusqu’a progression ou deces, comme critere principal et reserve l’<code>OS</code>, c’est-a-dire le temps jusqu’au deces, comme critere secondaire cle hierarchise. Cette architecture est adaptee a une phase III oncologique. Mais justement, cela fait ressortir le contraste : si l’on etait encore en phase II, on aurait probablement privilegie un critere <strong>encore plus precoce</strong>, comme l’<code>ORR</code>, la <code>DOR</code>, ou une combinaison de reponse et de tolerance.</p>
 <p>La bonne copie doit donc dire que les criteres de phase II doivent etre <strong>rapides, sensibles au signal antitumoral et operables sur de petits effectifs</strong>. Ils ne sont pas moins interessants ; ils repondent simplement a une autre question.</p>
 <p><strong>Exemple concret</strong></p>
 <p>Dans le papier, l’<code>OS</code> est positive, mais elle demande <code>18.9</code> mois de suivi median. Une vraie phase II n’aurait pas attendu aussi longtemps comme critere principal de decision.</p>
@@ -3436,8 +3561,8 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>Le cours rappelle qu’un critere de substitution est un critere intermediaire suppose capter tout ou partie de l’effet du traitement sur un critere plus dur, comme le deces. En oncologie, <code>ORR</code> et <code>PFS</code> sont les candidats les plus frequents. Dans ce dossier, <code>PFS</code> est choisie comme critere principal de phase III, ce qui montre qu’elle est ici jugee suffisamment informative pour une comparaison confirmatoire.</p>
-<p>Si l’on se replacait en phase II, le choix du surrogate devrait etre plus strictement pragmatique. <code>ORR</code> est tres rapide et simple a obtenir. <code>PFS</code> est plus riche mais plus lente et plus couteuse en suivi. <code>OS</code> reste le critere ultime, mais il est trop tardif pour la plupart des decisions de phase II.</p>
+<p>Le cours rappelle qu’un critere de substitution est un critere intermediaire suppose capter tout ou partie de l’effet du traitement sur un critere plus dur, comme le deces. En oncologie, les candidats les plus frequents sont l’<code>ORR</code>, c’est-a-dire la proportion de repondeurs radiologiques, et la <code>PFS</code>, c’est-a-dire le temps sans progression ni deces. Dans ce dossier, <code>PFS</code> est choisie comme critere principal de phase III, ce qui montre qu’elle est ici jugee suffisamment informative pour une comparaison confirmatoire.</p>
+<p>Si l’on se replacait en phase II, le choix du surrogate devrait etre plus strictement pragmatique. <code>ORR</code> est tres rapide et simple a obtenir, car il suffit de classer les scanners en reponse ou non reponse. <code>PFS</code> est plus riche, car elle integre aussi la duree avant progression, mais elle est plus lente et plus couteuse en suivi. <code>OS</code> reste le critere ultime, mais il est trop tardif pour la plupart des decisions de phase II.</p>
 <p>La bonne facon de raisonner est la suivante : un surrogate doit etre <strong>mesurable rapidement</strong>, <strong>sensible a l’activite du traitement</strong> et <strong>cliniquement interpretable</strong>. Il ne doit pas etre traite comme une verite absolue. Une phase II peut donc s’appuyer sur <code>ORR</code> ou <code>PFS</code>, mais la copie doit rappeler qu’il s’agit d’un <strong>compromis</strong> entre rapidite et pertinence clinique.</p>
 <p><strong>Exemple concret</strong></p>
 <p>Avec <code>ORR 60.6%</code>, <code>DOR 8.3 mois</code> et <code>PFS</code> tres favorable, le dossier montre que plusieurs surrogate endpoints pointent dans la meme direction. C’est rassurant pour un developpement, mais cela ne supprime pas le besoin d’une phase III.</p>
@@ -3462,9 +3587,9 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>L’<code>ORR</code> est classiquement tres attractive en phase II oncologique parce qu’elle mesure directement une <strong>reponse tumorale objective</strong>, selon des criteres d’imagerie standardises. Dans ce dossier, le signal est fort : <code>60.6%</code> de reponses avec <code>sac-TMT</code>. Pour un developpement precoce, c’est une information tres puissante car elle montre que le medicament ne se contente pas de stabiliser ; il provoque une regression tumorale chez un grand nombre de patients.</p>
+<p>L’<code>ORR</code> est classiquement tres attractive en phase II oncologique parce qu’elle mesure directement une <strong>reponse tumorale objective</strong>, c’est-a-dire une diminution suffisante de la taille des lesions au scanner selon des criteres d’imagerie standardises. Dans ce dossier, le signal est fort : <code>60.6%</code> de reponses avec <code>sac-TMT</code>. Pour un developpement precoce, c’est une information tres puissante car elle montre que le medicament ne se contente pas de stabiliser ; il provoque une regression tumorale chez un grand nombre de patients.</p>
 <p>Le cours rappelle les avantages de l’<code>ORR</code> : c’est un critere relativement <strong>rapide</strong>, <strong>facile a comprendre</strong>, <strong>comparable entre etudes</strong>, et bien adapte au repérage d’activite en oncologie. Ce sont exactement les qualites qu’on cherche en phase II.</p>
-<p>Il faut toutefois signaler ses limites : l’<code>ORR</code> reduit l’information a une variable binaire repondeur / non repondeur ; elle depend de la qualite de l’evaluation radiologique ; et elle n’est pas parfaitement corrigee a l’<code>OS</code>. En copie, il faut donc dire qu’elle est <strong>tres utile pour lancer un developpement</strong>, mais insuffisante a elle seule pour clore la discussion.</p>
+<p>Il faut toutefois signaler ses limites : l’<code>ORR</code> reduit l’information a une variable binaire repondeur / non repondeur ; elle depend de la qualite de l’evaluation radiologique ; et une tumeur qui repond vite n’implique pas automatiquement un gain durable en <code>OS</code>. En copie, il faut donc dire qu’elle est <strong>tres utile pour lancer un developpement</strong>, mais insuffisante a elle seule pour clore la discussion.</p>
 <p><strong>Exemple concret</strong></p>
 <p>Si une phase II avait predefini un seuil d’<code>ORR</code> minimal acceptable a <code>40%</code>, l’<code>ORR</code> observee de <code>60.6%</code> serait clairement compatible avec une decision <code>go</code>.</p>
 <p><strong>Reponse type courte</strong></p>
@@ -3488,7 +3613,7 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>L’<code>OS</code> est le critere le plus robuste cliniquement, mais le cours rappelle qu’elle est <strong>peu pratique en phase II</strong>. Elle necessite un suivi long, un plus grand nombre d’evenements et elle peut etre brouillee par les traitements recus apres la progression. Tout cela est visible ici : l’article a besoin d’un suivi median de <code>18.9</code> mois pour produire un signal d’<code>OS</code>.</p>
+<p>L’<code>OS</code> est le critere le plus robuste cliniquement, car elle compte simplement le temps jusqu’au deces, mais le cours rappelle qu’elle est <strong>peu pratique en phase II</strong>. Elle necessite un suivi long, un plus grand nombre d’evenements et elle peut etre brouillee par les traitements recus apres la progression. Tout cela est visible ici : l’article a besoin d’un suivi median de <code>18.9</code> mois pour produire un signal d’<code>OS</code>.</p>
 <p>Autrement dit, l’<code>OS</code> est excellente pour confirmer, moins bonne pour trier rapidement. Une phase II a besoin d’un critere qui permette une decision precoce ; sinon elle perd sa fonction de filtre developpemental.</p>
 <p>La bonne copie doit donc tenir un discours nuance : l’<code>OS</code> reste le critere le plus parlant pour le patient, mais ce n’est pas pour cela qu’il doit devenir automatiquement le critere principal de phase II. Il faut choisir un critere adapte a la <strong>temporalite de la decision</strong>.</p>
 <p><strong>Exemple concret</strong></p>
@@ -3514,8 +3639,8 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>La bonne hierarchie n’est pas de dire qu’un critere “vaut” et les autres non. Elle est de dire que <strong>chaque critere repond a une etape differente du developpement</strong>. En phase II, <code>ORR</code> est souvent le plus utile pour depister rapidement une activite. <code>PFS</code> devient tres interessante quand on veut aller vers une comparaison plus robuste ou documenter la duree du benefice. <code>OS</code> sert surtout a la confirmation finale.</p>
-<p>Dans ce dossier, cette hierarchie fonctionne tres bien. L’<code>ORR</code> donne le signal precoce. La <code>DOR</code> et la <code>PFS</code> montrent que la reponse n’est pas purement cosmetique ou trop courte. L’<code>OS</code> vient ensuite verifier que le benefice se traduit par un effet clinique plus dur.</p>
+<p>La bonne hierarchie n’est pas de dire qu’un critere “vaut” et les autres non. Elle est de dire que <strong>chaque critere repond a une etape differente du developpement</strong>. En phase II, <code>ORR</code> est souvent le plus utile pour depister rapidement une activite. <code>PFS</code> devient tres interessante quand on veut aller vers une comparaison plus robuste ou documenter la duree du benefice sans attendre le deces. <code>OS</code> sert surtout a la confirmation finale.</p>
+<p>Dans ce dossier, cette hierarchie fonctionne tres bien. L’<code>ORR</code> donne le signal precoce. La <code>DOR</code>, c’est-a-dire la duree de reponse chez les repondeurs, et la <code>PFS</code> montrent que la reponse n’est pas purement cosmetique ou trop courte. L’<code>OS</code> vient ensuite verifier que le benefice se traduit par un effet clinique plus dur.</p>
 <p>Une copie de bon niveau dira donc : <strong><code>ORR</code> pour detecter, <code>PFS</code> pour consolider, <code>OS</code> pour confirmer</strong>. C’est une phrase simple, mais tres structurante.</p>
 <p><strong>Exemple concret</strong></p>
 <p>On peut resumer le dossier ainsi : <code>ORR 60.6%</code> -&gt; activite ; <code>DOR 8.3 mois</code> et <code>PFS</code> amelioree -&gt; durabilite ; <code>HR OS 0.60</code> -&gt; confirmation clinique.</p>
@@ -3540,11 +3665,11 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>Dans ce dossier, le meilleur choix de critere principal de phase II serait le plus probablement <strong>l’<code>ORR</code></strong>, eventuellement completee par la <code>DOR</code> comme element cle secondaire. Pourquoi ? Parce qu’il s’agit d’un traitement antitumoral cible, dans une situation de resistance therapeutique, et que l’on cherche d’abord a savoir si le medicament provoque une reponse suffisamment nette pour justifier une phase III.</p>
+<p>Dans ce dossier, le meilleur choix de critere principal de phase II serait le plus probablement <strong>l’<code>ORR</code></strong>, eventuellement completee par la <code>DOR</code> comme element cle secondaire. Pourquoi ? Parce qu’il s’agit d’un traitement antitumoral cible, dans une situation de resistance therapeutique, et que l’on cherche d’abord a savoir si le medicament provoque une reponse suffisamment nette pour justifier une phase III. La <code>DOR</code> ne remplace pas l’<code>ORR</code> : elle ne dit pas combien de patients repondent, elle dit combien de temps dure la reponse chez ceux qui ont repondu.</p>
 <p>La <code>PFS</code> serait defendable, mais elle demande plus de suivi et davantage d’evenements. Elle est donc moins economique en temps et en information. L’<code>OS</code>, comme on l’a vu, arrive encore plus tard. La <code>DOR</code> ne suffit pas seule comme critere principal, car elle ne concerne que les repondeurs.</p>
 <p>Le bon arbitrage est donc pragmatique : <strong><code>ORR</code> comme moteur principal de decision</strong>, <code>DOR</code> pour qualifier la solidite du signal, et toxicite pour juger de la faisabilite.</p>
 <p><strong>Exemple concret</strong></p>
-<p>Un protocole de phase II aurait pu retenir : critere principal <code>ORR</code> selon <code>RECIST 1.1</code>, criteres secondaires <code>DOR</code>, <code>DCR</code>, toxicite grade <code>3+</code>, puis <code>PFS</code> exploratoire.</p>
+<p>Un protocole de phase II aurait pu retenir : critere principal <code>ORR</code> selon <code>RECIST 1.1</code>, c’est-a-dire selon les regles standardisees de lecture des scanners ; criteres secondaires <code>DOR</code>, <code>DCR</code>, toxicite grade <code>3+</code>, puis <code>PFS</code> exploratoire.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>Je retiendrais l’<code>ORR</code> comme critere principal de phase II, car elle est rapide, objective et tres adaptee au depistage d’activite antitumorale. La <code>DOR</code> et la toxicite viendraient ensuite dire si ce signal est suffisamment solide pour meriter une phase III.</p>
 </div>
@@ -3570,7 +3695,7 @@ page-break-before: always;
 <p>Mais la bonne pratique n’est pas de s’arreter a un seul chiffre. Il faut aussi regarder la <strong>duree des reponses</strong> (<code>8.3</code> mois), la <strong>disease control</strong> (<code>87.2%</code>) et la <strong>gerabilite de la toxicite</strong>. C’est l’ensemble de ces elements qui transforme un signal de reponse en projet credible de phase III.</p>
 <p>La copie doit donc montrer qu’une decision <code>go / no go</code> est a la fois <strong>statistique</strong> et <strong>clinique</strong>. Un traitement peut passer un seuil mathematique tout en restant peu interessant si la toxicite est excessive ou si les reponses sont trop breves.</p>
 <p><strong>Exemple concret</strong></p>
-<p>Si le seuil minimal acceptable etait une <code>ORR</code> de <code>40%</code> avec une toxicite gerable, le couple <code>ORR 60.6% + DOR 8.3 mois</code> irait clairement dans le sens d’un <code>go</code>.</p>
+<p>Si le seuil minimal acceptable etait une <code>ORR</code> de <code>40%</code> avec une toxicite gerable, le couple <code>ORR 60.6% + DOR 8.3 mois</code>, c’est-a-dire beaucoup de reponses et des reponses qui durent, irait clairement dans le sens d’un <code>go</code>.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>Une logique <code>go / no go</code> impose un seuil predefini d’activite puis verifie si le traitement l’atteint sans toxicite inacceptable. Dans ce dossier, l’<code>ORR</code> elevee et la duree de reponse prolongée auraient fortement plaide pour un passage en phase III.</p>
 </div>
@@ -3680,13 +3805,19 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>Un plan a plusieurs etapes permet d’inclure un premier groupe de patients, puis de realiser une analyse intermediaire pour decider soit d’<strong>arreter pour inefficacite</strong>, soit de <strong>poursuivre</strong>. Le but est double : ne pas continuer inutilement un programme mediocre, et reduire le nombre de patients exposes.</p>
+<p>Un plan a plusieurs etapes fonctionne toujours selon la meme idee. On ne recrute pas tout le monde d’un coup. On inclut d’abord une <strong>premiere cohorte</strong>, on regarde le nombre de succes observes, puis on applique une <strong>regle predefinie</strong> :</p>
+<ul>
+<li>si les resultats sont trop faibles, on <strong>arrete</strong> ;</li>
+<li>s’ils sont suffisants, on <strong>continue</strong> vers l’etape suivante ;</li>
+<li>parfois, selon le plan choisi, un resultat exceptionnel peut meme permettre de conclure plus tot.</li>
+</ul>
+<p>Autrement dit, il y a deja une vraie <strong>decision statistique intermediaire</strong> ; ce n’est pas juste un regard informel sur les donnees.</p>
 <p>Dans ce dossier, cette logique est defendable car <code>sac-TMT</code> n’est pas un traitement neutre. L’article rapporte <code>58.0%</code> d’evenements grades <code>3+</code> et une toxicite specifique comme la stomatite. Cela ne veut pas dire que le produit est trop toxique, mais cela suffit a rappeler qu’en phase II, on a interet a disposer d’une possibilite d’arret precoce si le signal d’efficacite ne suit pas.</p>
 <p>Il faut aussi rappeler que les plans multi-etapes ne servent pas seulement a economiser des sujets ; ils servent a <strong>proteger la logique du developpement</strong>. Un mauvais signal precoce peut conduire a fermer rapidement un programme, tandis qu’un bon signal autorise la continuation avec une meilleure legitimite.</p>
 <p><strong>Exemple concret</strong></p>
-<p>On pourrait imaginer une premiere etape de <code>15</code> a <code>20</code> patients avec evaluation de l’<code>ORR</code>. Si aucune activite convaincante n’apparait, le programme s’arrete sans aller jusqu’a une phase III.</p>
+<p>On pourrait imaginer une premiere etape de <code>15</code> a <code>20</code> patients avec evaluation de l’<code>ORR</code>, c’est-a-dire du taux de reponse objective au scanner. Si le nombre de reponses est trop faible, on arrete. S’il est suffisamment eleve, on ouvre une deuxieme etape et on recrute plus de patients.</p>
 <p><strong>Reponse type courte</strong></p>
-<p>Les plans a plusieurs etapes permettent un arret precoce, surtout pour inefficacite, afin de limiter l’exposition des patients et les couts. Cette logique serait pertinente ici, car <code>sac-TMT</code> a une vraie toxicite et devrait donc prouver rapidement une activite suffisante pour continuer son developpement.</p>
+<p>Un plan a plusieurs etapes recrute d’abord une petite cohorte, puis applique une regle de decision intermediaire : si le signal est trop faible on arrete, sinon on poursuit. Cette logique est pertinente ici car <code>sac-TMT</code> a une vraie toxicite et doit donc prouver rapidement une activite suffisante pour continuer son developpement.</p>
 </div>
 </section>
 <section id="question-17" class="level4 unlisted">
@@ -3706,11 +3837,15 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>La methode de Gehan a 2 etapes repose sur une idee tres pragmatique : commencer par un petit nombre de patients, puis regarder s’il existe <strong>au moins un signal de succes</strong>. S’il n’y a aucun succes, on arrete. S’il existe un debut d’activite, on passe a la deuxieme etape pour mieux estimer le taux de reponse.</p>
+<p>La methode de Gehan a 2 etapes est un plan de depistage tres simple. On commence par une <strong>petite premiere etape</strong>. On regarde ensuite s’il existe au moins quelques reponses :</p>
+<ul>
+<li>s’il n’y a <strong>aucune reponse</strong>, on considere le traitement comme peu prometteur et on arrete ;</li>
+<li>s’il y a <strong>au moins un debut d’activite</strong>, on passe a une deuxieme etape pour mieux estimer le taux de reponse.</li>
+</ul>
 <p>Ce plan est donc plus proche d’une logique de <strong>depistage initial</strong> que d’un test comparatif formalise. Il convient particulierement quand on ne veut pas manquer un traitement potentiellement actif, tout en evitant de poursuivre un candidat manifestement inerte.</p>
 <p>Applique a <code>sac-TMT</code>, ce plan aurait eu du sens tres tot dans le developpement, avant meme une phase II randomisee, surtout si l’on voulait verifier rapidement l’existence d’une activite dans la population EGFR mutee apres <code>TKI</code>.</p>
 <p><strong>Exemple concret</strong></p>
-<p>Premiere etape : quelques patients. Si l’on n’observe aucune reponse objective, on arrete. Si l’on observe plusieurs reponses rapides, on poursuit pour mieux quantifier l’activite. Les chiffres finaux du NEJM montrent qu’en pratique le produit etait loin d’un scenario sans succes.</p>
+<p>Premiere etape : quelques patients. Si l’on n’observe aucune reponse objective au scanner, on arrete. Si l’on observe des reponses, on poursuit pour mieux quantifier l’activite. Les chiffres finaux du NEJM montrent qu’en pratique le produit etait loin d’un scenario sans succes.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>La methode de Gehan sert a detecter rapidement s’il existe au moins un signal d’efficacite. Dans ce dossier, elle aurait pu etre utilisee tres tot pour verifier que <code>sac-TMT</code> produit bien des reponses avant de passer a un plan plus structure.</p>
 </div>
@@ -3732,11 +3867,17 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>Le Fleming a plusieurs etapes conserve la logique de seuils d’activite, mais au lieu d’attendre la fin complete de l’etude, il introduit des <strong>bornes intermediaires</strong> permettant de conclure plus tot pour inefficacite, et parfois pour efficacite suffisamment marquee.</p>
+<p>Le Fleming a plusieurs etapes conserve la logique du Fleming simple : on fixe un taux d’activite insuffisant (<code>p0</code>), un taux d’activite interessant (<code>p1</code>) et des seuils de decision. La difference est qu’au lieu d’attendre la fin complete de l’etude, on place ces seuils a <strong>plusieurs moments</strong> :</p>
+<ul>
+<li>apres une premiere vague de patients, on regarde le nombre de reponses ;</li>
+<li>si ce nombre est trop bas, on arrete ;</li>
+<li>s’il est deja tres haut, certains plans permettent de conclure precocement ;</li>
+<li>sinon, on continue jusqu’a l’etape suivante.</li>
+</ul>
 <p>Par rapport au Fleming a une etape, le gain principal est d’ordre <strong>ethique et logistique</strong> : on evite d’aller jusqu’au bout si le traitement est d’evidence peu interessant. On peut aussi, selon le plan, reconnaitre precocement un signal exceptionnel.</p>
 <p>Dans le cas de <code>sac-TMT</code>, un tel plan aurait ete defendable si l’on voulait encadrer rigoureusement un developpement en bras unique, tout en gardant une possibilite d’arret precoce. C’est typiquement le genre de compromis utile quand on a un candidat prometteur mais une incertitude encore importante.</p>
 <p><strong>Exemple concret</strong></p>
-<p>Apres une premiere vague de patients, si le nombre de reponses est trop faible, on arrete. S’il est tres eleve, on peut presque verrouiller la poursuite. Sinon on continue jusqu’a l’etape suivante.</p>
+<p>Apres une premiere vague de patients, si le nombre de reponses objectives est inferieur a la borne basse, on arrete. S’il depasse deja une borne haute, on peut conclure tres tot. Entre les deux, on continue.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>Le Fleming a plusieurs etapes reprend la logique de seuils d’efficacite mais permet de regarder les donnees en cours d’essai. Il serait pertinent ici pour accelerer la decision de poursuite tout en limitant l’exposition inutile si <code>sac-TMT</code> n’etait pas assez actif.</p>
 </div>
@@ -3758,11 +3899,19 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>Le plan de Simon a 2 etapes est probablement le grand classique des phases II oncologiques a bras unique. Il prevoit une premiere etape avec possibilite d’<strong>arret pour inefficacite</strong>, puis une deuxieme etape qui permet la conclusion finale. Contrairement a certains autres plans, il n’organise pas forcement un arret precoce pour efficacite a la premiere etape ; il est surtout optimise pour ne pas exposer trop de patients a un traitement inefficace.</p>
+<p>Le plan de Simon a 2 etapes est probablement le grand classique des phases II oncologiques a bras unique. Son fonctionnement est tres concret :</p>
+<ul>
+<li><strong>etape 1</strong> : on traite un premier groupe de patients ;</li>
+<li>on compte le nombre de reponses ;</li>
+<li>si ce nombre est trop faible par rapport a une borne predefinie, on <strong>arrete pour inefficacite</strong> ;</li>
+<li>sinon, on passe a <strong>l’etape 2</strong> ;</li>
+<li>a la fin de l’etape 2, on recompte toutes les reponses et on decide si le traitement est suffisamment actif.</li>
+</ul>
+<p>Contrairement a certains autres plans, Simon est surtout optimise pour ne pas exposer trop de patients a un traitement inefficace ; il ne cherche pas d’abord un arret precoce pour efficacite.</p>
 <p>Sa force est donc de concilier trois choses : <strong>simplicite</strong>, <strong>maitrise de l’erreur</strong>, et <strong>economie de sujets</strong>. Dans un dossier comme <code>sac-TMT</code>, ou l’on espere un bon taux de reponse mais ou l’on doit rester prudent avant d’engager un grand programme confirmatoire, ce plan serait tres pertinent.</p>
 <p>La bonne copie peut meme dire que, parmi les plans a bras unique du cours, Simon est souvent celui que l’on citerait spontanement comme <strong>choix pratique de reference</strong>.</p>
 <p><strong>Exemple concret</strong></p>
-<p>Etape 1 : on traite un premier groupe. Si trop peu de reponses, on stoppe. Sinon on poursuit jusqu’au nombre total de sujets, puis on statue sur l’activite globale.</p>
+<p>Etape 1 : on traite un premier groupe. Si trop peu de reponses objectives sont observees, on stoppe. Sinon on poursuit jusqu’au nombre total de sujets, puis on statue sur l’activite globale a partir du total de reponses.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>Le plan de Simon a 2 etapes est tres adapte aux phases II oncologiques car il permet un arret precoce pour inefficacite tout en limitant le nombre de patients exposes. Dans ce dossier, ce serait probablement l’un des choix les plus naturels pour tester <code>sac-TMT</code> avant une phase III.</p>
 </div>
@@ -3784,11 +3933,17 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>Le cours presente le plan de Ensign comme une generalisation a <strong>3 etapes</strong> du plan optimum de Simon. L’idee reste de pouvoir interrompre le developpement pour inefficacite a plusieurs moments, tout en gardant une logique de decision finale sur l’efficacite.</p>
+<p>Le cours presente le plan de Ensign comme une generalisation a <strong>3 etapes</strong> du plan optimum de Simon. En pratique, cela veut dire :</p>
+<ul>
+<li>une premiere etape avec possibilite d’arret pour inefficacite ;</li>
+<li>si le signal n’est pas assez mauvais pour arreter, une deuxieme etape ;</li>
+<li>puis, si besoin, une troisieme etape avant la decision finale.</li>
+</ul>
+<p>L’idee reste donc de pouvoir interrompre le developpement pour inefficacite a plusieurs moments, tout en gardant une logique de decision finale sur l’efficacite.</p>
 <p>Ce type de plan est utile quand on souhaite une surveillance encore plus progressive d’un candidat. Il peut etre discute si le contexte clinique impose une forte prudence, par exemple parce que la population est fragile, que la toxicite n’est pas anodine, ou que l’incertitude initiale reste importante.</p>
 <p>Dans le dossier <code>sac-TMT</code>, un tel plan aurait pu etre defendable tres en amont, mais il serait souvent plus complexe a justifier qu’un Simon standard. En copie, il faut surtout montrer qu’on sait le situer : <strong>plus fractionne, plus progressif, plus rare en pratique courante</strong>.</p>
 <p><strong>Exemple concret</strong></p>
-<p>On pourrait imaginer trois jalons successifs de verification de l’<code>ORR</code>, avec possibilite d’arret pour inefficacite apres chacun des deux premiers.</p>
+<p>On pourrait imaginer trois jalons successifs de verification de l’<code>ORR</code>, c’est-a-dire trois comptages successifs des reponses objectives, avec possibilite d’arret pour inefficacite apres chacun des deux premiers.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>Le plan de Ensign est une extension en trois etapes de la logique de Simon. Il permet une surveillance encore plus progressive de l’activite et pourrait etre discute ici, mais serait en pratique moins simple et moins standard qu’un Simon a 2 etapes.</p>
 </div>
@@ -3810,11 +3965,17 @@ page-break-before: always;
 </details>
 <div class="answer-card">
 <p><strong>Reponse detaillee</strong></p>
-<p>Le test triangulaire est un plan sequentiel dans lequel on peut, a plusieurs etapes, conclure soit a l’inefficacite, soit a une efficacite suffisamment forte, soit a la poursuite. Le cours insiste sur l’idee de <strong>deux frontieres</strong> : une basse et une haute, avec continuation si le resultat reste entre les deux.</p>
+<p>Le test triangulaire est un plan sequentiel dans lequel on analyse les donnees a plusieurs reprises. A chaque analyse, le resultat peut tomber dans l’une de trois zones :</p>
+<ul>
+<li><strong>en dessous de la borne basse</strong> : on conclut a l’inefficacite ;</li>
+<li><strong>au-dessus de la borne haute</strong> : on conclut a une efficacite suffisante ;</li>
+<li><strong>entre les deux</strong> : on continue l’etude.</li>
+</ul>
+<p>Le cours insiste donc sur l’idee de <strong>deux frontieres</strong> et pas d’un seul seuil.</p>
 <p>Il est moins intuitif pour les etudiants parce qu’il se comprend moins comme une simple regle “nombre de succes &gt;= seuil”. Il faut raisonner en termes de trajectoire de l’information au fil des analyses. Cela le rend elegant sur le plan statistique, mais souvent plus difficile a expliquer simplement dans une copie courte.</p>
 <p>Dans le dossier <code>sac-TMT</code>, on pourrait le citer comme une possibilite theorique, mais il ne serait probablement pas le premier choix pratique si l’objectif est surtout de proposer un schema de phase II lisible et classique.</p>
 <p><strong>Exemple concret</strong></p>
-<p>A chaque etape, si les resultats sont tres mauvais on arrete, s’ils sont tres bons on conclut, et s’ils sont intermediaries on continue. C’est cette logique “entre deux bornes” qui donne son nom intuitif au test.</p>
+<p>A chaque etape, si le nombre de reponses est tres faible on arrete, s’il est tres eleve on conclut, et s’il reste intermediaire on continue. C’est cette logique “entre deux bornes” qui donne son nom intuitif au test.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>Le test triangulaire est un plan sequentiel avec une borne basse d’inefficacite, une borne haute d’efficacite, et une zone intermediaire de poursuite. Il est plus sophistique et moins intuitif que Simon ou Fleming, donc plutot a citer comme option theorique que comme choix naturel ici.</p>
 </div>
@@ -3950,7 +4111,7 @@ page-break-before: always;
 <p>Si l’on voulait un schema plus simple et plus precoce, le deuxieme meilleur choix serait un <strong>plan de Simon a 2 etapes</strong> a bras unique. Mais entre les deux, la randomisation apporte ici un gain particulierement utile, car la population EGFR mutee resistante apres <code>TKI</code> peut avoir une heterogeneite prognostique importante.</p>
 <p>La bonne copie doit donc montrer une hierarchie de choix : <strong>phase II randomisee si l’on veut deja situer le traitement face au standard ; Simon a 2 etapes si l’on est plus en amont et que l’on cherche d’abord un filtre rapide</strong>.</p>
 <p><strong>Exemple concret</strong></p>
-<p>Proposition defendable : phase II randomisee <code>1:1</code>, <code>sac-TMT</code> versus chimiotherapie, critere principal <code>ORR</code>, criteres secondaires <code>DOR</code>, toxicite, <code>PFS</code> exploratoire.</p>
+<p>Proposition defendable : phase II randomisee <code>1:1</code>, <code>sac-TMT</code> versus chimiotherapie, critere principal <code>ORR</code>, c’est-a-dire le taux de reponse objective ; criteres secondaires <code>DOR</code>, toxicite, <code>PFS</code> exploratoire.</p>
 <p><strong>Reponse type courte</strong></p>
 <p>Le schema le plus pertinent serait probablement une phase II randomisee avec groupe temoin, car il existe deja un comparateur standard et la randomisation rend le signal plus interpretable. Si l’on voulait un plan plus simple, un Simon a 2 etapes serait l’alternative la plus naturelle.</p>
 </div>
@@ -4026,7 +4187,7 @@ page-break-before: always;
 <section id="quand-il-faut-choisir-un-critere-principal-de-phase-ii" class="level3">
 <h3 class="anchored" data-anchor-id="quand-il-faut-choisir-un-critere-principal-de-phase-ii">5.2. Quand il faut choisir un critere principal de phase II</h3>
 <blockquote class="blockquote">
-<p>Dans ce dossier, l’<code>ORR</code> serait probablement le meilleur critere principal de phase II, car elle donne une information precoce, objective et directement interpretable sur l’activite antitumorale. La <code>DOR</code> et la toxicite permettraient ensuite de juger si ce signal justifie une phase III.</p>
+<p>Dans ce dossier, l’<code>ORR</code>, c’est-a-dire le taux de reponse objective, serait probablement le meilleur critere principal de phase II, car elle donne une information precoce, objective et directement interpretable sur l’activite antitumorale. La <code>DOR</code>, c’est-a-dire la duree de reponse chez les repondeurs, et la toxicite permettraient ensuite de juger si ce signal justifie une phase III.</p>
 </blockquote>
 </section>
 <section id="quand-il-faut-justifier-un-schema-de-phase-ii" class="level3">
@@ -4061,7 +4222,7 @@ page-break-before: always;
 <li>la <strong>phase II</strong> depiste, trie, selectionne et prepare ;</li>
 <li>la <strong>phase III</strong> compare, confirme et positionne.</li>
 </ul>
-<p>Dans le dossier <code>OptiTROP-Lung04</code>, l’activite observee sur l’<code>ORR</code> et la <code>DOR</code> aurait tres plausiblement justifie un developpement precoce favorable ; l’article publie montre ensuite que cette promesse peut se traduire en benefice clinique confirmatoire.</p>
+<p>Dans le dossier <code>OptiTROP-Lung04</code>, l’activite observee sur l’<code>ORR</code>, c’est-a-dire la proportion de repondeurs, et sur la <code>DOR</code>, c’est-a-dire la duree de ces reponses, aurait tres plausiblement justifie un developpement precoce favorable ; l’article publie montre ensuite que cette promesse peut se traduire en benefice clinique confirmatoire.</p>
 </section>
 
 </main>

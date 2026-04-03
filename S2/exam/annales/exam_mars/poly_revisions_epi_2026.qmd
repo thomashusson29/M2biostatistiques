@@ -437,6 +437,8 @@ Article support : **Rosenström et al., Lancet Psychiatry 2025**, comparaison na
 
 L'avantage évident d'un registre naturaliste est l'accès à une **population très large et très proche du soin réel**. Ici, les auteurs peuvent partir de `32 343` entrées et aboutir à plus de `5800` patients analysés, ce qui serait coûteux et lent dans un essai randomisé. On gagne donc en **validité externe** : on voit comment les soins fonctionnent dans la vraie vie, avec des patients adressés dans le système de santé finlandais tel qu'il existe vraiment.
 
+Il faut donner un exemple concret de cette idée. Ici, “vraie vie” signifie notamment que `fCBT` est surtout fournie en `Uusimaa`, que `iCBT` est disponible nationalement, et que l'on ne travaille pas sur deux bras artificiellement homogénéisés. On observe donc des patients plus âgés dans `fCBT`, plus chargés en antécédents psychiatriques, et des circuits de soin réellement différents. C'est précisément cela qui rend le papier utile pour la pratique, mais aussi plus difficile à interpréter causalement.
+
 Mais le prix à payer est important : il n'y a **pas de randomisation**. Les patients orientés vers `iCBT` et `fCBT` ne sont probablement pas comparables au départ. Le tableau 1 montre déjà des différences majeures : âge moyen plus élevé en `fCBT` (`40,37` ans contre `34,49`), plus de visites psychiatriques antérieures (`43,89` contre `16,29`), `PHQ-9` initial plus bas (`11,57` contre `13,31`), et profil socioprofessionnel différent. Cela suggère que les groupes reflètent des parcours de soins distincts, pas deux bras d'essai échangés aléatoirement.
 
 Par rapport à un essai contrôlé randomisé, la bonne conclusion est donc : **meilleure représentativité clinique, mais moins bonne protection contre la confusion et le biais de sélection**. Une bonne copie ne dit pas seulement “registre = bien” ou “pas randomisé = mauvais”. Elle dit : **excellent pour documenter l'effectiveness, insuffisant pour conclure causalement sans hypothèses fortes**.
@@ -524,6 +526,8 @@ Le papier documente d'abord l'effectiveness, car il analyse des soins réels. Gr
 **Réponse détaillée**
 
 L'absence de pré-enregistrement ouvre un espace de liberté analytique plus grand : choix des modèles, des covariables, des restrictions, des sensibilités et des présentations des résultats peuvent être faits après avoir vu les données. Cela augmente le risque de `HARKing` et de sélection a posteriori des analyses les plus convaincantes. Dans un papier aussi riche méthodologiquement, ce point n'est pas anecdotique.
+
+Il faut illustrer ce risque. Dans ce papier, les auteurs disposent de plusieurs résultats voisins mais non identiques : `ATE` principal à `0,745`, `AIPTW` à `0,735`, `G-computation` à `1,073`, version simplifiée du `TMLE` à environ `0,790`, restriction `Uusimaa` à `0,636`. Sans protocole verrouillé à l'avance, il existe toujours une tentation implicite de mettre davantage en avant les estimations les plus favorables ou les plus convaincantes narrativement.
 
 Les auteurs essaient cependant de limiter ce problème de plusieurs façons. Ils publient des analyses de sensibilité nombreuses (`G-computation`, `AIPTW`, versions simplifiées du `TMLE`, restriction `Uusimaa`, imputations), explicitent leur code et montrent une cohérence générale des résultats. Par exemple, l'`ATE` principal est `0,745`, l'`AIPTW-ATE` est `0,735`, et la version simplifiée du `TMLE` tourne autour de `0,790`. Cette convergence aide à rendre l'ensemble plus crédible.
 
@@ -682,6 +686,8 @@ Un `Super Learner` est une méthode d'agrégation d'algorithmes. Au lieu de choi
 
 Dans l'article, cet outil est particulièrement pertinent parce que les relations entre covariables, assignation au traitement et outcome sont probablement non linéaires et complexes. Par exemple, l'effet combiné de l'âge, des antécédents psychiatriques, du statut social et des prescriptions antérieures peut être difficile à modéliser proprement avec une régression simple. Le `Super Learner` essaie justement de ne pas imposer trop tôt une structure rigide.
 
+Un exemple concret aide beaucoup. Si l'on imposait une seule régression linéaire, on supposerait implicitement que l'effet de l'âge, des antécédents psychiatriques ou du statut professionnel sur l'évolution du `PHQ-9` suit une forme simple. Or rien ne garantit qu'un patient de `25` ans, sans antécédent, orienté vers `iCBT`, se comporte comme un patient de `45` ans, déjà très suivi, orienté vers `fCBT`, selon une relation simplement linéaire. Le `Super Learner` essaie justement de laisser davantage de souplesse aux données.
+
 L'intérêt méthodologique est réel, mais la bonne copie ajoute toujours une limite : une très bonne prédiction n'est pas une preuve de causalité. Le modèle d'assignation au traitement a ici une `AUC` d'environ `0,77`, ce qui montre qu'il est informatif, mais cela ne dit rien à lui seul sur la disparition de toute confusion résiduelle.
 
 **Réponse type courte**
@@ -709,6 +715,8 @@ Le `Super Learner` combine plusieurs algorithmes au lieu d'en choisir un seul. L
 L'intérêt est de vérifier que le résultat principal n'est pas entièrement fabriqué par un seul choix méthodologique. Si un papier observationnel moderne ne présentait qu'une estimation principale sans aucune sensibilité, sa crédibilité serait faible. Ici, les auteurs montrent au contraire que le message général persiste lorsqu'on change raisonnablement d'angle d'analyse.
 
 Les chiffres sont parlants : l'`ATE` principal est `0,745`, l'`AIPTW-ATE` est `0,735`, la version simplifiée du `TMLE` est proche de `0,790`, et la restriction à `Uusimaa` donne encore un effet positif (`0,636`) même si l'intervalle devient compatible avec `0`. Cela ne prouve pas la causalité, mais cela suggère que le signal n'est pas uniquement un artefact d'un pipeline unique.
+
+Il faut aussi expliquer ce que ces écarts veulent dire. Le fait que `0,735`, `0,745` et `0,790` soient proches indique une bonne stabilité du **sens** du résultat. En revanche, le `1,073` de la `G-computation` montre que l'ampleur précise de l'effet dépend tout de même de la méthode. Et la restriction à `Uusimaa` rappelle que la géographie et l'organisation des soins restent un point sensible du papier.
 
 La bonne réponse d'examen est donc : **les sensibilités ne sont pas un supplément décoratif ; elles sont une condition de crédibilité dans une étude observationnelle de ce type**.
 
@@ -866,13 +874,120 @@ Le DAG minimal doit placer plusieurs variables en amont du **choix de traitement
 - région ;
 - éventuellement affinité numérique et préférences thérapeutiques.
 
-Ces variables peuvent influencer à la fois la probabilité d'être orienté vers `iCBT` ou `fCBT` et la trajectoire ultérieure de `PHQ-9`. Le traitement influence ensuite le changement symptomatique, mais aussi possiblement le `dropout`, qui devient alors une variable post-traitement délicate.
+Ces variables peuvent influencer à la fois la probabilité d'être orienté vers `iCBT` ou `fCBT` et la trajectoire ultérieure de `PHQ-9`. Mais il faut aller plus loin que cette liste et dire **quel rôle causal** joue chaque variable.
+
+Un **confondeur** est une variable qui cause à la fois l'exposition et l'issue. Dans cet article, l'exemple le plus simple est la **sévérité initiale**. Le tableau 1 montre que le `PHQ-9` de départ est plus élevé dans `iCBT` (`13,31`) que dans `fCBT` (`11,57`). Cette sévérité initiale peut influencer :
+
+- la probabilité d'être orienté vers une modalité plutôt qu'une autre ;
+- l'ampleur ultérieure du changement de `PHQ-9`.
+
+Autre exemple de confondeur plausible : la **région**. `fCBT` est essentiellement fournie en `Uusimaa`, alors que `iCBT` est disponible nationalement. La région peut influencer l'accès au type de soin, mais aussi la qualité du parcours, la disponibilité des thérapeutes, le niveau socio-économique moyen ou le profil clinique des patients. Ici, la région n'est donc pas une simple variable descriptive : c'est une vraie candidate comme **cause commune** du traitement reçu et de l'issue.
+
+Un **médiateur** est différent : c'est une variable située **après** le traitement sur le chemin causal menant à l'issue. Dans ce papier, un exemple plausible serait l'**adhésion effective au programme** ou le **nombre réel de séances complétées**. Le type de traitement (`iCBT` ou `fCBT`) peut modifier l'adhésion, et cette adhésion peut à son tour modifier l'amélioration du `PHQ-9`. Si l'on ajustait naïvement sur cette variable, on risquerait de couper une partie de l'effet réel du traitement que l'on cherche justement à estimer.
+
+Le **dropout** est souvent une variable hybride délicate. Il peut parfois être pensé comme un médiateur partiel, car le format de soin peut favoriser ou défavoriser la poursuite du suivi. Mais il peut aussi devenir un **collider** si on conditionne dessus de manière maladroite.
+
+Un **collider** est une variable influencée par deux causes différentes. Ici, on peut imaginer que le `dropout` soit influencé à la fois par :
+
+- le **traitement reçu** ;
+- l'**évolution clinique réelle** ou des facteurs non mesurés comme la motivation ou l'affinité numérique.
+
+Si l'on analyse seulement les patients qui ont complété le suivi, ou si l'on ajuste directement sur une variable de complétion post-traitement sans précaution, on peut ouvrir artificiellement un chemin de biais entre traitement et outcome. C'est exactement pour cela que les auteurs sont prudents avec les données manquantes et proposent une règle conservatrice puis des imputations de sensibilité, au lieu de se contenter d'une analyse naïve des seuls “compléteurs”.
+
+On peut donc résumer un DAG plausible ainsi :
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="dag-figure">
+  <div class="dag-figure__title">DAG simplifié du papier EPI 2026</div>
+  <div class="dag-clean">
+    <div class="dag-clean__section">
+      <div class="dag-clean__subtitle">Chemin causal principal</div>
+      <div class="dag-clean__row">
+        <div class="dag-clean__box dag-clean__box--conf">
+          <strong>Confondeurs observés</strong><br>
+          âge, `PHQ-9` initial, `OASIS`, antécédents psychiatriques, emploi, région
+        </div>
+        <div class="dag-clean__arrow">→</div>
+        <div class="dag-clean__box dag-clean__box--treat">
+          <strong>Traitement</strong><br>
+          `iCBT` vs `fCBT`
+        </div>
+        <div class="dag-clean__arrow">→</div>
+        <div class="dag-clean__box dag-clean__box--outcome">
+          <strong>Outcome</strong><br>
+          changement de `PHQ-9`
+        </div>
+      </div>
+      <div class="dag-clean__row dag-clean__row--sub">
+        <div class="dag-clean__box dag-clean__box--latent">
+          <strong>Confondeurs non mesurés</strong><br>
+          affinité numérique, motivation, préférences patient/thérapeute
+        </div>
+        <div class="dag-clean__arrow dag-clean__arrow--stack">↘</div>
+        <div class="dag-clean__box dag-clean__box--med">
+          <strong>Médiateur plausible</strong><br>
+          adhésion réelle, exposition effective, séances complétées
+        </div>
+        <div class="dag-clean__arrow dag-clean__arrow--stack">↘</div>
+        <div class="dag-clean__box dag-clean__box--outcome">
+          <strong>Outcome</strong><br>
+          changement de `PHQ-9`
+        </div>
+      </div>
+      <div class="dag-clean__note">
+        À ajuster : les confondeurs en amont. Ne pas ajuster naïvement : le médiateur, qui est sur le chemin de l'effet.
+      </div>
+    </div>
+
+    <div class="dag-clean__section">
+      <div class="dag-clean__subtitle">Zoom sur le piège du collider</div>
+      <div class="dag-clean__row dag-clean__row--collider">
+        <div class="dag-clean__box dag-clean__box--treat">
+          <strong>Traitement</strong><br>
+          `iCBT` vs `fCBT`
+        </div>
+        <div class="dag-clean__arrow">→</div>
+        <div class="dag-clean__box dag-clean__box--collider">
+          <strong>`Dropout` / complétion</strong><br>
+          collider potentiel si on conditionne dessus
+        </div>
+        <div class="dag-clean__arrow">←</div>
+        <div class="dag-clean__box dag-clean__box--latent">
+          <strong>Évolution clinique réelle</strong><br>
+          amélioration, aggravation, motivation, contraintes
+        </div>
+      </div>
+      <div class="dag-clean__note">
+        Si on analyse seulement les “compléteurs”, on risque d'ouvrir artificiellement un chemin de biais entre traitement et outcome.
+      </div>
+    </div>
+  </div>
+  <div class="dag-legend">
+    <span class="dag-legend__item dag-legend__item--conf">confondeurs à ajuster</span>
+    <span class="dag-legend__item dag-legend__item--med">médiateur post-traitement</span>
+    <span class="dag-legend__item dag-legend__item--collider">collider à ne pas conditionner naïvement</span>
+  </div>
+  <div class="dag-note">
+    Le principe du schéma est simple : les confondeurs influencent à la fois le traitement et l'outcome ; l'adhésion est plutôt un médiateur post-traitement ; le `dropout` peut devenir un collider si on conditionne naïvement sur les seuls compléteurs.
+  </div>
+</div>
+```
+:::
+
+Pour l'écrit, on peut le résumer de façon compacte :
+
+- **confondeurs** en amont : âge, sévérité initiale, `OASIS`, antécédents psychiatriques, emploi, région, affinité numérique ;
+- **traitement** : `iCBT` versus `fCBT` ;
+- **médiateur plausible** : adhésion réelle au programme ;
+- **outcome** : changement de `PHQ-9` ;
+- **collider potentiel** si on conditionne mal : `dropout` ou complétion du suivi.
 
 L'exercice du `DAG` a ici un intérêt pédagogique majeur : il montre visuellement que la difficulté du papier ne tient pas seulement au modèle statistique, mais au grand nombre de **chemins de confusion plausibles**. Une bonne copie ne se contente donc pas de lister des flèches ; elle explique que le `TMLE` essaie de bloquer ces chemins, sans garantir que tout a été mesuré.
 
 **Réponse type courte**
 
-Le `DAG` doit placer les variables cliniques, sociales et régionales comme causes communes du traitement et de l'outcome. Son intérêt principal est de rendre visible la masse de chemins de confusion que le `TMLE` tente d'ajuster, sans pouvoir prouver qu'aucun confondeur important n'a été oublié.
+Le `DAG` doit distinguer au moins trois types de variables. Comme **confondeurs**, on peut citer la sévérité initiale, la région ou les antécédents psychiatriques, qui influencent à la fois le traitement reçu et l'issue. Comme **médiateur**, on peut proposer l'adhésion réelle au programme, située après le traitement. Comme **collider** potentiel, le `dropout` est important : s'il dépend à la fois du traitement et de l'évolution clinique, conditionner dessus peut introduire un biais. Le `TMLE` essaie d'ajuster les confondeurs observés, sans garantir que tous ont été mesurés.
 :::
 
 #### Question 12 {.unlisted}
@@ -922,13 +1037,36 @@ La consistance, l'échangeabilité et la positivité sont toutes nécessaires au
 
 Une analyse de contrôle négatif consiste à choisir une exposition ou un outcome qui ne devrait pas être causalement lié à l'effet étudié, mais qui partagerait idéalement les mêmes structures de biais et de confusion. Si une association apparaît quand elle ne devrait pas, cela suggère qu'il subsiste un biais caché.
 
-Dans ce papier, un contrôle négatif aurait pu être utile pour tester si la différence `iCBT` / `fCBT` produit artificiellement des associations dans des domaines où elle ne devrait pas avoir d'effet plausible à court terme. Cela aurait été particulièrement intéressant vu la crainte d'une sélection structurelle des patients.
+Il faut cependant aller plus loin et proposer des **exemples concrets**.
+
+Un **negative outcome control** plausible serait un événement qui :
+
+- est mesuré dans les registres ;
+- partage une partie des mêmes structures de sélection et de recours aux soins ;
+- mais ne devrait pas être modifié rapidement par le choix entre `iCBT` et `fCBT`.
+
+Par exemple, on pourrait imaginer :
+
+- une **caractéristique administrative future** très peu susceptible d'être modifiée à court terme par la modalité de CBT ;
+- un **événement somatique sans lien plausible immédiat** avec la psychothérapie ;
+- ou, plus proche du papier, une variable de recours au soin qui reflète surtout l'organisation préalable plutôt que l'effet thérapeutique proprement dit.
+
+L'idée serait la suivante : si `iCBT` semble aussi “améliorer” un outcome qui ne devrait pas répondre causalement à la thérapie dans le délai étudié, cela suggérerait qu'une partie du signal vient d'une sélection cachée des patients et non d'un effet propre du traitement.
+
+Un **negative exposure control** est plus délicat ici, mais on peut tout de même raisonner. Il faudrait une “exposition” qui soit soumise à des mécanismes de sélection proches de ceux de `iCBT`/`fCBT`, sans pouvoir agir causalement sur le `PHQ-9` final. Par exemple, un **marqueur organisationnel du parcours** ou une variable de contexte de prise en charge antérieure pourrait servir de pseudo-exposition négative si elle reflète surtout les circuits de soins, sans effet direct attendu sur l'évolution symptomatique pendant l'épisode traité.
+
+Autrement dit, dans cet article, les deux grands candidats pédagogiques seraient :
+
+- **outcome négatif** : un événement ou indicateur sans effet plausible à court terme de la modalité de psychothérapie ;
+- **exposition négative** : un marqueur du parcours ou de l'organisation des soins corrélé aux mécanismes de sélection, mais sans effet direct attendu sur l'issue dépressive.
+
+Cela aurait été particulièrement intéressant vu la crainte d'une **sélection structurelle** des patients. Si un contrôle négatif montrait encore une association entre “traitement” et variable théoriquement neutre, cela renforcerait l'idée qu'il reste une confusion résiduelle.
 
 L'absence de contrôle négatif n'invalide pas l'article, mais une bonne réponse signale que cela aurait constitué un garde-fou supplémentaire contre la confusion résiduelle.
 
 **Réponse type courte**
 
-Un contrôle négatif aurait permis de tester l'existence d'un biais caché en cherchant une association là où aucun effet causal n'est plausible. Dans un papier aussi exposé à la confusion par indication, cela aurait été un renfort méthodologique utile.
+Un contrôle négatif aurait permis de tester l'existence d'un biais caché en cherchant une association là où aucun effet causal n'est plausible. Ici, on pourrait imaginer un **outcome négatif** sans lien plausible rapide avec `iCBT`/`fCBT`, ou une **exposition négative** reflétant surtout l'organisation du parcours de soins. Si une association persistait malgré tout, cela suggérerait une confusion résiduelle.
 :::
 
 #### Question 14 {.unlisted}
@@ -1128,13 +1266,89 @@ Les évolutions intra-groupe peuvent être impressionnantes, mais elles réponde
 - la sélection des patients qui complètent ;
 - l'effet commun aux deux prises en charge.
 
-Dans le papier, les auteurs rapportent par exemple une baisse moyenne de `4,8` points parmi certains completers `iCBT`, ce qui peut paraître très fort. Mais ce n'est pas l'effet comparatif causal d'intérêt. Le vrai paramètre principal est l'`ATE` entre modalités, pas la baisse observée dans un seul groupe.
+Il faut ici rappeler **comment ces quantités se calculent**.
+
+Un effet **intra-groupe** se calcule simplement comme :
+
+$$
+\text{moyenne après traitement} - \text{moyenne avant traitement}
+$$
+
+ou, si l'on parle d'amélioration, comme la baisse moyenne du score dans un seul groupe :
+
+$$
+\Delta_{iCBT,\;intra} = \overline{PHQ9_{fin}} - \overline{PHQ9_{début}}
+$$
+
+Si le score baisse, cette différence est négative ; si l'on parle de “déclin de `4,8` points”, on retient souvent sa valeur absolue pour décrire l'amélioration. C'est donc une mesure **avant/après dans un seul groupe**.
+
+Le problème est qu'une telle quantité mélange plusieurs choses :
+
+- l'effet possible du traitement ;
+- l'amélioration spontanée de certains épisodes ;
+- la régression vers la moyenne ;
+- l'effet du temps ;
+- la sélection des patients qui restent observés jusqu'à la fin.
+
+Il faut ici **définir vraiment** la régression vers la moyenne. Comme l'expliquent Bland et Altman dans leur note du *BMJ* de 1994 sur ce sujet ([BMJ 1994;308:1499](https://www.bmj.com/content/308/6942/1499)) puis dans leurs exemples appliqués ([BMJ 1994;309:780](https://www.bmj.com/content/309/6957/780)), ce phénomène apparaît lorsqu'on sélectionne des sujets sur une valeur initiale **extrême**, puis qu'on les remesure ensuite sur une variable imparfaitement corrélée à la première. La deuxième mesure tend alors, en moyenne, à être **moins extrême**, donc plus proche de la moyenne générale, même en l'absence de vrai effet de traitement.
+
+Pourquoi ? Parce qu'un score très élevé au départ contient souvent plusieurs composantes :
+
+- une part de sévérité réelle ;
+- une part de fluctuation aléatoire ;
+- une part d'erreur de mesure ;
+- parfois une poussée transitoire du symptôme au moment de l'inclusion.
+
+Quand on remesure plus tard, la composante transitoire ou aléatoire a tendance à ne pas se reproduire exactement. Le score “revient” donc un peu vers des valeurs moins extrêmes. Ce n'est pas une propriété psychologique mystérieuse ; c'est un phénomène statistique attendu dès que deux mesures successives ne sont pas parfaitement corrélées.
+
+L'erreur classique consiste alors à dire :
+
+> le score a beaucoup baissé, donc le traitement a beaucoup agi.
+
+Ce raisonnement est faux si l'on ne compare pas à un groupe de référence réellement comparable, parce qu'une partie de la baisse aurait pu se produire même sans traitement, simplement par régression vers la moyenne.
+
+Dans l'article, les auteurs rapportent par exemple une baisse moyenne d'environ `4,8` points parmi certains completers `iCBT`. Pris isolément, ce chiffre peut donner l'impression que `iCBT` est “très efficace”. Mais on ne sait pas, à partir de ce seul nombre, ce qui se serait passé chez ces mêmes patients sous `fCBT`, ni ce qui relève simplement de l'évolution habituelle ou du profil particulier des patients qui complètent.
+
+L'effet **comparatif** principal, lui, répond à une autre question. Le papier ne cherche pas seulement :
+
+> de combien le `PHQ-9` baisse-t-il chez les patients `iCBT` ?
+
+Il cherche :
+
+> quelle est la différence moyenne de résultat entre ce qui se serait passé sous `iCBT` et ce qui se serait passé sous `fCBT` pour des patients rendus comparables ?
+
+C'est pour cela que l'estimand principal est l'`ATE`, ici :
+
+$$
+ATE = E[Y^{iCBT} - Y^{fCBT}]
+$$
+
+et qu'il est estimé dans le papier à :
+
+$$
+ATE = 0,745 \text{ point de PHQ-9}
+$$
+
+avec :
+
+$$
+IC95\% = [0,156 ; 1,334]
+$$
+
+Ce chiffre est beaucoup plus petit que le `4,8` points intra-groupe, et c'est précisément le message important. Cela montre qu'une grande partie de l'amélioration observée **à l'intérieur** d'un groupe ne peut pas être interprétée comme une supériorité **entre** groupes.
+
+Autrement dit :
+
+- `4,8` points décrit une **trajectoire observée dans un groupe** ;
+- `0,745` point essaie d'estimer une **différence comparative moyenne entre modalités**.
+
+Ce n'est pas la même question, pas la même formule, et pas la même interprétation. Une bonne copie doit absolument faire cette distinction, sinon elle surestime artificiellement la portée comparative du traitement.
 
 La bonne réponse doit donc rappeler que **les résultats intra-groupe sont descriptifs, tandis que la question scientifique principale est comparative et contrefactuelle**.
 
 **Réponse type courte**
 
-Une amélioration importante au sein d'un groupe ne démontre pas sa supériorité comparative. Le paramètre principal ici est l'`ATE` entre `iCBT` et `fCBT`, pas la baisse moyenne observée dans un seul bras.
+Une amélioration intra-groupe se calcule comme une variation moyenne avant/après dans un seul bras, par exemple la baisse d'environ `4,8` points du `PHQ-9` chez certains completers `iCBT`. Mais ce chiffre ne permet pas de conclure à une supériorité comparative, car il mélange effet du soin, évolution naturelle et sélection des compléteurs. Le paramètre principal est l'`ATE` comparatif entre `iCBT` et `fCBT`, estimé ici à `0,745` point.
 :::
 
 #### Question 20 {.unlisted}
@@ -1156,13 +1370,26 @@ Une amélioration importante au sein d'un groupe ne démontre pas sa supériorit
 
 Le point technique est subtil. L'outcome principal est le **changement** de `PHQ-9`, donc inclure systématiquement le score initial dans les modèles risque de créer une dépendance mathématique artificielle entre la valeur de départ et la variation observée, surtout en présence d'erreur de mesure. Les auteurs veulent éviter cette forme de “coupling” entre baseline et outcome dérivé.
 
-Ils montrent néanmoins que ce choix n'est pas neutre. Quand on réintroduit le `PHQ-9` de base dans certaines analyses de sensibilité, l'`ATE` peut fortement s'atténuer, jusqu'à devenir proche de `0` dans certains scénarios. Ce point est pédagogiquement très fort : il montre que même une décision techniquement justifiable peut déplacer matériellement l'effet estimé.
+Ils montrent néanmoins que ce choix n'est pas neutre. Quand on réintroduit le `PHQ-9` de base dans certaines analyses de sensibilité, l'`ATE` s'atténue fortement :
 
-La bonne copie n'affirme donc pas que les auteurs “ont raison” ou “ont tort”, mais qu'ils font un choix cohérent avec leur définition de l'outcome, tout en laissant voir que ce choix influence les résultats.
+- avec baseline dans le seul modèle d'assignation, `AIPTW-ATE = 0,128 [−0,593 ; 0,850]` et `simple TMLE-ATE = 0,114 [−0,569 ; 0,797]` ;
+- avec baseline dans les deux modèles du `full TMLE`, `ATE = −0,064 [−0,639 ; 0,511]`.
+
+Autrement dit, une fois le `PHQ-9` baseline pleinement réintroduit, le résultat devient **compatible avec l'absence de différence** entre `iCBT` et `fCBT`. Ce point est pédagogiquement très fort : il montre que même une décision techniquement justifiable peut déplacer matériellement l'effet estimé.
+
+Si l'on veut **mieux contrôler ce biais sans quitter les données naturalistes**, la meilleure stratégie ne serait pas de “faire encore plus de TMLE” abstraitement, mais de **resserrer le design observationnel**. Concrètement, on pourrait :
+
+- restreindre l'analyse aux patients d'une **même région** et d'un **même circuit de soins** ;
+- faire un **appariement serré** ou une pondération d'overlap sur le `PHQ-9` baseline, `OASIS`, âge, antécédents psychiatriques, emploi, prescriptions et variables régionales ;
+- analyser ensuite seulement la **zone de support commun**, c'est-à-dire les profils pour lesquels `iCBT` et `fCBT` étaient réellement plausibles.
+
+Une telle stratégie ne supprimerait pas toute confusion non mesurée, mais elle réduirait beaucoup mieux le biais structurel lié au déséquilibre initial massif qu'une simple comparaison globale des `5446` patients `iCBT` contre `388` patients `fCBT`.
+
+La bonne copie n'affirme donc pas que les auteurs “ont raison” ou “ont tort”, mais qu'ils font un choix cohérent avec leur définition de l'outcome, tout en laissant voir que ce choix influence fortement les résultats, au point que les analyses avec baseline inclus sont compatibles avec **pas de différence claire**.
 
 **Réponse type courte**
 
-Les auteurs excluent le `PHQ-9` initial pour éviter une dépendance artificielle entre baseline et changement. Ce choix est méthodologiquement défendable, mais il n'est pas neutre, puisque l'inclusion du score initial atténue fortement l'effet dans certaines analyses de sensibilité.
+Les auteurs excluent le `PHQ-9` initial pour éviter une dépendance artificielle entre baseline et changement. Ce choix est méthodologiquement défendable, mais il n'est pas neutre : quand le baseline est réintroduit, les estimations deviennent compatibles avec l'absence de différence entre `iCBT` et `fCBT`. Dans une logique naturaliste, un meilleur contrôle du biais passerait par une restriction à des patients réellement comparables et un appariement/pondération serrés sur la sévérité initiale et le contexte de soins.
 :::
 
 ### Thème 5. Biais et facteurs de confusion
@@ -1221,13 +1448,220 @@ Les auteurs réduisent la confusion par une stratégie large : nombreuses covari
 
 Le `PHQ-9` initial est plus bas en `fCBT` (`11,57`) qu'en `iCBT` (`13,31`). Ce simple fait montre que les groupes ne sont pas comparables sur une dimension clinique centrale. Cela peut refléter une **confusion par indication** : peut-être que les patients plus sévères ont été plus volontiers orientés vers `iCBT`, ou inversement que certaines logiques d'organisation régionales ont orienté différemment les patients.
 
-Ce déséquilibre est problématique parce qu'il peut fausser l'interprétation du changement. Un groupe qui part plus haut a parfois plus de marge de baisse, mais il est aussi exposé à plus de régression vers la moyenne. Les auteurs abordent ce problème par l'ajustement causal et en testant des analyses incluant explicitement le `PHQ-9` de base. Le fait que les résultats changent dans ces sensibilités montre justement que cette variable est importante.
+Ce déséquilibre est problématique parce que l'issue principale n'est pas le score final, mais le **changement de `PHQ-9`**. Or un groupe qui part plus haut a parfois plus de marge de baisse, mais il est aussi plus exposé à la régression vers la moyenne. Autrement dit, si l'on compare naïvement des changements moyens sans réfléchir au score de départ, on risque de mélanger :
+
+- un vrai effet de traitement ;
+- une différence de sévérité initiale ;
+- une simple dynamique mathématique liée au fait de partir plus haut ou plus bas.
+
+Il faut là aussi expliciter le mécanisme. La régression vers la moyenne ne veut pas dire que “les patients graves vont forcément mieux”. Elle veut dire que lorsqu'on sélectionne des sujets sur un score initial élevé, une partie de cette élévation est souvent due à une fluctuation transitoire, à l'erreur de mesure ou à la variabilité intra-individuelle. Lors de la mesure suivante, même sans effet thérapeutique massif, le score tend en moyenne à être moins extrême. C'est exactement le phénomène décrit par Bland et Altman dans le *BMJ* ([BMJ 1994;308:1499](https://www.bmj.com/content/308/6942/1499) ; [BMJ 1994;309:780](https://www.bmj.com/content/309/6957/780)).
+
+Appliqué ici, cela veut dire que le groupe `iCBT`, qui part d'un `PHQ-9` plus élevé (`13,31`), peut mécaniquement montrer une baisse moyenne plus forte qu'un groupe qui part plus bas (`11,57`), même si la vraie supériorité causale du traitement est plus faible qu'on ne le croit. C'est précisément pour cela que les analyses de changement sont si sensibles au traitement du baseline.
+
+Il faut donc expliquer **ce que font réellement les auteurs**. Leur stratégie principale est de **ne pas inclure le `PHQ-9` baseline dans les modèles de prédiction principaux**, parce que ce score initial entre déjà dans la définition de l'outcome (`changement = fin - début`). Ils craignent donc une dépendance artificielle entre baseline et variation.
+
+Mais ils ne s'arrêtent pas là. Ils font ensuite de vraies **analyses de sensibilité** en réintroduisant ce `PHQ-9` baseline :
+
+- d'abord dans le **modèle d'assignation au traitement** seulement ;
+- puis dans **le modèle d'assignation et le modèle d'outcome** du `TMLE` complet.
+
+Et c'est là que le papier devient très instructif. Quand ils ajoutent le `PHQ-9` baseline dans le **modèle d'assignation**, l'effet s'atténue déjà fortement :
+
+- `AIPTW-ATE` passe à `0,128` avec `IC95% [-0,593 ; 0,850]` ;
+- `simple TMLE-ATE` passe à `0,114` avec `IC95% [-0,569 ; 0,797]`.
+
+Quand ils incluent le `PHQ-9` baseline dans **les deux modèles du full TMLE**, l'estimation devient :
+
+$$
+ATE = -0,064 \quad \text{avec} \quad IC95\% [-0,639 ; 0,511]
+$$
+
+Autrement dit, l'effet principal favorable à `iCBT` peut pratiquement disparaître selon la manière dont on traite cette variable de baseline. Une formulation honnête d'examen est donc : **avec le `PHQ-9` baseline inclus dans les modèles, les résultats deviennent compatibles avec l'absence de différence claire entre `iCBT` et `fCBT`**. Ce n'est pas une preuve de stricte équivalence ou de non-infériorité ; c'est un signal fort que cette variable pilote une partie importante du contraste observé.
+
+Si l'on voulait mieux contrôler ce biais tout en restant dans un cadre naturaliste, la stratégie la plus défendable serait un **design observationnel renforcé** :
+
+- restriction aux patients provenant du **même territoire** et du **même type de service** ;
+- appariement exact ou par caliper sur le `PHQ-9` baseline et `OASIS` ;
+- pondération d'overlap ou appariement sur score de propension enrichi ;
+- vérification explicite de l'équilibre après appariement ;
+- analyse finale limitée aux patients situés dans la **zone de support commun**.
+
+Cela ne remplacerait toujours pas une randomisation, mais ce serait un moyen bien plus concret de réduire le biais de confusion par sévérité initiale et par organisation des soins.
+
+La vraie difficulté méthodologique est donc double :
+
+1. **ne pas créer artificiellement** de dépendance mathématique en ajustant sur une variable déjà contenue dans l'outcome ;
+2. **ne pas ignorer** une variable clinique majeure qui distingue fortement les groupes au départ.
+
+La bonne copie doit donc dire plus que “les auteurs ajustent”. Elle doit dire :
+
+> les auteurs ont conscience du problème, choisissent de ne pas inclure le `PHQ-9` baseline dans l'analyse principale pour éviter un artefact statistique, puis montrent en sensibilité que sa réintroduction peut fortement atténuer voire annuler l'effet estimé.
 
 La bonne copie doit dire deux choses : **déséquilibre réel, et réponse analytique sérieuse mais non définitive**.
 
 **Réponse type courte**
 
-Le déséquilibre de `PHQ-9` initial suggère une non-comparabilité des groupes et une possible confusion par indication. Les auteurs essaient de l'atténuer par l'ajustement et les sensibilités, mais cela reste un point de fragilité important.
+Le déséquilibre de `PHQ-9` initial (`11,57` en `fCBT` contre `13,31` en `iCBT`) suggère une non-comparabilité clinique importante. Les auteurs n'incluent pas ce score de base dans l'analyse principale pour éviter une dépendance artificielle avec l'outcome de changement, mais ils le réintroduisent en sensibilité. Or ces sensibilités rendent les résultats compatibles avec l'absence de différence, jusqu'à un `ATE` proche de `0` dans le `TMLE` complet. Cela montre que le `PHQ-9` baseline est un point de fragilité méthodologique majeur. Dans une approche naturaliste, un meilleur contrôle passerait par restriction, appariement serré et analyse sur support commun.
+:::
+
+#### Question 22 bis {.unlisted}
+
+> Le fait de ne pas inclure le `PHQ-9` baseline dans le modèle principal est-il, selon vous, une erreur méthodologique ? Discutez de façon nuancée à partir des résultats du papier.
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : "Our prediction models did not use baseline PHQ-9 to avoid artificial dependence with outcome because it is part of the outcome already."</p>
+    <p><strong>Passage utile</strong> : "AIPTW-ATE 0.128 ... simple TMLE-ATE 0.114 ... full TMLE ... ATE was –0.064".</p>
+    <p><strong>À relier à la réponse</strong> : l'article fournit à la fois la justification technique de l'exclusion et la preuve empirique que cette décision change matériellement les résultats.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Ce n'est pas une **erreur grossière évidente**, mais c'est un **choix très contestable** dans ce papier précis.
+
+Pourquoi les auteurs ont-ils un argument défendable ? Parce que leur outcome est un **changement** de `PHQ-9` :
+
+$$
+\Delta PHQ9 = PHQ9_{fin} - PHQ9_{début}
+$$
+
+Si l'on remet aussi `PHQ9_{début}` comme prédicteur dans le modèle, on risque de créer une dépendance artificielle entre une variable et un outcome qui la contient déjà. Leur raisonnement technique est donc réel, et il n'est pas absurde.
+
+Mais pourquoi ce choix devient-il très fragile ici ? Parce que le `PHQ-9` baseline n'est pas une petite covariable parmi d'autres. C'est une variable :
+
+- fortement déséquilibrée entre groupes (`13,31` en `iCBT` contre `11,57` en `fCBT`) ;
+- cliniquement centrale ;
+- probablement liée à l'orientation thérapeutique ;
+- et évidemment liée à l'évolution ultérieure.
+
+Autrement dit, cette variable a toutes les caractéristiques d'un **gros confondeur** potentiel. Le papier montre d'ailleurs lui-même que son traitement analytique change fortement le message. Sans baseline dans le modèle principal, on obtient un `ATE` positif en faveur de `iCBT`. Mais dès qu'on réintroduit le baseline :
+
+- `AIPTW-ATE` tombe à `0,128 [−0,593 ; 0,850]` ;
+- `simple TMLE-ATE` tombe à `0,114 [−0,569 ; 0,797]` ;
+- et dans le `full TMLE`, on arrive à :
+
+$$
+ATE = -0,064 \quad [ -0,639 ; 0,511 ]
+$$
+
+Donc la bonne conclusion n'est ni :
+
+- “les auteurs ont forcément tort” ;
+- ni “leur justification technique règle tout”.
+
+La vraie conclusion est :
+
+> leur justification statistique est compréhensible, mais dans ce papier précis elle entre en tension directe avec le rôle majeur du `PHQ-9` baseline comme variable de confusion.
+
+En examen, la formulation la plus forte mais honnête est :
+
+> ce n'est pas une faute méthodologique évidente, mais c'est probablement le choix le plus discutable du papier, parce que la variable exclue est justement celle qui semble le plus déplacer l'estimation quand on la réintroduit.
+
+**Réponse type courte**
+
+L'exclusion du `PHQ-9` baseline n'est pas une erreur évidente, car l'argument technique du “coupling” entre baseline et changement existe réellement. En revanche, dans ce papier, c'est un choix très discutable, car le `PHQ-9` baseline est fortement déséquilibré et sa réintroduction en sensibilité rend les résultats compatibles avec l'absence de différence. C'est donc probablement le point méthodologique le plus fragile de l'étude.
+:::
+
+#### Question 22 ter {.unlisted}
+
+> Sans refaire un essai randomisé, quelle stratégie observationnelle plus robuste proposeriez-vous pour mieux contrôler le biais lié au `PHQ-9` baseline et au contexte de soins ?
+
+```{=html}
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l'article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : `fCBT` est essentiellement fournie en `Uusimaa`, alors que `iCBT` est disponible nationalement ; `PHQ-9` baseline `11,57` versus `13,31`.</p>
+    <p><strong>Passage utile</strong> : les auteurs rapportent aussi une analyse restreinte à `Uusimaa`.</p>
+    <p><strong>À relier à la réponse</strong> : le problème n'est pas seulement statistique ; il est aussi structurel, territorial et organisationnel.</p>
+  </div>
+</details>
+```
+
+::: {.answer-card}
+**Réponse détaillée**
+
+Si l'on veut rester dans des **données naturalistes**, la meilleure réponse n'est pas “mettre encore plus de machine learning”, mais **resserrer le design observationnel**.
+
+Mais tu as raison sur un point fondamental : si l'on garde exactement le même outcome
+
+$$
+\Delta PHQ9 = PHQ9_{fin} - PHQ9_{début}
+$$
+
+alors appariement ou pondération sur le `PHQ-9` baseline ne suffisent pas à faire disparaître la tension méthodologique. On reste coincé avec une variable qui est à la fois :
+
+- un gros facteur de confusion ;
+- et une composante mathématique de l'outcome.
+
+La vraie stratégie naturaliste plus robuste serait donc de **changer l'estimand principal**, pas seulement d'ajouter une couche d'ajustement.
+
+Le problème ici n'est pas seulement qu'il manque une covariable ; c'est que les deux groupes viennent de **circuits de soins différents** :
+
+- `fCBT` surtout en `Uusimaa` ;
+- `iCBT` disponible nationalement ;
+- déséquilibre massif d'effectifs : `5446` contre `388` ;
+- déséquilibre clinique sur le `PHQ-9` baseline.
+
+Une stratégie plus robuste aurait donc été, par exemple :
+
+1. **restriction géographique forte**  
+   Travailler d'abord uniquement dans une zone où les deux modalités sont réellement disponibles, par exemple `Uusimaa`. Les auteurs font déjà une restriction régionale en sensibilité, mais on pourrait en faire le cœur du design au lieu d'une analyse secondaire.
+
+2. **restriction au support commun clinique**  
+   Éliminer les patients trop atypiques pour lesquels la probabilité de recevoir `fCBT` ou `iCBT` est pratiquement nulle. En pratique, cela veut dire ne garder que les profils pour lesquels les deux traitements étaient réellement plausibles.
+
+3. **appariement serré ou pondération d'overlap sur les covariables basales**, y compris le `PHQ-9` initial  
+   Appariement exact ou par caliper sur :
+   - `PHQ-9` baseline ;
+   - `OASIS` ;
+   - âge ;
+   - visites psychiatriques antérieures ;
+   - diagnostics antérieurs ;
+   - statut professionnel ;
+   - variables de région / parcours de soins.
+
+4. **changer l'outcome principal pour pouvoir inclure légitimement le baseline**  
+   Au lieu de modéliser directement le **changement**, on pourrait modéliser :
+
+$$
+PHQ9_{post-traitement}
+$$
+
+   en ajustant explicitement sur :
+
+$$
+PHQ9_{baseline}
+$$
+
+   C'est l'idée d'une approche de type `ANCOVA` ou, mieux encore ici, d'un **modèle longitudinal** utilisant les mesures répétées (`session 1`, `3`, `5`, `7`) avec interaction `temps × traitement`.
+
+   L'intérêt est clair :
+   - le baseline devient une vraie covariable d'ajustement ;
+   - on évite qu'il soit en même temps une partie algébrique de l'outcome principal ;
+   - on exploite mieux la trajectoire complète au lieu de la résumer seulement par “début → fin”.
+
+5. **vérification explicite de l'équilibre après ajustement**  
+   Il ne suffit pas d'annoncer un score de propension ou un `TMLE`. Il faut montrer que, **après** appariement ou pondération, les distributions du `PHQ-9` baseline et des grandes covariables deviennent réellement proches.
+
+6. **analyse principale centrée sur la cohorte appariée / overlap**  
+   L'estimation finale serait alors portée par une population plus petite, mais beaucoup plus crédible causalement, avec un outcome post-traitement ou longitudinal mieux spécifié.
+
+Le coût de cette stratégie est clair : on perdrait de l'effectif et donc un peu de précision. Mais ici, ce sacrifice serait probablement un bon échange, parce que le vrai problème du papier n'est pas le manque de patients ; c'est la **comparabilité** des patients. En d'autres termes :
+
+> mieux vaut une cohorte naturaliste plus petite mais vraiment comparable qu'une gigantesque cohorte structurellement déséquilibrée.
+
+La phrase clé à retenir est donc :
+
+> pour intégrer réellement le `PHQ-9` baseline sans retomber dans le problème du “coupling”, il faut changer la cible analytique : modéliser le score post-traitement conditionnel au baseline, ou mieux une trajectoire longitudinale, plutôt que le seul score de changement brut.
+
+**Réponse type courte**
+
+Dans une logique naturaliste, il ne suffit pas d'apparier sur le `PHQ-9` baseline si l'outcome reste le changement `fin - début`. Une stratégie plus robuste serait de restreindre l'analyse au support commun, d'apparier ou pondérer serré sur les covariables basales, puis de changer l'outcome principal pour modéliser le `PHQ-9` post-traitement ajusté sur le baseline, ou mieux une trajectoire longitudinale des scores. Cela permettrait d'inclure réellement le `PHQ-9` initial sans le faire entrer deux fois dans l'analyse.
 :::
 
 #### Question 23 {.unlisted}
@@ -1618,17 +2052,41 @@ Certaines correspondent assez naturellement au papier `2026 EPI`, d'autres sont 
 
 Les quatre familles de formules à savoir mobiliser ici sont :
 
+1. **Précision d'une proportion**
+   - sert à calculer la **marge d'erreur** autour d'un pourcentage observé
+   - `p` = proportion observée
+   - `n` = effectif
+   - `Delta` = demi-largeur approximative de l'intervalle de confiance
+
 $$
 \Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
 $$
+
+2. **Précision d'un odds ratio**
+   - sert à calculer l'**erreur standard de `log(OR)`**, puis l'intervalle de confiance de l'`OR`
+   - `a, b, c, d` = effectifs du tableau `2 × 2`
+   - `OR = ad/bc`
 
 $$
 sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
 $$
 
+3. **Comparaison de deux proportions**
+   - sert à calculer le **nombre de sujets par bras** pour comparer deux pourcentages
+   - `p1` et `p2` = proportions attendues dans les deux groupes
+   - `z_alpha` = quantile lié au risque alpha
+   - `z_beta` = quantile lié à la puissance
+   - `n` = effectif par bras
+
 $$
 n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
 $$
+
+4. **Comparaison de deux moyennes**
+   - sert à calculer le **nombre de sujets par bras** pour comparer une variable continue
+   - `sigma` = écart-type supposé commun
+   - `Delta` = différence moyenne que l'on veut détecter
+   - `z_alpha` et `z_beta` = quantiles liés à l'alpha et à la puissance
 
 $$
 n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
@@ -1652,10 +2110,14 @@ La formule “deux moyennes” sert à retrouver un **ordre de grandeur d'effect
 
 **Données à utiliser**
 
-- différence à détecter : `\Delta = 1,7`
-- écart-type pédagogique supposé : `\sigma = 6`
-- `alpha = 5%`, donc `z_\alpha \approx 1,96`
-- puissance `80%`, donc `z_\beta \approx 0,84`
+$$
+\begin{aligned}
+\Delta &= 1,7 && \text{différence à détecter} \\
+\sigma &= 6 && \text{écart-type pédagogique supposé} \\
+z_\alpha &\approx 1,96 && \text{pour } \alpha = 5\% \\
+z_\beta &\approx 0,84 && \text{pour une puissance de } 80\%
+\end{aligned}
+$$
 
 **Formule générale**
 
@@ -1878,10 +2340,14 @@ La formule “deux proportions” donne ici un **nombre de sujets par bras** si 
 
 **Données à utiliser**
 
-- `p_1 = 0,35`
-- `p_2 = 0,45`
-- `z_\alpha \approx 1,96`
-- `z_\beta \approx 0,84`
+$$
+\begin{aligned}
+p_1 &= 0,35 \\
+p_2 &= 0,45 \\
+z_\alpha &\approx 1,96 \\
+z_\beta &\approx 0,84
+\end{aligned}
+$$
 
 **Formule générale**
 
@@ -1926,17 +2392,561 @@ Les auteurs n'ont pas transformé le `PHQ-9` en critère binaire. Ils ont préci
 Avec `p_1 = 0,35` et `p_2 = 0,45`, la formule des deux proportions donne environ `373` patients par bras. Ce chiffre, plus élevé que dans l'exercice “deux moyennes”, illustre bien le coût statistique de la dichotomisation d'un critère continu comme le `PHQ-9`.
 :::
 
+### Calcul E {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> Montrez que l'article vise un **objectif de précision** et non un vrai NSN de supériorité. Quel `SE` maximal cela impose-t-il, et ce critère a-t-il été atteint ?
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cette question sert à traduire une **largeur d'intervalle de confiance visée** en un **écart-type standard maximal** (`SE`). Ici, on ne cherche pas d'abord à “détecter une différence”, mais à obtenir une estimation assez précise de l'`ATE`.
+
+**Données à utiliser**
+
+L'article dit qu'un `IC95%` de largeur au plus `1,7` point de `PHQ-9` serait jugé suffisamment précis.  
+L'`ATE` final observé est :
+
+$$
+ATE = 0,745 \qquad ; \qquad IC95\% = [0,156 ; 1,334]
+$$
+
+**Formule générale**
+
+Pour une estimation approximativement normale :
+
+$$
+\text{largeur}(IC95\%) \approx 3,92 \times SE
+$$
+
+**Application numérique**
+
+Le `SE` cible maximal vaut :
+
+$$
+SE_{\text{cible}} \approx \frac{1,7}{3,92} \approx 0,434
+$$
+
+L'intervalle observé a pour largeur :
+
+$$
+1,334 - 0,156 = 1,178
+$$
+
+Donc :
+
+$$
+SE_{\text{observé}} \approx \frac{1,178}{3,92} \approx 0,301
+$$
+
+ce qui est cohérent avec le `SE = 0,300` donné par l'article.
+
+**Interprétation**
+
+Le papier ne formule donc pas un NSN prospectif classique de supériorité. Il fixe une **cible de précision**. Et cette cible est atteinte, puisque le `SE` observé (`≈ 0,300`) est plus petit que le `SE` maximal autorisé (`≈ 0,434`).
+
+**Réponse type**
+
+L'article ne dimensionne pas l'étude comme un essai de supériorité classique ; il fixe un objectif de précision : obtenir un `IC95%` de largeur au plus `1,7` point. Cela correspond à un `SE` cible d'environ `1,7 / 3,92 = 0,434`. Or l'`ATE` final a un `SE` d'environ `0,300`, donc la précision visée a bien été atteinte.
+:::
+
+### Calcul F {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> En prenant `\sigma \approx 4,9` points comme écart-type commun plausible du changement de `PHQ-9`, combien de sujets par bras suffiraient approximativement pour garantir une largeur d'`IC95%` de `1,7` point dans une étude équilibrée à deux groupes ?
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cette formule transforme un **objectif de précision** en **effectif nécessaire** dans un cadre simplifié à deux groupes équilibrés.
+
+**Données à utiliser**
+
+On prend :
+
+$$
+\sigma \approx 4,9
+$$
+
+et une largeur cible :
+
+$$
+\text{largeur}(IC95\%) = 1,7
+$$
+
+**Formule générale**
+
+Dans une étude équilibrée à deux groupes :
+
+$$
+SE \approx \sigma \sqrt{\frac{2}{n}}
+$$
+
+Donc :
+
+$$
+\text{largeur}(IC95\%) \approx 3,92 \times \sigma \sqrt{\frac{2}{n}}
+$$
+
+**Application numérique**
+
+On impose :
+
+$$
+1,7 \approx 3,92 \times 4,9 \times \sqrt{\frac{2}{n}}
+$$
+
+ce qui donne :
+
+$$
+n \approx 2\left(\frac{3,92 \times 4,9}{1,7}\right)^2
+$$
+
+Puis :
+
+$$
+3,92 \times 4,9 \approx 19,2
+$$
+
+$$
+\frac{19,2}{1,7} \approx 11,3
+$$
+
+$$
+11,3^2 \approx 127,7
+$$
+
+$$
+n \approx 2 \times 127,7 \approx 255
+$$
+
+**Interprétation**
+
+Dans un cadre simplifié, il faudrait donc environ `255` sujets par bras, soit environ `510` sujets au total, pour garantir cette précision. C'est très inférieur aux `5834` sujets analysés dans le papier, ce qui rappelle que le vrai problème de l'étude n'est pas le manque de volume, mais la validité causale.
+
+**Réponse type**
+
+Avec `\sigma \approx 4,9` et une largeur cible d'`IC95%` de `1,7` point, on obtient environ `255` sujets par bras, soit environ `510` au total. Ce calcul reste pédagogique, mais il montre que l'article avait largement assez de volume pour atteindre son objectif de précision.
+:::
+
+### Calcul G {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> Si l'on voulait détecter non plus `1,7` point mais seulement l'**effet observé** de `0,745` point dans un essai simple à deux groupes, avec `alpha = 5%`, puissance `80%` et `\sigma \approx 4,9`, quel serait le NSN approximatif par bras ?
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cette formule calcule un **nombre de sujets par bras** pour comparer deux moyennes quand on fixe une taille d'effet à détecter. Ici, on ne prend pas un seuil clinique a priori, mais l'effet effectivement observé dans l'article.
+
+**Données à utiliser**
+
+$$
+\begin{aligned}
+\delta &= 0,745 && \text{effet observé à détecter} \\
+\sigma &\approx 4,9 && \text{écart-type commun supposé} \\
+z_{1-\alpha/2} &= 1,96 && \text{pour } \alpha = 5\% \text{ bilatéral} \\
+z_{1-\beta} &= 0,84 && \text{pour une puissance de } 80\%
+\end{aligned}
+$$
+
+**Formule générale**
+
+$$
+n_{\text{par bras}} = \frac{2(z_{1-\alpha/2}+z_{1-\beta})^2\sigma^2}{\delta^2}
+$$
+
+**Application numérique**
+
+$$
+n \approx \frac{2(1,96+0,84)^2 \times 4,9^2}{0,745^2}
+$$
+
+Le numérateur vaut environ :
+
+$$
+2(2,80)^2 \times 4,9^2 \approx 376,3
+$$
+
+Le dénominateur vaut :
+
+$$
+0,745^2 \approx 0,555
+$$
+
+Donc :
+
+$$
+n \approx \frac{376,3}{0,555} \approx 678
+$$
+
+On retient donc environ :
+
+$$
+n \approx 680 \text{ patients par bras}
+$$
+
+**Interprétation**
+
+Ce calcul montre qu'un effet moyen faible mais statistiquement significatif peut nécessiter un effectif très important s'il devait être démontré prospectivement dans un essai classique.
+
+**Réponse type**
+
+En dimensionnant un essai simple sur l'effet observé de `0,745` point, avec `\sigma \approx 4,9`, `alpha = 5%` et puissance `80%`, on trouve environ `680` patients par bras. Cela illustre le coût statistique d'un effet moyen modeste.
+:::
+
+### Calcul H {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> À partir de l'`IC95%` de la **différence brute observée** (`1,120 [0,509 ; 1,731]`), retrouvez son `SE`, puis comparez sa précision à celle de l'`ATE` ajusté.
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cette formule permet de remonter d'un **intervalle de confiance** à un **écart-type standard** (`SE`). C'est très utile quand l'article donne un estimateur et son `IC95%`, mais pas la précision sous une forme directement comparable.
+
+**Données à utiliser**
+
+Différence brute :
+
+$$
+1,120 \qquad ; \qquad IC95\% = [0,509 ; 1,731]
+$$
+
+ATE ajusté :
+
+$$
+ATE = 0,745 \qquad ; \qquad SE = 0,300
+$$
+
+**Formule générale**
+
+$$
+SE \approx \frac{\text{largeur}(IC95\%)}{3,92}
+$$
+
+**Application numérique**
+
+Pour la différence brute, la largeur vaut :
+
+$$
+1,731 - 0,509 = 1,222
+$$
+
+Donc :
+
+$$
+SE_{\text{brut}} \approx \frac{1,222}{3,92} \approx 0,312
+$$
+
+Comparaison avec l'`ATE` :
+
+$$
+SE_{\text{ATE}} = 0,300
+$$
+
+Donc :
+
+$$
+0,300 < 0,312
+$$
+
+**Interprétation**
+
+La précision de la différence brute et celle de l'`ATE` ajusté sont très proches. Ici, l'ajustement causal n'a pas “coûté” en précision ; il aboutit même à un estimateur légèrement plus précis.
+
+**Réponse type**
+
+À partir de l'intervalle `0,509 à 1,731`, on retrouve un `SE` d'environ `1,222 / 3,92 = 0,312` pour la différence brute. Ce `SE` est très proche de celui de l'`ATE` ajusté (`0,300`) et même un peu plus grand. L'ajustement causal n'a donc pas dégradé la précision dans cet article.
+:::
+
+### Calcul I {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> Dans la mesure du possible, calculez une **puissance a posteriori grossière** pour la **différence brute observée** de `1,120`.
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Ce calcul post hoc grossier sert à transformer un estimateur et son `SE` en un **score de Wald**, puis en une **puissance observée approximative**. Ce n'est pas l'outil idéal, mais c'est un exercice classique d'annales.
+
+**Données à utiliser**
+
+$$
+\widehat\theta = 1,120 \qquad ; \qquad SE = 0,312
+$$
+
+**Formule générale**
+
+On calcule d'abord :
+
+$$
+z \approx \frac{\widehat\theta}{SE}
+$$
+
+Puis :
+
+$$
+\text{puissance} \approx \Phi(z - 1,96)
+$$
+
+**Application numérique**
+
+$$
+z \approx \frac{1,120}{0,312} \approx 3,59
+$$
+
+Donc :
+
+$$
+\text{puissance} \approx \Phi(3,59 - 1,96) = \Phi(1,63)
+$$
+
+Or :
+
+$$
+\Phi(1,63) \approx 0,95
+$$
+
+**Interprétation**
+
+La différence brute est donc estimée avec une bonne précision statistique. Mais cela ne règle pas la question causale : ce résultat brut mélange encore les différences initiales entre groupes.
+
+**Réponse type**
+
+Pour la différence brute `1,120` avec `SE = 0,312`, on obtient `z ≈ 3,59`, puis une puissance a posteriori grossière d'environ `95%`. Ce calcul montre surtout que la différence brute est estimée avec précision, pas qu'elle ait une interprétation causale satisfaisante.
+:::
+
+### Calcul J {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> Dans la mesure du possible, calculez une **puissance a posteriori grossière** pour l'`ATE` estimé dans la **région d'Uusimaa** uniquement.
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cette formule permet de voir comment la précision se dégrade quand on restreint l'analyse à un sous-ensemble plus petit. C'est donc un bon exercice pour illustrer l'effet de la taille effective d'échantillon.
+
+**Données à utiliser**
+
+Dans l'analyse restreinte à Uusimaa :
+
+$$
+\widehat\theta = 0,636 \qquad ; \qquad SE = 0,326
+$$
+
+**Formule générale**
+
+$$
+z \approx \frac{\widehat\theta}{SE}
+$$
+
+puis :
+
+$$
+\text{puissance} \approx \Phi(z - 1,96)
+$$
+
+**Application numérique**
+
+$$
+z \approx \frac{0,636}{0,326} \approx 1,95
+$$
+
+Donc :
+
+$$
+\text{puissance} \approx \Phi(1,95 - 1,96) = \Phi(-0,01)
+$$
+
+Or :
+
+$$
+\Phi(-0,01) \approx 0,50
+$$
+
+**Interprétation**
+
+On retrouve un ordre de grandeur d'environ `50%`, ce qui est cohérent avec l'`IC95%` `[-0,002 ; 1,276]` qui frôle `0`. Le message pédagogique est simple : quand on réduit l'information disponible, la précision se dégrade vite.
+
+**Réponse type**
+
+Dans l'analyse Uusimaa, l'`ATE` vaut `0,636` avec `SE = 0,326`, soit `z ≈ 1,95`. Cela conduit à une puissance a posteriori grossière d'environ `50%`, ce qui est cohérent avec un intervalle de confiance beaucoup moins convaincant que dans l'analyse principale.
+:::
+
+### Calcul K {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> Si l'on voulait une largeur d'`IC95%` non plus de `1,7` point mais de **`1,0` point**, quel effectif approximatif faudrait-il dans une étude équilibrée à deux groupes avec `\sigma \approx 4,9` ?
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cette question prolonge l'objectif de précision de l'article en montrant le coût d'une exigence plus sévère. Elle sert à lier directement **précision visée** et **effectif nécessaire**.
+
+**Données à utiliser**
+
+$$
+\sigma \approx 4,9 \qquad ; \qquad \text{largeur cible} = 1,0
+$$
+
+**Formule générale**
+
+$$
+\text{largeur}(IC95\%) \approx 3,92 \times \sigma \sqrt{\frac{2}{n}}
+$$
+
+**Application numérique**
+
+On impose :
+
+$$
+1,0 \approx 3,92 \times 4,9 \times \sqrt{\frac{2}{n}}
+$$
+
+Donc :
+
+$$
+n \approx 2\left(\frac{3,92 \times 4,9}{1,0}\right)^2
+$$
+
+Or :
+
+$$
+3,92 \times 4,9 \approx 19,2
+$$
+
+Ainsi :
+
+$$
+n \approx 2 \times 19,2^2
+$$
+
+$$
+19,2^2 \approx 368,6
+$$
+
+$$
+n \approx 2 \times 368,6 \approx 737
+$$
+
+On retient donc environ :
+
+$$
+n \approx 740 \text{ patients par bras}
+$$
+
+**Interprétation**
+
+Passer d'une largeur cible de `1,7` à `1,0` point coûte très cher en effectif. Cela montre qu'un objectif de précision étroite peut devenir beaucoup plus exigeant qu'on ne l'imagine.
+
+**Réponse type**
+
+Avec une largeur d'`IC95%` visée de `1,0` point et `\sigma \approx 4,9`, il faudrait environ `740` sujets par bras, soit près de `1500` au total. Cette question montre qu'une petite amélioration de précision demandée peut entraîner une forte augmentation de l'effectif.
+:::
+
+### Calcul L {.unlisted}
+
+```{=html}
+<div class="formula-banner">Questions formules</div>
+```
+
+> Si l'on dimensionnait un essai simple non pas sur l'`ATE` ajusté (`0,745`) mais sur la **différence brute observée** (`1,120`), quel serait le NSN approximatif par bras ? Comparez au calcul basé sur `0,745`.
+
+::: {.answer-card}
+**Ce que la formule permet de faire**
+
+Cette question montre à quel point le NSN dépend de la **taille d'effet choisie**. Une différence plus grande à détecter demande mécaniquement moins de sujets.
+
+**Données à utiliser**
+
+$$
+\begin{aligned}
+\delta &= 1,120 && \text{différence brute retenue} \\
+\sigma &\approx 4,9 && \text{écart-type commun supposé} \\
+z_{1-\alpha/2} &= 1,96 \\
+z_{1-\beta} &= 0,84
+\end{aligned}
+$$
+
+**Formule générale**
+
+$$
+n_{\text{par bras}} = \frac{2(z_{1-\alpha/2}+z_{1-\beta})^2\sigma^2}{\delta^2}
+$$
+
+**Application numérique**
+
+Le numérateur reste :
+
+$$
+2(1,96+0,84)^2 \times 4,9^2 \approx 376,3
+$$
+
+Cette fois :
+
+$$
+\delta^2 = 1,120^2 \approx 1,254
+$$
+
+Donc :
+
+$$
+n \approx \frac{376,3}{1,254} \approx 300
+$$
+
+On retient donc environ :
+
+$$
+n \approx 300 \text{ patients par bras}
+$$
+
+Comparaison utile :
+
+- avec `\delta = 0,745`, on trouvait environ `680` par bras ;
+- avec `\delta = 1,120`, on tombe à environ `300` par bras.
+
+**Interprétation**
+
+Ce calcul rappelle qu'un NSN dépend massivement de la taille d'effet supposée. Si l'on dimensionne sur un effet brut plus grand, l'essai paraît beaucoup “moins coûteux”, mais on risque alors de sous-dimensionner l'étude si l'effet causal réel est plus petit.
+
+**Réponse type**
+
+En dimensionnant un essai simple sur la différence brute `1,120`, on obtient environ `300` patients par bras, contre environ `680` par bras quand on dimensionne sur l'`ATE` ajusté `0,745`. Cela illustre l'impact majeur du choix de la taille d'effet sur le NSN.
+:::
+
 ## 5. Réponses prêtes à l'emploi
 
-### 4.1. Quand il faut discuter la précision plutôt que la puissance
+### 5.1. Quand il faut discuter la précision plutôt que la puissance
 
 > Dans cette étude observationnelle, la bonne discussion porte d'abord sur la précision de l'estimation et sur la plausibilité causale. Si l'on force néanmoins un calcul de puissance a posteriori à partir de l'`IC95%`, on retrouve seulement un ordre de grandeur, qui ne remplace pas l'analyse de validité interne.
 
-### 4.2. Quand il faut discuter une grande cohorte sans se faire piéger
+### 5.2. Quand il faut discuter une grande cohorte sans se faire piéger
 
 > La grande taille de l'échantillon améliore la précision statistique, mais elle ne garantit pas la comparabilité des groupes. Ici, la vraie question est moins “y a-t-il assez de sujets ?” que “les groupes sont-ils suffisamment comparables pour soutenir une interprétation causale ?”.
 
-### 4.3. Quand il faut parler du `TMLE` sans réciter
+### 5.3. Quand il faut parler du `TMLE` sans réciter
 
 > Le `TMLE` est un estimateur causal moderne qui combine modèle de traitement et modèle d'outcome pour cibler l'`ATE`. Il exploite mieux les données observées qu'une régression simple, mais il ne corrige pas les confondeurs non mesurés.
 

@@ -2408,6 +2408,223 @@ margin-top: 1.2rem;
 html[data-theme="night"] h1 {
 color: #bfe0df;
 }
+.dag-figure {
+margin: 1rem 0 1.2rem 0;
+padding: 1rem 1rem 0.9rem 1rem;
+background: linear-gradient(180deg, #fbf7ef, #fffdf8);
+border: 1px solid rgba(15, 95, 103, 0.12);
+border-radius: 20px;
+box-shadow: 0 12px 28px rgba(25, 51, 58, 0.08);
+}
+.dag-figure__title {
+font-size: 0.92rem;
+font-weight: 800;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--teal);
+margin-bottom: 0.75rem;
+}
+.dag-clean {
+display: grid;
+gap: 1rem;
+}
+.dag-clean__section {
+padding: 0.85rem 0.9rem;
+border-radius: 16px;
+background: rgba(255, 255, 255, 0.55);
+border: 1px solid rgba(15, 95, 103, 0.08);
+}
+.dag-clean__subtitle {
+font-size: 0.86rem;
+font-weight: 800;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+color: var(--teal);
+margin-bottom: 0.75rem;
+}
+.dag-clean__row {
+display: grid;
+grid-template-columns: minmax(0, 1.25fr) auto minmax(0, 1fr) auto minmax(0, 1.25fr);
+gap: 0.55rem;
+align-items: center;
+}
+.dag-clean__row + .dag-clean__row {
+margin-top: 0.7rem;
+}
+.dag-clean__row--sub {
+grid-template-columns: minmax(0, 1.25fr) auto minmax(0, 1fr) auto minmax(0, 1.25fr);
+}
+.dag-clean__row--collider {
+grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.15fr) auto minmax(0, 1fr);
+}
+.dag-clean__box {
+padding: 0.85rem 0.95rem;
+border-radius: 18px;
+border: 1.8px solid transparent;
+line-height: 1.42;
+font-size: 0.95rem;
+color: var(--ink);
+min-height: 88px;
+}
+.dag-clean__box strong {
+display: block;
+font-size: 1.05rem;
+margin-bottom: 0.2rem;
+}
+.dag-clean__box--conf {
+background: #e7f3f4;
+border-color: #0f5f67;
+}
+.dag-clean__box--latent {
+background: #fbeae4;
+border-color: #cf6a4d;
+}
+.dag-clean__box--treat {
+background: #fbf3df;
+border-color: #c89a3c;
+}
+.dag-clean__box--med {
+background: #eef4ee;
+border-color: #6e8d7b;
+}
+.dag-clean__box--outcome {
+background: #edf6f7;
+border-color: #1c7b86;
+}
+.dag-clean__box--collider {
+background: #fff2ea;
+border-color: #cf6a4d;
+border-style: dashed;
+}
+.dag-clean__arrow {
+font-size: 1.65rem;
+font-weight: 800;
+color: var(--teal);
+line-height: 1;
+padding: 0 0.15rem;
+}
+.dag-clean__arrow--stack {
+color: var(--coral);
+}
+.dag-clean__note {
+margin-top: 0.65rem;
+padding: 0.72rem 0.85rem;
+border-radius: 14px;
+background: rgba(15, 95, 103, 0.05);
+color: var(--ink);
+font-size: 0.92rem;
+line-height: 1.45;
+}
+.dag-legend {
+margin-top: 0.75rem;
+display: flex;
+flex-wrap: wrap;
+gap: 0.55rem 0.75rem;
+}
+.dag-legend__item {
+display: inline-flex;
+align-items: center;
+gap: 0.45rem;
+padding: 0.45rem 0.75rem;
+border-radius: 999px;
+font-size: 0.9rem;
+font-weight: 700;
+color: var(--ink);
+background: rgba(15, 95, 103, 0.07);
+}
+.dag-legend__item::before {
+content: "";
+width: 0.78rem;
+height: 0.78rem;
+border-radius: 999px;
+display: inline-block;
+}
+.dag-legend__item--conf::before {
+background: #0f5f67;
+}
+.dag-legend__item--med::before {
+background: #c89a3c;
+}
+.dag-legend__item--collider::before {
+background: #cf6a4d;
+}
+.dag-note {
+margin-top: 0.8rem;
+padding: 0.75rem 0.9rem;
+border-radius: 14px;
+background: rgba(15, 95, 103, 0.05);
+color: var(--ink);
+font-size: 0.92rem;
+line-height: 1.45;
+}
+html[data-theme="night"] .dag-figure {
+background: linear-gradient(180deg, #263036, #20282c);
+border-color: rgba(191, 224, 223, 0.12);
+box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+}
+html[data-theme="night"] .dag-figure__title {
+color: #bfe0df;
+}
+html[data-theme="night"] .dag-clean__section {
+background: rgba(255, 255, 255, 0.03);
+border-color: rgba(191, 224, 223, 0.10);
+}
+html[data-theme="night"] .dag-clean__subtitle {
+color: #bfe0df;
+}
+html[data-theme="night"] .dag-clean__box {
+color: #eef3ef;
+}
+html[data-theme="night"] .dag-clean__box--conf {
+background: #294047;
+border-color: #79b9bf;
+}
+html[data-theme="night"] .dag-clean__box--latent {
+background: #46322c;
+border-color: #e19e86;
+}
+html[data-theme="night"] .dag-clean__box--treat {
+background: #463d27;
+border-color: #e0c07a;
+}
+html[data-theme="night"] .dag-clean__box--med {
+background: #314038;
+border-color: #9fbea9;
+}
+html[data-theme="night"] .dag-clean__box--outcome {
+background: #293f44;
+border-color: #8dc7cf;
+}
+html[data-theme="night"] .dag-clean__box--collider {
+background: #4a3028;
+border-color: #f0a68f;
+}
+html[data-theme="night"] .dag-clean__arrow {
+color: #9fdddf;
+}
+html[data-theme="night"] .dag-clean__arrow--stack {
+color: #f0b7a6;
+}
+html[data-theme="night"] .dag-legend__item {
+color: #eef3ef;
+background: rgba(191, 224, 223, 0.10);
+}
+html[data-theme="night"] .dag-note,
+html[data-theme="night"] .dag-clean__note {
+color: #eef3ef;
+background: rgba(191, 224, 223, 0.08);
+}
+@media (max-width: 980px) {
+.dag-clean__row,
+.dag-clean__row--sub,
+.dag-clean__row--collider {
+grid-template-columns: 1fr;
+}
+.dag-clean__arrow {
+text-align: center;
+transform: rotate(90deg);
+}
+}
 html[data-theme="night"] h2 {
 color: #d7e8e4;
 border-left-color: #d8a25a;
@@ -2837,6 +3054,92 @@ html[data-theme="night"] .callout.callout-important .callout-header,
 html[data-theme="night"] .callout.callout-important .callout-icon-container {
 background: rgba(214, 140, 116, 0.12);
 }
+.interim-flow-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+gap: 1rem;
+margin: 1rem 0 1.2rem;
+}
+.interim-flow-card {
+border: 1px solid rgba(53, 92, 125, 0.16);
+border-radius: 16px;
+background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(241, 245, 249, 0.92));
+padding: 1rem 1rem 0.9rem;
+box-shadow: 0 14px 30px rgba(25, 35, 45, 0.06);
+}
+.interim-flow-card__title {
+font-size: 0.78rem;
+font-weight: 700;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: #355c7d;
+margin-bottom: 0.8rem;
+}
+.interim-flow-stack {
+display: grid;
+gap: 0.55rem;
+}
+.interim-step,
+.interim-branch {
+display: block;
+padding: 0.65rem 0.8rem;
+border-radius: 12px;
+background: #ffffff;
+border: 1px solid rgba(53, 92, 125, 0.14);
+color: #1f2f3d;
+font-size: 0.9rem;
+line-height: 1.35;
+}
+.interim-step {
+font-weight: 700;
+}
+.interim-branch {
+margin-left: 1.2rem;
+position: relative;
+}
+.interim-branch::before {
+content: "↳";
+position: absolute;
+left: -0.95rem;
+color: #6c7a89;
+font-weight: 700;
+}
+.interim-step--success {
+background: rgba(120, 164, 108, 0.14);
+border-color: rgba(120, 164, 108, 0.28);
+color: #284030;
+}
+.interim-flow-note {
+margin: 0.8rem 0 0;
+color: #4f6170;
+font-size: 0.92rem;
+line-height: 1.45;
+}
+html[data-theme="night"] .interim-flow-card {
+border-color: rgba(129, 172, 209, 0.18);
+background: linear-gradient(180deg, rgba(24, 31, 36, 0.96), rgba(18, 24, 28, 0.94));
+box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
+}
+html[data-theme="night"] .interim-flow-card__title {
+color: #a7c2dc;
+}
+html[data-theme="night"] .interim-step,
+html[data-theme="night"] .interim-branch {
+background: rgba(255, 255, 255, 0.03);
+border-color: rgba(167, 194, 220, 0.16);
+color: #e6edf2;
+}
+html[data-theme="night"] .interim-step--success {
+background: rgba(120, 164, 108, 0.2);
+border-color: rgba(140, 188, 126, 0.34);
+color: #dbf0d8;
+}
+html[data-theme="night"] .interim-branch::before {
+color: #91a0ad;
+}
+html[data-theme="night"] .interim-flow-note {
+color: #b8c5cf;
+}
 @media (max-width: 1199px) {
 :root {
 --page-edge: 0.45rem;
@@ -3078,9 +3381,9 @@ page-break-before: always;
   <li><a href="#questions-formules" id="toc-questions-formules">4. Questions formules</a></li>
   <li><a href="#réponses-prêtes-à-lemploi" id="toc-réponses-prêtes-à-lemploi">5. Réponses prêtes à l’emploi</a>
   <ul>
-  <li><a href="#quand-il-faut-discuter-la-précision-plutôt-que-la-puissance" id="toc-quand-il-faut-discuter-la-précision-plutôt-que-la-puissance">4.1. Quand il faut discuter la précision plutôt que la puissance</a></li>
-  <li><a href="#quand-il-faut-discuter-une-grande-cohorte-sans-se-faire-piéger" id="toc-quand-il-faut-discuter-une-grande-cohorte-sans-se-faire-piéger">4.2. Quand il faut discuter une grande cohorte sans se faire piéger</a></li>
-  <li><a href="#quand-il-faut-parler-du-tmle-sans-réciter" id="toc-quand-il-faut-parler-du-tmle-sans-réciter">4.3. Quand il faut parler du <code>TMLE</code> sans réciter</a></li>
+  <li><a href="#quand-il-faut-discuter-la-précision-plutôt-que-la-puissance" id="toc-quand-il-faut-discuter-la-précision-plutôt-que-la-puissance">5.1. Quand il faut discuter la précision plutôt que la puissance</a></li>
+  <li><a href="#quand-il-faut-discuter-une-grande-cohorte-sans-se-faire-piéger" id="toc-quand-il-faut-discuter-une-grande-cohorte-sans-se-faire-piéger">5.2. Quand il faut discuter une grande cohorte sans se faire piéger</a></li>
+  <li><a href="#quand-il-faut-parler-du-tmle-sans-réciter" id="toc-quand-il-faut-parler-du-tmle-sans-réciter">5.3. Quand il faut parler du <code>TMLE</code> sans réciter</a></li>
   </ul></li>
   <li><a href="#checklist-finale" id="toc-checklist-finale">6. Checklist finale</a></li>
   <li><a href="#conclusion" id="toc-conclusion">7. Conclusion</a></li>
@@ -3452,6 +3755,7 @@ z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
 <div class="answer-card">
 <p><strong>Réponse détaillée</strong></p>
 <p>L’avantage évident d’un registre naturaliste est l’accès à une <strong>population très large et très proche du soin réel</strong>. Ici, les auteurs peuvent partir de <code>32 343</code> entrées et aboutir à plus de <code>5800</code> patients analysés, ce qui serait coûteux et lent dans un essai randomisé. On gagne donc en <strong>validité externe</strong> : on voit comment les soins fonctionnent dans la vraie vie, avec des patients adressés dans le système de santé finlandais tel qu’il existe vraiment.</p>
+<p>Il faut donner un exemple concret de cette idée. Ici, “vraie vie” signifie notamment que <code>fCBT</code> est surtout fournie en <code>Uusimaa</code>, que <code>iCBT</code> est disponible nationalement, et que l’on ne travaille pas sur deux bras artificiellement homogénéisés. On observe donc des patients plus âgés dans <code>fCBT</code>, plus chargés en antécédents psychiatriques, et des circuits de soin réellement différents. C’est précisément cela qui rend le papier utile pour la pratique, mais aussi plus difficile à interpréter causalement.</p>
 <p>Mais le prix à payer est important : il n’y a <strong>pas de randomisation</strong>. Les patients orientés vers <code>iCBT</code> et <code>fCBT</code> ne sont probablement pas comparables au départ. Le tableau 1 montre déjà des différences majeures : âge moyen plus élevé en <code>fCBT</code> (<code>40,37</code> ans contre <code>34,49</code>), plus de visites psychiatriques antérieures (<code>43,89</code> contre <code>16,29</code>), <code>PHQ-9</code> initial plus bas (<code>11,57</code> contre <code>13,31</code>), et profil socioprofessionnel différent. Cela suggère que les groupes reflètent des parcours de soins distincts, pas deux bras d’essai échangés aléatoirement.</p>
 <p>Par rapport à un essai contrôlé randomisé, la bonne conclusion est donc : <strong>meilleure représentativité clinique, mais moins bonne protection contre la confusion et le biais de sélection</strong>. Une bonne copie ne dit pas seulement “registre = bien” ou “pas randomisé = mauvais”. Elle dit : <strong>excellent pour documenter l’effectiveness, insuffisant pour conclure causalement sans hypothèses fortes</strong>.</p>
 <p><strong>Réponse type courte</strong></p>
@@ -3518,6 +3822,7 @@ z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
 <div class="answer-card">
 <p><strong>Réponse détaillée</strong></p>
 <p>L’absence de pré-enregistrement ouvre un espace de liberté analytique plus grand : choix des modèles, des covariables, des restrictions, des sensibilités et des présentations des résultats peuvent être faits après avoir vu les données. Cela augmente le risque de <code>HARKing</code> et de sélection a posteriori des analyses les plus convaincantes. Dans un papier aussi riche méthodologiquement, ce point n’est pas anecdotique.</p>
+<p>Il faut illustrer ce risque. Dans ce papier, les auteurs disposent de plusieurs résultats voisins mais non identiques : <code>ATE</code> principal à <code>0,745</code>, <code>AIPTW</code> à <code>0,735</code>, <code>G-computation</code> à <code>1,073</code>, version simplifiée du <code>TMLE</code> à environ <code>0,790</code>, restriction <code>Uusimaa</code> à <code>0,636</code>. Sans protocole verrouillé à l’avance, il existe toujours une tentation implicite de mettre davantage en avant les estimations les plus favorables ou les plus convaincantes narrativement.</p>
 <p>Les auteurs essaient cependant de limiter ce problème de plusieurs façons. Ils publient des analyses de sensibilité nombreuses (<code>G-computation</code>, <code>AIPTW</code>, versions simplifiées du <code>TMLE</code>, restriction <code>Uusimaa</code>, imputations), explicitent leur code et montrent une cohérence générale des résultats. Par exemple, l’<code>ATE</code> principal est <code>0,745</code>, l’<code>AIPTW-ATE</code> est <code>0,735</code>, et la version simplifiée du <code>TMLE</code> tourne autour de <code>0,790</code>. Cette convergence aide à rendre l’ensemble plus crédible.</p>
 <p>La bonne réponse n’est donc ni “pas pré-enregistré = invalide”, ni “beaucoup d’analyses = tout va bien”. Il faut dire : <strong>c’est une faiblesse réelle, partiellement compensée par la transparence et la robustesse de l’ensemble des analyses</strong>.</p>
 <p><strong>Réponse type courte</strong></p>
@@ -3648,6 +3953,7 @@ ATE = E[Y^{iCBT} - Y^{fCBT}]
 <p><strong>Réponse détaillée</strong></p>
 <p>Un <code>Super Learner</code> est une méthode d’agrégation d’algorithmes. Au lieu de choisir arbitrairement un seul modèle, on met en concurrence plusieurs candidats : régressions linéaires, <code>lasso</code>, <code>elastic net</code>, arbres, boosting, splines, <code>highly adaptive lasso</code>, etc. La validation croisée sert à estimer leurs performances prédictives puis à construire une combinaison pondérée qui se comporte mieux, en théorie, que beaucoup de choix naïfs isolés.</p>
 <p>Dans l’article, cet outil est particulièrement pertinent parce que les relations entre covariables, assignation au traitement et outcome sont probablement non linéaires et complexes. Par exemple, l’effet combiné de l’âge, des antécédents psychiatriques, du statut social et des prescriptions antérieures peut être difficile à modéliser proprement avec une régression simple. Le <code>Super Learner</code> essaie justement de ne pas imposer trop tôt une structure rigide.</p>
+<p>Un exemple concret aide beaucoup. Si l’on imposait une seule régression linéaire, on supposerait implicitement que l’effet de l’âge, des antécédents psychiatriques ou du statut professionnel sur l’évolution du <code>PHQ-9</code> suit une forme simple. Or rien ne garantit qu’un patient de <code>25</code> ans, sans antécédent, orienté vers <code>iCBT</code>, se comporte comme un patient de <code>45</code> ans, déjà très suivi, orienté vers <code>fCBT</code>, selon une relation simplement linéaire. Le <code>Super Learner</code> essaie justement de laisser davantage de souplesse aux données.</p>
 <p>L’intérêt méthodologique est réel, mais la bonne copie ajoute toujours une limite : une très bonne prédiction n’est pas une preuve de causalité. Le modèle d’assignation au traitement a ici une <code>AUC</code> d’environ <code>0,77</code>, ce qui montre qu’il est informatif, mais cela ne dit rien à lui seul sur la disparition de toute confusion résiduelle.</p>
 <p><strong>Réponse type courte</strong></p>
 <p>Le <code>Super Learner</code> combine plusieurs algorithmes au lieu d’en choisir un seul. La validation croisée sert à pondérer les meilleurs apprenants et à réduire le risque de mauvaise spécification, sans pour autant éliminer les problèmes de causalité non observée.</p>
@@ -3669,6 +3975,7 @@ ATE = E[Y^{iCBT} - Y^{fCBT}]
 <p><strong>Réponse détaillée</strong></p>
 <p>L’intérêt est de vérifier que le résultat principal n’est pas entièrement fabriqué par un seul choix méthodologique. Si un papier observationnel moderne ne présentait qu’une estimation principale sans aucune sensibilité, sa crédibilité serait faible. Ici, les auteurs montrent au contraire que le message général persiste lorsqu’on change raisonnablement d’angle d’analyse.</p>
 <p>Les chiffres sont parlants : l’<code>ATE</code> principal est <code>0,745</code>, l’<code>AIPTW-ATE</code> est <code>0,735</code>, la version simplifiée du <code>TMLE</code> est proche de <code>0,790</code>, et la restriction à <code>Uusimaa</code> donne encore un effet positif (<code>0,636</code>) même si l’intervalle devient compatible avec <code>0</code>. Cela ne prouve pas la causalité, mais cela suggère que le signal n’est pas uniquement un artefact d’un pipeline unique.</p>
+<p>Il faut aussi expliquer ce que ces écarts veulent dire. Le fait que <code>0,735</code>, <code>0,745</code> et <code>0,790</code> soient proches indique une bonne stabilité du <strong>sens</strong> du résultat. En revanche, le <code>1,073</code> de la <code>G-computation</code> montre que l’ampleur précise de l’effet dépend tout de même de la méthode. Et la restriction à <code>Uusimaa</code> rappelle que la géographie et l’organisation des soins restent un point sensible du papier.</p>
 <p>La bonne réponse d’examen est donc : <strong>les sensibilités ne sont pas un supplément décoratif ; elles sont une condition de crédibilité dans une étude observationnelle de ce type</strong>.</p>
 <p><strong>Réponse type courte</strong></p>
 <p>Ces analyses de sensibilité testent la robustesse du résultat à d’autres méthodes et à d’autres sous-populations. Elles renforcent la crédibilité du signal sans transformer l’étude en preuve causale définitive.</p>
@@ -3801,10 +4108,107 @@ Deuxième étage : sur les données restantes, on veut encore séparer ce qui se
 <li>région ;</li>
 <li>éventuellement affinité numérique et préférences thérapeutiques.</li>
 </ul>
-<p>Ces variables peuvent influencer à la fois la probabilité d’être orienté vers <code>iCBT</code> ou <code>fCBT</code> et la trajectoire ultérieure de <code>PHQ-9</code>. Le traitement influence ensuite le changement symptomatique, mais aussi possiblement le <code>dropout</code>, qui devient alors une variable post-traitement délicate.</p>
+<p>Ces variables peuvent influencer à la fois la probabilité d’être orienté vers <code>iCBT</code> ou <code>fCBT</code> et la trajectoire ultérieure de <code>PHQ-9</code>. Mais il faut aller plus loin que cette liste et dire <strong>quel rôle causal</strong> joue chaque variable.</p>
+<p>Un <strong>confondeur</strong> est une variable qui cause à la fois l’exposition et l’issue. Dans cet article, l’exemple le plus simple est la <strong>sévérité initiale</strong>. Le tableau 1 montre que le <code>PHQ-9</code> de départ est plus élevé dans <code>iCBT</code> (<code>13,31</code>) que dans <code>fCBT</code> (<code>11,57</code>). Cette sévérité initiale peut influencer :</p>
+<ul>
+<li>la probabilité d’être orienté vers une modalité plutôt qu’une autre ;</li>
+<li>l’ampleur ultérieure du changement de <code>PHQ-9</code>.</li>
+</ul>
+<p>Autre exemple de confondeur plausible : la <strong>région</strong>. <code>fCBT</code> est essentiellement fournie en <code>Uusimaa</code>, alors que <code>iCBT</code> est disponible nationalement. La région peut influencer l’accès au type de soin, mais aussi la qualité du parcours, la disponibilité des thérapeutes, le niveau socio-économique moyen ou le profil clinique des patients. Ici, la région n’est donc pas une simple variable descriptive : c’est une vraie candidate comme <strong>cause commune</strong> du traitement reçu et de l’issue.</p>
+<p>Un <strong>médiateur</strong> est différent : c’est une variable située <strong>après</strong> le traitement sur le chemin causal menant à l’issue. Dans ce papier, un exemple plausible serait l’<strong>adhésion effective au programme</strong> ou le <strong>nombre réel de séances complétées</strong>. Le type de traitement (<code>iCBT</code> ou <code>fCBT</code>) peut modifier l’adhésion, et cette adhésion peut à son tour modifier l’amélioration du <code>PHQ-9</code>. Si l’on ajustait naïvement sur cette variable, on risquerait de couper une partie de l’effet réel du traitement que l’on cherche justement à estimer.</p>
+<p>Le <strong>dropout</strong> est souvent une variable hybride délicate. Il peut parfois être pensé comme un médiateur partiel, car le format de soin peut favoriser ou défavoriser la poursuite du suivi. Mais il peut aussi devenir un <strong>collider</strong> si on conditionne dessus de manière maladroite.</p>
+<p>Un <strong>collider</strong> est une variable influencée par deux causes différentes. Ici, on peut imaginer que le <code>dropout</code> soit influencé à la fois par :</p>
+<ul>
+<li>le <strong>traitement reçu</strong> ;</li>
+<li>l’<strong>évolution clinique réelle</strong> ou des facteurs non mesurés comme la motivation ou l’affinité numérique.</li>
+</ul>
+<p>Si l’on analyse seulement les patients qui ont complété le suivi, ou si l’on ajuste directement sur une variable de complétion post-traitement sans précaution, on peut ouvrir artificiellement un chemin de biais entre traitement et outcome. C’est exactement pour cela que les auteurs sont prudents avec les données manquantes et proposent une règle conservatrice puis des imputations de sensibilité, au lieu de se contenter d’une analyse naïve des seuls “compléteurs”.</p>
+<p>On peut donc résumer un DAG plausible ainsi :</p>
+<div class="dag-figure">
+  <div class="dag-figure__title">DAG simplifié du papier EPI 2026</div>
+  <div class="dag-clean">
+    <div class="dag-clean__section">
+      <div class="dag-clean__subtitle">Chemin causal principal</div>
+      <div class="dag-clean__row">
+        <div class="dag-clean__box dag-clean__box--conf">
+          <strong>Confondeurs observés</strong><br>
+          âge, `PHQ-9` initial, `OASIS`, antécédents psychiatriques, emploi, région
+        </div>
+        <div class="dag-clean__arrow">→</div>
+        <div class="dag-clean__box dag-clean__box--treat">
+          <strong>Traitement</strong><br>
+          `iCBT` vs `fCBT`
+        </div>
+        <div class="dag-clean__arrow">→</div>
+        <div class="dag-clean__box dag-clean__box--outcome">
+          <strong>Outcome</strong><br>
+          changement de `PHQ-9`
+        </div>
+      </div>
+      <div class="dag-clean__row dag-clean__row--sub">
+        <div class="dag-clean__box dag-clean__box--latent">
+          <strong>Confondeurs non mesurés</strong><br>
+          affinité numérique, motivation, préférences patient/thérapeute
+        </div>
+        <div class="dag-clean__arrow dag-clean__arrow--stack">↘</div>
+        <div class="dag-clean__box dag-clean__box--med">
+          <strong>Médiateur plausible</strong><br>
+          adhésion réelle, exposition effective, séances complétées
+        </div>
+        <div class="dag-clean__arrow dag-clean__arrow--stack">↘</div>
+        <div class="dag-clean__box dag-clean__box--outcome">
+          <strong>Outcome</strong><br>
+          changement de `PHQ-9`
+        </div>
+      </div>
+      <div class="dag-clean__note">
+        À ajuster : les confondeurs en amont. Ne pas ajuster naïvement : le médiateur, qui est sur le chemin de l&#39;effet.
+      </div>
+    </div>
+
+    <div class="dag-clean__section">
+      <div class="dag-clean__subtitle">Zoom sur le piège du collider</div>
+      <div class="dag-clean__row dag-clean__row--collider">
+        <div class="dag-clean__box dag-clean__box--treat">
+          <strong>Traitement</strong><br>
+          `iCBT` vs `fCBT`
+        </div>
+        <div class="dag-clean__arrow">→</div>
+        <div class="dag-clean__box dag-clean__box--collider">
+          <strong>`Dropout` / complétion</strong><br>
+          collider potentiel si on conditionne dessus
+        </div>
+        <div class="dag-clean__arrow">←</div>
+        <div class="dag-clean__box dag-clean__box--latent">
+          <strong>Évolution clinique réelle</strong><br>
+          amélioration, aggravation, motivation, contraintes
+        </div>
+      </div>
+      <div class="dag-clean__note">
+        Si on analyse seulement les “compléteurs”, on risque d&#39;ouvrir artificiellement un chemin de biais entre traitement et outcome.
+      </div>
+    </div>
+  </div>
+  <div class="dag-legend">
+    <span class="dag-legend__item dag-legend__item--conf">confondeurs à ajuster</span>
+    <span class="dag-legend__item dag-legend__item--med">médiateur post-traitement</span>
+    <span class="dag-legend__item dag-legend__item--collider">collider à ne pas conditionner naïvement</span>
+  </div>
+  <div class="dag-note">
+    Le principe du schéma est simple : les confondeurs influencent à la fois le traitement et l&#39;outcome ; l&#39;adhésion est plutôt un médiateur post-traitement ; le `dropout` peut devenir un collider si on conditionne naïvement sur les seuls compléteurs.
+  </div>
+</div>
+<p>Pour l’écrit, on peut le résumer de façon compacte :</p>
+<ul>
+<li><strong>confondeurs</strong> en amont : âge, sévérité initiale, <code>OASIS</code>, antécédents psychiatriques, emploi, région, affinité numérique ;</li>
+<li><strong>traitement</strong> : <code>iCBT</code> versus <code>fCBT</code> ;</li>
+<li><strong>médiateur plausible</strong> : adhésion réelle au programme ;</li>
+<li><strong>outcome</strong> : changement de <code>PHQ-9</code> ;</li>
+<li><strong>collider potentiel</strong> si on conditionne mal : <code>dropout</code> ou complétion du suivi.</li>
+</ul>
 <p>L’exercice du <code>DAG</code> a ici un intérêt pédagogique majeur : il montre visuellement que la difficulté du papier ne tient pas seulement au modèle statistique, mais au grand nombre de <strong>chemins de confusion plausibles</strong>. Une bonne copie ne se contente donc pas de lister des flèches ; elle explique que le <code>TMLE</code> essaie de bloquer ces chemins, sans garantir que tout a été mesuré.</p>
 <p><strong>Réponse type courte</strong></p>
-<p>Le <code>DAG</code> doit placer les variables cliniques, sociales et régionales comme causes communes du traitement et de l’outcome. Son intérêt principal est de rendre visible la masse de chemins de confusion que le <code>TMLE</code> tente d’ajuster, sans pouvoir prouver qu’aucun confondeur important n’a été oublié.</p>
+<p>Le <code>DAG</code> doit distinguer au moins trois types de variables. Comme <strong>confondeurs</strong>, on peut citer la sévérité initiale, la région ou les antécédents psychiatriques, qui influencent à la fois le traitement reçu et l’issue. Comme <strong>médiateur</strong>, on peut proposer l’adhésion réelle au programme, située après le traitement. Comme <strong>collider</strong> potentiel, le <code>dropout</code> est important : s’il dépend à la fois du traitement et de l’évolution clinique, conditionner dessus peut introduire un biais. Le <code>TMLE</code> essaie d’ajuster les confondeurs observés, sans garantir que tous ont été mesurés.</p>
 </div>
 </section>
 <section id="question-12" class="level4 unlisted">
@@ -3843,10 +4247,30 @@ Deuxième étage : sur les données restantes, on veut encore séparer ce qui se
 <div class="answer-card">
 <p><strong>Réponse détaillée</strong></p>
 <p>Une analyse de contrôle négatif consiste à choisir une exposition ou un outcome qui ne devrait pas être causalement lié à l’effet étudié, mais qui partagerait idéalement les mêmes structures de biais et de confusion. Si une association apparaît quand elle ne devrait pas, cela suggère qu’il subsiste un biais caché.</p>
-<p>Dans ce papier, un contrôle négatif aurait pu être utile pour tester si la différence <code>iCBT</code> / <code>fCBT</code> produit artificiellement des associations dans des domaines où elle ne devrait pas avoir d’effet plausible à court terme. Cela aurait été particulièrement intéressant vu la crainte d’une sélection structurelle des patients.</p>
+<p>Il faut cependant aller plus loin et proposer des <strong>exemples concrets</strong>.</p>
+<p>Un <strong>negative outcome control</strong> plausible serait un événement qui :</p>
+<ul>
+<li>est mesuré dans les registres ;</li>
+<li>partage une partie des mêmes structures de sélection et de recours aux soins ;</li>
+<li>mais ne devrait pas être modifié rapidement par le choix entre <code>iCBT</code> et <code>fCBT</code>.</li>
+</ul>
+<p>Par exemple, on pourrait imaginer :</p>
+<ul>
+<li>une <strong>caractéristique administrative future</strong> très peu susceptible d’être modifiée à court terme par la modalité de CBT ;</li>
+<li>un <strong>événement somatique sans lien plausible immédiat</strong> avec la psychothérapie ;</li>
+<li>ou, plus proche du papier, une variable de recours au soin qui reflète surtout l’organisation préalable plutôt que l’effet thérapeutique proprement dit.</li>
+</ul>
+<p>L’idée serait la suivante : si <code>iCBT</code> semble aussi “améliorer” un outcome qui ne devrait pas répondre causalement à la thérapie dans le délai étudié, cela suggérerait qu’une partie du signal vient d’une sélection cachée des patients et non d’un effet propre du traitement.</p>
+<p>Un <strong>negative exposure control</strong> est plus délicat ici, mais on peut tout de même raisonner. Il faudrait une “exposition” qui soit soumise à des mécanismes de sélection proches de ceux de <code>iCBT</code>/<code>fCBT</code>, sans pouvoir agir causalement sur le <code>PHQ-9</code> final. Par exemple, un <strong>marqueur organisationnel du parcours</strong> ou une variable de contexte de prise en charge antérieure pourrait servir de pseudo-exposition négative si elle reflète surtout les circuits de soins, sans effet direct attendu sur l’évolution symptomatique pendant l’épisode traité.</p>
+<p>Autrement dit, dans cet article, les deux grands candidats pédagogiques seraient :</p>
+<ul>
+<li><strong>outcome négatif</strong> : un événement ou indicateur sans effet plausible à court terme de la modalité de psychothérapie ;</li>
+<li><strong>exposition négative</strong> : un marqueur du parcours ou de l’organisation des soins corrélé aux mécanismes de sélection, mais sans effet direct attendu sur l’issue dépressive.</li>
+</ul>
+<p>Cela aurait été particulièrement intéressant vu la crainte d’une <strong>sélection structurelle</strong> des patients. Si un contrôle négatif montrait encore une association entre “traitement” et variable théoriquement neutre, cela renforcerait l’idée qu’il reste une confusion résiduelle.</p>
 <p>L’absence de contrôle négatif n’invalide pas l’article, mais une bonne réponse signale que cela aurait constitué un garde-fou supplémentaire contre la confusion résiduelle.</p>
 <p><strong>Réponse type courte</strong></p>
-<p>Un contrôle négatif aurait permis de tester l’existence d’un biais caché en cherchant une association là où aucun effet causal n’est plausible. Dans un papier aussi exposé à la confusion par indication, cela aurait été un renfort méthodologique utile.</p>
+<p>Un contrôle négatif aurait permis de tester l’existence d’un biais caché en cherchant une association là où aucun effet causal n’est plausible. Ici, on pourrait imaginer un <strong>outcome négatif</strong> sans lien plausible rapide avec <code>iCBT</code>/<code>fCBT</code>, ou une <strong>exposition négative</strong> reflétant surtout l’organisation du parcours de soins. Si une association persistait malgré tout, cela suggérerait une confusion résiduelle.</p>
 </div>
 </section>
 <section id="question-14" class="level4 unlisted">
@@ -4005,10 +4429,69 @@ z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
 <li>la sélection des patients qui complètent ;</li>
 <li>l’effet commun aux deux prises en charge.</li>
 </ul>
-<p>Dans le papier, les auteurs rapportent par exemple une baisse moyenne de <code>4,8</code> points parmi certains completers <code>iCBT</code>, ce qui peut paraître très fort. Mais ce n’est pas l’effet comparatif causal d’intérêt. Le vrai paramètre principal est l’<code>ATE</code> entre modalités, pas la baisse observée dans un seul groupe.</p>
+<p>Il faut ici rappeler <strong>comment ces quantités se calculent</strong>.</p>
+<p>Un effet <strong>intra-groupe</strong> se calcule simplement comme :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">moyenne après traitement</mtext><mo>−</mo><mtext mathvariant="normal">moyenne avant traitement</mtext></mrow><annotation encoding="application/x-tex">
+\text{moyenne après traitement} - \text{moyenne avant traitement}
+</annotation></semantics></math></p>
+<p>ou, si l’on parle d’amélioration, comme la baisse moyenne du score dans un seul groupe :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Δ</mi><mrow><mi>i</mi><mi>C</mi><mi>B</mi><mi>T</mi><mo>,</mo><mspace width="0.278em"></mspace><mi>i</mi><mi>n</mi><mi>t</mi><mi>r</mi><mi>a</mi></mrow></msub><mo>=</mo><mover><mrow><mi>P</mi><mi>H</mi><mi>Q</mi><msub><mn>9</mn><mrow><mi>f</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><mo accent="true">¯</mo></mover><mo>−</mo><mover><mrow><mi>P</mi><mi>H</mi><mi>Q</mi><msub><mn>9</mn><mrow><mi>d</mi><mi>é</mi><mi>b</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mo accent="true">¯</mo></mover></mrow><annotation encoding="application/x-tex">
+\Delta_{iCBT,\;intra} = \overline{PHQ9_{fin}} - \overline{PHQ9_{début}}
+</annotation></semantics></math></p>
+<p>Si le score baisse, cette différence est négative ; si l’on parle de “déclin de <code>4,8</code> points”, on retient souvent sa valeur absolue pour décrire l’amélioration. C’est donc une mesure <strong>avant/après dans un seul groupe</strong>.</p>
+<p>Le problème est qu’une telle quantité mélange plusieurs choses :</p>
+<ul>
+<li>l’effet possible du traitement ;</li>
+<li>l’amélioration spontanée de certains épisodes ;</li>
+<li>la régression vers la moyenne ;</li>
+<li>l’effet du temps ;</li>
+<li>la sélection des patients qui restent observés jusqu’à la fin.</li>
+</ul>
+<p>Il faut ici <strong>définir vraiment</strong> la régression vers la moyenne. Comme l’expliquent Bland et Altman dans leur note du <em>BMJ</em> de 1994 sur ce sujet (<a href="https://www.bmj.com/content/308/6942/1499">BMJ 1994;308:1499</a>) puis dans leurs exemples appliqués (<a href="https://www.bmj.com/content/309/6957/780">BMJ 1994;309:780</a>), ce phénomène apparaît lorsqu’on sélectionne des sujets sur une valeur initiale <strong>extrême</strong>, puis qu’on les remesure ensuite sur une variable imparfaitement corrélée à la première. La deuxième mesure tend alors, en moyenne, à être <strong>moins extrême</strong>, donc plus proche de la moyenne générale, même en l’absence de vrai effet de traitement.</p>
+<p>Pourquoi ? Parce qu’un score très élevé au départ contient souvent plusieurs composantes :</p>
+<ul>
+<li>une part de sévérité réelle ;</li>
+<li>une part de fluctuation aléatoire ;</li>
+<li>une part d’erreur de mesure ;</li>
+<li>parfois une poussée transitoire du symptôme au moment de l’inclusion.</li>
+</ul>
+<p>Quand on remesure plus tard, la composante transitoire ou aléatoire a tendance à ne pas se reproduire exactement. Le score “revient” donc un peu vers des valeurs moins extrêmes. Ce n’est pas une propriété psychologique mystérieuse ; c’est un phénomène statistique attendu dès que deux mesures successives ne sont pas parfaitement corrélées.</p>
+<p>L’erreur classique consiste alors à dire :</p>
+<blockquote class="blockquote">
+<p>le score a beaucoup baissé, donc le traitement a beaucoup agi.</p>
+</blockquote>
+<p>Ce raisonnement est faux si l’on ne compare pas à un groupe de référence réellement comparable, parce qu’une partie de la baisse aurait pu se produire même sans traitement, simplement par régression vers la moyenne.</p>
+<p>Dans l’article, les auteurs rapportent par exemple une baisse moyenne d’environ <code>4,8</code> points parmi certains completers <code>iCBT</code>. Pris isolément, ce chiffre peut donner l’impression que <code>iCBT</code> est “très efficace”. Mais on ne sait pas, à partir de ce seul nombre, ce qui se serait passé chez ces mêmes patients sous <code>fCBT</code>, ni ce qui relève simplement de l’évolution habituelle ou du profil particulier des patients qui complètent.</p>
+<p>L’effet <strong>comparatif</strong> principal, lui, répond à une autre question. Le papier ne cherche pas seulement :</p>
+<blockquote class="blockquote">
+<p>de combien le <code>PHQ-9</code> baisse-t-il chez les patients <code>iCBT</code> ?</p>
+</blockquote>
+<p>Il cherche :</p>
+<blockquote class="blockquote">
+<p>quelle est la différence moyenne de résultat entre ce qui se serait passé sous <code>iCBT</code> et ce qui se serait passé sous <code>fCBT</code> pour des patients rendus comparables ?</p>
+</blockquote>
+<p>C’est pour cela que l’estimand principal est l’<code>ATE</code>, ici :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mo>=</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">[</mo><msup><mi>Y</mi><mrow><mi>i</mi><mi>C</mi><mi>B</mi><mi>T</mi></mrow></msup><mo>−</mo><msup><mi>Y</mi><mrow><mi>f</mi><mi>C</mi><mi>B</mi><mi>T</mi></mrow></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+ATE = E[Y^{iCBT} - Y^{fCBT}]
+</annotation></semantics></math></p>
+<p>et qu’il est estimé dans le papier à :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>745</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> point de PHQ-9</mtext></mrow></mrow><annotation encoding="application/x-tex">
+ATE = 0,745 \text{ point de PHQ-9}
+</annotation></semantics></math></p>
+<p>avec :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>156</mn><mo>;</mo><mn>1</mn><mo>,</mo><mn>334</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+IC95\% = [0,156 ; 1,334]
+</annotation></semantics></math></p>
+<p>Ce chiffre est beaucoup plus petit que le <code>4,8</code> points intra-groupe, et c’est précisément le message important. Cela montre qu’une grande partie de l’amélioration observée <strong>à l’intérieur</strong> d’un groupe ne peut pas être interprétée comme une supériorité <strong>entre</strong> groupes.</p>
+<p>Autrement dit :</p>
+<ul>
+<li><code>4,8</code> points décrit une <strong>trajectoire observée dans un groupe</strong> ;</li>
+<li><code>0,745</code> point essaie d’estimer une <strong>différence comparative moyenne entre modalités</strong>.</li>
+</ul>
+<p>Ce n’est pas la même question, pas la même formule, et pas la même interprétation. Une bonne copie doit absolument faire cette distinction, sinon elle surestime artificiellement la portée comparative du traitement.</p>
 <p>La bonne réponse doit donc rappeler que <strong>les résultats intra-groupe sont descriptifs, tandis que la question scientifique principale est comparative et contrefactuelle</strong>.</p>
 <p><strong>Réponse type courte</strong></p>
-<p>Une amélioration importante au sein d’un groupe ne démontre pas sa supériorité comparative. Le paramètre principal ici est l’<code>ATE</code> entre <code>iCBT</code> et <code>fCBT</code>, pas la baisse moyenne observée dans un seul bras.</p>
+<p>Une amélioration intra-groupe se calcule comme une variation moyenne avant/après dans un seul bras, par exemple la baisse d’environ <code>4,8</code> points du <code>PHQ-9</code> chez certains completers <code>iCBT</code>. Mais ce chiffre ne permet pas de conclure à une supériorité comparative, car il mélange effet du soin, évolution naturelle et sélection des compléteurs. Le paramètre principal est l’<code>ATE</code> comparatif entre <code>iCBT</code> et <code>fCBT</code>, estimé ici à <code>0,745</code> point.</p>
 </div>
 </section>
 <section id="question-20" class="level4 unlisted">
@@ -4026,10 +4509,22 @@ z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
 <div class="answer-card">
 <p><strong>Réponse détaillée</strong></p>
 <p>Le point technique est subtil. L’outcome principal est le <strong>changement</strong> de <code>PHQ-9</code>, donc inclure systématiquement le score initial dans les modèles risque de créer une dépendance mathématique artificielle entre la valeur de départ et la variation observée, surtout en présence d’erreur de mesure. Les auteurs veulent éviter cette forme de “coupling” entre baseline et outcome dérivé.</p>
-<p>Ils montrent néanmoins que ce choix n’est pas neutre. Quand on réintroduit le <code>PHQ-9</code> de base dans certaines analyses de sensibilité, l’<code>ATE</code> peut fortement s’atténuer, jusqu’à devenir proche de <code>0</code> dans certains scénarios. Ce point est pédagogiquement très fort : il montre que même une décision techniquement justifiable peut déplacer matériellement l’effet estimé.</p>
-<p>La bonne copie n’affirme donc pas que les auteurs “ont raison” ou “ont tort”, mais qu’ils font un choix cohérent avec leur définition de l’outcome, tout en laissant voir que ce choix influence les résultats.</p>
+<p>Ils montrent néanmoins que ce choix n’est pas neutre. Quand on réintroduit le <code>PHQ-9</code> de base dans certaines analyses de sensibilité, l’<code>ATE</code> s’atténue fortement :</p>
+<ul>
+<li>avec baseline dans le seul modèle d’assignation, <code>AIPTW-ATE = 0,128 [−0,593 ; 0,850]</code> et <code>simple TMLE-ATE = 0,114 [−0,569 ; 0,797]</code> ;</li>
+<li>avec baseline dans les deux modèles du <code>full TMLE</code>, <code>ATE = −0,064 [−0,639 ; 0,511]</code>.</li>
+</ul>
+<p>Autrement dit, une fois le <code>PHQ-9</code> baseline pleinement réintroduit, le résultat devient <strong>compatible avec l’absence de différence</strong> entre <code>iCBT</code> et <code>fCBT</code>. Ce point est pédagogiquement très fort : il montre que même une décision techniquement justifiable peut déplacer matériellement l’effet estimé.</p>
+<p>Si l’on veut <strong>mieux contrôler ce biais sans quitter les données naturalistes</strong>, la meilleure stratégie ne serait pas de “faire encore plus de TMLE” abstraitement, mais de <strong>resserrer le design observationnel</strong>. Concrètement, on pourrait :</p>
+<ul>
+<li>restreindre l’analyse aux patients d’une <strong>même région</strong> et d’un <strong>même circuit de soins</strong> ;</li>
+<li>faire un <strong>appariement serré</strong> ou une pondération d’overlap sur le <code>PHQ-9</code> baseline, <code>OASIS</code>, âge, antécédents psychiatriques, emploi, prescriptions et variables régionales ;</li>
+<li>analyser ensuite seulement la <strong>zone de support commun</strong>, c’est-à-dire les profils pour lesquels <code>iCBT</code> et <code>fCBT</code> étaient réellement plausibles.</li>
+</ul>
+<p>Une telle stratégie ne supprimerait pas toute confusion non mesurée, mais elle réduirait beaucoup mieux le biais structurel lié au déséquilibre initial massif qu’une simple comparaison globale des <code>5446</code> patients <code>iCBT</code> contre <code>388</code> patients <code>fCBT</code>.</p>
+<p>La bonne copie n’affirme donc pas que les auteurs “ont raison” ou “ont tort”, mais qu’ils font un choix cohérent avec leur définition de l’outcome, tout en laissant voir que ce choix influence fortement les résultats, au point que les analyses avec baseline inclus sont compatibles avec <strong>pas de différence claire</strong>.</p>
 <p><strong>Réponse type courte</strong></p>
-<p>Les auteurs excluent le <code>PHQ-9</code> initial pour éviter une dépendance artificielle entre baseline et changement. Ce choix est méthodologiquement défendable, mais il n’est pas neutre, puisque l’inclusion du score initial atténue fortement l’effet dans certaines analyses de sensibilité.</p>
+<p>Les auteurs excluent le <code>PHQ-9</code> initial pour éviter une dépendance artificielle entre baseline et changement. Ce choix est méthodologiquement défendable, mais il n’est pas neutre : quand le baseline est réintroduit, les estimations deviennent compatibles avec l’absence de différence entre <code>iCBT</code> et <code>fCBT</code>. Dans une logique naturaliste, un meilleur contrôle du biais passerait par une restriction à des patients réellement comparables et un appariement/pondération serrés sur la sévérité initiale et le contexte de soins.</p>
 </div>
 </section>
 </section>
@@ -4079,10 +4574,185 @@ z \approx \frac{0{,}745}{0{,}300} \approx 2{,}48
 <div class="answer-card">
 <p><strong>Réponse détaillée</strong></p>
 <p>Le <code>PHQ-9</code> initial est plus bas en <code>fCBT</code> (<code>11,57</code>) qu’en <code>iCBT</code> (<code>13,31</code>). Ce simple fait montre que les groupes ne sont pas comparables sur une dimension clinique centrale. Cela peut refléter une <strong>confusion par indication</strong> : peut-être que les patients plus sévères ont été plus volontiers orientés vers <code>iCBT</code>, ou inversement que certaines logiques d’organisation régionales ont orienté différemment les patients.</p>
-<p>Ce déséquilibre est problématique parce qu’il peut fausser l’interprétation du changement. Un groupe qui part plus haut a parfois plus de marge de baisse, mais il est aussi exposé à plus de régression vers la moyenne. Les auteurs abordent ce problème par l’ajustement causal et en testant des analyses incluant explicitement le <code>PHQ-9</code> de base. Le fait que les résultats changent dans ces sensibilités montre justement que cette variable est importante.</p>
+<p>Ce déséquilibre est problématique parce que l’issue principale n’est pas le score final, mais le <strong>changement de <code>PHQ-9</code></strong>. Or un groupe qui part plus haut a parfois plus de marge de baisse, mais il est aussi plus exposé à la régression vers la moyenne. Autrement dit, si l’on compare naïvement des changements moyens sans réfléchir au score de départ, on risque de mélanger :</p>
+<ul>
+<li>un vrai effet de traitement ;</li>
+<li>une différence de sévérité initiale ;</li>
+<li>une simple dynamique mathématique liée au fait de partir plus haut ou plus bas.</li>
+</ul>
+<p>Il faut là aussi expliciter le mécanisme. La régression vers la moyenne ne veut pas dire que “les patients graves vont forcément mieux”. Elle veut dire que lorsqu’on sélectionne des sujets sur un score initial élevé, une partie de cette élévation est souvent due à une fluctuation transitoire, à l’erreur de mesure ou à la variabilité intra-individuelle. Lors de la mesure suivante, même sans effet thérapeutique massif, le score tend en moyenne à être moins extrême. C’est exactement le phénomène décrit par Bland et Altman dans le <em>BMJ</em> (<a href="https://www.bmj.com/content/308/6942/1499">BMJ 1994;308:1499</a> ; <a href="https://www.bmj.com/content/309/6957/780">BMJ 1994;309:780</a>).</p>
+<p>Appliqué ici, cela veut dire que le groupe <code>iCBT</code>, qui part d’un <code>PHQ-9</code> plus élevé (<code>13,31</code>), peut mécaniquement montrer une baisse moyenne plus forte qu’un groupe qui part plus bas (<code>11,57</code>), même si la vraie supériorité causale du traitement est plus faible qu’on ne le croit. C’est précisément pour cela que les analyses de changement sont si sensibles au traitement du baseline.</p>
+<p>Il faut donc expliquer <strong>ce que font réellement les auteurs</strong>. Leur stratégie principale est de <strong>ne pas inclure le <code>PHQ-9</code> baseline dans les modèles de prédiction principaux</strong>, parce que ce score initial entre déjà dans la définition de l’outcome (<code>changement = fin - début</code>). Ils craignent donc une dépendance artificielle entre baseline et variation.</p>
+<p>Mais ils ne s’arrêtent pas là. Ils font ensuite de vraies <strong>analyses de sensibilité</strong> en réintroduisant ce <code>PHQ-9</code> baseline :</p>
+<ul>
+<li>d’abord dans le <strong>modèle d’assignation au traitement</strong> seulement ;</li>
+<li>puis dans <strong>le modèle d’assignation et le modèle d’outcome</strong> du <code>TMLE</code> complet.</li>
+</ul>
+<p>Et c’est là que le papier devient très instructif. Quand ils ajoutent le <code>PHQ-9</code> baseline dans le <strong>modèle d’assignation</strong>, l’effet s’atténue déjà fortement :</p>
+<ul>
+<li><code>AIPTW-ATE</code> passe à <code>0,128</code> avec <code>IC95% [-0,593 ; 0,850]</code> ;</li>
+<li><code>simple TMLE-ATE</code> passe à <code>0,114</code> avec <code>IC95% [-0,569 ; 0,797]</code>.</li>
+</ul>
+<p>Quand ils incluent le <code>PHQ-9</code> baseline dans <strong>les deux modèles du full TMLE</strong>, l’estimation devient :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mo>=</mo><mi>−</mi><mn>0</mn><mo>,</mo><mn>064</mn><mspace width="1.0em"></mspace><mtext mathvariant="normal">avec</mtext><mspace width="1.0em"></mspace><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi>−</mi><mn>0</mn><mo>,</mo><mn>639</mn><mo>;</mo><mn>0</mn><mo>,</mo><mn>511</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+ATE = -0,064 \quad \text{avec} \quad IC95\% [-0,639 ; 0,511]
+</annotation></semantics></math></p>
+<p>Autrement dit, l’effet principal favorable à <code>iCBT</code> peut pratiquement disparaître selon la manière dont on traite cette variable de baseline. Une formulation honnête d’examen est donc : <strong>avec le <code>PHQ-9</code> baseline inclus dans les modèles, les résultats deviennent compatibles avec l’absence de différence claire entre <code>iCBT</code> et <code>fCBT</code></strong>. Ce n’est pas une preuve de stricte équivalence ou de non-infériorité ; c’est un signal fort que cette variable pilote une partie importante du contraste observé.</p>
+<p>Si l’on voulait mieux contrôler ce biais tout en restant dans un cadre naturaliste, la stratégie la plus défendable serait un <strong>design observationnel renforcé</strong> :</p>
+<ul>
+<li>restriction aux patients provenant du <strong>même territoire</strong> et du <strong>même type de service</strong> ;</li>
+<li>appariement exact ou par caliper sur le <code>PHQ-9</code> baseline et <code>OASIS</code> ;</li>
+<li>pondération d’overlap ou appariement sur score de propension enrichi ;</li>
+<li>vérification explicite de l’équilibre après appariement ;</li>
+<li>analyse finale limitée aux patients situés dans la <strong>zone de support commun</strong>.</li>
+</ul>
+<p>Cela ne remplacerait toujours pas une randomisation, mais ce serait un moyen bien plus concret de réduire le biais de confusion par sévérité initiale et par organisation des soins.</p>
+<p>La vraie difficulté méthodologique est donc double :</p>
+<ol type="1">
+<li><strong>ne pas créer artificiellement</strong> de dépendance mathématique en ajustant sur une variable déjà contenue dans l’outcome ;</li>
+<li><strong>ne pas ignorer</strong> une variable clinique majeure qui distingue fortement les groupes au départ.</li>
+</ol>
+<p>La bonne copie doit donc dire plus que “les auteurs ajustent”. Elle doit dire :</p>
+<blockquote class="blockquote">
+<p>les auteurs ont conscience du problème, choisissent de ne pas inclure le <code>PHQ-9</code> baseline dans l’analyse principale pour éviter un artefact statistique, puis montrent en sensibilité que sa réintroduction peut fortement atténuer voire annuler l’effet estimé.</p>
+</blockquote>
 <p>La bonne copie doit dire deux choses : <strong>déséquilibre réel, et réponse analytique sérieuse mais non définitive</strong>.</p>
 <p><strong>Réponse type courte</strong></p>
-<p>Le déséquilibre de <code>PHQ-9</code> initial suggère une non-comparabilité des groupes et une possible confusion par indication. Les auteurs essaient de l’atténuer par l’ajustement et les sensibilités, mais cela reste un point de fragilité important.</p>
+<p>Le déséquilibre de <code>PHQ-9</code> initial (<code>11,57</code> en <code>fCBT</code> contre <code>13,31</code> en <code>iCBT</code>) suggère une non-comparabilité clinique importante. Les auteurs n’incluent pas ce score de base dans l’analyse principale pour éviter une dépendance artificielle avec l’outcome de changement, mais ils le réintroduisent en sensibilité. Or ces sensibilités rendent les résultats compatibles avec l’absence de différence, jusqu’à un <code>ATE</code> proche de <code>0</code> dans le <code>TMLE</code> complet. Cela montre que le <code>PHQ-9</code> baseline est un point de fragilité méthodologique majeur. Dans une approche naturaliste, un meilleur contrôle passerait par restriction, appariement serré et analyse sur support commun.</p>
+</div>
+</section>
+<section id="question-22-bis" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="question-22-bis">Question 22 bis</h4>
+<blockquote class="blockquote">
+<p>Le fait de ne pas inclure le <code>PHQ-9</code> baseline dans le modèle principal est-il, selon vous, une erreur méthodologique ? Discutez de façon nuancée à partir des résultats du papier.</p>
+</blockquote>
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l&#39;article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : &quot;Our prediction models did not use baseline PHQ-9 to avoid artificial dependence with outcome because it is part of the outcome already.&quot;</p>
+    <p><strong>Passage utile</strong> : &quot;AIPTW-ATE 0.128 ... simple TMLE-ATE 0.114 ... full TMLE ... ATE was –0.064&quot;.</p>
+    <p><strong>À relier à la réponse</strong> : l&#39;article fournit à la fois la justification technique de l&#39;exclusion et la preuve empirique que cette décision change matériellement les résultats.</p>
+  </div>
+</details>
+<div class="answer-card">
+<p><strong>Réponse détaillée</strong></p>
+<p>Ce n’est pas une <strong>erreur grossière évidente</strong>, mais c’est un <strong>choix très contestable</strong> dans ce papier précis.</p>
+<p>Pourquoi les auteurs ont-ils un argument défendable ? Parce que leur outcome est un <strong>changement</strong> de <code>PHQ-9</code> :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>P</mi><mi>H</mi><mi>Q</mi><mn>9</mn><mo>=</mo><mi>P</mi><mi>H</mi><mi>Q</mi><msub><mn>9</mn><mrow><mi>f</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>−</mo><mi>P</mi><mi>H</mi><mi>Q</mi><msub><mn>9</mn><mrow><mi>d</mi><mi>é</mi><mi>b</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">
+\Delta PHQ9 = PHQ9_{fin} - PHQ9_{début}
+</annotation></semantics></math></p>
+<p>Si l’on remet aussi <code>PHQ9_{début}</code> comme prédicteur dans le modèle, on risque de créer une dépendance artificielle entre une variable et un outcome qui la contient déjà. Leur raisonnement technique est donc réel, et il n’est pas absurde.</p>
+<p>Mais pourquoi ce choix devient-il très fragile ici ? Parce que le <code>PHQ-9</code> baseline n’est pas une petite covariable parmi d’autres. C’est une variable :</p>
+<ul>
+<li>fortement déséquilibrée entre groupes (<code>13,31</code> en <code>iCBT</code> contre <code>11,57</code> en <code>fCBT</code>) ;</li>
+<li>cliniquement centrale ;</li>
+<li>probablement liée à l’orientation thérapeutique ;</li>
+<li>et évidemment liée à l’évolution ultérieure.</li>
+</ul>
+<p>Autrement dit, cette variable a toutes les caractéristiques d’un <strong>gros confondeur</strong> potentiel. Le papier montre d’ailleurs lui-même que son traitement analytique change fortement le message. Sans baseline dans le modèle principal, on obtient un <code>ATE</code> positif en faveur de <code>iCBT</code>. Mais dès qu’on réintroduit le baseline :</p>
+<ul>
+<li><code>AIPTW-ATE</code> tombe à <code>0,128 [−0,593 ; 0,850]</code> ;</li>
+<li><code>simple TMLE-ATE</code> tombe à <code>0,114 [−0,569 ; 0,797]</code> ;</li>
+<li>et dans le <code>full TMLE</code>, on arrive à :</li>
+</ul>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mo>=</mo><mi>−</mi><mn>0</mn><mo>,</mo><mn>064</mn><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">[</mo><mi>−</mi><mn>0</mn><mo>,</mo><mn>639</mn><mo>;</mo><mn>0</mn><mo>,</mo><mn>511</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+ATE = -0,064 \quad [ -0,639 ; 0,511 ]
+</annotation></semantics></math></p>
+<p>Donc la bonne conclusion n’est ni :</p>
+<ul>
+<li>“les auteurs ont forcément tort” ;</li>
+<li>ni “leur justification technique règle tout”.</li>
+</ul>
+<p>La vraie conclusion est :</p>
+<blockquote class="blockquote">
+<p>leur justification statistique est compréhensible, mais dans ce papier précis elle entre en tension directe avec le rôle majeur du <code>PHQ-9</code> baseline comme variable de confusion.</p>
+</blockquote>
+<p>En examen, la formulation la plus forte mais honnête est :</p>
+<blockquote class="blockquote">
+<p>ce n’est pas une faute méthodologique évidente, mais c’est probablement le choix le plus discutable du papier, parce que la variable exclue est justement celle qui semble le plus déplacer l’estimation quand on la réintroduit.</p>
+</blockquote>
+<p><strong>Réponse type courte</strong></p>
+<p>L’exclusion du <code>PHQ-9</code> baseline n’est pas une erreur évidente, car l’argument technique du “coupling” entre baseline et changement existe réellement. En revanche, dans ce papier, c’est un choix très discutable, car le <code>PHQ-9</code> baseline est fortement déséquilibré et sa réintroduction en sensibilité rend les résultats compatibles avec l’absence de différence. C’est donc probablement le point méthodologique le plus fragile de l’étude.</p>
+</div>
+</section>
+<section id="question-22-ter" class="level4 unlisted">
+<h4 class="unlisted anchored" data-anchor-id="question-22-ter">Question 22 ter</h4>
+<blockquote class="blockquote">
+<p>Sans refaire un essai randomisé, quelle stratégie observationnelle plus robuste proposeriez-vous pour mieux contrôler le biais lié au <code>PHQ-9</code> baseline et au contexte de soins ?</p>
+</blockquote>
+<details class="article-cite-toggle">
+  <summary>Appui direct dans l&#39;article</summary>
+  <div class="article-cite-toggle__body">
+    <p><strong>Passage utile</strong> : `fCBT` est essentiellement fournie en `Uusimaa`, alors que `iCBT` est disponible nationalement ; `PHQ-9` baseline `11,57` versus `13,31`.</p>
+    <p><strong>Passage utile</strong> : les auteurs rapportent aussi une analyse restreinte à `Uusimaa`.</p>
+    <p><strong>À relier à la réponse</strong> : le problème n&#39;est pas seulement statistique ; il est aussi structurel, territorial et organisationnel.</p>
+  </div>
+</details>
+<div class="answer-card">
+<p><strong>Réponse détaillée</strong></p>
+<p>Si l’on veut rester dans des <strong>données naturalistes</strong>, la meilleure réponse n’est pas “mettre encore plus de machine learning”, mais <strong>resserrer le design observationnel</strong>.</p>
+<p>Mais tu as raison sur un point fondamental : si l’on garde exactement le même outcome</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>P</mi><mi>H</mi><mi>Q</mi><mn>9</mn><mo>=</mo><mi>P</mi><mi>H</mi><mi>Q</mi><msub><mn>9</mn><mrow><mi>f</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>−</mo><mi>P</mi><mi>H</mi><mi>Q</mi><msub><mn>9</mn><mrow><mi>d</mi><mi>é</mi><mi>b</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">
+\Delta PHQ9 = PHQ9_{fin} - PHQ9_{début}
+</annotation></semantics></math></p>
+<p>alors appariement ou pondération sur le <code>PHQ-9</code> baseline ne suffisent pas à faire disparaître la tension méthodologique. On reste coincé avec une variable qui est à la fois :</p>
+<ul>
+<li>un gros facteur de confusion ;</li>
+<li>et une composante mathématique de l’outcome.</li>
+</ul>
+<p>La vraie stratégie naturaliste plus robuste serait donc de <strong>changer l’estimand principal</strong>, pas seulement d’ajouter une couche d’ajustement.</p>
+<p>Le problème ici n’est pas seulement qu’il manque une covariable ; c’est que les deux groupes viennent de <strong>circuits de soins différents</strong> :</p>
+<ul>
+<li><code>fCBT</code> surtout en <code>Uusimaa</code> ;</li>
+<li><code>iCBT</code> disponible nationalement ;</li>
+<li>déséquilibre massif d’effectifs : <code>5446</code> contre <code>388</code> ;</li>
+<li>déséquilibre clinique sur le <code>PHQ-9</code> baseline.</li>
+</ul>
+<p>Une stratégie plus robuste aurait donc été, par exemple :</p>
+<ol type="1">
+<li><p><strong>restriction géographique forte</strong><br>
+Travailler d’abord uniquement dans une zone où les deux modalités sont réellement disponibles, par exemple <code>Uusimaa</code>. Les auteurs font déjà une restriction régionale en sensibilité, mais on pourrait en faire le cœur du design au lieu d’une analyse secondaire.</p></li>
+<li><p><strong>restriction au support commun clinique</strong><br>
+Éliminer les patients trop atypiques pour lesquels la probabilité de recevoir <code>fCBT</code> ou <code>iCBT</code> est pratiquement nulle. En pratique, cela veut dire ne garder que les profils pour lesquels les deux traitements étaient réellement plausibles.</p></li>
+<li><p><strong>appariement serré ou pondération d’overlap sur les covariables basales</strong>, y compris le <code>PHQ-9</code> initial<br>
+Appariement exact ou par caliper sur :</p>
+<ul>
+<li><code>PHQ-9</code> baseline ;</li>
+<li><code>OASIS</code> ;</li>
+<li>âge ;</li>
+<li>visites psychiatriques antérieures ;</li>
+<li>diagnostics antérieurs ;</li>
+<li>statut professionnel ;</li>
+<li>variables de région / parcours de soins.</li>
+</ul></li>
+<li><p><strong>changer l’outcome principal pour pouvoir inclure légitimement le baseline</strong><br>
+Au lieu de modéliser directement le <strong>changement</strong>, on pourrait modéliser :</p></li>
+</ol>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>H</mi><mi>Q</mi><msub><mn>9</mn><mrow><mi>p</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>−</mo><mi>t</mi><mi>r</mi><mi>a</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">
+PHQ9_{post-traitement}
+</annotation></semantics></math></p>
+<p>en ajustant explicitement sur :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>H</mi><mi>Q</mi><msub><mn>9</mn><mrow><mi>b</mi><mi>a</mi><mi>s</mi><mi>e</mi><mi>l</mi><mi>i</mi><mi>n</mi><mi>e</mi></mrow></msub></mrow><annotation encoding="application/x-tex">
+PHQ9_{baseline}
+</annotation></semantics></math></p>
+<p>C’est l’idée d’une approche de type <code>ANCOVA</code> ou, mieux encore ici, d’un <strong>modèle longitudinal</strong> utilisant les mesures répétées (<code>session 1</code>, <code>3</code>, <code>5</code>, <code>7</code>) avec interaction <code>temps × traitement</code>.</p>
+<p>L’intérêt est clair : - le baseline devient une vraie covariable d’ajustement ; - on évite qu’il soit en même temps une partie algébrique de l’outcome principal ; - on exploite mieux la trajectoire complète au lieu de la résumer seulement par “début → fin”.</p>
+<ol start="5" type="1">
+<li><p><strong>vérification explicite de l’équilibre après ajustement</strong><br>
+Il ne suffit pas d’annoncer un score de propension ou un <code>TMLE</code>. Il faut montrer que, <strong>après</strong> appariement ou pondération, les distributions du <code>PHQ-9</code> baseline et des grandes covariables deviennent réellement proches.</p></li>
+<li><p><strong>analyse principale centrée sur la cohorte appariée / overlap</strong><br>
+L’estimation finale serait alors portée par une population plus petite, mais beaucoup plus crédible causalement, avec un outcome post-traitement ou longitudinal mieux spécifié.</p></li>
+</ol>
+<p>Le coût de cette stratégie est clair : on perdrait de l’effectif et donc un peu de précision. Mais ici, ce sacrifice serait probablement un bon échange, parce que le vrai problème du papier n’est pas le manque de patients ; c’est la <strong>comparabilité</strong> des patients. En d’autres termes :</p>
+<blockquote class="blockquote">
+<p>mieux vaut une cohorte naturaliste plus petite mais vraiment comparable qu’une gigantesque cohorte structurellement déséquilibrée.</p>
+</blockquote>
+<p>La phrase clé à retenir est donc :</p>
+<blockquote class="blockquote">
+<p>pour intégrer réellement le <code>PHQ-9</code> baseline sans retomber dans le problème du “coupling”, il faut changer la cible analytique : modéliser le score post-traitement conditionnel au baseline, ou mieux une trajectoire longitudinale, plutôt que le seul score de changement brut.</p>
+</blockquote>
+<p><strong>Réponse type courte</strong></p>
+<p>Dans une logique naturaliste, il ne suffit pas d’apparier sur le <code>PHQ-9</code> baseline si l’outcome reste le changement <code>fin - début</code>. Une stratégie plus robuste serait de restreindre l’analyse au support commun, d’apparier ou pondérer serré sur les covariables basales, puis de changer l’outcome principal pour modéliser le <code>PHQ-9</code> post-traitement ajusté sur le baseline, ou mieux une trajectoire longitudinale des scores. Cela permettrait d’inclure réellement le <code>PHQ-9</code> initial sans le faire entrer deux fois dans l’analyse.</p>
 </div>
 </section>
 <section id="question-23" class="level4 unlisted">
@@ -4393,15 +5063,51 @@ Certaines correspondent assez naturellement au papier <code>2026 EPI</code>, d�
 <div class="formula-card">
 <p><strong>Mini-boîte méthodologique</strong></p>
 <p>Les quatre familles de formules à savoir mobiliser ici sont :</p>
+<ol type="1">
+<li><strong>Précision d’une proportion</strong>
+<ul>
+<li>sert à calculer la <strong>marge d’erreur</strong> autour d’un pourcentage observé</li>
+<li><code>p</code> = proportion observée</li>
+<li><code>n</code> = effectif</li>
+<li><code>Delta</code> = demi-largeur approximative de l’intervalle de confiance</li>
+</ul></li>
+</ol>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mo>=</mo><mi>±</mi><mn>1.96</mn><msqrt><mfrac><mrow><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
 \Delta = \pm 1.96 \sqrt{\frac{p(1-p)}{n}}
 </annotation></semantics></math></p>
+<ol start="2" type="1">
+<li><strong>Précision d’un odds ratio</strong>
+<ul>
+<li>sert à calculer l’<strong>erreur standard de <code>log(OR)</code></strong>, puis l’intervalle de confiance de l’<code>OR</code></li>
+<li><code>a, b, c, d</code> = effectifs du tableau <code>2 × 2</code></li>
+<li><code>OR = ad/bc</code></li>
+</ul></li>
+</ol>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mi>a</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>b</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>c</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>d</mi></mfrac></mrow></msqrt></mrow><annotation encoding="application/x-tex">
 sd[\log(OR)] = \sqrt{\frac{1}{a}+\frac{1}{b}+\frac{1}{c}+\frac{1}{d}}
 </annotation></semantics></math></p>
+<ol start="3" type="1">
+<li><strong>Comparaison de deux proportions</strong>
+<ul>
+<li>sert à calculer le <strong>nombre de sujets par bras</strong> pour comparer deux pourcentages</li>
+<li><code>p1</code> et <code>p2</code> = proportions attendues dans les deux groupes</li>
+<li><code>z_alpha</code> = quantile lié au risque alpha</li>
+<li><code>z_beta</code> = quantile lié à la puissance</li>
+<li><code>n</code> = effectif par bras</li>
+</ul></li>
+</ol>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><msub><mi>p</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>p</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>p</mi><mn>1</mn></msub><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
 n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
 </annotation></semantics></math></p>
+<ol start="4" type="1">
+<li><strong>Comparaison de deux moyennes</strong>
+<ul>
+<li>sert à calculer le <strong>nombre de sujets par bras</strong> pour comparer une variable continue</li>
+<li><code>sigma</code> = écart-type supposé commun</li>
+<li><code>Delta</code> = différence moyenne que l’on veut détecter</li>
+<li><code>z_alpha</code> et <code>z_beta</code> = quantiles liés à l’alpha et à la puissance</li>
+</ul></li>
+</ol>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><mn>2</mn><msup><mi>σ</mi><mn>2</mn></msup></mrow><msup><mi>Δ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
 n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
 </annotation></semantics></math></p>
@@ -4417,12 +5123,14 @@ n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
 <p><strong>Ce que la formule permet de faire</strong></p>
 <p>La formule “deux moyennes” sert à retrouver un <strong>ordre de grandeur d’effectif par bras</strong> quand l’outcome est continu. Ici, c’est la formule du cours la plus proche du matériau réel, car l’article compare un <strong>changement moyen de <code>PHQ-9</code></strong>.</p>
 <p><strong>Données à utiliser</strong></p>
-<ul>
-<li>différence à détecter : <code>\Delta = 1,7</code></li>
-<li>écart-type pédagogique supposé : <code>\sigma = 6</code></li>
-<li><code>alpha = 5%</code>, donc <code>z_\alpha \approx 1,96</code></li>
-<li>puissance <code>80%</code>, donc <code>z_\beta \approx 0,84</code></li>
-</ul>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>Δ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>1</mn><mo>,</mo><mn>7</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">différence à détecter</mtext></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>σ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>6</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">écart-type pédagogique supposé</mtext></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>z</mi><mi>α</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>≈</mo><mn>1</mn><mo>,</mo><mn>96</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">pour </mtext><mspace width="0.333em"></mspace></mrow><mi>α</mi><mo>=</mo><mn>5</mn><mi>%</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>z</mi><mi>β</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>≈</mo><mn>0</mn><mo>,</mo><mn>84</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">pour une puissance de </mtext><mspace width="0.333em"></mspace></mrow><mn>80</mn><mi>%</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+\Delta &amp;= 1,7 &amp;&amp; \text{différence à détecter} \\
+\sigma &amp;= 6 &amp;&amp; \text{écart-type pédagogique supposé} \\
+z_\alpha &amp;\approx 1,96 &amp;&amp; \text{pour } \alpha = 5\% \\
+z_\beta &amp;\approx 0,84 &amp;&amp; \text{pour une puissance de } 80\%
+\end{aligned}
+</annotation></semantics></math></p>
 <p><strong>Formule générale</strong></p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><mn>2</mn><msup><mi>σ</mi><mn>2</mn></msup></mrow><msup><mi>Δ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
 n = (z_\alpha + z_\beta)^2 \frac{2\sigma^2}{\Delta^2}
@@ -4595,12 +5303,14 @@ IC95\%(OR) \approx [0,13 ; 1,09]
 <p><strong>Ce que la formule permet de faire</strong></p>
 <p>La formule “deux proportions” donne ici un <strong>nombre de sujets par bras</strong> si l’on transforme artificiellement l’issue continue en outcome binaire.</p>
 <p><strong>Données à utiliser</strong></p>
-<ul>
-<li><code>p_1 = 0,35</code></li>
-<li><code>p_2 = 0,45</code></li>
-<li><code>z_\alpha \approx 1,96</code></li>
-<li><code>z_\beta \approx 0,84</code></li>
-</ul>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>p</mi><mn>1</mn></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn><mo>,</mo><mn>35</mn></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>p</mi><mn>2</mn></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn><mo>,</mo><mn>45</mn></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>z</mi><mi>α</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>≈</mo><mn>1</mn><mo>,</mo><mn>96</mn></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>z</mi><mi>β</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>≈</mo><mn>0</mn><mo>,</mo><mn>84</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+p_1 &amp;= 0,35 \\
+p_2 &amp;= 0,45 \\
+z_\alpha &amp;\approx 1,96 \\
+z_\beta &amp;\approx 0,84
+\end{aligned}
+</annotation></semantics></math></p>
 <p><strong>Formule générale</strong></p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>α</mi></msub><mo>+</mo><msub><mi>z</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mfrac><mrow><msub><mi>p</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>p</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>p</mi><mn>1</mn></msub><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
 n = (z_\alpha + z_\beta)^2 \frac{p_1(1-p_1)+p_2(1-p_2)}{(p_1-p_2)^2}
@@ -4630,23 +5340,391 @@ n \approx 373 \text{ patients par bras}
 <p>Avec <code>p_1 = 0,35</code> et <code>p_2 = 0,45</code>, la formule des deux proportions donne environ <code>373</code> patients par bras. Ce chiffre, plus élevé que dans l’exercice “deux moyennes”, illustre bien le coût statistique de la dichotomisation d’un critère continu comme le <code>PHQ-9</code>.</p>
 </div>
 </section>
+<section id="calcul-e" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="calcul-e">Calcul E</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>Montrez que l’article vise un <strong>objectif de précision</strong> et non un vrai NSN de supériorité. Quel <code>SE</code> maximal cela impose-t-il, et ce critère a-t-il été atteint ?</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cette question sert à traduire une <strong>largeur d’intervalle de confiance visée</strong> en un <strong>écart-type standard maximal</strong> (<code>SE</code>). Ici, on ne cherche pas d’abord à “détecter une différence”, mais à obtenir une estimation assez précise de l’<code>ATE</code>.</p>
+<p><strong>Données à utiliser</strong></p>
+<p>L’article dit qu’un <code>IC95%</code> de largeur au plus <code>1,7</code> point de <code>PHQ-9</code> serait jugé suffisamment précis.<br>
+L’<code>ATE</code> final observé est :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>745</mn><mspace width="2.0em"></mspace><mo>;</mo><mspace width="2.0em"></mspace><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>156</mn><mo>;</mo><mn>1</mn><mo>,</mo><mn>334</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+ATE = 0,745 \qquad ; \qquad IC95\% = [0,156 ; 1,334]
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p>Pour une estimation approximativement normale :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">largeur</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>3</mn><mo>,</mo><mn>92</mn><mo>×</mo><mi>S</mi><mi>E</mi></mrow><annotation encoding="application/x-tex">
+\text{largeur}(IC95\%) \approx 3,92 \times SE
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p>Le <code>SE</code> cible maximal vaut :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><msub><mi>E</mi><mtext mathvariant="normal">cible</mtext></msub><mo>≈</mo><mfrac><mrow><mn>1</mn><mo>,</mo><mn>7</mn></mrow><mrow><mn>3</mn><mo>,</mo><mn>92</mn></mrow></mfrac><mo>≈</mo><mn>0</mn><mo>,</mo><mn>434</mn></mrow><annotation encoding="application/x-tex">
+SE_{\text{cible}} \approx \frac{1,7}{3,92} \approx 0,434
+</annotation></semantics></math></p>
+<p>L’intervalle observé a pour largeur :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>334</mn><mo>−</mo><mn>0</mn><mo>,</mo><mn>156</mn><mo>=</mo><mn>1</mn><mo>,</mo><mn>178</mn></mrow><annotation encoding="application/x-tex">
+1,334 - 0,156 = 1,178
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><msub><mi>E</mi><mtext mathvariant="normal">observé</mtext></msub><mo>≈</mo><mfrac><mrow><mn>1</mn><mo>,</mo><mn>178</mn></mrow><mrow><mn>3</mn><mo>,</mo><mn>92</mn></mrow></mfrac><mo>≈</mo><mn>0</mn><mo>,</mo><mn>301</mn></mrow><annotation encoding="application/x-tex">
+SE_{\text{observé}} \approx \frac{1,178}{3,92} \approx 0,301
+</annotation></semantics></math></p>
+<p>ce qui est cohérent avec le <code>SE = 0,300</code> donné par l’article.</p>
+<p><strong>Interprétation</strong></p>
+<p>Le papier ne formule donc pas un NSN prospectif classique de supériorité. Il fixe une <strong>cible de précision</strong>. Et cette cible est atteinte, puisque le <code>SE</code> observé (<code>≈ 0,300</code>) est plus petit que le <code>SE</code> maximal autorisé (<code>≈ 0,434</code>).</p>
+<p><strong>Réponse type</strong></p>
+<p>L’article ne dimensionne pas l’étude comme un essai de supériorité classique ; il fixe un objectif de précision : obtenir un <code>IC95%</code> de largeur au plus <code>1,7</code> point. Cela correspond à un <code>SE</code> cible d’environ <code>1,7 / 3,92 = 0,434</code>. Or l’<code>ATE</code> final a un <code>SE</code> d’environ <code>0,300</code>, donc la précision visée a bien été atteinte.</p>
+</div>
+</section>
+<section id="calcul-f" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="calcul-f">Calcul F</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>En prenant <code>\sigma \approx 4,9</code> points comme écart-type commun plausible du changement de <code>PHQ-9</code>, combien de sujets par bras suffiraient approximativement pour garantir une largeur d’<code>IC95%</code> de <code>1,7</code> point dans une étude équilibrée à deux groupes ?</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cette formule transforme un <strong>objectif de précision</strong> en <strong>effectif nécessaire</strong> dans un cadre simplifié à deux groupes équilibrés.</p>
+<p><strong>Données à utiliser</strong></p>
+<p>On prend :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>≈</mo><mn>4</mn><mo>,</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">
+\sigma \approx 4,9
+</annotation></semantics></math></p>
+<p>et une largeur cible :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">largeur</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn><mo>,</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">
+\text{largeur}(IC95\%) = 1,7
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p>Dans une étude équilibrée à deux groupes :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>E</mi><mo>≈</mo><mi>σ</mi><msqrt><mfrac><mn>2</mn><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+SE \approx \sigma \sqrt{\frac{2}{n}}
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">largeur</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>3</mn><mo>,</mo><mn>92</mn><mo>×</mo><mi>σ</mi><msqrt><mfrac><mn>2</mn><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+\text{largeur}(IC95\%) \approx 3,92 \times \sigma \sqrt{\frac{2}{n}}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p>On impose :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>7</mn><mo>≈</mo><mn>3</mn><mo>,</mo><mn>92</mn><mo>×</mo><mn>4</mn><mo>,</mo><mn>9</mn><mo>×</mo><msqrt><mfrac><mn>2</mn><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+1,7 \approx 3,92 \times 4,9 \times \sqrt{\frac{2}{n}}
+</annotation></semantics></math></p>
+<p>ce qui donne :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>3</mn><mo>,</mo><mn>92</mn><mo>×</mo><mn>4</mn><mo>,</mo><mn>9</mn></mrow><mrow><mn>1</mn><mo>,</mo><mn>7</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">
+n \approx 2\left(\frac{3,92 \times 4,9}{1,7}\right)^2
+</annotation></semantics></math></p>
+<p>Puis :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>,</mo><mn>92</mn><mo>×</mo><mn>4</mn><mo>,</mo><mn>9</mn><mo>≈</mo><mn>19</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">
+3,92 \times 4,9 \approx 19,2
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>19</mn><mo>,</mo><mn>2</mn></mrow><mrow><mn>1</mn><mo>,</mo><mn>7</mn></mrow></mfrac><mo>≈</mo><mn>11</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">
+\frac{19,2}{1,7} \approx 11,3
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>11</mn><mo>,</mo><msup><mn>3</mn><mn>2</mn></msup><mo>≈</mo><mn>127</mn><mo>,</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">
+11,3^2 \approx 127,7
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>2</mn><mo>×</mo><mn>127</mn><mo>,</mo><mn>7</mn><mo>≈</mo><mn>255</mn></mrow><annotation encoding="application/x-tex">
+n \approx 2 \times 127,7 \approx 255
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>Dans un cadre simplifié, il faudrait donc environ <code>255</code> sujets par bras, soit environ <code>510</code> sujets au total, pour garantir cette précision. C’est très inférieur aux <code>5834</code> sujets analysés dans le papier, ce qui rappelle que le vrai problème de l’étude n’est pas le manque de volume, mais la validité causale.</p>
+<p><strong>Réponse type</strong></p>
+<p>Avec <code>\sigma \approx 4,9</code> et une largeur cible d’<code>IC95%</code> de <code>1,7</code> point, on obtient environ <code>255</code> sujets par bras, soit environ <code>510</code> au total. Ce calcul reste pédagogique, mais il montre que l’article avait largement assez de volume pour atteindre son objectif de précision.</p>
+</div>
+</section>
+<section id="calcul-g" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="calcul-g">Calcul G</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>Si l’on voulait détecter non plus <code>1,7</code> point mais seulement l’<strong>effet observé</strong> de <code>0,745</code> point dans un essai simple à deux groupes, avec <code>alpha = 5%</code>, puissance <code>80%</code> et <code>\sigma \approx 4,9</code>, quel serait le NSN approximatif par bras ?</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cette formule calcule un <strong>nombre de sujets par bras</strong> pour comparer deux moyennes quand on fixe une taille d’effet à détecter. Ici, on ne prend pas un seuil clinique a priori, mais l’effet effectivement observé dans l’article.</p>
+<p><strong>Données à utiliser</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>δ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn><mo>,</mo><mn>745</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">effet observé à détecter</mtext></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>σ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>≈</mo><mn>4</mn><mo>,</mo><mn>9</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">écart-type commun supposé</mtext></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>z</mi><mrow><mn>1</mn><mo>−</mo><mi>α</mi><mi>/</mi><mn>2</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>1</mn><mo>,</mo><mn>96</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">pour </mtext><mspace width="0.333em"></mspace></mrow><mi>α</mi><mo>=</mo><mn>5</mn><mi>%</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> bilatéral</mtext></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>z</mi><mrow><mn>1</mn><mo>−</mo><mi>β</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn><mo>,</mo><mn>84</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">pour une puissance de </mtext><mspace width="0.333em"></mspace></mrow><mn>80</mn><mi>%</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+\delta &amp;= 0,745 &amp;&amp; \text{effet observé à détecter} \\
+\sigma &amp;\approx 4,9 &amp;&amp; \text{écart-type commun supposé} \\
+z_{1-\alpha/2} &amp;= 1,96 &amp;&amp; \text{pour } \alpha = 5\% \text{ bilatéral} \\
+z_{1-\beta} &amp;= 0,84 &amp;&amp; \text{pour une puissance de } 80\%
+\end{aligned}
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mtext mathvariant="normal">par bras</mtext></msub><mo>=</mo><mfrac><mrow><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mrow><mn>1</mn><mo>−</mo><mi>α</mi><mi>/</mi><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>z</mi><mrow><mn>1</mn><mo>−</mo><mi>β</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><msup><mi>σ</mi><mn>2</mn></msup></mrow><msup><mi>δ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n_{\text{par bras}} = \frac{2(z_{1-\alpha/2}+z_{1-\beta})^2\sigma^2}{\delta^2}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mfrac><mrow><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>84</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>×</mo><mn>4</mn><mo>,</mo><msup><mn>9</mn><mn>2</mn></msup></mrow><mrow><mn>0</mn><mo>,</mo><msup><mn>745</mn><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+n \approx \frac{2(1,96+0,84)^2 \times 4,9^2}{0,745^2}
+</annotation></semantics></math></p>
+<p>Le numérateur vaut environ :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>80</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>×</mo><mn>4</mn><mo>,</mo><msup><mn>9</mn><mn>2</mn></msup><mo>≈</mo><mn>376</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">
+2(2,80)^2 \times 4,9^2 \approx 376,3
+</annotation></semantics></math></p>
+<p>Le dénominateur vaut :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><msup><mn>745</mn><mn>2</mn></msup><mo>≈</mo><mn>0</mn><mo>,</mo><mn>555</mn></mrow><annotation encoding="application/x-tex">
+0,745^2 \approx 0,555
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mfrac><mrow><mn>376</mn><mo>,</mo><mn>3</mn></mrow><mrow><mn>0</mn><mo>,</mo><mn>555</mn></mrow></mfrac><mo>≈</mo><mn>678</mn></mrow><annotation encoding="application/x-tex">
+n \approx \frac{376,3}{0,555} \approx 678
+</annotation></semantics></math></p>
+<p>On retient donc environ :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>680</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> patients par bras</mtext></mrow></mrow><annotation encoding="application/x-tex">
+n \approx 680 \text{ patients par bras}
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>Ce calcul montre qu’un effet moyen faible mais statistiquement significatif peut nécessiter un effectif très important s’il devait être démontré prospectivement dans un essai classique.</p>
+<p><strong>Réponse type</strong></p>
+<p>En dimensionnant un essai simple sur l’effet observé de <code>0,745</code> point, avec <code>\sigma \approx 4,9</code>, <code>alpha = 5%</code> et puissance <code>80%</code>, on trouve environ <code>680</code> patients par bras. Cela illustre le coût statistique d’un effet moyen modeste.</p>
+</div>
+</section>
+<section id="calcul-h" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="calcul-h">Calcul H</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>À partir de l’<code>IC95%</code> de la <strong>différence brute observée</strong> (<code>1,120 [0,509 ; 1,731]</code>), retrouvez son <code>SE</code>, puis comparez sa précision à celle de l’<code>ATE</code> ajusté.</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cette formule permet de remonter d’un <strong>intervalle de confiance</strong> à un <strong>écart-type standard</strong> (<code>SE</code>). C’est très utile quand l’article donne un estimateur et son <code>IC95%</code>, mais pas la précision sous une forme directement comparable.</p>
+<p><strong>Données à utiliser</strong></p>
+<p>Différence brute :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>120</mn><mspace width="2.0em"></mspace><mo>;</mo><mspace width="2.0em"></mspace><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>509</mn><mo>;</mo><mn>1</mn><mo>,</mo><mn>731</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+1,120 \qquad ; \qquad IC95\% = [0,509 ; 1,731]
+</annotation></semantics></math></p>
+<p>ATE ajusté :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>745</mn><mspace width="2.0em"></mspace><mo>;</mo><mspace width="2.0em"></mspace><mi>S</mi><mi>E</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>300</mn></mrow><annotation encoding="application/x-tex">
+ATE = 0,745 \qquad ; \qquad SE = 0,300
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>E</mi><mo>≈</mo><mfrac><mrow><mtext mathvariant="normal">largeur</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mn>3</mn><mo>,</mo><mn>92</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+SE \approx \frac{\text{largeur}(IC95\%)}{3,92}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p>Pour la différence brute, la largeur vaut :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>731</mn><mo>−</mo><mn>0</mn><mo>,</mo><mn>509</mn><mo>=</mo><mn>1</mn><mo>,</mo><mn>222</mn></mrow><annotation encoding="application/x-tex">
+1,731 - 0,509 = 1,222
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><msub><mi>E</mi><mtext mathvariant="normal">brut</mtext></msub><mo>≈</mo><mfrac><mrow><mn>1</mn><mo>,</mo><mn>222</mn></mrow><mrow><mn>3</mn><mo>,</mo><mn>92</mn></mrow></mfrac><mo>≈</mo><mn>0</mn><mo>,</mo><mn>312</mn></mrow><annotation encoding="application/x-tex">
+SE_{\text{brut}} \approx \frac{1,222}{3,92} \approx 0,312
+</annotation></semantics></math></p>
+<p>Comparaison avec l’<code>ATE</code> :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><msub><mi>E</mi><mtext mathvariant="normal">ATE</mtext></msub><mo>=</mo><mn>0</mn><mo>,</mo><mn>300</mn></mrow><annotation encoding="application/x-tex">
+SE_{\text{ATE}} = 0,300
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>300</mn><mo>&lt;</mo><mn>0</mn><mo>,</mo><mn>312</mn></mrow><annotation encoding="application/x-tex">
+0,300 &lt; 0,312
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>La précision de la différence brute et celle de l’<code>ATE</code> ajusté sont très proches. Ici, l’ajustement causal n’a pas “coûté” en précision ; il aboutit même à un estimateur légèrement plus précis.</p>
+<p><strong>Réponse type</strong></p>
+<p>À partir de l’intervalle <code>0,509 à 1,731</code>, on retrouve un <code>SE</code> d’environ <code>1,222 / 3,92 = 0,312</code> pour la différence brute. Ce <code>SE</code> est très proche de celui de l’<code>ATE</code> ajusté (<code>0,300</code>) et même un peu plus grand. L’ajustement causal n’a donc pas dégradé la précision dans cet article.</p>
+</div>
+</section>
+<section id="calcul-i" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="calcul-i">Calcul I</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>Dans la mesure du possible, calculez une <strong>puissance a posteriori grossière</strong> pour la <strong>différence brute observée</strong> de <code>1,120</code>.</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Ce calcul post hoc grossier sert à transformer un estimateur et son <code>SE</code> en un <strong>score de Wald</strong>, puis en une <strong>puissance observée approximative</strong>. Ce n’est pas l’outil idéal, mais c’est un exercice classique d’annales.</p>
+<p><strong>Données à utiliser</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mo>=</mo><mn>1</mn><mo>,</mo><mn>120</mn><mspace width="2.0em"></mspace><mo>;</mo><mspace width="2.0em"></mspace><mi>S</mi><mi>E</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>312</mn></mrow><annotation encoding="application/x-tex">
+\widehat\theta = 1,120 \qquad ; \qquad SE = 0,312
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p>On calcule d’abord :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>≈</mo><mfrac><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mrow><mi>S</mi><mi>E</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+z \approx \frac{\widehat\theta}{SE}
+</annotation></semantics></math></p>
+<p>Puis :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">puissance</mtext><mo>≈</mo><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\text{puissance} \approx \Phi(z - 1,96)
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>≈</mo><mfrac><mrow><mn>1</mn><mo>,</mo><mn>120</mn></mrow><mrow><mn>0</mn><mo>,</mo><mn>312</mn></mrow></mfrac><mo>≈</mo><mn>3</mn><mo>,</mo><mn>59</mn></mrow><annotation encoding="application/x-tex">
+z \approx \frac{1,120}{0,312} \approx 3,59
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">puissance</mtext><mo>≈</mo><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>3</mn><mo>,</mo><mn>59</mn><mo>−</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>63</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\text{puissance} \approx \Phi(3,59 - 1,96) = \Phi(1,63)
+</annotation></semantics></math></p>
+<p>Or :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>63</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>0</mn><mo>,</mo><mn>95</mn></mrow><annotation encoding="application/x-tex">
+\Phi(1,63) \approx 0,95
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>La différence brute est donc estimée avec une bonne précision statistique. Mais cela ne règle pas la question causale : ce résultat brut mélange encore les différences initiales entre groupes.</p>
+<p><strong>Réponse type</strong></p>
+<p>Pour la différence brute <code>1,120</code> avec <code>SE = 0,312</code>, on obtient <code>z ≈ 3,59</code>, puis une puissance a posteriori grossière d’environ <code>95%</code>. Ce calcul montre surtout que la différence brute est estimée avec précision, pas qu’elle ait une interprétation causale satisfaisante.</p>
+</div>
+</section>
+<section id="calcul-j" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="calcul-j">Calcul J</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>Dans la mesure du possible, calculez une <strong>puissance a posteriori grossière</strong> pour l’<code>ATE</code> estimé dans la <strong>région d’Uusimaa</strong> uniquement.</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cette formule permet de voir comment la précision se dégrade quand on restreint l’analyse à un sous-ensemble plus petit. C’est donc un bon exercice pour illustrer l’effet de la taille effective d’échantillon.</p>
+<p><strong>Données à utiliser</strong></p>
+<p>Dans l’analyse restreinte à Uusimaa :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mo>=</mo><mn>0</mn><mo>,</mo><mn>636</mn><mspace width="2.0em"></mspace><mo>;</mo><mspace width="2.0em"></mspace><mi>S</mi><mi>E</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>326</mn></mrow><annotation encoding="application/x-tex">
+\widehat\theta = 0,636 \qquad ; \qquad SE = 0,326
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>≈</mo><mfrac><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mrow><mi>S</mi><mi>E</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+z \approx \frac{\widehat\theta}{SE}
+</annotation></semantics></math></p>
+<p>puis :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">puissance</mtext><mo>≈</mo><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\text{puissance} \approx \Phi(z - 1,96)
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>≈</mo><mfrac><mrow><mn>0</mn><mo>,</mo><mn>636</mn></mrow><mrow><mn>0</mn><mo>,</mo><mn>326</mn></mrow></mfrac><mo>≈</mo><mn>1</mn><mo>,</mo><mn>95</mn></mrow><annotation encoding="application/x-tex">
+z \approx \frac{0,636}{0,326} \approx 1,95
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">puissance</mtext><mo>≈</mo><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>95</mn><mo>−</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><mn>0</mn><mo>,</mo><mn>01</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\text{puissance} \approx \Phi(1,95 - 1,96) = \Phi(-0,01)
+</annotation></semantics></math></p>
+<p>Or :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><mn>0</mn><mo>,</mo><mn>01</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>0</mn><mo>,</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">
+\Phi(-0,01) \approx 0,50
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>On retrouve un ordre de grandeur d’environ <code>50%</code>, ce qui est cohérent avec l’<code>IC95%</code> <code>[-0,002 ; 1,276]</code> qui frôle <code>0</code>. Le message pédagogique est simple : quand on réduit l’information disponible, la précision se dégrade vite.</p>
+<p><strong>Réponse type</strong></p>
+<p>Dans l’analyse Uusimaa, l’<code>ATE</code> vaut <code>0,636</code> avec <code>SE = 0,326</code>, soit <code>z ≈ 1,95</code>. Cela conduit à une puissance a posteriori grossière d’environ <code>50%</code>, ce qui est cohérent avec un intervalle de confiance beaucoup moins convaincant que dans l’analyse principale.</p>
+</div>
+</section>
+<section id="calcul-k" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="calcul-k">Calcul K</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>Si l’on voulait une largeur d’<code>IC95%</code> non plus de <code>1,7</code> point mais de <strong><code>1,0</code> point</strong>, quel effectif approximatif faudrait-il dans une étude équilibrée à deux groupes avec <code>\sigma \approx 4,9</code> ?</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cette question prolonge l’objectif de précision de l’article en montrant le coût d’une exigence plus sévère. Elle sert à lier directement <strong>précision visée</strong> et <strong>effectif nécessaire</strong>.</p>
+<p><strong>Données à utiliser</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>≈</mo><mn>4</mn><mo>,</mo><mn>9</mn><mspace width="2.0em"></mspace><mo>;</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">largeur cible</mtext><mo>=</mo><mn>1</mn><mo>,</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">
+\sigma \approx 4,9 \qquad ; \qquad \text{largeur cible} = 1,0
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">largeur</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>I</mi><mi>C</mi><mn>95</mn><mi>%</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>3</mn><mo>,</mo><mn>92</mn><mo>×</mo><mi>σ</mi><msqrt><mfrac><mn>2</mn><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+\text{largeur}(IC95\%) \approx 3,92 \times \sigma \sqrt{\frac{2}{n}}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p>On impose :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>0</mn><mo>≈</mo><mn>3</mn><mo>,</mo><mn>92</mn><mo>×</mo><mn>4</mn><mo>,</mo><mn>9</mn><mo>×</mo><msqrt><mfrac><mn>2</mn><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">
+1,0 \approx 3,92 \times 4,9 \times \sqrt{\frac{2}{n}}
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>3</mn><mo>,</mo><mn>92</mn><mo>×</mo><mn>4</mn><mo>,</mo><mn>9</mn></mrow><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">
+n \approx 2\left(\frac{3,92 \times 4,9}{1,0}\right)^2
+</annotation></semantics></math></p>
+<p>Or :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>,</mo><mn>92</mn><mo>×</mo><mn>4</mn><mo>,</mo><mn>9</mn><mo>≈</mo><mn>19</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">
+3,92 \times 4,9 \approx 19,2
+</annotation></semantics></math></p>
+<p>Ainsi :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>2</mn><mo>×</mo><mn>19</mn><mo>,</mo><msup><mn>2</mn><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">
+n \approx 2 \times 19,2^2
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>19</mn><mo>,</mo><msup><mn>2</mn><mn>2</mn></msup><mo>≈</mo><mn>368</mn><mo>,</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">
+19,2^2 \approx 368,6
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>2</mn><mo>×</mo><mn>368</mn><mo>,</mo><mn>6</mn><mo>≈</mo><mn>737</mn></mrow><annotation encoding="application/x-tex">
+n \approx 2 \times 368,6 \approx 737
+</annotation></semantics></math></p>
+<p>On retient donc environ :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>740</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> patients par bras</mtext></mrow></mrow><annotation encoding="application/x-tex">
+n \approx 740 \text{ patients par bras}
+</annotation></semantics></math></p>
+<p><strong>Interprétation</strong></p>
+<p>Passer d’une largeur cible de <code>1,7</code> à <code>1,0</code> point coûte très cher en effectif. Cela montre qu’un objectif de précision étroite peut devenir beaucoup plus exigeant qu’on ne l’imagine.</p>
+<p><strong>Réponse type</strong></p>
+<p>Avec une largeur d’<code>IC95%</code> visée de <code>1,0</code> point et <code>\sigma \approx 4,9</code>, il faudrait environ <code>740</code> sujets par bras, soit près de <code>1500</code> au total. Cette question montre qu’une petite amélioration de précision demandée peut entraîner une forte augmentation de l’effectif.</p>
+</div>
+</section>
+<section id="calcul-l" class="level3 unlisted">
+<h3 class="unlisted anchored" data-anchor-id="calcul-l">Calcul L</h3>
+<div class="formula-banner">Questions formules</div>
+<blockquote class="blockquote">
+<p>Si l’on dimensionnait un essai simple non pas sur l’<code>ATE</code> ajusté (<code>0,745</code>) mais sur la <strong>différence brute observée</strong> (<code>1,120</code>), quel serait le NSN approximatif par bras ? Comparez au calcul basé sur <code>0,745</code>.</p>
+</blockquote>
+<div class="answer-card">
+<p><strong>Ce que la formule permet de faire</strong></p>
+<p>Cette question montre à quel point le NSN dépend de la <strong>taille d’effet choisie</strong>. Une différence plus grande à détecter demande mécaniquement moins de sujets.</p>
+<p><strong>Données à utiliser</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>δ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>1</mn><mo>,</mo><mn>120</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">différence brute retenue</mtext></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>σ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>≈</mo><mn>4</mn><mo>,</mo><mn>9</mn></mtd><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">écart-type commun supposé</mtext></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>z</mi><mrow><mn>1</mn><mo>−</mo><mi>α</mi><mi>/</mi><mn>2</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>1</mn><mo>,</mo><mn>96</mn></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>z</mi><mrow><mn>1</mn><mo>−</mo><mi>β</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn><mo>,</mo><mn>84</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">
+\begin{aligned}
+\delta &amp;= 1,120 &amp;&amp; \text{différence brute retenue} \\
+\sigma &amp;\approx 4,9 &amp;&amp; \text{écart-type commun supposé} \\
+z_{1-\alpha/2} &amp;= 1,96 \\
+z_{1-\beta} &amp;= 0,84
+\end{aligned}
+</annotation></semantics></math></p>
+<p><strong>Formule générale</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mtext mathvariant="normal">par bras</mtext></msub><mo>=</mo><mfrac><mrow><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mrow><mn>1</mn><mo>−</mo><mi>α</mi><mi>/</mi><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>z</mi><mrow><mn>1</mn><mo>−</mo><mi>β</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><msup><mi>σ</mi><mn>2</mn></msup></mrow><msup><mi>δ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">
+n_{\text{par bras}} = \frac{2(z_{1-\alpha/2}+z_{1-\beta})^2\sigma^2}{\delta^2}
+</annotation></semantics></math></p>
+<p><strong>Application numérique</strong></p>
+<p>Le numérateur reste :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>96</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>84</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>×</mo><mn>4</mn><mo>,</mo><msup><mn>9</mn><mn>2</mn></msup><mo>≈</mo><mn>376</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">
+2(1,96+0,84)^2 \times 4,9^2 \approx 376,3
+</annotation></semantics></math></p>
+<p>Cette fois :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>δ</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn><mo>,</mo><msup><mn>120</mn><mn>2</mn></msup><mo>≈</mo><mn>1</mn><mo>,</mo><mn>254</mn></mrow><annotation encoding="application/x-tex">
+\delta^2 = 1,120^2 \approx 1,254
+</annotation></semantics></math></p>
+<p>Donc :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mfrac><mrow><mn>376</mn><mo>,</mo><mn>3</mn></mrow><mrow><mn>1</mn><mo>,</mo><mn>254</mn></mrow></mfrac><mo>≈</mo><mn>300</mn></mrow><annotation encoding="application/x-tex">
+n \approx \frac{376,3}{1,254} \approx 300
+</annotation></semantics></math></p>
+<p>On retient donc environ :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≈</mo><mn>300</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> patients par bras</mtext></mrow></mrow><annotation encoding="application/x-tex">
+n \approx 300 \text{ patients par bras}
+</annotation></semantics></math></p>
+<p>Comparaison utile :</p>
+<ul>
+<li>avec <code>\delta = 0,745</code>, on trouvait environ <code>680</code> par bras ;</li>
+<li>avec <code>\delta = 1,120</code>, on tombe à environ <code>300</code> par bras.</li>
+</ul>
+<p><strong>Interprétation</strong></p>
+<p>Ce calcul rappelle qu’un NSN dépend massivement de la taille d’effet supposée. Si l’on dimensionne sur un effet brut plus grand, l’essai paraît beaucoup “moins coûteux”, mais on risque alors de sous-dimensionner l’étude si l’effet causal réel est plus petit.</p>
+<p><strong>Réponse type</strong></p>
+<p>En dimensionnant un essai simple sur la différence brute <code>1,120</code>, on obtient environ <code>300</code> patients par bras, contre environ <code>680</code> par bras quand on dimensionne sur l’<code>ATE</code> ajusté <code>0,745</code>. Cela illustre l’impact majeur du choix de la taille d’effet sur le NSN.</p>
+</div>
+</section>
 </section>
 <section id="réponses-prêtes-à-lemploi" class="level2">
 <h2 class="anchored" data-anchor-id="réponses-prêtes-à-lemploi">5. Réponses prêtes à l’emploi</h2>
 <section id="quand-il-faut-discuter-la-précision-plutôt-que-la-puissance" class="level3">
-<h3 class="anchored" data-anchor-id="quand-il-faut-discuter-la-précision-plutôt-que-la-puissance">4.1. Quand il faut discuter la précision plutôt que la puissance</h3>
+<h3 class="anchored" data-anchor-id="quand-il-faut-discuter-la-précision-plutôt-que-la-puissance">5.1. Quand il faut discuter la précision plutôt que la puissance</h3>
 <blockquote class="blockquote">
 <p>Dans cette étude observationnelle, la bonne discussion porte d’abord sur la précision de l’estimation et sur la plausibilité causale. Si l’on force néanmoins un calcul de puissance a posteriori à partir de l’<code>IC95%</code>, on retrouve seulement un ordre de grandeur, qui ne remplace pas l’analyse de validité interne.</p>
 </blockquote>
 </section>
 <section id="quand-il-faut-discuter-une-grande-cohorte-sans-se-faire-piéger" class="level3">
-<h3 class="anchored" data-anchor-id="quand-il-faut-discuter-une-grande-cohorte-sans-se-faire-piéger">4.2. Quand il faut discuter une grande cohorte sans se faire piéger</h3>
+<h3 class="anchored" data-anchor-id="quand-il-faut-discuter-une-grande-cohorte-sans-se-faire-piéger">5.2. Quand il faut discuter une grande cohorte sans se faire piéger</h3>
 <blockquote class="blockquote">
 <p>La grande taille de l’échantillon améliore la précision statistique, mais elle ne garantit pas la comparabilité des groupes. Ici, la vraie question est moins “y a-t-il assez de sujets ?” que “les groupes sont-ils suffisamment comparables pour soutenir une interprétation causale ?”.</p>
 </blockquote>
 </section>
 <section id="quand-il-faut-parler-du-tmle-sans-réciter" class="level3">
-<h3 class="anchored" data-anchor-id="quand-il-faut-parler-du-tmle-sans-réciter">4.3. Quand il faut parler du <code>TMLE</code> sans réciter</h3>
+<h3 class="anchored" data-anchor-id="quand-il-faut-parler-du-tmle-sans-réciter">5.3. Quand il faut parler du <code>TMLE</code> sans réciter</h3>
 <blockquote class="blockquote">
 <p>Le <code>TMLE</code> est un estimateur causal moderne qui combine modèle de traitement et modèle d’outcome pour cibler l’<code>ATE</code>. Il exploite mieux les données observées qu’une régression simple, mais il ne corrige pas les confondeurs non mesurés.</p>
 </blockquote>

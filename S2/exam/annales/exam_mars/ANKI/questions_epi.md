@@ -175,3 +175,127 @@
         -   pondération automatique ;
 
         -   évaluation sur des plis externes séparés.
+
+#### Article ÉPI : imputation
+
+-   Analyse principale : pas d'imputation (si une seule mesure initiale, $\Delta_\text{PHQ-9} = 0$ si pas de mesure après le début du traitement)
+
+-   Imputation multiple comme analyse de senibilité avec superMICE (inclue super learner dans le processus d'imputation). 
+
+#### Article ÉPI : DAG
+
+-   DAG = Directed Acyclic Graph : outil de représentation visuelle des relations causales entre variables
+
+-   Variables liées à la fois au choix du traitement (iCBT vs fCBT) et à l’outcome (changement de PHQ-9) sont des confondeurs potentiels qui peuvent biaiser l’estimation de l’effet du traitement si elles ne sont pas correctement ajustées.
+
+-   Âge, sexe, sévérité dépressive initiale, anxiété (OASIS), antécédents psychiatriques, statut social et professionnel, région, affinité numérique et préférences thérapeutiques sont des variables qui peuvent influencer à la fois le choix du traitement et l’évolution clinique.
+
+-   **Confondeur** : variable qui influence à la fois le traitement et l’outcome, et qui peut introduire un biais de confusion si elle n’est pas ajustée.
+
+    -   Par exemple : la sévérité initiale peut influencer la probabilité d’être orienté vers iCBT ou fCBT, et peut aussi influencer l’ampleur du changement de PHQ-9..
+
+    -   Autre exemple : la région peut influencer l’accès au type de soin, mais aussi la qualité du parcours, la disponibilité des thérapeutes, le niveau socio-économique moyen ou le profil clinique des patients.
+
+-   **Médiateur** : variable située après le traitement sur le chemin causal menant à l’outcome. 
+
+    -   Si l’on ajustait naïvement sur cette variable, on risquerait de couper une partie de l’effet réel du traitement que l’on cherche justement à estimer.
+
+    -   Par exemple, l’adhésion effective au programme peut être influencée par le type de traitement, et à son tour influencer l’amélioration du PHQ-9.
+
+    -   Dropout : peut être un médiateur partiel (le format de soin peut favoriser ou défavoriser la poursuite du suivi) mais aussi un collider si on conditionne dessus de manière maladroite. 
+
+-   **Collider** : variable influencée par deux causes différentes.
+
+    -   Par exemple, le dropout peut être influencé à la fois par le traitement reçu et par l’évolution clinique réelle ou des facteurs non mesurés comme la motivation ou l’affinité numérique.
+
+    -   Si l’on analyse seulement les patients qui ont complété le suivi, ou si l’on ajuste directement sur une variable de complétion post-traitement sans précaution, on peut ouvrir artificiellement un chemin de biais entre traitement et outcome.
+
+    -   Autre exemple de collider potentiel : la complétion du suivi, qui peut être influencée à la fois par le traitement et par des facteurs non mesurés liés à l’évolution clinique ou à la motivation.
+
+#### Article ÉPI : Analyse de contrôlé négatif
+
+-   Exposition ou outcome non lié causalement à l'effet étudié
+
+-   Permet de vérifier la présence de biais de confusion non mesuré : si on trouve un effet significatif pour une association qui ne devrait pas exister, cela suggère que des facteurs de confusion non mesurés pourraient biaiser les résultats.
+
+-   **Negative outcome** : outcome pour lequel on ne s'attend pas à un résultat. Par exemple, changement de PHQ-9 avant de commencer le traitement ou changement non psychiatrique (ex : changement de poids).
+
+-   **Negative exposure** : exposition pour laquelle on ne s'attend pas à un résultat. Par exemple, un traitement qui n'est pas censé influencer le PHQ-9 (ex : un traitement pour une condition médicale non liée à la santé mentale).
+
+#### Article ÉPI : Problème du dropout
+
+-   Problème.: on n'est pas sur que les données manquantes soient "MAR" : il est possible que les patients aient abandonné car ça ne leur plaisit pas !! Donc potentiel risque de sélection de patients plus motivés ou plus satisfaits dans les analyses complètes, ce qui pourrait biaiser les résultats en faveur du traitement qui a le plus de dropout.
+
+#### Article ÉPI : Taille d'effet intra-groupe
+
+-   Effet intra-groupe : changement de PHQ-9 dans le groupe iCBT ou dans le groupe fCBT, sans comparaison entre les groupes
+
+-   Amélioration peut refléter : 
+
+    -   un effet réel du traitement ;
+
+    -   un effet placebo ou de régression vers la moyenne (c'est à dire que les patients avec des scores de PHQ-9 plus élevés au départ ont plus de marge de progression, même sans traitement efficace) ;
+
+    -   évolution naturelle
+
+    -   sélection des patients qui complètent
+
+#### Article ÉPI : Exclusion du PHQ-9 initial dans les covariables du modèle de résultat
+
+-   Modèle : sur **changement** de PHQ-9 et pas sur PHQ-9 final
+
+-   Donc si on inclue le PHQ-9 initial comme covariable, on ajuste pour une variable qui est déjà incluse dans le résultat (changement de PHQ-9 = PHQ-9 final - PHQ-9 initial), ce qui peut introduire des problèmes de colinéarité et rendre l'estimation de l'effet du traitement moins stable.
+
+#### Article ÉPI : PHQ-9 baseline plus bas dans le groupe fCBT par rapport au groupe iCBT
+
+-   PHQ-9 initial est plus bas en fCBT (11,57) qu’en iCBT (13,31)
+
+-   Outcome : $\Delta_\text{PHQ-9} = \text{PHQ-9}_\text{fin} - \text{PHQ-9}_\text{début}$
+
+-   Score initial plus élevé dans le groupe iCBT donc plus de marge de progression dans le groupe iCBT, même sans traitement efficace (régression vers la moyenne)
+
+-   **Confusion par indication** : plus sévères orientés vers iCBT, moins sévères vers fCBT. 
+
+-   Problème d'inclure : dépendance artificielle entre la variable et l'outcome qui contient déjà cette variable. 
+
+-   D'où la tentative d'inclure le PHQ-9 initial dans les covariables du modèle de résultat pour tenter de contrôler ce biais, mais finalement pas retenu à cause d'artefact statistique. 
+
+-   Les analyses de sensibilité dans lesquelles le PHQ-9 initial est inclus atténuent fortement l'effet, jusqu'à un ATE proche de 0 dans le TMLE complet
+
+-   Point méthodologique le plus fragile : estimation de l'ATE très sensible à l'inclusion ou non du PHQ-9 initial dans les covariables du modèle de résultat, ce qui suggère que le biais de confusion par indication est un problème majeur dans cette étude. Il n'est pas sur que les méthodes d'ajustement utilisées soient suffisantes pour contrôler ce biais.
+
+#### Article ÉPI : Autre méthode sur données "naturalistes"
+
+-   Changer d'estimand ! et passe à $\text{PHQ9}_\text{fin}$ comme outcome, et inclure $\text{PHQ9}_\text{initial}$ comme covariable du modèle de résultat
+
+-   Avantage : permet de contrôler plus efficacement le biais de confusion par indication lié à la sévérité initiale, en ajustant directement pour le PHQ-9 initial dans le modèle de résultat.
+
+-   Inconvénient : on perd la dimension "changement" qui est plus intuitive pour les cliniciens, et on suppose que l'effet du traitement est constant quel que soit le niveau initial de sévérité, ce qui peut ne pas être le cas.
+
+-   D'autant plus que le "changement" a été validé précédement comme outcome pertinent, donc perte de la **triangulation** qui est un avantage majeure de l'article.
+
+#### Article ÉPI : Biais écologique : c'est quoi, possible dans cet article ? 
+
+-   Biais survenant en cas de données AGRÉGÉES
+
+-   Ici : plutôt confusion liée à la différence de territoire de soins (Uusimaa pour fCBT vs Finlande entière pour iCBT)
+
+#### Article ÉPI : facteurs génétiques ?
+
+-   Plausible
+
+-   PEC des antécédents familiaux dans les registres, qui sont des proxys imparfaits de la charge génétique
+
+#### Article ÉPI : Digital afifnity ?
+
+-   Confondeur non mesuré très plausible
+
+-   Confondeur : c'est à dire qu'il est lié à la fois au choix du traitement (iCBT vs fCBT) et à l'outcome (changement de PHQ-9)
+
+-   NB : 
+
+    -   mediator = variable située après le traitement sur le chemin causal menant à l’outcome, qui peut être influencée par le traitement et influencer l’outcome, mais qui n'est pas un confondeur car elle ne préexiste pas au traitement (par exemple, l'adhésion effective au programme peut être influencée par le type de traitement, et à son tour influencer l'amélioration du PHQ-9, mais elle ne préexiste pas au choix du traitement)
+
+   -   collider = variable influencée par deux causes différentes, qui peut introduire un biais de sélection si on conditionne dessus de manière maladroite (par exemple, le dropout peut être influencé à la fois par le traitement et par des facteurs non mesurés liés à l’évolution clinique ou à la motivation, et si l’on analyse seulement les patients qui ont complété le suivi, on peut introduire un biais de sélection).
+
+ 
